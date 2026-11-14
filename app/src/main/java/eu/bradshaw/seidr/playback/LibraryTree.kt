@@ -101,8 +101,10 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
         val last = graph.playlistPlays.lastPlayed.value
         val (played, unplayed) = playlists().partition { it.id in last }
         val pls = played.map { p -> last.getValue(p.id) to playlistItem(p) }
-        val albums = graph.albumPlays.recent().map { a ->
-            a.at to playable("play/$AL${a.id}/0", a.name, a.artist, a.coverArt, MediaMetadata.MEDIA_TYPE_ALBUM)
+        val kid = graph.kids.current
+        val albums = graph.albumPlays.recent().filter { kid?.albumShows(it.id) != false }.map { a ->
+            val art = a.coverArt.takeIf { kid?.albumArtShows(a.id) != false }
+            a.at to playable("play/$AL${a.id}/0", a.name, a.artist, art, MediaMetadata.MEDIA_TYPE_ALBUM)
         }
         return (pls + albums).sortedByDescending { it.first }.take(RECENT_COUNT).map { it.second } +
             unplayed.sortedWith(byName).map(::playlistItem)
@@ -165,6 +167,10 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
     private fun queue(songs: List<Song>, start: Int, name: String, shuffle: Boolean): MediaSession.MediaItemsWithStartPosition? {
         var all = songs.mapIndexed { i, s -> s.toEntry(ctxIndex = i, ctxName = name) }
         var first = all.getOrNull(start)
+        graph.kids.current?.let { kid ->
+            all = all.filter { kid.playable(it.songId) }
+            if (first != null && first !in all) first = null
+        }
         if (!graph.status.online.value) {
             all = all.filter { graph.downloads.isDownloaded(it.songId) }
             if (first != null && first !in all) first = null

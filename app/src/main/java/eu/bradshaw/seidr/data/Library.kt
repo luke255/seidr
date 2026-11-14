@@ -22,13 +22,19 @@ import retrofit2.HttpException
 /**
  * Read access for screens, over the lenient API (falls back to the last-seen
  * response when offline). Nothing here is ever used to decide a deletion.
+ *
+ * Signed in as a kid, everything it hands out is filtered by [kids]' rules
+ * (songs, albums, artists, playlists, lyrics), so screens, the car and
+ * search all see the same kid's-eye view.
  */
 class Library(
     private val client: SubsonicClient,
     private val hideBad: StateFlow<Boolean>,
+    private val kids: Kids,
     scope: CoroutineScope,
 ) {
     private val api get() = client.api
+    private val kid: KidRules? get() = kids.current
 
     private val _allPlaylists = MutableStateFlow<List<Playlist>?>(null)
     /** Every playlist, including the "Bad: " ones that [playlists] hides. */
@@ -40,10 +46,14 @@ class Library(
 
     init {
         scope.launch { hideBad.collect { publishPlaylists() } }
+        scope.launch { kids.rules.collect { publishPlaylists() } }
     }
 
-    private fun visible(list: List<Playlist>) =
-        if (hideBad.value) list.filterNot { BadReports.isBadPlaylist(it.name) } else list
+    private fun visible(list: List<Playlist>): List<Playlist> {
+        // The kids' lists are for whoever approves songs, not for browsing.
+        val shown = list.filterNot { KidRules.isKidsList(it.name) || (hideBad.value && BadReports.isBadPlaylist(it.name)) }
+        return kid?.playlists(shown) ?: shown
+    }
 
     private fun publishPlaylists() { _playlists.value = _allPlaylists.value?.let(::visible) }
 
@@ -71,14 +81,19 @@ class Library(
         api.getPlaylists().ok().playlists?.playlist.orEmpty().also(::setAll)
 
     suspend fun playlist(id: String): Playlist =
-        (api.getPlaylist(id).ok().playlist ?: error("No playlist")).also(::rememberSongs)
+        (api.getPlaylist(id).ok().playlist ?: error("No playlist")).also(::rememberSongs).let(::forKid)
+
+    private fun forKid(p: Playlist): Playlist = kid?.let { it.playlist(p) ?: error("No playlist") } ?: p
+    private fun forKid(a: Album): Album = kid?.let { it.album(a) ?: error("No album") } ?: a
 
     // Last-seen copies, without touching the network: the car shows these at once
     // rather than wait on a patchy mobile connection, then refreshes behind them.
     fun cachedPlaylists(): List<Playlist>? =
         playlists.value ?: client.cached("getPlaylists.view")?.response?.playlists?.playlist?.let(::visible)
     fun cachedPlaylist(id: String): Playlist? = client.cached("getPlaylist.view", "id" to id)?.response?.playlist
+        ?.let { p -> kid.let { k -> if (k == null) p else k.playlist(p) } }
     fun cachedAlbum(id: String): Album? = client.cached("getAlbum.view", "id" to id)?.response?.album
+        ?.let { a -> kid.let { k -> if (k == null) a else k.album(a) } }
 
     private val _playlistSongs = MutableStateFlow<Map<String, List<String>>>(emptyMap())
     /**
@@ -119,18 +134,25 @@ class Library(
             runCatching { playlist(p.id) }
         }
     }
-    suspend fun album(id: String): Album = api.getAlbum(id).ok().album ?: error("No album")
-    suspend fun artist(id: String): Artist = api.getArtist(id).ok().artist ?: error("No artist")
+    suspend fun album(id: String): Album = (api.getAlbum(id).ok().album ?: error("No album")).let(::forKid)
+    suspend fun artist(id: String): Artist = (api.getArtist(id).ok().artist ?: error("No artist"))
+        .let { a -> kid?.let { it.artist(a) ?: error("No artist") } ?: a }
     suspend fun song(id: String): Song? = runCatching { api.getSong(id).ok().song }.getOrNull()
+        ?.let { s -> kid.let { k -> if (k == null) s else k.song(s) } }
 
     suspend fun artists(refresh: Boolean = false): List<Artist> {
-        if (!refresh) artistsCache?.let { return it }
-        return api.getArtists().ok().artists?.index.orEmpty().flatMap { it.artist }.also { artistsCache = it }
+        val all = artistsCache.takeUnless { refresh }
+            ?: api.getArtists().ok().artists?.index.orEmpty().flatMap { it.artist }.also { artistsCache = it }
+        return kid?.artists(all) ?: all
     }
 
     /** Every album, paged in 500s. */
     suspend fun allAlbums(refresh: Boolean = false): List<Album> {
-        if (!refresh) albumsCache?.let { return it }
+        val all = albumsCache.takeUnless { refresh } ?: fetchAllAlbums()
+        return kid?.albums(all) ?: all
+    }
+
+    private suspend fun fetchAllAlbums(): List<Album> {
         val out = mutableListOf<Album>()
         var offset = 0
         while (true) {
@@ -142,24 +164,34 @@ class Library(
         return out.also { albumsCache = it }
     }
 
-    suspend fun albumList(type: String, size: Int = 20): List<Album> =
-        api.getAlbumList2(type, size).ok().albumList2?.album.orEmpty()
+    suspend fun albumList(type: String, size: Int = 20): List<Album> {
+        val k = kid ?: return api.getAlbumList2(type, size).ok().albumList2?.album.orEmpty()
+        // Few albums pass, so look further down the list for enough that do.
+        return k.albums(api.getAlbumList2(type, 500).ok().albumList2?.album.orEmpty()).take(size)
+    }
 
     suspend fun starredSongsList(): List<Song> {
         val s = api.getStarred2().ok().starred2
         val songs = s?.song.orEmpty()
         _starredSongs.value = songs.map { it.id }.toSet()
         _starredAlbums.value = s?.album.orEmpty().map { it.id }.toSet()
-        return songs
+        return kid?.songs(songs) ?: songs
     }
 
     suspend fun refreshStarred() { runCatching { starredSongsList() } }
 
-    suspend fun search(query: String): SearchResult =
-        api.search3(query).ok().searchResult3 ?: SearchResult()
+    suspend fun search(query: String): SearchResult {
+        val k = kid ?: return api.search3(query).ok().searchResult3 ?: SearchResult()
+        // Most hits won't pass, so ask for more and keep the usual numbers.
+        val r = k.search(api.search3(query, 50, 100, 200).ok().searchResult3 ?: SearchResult())
+        return SearchResult(r.artist.take(5), r.album.take(10), r.song.take(20))
+    }
 
-    suspend fun topSongs(artistName: String): List<Song> =
-        runCatching { api.getTopSongs(artistName, 10).ok().topSongs?.song.orEmpty() }.getOrDefault(emptyList())
+    suspend fun topSongs(artistName: String): List<Song> {
+        val k = kid
+        val top = runCatching { api.getTopSongs(artistName, if (k == null) 10 else 50).ok().topSongs?.song.orEmpty() }.getOrDefault(emptyList())
+        return k?.songs(top)?.take(10) ?: top
+    }
 
     /** Optimistic: flips the heart, then writes to the server; reverts on failure. */
     suspend fun setSongStarred(id: String, starred: Boolean): Boolean {
@@ -194,6 +226,8 @@ class Library(
      * can't be reached and there's no last-seen copy.
      */
     suspend fun lyrics(songId: String, artist: String, title: String): Lyrics? {
+        // Kids get lyrics with approved songs only.
+        if (kid?.playable(songId) == false) return null
         synchronized(lyricsCache) { if (lyricsCache.containsKey(songId)) return lyricsCache[songId] }
         val result = try {
             Lyrics.from(api.getLyricsBySongId(songId).ok().lyricsList?.structuredLyrics.orEmpty())

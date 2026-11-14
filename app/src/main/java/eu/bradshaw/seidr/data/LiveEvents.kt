@@ -134,6 +134,12 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
             return
         }
         val playlists = ids("playlist")
+        // A kid's lists changed: a sync pass fetches them again (and downloads to match).
+        val kid = graph.kids.current
+        if (kid != null && playlists.any { it in kid.playlistIds }) {
+            Log.i("Live", "kids' lists changed")
+            graph.sync.request()
+        }
         if (playlists.isNotEmpty()) {
             Log.i("Live", "playlists changed: $playlists")
             playlists.forEach(graph.library::notifyPlaylistEdited)

@@ -29,6 +29,26 @@ object Account {
         }
     }
 
+    /**
+     * Checks a kid's login before a grown-up's device keeps it: the server
+     * accepts it, and it isn't an admin. Returns an error message, or null.
+     */
+    suspend fun probeKid(graph: Graph, context: Context, config: ServerConfig): String? {
+        probe(graph, context, config)?.let { return it }
+        val probe = SubsonicClient({ config }, "", graph.baseHttp, ResponseStore(File(context.cacheDir, "login-probe")), graph.status)
+        val user = try {
+            probe.strict.getUser(config.username).ok().user
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
+            return "Couldn't check ${config.username}'s account: ${e.message ?: e.javaClass.simpleName}"
+        }
+        return when {
+            user == null -> "Couldn't check ${config.username}'s account"
+            user.adminRole -> "${config.username} is an admin on the server. Kids need an account that isn't."
+            else -> null
+        }
+    }
+
     /** Signs in with a config [probe] accepted. On the main thread. */
     fun commit(graph: Graph, config: ServerConfig) {
         graph.client.clearCache()

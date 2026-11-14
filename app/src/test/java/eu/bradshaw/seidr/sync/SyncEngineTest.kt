@@ -317,4 +317,71 @@ class SyncEngineTest {
         assertEquals(0, r.queued)
         assertTrue(fake.calls.isEmpty())
     }
+
+    // --- Kid mode (TrackGate) ---------------------------------------------------
+
+    private var gate: TrackGate? = null
+    private var gateFails = false
+    private fun kidEngine() = SyncEngine(fake.server, store, files, protectedIds = { playing }, now = { clock },
+        gate = { if (gateFails) throw java.io.IOException("lists unreachable") else gate })
+
+    @Test fun `a kid downloads only approved tracks`() = runTest {
+        engine = kidEngine()
+        gate = TrackGate(setOf("a", "c"))
+        fake.playlist("p", "a", "b", "c")
+        enablePlaylist("p")
+        syncAndDownload()
+        assertEquals(setOf("a", "c"), onDisk())
+    }
+
+    @Test fun `un-approving deletes the file even when the playlist is unchanged`() = runTest {
+        engine = kidEngine()
+        gate = TrackGate(setOf("a", "b"))
+        fake.playlist("p", "a", "b")
+        enablePlaylist("p")
+        syncAndDownload()
+        gate = TrackGate(setOf("a"))
+        val r = syncAndDownload()
+        assertEquals(listOf("b"), r.deleted)
+        assertEquals(setOf("a"), onDisk())
+    }
+
+    @Test fun `approving downloads it even when the playlist is unchanged`() = runTest {
+        engine = kidEngine()
+        gate = TrackGate(setOf("a"))
+        fake.playlist("p", "a", "b")
+        enablePlaylist("p")
+        syncAndDownload()
+        gate = TrackGate(setOf("a", "b"))
+        syncAndDownload()
+        assertEquals(setOf("a", "b"), onDisk())
+    }
+
+    @Test fun `unreachable kids' lists change nothing`() = runTest {
+        engine = kidEngine()
+        gate = TrackGate(setOf("a", "b"))
+        fake.playlist("p", "a", "b")
+        enablePlaylist("p")
+        syncAndDownload()
+        gateFails = true
+        val r = syncAndDownload()
+        assertTrue(r.deleted.isEmpty())
+        assertEquals(setOf("a", "b"), onDisk())
+        assertTrue(r.failed.isNotEmpty())
+    }
+
+    @Test fun `an un-approved track that's playing goes once it's finished`() = runTest {
+        engine = kidEngine()
+        gate = TrackGate(setOf("a", "b"))
+        fake.playlist("p", "a", "b")
+        enablePlaylist("p")
+        syncAndDownload()
+        gate = TrackGate(setOf("a"))
+        playing = setOf("b")
+        syncAndDownload()
+        assertEquals(setOf("a", "b"), onDisk())
+        playing = emptySet()
+        engine.sweep()
+        assertEquals(setOf("a"), onDisk())
+    }
 }

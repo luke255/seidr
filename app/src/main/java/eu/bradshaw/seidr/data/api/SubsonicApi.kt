@@ -17,6 +17,8 @@ import retrofit2.http.Query
 interface SubsonicApi {
     @GET("ping.view") suspend fun ping(): Envelope
 
+    @GET("getUser.view") suspend fun getUser(@Query("username") username: String): Envelope
+
     @GET("getPlaylists.view") suspend fun getPlaylists(): Envelope
     @GET("getPlaylist.view") suspend fun getPlaylist(@Query("id") id: String): Envelope
 
@@ -33,6 +35,7 @@ interface SubsonicApi {
         @Field("name") name: String? = null,
         @Field("songIdToAdd") songIdsToAdd: List<String> = emptyList(),
         @Field("songIndexToRemove") songIndexesToRemove: List<Int> = emptyList(),
+        @Field("public") public: Boolean? = null,
     ): Envelope
 
     @FormUrlEncoded @POST("deletePlaylist.view")

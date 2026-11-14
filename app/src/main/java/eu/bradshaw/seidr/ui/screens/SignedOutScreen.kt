@@ -194,7 +194,8 @@ fun CheckCode(connect: Connect, username: String?) {
                 Text(spaced(c.code), fontSize = 44.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace,
                     modifier = Modifier.padding(vertical = 12.dp))
                 Text(
-                    if (c.signingIn) "It will sign in as ${username.orEmpty()}, with your password."
+                    if (c.signingIn) c.signingInAs?.let { "It will sign in as $it, a kid's account: approved songs only." }
+                        ?: "It will sign in as ${username.orEmpty()}, with your password."
                     else "It plays with your login until it's disconnected. You won't be asked again for this device.",
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center,
                 )

@@ -94,6 +94,8 @@ class PlaybackService : MediaLibraryService() {
         val resolving = ResolvingDataSource.Factory(DefaultDataSource.Factory(this, http)) { spec ->
             if (spec.uri.scheme != "seidr") return@Factory spec
             val songId = spec.uri.lastPathSegment ?: return@Factory spec
+            // Kid mode's last line: whatever route a song came by, it plays only if approved.
+            if (graph.kids.current?.playable(songId) == false) throw IOException("Not approved")
             // Local files first, even when online.
             val local = graph.downloads.localFile(songId)
             if (local != null) spec.withUri(Uri.fromFile(local))
@@ -138,10 +140,19 @@ class PlaybackService : MediaLibraryService() {
         restoreQueue()
         updateLikeButton()
         scope.launch { graph.library.starredSongs.collectLatest { updateLikeButton() } }
-        scope.launch { graph.bad.skipped.collect { restoreFixedSongs(); hideBadSongs() } }
+        scope.launch {
+            kotlinx.coroutines.flow.combine(graph.bad.skipped, graph.kids.rules) { _, _ -> }
+                .collect { restoreFixedSongs(); hideBadSongs() }
+        }
     }
 
-    /** Queue entries whose song is in Bad: Songs, out of the player until it's fixed. */
+    /** Songs kept out of the queue: in Bad: Songs, or (a kid's login) not approved. */
+    private fun blocked(songId: String): Boolean =
+        songId in graph.bad.skipped.value || graph.kids.current?.playable(songId) == false
+
+    private fun anyBlocked() = graph.bad.skipped.value.isNotEmpty() || graph.kids.isKid
+
+    /** Queue entries whose song is blocked, out of the player until it isn't. */
     private var hidden: List<HiddenEntry> = emptyList()
 
     private fun timelineKeys() = (0 until player.mediaItemCount).map { player.getMediaItemAt(it).mediaId }
@@ -152,9 +163,8 @@ class PlaybackService : MediaLibraryService() {
      * Hiding the current one moves playback on to the next, as a skip would.
      */
     private fun hideBadSongs() {
-        val bad = graph.bad.skipped.value
-        if (bad.isEmpty()) return
-        val plan = HiddenQueue.hide(timelineKeys(), bad)
+        if (!anyBlocked()) return
+        val plan = HiddenQueue.hide(timelineKeys(), ::blocked)
         if (plan.isEmpty()) return
         hidden = (hidden + plan.map { (i, prev, next) -> HiddenEntry(player.getMediaItemAt(i).toEntry(), prev, next) })
             .takeLast(MAX_HIDDEN)
@@ -174,7 +184,7 @@ class PlaybackService : MediaLibraryService() {
      */
     private fun restoreFixedSongs() {
         if (hidden.isEmpty()) return
-        val r = HiddenQueue.restore(timelineKeys(), hidden, graph.bad.skipped.value)
+        val r = HiddenQueue.restore(timelineKeys(), hidden, ::blocked)
         hidden = r.hidden
         // Ascending, so each insert lands at its final index.
         r.keys.forEachIndexed { i, key -> r.restored[key]?.let { player.addMediaItem(i, it.toMediaItem(graph)) } }
@@ -245,7 +255,7 @@ class PlaybackService : MediaLibraryService() {
         override fun onTimelineChanged(timeline: androidx.media3.common.Timeline, reason: Int) {
             if (reason == Player.TIMELINE_CHANGE_REASON_PLAYLIST_CHANGED) {
                 // Posted: changing the timeline from inside its own callback confuses other listeners.
-                if (graph.bad.skipped.value.isNotEmpty()) scope.launch { hideBadSongs() }
+                if (anyBlocked()) scope.launch { hideBadSongs() }
                 publicArt?.let { scope.launch { it.fill() } }
                 saveQueue()
             }

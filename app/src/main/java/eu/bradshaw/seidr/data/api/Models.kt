@@ -31,7 +31,11 @@ data class SubsonicResponse(
     val lyrics: PlainLyrics? = null,
     val bookmarks: Bookmarks? = null,
     val albumInfo: AlbumInfo? = null,
+    val user: User? = null,
 )
+
+@Serializable
+data class User(val username: String = "", val adminRole: Boolean = false)
 
 @Serializable
 data class ApiError(val code: Int = 0, val message: String? = null)
@@ -62,6 +66,8 @@ data class Song(
     val samplingRate: Int? = null,
     val bitDepth: Int? = null,
     val playCount: Long? = null,
+    /** Kid mode: shows, but isn't approved to play (see `KidRules`). Never from the server. */
+    @kotlinx.serialization.Transient val locked: Boolean = false,
 ) {
     val artistLine: String get() = displayArtist?.takeIf { it.isNotBlank() } ?: artist ?: ""
 }

@@ -86,6 +86,7 @@ fun HomeScreen() {
     val lastPlayed by graph.playlistPlays.lastPlayed.collectAsStateWithLifecycle()
     val alpha by graph.settings.homePlaylistsAlpha.collectAsStateWithLifecycle()
     val server by graph.settings.server.collectAsStateWithLifecycle()
+    val kid by graph.kids.rules.collectAsStateWithLifecycle()
     Column(Modifier.fillMaxSize()) {
         RefreshBox(vm.refreshing && vm.data != null, onRefresh = vm::load, modifier = Modifier.weight(1f)) {
             LazyColumn(Modifier.fillMaxSize(), contentPadding = bottomContentPadding()) {
@@ -97,6 +98,14 @@ fun HomeScreen() {
                     Text(
                         if (LocalIsTv.current) "You're offline. Seiðr will reconnect when the server is reachable."
                         else "You're offline. Downloaded music is still here: look in Library with the Downloaded filter.",
+                        style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(16.dp),
+                    )
+                }
+                // A kid with nothing approved yet sees why, rather than an empty app.
+                if (kid?.lists?.approved?.isEmpty() == true) item {
+                    Text(
+                        "Nothing's been approved for you yet. Ask whoever signed you in to add some songs.",
                         style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(16.dp),
                     )

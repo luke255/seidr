@@ -45,6 +45,7 @@ import eu.bradshaw.seidr.data.db.SourceType
 import eu.bradshaw.seidr.ui.LocalActions
 import eu.bradshaw.seidr.ui.components.CollectionLayout
 import eu.bradshaw.seidr.ui.components.HeaderFacts
+import eu.bradshaw.seidr.ui.components.approvedCount
 import eu.bradshaw.seidr.ui.components.rememberAllDownloaded
 import eu.bradshaw.seidr.ui.components.Load
 import eu.bradshaw.seidr.ui.components.LoadContent
@@ -133,13 +134,14 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                 listOfNotNull(
                     playlist.owner?.let { "by $it" },
                     pluralSongs(playlist.songCount),
+                    approvedCount(songs),
                     formatLongDuration(playlist.duration),
                 ).joinToString(" · "),
                 downloaded = rememberAllDownloaded(remember(songs) { songs.map { it.id } }),
             )
         },
         onShuffle = { graph.playlistPlays.record(playlist.id); actions.player.shufflePlay(songs, playlist.name) },
-        shuffleEnabled = songs.isNotEmpty() && !editing,
+        shuffleEnabled = songs.any { !it.locked } && !editing,
         onPlay = { graph.playlistPlays.record(playlist.id); actions.player.playContext(songs, 0, playlist.name, shuffle = false) },
         shufflePrimary = true,
         offline = source,

@@ -18,6 +18,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.ChildCare
+import androidx.compose.material3.RadioButton
+import eu.bradshaw.seidr.data.KidLogin
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -63,6 +67,10 @@ fun SignInDeviceScreen() {
     val scope = rememberCoroutineScope()
     var working by remember { mutableStateOf<Peer?>(null) }
     var result by remember { mutableStateOf<Pair<Peer, Connect.SignInResult>?>(null) }
+    // Who to sign the device in as: this device's login (null), or one of the kids'.
+    val kids by actions.graph.settings.kidLogins.collectAsStateWithLifecycle()
+    var asKid by remember { mutableStateOf<KidLogin?>(null) }
+    val who = asKid?.username ?: server?.username.orEmpty()
     var lanMissing by remember { mutableStateOf(Account.needsLanPermission(context)) }
     val lan = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
         lanMissing = !it
@@ -88,7 +96,7 @@ fun SignInDeviceScreen() {
                         verticalArrangement = Arrangement.spacedBy(16.dp)) {
                         if (outcome is Connect.SignInResult.Done) {
                             Icon(Icons.Filled.CheckCircle, null, Modifier.size(48.dp), tint = MaterialTheme.colorScheme.primary)
-                            Text("${peer.name} is signed in as ${server?.username.orEmpty()}", textAlign = TextAlign.Center)
+                            Text("${peer.name} is signed in as $who", textAlign = TextAlign.Center)
                             Button(onClick = { actions.nav.pop() }) { Text("Done") }
                         } else {
                             Text((outcome as? Connect.SignInResult.Failed)?.message ?: "Cancelled", textAlign = TextAlign.Center)
@@ -102,7 +110,19 @@ fun SignInDeviceScreen() {
                 else -> {
                     Hint("Open Seiðr on the device you want to sign in, on the same Wi-Fi as this one. " +
                         "It shows up here while it's signed out. You'll check that both screens show the same code, " +
-                        "then it signs in as ${server?.username.orEmpty()}.")
+                        "then it signs in as $who." +
+                        if (server?.isKid == true) " It'll be a kid's device too, with the same songs." else "")
+                    // Kids' devices don't keep other logins, so only a grown-up's has a choice.
+                    if (kids.isNotEmpty() && server?.isKid != true) {
+                        CardGroup {
+                            CardItem(Icons.Filled.Person, server?.username.orEmpty(), "You",
+                                trailing = { RadioButton(asKid == null, null) }) { asKid = null }
+                            kids.forEach { kid ->
+                                CardItem(Icons.Outlined.ChildCare, kid.username, "Kid: approved songs only",
+                                    trailing = { RadioButton(asKid == kid, null) }) { asKid = kid }
+                            }
+                        }
+                    }
                     if (signedOut.isNotEmpty()) {
                         CardGroup {
                             signedOut.forEach { peer ->
@@ -110,7 +130,7 @@ fun SignInDeviceScreen() {
                                     if (working != null) return@CardItem
                                     working = peer
                                     scope.launch {
-                                        val outcome = connect.signIn(peer)
+                                        val outcome = connect.signIn(peer, asKid)
                                         working = null
                                         if (outcome !is Connect.SignInResult.Cancelled) result = peer to outcome
                                     }

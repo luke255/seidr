@@ -99,6 +99,7 @@ fun SettingsScreen() {
     val theme by graph.settings.theme.collectAsStateWithLifecycle()
     var signOut by remember { mutableStateOf(false) }
     val tv = LocalIsTv.current
+    val kid = graph.settings.server.collectAsStateWithLifecycle().value?.isKid == true
     var exempt by remember { mutableStateOf(isBatteryExempt(context)) }
     LifecycleResumeEffect(Unit) { exempt = isBatteryExempt(context); onPauseOrDispose {} }
 
@@ -137,9 +138,13 @@ fun SettingsScreen() {
                 }
             }
 
+            // Kids don't keep other kids' logins, or report problems.
+            if (!kid) KidAccountsSection()
+
             // The version line at the foot can't take focus, so a remote would never
             // scroll to it: reaching the last controls scrolls to the very end.
             Column(Modifier.onFocusChanged { if (it.hasFocus) scope.launch { scroll.animateScrollTo(scroll.maxValue) } }) {
+            if (!kid) {
             CardLabel("Reporting")
             val badOn by graph.settings.badReports.collectAsStateWithLifecycle()
             val found by graph.bad.playlists.collectAsStateWithLifecycle()
@@ -158,6 +163,7 @@ fun SettingsScreen() {
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(start = 56.dp, end = 16.dp, bottom = 14.dp),
                 )
+            }
             }
 
             CardLabel("About")
@@ -240,7 +246,8 @@ private fun AccountCard(onSignOut: () -> Unit) {
                     Box(Modifier.size(8.dp).clip(CircleShape).background(if (online) Color(0xFF7EE08A) else cs.outline))
                     Spacer(Modifier.width(6.dp))
                     Text(
-                        server?.url?.substringAfter("://")?.trimEnd('/') ?: "Not connected",
+                        (server?.url?.substringAfter("://")?.trimEnd('/') ?: "Not connected") +
+                            (server?.kidOf?.let { " · Kid's account" } ?: ""),
                         style = MaterialTheme.typography.bodyMedium, color = cs.onSurfaceVariant,
                         maxLines = 1, overflow = TextOverflow.Ellipsis,
                     )

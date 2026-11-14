@@ -134,6 +134,13 @@ class PlayerConnection(private val context: Context, private val graph: Graph) {
         val online = graph.status.online.value
         var all = songs.mapIndexed { i, s -> s.toEntry(user = false, ctxIndex = i, ctxName = name) }
         var startEntry = all.getOrNull(start)
+        // A kid's disabled songs stay out (PlaybackService would hide them anyway).
+        val kid = graph.kids.current
+        if (kid != null) {
+            all = all.filterIndexed { i, e -> !songs[i].locked && kid.playable(e.songId) }
+            if (startEntry != null && startEntry !in all) startEntry = null
+            if (all.isEmpty()) return
+        }
         if (!online) {
             all = all.filter { graph.downloads.isDownloaded(it.songId) }
             if (startEntry != null && startEntry !in all) startEntry = null
@@ -169,8 +176,10 @@ class PlayerConnection(private val context: Context, private val graph: Graph) {
 
     /** Adds to the end of "Next in queue". */
     fun addToQueue(songs: List<Song>) {
-        if (songs.isEmpty()) return
-        val entries = songs.map { it.toEntry(user = true) }
+        val kid = graph.kids.current
+        val allowed = if (kid == null) songs else songs.filter { !it.locked && kid.playable(it.id) }
+        if (allowed.isEmpty()) return
+        val entries = allowed.map { it.toEntry(user = true) }
         withController { c ->
             if (c.mediaItemCount == 0) {
                 c.setMediaItems(entries.map { it.toMediaItem(graph) })

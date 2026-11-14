@@ -117,9 +117,11 @@ private fun pickTop(r: SearchResult, playlists: List<Playlist>, query: String): 
         r.artist.find({ it.name }, test)?.let { return Top.OfArtist(it) }
         r.album.find({ it.name }, test)?.let { return Top.OfAlbum(it) }
         playlists.find({ it.name }, test)?.let { return Top.OfPlaylist(it) }
-        r.song.withIndex().firstOrNull { test(it.value.title.lowercase()) }?.let { return Top.OfSong(it.value, it.index) }
+        // A kid's unapproved songs can't be the top result: it plays on a tap.
+        r.song.withIndex().firstOrNull { !it.value.locked && test(it.value.title.lowercase()) }?.let { return Top.OfSong(it.value, it.index) }
     }
-    return r.artist.firstOrNull()?.let { Top.OfArtist(it) } ?: r.song.firstOrNull()?.let { Top.OfSong(it, 0) }
+    return r.artist.firstOrNull()?.let { Top.OfArtist(it) }
+        ?: r.song.withIndex().firstOrNull { !it.value.locked }?.let { Top.OfSong(it.value, it.index) }
 }
 
 @Composable

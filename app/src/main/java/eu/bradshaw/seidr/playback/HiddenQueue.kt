@@ -3,7 +3,8 @@ package eu.bradshaw.seidr.playback
 import kotlinx.serialization.Serializable
 
 /**
- * A queue entry taken out of the player because its song is in Bad: Songs,
+ * A queue entry taken out of the player because its song is in Bad: Songs
+ * (or, signed in as a kid, isn't approved),
  * remembered with its neighbours' keys so it can go back where it was once
  * the song is fixed (taken off that playlist).
  */
@@ -16,8 +17,11 @@ data class HiddenEntry(val entry: QueueEntry, val prevKey: String?, val nextKey:
  */
 object HiddenQueue {
     /** The indexes of [keys] to hide, ascending, each with its nearest visible neighbours. */
-    fun hide(keys: List<String>, bad: Set<String>): List<Triple<Int, String?, String?>> {
-        val hide = keys.indices.filter { songIdOf(keys[it]) in bad }
+    fun hide(keys: List<String>, bad: Set<String>) = hide(keys) { it in bad }
+
+    /** As above, for songs [bad] says are out. */
+    fun hide(keys: List<String>, bad: (String) -> Boolean): List<Triple<Int, String?, String?>> {
+        val hide = keys.indices.filter { bad(songIdOf(keys[it])) }
         if (hide.isEmpty()) return emptyList()
         val set = hide.toSet()
         return hide.map { i ->
@@ -43,7 +47,9 @@ object HiddenQueue {
      * queue was replaced since) is dropped, whether or not it's still bad; one
      * that had no neighbours (its whole queue was bad) only returns to an empty queue.
      */
-    fun restore(keys: List<String>, hidden: List<HiddenEntry>, bad: Set<String>): Restore {
+    fun restore(keys: List<String>, hidden: List<HiddenEntry>, bad: Set<String>) = restore(keys, hidden) { it in bad }
+
+    fun restore(keys: List<String>, hidden: List<HiddenEntry>, bad: (String) -> Boolean): Restore {
         val out = keys.toMutableList()
         val pending = hidden.toMutableList()
         val restored = linkedMapOf<String, QueueEntry>()
@@ -53,7 +59,7 @@ object HiddenQueue {
         while (progress) {
             progress = false
             for (h in pending.toList()) {
-                if (h.entry.songId in bad) continue
+                if (bad(h.entry.songId)) continue
                 val anchor = h.prevKey ?: START
                 val after = chain[anchor]?.takeIf { it in out } ?: h.prevKey
                 val pos = when {
@@ -73,7 +79,7 @@ object HiddenQueue {
         // Keep what can still find its place: a neighbour in the queue, or in another hidden entry.
         val live = out.toSet() + pending.map { it.entry.key }
         val kept = pending.filter { h ->
-            h.entry.songId in bad &&
+            bad(h.entry.songId) &&
                 ((h.prevKey == null && h.nextKey == null && keys.isEmpty()) || h.prevKey in live || h.nextKey in live)
         }
         return Restore(out, restored, kept)

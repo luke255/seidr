@@ -146,13 +146,16 @@ sealed interface ConnectMessage {
     @Serializable @SerialName("hello")
     data class Hello(val id: String, val name: String, val version: Int = PROTOCOL_VERSION, val verify: Boolean = false) : ConnectMessage
 
-    /** Controller → guest host: play here for this login. Kept in memory only; [theme] is the sender's colour. */
+    /**
+     * Controller → guest host: play here for this login. Kept in memory only; [theme] is the sender's colour.
+     * [kidOf]: it's a kid's login (see `ServerConfig.kidOf`); only sent to hosts of [KIDS_VERSION] or later.
+     */
     @Serializable @SerialName("guest")
-    data class Guest(val url: String, val username: String, val password: String, val theme: String? = null) : ConnectMessage
+    data class Guest(val url: String, val username: String, val password: String, val theme: String? = null, val kidOf: String? = null) : ConnectMessage
 
-    /** Controller → guest host: sign in with this login. */
+    /** Controller → guest host: sign in with this login ([kidOf] as for [Guest]). */
     @Serializable @SerialName("signin")
-    data class SignIn(val url: String, val username: String, val password: String) : ConnectMessage
+    data class SignIn(val url: String, val username: String, val password: String, val kidOf: String? = null) : ConnectMessage
 
     /** Guest host → controller: how a [SignIn] went (null: signed in). */
     @Serializable @SerialName("signedin")
@@ -193,7 +196,10 @@ sealed interface ConnectMessage {
     data class Moved(val to: Peer?) : ConnectMessage
 }
 
-const val PROTOCOL_VERSION = 2
+const val PROTOCOL_VERSION = 3
+
+/** The first version that knows kids' logins; an older host would drop [ConnectMessage.SignIn.kidOf] and not filter. */
+const val KIDS_VERSION = 3
 
 /** Keys for Connect. Pure, so the tests can check that accounts match or don't. */
 object ConnectKeys {

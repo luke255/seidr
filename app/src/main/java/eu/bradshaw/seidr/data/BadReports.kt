@@ -39,7 +39,8 @@ enum class BadKind(val playlistName: String, val noun: String) {
  * yet on the server (in flight, or queued offline in `pending_edit`) counts.
  */
 class BadReports(
-    settings: Settings,
+    /** Settings → Reporting is on (and this isn't a kid's login). */
+    val enabled: StateFlow<Boolean>,
     private val library: Library,
     private val editor: PlaylistEditor,
     private val dao: OfflineDao,
@@ -48,8 +49,6 @@ class BadReports(
     private val api: () -> SubsonicApi,
 ) {
     private val refreshLock = Mutex()
-
-    val enabled: StateFlow<Boolean> = settings.badReports
 
     /** The playlist for each kind, matched by name. A kind without one can't be reported. */
     val playlists: StateFlow<Map<BadKind, Playlist>> =

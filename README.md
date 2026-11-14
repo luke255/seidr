@@ -78,6 +78,29 @@ the *th* of "weather" in place of the *f*. ASCII spelling: Seidr.
   queue, or the logo drifting through the preset.
 - On a Meta Quest, step inside it.
 
+### Kids' accounts
+
+- **Music for the kids, filtered by you.** Give each child their own
+  Navidrome account (not an admin), add it in Settings → Kids, then sign their
+  phone or tablet in from yours with Settings → Sign in a device. It becomes a
+  kid's device, and any device it signs in becomes one too.
+- **You decide what they see and hear.** Adding a kid creates three public
+  playlists on your account: `Seidr: Kids Approved`, `Seidr: Kids Safe Titles`
+  and `Seidr: Kids Safe Art`. Songs in Approved play as normal. A song that's
+  only in Safe Titles or Safe Art shows greyed out, with just its name or just
+  its cover. Everything else stays out of sight.
+- **Approve songs in Navidrome.** Seiðr keeps the three playlists out of
+  everyone's library, so add and remove songs with Navidrome's web player or
+  any other app. Kids' devices pick up changes straight away, and their
+  downloads follow: approved songs can download, and songs you take back are
+  removed.
+- **It fails safe.** Only your copies of the playlists count, so a kid can't
+  make their own. A missing playlist counts as empty, so until their device
+  has fetched your lists, nothing plays.
+- **Keep their password to yourself.** They sign in through you and never
+  need it. With it, they could use Navidrome's web player or another app,
+  which don't filter anything.
+
 ### Also
 
 - **Colour themes:** Material You, a neutral dark look, or one of 16 colours.
@@ -117,6 +140,8 @@ Your password stays on the device. It isn't sent anywhere except your server,
 and to another device you choose to sign in or play on, encrypted with a key
 agreed when you checked the code on both screens. A device you play on keeps
 it in memory only, until you disconnect.
+Kids' logins you add are kept on your device the same way, only to sign their
+devices in.
 
 ## How it's made
 

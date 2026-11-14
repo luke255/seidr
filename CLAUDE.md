@@ -78,6 +78,19 @@ before changing sync or playback.
   puts them back in place when they leave that list (`HiddenQueue`, saved in
   `queue.json`). The server's lists are the truth, plus unconfirmed edits (in
   flight or in `pending_edit`).
+- **`data/Kids`** (kid mode): a `ServerConfig` with `kidOf` is a kid's
+  login, set only through Connect sign-in (a grown-up's device keeps kids'
+  logins: Settings → Kids; Sign in a device asks who). `KidRules` (pure) come
+  from the public playlists `Seidr: Kids Approved` / `Safe Titles` /
+  `Safe Art`, trusted only when owned by `kidOf` (created, public, when a
+  kid is added; hidden from everyone's browsing); missing counts as empty,
+  so it fails closed. LiveEvents edits to them trigger a sync, which
+  refetches them. Approved plays; Safe Titles/Art show disabled
+  (`Song.locked`) with just that; anything else is hidden. `Library` filters
+  everything it returns; `PlaybackService` hides unapproved queue entries
+  and its data source refuses them; `SyncEngine`'s `TrackGate` claims only
+  approved tracks, from lists fetched strictly that pass. Kid logins travel
+  in `SignIn`/`Guest` (`kidOf`), sent only to hosts of `KIDS_VERSION`+.
 - **`data/LiveEvents`**: while the app is on screen, listens to Navidrome's
   native `/api/events` stream (JWT from `/auth/login`). Events only trigger
   sync or screen reloads; on any failure it backs off and polling carries on.
@@ -239,6 +252,8 @@ before changing sync or playback.
   and publishes a GitHub release with both files; the tag is `v<version>`.
   It needs a token with Contents read/write (`GITHUB_TOKEN` or
   `~/.config/seidr/github-token`).
+- Debug builds only: `scripts/debug-account.sh` signs in or adds a kid
+  without typing (adb text input drops characters in password fields).
 - Installing over adb: `adb install -r -i eu.bradshaw.seidr <apk>`. The `-i`
   makes the app its own installer of record, so later self-updates skip the
   confirmation prompt.

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Debug builds only: scripts/debug-account.sh signs in and adds kids without typing. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <!-- DUMP: only adb's shell can send it, not other apps. -->
+        <receiver
+            android:name=".DebugAccountReceiver"
+            android:exported="true"
+            android:permission="android.permission.DUMP">
+            <intent-filter>
+                <action android:name="eu.bradshaw.seidr.DEBUG_ACCOUNT" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

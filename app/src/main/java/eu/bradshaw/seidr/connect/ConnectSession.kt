@@ -123,6 +123,9 @@ class ConnectSession(
     }
 
     /** This device as others should reach it. */
+    /** A kid's login names the grown-up who signed them in; blank means it isn't one. */
+    private fun kidOf(s: String?) = s?.trim()?.takeIf { it.isNotEmpty() }
+
     private fun me() = Peer(connect.deviceId, connect.name, localAddresses(), port, connect.kind)
 
     // --- Moving playback -----------------------------------------------------------
@@ -271,7 +274,7 @@ class ConnectSession(
                 }
                 when (wants) {
                     is ConnectMessage.SignIn -> {
-                        val config = ServerConfig(Settings.normaliseUrl(wants.url), wants.username.trim(), wants.password)
+                        val config = ServerConfig(Settings.normaliseUrl(wants.url), wants.username.trim(), wants.password, kidOf(wants.kidOf))
                         val error = Account.probe(graph, context, config)
                         if (error == null) withContext(Dispatchers.Main) { Account.commit(graph, config) }
                         ch.send(ConnectMessage.SignedIn(error))
@@ -280,7 +283,7 @@ class ConnectSession(
                         return
                     }
                     is ConnectMessage.Guest -> {
-                        val config = ServerConfig(Settings.normaliseUrl(wants.url), wants.username.trim(), wants.password)
+                        val config = ServerConfig(Settings.normaliseUrl(wants.url), wants.username.trim(), wants.password, kidOf(wants.kidOf))
                         guestKey = ConnectKeys.account(config.username, config.password)
                         withContext(Dispatchers.Main) { startGuest(GuestLogin(config, guestKey, hello.name, wants.theme)) }
                     }
@@ -475,9 +478,14 @@ class ConnectSession(
         val socket = d.socket
         val ch = d.ch
         if (peer.guest) {
+            if (config.isKid && d.hello.version < eu.bradshaw.seidr.connect.KIDS_VERSION) {
+                ch.close()
+                if (!quiet) connect.tell("Update Seiðr on ${peer.name} first")
+                return null
+            }
             val sent = withContext(Dispatchers.IO) {
                 runCatching { ch.send(ConnectMessage.Guest(config.url, config.username, config.password,
-                    eu.bradshaw.seidr.ui.theme.portableTheme(graph.settings.theme.value, context))) }.isSuccess
+                    eu.bradshaw.seidr.ui.theme.portableTheme(graph.settings.theme.value, context), config.kidOf)) }.isSuccess
             }
             if (!sent) { ch.close(); if (!quiet) connect.tell("Lost ${peer.name}"); return null }
         }

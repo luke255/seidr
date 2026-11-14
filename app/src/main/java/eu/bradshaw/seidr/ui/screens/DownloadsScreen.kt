@@ -73,7 +73,9 @@ fun DownloadsScreen() {
     var free by remember { mutableLongStateOf(graph.files.musicDir.usableSpace) }
     LaunchedEffect(Unit) { while (true) { free = graph.files.musicDir.usableSpace; delay(5000) } }
 
-    val rows = all.values
+    // A kid sees only approved songs here (anything else is on its way out at the next sync).
+    val kid by graph.kids.rules.collectAsStateWithLifecycle()
+    val rows = all.values.filter { kid?.playable(it.trackId) != false }
     val done = rows.filter { it.state == DownloadState.DONE }
     val active = rows.filter { it.state == DownloadState.DOWNLOADING }
     val queued = rows.count { it.state == DownloadState.QUEUED }
@@ -189,7 +191,7 @@ fun DownloadsScreen() {
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             val art = Modifier.size(48.dp).clip(RowArtShape)
-                            Cover(s.coverArt, art, size = 160)
+                            Cover(s.coverArt.takeIf { kid == null }, art, size = 160)
                             Spacer(Modifier.width(12.dp))
                             Column(Modifier.weight(1f)) {
                                 Text(s.name, style = MaterialTheme.typography.bodyLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)

@@ -19,6 +19,7 @@ import androidx.compose.material.icons.automirrored.filled.QueueMusic
 import androidx.compose.material.icons.filled.ArrowCircleDown
 import androidx.compose.material.icons.filled.Downloading
 import androidx.compose.material.icons.filled.ErrorOutline
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -83,7 +84,8 @@ fun OfflineIndicator(state: TrackOffline) {
 /**
  * A song row: title, artist line + offline indicator, overflow menu. Swipe
  * right to add it to the queue. Greyed out (but still visible) when offline
- * and not downloaded.
+ * and not downloaded. A kid's unapproved song ([Song.locked]) is greyed out
+ * with a lock, and can't be played, queued or opened.
  */
 @Composable
 fun TrackRow(
@@ -100,7 +102,8 @@ fun TrackRow(
     val actions = LocalActions.current
     val online by actions.graph.status.online.collectAsStateWithLifecycle()
     val offline = rememberTrackOffline(song.id)
-    val available = online || offline == TrackOffline.DONE
+    val locked = song.locked
+    val available = !locked && (online || offline == TrackOffline.DONE)
     var menu by remember { mutableStateOf(false) }
 
     // The menu button sits beside the clickable part rather than inside it: a
@@ -145,14 +148,18 @@ fun TrackRow(
             }
             trailing?.invoke()
           }
-            Box(Modifier.padding(end = 8.dp)) {
+            if (locked) {
+                Box(Modifier.padding(end = 8.dp).size(48.dp), contentAlignment = Alignment.Center) {
+                    Icon(Icons.Filled.Lock, "Not approved yet", tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(20.dp))
+                }
+            } else Box(Modifier.padding(end = 8.dp)) {
                 IconButton(onClick = { menu = true }) { Icon(Icons.Filled.MoreVert, "More") }
                 TrackMenu(song, expanded = menu, onDismiss = { menu = false }, extra = extraMenu)
             }
         }
     }
 
-    if (!swipeToQueue) { row(); return }
+    if (!swipeToQueue || locked) { row(); return }
     val swipe = rememberSwipeToDismissBoxState()
     LaunchedEffect(swipe.currentValue) {
         if (swipe.currentValue == SwipeToDismissBoxValue.StartToEnd) {

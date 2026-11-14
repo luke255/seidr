@@ -129,6 +129,8 @@ fun ArtistScreen(id: String) {
             val done = downloads.values.filter { it.state == DownloadState.DONE }.groupingBy { it.albumId }.eachCount()
             albums.isNotEmpty() && albums.all { it.songCount > 0 && (done[it.id] ?: 0) >= it.songCount }
         }
+        // A kid's artist may have only songs they can't play yet.
+        val playable = graph.kids.current?.artistPlayable(page.artist.id) != false
         val facts = listOfNotNull(pluralAlbums(albums.size), pluralSongs(songCount).takeIf { songCount > 0 }).joinToString(" · ")
         Column(Modifier.fillMaxSize()) {
             BackTopBar(page.artist.name, showTitle = showTitle)
@@ -143,7 +145,7 @@ fun ArtistScreen(id: String) {
                                 Text(page.artist.name, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold,
                                     maxLines = 2, overflow = TextOverflow.Ellipsis)
                                 HeaderFacts(facts, allDownloaded)
-                                PlayButtons(onShuffle = shuffle)
+                                PlayButtons(onShuffle = shuffle, enabled = playable)
                             }
                         }
                     } else {
@@ -152,7 +154,7 @@ fun ArtistScreen(id: String) {
                             ArtistImage(page.artist.coverArt, Modifier.size(180.dp).shadow(12.dp, CircleShape))
                             Text(page.artist.name, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
                             HeaderFacts(facts, allDownloaded)
-                            PlayButtons(onShuffle = shuffle)
+                            PlayButtons(onShuffle = shuffle, enabled = playable)
                         }
                     }
                 }

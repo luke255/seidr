@@ -7,7 +7,18 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.serialization.json.Json
 import java.util.UUID
 
-data class ServerConfig(val url: String, val username: String, val password: String)
+/**
+ * A login. [kidOf] marks a kid's account, signed in through Connect by the
+ * grown-up named there: the app then shows and plays only what that person's
+ * "Seidr: Kids" playlists allow (see `Kids`).
+ */
+data class ServerConfig(val url: String, val username: String, val password: String, val kidOf: String? = null) {
+    val isKid: Boolean get() = kidOf != null
+}
+
+/** A kid's login, kept by a grown-up's device purely to sign other devices in with. */
+@kotlinx.serialization.Serializable
+data class KidLogin(val username: String, val password: String)
 
 /**
  * App preferences in plain SharedPreferences (app-private storage). The
@@ -44,6 +55,10 @@ class Settings(context: Context) {
     /** Opt-in: use the server's "Bad: " playlists (see `BadReports`). */
     val badReports: StateFlow<Boolean> = _badReports.asStateFlow()
 
+    private val _kidLogins = MutableStateFlow(readKids())
+    /** Kids' logins this (grown-up) device can sign other devices in as. */
+    val kidLogins: StateFlow<List<KidLogin>> = _kidLogins.asStateFlow()
+
     private val _recentSearches = MutableStateFlow(readRecent())
     val recentSearches: StateFlow<List<String>> = _recentSearches.asStateFlow()
 
@@ -60,21 +75,23 @@ class Settings(context: Context) {
         val url = prefs.getString("server_url", null) ?: return null
         val user = prefs.getString("username", null) ?: return null
         val pass = prefs.getString("password", null) ?: return null
-        return ServerConfig(url, user, pass)
+        return ServerConfig(url, user, pass, prefs.getString("kid_of", null))
     }
 
     fun saveServer(config: ServerConfig) {
-        prefs.edit()
+        val edit = prefs.edit()
             .putString("server_url", config.url)
             .putString("username", config.username)
             .putString("password", config.password)
-            .apply()
+        if (config.kidOf != null) edit.putString("kid_of", config.kidOf) else edit.remove("kid_of")
+        edit.apply()
         _server.value = config
     }
 
     fun clearServer() {
-        prefs.edit().remove("server_url").remove("username").remove("password").apply()
+        prefs.edit().remove("server_url").remove("username").remove("password").remove("kid_of").remove("kid_logins").apply()
         _server.value = null
+        _kidLogins.value = emptyList()
     }
 
     fun setWifiOnly(value: Boolean) {
@@ -105,6 +122,24 @@ class Settings(context: Context) {
     fun setBadReports(value: Boolean) {
         prefs.edit().putBoolean("bad_reports", value).apply()
         _badReports.value = value
+    }
+
+    private fun readKids(): List<KidLogin> =
+        prefs.getString("kid_logins", null)?.let {
+            runCatching { Json.decodeFromString<List<KidLogin>>(it) }.getOrNull()
+        } ?: emptyList()
+
+    /** Adds or replaces (by username) a kid's login. */
+    fun saveKid(kid: KidLogin) {
+        val list = _kidLogins.value.filterNot { it.username.equals(kid.username, ignoreCase = true) } + kid
+        prefs.edit().putString("kid_logins", Json.encodeToString(list)).apply()
+        _kidLogins.value = list
+    }
+
+    fun removeKid(username: String) {
+        val list = _kidLogins.value.filterNot { it.username.equals(username, ignoreCase = true) }
+        prefs.edit().putString("kid_logins", Json.encodeToString(list)).apply()
+        _kidLogins.value = list
     }
 
     private fun readRecent(): List<String> =

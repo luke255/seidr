@@ -26,6 +26,7 @@ import eu.bradshaw.seidr.sync.SyncEngine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.stateIn
 import okhttp3.OkHttpClient
 import java.io.File
@@ -60,7 +61,21 @@ class Graph(val app: Application) {
             .stateIn(scope, kotlinx.coroutines.flow.SharingStarted.Eagerly, settings.theme.value)
 
     val client = SubsonicClient({ settings.server.value ?: guest.value?.config }, settings.coverSalt, baseHttp, ResponseStore(File(app.filesDir, "api")), status)
-    val library = Library(client, settings.badReports, scope)
+    /** Kid mode's rules, while the login in use is a kid's (see `Kids`). */
+    val kids = eu.bradshaw.seidr.data.Kids(
+        loginNow = { settings.server.value ?: guest.value?.config },
+        logins = kotlinx.coroutines.flow.combine(settings.server, guest) { s, g -> s ?: g?.config }
+            .distinctUntilChanged(),
+        api = { client.strict },
+        dir = File(app.filesDir, "kids"),
+        scope = scope,
+    )
+
+    /** Settings → Reporting, which kids don't get. */
+    private val badReportsOn = kotlinx.coroutines.flow.combine(settings.badReports, settings.server) { on, s -> on && s?.isKid != true }
+        .stateIn(scope, kotlinx.coroutines.flow.SharingStarted.Eagerly, settings.badReports.value && settings.server.value?.isKid != true)
+
+    val library = Library(client, badReportsOn, kids, scope)
     val db = AppDatabase.build(app)
     val files = MusicFiles(app)
     val downloads = DownloadIndex(db.offline(), scope)
@@ -70,6 +85,13 @@ class Graph(val app: Application) {
         store = RoomSyncStore(db.offline()),
         files = files,
         protectedIds = { setOfNotNull(NowPlaying.currentSongId) },
+        gate = {
+            // Kid mode: only approved songs download, by lists fetched fresh for this pass.
+            if (!kids.isKid) null
+            else (kids.refresh() ?: throw java.io.IOException("signed in as someone else")).let { r ->
+                eu.bradshaw.seidr.sync.TrackGate(r.lists.approved.map { it.id }.toSet())
+            }
+        },
     )
 
     val playlistPlays = PlaylistPlays(app)
@@ -88,7 +110,7 @@ class Graph(val app: Application) {
         },
     )
 
-    val bad = BadReports(settings, library, editor, db.offline(), scope) { client.strict }
+    val bad = BadReports(badReportsOn, library, editor, db.offline(), scope) { client.strict }
 
     init {
         sync = SyncCoordinator(app, engine, db.offline(), settings, scope, beforeSync = {

@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import android.util.Log
+import eu.bradshaw.seidr.data.KidLogin
 import eu.bradshaw.seidr.data.ServerConfig
 import eu.bradshaw.seidr.data.Settings
 import eu.bradshaw.seidr.ui.isTv
@@ -110,7 +111,8 @@ class Connect(
     val connecting: StateFlow<String?> = _connecting.asStateFlow()
 
     /** A code to compare before trusting a signed-out device; the UI shows it and answers. */
-    class Check(val peer: Peer, val code: String, val signingIn: Boolean) {
+    /** [signingInAs]: the account a sign-in hands over (a kid's, or null for this device's own). */
+    class Check(val peer: Peer, val code: String, val signingIn: Boolean, val signingInAs: String? = null) {
         internal val answer = CompletableDeferred<Boolean>()
         fun confirm() { answer.complete(true) }
         fun cancel() { answer.complete(false) }
@@ -147,17 +149,25 @@ class Connect(
         data class Failed(val message: String) : SignInResult
     }
 
-    /** Signs a signed-out [peer] in with this device's login, once its code checks out. */
-    suspend fun signIn(peer: Peer): SignInResult {
-        val config = settings.server.value ?: return SignInResult.Failed("This device isn't signed in")
+    /**
+     * Signs a signed-out [peer] in, once its code checks out: with this
+     * device's login, or [kid]'s (a kid's login stays a kid's either way).
+     */
+    suspend fun signIn(peer: Peer, kid: KidLogin? = null): SignInResult {
+        val own = settings.server.value ?: return SignInResult.Failed("This device isn't signed in")
+        val config = if (kid == null) own else ServerConfig(own.url, kid.username, kid.password, kidOf = own.username)
         val d = try {
-            dial(peer, ask = true, signingIn = true) ?: return SignInResult.Cancelled
+            dial(peer, ask = true, signingIn = true, signingInAs = kid?.username) ?: return SignInResult.Cancelled
         } catch (e: IOException) {
             return SignInResult.Failed(dialError(peer, e))
         }
+        if (config.isKid && d.hello.version < KIDS_VERSION) {
+            d.ch.close()
+            return SignInResult.Failed("Update Seiðr on ${peer.name} first: this version can't keep a kid's login safe")
+        }
         return withContext(Dispatchers.IO) {
             try {
-                d.ch.send(ConnectMessage.SignIn(config.url, config.username, config.password))
+                d.ch.send(ConnectMessage.SignIn(config.url, config.username, config.password, config.kidOf))
                 // It pings the server before it answers.
                 d.socket.soTimeout = SIGN_IN_TIMEOUT_MS
                 when (val r = d.ch.receive()) {
@@ -181,7 +191,7 @@ class Connect(
      * [signingIn]; null if the user cancels.
      * Throws IOException when it can't get through.
      */
-    internal suspend fun dial(peer: Peer, ask: Boolean, signingIn: Boolean = false): Dialled? {
+    internal suspend fun dial(peer: Peer, ask: Boolean, signingIn: Boolean = false, signingInAs: String? = null): Dialled? {
         val account = accountKey ?: throw IOException("not signed in")
         val (socket, ch, hello) = withContext(Dispatchers.IO) {
             val socket = connectTo(peer) ?: throw IOException("unreachable")
@@ -202,7 +212,7 @@ class Connect(
         }
         val g = ch.guest
         if (g != null && (signingIn || !isPinned(g.hostKey))) {
-            val c = Check(peer, g.code, signingIn)
+            val c = Check(peer, g.code, signingIn, signingInAs)
             _check.value = c
             val ok = try {
                 withTimeoutOrNull(CHECK_TIMEOUT_MS) { c.answer.await() } ?: false

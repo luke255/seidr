@@ -45,6 +45,12 @@ interface SyncStore {
     suspend fun retryFailed()
 }
 
+/**
+ * Kid mode: the only tracks any source may claim. [key] tells one gate from
+ * the next, so a pass after a change refetches every source in full.
+ */
+class TrackGate(val allowed: Set<String>, val key: Any = allowed)
+
 /** Removes a track's files from disk (the finished file and any partial). */
 fun interface FileDeleter {
     fun delete(trackId: String, path: String?)
@@ -81,7 +87,15 @@ class SyncEngine(
     private val files: FileDeleter,
     private val protectedIds: () -> Set<String> = { emptySet() },
     private val now: () -> Long = System::currentTimeMillis,
+    /**
+     * Kid mode's allowed tracks, fresh for each pass; null when anything goes.
+     * Throws when they can't be fetched, and the pass then changes nothing.
+     */
+    private val gate: suspend () -> TrackGate? = { null },
 ) {
+    /** The gate the last clean pass applied in full. */
+    private var lastGateKey: Any? = null
+
     /** Held for a whole pass, and by the downloader while it commits a file, so they never race. */
     val lock = Mutex()
 
@@ -98,6 +112,16 @@ class SyncEngine(
      */
     suspend fun sync(force: Set<String> = emptySet()): SyncReport = lock.withLock {
         val sources = store.sources().filter { it.enabled }
+        val gate = try {
+            gate()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            val reason = "kids' lists unavailable: ${e.message ?: e.javaClass.simpleName}"
+            return@withLock SyncReport(failed = sources.associate { it.id to reason })
+        }
+        // A new gate can let in tracks of sources whose timestamps haven't moved.
+        val forceAll = gate != null && gate.key != lastGateKey
         val ok = mutableListOf<String>()
         val unchanged = mutableListOf<String>()
         val failed = mutableMapOf<String, String>()
@@ -122,7 +146,7 @@ class SyncEngine(
                 when (source.type) {
                     SourceType.PLAYLIST ->
                         if (listing == null) Outcome.Failed("playlist listing failed: $listingError")
-                        else fetchPlaylist(source, listing, source.id in force)
+                        else fetchPlaylist(source, listing, forceAll || source.id in force)
                     SourceType.ALBUM -> fetchAlbum(source)
                     else -> Outcome.Failed("unknown source type ${source.type}")
                 }
@@ -141,14 +165,24 @@ class SyncEngine(
                     gone += source.id
                 }
                 is Outcome.Complete -> {
-                    val diff = SyncPlanner.diffClaims(outcome.tracks.map { it.id }, store.claimsFor(source.id))
+                    val tracks = if (gate == null) outcome.tracks else outcome.tracks.filter { it.id in gate.allowed }
+                    val diff = SyncPlanner.diffClaims(tracks.map { it.id }, store.claimsFor(source.id))
                     if (!diff.isEmpty) store.applyClaims(source.id, diff.add, diff.remove)
-                    outcome.tracks.associateByTo(known) { it.id }
+                    tracks.associateByTo(known) { it.id }
                     store.updateSource(outcome.updated)
                     ok += source.id
                 }
             }
         }
+
+        if (gate != null) {
+            // Whatever the gate no longer allows loses its claims, fetched this pass or not.
+            for (source in store.sources()) {
+                val drop = store.claimsFor(source.id).filterNot { it in gate.allowed }.toSet()
+                if (drop.isNotEmpty()) store.applyClaims(source.id, emptySet(), drop)
+            }
+            if (failed.isEmpty()) lastGateKey = gate.key
+        } else lastGateKey = null
 
         // A full pass is a good moment to give failed downloads another go.
         store.retryFailed()

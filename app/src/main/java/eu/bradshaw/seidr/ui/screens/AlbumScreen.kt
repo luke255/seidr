@@ -31,6 +31,7 @@ import eu.bradshaw.seidr.ui.Route
 import eu.bradshaw.seidr.ui.components.CollectionLayout
 import eu.bradshaw.seidr.ui.components.Cover
 import eu.bradshaw.seidr.ui.components.HeaderFacts
+import eu.bradshaw.seidr.ui.components.approvedCount
 import eu.bradshaw.seidr.ui.components.rememberAllDownloaded
 import androidx.compose.runtime.remember
 import eu.bradshaw.seidr.ui.components.Load
@@ -82,12 +83,13 @@ fun AlbumScreen(id: String) {
                     modifier = Modifier.clickable(enabled = album.artistId != null) { album.artistId?.let { actions.open(Route.Artist(it)) } },
                 )
                 HeaderFacts(
-                    listOfNotNull(album.year?.toString(), pluralSongs(album.songCount), formatLongDuration(album.duration)).joinToString(" · "),
+                    listOfNotNull(album.year?.toString(), pluralSongs(album.songCount), approvedCount(songs), formatLongDuration(album.duration)).joinToString(" · "),
                     downloaded = rememberAllDownloaded(remember(songs) { songs.map { it.id } }),
                 )
             },
             onShuffle = { graph.albumPlays.record(album); actions.player.shufflePlay(songs, album.name) },
-            shuffleEnabled = songs.isNotEmpty(),
+            // A kid's album may show only songs they can't play yet.
+            shuffleEnabled = songs.any { !it.locked },
             onPlay = { graph.albumPlays.record(album); actions.player.playContext(songs, 0, album.name, shuffle = false) },
             offline = OfflineSource(SourceType.sourceId(SourceType.ALBUM, album.id), SourceType.ALBUM, album.id, album.name, coverArt = album.coverArt),
             trackCount = songs.size,
