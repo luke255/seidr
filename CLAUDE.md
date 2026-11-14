@@ -81,22 +81,30 @@ before changing sync or playback.
 - **`data/LiveEvents`**: while the app is on screen, listens to Navidrome's
   native `/api/events` stream (JWT from `/auth/login`). Events only trigger
   sync or screen reloads; on any failure it backs off and polling carries on.
-- **`data/pair/`**: QR sign-in between installs, either direction. The QR holds
-  the showing device's LAN/Tailscale addresses, a port and a one-time AES key,
-  never credentials. The scanner connects to it directly, and the signed-in
-  side sends the server config, sealed with that key. The taker pings the
-  server before it saves anything. UI: `ui/pair/`, on the login screen and in
-  Settings → Sign in another device.
-- **`connect/`**: Connect (LAN only, same user only). Each install
-  advertises `_seidr._tcp` over mDNS with a tag from `ConnectKeys.account`
-  (username + password, not the URL); frames are AES-GCM under a per-connection
-  key from it. `ConnectSession` (in `PlaybackService`) both hosts this device's
+- **`connect/`**: Connect (LAN only). Each install advertises `_seidr._tcp`
+  over mDNS. Signed in, it's tagged from `ConnectKeys.account` (username +
+  password, not the URL) and frames are AES-GCM under a per-connection key
+  from it. `ConnectSession` (in `PlaybackService`) both hosts this device's
   player for controllers and, while controlling another device, swaps a
   `RemotePlayer` (a `SimpleBasePlayer` sending `RemoteOp`s) into the media
   session, so app, notification and volume keys drive the remote. One device
   plays: moving playback releases the old one, and its other controllers get
-  `Moved`. A dropped link retries, then falls back here, paused. Picker:
-  `ui/player/DevicesDialog`.
+  `Moved`. A dropped link retries, then falls back here, paused; `Ended`
+  means don't retry. Picker: `ui/player/DevicesDialog`.
+  - **Guests**: signed out, a device advertises `g=1`, and anyone signed in
+    can play on it or sign it in (Settings → Sign in a device). The channel
+    keys from ECDH against the host's long-term key (`Connect.identity`) with
+    a committed nonce exchange, and both screens show a six-digit code
+    (`ConnectKeys.code`). The controller pins the key once the user confirms
+    a match; signing in always shows the code again. Then it sends `Guest`
+    (play with this login, held only in `Graph.guest`, which the client falls
+    back to; sync never uses it) or `SignIn` (the host pings the server, then
+    saves it; `data/Account`). Another user's `Guest` takes the device over.
+    The guest ends on Disconnect, when playback moves away, or on sign-in.
+    Its queue isn't saved and its scrobbles aren't queued for retry.
+  - Signed out, the app is `ui/screens/SignedOutScreen`: an idle Now Playing
+    with Log in, or a locked Now Playing (read-only queue, lyrics,
+    visualiser) in the sender's colour (`portableTheme`).
 - **`update/`**: self-update from GitHub Releases. `Updater` reads the latest
   release's `version.json` on resume (30 min throttle; off via Settings →
   About), downloads the APK it names, verifies sha256 and offers a dialog.
@@ -114,8 +122,10 @@ before changing sync or playback.
   - `VisOverlay` (Compose, over the GL surface; no frame cost): track card;
     playback by gesture only (tap/select plays/pauses, swipe or left/right
     skips, each with a passing sign); a hold or up/down brings up the
-    preset's flag and heart (auto-hides; Back hides). `VisPrefs` (in `Graph`) holds its settings,
-    loved/hidden presets and the tuner's memory; Settings → Visualiser
+    preset's flag and heart (auto-hides; Back hides). `VisPrefs` (in
+    `Graph`) holds its settings and loved/hidden presets (per user, by
+    `Graph.user`, so a guest's come back when they sign in) and the tuner's
+    memory (per device); Settings → Visualiser
     (`VisualiserSettingsScreen`) lists them, previewing via
     `VisualiserActivity.preview`.
   - `TapSink` wraps ExoPlayer's audio sink and copies decoded PCM, with
@@ -187,9 +197,8 @@ before changing sync or playback.
 - Ask before adding a library beyond the core stack (Compose/Material 3,
   Media3, Retrofit/OkHttp, kotlinx.serialization, Room, WorkManager, Coil).
   Extras so far:
-  `material-icons-extended`, `lifecycle-process`, CameraX (all AndroidX),
-  ZXing core (QR sign-in), the Khronos OpenXR loader (Quest visualiser, via
-  prefab) and libprojectM (LGPL-2.1, vendored unmodified in
+  `material-icons-extended`, `lifecycle-process` (both AndroidX), the
+  Khronos OpenXR loader (Quest visualiser, via prefab) and libprojectM (LGPL-2.1, vendored unmodified in
   `src/main/cpp/projectm` and shipped as its own `.so`; keep it that way).
 
 ## Sync edge cases (each one a `SyncEngineTest` case)

@@ -104,12 +104,12 @@ fun VisOverlay(
     onSkip: (next: Boolean) -> Unit,
     onClose: () -> Unit,
 ) {
-    val theme by graph.settings.theme.collectAsStateWithLifecycle()
+    val theme by graph.theme.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val tv = remember { isTv(context) }
     val player = graph.player
     CompositionLocalProvider(LocalIsTv provides tv) {
-        SeidrTheme(ThemeChoice.fromKey(theme)) {
+        SeidrTheme(theme) {
             val density = LocalDensity.current
             val swipe = with(density) { 80.dp.toPx() }
             // The system's side-edge gesture zones (back), at least 32 dp.

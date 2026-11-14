@@ -97,7 +97,7 @@ class SeidrApp : Application(), SingletonImageLoader.Factory {
     private fun watchReachability() {
         graph.scope.launch {
             networkChanged.debounce(1_500).collect {
-                if (graph.settings.server.value == null) return@collect
+                if (graph.settings.server.value == null && graph.guest.value == null) return@collect
                 val wasOnline = graph.status.online.value
                 probeServer()
                 // Back online: catch up on anything missed.
@@ -108,7 +108,7 @@ class SeidrApp : Application(), SingletonImageLoader.Factory {
         // network change we'd hear about (server restart, Tailscale reconnecting).
         graph.scope.launch {
             graph.status.reachable.collectLatest { reachable ->
-                while (!reachable && graph.settings.server.value != null) {
+                while (!reachable && (graph.settings.server.value != null || graph.guest.value != null)) {
                     delay(30_000)
                     if (graph.status.network.value) networkChanged.tryEmit(Unit)
                 }

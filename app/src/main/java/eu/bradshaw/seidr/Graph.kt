@@ -26,6 +26,7 @@ import eu.bradshaw.seidr.sync.SyncEngine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.stateIn
 import okhttp3.OkHttpClient
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -36,12 +37,29 @@ class Graph(val app: Application) {
     val settings = Settings(app)
     val status = ServerStatus(scope)
 
+    /**
+     * Signed out, the login of whoever is playing music here over Connect
+     * (in memory only; see `ConnectSession`). The client uses it for
+     * streams, art and scrobbles; sync never runs on it.
+     */
+    val guest = kotlinx.coroutines.flow.MutableStateFlow<eu.bradshaw.seidr.connect.GuestLogin?>(null)
+
+    /** Whose preferences apply: the signed-in user, else the guest one. Lowercased username. */
+    val user: kotlinx.coroutines.flow.StateFlow<String?> =
+        kotlinx.coroutines.flow.combine(settings.server, guest) { s, g -> (s ?: g?.config)?.username?.trim()?.lowercase() }
+            .stateIn(scope, kotlinx.coroutines.flow.SharingStarted.Eagerly, settings.server.value?.username?.trim()?.lowercase())
+
     val baseHttp: OkHttpClient = OkHttpClient.Builder()
         .connectTimeout(8, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
         .build()
 
-    val client = SubsonicClient({ settings.server.value }, settings.coverSalt, baseHttp, ResponseStore(File(app.filesDir, "api")), status)
+    /** The theme to show: this device's, or while playing for a guest, theirs. */
+    val theme: kotlinx.coroutines.flow.StateFlow<String> =
+        kotlinx.coroutines.flow.combine(settings.theme, settings.server, guest) { own, s, g -> if (s == null) g?.theme ?: own else own }
+            .stateIn(scope, kotlinx.coroutines.flow.SharingStarted.Eagerly, settings.theme.value)
+
+    val client = SubsonicClient({ settings.server.value ?: guest.value?.config }, settings.coverSalt, baseHttp, ResponseStore(File(app.filesDir, "api")), status)
     val library = Library(client, settings.badReports, scope)
     val db = AppDatabase.build(app)
     val files = MusicFiles(app)
@@ -93,7 +111,7 @@ class Graph(val app: Application) {
     val connect by lazy { eu.bradshaw.seidr.connect.Connect(app, settings) { player.connect() } }
 
     /** The visualiser's settings, hidden presets and tuner memory. */
-    val visPrefs by lazy { eu.bradshaw.seidr.vis.VisPrefs(app) }
+    val visPrefs by lazy { eu.bradshaw.seidr.vis.VisPrefs(app, user, scope) }
 
     companion object {
         @Volatile private var instance: Graph? = null

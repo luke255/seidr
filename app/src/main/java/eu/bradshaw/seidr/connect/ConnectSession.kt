@@ -9,7 +9,10 @@ import androidx.media3.common.Player
 import androidx.media3.common.Timeline
 import androidx.media3.common.util.UnstableApi
 import eu.bradshaw.seidr.Graph
-import eu.bradshaw.seidr.data.pair.localAddresses
+import eu.bradshaw.seidr.data.Account
+import eu.bradshaw.seidr.data.ServerConfig
+import eu.bradshaw.seidr.data.Settings
+import eu.bradshaw.seidr.data.api.ok
 import eu.bradshaw.seidr.playback.PlayerPrefs
 import eu.bradshaw.seidr.playback.QueueEntry
 import eu.bradshaw.seidr.playback.toEntry
@@ -28,7 +31,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import java.io.IOException
-import java.net.InetSocketAddress
 import java.net.ServerSocket
 import java.net.Socket
 
@@ -44,6 +46,10 @@ import java.net.Socket
  *
  * Only one device plays: moving playback somewhere pauses where it was, and
  * that device's other controllers are sent after it ([ConnectMessage.Moved]).
+ *
+ * Signed out, it hosts guests: whoever connects sends a login to play with
+ * ([GuestLogin], in `Graph.guest`), and another user connecting takes the
+ * device over. Playback leaving, the Disconnect button or a sign-in ends it.
  * Everything here runs on the main thread except socket reads and writes.
  */
 @OptIn(UnstableApi::class)
@@ -73,13 +79,16 @@ class ConnectSession(
                 launch { serve(socket) }
             }
         }
-        // The advertised tag is per account; and signed out, nothing is shared.
+        // The advertised tag is per account (or none, signed out). Either way the old
+        // connections were made under the other key.
         scope.launch {
             graph.settings.server.drop(1).collect {
                 if (port > 0) connect.advertise(port)
                 if (it == null) {
                     link?.let(::dropLink)
                     clients.toList().forEach { c -> c.close() }
+                } else {
+                    endGuest("${connect.name} signed in")
                 }
             }
         }
@@ -101,6 +110,8 @@ class ConnectSession(
 
     fun close() {
         connect.unadvertise()
+        connect._shown.value = null
+        if (graph.settings.server.value == null) graph.guest.value = null
         if (connect.session === this) connect.session = null
         connect._active.value = null
         local.removeListener(hostListener)
@@ -241,16 +252,45 @@ class ConnectSession(
     private suspend fun serve(socket: Socket) {
         var client: Client? = null
         try {
-            val key = connect.accountKey ?: return
             socket.soTimeout = HANDSHAKE_TIMEOUT_MS
             socket.tcpNoDelay = true
-            val ch = ConnectChannel.open(socket, key, isHost = true)
+            val ch = ConnectChannel.accept(socket, connect.accountKey) { connect.identity }
             val hello = ch.receive() as? ConnectMessage.Hello ?: throw IOException("Expected hello")
             ch.send(ConnectMessage.Hello(connect.deviceId, connect.name))
+            var guestKey: ByteArray? = null
+            val handshake = ch.guest
+            if (handshake != null) {
+                // Signed out: show the code while they compare it, then they say what they want.
+                val shown = Connect.ShownCode(handshake.code, hello.name)
+                if (hello.verify) withContext(Dispatchers.Main) { connect._shown.value = shown }
+                socket.soTimeout = (Connect.CHECK_TIMEOUT_MS + 10_000).toInt()
+                val wants = try {
+                    ch.receive()
+                } finally {
+                    withContext(NonCancellable + Dispatchers.Main) { if (connect._shown.value === shown) connect._shown.value = null }
+                }
+                when (wants) {
+                    is ConnectMessage.SignIn -> {
+                        val config = ServerConfig(Settings.normaliseUrl(wants.url), wants.username.trim(), wants.password)
+                        val error = Account.probe(graph, context, config)
+                        if (error == null) withContext(Dispatchers.Main) { Account.commit(graph, config) }
+                        ch.send(ConnectMessage.SignedIn(error))
+                        Log.i(Connect.TAG, "${hello.name} signed this device in: ${error ?: "ok"}")
+                        ch.close()
+                        return
+                    }
+                    is ConnectMessage.Guest -> {
+                        val config = ServerConfig(Settings.normaliseUrl(wants.url), wants.username.trim(), wants.password)
+                        guestKey = ConnectKeys.account(config.username, config.password)
+                        withContext(Dispatchers.Main) { startGuest(GuestLogin(config, guestKey, hello.name, wants.theme)) }
+                    }
+                    else -> throw IOException("Expected guest or sign-in")
+                }
+            }
             // A quiet controller is fine; a dead one fails our next write.
             socket.soTimeout = 0
             socket.keepAlive = true
-            val c = Client(ch, hello)
+            val c = Client(ch, hello, guestKey)
             client = c
             withContext(Dispatchers.Main) { clients += c; c.start(); sendState(c) }
             Log.i(Connect.TAG, "${hello.name} connected")
@@ -316,8 +356,52 @@ class ConnectSession(
             is RemoteOp.Release -> {
                 local.pause()
                 op.to?.let { to -> clients.filter { it !== from }.forEach { it.post(ConnectMessage.Moved(to)) } }
+                // A guest's music has gone elsewhere: once the final state is on its way, forget them.
+                if (from.guestKey != null) endGuestJob = scope.launch { delay(2_000); endGuest(null) }
             }
         }
+    }
+
+    // --- Guests (this device signed out) ---------------------------------------------
+
+    /** Someone is playing here with [login]. Another user takes over: the last one's music stops. */
+    private fun startGuest(login: GuestLogin) {
+        endGuestJob?.cancel()
+        val cur = graph.guest.value
+        if (cur != null && !cur.key.contentEquals(login.key)) {
+            clients.filter { it.guestKey?.contentEquals(login.key) != true }.forEach {
+                it.post(ConnectMessage.Ended("${login.from} is playing on ${connect.name} now"))
+                it.close()
+            }
+            clearPlayback()
+        }
+        graph.guest.value = login
+        // Online or not decides whether streams are tried; check against this login.
+        graph.scope.launch { runCatching { graph.client.strict.ping().ok() } }
+        Log.i(Connect.TAG, "playing for ${login.config.username} from ${login.from}")
+    }
+
+    /** Stops playing for the guest and forgets their login. [reason] goes to their controllers. */
+    fun endGuest(reason: String?) {
+        if (graph.guest.value == null) return
+        endGuestJob?.cancel()
+        clients.filter { it.guestKey != null }.forEach { c ->
+            reason?.let { c.post(ConnectMessage.Ended(it)) }
+            c.close()
+        }
+        clearPlayback()
+        graph.guest.value = null
+        // What their login fetched stays theirs.
+        graph.client.clearCache()
+        graph.library.clear()
+        Log.i(Connect.TAG, "guest ended: $reason")
+    }
+
+    private var endGuestJob: kotlinx.coroutines.Job? = null
+
+    private fun clearPlayback() {
+        local.stop()
+        local.clearMediaItems()
     }
 
     private fun playLocal() {
@@ -358,7 +442,7 @@ class ConnectSession(
     }
 
     /** A controller connected to this device. */
-    private inner class Client(val ch: ConnectChannel, val hello: ConnectMessage.Hello) {
+    private inner class Client(val ch: ConnectChannel, val hello: ConnectMessage.Hello, val guestKey: ByteArray? = null) {
         var ack = 0L
         var sentVersion = -1
         private val outbox = Channel<ConnectMessage>(Channel.UNLIMITED)
@@ -375,29 +459,27 @@ class ConnectSession(
 
     // --- Controller: links to other devices -----------------------------------------
 
+    /**
+     * Connects to [peer] for control. A signed-out one gets this login to play
+     * with (its code checked first, unless [quiet] or already pinned).
+     */
     private suspend fun openLink(peer: Peer, quiet: Boolean = false): Link? {
-        val key = connect.accountKey ?: return null
-        val result = withContext(Dispatchers.IO) {
-            val socket = connectTo(peer) ?: return@withContext Result.failure<Pair<Socket, ConnectChannel>>(IOException("unreachable"))
-            try {
-                socket.soTimeout = READ_TIMEOUT_MS
-                socket.tcpNoDelay = true
-                val ch = ConnectChannel.open(socket, key, isHost = false)
-                ch.send(ConnectMessage.Hello(connect.deviceId, connect.name))
-                ch.receive() as? ConnectMessage.Hello ?: throw IOException("Expected hello")
-                Result.success(socket to ch)
-            } catch (e: IOException) {
-                runCatching { socket.close() }
-                Result.failure(e)
-            }
-        }
-        val (socket, ch) = result.getOrElse { e ->
+        val config = graph.settings.server.value ?: return null
+        val d = try {
+            connect.dial(peer, ask = !quiet) ?: return null
+        } catch (e: IOException) {
             Log.i(Connect.TAG, "couldn't connect to ${peer.name}: $e")
-            if (!quiet) connect.tell(
-                if (e is WrongAccountException) "${peer.name} is signed in as someone else"
-                else "Couldn't reach ${peer.name}. Is Seiðr open on it?"
-            )
+            if (!quiet) connect.tell(connect.dialError(peer, e))
             return null
+        }
+        val socket = d.socket
+        val ch = d.ch
+        if (peer.guest) {
+            val sent = withContext(Dispatchers.IO) {
+                runCatching { ch.send(ConnectMessage.Guest(config.url, config.username, config.password,
+                    eu.bradshaw.seidr.ui.theme.portableTheme(graph.settings.theme.value, context))) }.isSuccess
+            }
+            if (!sent) { ch.close(); if (!quiet) connect.tell("Lost ${peer.name}"); return null }
         }
         val l = Link(peer, ch, socket)
         l.start()
@@ -407,19 +489,6 @@ class ConnectSession(
             return null
         }
         return l
-    }
-
-    private fun connectTo(peer: Peer): Socket? {
-        for (host in peer.hosts) {
-            val s = Socket()
-            try {
-                s.connect(InetSocketAddress(host, peer.port), CONNECT_TIMEOUT_MS)
-                return s
-            } catch (_: IOException) {
-                runCatching { s.close() }
-            }
-        }
-        return null
     }
 
     /** The connection to a device this one controls. */
@@ -481,6 +550,7 @@ class ConnectSession(
                     // Coming here arrives as a SetQueue of its own.
                     if (to.id != connect.deviceId && link === this) follow(this, to)
                 }
+                is ConnectMessage.Ended -> ended(this, msg.reason)
                 else -> {}
             }
         }
@@ -496,6 +566,16 @@ class ConnectSession(
             // In case the writer is stuck on a dead peer.
             scope.launch { delay(2_000); runCatching { socket.close() } }
         }
+    }
+
+    /** The host ended the link on purpose: no retries; the music comes back here, paused. */
+    private fun ended(l: Link, reason: String) {
+        if (link !== l) { l.close(); return }
+        val state = l.player.state
+        val queue = l.player.queue
+        dropLink(l)
+        if (state != null && queue.isNotEmpty()) adopt(state, queue, play = false)
+        connect.tell(reason)
     }
 
     /** The playing device handed playback to [to]: control that one instead. */
@@ -535,9 +615,6 @@ class ConnectSession(
     private companion object {
         const val HEARTBEAT_MS = 5_000L
         const val HANDSHAKE_TIMEOUT_MS = 5_000
-        /** Three missed heartbeats. */
-        const val READ_TIMEOUT_MS = 15_000
-        const val CONNECT_TIMEOUT_MS = 3_000
         const val FIRST_STATE_TIMEOUT_MS = 5_000L
         const val REQUEST_TIMEOUT_MS = 3_000L
     }

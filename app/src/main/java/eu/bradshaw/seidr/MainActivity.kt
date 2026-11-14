@@ -24,7 +24,7 @@ import eu.bradshaw.seidr.ui.MainScreen
 import eu.bradshaw.seidr.ui.Navigator
 import eu.bradshaw.seidr.ui.Route
 import eu.bradshaw.seidr.ui.Tab
-import eu.bradshaw.seidr.ui.screens.LoginScreen
+import eu.bradshaw.seidr.ui.screens.SignedOutScreen
 import eu.bradshaw.seidr.ui.screens.isBatteryExempt
 import eu.bradshaw.seidr.ui.screens.requestBatteryExemption
 import eu.bradshaw.seidr.ui.theme.SeidrTheme
@@ -48,14 +48,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         handleIntent(intent)
         setContent {
-            val theme by graph.settings.theme.collectAsStateWithLifecycle()
+            val server by graph.settings.server.collectAsStateWithLifecycle()
+            // Playing for someone else: their colour.
+            val theme by graph.theme.collectAsStateWithLifecycle()
             val tv = remember { eu.bradshaw.seidr.ui.isTv(this) }
             androidx.compose.runtime.CompositionLocalProvider(eu.bradshaw.seidr.ui.LocalIsTv provides tv) {
-            SeidrTheme(ThemeChoice.fromKey(theme)) {
+            SeidrTheme(theme) {
                 Surface(Modifier.fillMaxSize()) {
-                    val server by graph.settings.server.collectAsStateWithLifecycle()
+                    AskPermissions()
                     if (server == null) {
-                        LoginScreen(graph)
+                        SignedOutScreen(graph, nav)
                     } else {
                         MainScreen(graph, nav)
                         FirstRunPrompts()
@@ -66,18 +68,23 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    /** Notifications, and (Android 17) Nearby devices, which Connect needs signed in or out. */
     @androidx.compose.runtime.Composable
-    private fun FirstRunPrompts() {
-        // The prompt is about phone battery managers; TVs are on mains power.
-        var showBattery by remember {
-            mutableStateOf(!graph.settings.batteryPromptShown && !isBatteryExempt(this) && !eu.bradshaw.seidr.ui.isTv(this))
-        }
+    private fun AskPermissions() {
         androidx.compose.runtime.LaunchedEffect(Unit) {
             val wanted = buildList {
                 add(Manifest.permission.POST_NOTIFICATIONS)
                 if (android.os.Build.VERSION.SDK_INT >= 37) add(Manifest.permission.ACCESS_LOCAL_NETWORK)
             }.filter { checkSelfPermission(it) != PackageManager.PERMISSION_GRANTED }
             if (wanted.isNotEmpty()) permissions.launch(wanted.toTypedArray())
+        }
+    }
+
+    @androidx.compose.runtime.Composable
+    private fun FirstRunPrompts() {
+        // The prompt is about phone battery managers; TVs are on mains power.
+        var showBattery by remember {
+            mutableStateOf(!graph.settings.batteryPromptShown && !isBatteryExempt(this) && !eu.bradshaw.seidr.ui.isTv(this))
         }
         if (showBattery) {
             AlertDialog(

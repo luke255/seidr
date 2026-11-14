@@ -1,8 +1,12 @@
 package eu.bradshaw.seidr.vis
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.core.content.edit
 import eu.bradshaw.seidr.BuildConfig
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,16 +15,39 @@ import kotlin.math.roundToInt
 
 /**
  * The visualiser's settings and per-device memory, shared by
- * [VisualiserActivity] and Settings → Visualiser (SharedPreferences
- * "visualiser"; device-local, never synced).
+ * [VisualiserActivity] and Settings → Visualiser. Device-local, never synced.
+ *
+ * What's about the person (what shows over it, loved and hidden presets) is
+ * kept per user ([user]: the signed-in one, or whoever is playing here over
+ * Connect), so it comes back when they next use this device. What's about the
+ * device (the tuner's memory, presets too heavy for it) is shared by everyone.
  *
  * Presets are hidden two ways: by the user (the flag in the visualiser's
  * controls) or by the tuner, when one can't hold even 45 fps at the lowest
  * quality on this device. Either can be unhidden in Settings. Loved presets
  * (the heart) come up about one time in ten.
  */
-class VisPrefs(context: Context) {
+class VisPrefs(private val context: Context, user: StateFlow<String?>, scope: CoroutineScope) {
+    /** The device's: the tuner's memory. */
     private val prefs = context.getSharedPreferences("visualiser", Context.MODE_PRIVATE)
+    /** The current user's: display toggles, loved and hidden presets. */
+    @Volatile private var mine = userPrefs(user.value)
+
+    private fun userPrefs(user: String?): SharedPreferences {
+        val name = user?.let { u -> "visualiser_user_" + u.toByteArray().joinToString("") { "%02x".format(it) }.take(64) } ?: "visualiser_nobody"
+        val p = context.getSharedPreferences(name, Context.MODE_PRIVATE)
+        // Once: these were the device's before they were per user; the first user to sign in keeps them.
+        if (user != null && prefs.contains(MIGRATED).not()) {
+            p.edit {
+                if (!p.contains(LOVED)) prefs.getStringSet(LOVED, null)?.let { putStringSet(LOVED, it) }
+                if (!p.contains(BANNED)) prefs.getStringSet(BANNED, null)?.let { putStringSet(BANNED, it) }
+                if (!p.contains(SHOW_INFO) && prefs.contains(SHOW_INFO)) putBoolean(SHOW_INFO, prefs.getBoolean(SHOW_INFO, true))
+                if (!p.contains(SHOW_STATS) && prefs.contains(SHOW_STATS)) putBoolean(SHOW_STATS, prefs.getBoolean(SHOW_STATS, false))
+            }
+            prefs.edit { remove(LOVED); remove(BANNED); remove(SHOW_INFO); remove(SHOW_STATS); putBoolean(MIGRATED, true) }
+        }
+        return p
+    }
 
     /** A preset in the pack, by path; [byUser] is false for one the tuner hid. */
     data class Preset(val path: String, val byUser: Boolean = true) {
@@ -30,21 +57,21 @@ class VisPrefs(context: Context) {
         val folder get() = path.substringBeforeLast('/', "").replace("/", " / ")
     }
 
-    private val _showInfo = MutableStateFlow(prefs.getBoolean(SHOW_INFO, true))
+    private val _showInfo = MutableStateFlow(mine.getBoolean(SHOW_INFO, true))
     /** Cover, title and time in the corner all the time (else only with the controls). */
     val showInfo: StateFlow<Boolean> = _showInfo.asStateFlow()
 
     fun setShowInfo(value: Boolean) {
-        prefs.edit { putBoolean(SHOW_INFO, value) }
+        mine.edit { putBoolean(SHOW_INFO, value) }
         _showInfo.value = value
     }
 
-    private val _showStats = MutableStateFlow(prefs.getBoolean(SHOW_STATS, BuildConfig.DEBUG))
+    private val _showStats = MutableStateFlow(mine.getBoolean(SHOW_STATS, BuildConfig.DEBUG))
     /** The tuner's readout (frame rate, render size, level…) in a corner. On by default in debug builds. */
     val showStats: StateFlow<Boolean> = _showStats.asStateFlow()
 
     fun setShowStats(value: Boolean) {
-        prefs.edit { putBoolean(SHOW_STATS, value) }
+        mine.edit { putBoolean(SHOW_STATS, value) }
         _showStats.value = value
     }
 
@@ -56,18 +83,18 @@ class VisPrefs(context: Context) {
     /** Loved presets, by name. */
     val loved: StateFlow<List<Preset>> = _loved.asStateFlow()
 
-    val lovedPaths: Set<String> get() = prefs.getStringSet(LOVED, emptySet()).orEmpty()
+    val lovedPaths: Set<String> get() = mine.getStringSet(LOVED, emptySet()).orEmpty()
 
     fun setLoved(path: String, loved: Boolean) =
-        update { putStringSet(LOVED, if (loved) lovedPaths + path else lovedPaths - path) }
+        updateMine { putStringSet(LOVED, if (loved) lovedPaths + path else lovedPaths - path) }
 
     val hiddenPaths: Set<String> get() = banned + tooHeavy
 
-    private val banned get() = prefs.getStringSet(BANNED, emptySet()).orEmpty()
+    private val banned get() = mine.getStringSet(BANNED, emptySet()).orEmpty()
     private val tooHeavy get() = prefs.getStringSet(TOO_HEAVY, emptySet()).orEmpty()
 
     /** The user hid [path] (it's no longer loved, either). */
-    fun ban(path: String) = update {
+    fun ban(path: String) = updateMine {
         putStringSet(BANNED, banned + path)
         putStringSet(LOVED, lovedPaths - path)
     }
@@ -75,8 +102,12 @@ class VisPrefs(context: Context) {
     /** [path] can't hold the frame rate on this device even at the lowest quality. */
     fun markTooHeavy(path: String) = update { putStringSet(TOO_HEAVY, tooHeavy + path) }
 
-    fun unhide(path: String) = update {
-        putStringSet(BANNED, banned - path)
+    fun unhide(path: String) {
+        updateMine { putStringSet(BANNED, banned - path) }
+        unhideHeavy(path)
+    }
+
+    private fun unhideHeavy(path: String) = update {
         putStringSet(TOO_HEAVY, tooHeavy - path)
         remove(LEVEL_OF + path) // judge it afresh
     }
@@ -129,8 +160,14 @@ class VisPrefs(context: Context) {
         return skewed
     }
 
-    private fun update(block: android.content.SharedPreferences.Editor.() -> Unit) {
+    private fun update(block: SharedPreferences.Editor.() -> Unit) {
         prefs.edit(action = block) // apply(): memory now, disk later
+        _hidden.value = loadHidden()
+        _loved.value = loadLoved()
+    }
+
+    private fun updateMine(block: SharedPreferences.Editor.() -> Unit) {
+        mine.edit(action = block)
         _hidden.value = loadHidden()
         _loved.value = loadLoved()
     }
@@ -140,6 +177,19 @@ class VisPrefs(context: Context) {
             .sortedBy { it.name.lowercase() }
 
     private fun loadLoved(): List<Preset> = lovedPaths.map { Preset(it) }.sortedBy { it.name.lowercase() }
+
+    // Last, so everything it touches exists.
+    init {
+        scope.launch {
+            user.drop(1).collect { u ->
+                mine = userPrefs(u)
+                _showInfo.value = mine.getBoolean(SHOW_INFO, true)
+                _showStats.value = mine.getBoolean(SHOW_STATS, BuildConfig.DEBUG)
+                _hidden.value = loadHidden()
+                _loved.value = loadLoved()
+            }
+        }
+    }
 
     private companion object {
         const val SHOW_INFO = "show_info"
@@ -151,5 +201,6 @@ class VisPrefs(context: Context) {
         const val LEVEL = "level"
         const val LEVEL_OF = "level:" // + preset path: where it settled last time
         const val PACING_FIXED = "pacing_fixed" // see forgetPacingBug
+        const val MIGRATED = "per_user" // the user's settings have moved to their own file
     }
 }

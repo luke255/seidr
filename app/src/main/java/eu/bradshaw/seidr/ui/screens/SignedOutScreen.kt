@@ -1,0 +1,206 @@
+package eu.bradshaw.seidr.ui.screens
+
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import eu.bradshaw.seidr.Graph
+import eu.bradshaw.seidr.R
+import eu.bradshaw.seidr.connect.Connect
+import eu.bradshaw.seidr.ui.AppActions
+import eu.bradshaw.seidr.ui.LocalActions
+import eu.bradshaw.seidr.ui.LocalPrimaryFocus
+import eu.bradshaw.seidr.ui.Navigator
+import eu.bradshaw.seidr.ui.focusRing
+import eu.bradshaw.seidr.ui.overlayFocus
+import eu.bradshaw.seidr.ui.pair.deviceName
+import eu.bradshaw.seidr.ui.player.NowPlayingScreen
+import eu.bradshaw.seidr.ui.player.QueueScreen
+import eu.bradshaw.seidr.ui.primaryFocus
+
+/**
+ * Signed out, the app is a Now Playing screen. Idle, it shows the device's
+ * name and a way to log in; once another device plays here over Connect, it's
+ * that music's Now Playing (lyrics, visualiser and a read-only queue, and
+ * nowhere else). A code shows over either while someone checks it.
+ */
+@Composable
+fun SignedOutScreen(graph: Graph, nav: Navigator) {
+    val snackbar = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+    val actions = remember(nav) { AppActions(graph, nav, snackbar, scope) }
+    val guest by graph.guest.collectAsStateWithLifecycle()
+    var login by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(actions) { graph.connect.messages.collect { actions.toast(it) } }
+
+    CompositionLocalProvider(LocalActions provides actions) {
+        Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
+            when {
+                guest != null -> GuestPlayer(actions)
+                login -> LoginScreen(graph, onBack = { login = false })
+                else -> Idle(onLogin = { login = true })
+            }
+            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).safeDrawingPadding().padding(bottom = 16.dp))
+        }
+        ShownCode(graph.connect)
+    }
+}
+
+@Composable
+private fun GuestPlayer(actions: AppActions) {
+    val npPrimary = remember { FocusRequester() }
+    val queuePrimary = remember { FocusRequester() }
+    CompositionLocalProvider(LocalPrimaryFocus provides npPrimary) {
+        NowPlayingScreen(onClose = null, onQueue = { actions.queueOpen = true },
+            modifier = Modifier.overlayFocus(!actions.queueOpen, npPrimary))
+    }
+    androidx.activity.compose.BackHandler(enabled = actions.queueOpen) { actions.queueOpen = false }
+    AnimatedVisibility(actions.queueOpen, enter = slideInVertically { it }, exit = slideOutVertically { it }) {
+        CompositionLocalProvider(LocalPrimaryFocus provides queuePrimary) {
+            QueueScreen(onClose = { actions.queueOpen = false }, readOnly = true,
+                modifier = Modifier.overlayFocus(actions.queueOpen, queuePrimary))
+        }
+    }
+}
+
+/**
+ * Nothing playing and no one signed in: Now Playing's layout with the app's
+ * logo for art, the device's name for a title, and Log in for controls.
+ */
+@Composable
+private fun Idle(onLogin: () -> Unit) {
+    val context = LocalContext.current
+    val name = remember { deviceName(context) }
+    val cs = MaterialTheme.colorScheme
+    val logo: @Composable (Modifier) -> Unit = { m ->
+        Box(m.aspectRatio(1f).clip(RoundedCornerShape(8.dp)).background(colorResource(R.color.icon_bg)), contentAlignment = Alignment.Center) {
+            Image(painterResource(R.drawable.ic_launcher_foreground), contentDescription = "Seiðr", modifier = Modifier.fillMaxSize())
+        }
+    }
+    val words: @Composable () -> Unit = {
+        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text(name, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold,
+                maxLines = 1, overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center)
+            Text("Play from another app, or log in", style = MaterialTheme.typography.bodyLarge, color = cs.onSurfaceVariant,
+                textAlign = TextAlign.Center)
+            Button(onClick = onLogin, modifier = Modifier.padding(top = 28.dp).widthIn(min = 200.dp).focusRing(CircleShape).primaryFocus()) {
+                Text("Log in")
+            }
+        }
+    }
+    BoxWithConstraints(
+        Modifier.fillMaxSize()
+            .background(Brush.verticalGradient(listOf(cs.primaryContainer.copy(alpha = 0.55f), cs.background)))
+            .safeDrawingPadding(),
+        contentAlignment = Alignment.Center,
+    ) {
+        val w = maxWidth
+        val h = maxHeight
+        if (w > h * 1.25f) {
+            Row(Modifier.fillMaxSize().padding(24.dp), horizontalArrangement = Arrangement.spacedBy(24.dp), verticalAlignment = Alignment.CenterVertically) {
+                logo(Modifier.size(minOf(h - 48.dp, w * 0.5f)))
+                Box(Modifier.weight(1f), contentAlignment = Alignment.Center) { words() }
+            }
+        } else {
+            Column(Modifier.fillMaxHeight().widthIn(max = 520.dp).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center) {
+                logo(Modifier.fillMaxWidth().padding(8.dp))
+                Box(Modifier.padding(top = 24.dp)) { words() }
+            }
+        }
+    }
+}
+
+/** Host side: the code another device is checking against, until it's done. */
+@Composable
+private fun ShownCode(connect: Connect) {
+    val shown by connect.shown.collectAsStateWithLifecycle()
+    val s = shown ?: return
+    AlertDialog(
+        onDismissRequest = {},
+        title = { Text("Pairing code") },
+        text = {
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                Text(spaced(s.code), fontSize = 44.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace,
+                    modifier = Modifier.padding(vertical = 12.dp))
+                Text("Check that ${s.from} shows the same code.", textAlign = TextAlign.Center)
+            }
+        },
+        confirmButton = {},
+    )
+}
+
+/** "123456" as "123 456". */
+fun spaced(code: String) = if (code.length == 6) code.take(3) + " " + code.drop(3) else code
+
+/** Controller side: compare the code with the other screen before trusting it. */
+@Composable
+fun CheckCode(connect: Connect, username: String?) {
+    val check by connect.check.collectAsStateWithLifecycle()
+    val c = check ?: return
+    AlertDialog(
+        onDismissRequest = c::cancel,
+        title = { Text(if (c.signingIn) "Sign in ${c.peer.name}?" else "Play on ${c.peer.name}?") },
+        text = {
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                Text("Check that ${c.peer.name} shows this code:", textAlign = TextAlign.Center)
+                Text(spaced(c.code), fontSize = 44.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace,
+                    modifier = Modifier.padding(vertical = 12.dp))
+                Text(
+                    if (c.signingIn) "It will sign in as ${username.orEmpty()}, with your password."
+                    else "It plays with your login until it's disconnected. You won't be asked again for this device.",
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center,
+                )
+            }
+        },
+        confirmButton = { TextButton(onClick = c::confirm) { Text("It matches") } },
+        dismissButton = { TextButton(onClick = c::cancel) { Text("Cancel") } },
+    )
+}

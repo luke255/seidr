@@ -5,10 +5,22 @@ import android.content.Context
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import android.util.Log
+import eu.bradshaw.seidr.data.ServerConfig
 import eu.bradshaw.seidr.data.Settings
 import eu.bradshaw.seidr.ui.isTv
 import eu.bradshaw.seidr.ui.pair.deviceName
 import eu.bradshaw.seidr.vis.xr.XrVisualiserActivity
+import android.util.Base64
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.withContext
+import java.io.IOException
+import java.net.InetSocketAddress
+import java.net.NetworkInterface
+import java.net.Socket
+import java.security.KeyFactory
+import java.security.KeyPair
+import java.security.spec.PKCS8EncodedKeySpec
+import java.security.spec.X509EncodedKeySpec
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -25,12 +37,24 @@ import java.net.Inet4Address
 import java.util.UUID
 
 /**
- * Seiðr Connect, app side: who this device is, which other devices are on
- * the network (mDNS, same account only), and which one is playing. The work
- * of playing on or controlling another device is [ConnectSession]'s, which
- * lives in PlaybackService and registers itself here.
+ * A login a signed-out device is playing for, sent by the device controlling
+ * it. In memory only: gone on disconnect, takeover or restart. [key] is its
+ * Connect account key, to tell a second controller of the same user from a
+ * takeover; [from] names the sending device; [theme] is its colour.
  */
-class Connect(private val app: Application, private val settings: Settings, private val startService: () -> Unit) {
+class GuestLogin(val config: ServerConfig, val key: ByteArray, val from: String, val theme: String?)
+
+/**
+ * Seiðr Connect, app side: who this device is, which other devices are on
+ * the network (mDNS: same account, plus signed-out ones), and which one is
+ * playing. The work of playing on or controlling another device is
+ * [ConnectSession]'s, which lives in PlaybackService and registers itself here.
+ */
+class Connect(
+    private val app: Application,
+    private val settings: Settings,
+    private val startService: () -> Unit,
+) {
     private val prefs = app.getSharedPreferences("connect", Context.MODE_PRIVATE)
     private val main = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
@@ -38,7 +62,7 @@ class Connect(private val app: Application, private val settings: Settings, priv
     val deviceId: String = prefs.getString("id", null)
         ?: UUID.randomUUID().toString().also { prefs.edit().putString("id", it).apply() }
 
-    val name: String get() = deviceName(app)
+    val name: String get() = deviceName(app).trim()
 
     val kind: String = when {
         isTv(app) -> Peer.KIND_TV
@@ -49,8 +73,32 @@ class Connect(private val app: Application, private val settings: Settings, priv
     /** Null while signed out: no Connect then. */
     val accountKey: ByteArray? get() = settings.server.value?.let { ConnectKeys.account(it.username, it.password) }
 
+    /** This install's long-term key, which signed-in devices pin once its code is checked. */
+    val identity: KeyPair by lazy {
+        val f = KeyFactory.getInstance("EC")
+        runCatching {
+            val pub = Base64.decode(prefs.getString("identity_pub", null)!!, Base64.NO_WRAP)
+            val priv = Base64.decode(prefs.getString("identity_priv", null)!!, Base64.NO_WRAP)
+            KeyPair(f.generatePublic(X509EncodedKeySpec(pub)), f.generatePrivate(PKCS8EncodedKeySpec(priv)))
+        }.getOrElse {
+            ConnectKeys.newKeyPair().also {
+                prefs.edit()
+                    .putString("identity_pub", Base64.encodeToString(it.public.encoded, Base64.NO_WRAP))
+                    .putString("identity_priv", Base64.encodeToString(it.private.encoded, Base64.NO_WRAP))
+                    .apply()
+            }
+        }
+    }
+
+    private fun isPinned(hostKey: ByteArray) = ConnectKeys.fingerprint(hostKey) in prefs.getStringSet("pinned", emptySet()).orEmpty()
+
+    private fun pin(hostKey: ByteArray) {
+        val pinned = prefs.getStringSet("pinned", emptySet()).orEmpty()
+        prefs.edit().putStringSet("pinned", pinned + ConnectKeys.fingerprint(hostKey)).apply()
+    }
+
     private val _devices = MutableStateFlow<List<Peer>>(emptyList())
-    /** Other devices signed in as this user on the same network. */
+    /** Other devices on the same network: signed in as this user, or signed out ([Peer.guest]). */
     val devices: StateFlow<List<Peer>> = _devices.asStateFlow()
 
     internal val _active = MutableStateFlow<Peer?>(null)
@@ -61,6 +109,24 @@ class Connect(private val app: Application, private val settings: Settings, priv
     /** Id of a device being switched to. */
     val connecting: StateFlow<String?> = _connecting.asStateFlow()
 
+    /** A code to compare before trusting a signed-out device; the UI shows it and answers. */
+    class Check(val peer: Peer, val code: String, val signingIn: Boolean) {
+        internal val answer = CompletableDeferred<Boolean>()
+        fun confirm() { answer.complete(true) }
+        fun cancel() { answer.complete(false) }
+    }
+
+    private val _check = MutableStateFlow<Check?>(null)
+    /** Controller side: a code waiting for the user to compare it with the other screen. */
+    val check: StateFlow<Check?> = _check.asStateFlow()
+
+    /** The code this (signed-out) device is showing, and who to compare it with. */
+    data class ShownCode(val code: String, val from: String, internal val token: Any = Any())
+
+    internal val _shown = MutableStateFlow<ShownCode?>(null)
+    /** Host side: a code to show while a controller checks it. */
+    val shown: StateFlow<ShownCode?> = _shown.asStateFlow()
+
     private val _messages = MutableSharedFlow<String>(extraBufferCapacity = 4)
     /** Things to tell the user ("Lost connection to …"). */
     val messages: SharedFlow<String> = _messages.asSharedFlow()
@@ -69,6 +135,105 @@ class Connect(private val app: Application, private val settings: Settings, priv
     @Volatile internal var session: ConnectSession? = null
         set(value) { field = value; sessionUp.value = value != null }
     private val sessionUp = MutableStateFlow(false)
+
+    /** Signed-out side: stops playing for whoever sent music here, and forgets their login. */
+    fun disconnectGuest() {
+        main.launch { session?.endGuest("${name} disconnected") }
+    }
+
+    sealed interface SignInResult {
+        data object Done : SignInResult
+        data object Cancelled : SignInResult
+        data class Failed(val message: String) : SignInResult
+    }
+
+    /** Signs a signed-out [peer] in with this device's login, once its code checks out. */
+    suspend fun signIn(peer: Peer): SignInResult {
+        val config = settings.server.value ?: return SignInResult.Failed("This device isn't signed in")
+        val d = try {
+            dial(peer, ask = true, signingIn = true) ?: return SignInResult.Cancelled
+        } catch (e: IOException) {
+            return SignInResult.Failed(dialError(peer, e))
+        }
+        return withContext(Dispatchers.IO) {
+            try {
+                d.ch.send(ConnectMessage.SignIn(config.url, config.username, config.password))
+                // It pings the server before it answers.
+                d.socket.soTimeout = SIGN_IN_TIMEOUT_MS
+                when (val r = d.ch.receive()) {
+                    is ConnectMessage.SignedIn -> r.error?.let { SignInResult.Failed(it) } ?: SignInResult.Done
+                    else -> SignInResult.Failed("${peer.name} didn't answer")
+                }
+            } catch (e: IOException) {
+                SignInResult.Failed("Lost ${peer.name}: ${e.message}")
+            } finally {
+                d.ch.close()
+            }
+        }
+    }
+
+    /** A channel to another device, greeted. */
+    internal class Dialled(val socket: Socket, val ch: ConnectChannel, val hello: ConnectMessage.Hello)
+
+    /**
+     * Connects to [peer] and says hello. A signed-out device's key must be
+     * pinned, or (with [ask]) checked by code now, as it always is when
+     * [signingIn]; null if the user cancels.
+     * Throws IOException when it can't get through.
+     */
+    internal suspend fun dial(peer: Peer, ask: Boolean, signingIn: Boolean = false): Dialled? {
+        val account = accountKey ?: throw IOException("not signed in")
+        val (socket, ch, hello) = withContext(Dispatchers.IO) {
+            val socket = connectTo(peer) ?: throw IOException("unreachable")
+            try {
+                socket.soTimeout = READ_TIMEOUT_MS
+                socket.tcpNoDelay = true
+                val ch = if (peer.guest) ConnectChannel.dialGuest(socket) else ConnectChannel.open(socket, account, isHost = false)
+                // Signing in always shows the code: it leaves the password there for good.
+                val check = ch.guest?.let { signingIn || !isPinned(it.hostKey) } ?: false
+                if (check && !ask) throw IOException("not paired")
+                ch.send(ConnectMessage.Hello(deviceId, name, verify = check))
+                val hello = ch.receive() as? ConnectMessage.Hello ?: throw IOException("Expected hello")
+                Triple(socket, ch, hello)
+            } catch (e: IOException) {
+                runCatching { socket.close() }
+                throw e
+            }
+        }
+        val g = ch.guest
+        if (g != null && (signingIn || !isPinned(g.hostKey))) {
+            val c = Check(peer, g.code, signingIn)
+            _check.value = c
+            val ok = try {
+                withTimeoutOrNull(CHECK_TIMEOUT_MS) { c.answer.await() } ?: false
+            } finally {
+                if (_check.value === c) _check.value = null
+            }
+            if (!ok) { ch.close(); return null }
+            pin(g.hostKey)
+        }
+        return Dialled(socket, ch, hello)
+    }
+
+    /** What to tell the user when [dial] fails. */
+    internal fun dialError(peer: Peer, e: IOException): String = when (e) {
+        is WrongAccountException -> "${peer.name} is signed in as someone else"
+        is SignedInOrOutException -> "${peer.name} has signed in or out. Try again in a moment."
+        else -> "Couldn't reach ${peer.name}. Is Seiðr open on it?"
+    }
+
+    private fun connectTo(peer: Peer): Socket? {
+        for (host in peer.hosts) {
+            val s = Socket()
+            try {
+                s.connect(InetSocketAddress(host, peer.port), CONNECT_TIMEOUT_MS)
+                return s
+            } catch (_: IOException) {
+                runCatching { s.close() }
+            }
+        }
+        return null
+    }
 
     /** Moves playback to [peer], or back here when it's null (or this device). */
     fun playOn(peer: Peer?) {
@@ -104,12 +269,15 @@ class Connect(private val app: Application, private val settings: Settings, priv
         startDiscovery()
     }
 
-    /** Announces this device's server on [port]. Again after a sign-in, since the tag changes. */
+    /**
+     * Announces this device's server on [port]: tagged with the account, or
+     * signed out as a guest anyone can use. Again after a sign-in or out.
+     */
     fun advertise(port: Int) {
         unadvertise()
         wantedPort = port
         if (!lanAllowed()) return
-        val key = accountKey ?: return
+        val key = accountKey
         val info = NsdServiceInfo().apply {
             serviceName = "Seiðr ${deviceId.take(8)}"
             serviceType = SERVICE_TYPE
@@ -117,7 +285,7 @@ class Connect(private val app: Application, private val settings: Settings, priv
             setAttribute("id", deviceId)
             setAttribute("n", name.trim().take(60))
             setAttribute("k", kind)
-            setAttribute("a", ConnectKeys.tag(key))
+            if (key != null) setAttribute("a", ConnectKeys.tag(key)) else setAttribute("g", "1")
         }
         val listener = object : NsdManager.RegistrationListener {
             override fun onServiceRegistered(info: NsdServiceInfo) { Log.i(TAG, "advertised as ${info.serviceName} on $port") }
@@ -187,10 +355,11 @@ class Connect(private val app: Application, private val settings: Settings, priv
         val id = attr("id")
         val key = accountKey
         val hosts = info.hostAddresses.sortedBy { if (it is Inet4Address) 0 else 1 }.mapNotNull { it.hostAddress?.substringBefore('%') }
-        if (id == null || id == deviceId || key == null || attr("a") != ConnectKeys.tag(key) || hosts.isEmpty() || info.port <= 0) {
+        val isGuest = attr("g") == "1"
+        if (id == null || id == deviceId || key == null || (!isGuest && attr("a") != ConnectKeys.tag(key)) || hosts.isEmpty() || info.port <= 0) {
             found.remove(name)
         } else {
-            found[name] = Peer(id, attr("n").orEmpty().ifBlank { "Seiðr device" }, hosts, info.port, attr("k") ?: Peer.KIND_PHONE)
+            found[name] = Peer(id, attr("n").orEmpty().ifBlank { "Seiðr device" }, hosts, info.port, attr("k") ?: Peer.KIND_PHONE, isGuest)
         }
         publish()
     }
@@ -208,5 +377,33 @@ class Connect(private val app: Application, private val settings: Settings, priv
     companion object {
         const val SERVICE_TYPE = "_seidr._tcp"
         internal const val TAG = "Connect"
+        internal const val CONNECT_TIMEOUT_MS = 3_000
+        /** Three missed heartbeats. */
+        internal const val READ_TIMEOUT_MS = 15_000
+        /** Long enough for the other device to ping the server (8 s connect, a slow reply). */
+        private const val SIGN_IN_TIMEOUT_MS = 30_000
+        /** How long the code waits for someone to compare it. */
+        internal const val CHECK_TIMEOUT_MS = 120_000L
     }
 }
+
+/**
+ * IPv4 addresses another device could reach: private LAN ranges plus
+ * 100.64/10 (Tailscale). Wi-Fi and Ethernet first; cellular interfaces skipped.
+ */
+fun localAddresses(): List<String> = runCatching {
+    NetworkInterface.getNetworkInterfaces().toList()
+        .filter { it.isUp && !it.isLoopback && !CELLULAR.any(it.name::startsWith) }
+        .flatMap { nif -> nif.inetAddresses.toList().filterIsInstance<Inet4Address>().map { nif.name to it } }
+        .filter { (_, a) -> a.isSiteLocalAddress || isCgnat(a) }
+        .sortedBy { (name, _) -> if (name.startsWith("wlan") || name.startsWith("eth")) 0 else 1 }
+        .mapNotNull { it.second.hostAddress }
+        .distinct()
+}.getOrDefault(emptyList())
+
+private fun isCgnat(a: Inet4Address): Boolean {
+    val b = a.address
+    return (b[0].toInt() and 0xff) == 100 && (b[1].toInt() and 0xc0) == 64
+}
+
+private val CELLULAR = listOf("rmnet", "ccmni", "clat", "v4-", "dummy")

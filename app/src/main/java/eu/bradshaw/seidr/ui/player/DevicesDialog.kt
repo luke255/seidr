@@ -42,11 +42,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import eu.bradshaw.seidr.connect.Peer
 import eu.bradshaw.seidr.ui.LocalActions
-import eu.bradshaw.seidr.ui.screens.needsLanPermission
+import eu.bradshaw.seidr.data.Account.needsLanPermission
 
 /**
- * Seiðr Connect's device picker: this device, then every other one signed
- * in as this user on the same Wi-Fi. Picking one moves playback there.
+ * Seiðr Connect's device picker: this device, then every other one on the
+ * same Wi-Fi signed in as this user or signed out. Picking one moves
+ * playback there (a signed-out one plays with this login).
  */
 @Composable
 fun DevicesDialog(onDismiss: () -> Unit) {
@@ -72,12 +73,12 @@ fun DevicesDialog(onDismiss: () -> Unit) {
         title = { Text("Play on") },
         text = {
             Column {
-                DeviceRow(kindIcon(connect.kind), connect.name, "This device", selected = active == null, busy = false) {
+                DeviceRow(kindIcon(connect.kind), connect.name, THIS_DEVICE, selected = active == null, busy = false) {
                     connect.playOn(null)
                     onDismiss()
                 }
                 others.forEach { d ->
-                    DeviceRow(kindIcon(d.kind), d.name, null, selected = active?.id == d.id, busy = connecting == d.id) {
+                    DeviceRow(kindIcon(d.kind), d.name, if (d.guest) "Not signed in" else null, selected = active?.id == d.id, busy = connecting == d.id) {
                         if (connecting != null) return@DeviceRow
                         if (active?.id == d.id) { onDismiss(); return@DeviceRow }
                         asked = true
@@ -91,7 +92,7 @@ fun DevicesDialog(onDismiss: () -> Unit) {
                     TextButton(onClick = { lan.launch(Manifest.permission.ACCESS_LOCAL_NETWORK) }) { Text("Allow") }
                 } else if (others.isEmpty()) {
                     LinearProgressIndicator(Modifier.fillMaxWidth().padding(vertical = 8.dp))
-                    Text("Looking for devices. Open Seiðr on another device signed in as you, on the same Wi-Fi.",
+                    Text("Looking for devices. Open Seiðr on another device on the same Wi-Fi: one signed in as you, or one that isn't signed in.",
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
@@ -117,7 +118,7 @@ private fun DeviceRow(icon: ImageVector, name: String, label: String?, selected:
             Text(name, color = tint, fontWeight = if (selected) FontWeight.Bold else null, maxLines = 1, overflow = TextOverflow.Ellipsis)
             val sub = when {
                 busy -> "Connecting…"
-                selected && label == null -> "Connected"
+                selected && label != THIS_DEVICE -> "Connected"
                 else -> label
             }
             if (sub != null) Text(sub, style = MaterialTheme.typography.bodySmall,
@@ -131,3 +132,4 @@ fun kindIcon(kind: String): ImageVector = when (kind) {
     Peer.KIND_HEADSET -> Icons.Filled.ViewInAr
     else -> Icons.Filled.Smartphone
 }
+private const val THIS_DEVICE = "This device"

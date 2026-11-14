@@ -295,7 +295,9 @@ class PlaybackService : MediaLibraryService() {
             scrobbled = true
             val songId = songIdOf(item.mediaId)
             val at = startedAt
-            scope.launch(Dispatchers.IO) { NowPlaying.scrobble(graph, songId, at) }
+            // Playing for a guest: their login is only here while they are, so no retries later.
+            val keep = graph.settings.server.value != null
+            scope.launch(Dispatchers.IO) { NowPlaying.scrobble(graph, songId, at, keepForLater = keep) }
         }
     }
 
@@ -304,6 +306,8 @@ class PlaybackService : MediaLibraryService() {
     /** Snapshot on the main thread (the player lives there), write on IO: queues can be thousands long. */
     private fun saveQueue(now: Boolean = false) {
         if (!::player.isInitialized) return
+        // Signed out, the queue is a guest's: it isn't kept.
+        if (graph.settings.server.value == null) { scope.launch(Dispatchers.IO) { queueStore.clear() }; return }
         val n = player.mediaItemCount
         val snapshot = if (n == 0) null else SavedQueue(
             (0 until n).map { player.getMediaItemAt(it).toEntry() },
@@ -317,6 +321,7 @@ class PlaybackService : MediaLibraryService() {
     }
 
     private fun checkpointPosition() {
+        if (graph.settings.server.value == null) return
         val key = player.currentMediaItem?.mediaId ?: return
         val index = player.currentMediaItemIndex
         val pos = player.currentPosition
@@ -324,6 +329,7 @@ class PlaybackService : MediaLibraryService() {
     }
 
     private fun restoreQueue() {
+        if (graph.settings.server.value == null) return
         val saved = queueStore.load() ?: return
         if (saved.entries.isEmpty()) return
         player.setMediaItems(saved.entries.map { it.toMediaItem(graph) }, saved.index.coerceIn(0, saved.entries.lastIndex), saved.positionMs)

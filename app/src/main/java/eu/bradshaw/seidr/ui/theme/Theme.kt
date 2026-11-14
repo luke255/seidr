@@ -75,6 +75,25 @@ private fun systemScheme(context: Context): ColorScheme = runCatching {
     vividDarkScheme(hue, secondaryHue = lch("system_accent2_500").third, neutralHue = lch("system_neutral1_500").third)
 }.getOrElse { vividDarkScheme(FallbackHue) }
 
+/**
+ * [key] as another device can show it: System becomes this phone's hue
+ * ("hue:268.0"), since the other device's wallpaper isn't ours.
+ */
+fun portableTheme(key: String, context: Context): String {
+    if (ThemeChoice.fromKey(key) != ThemeChoice.SYSTEM) return key
+    return runCatching {
+        val id = context.resources.getIdentifier("system_accent1_500", "color", "android")
+        require(id != 0)
+        val (_, chroma, hue) = argbToLch(context.getColor(id))
+        if (chroma < 8) ThemeChoice.NEUTRAL.key else "hue:%.1f".format(java.util.Locale.ROOT, hue)
+    }.getOrDefault(key)
+}
+
+/** A theme key from [portableTheme]: a choice, or "hue:<degrees>". */
+fun colorSchemeForKey(key: String, context: Context): ColorScheme =
+    key.removePrefix("hue:").takeIf { key.startsWith("hue:") }?.toDoubleOrNull()?.let { vividDarkScheme(it) }
+        ?: colorSchemeFor(ThemeChoice.fromKey(key), context)
+
 fun colorSchemeFor(choice: ThemeChoice, context: Context): ColorScheme = when (choice) {
     ThemeChoice.SYSTEM -> systemScheme(context)
     // The original look: near-black backgrounds (classic Spotify), quiet accents from the system.
@@ -98,9 +117,10 @@ private val FocusRipple = RippleConfiguration(
 /** Dark always (classic-era Spotify was dark-only); colours follow [choice]. */
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
-fun SeidrTheme(choice: ThemeChoice, content: @Composable () -> Unit) {
+fun SeidrTheme(key: String, content: @Composable () -> Unit) {
     val context = LocalContext.current
-    val scheme = remember(choice, context) { colorSchemeFor(choice, context) }
+    val choice = ThemeChoice.fromKey(key)
+    val scheme = remember(key, context) { colorSchemeForKey(key, context) }
     val margin = with(LocalDensity.current) { 24.dp.toPx() }
     val bringIntoView = remember(margin) { EdgeBringIntoView(margin) }
     CompositionLocalProvider(

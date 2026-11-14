@@ -32,7 +32,7 @@ import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.GraphicEq
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.QrCode2
+import androidx.compose.material.icons.filled.Devices
 import androidx.compose.material.icons.outlined.BatteryChargingFull
 import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Autorenew
@@ -209,14 +209,7 @@ fun SettingsScreen() {
             confirmButton = {
                 TextButton(onClick = {
                     signOut = false
-                    graph.player.stopAndClear()
-                    graph.sync.cancelAll()
-                    graph.live.reset()
-                    graph.library.clear()
-                    graph.bad.clear()
-                    graph.lyricsOffsets.clear()
-                    graph.client.clearCache()
-                    graph.settings.clearServer()
+                    eu.bradshaw.seidr.data.Account.signOut(graph)
                 }) { Text("Sign out") }
             },
             dismissButton = { TextButton(onClick = { signOut = false }) { Text("Cancel") } },
@@ -256,13 +249,13 @@ private fun AccountCard(onSignOut: () -> Unit) {
         }
         Row(Modifier.padding(top = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             FilledTonalButton(
-                onClick = { actions.open(Route.LinkDevice) },
+                onClick = { actions.open(Route.SignInDevice) },
                 contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
                 modifier = Modifier.weight(1f).focusRing(CircleShape),
             ) {
-                Icon(Icons.Filled.QrCode2, null, Modifier.size(18.dp))
+                Icon(Icons.Filled.Devices, null, Modifier.size(18.dp))
                 Spacer(Modifier.width(8.dp))
-                Text("Sign in another device", maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text("Sign in a device", maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
             OutlinedButton(onClick = onSignOut) { Text("Sign out") }
         }

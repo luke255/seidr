@@ -110,7 +110,7 @@ private fun RouteContent(route: Route) {
         Route.Downloads -> DownloadsScreen()
         Route.Visualiser -> eu.bradshaw.seidr.ui.screens.VisualiserSettingsScreen()
         Route.Settings -> SettingsScreen()
-        Route.LinkDevice -> eu.bradshaw.seidr.ui.pair.LinkDeviceScreen()
+        Route.SignInDevice -> eu.bradshaw.seidr.ui.pair.SignInDeviceScreen()
         Route.Licences -> eu.bradshaw.seidr.ui.screens.LicencesScreen()
         is Route.LicenceText -> eu.bradshaw.seidr.ui.screens.LicenceTextScreen(route.title, route.file)
     }
@@ -276,6 +276,7 @@ fun MainScreen(graph: Graph, nav: Navigator) {
             }
         }
         AddToPlaylistDialog()
+        eu.bradshaw.seidr.ui.screens.CheckCode(graph.connect, graph.settings.server.collectAsStateWithLifecycle().value?.username)
     }
 }
 

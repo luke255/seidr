@@ -2,6 +2,7 @@ package eu.bradshaw.seidr.ui.player
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -65,7 +66,7 @@ import eu.bradshaw.seidr.ui.components.reorderable
  * which can also remove it (the way to do that with a remote).
  */
 @Composable
-fun QueueScreen(onClose: () -> Unit, modifier: Modifier = Modifier) {
+fun QueueScreen(onClose: () -> Unit, modifier: Modifier = Modifier, readOnly: Boolean = false) {
     val actions = LocalActions.current
     val player = actions.player
     val ui by player.ui.collectAsStateWithLifecycle()
@@ -116,12 +117,32 @@ fun QueueScreen(onClose: () -> Unit, modifier: Modifier = Modifier) {
         Row(Modifier.fillMaxWidth().padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = onClose) { Icon(Icons.Filled.KeyboardArrowDown, "Close") }
             Text("Play Queue", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
-            ShuffleButton(ui.shuffle, onToggle = player::toggleShuffle, onReshuffle = player::reshuffle)
-            RepeatButton(ui.repeat, onClick = player::cycleRepeat)
+            if (!readOnly) {
+                ShuffleButton(ui.shuffle, onToggle = player::toggleShuffle, onReshuffle = player::reshuffle)
+                RepeatButton(ui.repeat, onClick = player::cycleRepeat)
+            }
         }
         val cur = ui.current
         if (cur == null) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Text("The queue is empty") }
+            return@Column
+        }
+        if (readOnly) {
+            // Signed out, playing for someone else: their queue to look at, not to change.
+            LazyColumn(state = listState, modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 24.dp)) {
+                val earlier = ui.queue.take(ui.index)
+                if (earlier.isNotEmpty()) {
+                    item(key = "h:earlier") { Header("Earlier") }
+                    items(earlier, key = { it.key }) { e -> QueueRow(e, playing = false, past = true, onClick = null, onRemove = null, handle = null) }
+                }
+                item(key = "h:now") { Header("Now playing") }
+                item(key = "now") { QueueRow(cur, playing = true, onClick = null, onRemove = null, handle = null, modifier = Modifier.primaryFocus()) }
+                val next = ui.queue.drop(ui.index + 1)
+                if (next.isNotEmpty()) {
+                    item(key = "h:next") { Header("Next") }
+                    items(next, key = { it.key }) { e -> QueueRow(e, playing = false, onClick = null, onRemove = null, handle = null) }
+                }
+            }
             return@Column
         }
         val earlier = local.take(ui.index)
@@ -196,7 +217,7 @@ private fun SwipeRemove(onRemove: () -> Unit, content: @Composable () -> Unit) {
 
 @Composable
 private fun QueueRow(
-    e: QueueEntry, playing: Boolean, onClick: () -> Unit, onRemove: (() -> Unit)?, handle: Modifier?,
+    e: QueueEntry, playing: Boolean, onClick: (() -> Unit)?, onRemove: (() -> Unit)?, handle: Modifier?,
     modifier: Modifier = Modifier, lifted: Boolean = false, past: Boolean = false,
 ) {
     var menu by remember { mutableStateOf(false) }
@@ -207,7 +228,7 @@ private fun QueueRow(
     ) {
       Row(
         Modifier.weight(1f)
-            .combinedClickable(onLongClickLabel = "More", onLongClick = { menu = true }, onClick = onClick)
+            .then(if (onClick == null) Modifier.focusable() else Modifier.combinedClickable(onLongClickLabel = "More", onLongClick = { menu = true }, onClick = onClick))
             .padding(start = 16.dp, end = 8.dp, top = 6.dp, bottom = 6.dp)
             .alpha(if (past) 0.5f else 1f),
         verticalAlignment = Alignment.CenterVertically,
@@ -222,7 +243,7 @@ private fun QueueRow(
         }
       }
         if (handle != null) LiftHandle(lifted, handle)
-        Box {
+        if (onClick != null) Box {
             TrackMenu(
                 e.asSong(), expanded = menu, onDismiss = { menu = false },
                 extra = listOfNotNull(onRemove?.let { MenuAction("Remove from queue", Icons.Filled.RemoveCircleOutline, onClick = it) }),

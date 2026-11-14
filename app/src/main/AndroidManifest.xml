@@ -6,13 +6,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- Android 17+: needed to reach a server on a LAN address (not over Tailscale). -->
     <uses-permission android:name="android.permission.ACCESS_LOCAL_NETWORK" />
-    <!-- QR sign-in from another device. Quest also gates its passthrough cameras. -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="horizonos.permission.HEADSET_CAMERA" />
-    <uses-feature android:name="android.hardware.camera.any" android:required="false" />
-    <!-- CAMERA would otherwise imply these as required, which hides the app from cameraless TVs. -->
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
     <!-- Android TV: runs with a D-pad remote, no touchscreen needed. -->
     <uses-feature android:name="android.software.leanback" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />

@@ -38,12 +38,11 @@ private val CREDITS = listOf(
     Credit("projectM 4.1.8", "The projectM team. Shipped unmodified; its source is in Seiðr's repository", "GNU LGPL 2.1", "LGPL-2.1.txt"),
     Credit("MilkDrop presets (Cream of the Crop)", "Curated by Jason Fletcher; each preset by the author in its name", "Shared freely; authors may ask for removal", null),
     Credit("MilkDrop texture pack", "Collected by the projectM team", "Shared freely; authors may ask for removal", null),
-    Credit("AndroidX: Compose, Material 3, Media3, Room, WorkManager, CameraX", "Google", "Apache 2.0", "Apache-2.0.txt"),
+    Credit("AndroidX: Compose, Material 3, Media3, Room, WorkManager", "Google", "Apache 2.0", "Apache-2.0.txt"),
     Credit("Material icons", "Google", "Apache 2.0", "Apache-2.0.txt"),
     Credit("Kotlin, kotlinx.coroutines, kotlinx.serialization", "JetBrains", "Apache 2.0", "Apache-2.0.txt"),
     Credit("OkHttp and Retrofit", "Square", "Apache 2.0", "Apache-2.0.txt"),
     Credit("Coil", "Coil contributors", "Apache 2.0", "Apache-2.0.txt"),
-    Credit("ZXing", "ZXing authors", "Apache 2.0", "Apache-2.0.txt"),
     Credit("OpenXR loader", "The Khronos Group", "Apache 2.0", "Apache-2.0.txt"),
 )
 

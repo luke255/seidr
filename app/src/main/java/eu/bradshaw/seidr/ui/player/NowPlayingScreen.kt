@@ -34,6 +34,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.Devices
+import androidx.compose.material.icons.filled.LinkOff
 import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material3.DropdownMenu
 import eu.bradshaw.seidr.ui.components.ReportItems
@@ -178,7 +179,7 @@ fun QueueEntry.asSong() = Song(
  * the controls keep a phone-like width in the middle.
  */
 @Composable
-fun NowPlayingScreen(onClose: () -> Unit, onQueue: () -> Unit, modifier: Modifier = Modifier) {
+fun NowPlayingScreen(onClose: (() -> Unit)?, onQueue: () -> Unit, modifier: Modifier = Modifier) {
     // Colours follow the current track's art (not under Neutral). Monochrome
     // art, or none, goes grey rather than back to the app's theme colour.
     val ui by LocalActions.current.player.ui.collectAsStateWithLifecycle()
@@ -206,17 +207,26 @@ private val coverSlide = tween<Float>(ART_CHANGE_MS, easing = EaseOutCubic)
  * left at full height with the controls beside it; otherwise it's stacked.
  */
 @Composable
-private fun NowPlayingContent(onClose: () -> Unit, onQueue: () -> Unit, modifier: Modifier, wash: Color?, justBack: () -> Boolean) {
+private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modifier: Modifier, wash: Color?, justBack: () -> Boolean) {
     val actions = LocalActions.current
     val player = actions.player
     val ui by player.ui.collectAsStateWithLifecycle()
     val cur = ui.current
     // Seiðr Connect: the device playing, when it isn't this one.
     val remote by actions.graph.connect.active.collectAsStateWithLifecycle()
+    // Signed out, this device only plays what another one sent: no Connect of its own,
+    // a way to end that instead, and nowhere else to go.
+    val signedIn by actions.graph.settings.server.collectAsStateWithLifecycle()
+    val guest by actions.graph.guest.collectAsStateWithLifecycle()
+    val asGuest = signedIn == null
     var devicesOpen by remember { mutableStateOf(false) }
     if (devicesOpen) DevicesDialog(onDismiss = { devicesOpen = false })
     val devicesButton: @Composable () -> Unit = {
-        IconButton(onClick = { devicesOpen = true }) {
+        if (asGuest) {
+            IconButton(onClick = { actions.graph.connect.disconnectGuest() }) {
+                Icon(Icons.Filled.LinkOff, "Disconnect", tint = MaterialTheme.colorScheme.primary)
+            }
+        } else IconButton(onClick = { devicesOpen = true }) {
             Icon(Icons.Filled.Devices, "Play on another device",
                 tint = if (remote != null) MaterialTheme.colorScheme.primary else LocalContentColor.current)
         }
@@ -229,14 +239,16 @@ private fun NowPlayingContent(onClose: () -> Unit, onQueue: () -> Unit, modifier
     // Header: close, "Playing from", overflow.
     val header: @Composable () -> Unit = {
         Row(Modifier.fillMaxWidth().padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onClose) { Icon(Icons.Filled.KeyboardArrowDown, "Close") }
+            if (onClose != null) IconButton(onClick = onClose) { Icon(Icons.Filled.KeyboardArrowDown, "Close") }
+            else Spacer(Modifier.size(48.dp))
             Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("PLAYING FROM", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Text(ui.contextName ?: "Queue", style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold,
                     maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
             var menu by remember { mutableStateOf(false) }
-            Box {
+            if (asGuest) Spacer(Modifier.size(48.dp))
+            else Box {
                 IconButton(onClick = { menu = true }, enabled = cur != null) { Icon(Icons.Filled.MoreVert, "More") }
                 if (cur != null) TrackMenu(cur.asSong(), menu, { menu = false })
             }
@@ -253,7 +265,7 @@ private fun NowPlayingContent(onClose: () -> Unit, onQueue: () -> Unit, modifier
                 var total = 0f
                 detectVerticalDragGestures(
                     onDragStart = { total = 0f },
-                    onDragEnd = { if (total > 120.dp.toPx()) onClose() },
+                    onDragEnd = { if (total > 120.dp.toPx()) onClose?.invoke() },
                 ) { _, dy -> total += dy }
             },
         contentAlignment = Alignment.TopCenter,
@@ -416,7 +428,8 @@ private fun NowPlayingContent(onClose: () -> Unit, onQueue: () -> Unit, modifier
             // On a Quest, the immersive visualiser sits beside the flat one.
             val context = LocalContext.current
             val headset = remember { XrVisualiserActivity.available(context) }
-            Row(Modifier.fillMaxWidth().padding(top = 20.dp, bottom = if (remote != null) 4.dp else 16.dp), verticalAlignment = Alignment.CenterVertically) {
+            val pill = remote != null || (asGuest && guest != null)
+            Row(Modifier.fillMaxWidth().padding(top = 20.dp, bottom = if (pill) 4.dp else 16.dp), verticalAlignment = Alignment.CenterVertically) {
                 Box(Modifier.weight(1f), contentAlignment = Alignment.Center) { devicesButton() }
                 Box(Modifier.weight(1f), contentAlignment = Alignment.Center) {
                     IconButton(onClick = { showLyrics = !showLyrics }, enabled = showLyrics || lyrics != LyricsState.None) {
@@ -450,6 +463,13 @@ private fun NowPlayingContent(onClose: () -> Unit, onQueue: () -> Unit, modifier
                         Text("Playing on ${r.name}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
                             maxLines = 1, overflow = TextOverflow.Ellipsis)
                     }
+                }
+            }
+            if (asGuest) guest?.let { g ->
+                Box(Modifier.fillMaxWidth().padding(bottom = 8.dp), contentAlignment = Alignment.Center) {
+                    Text("Playing for ${g.config.username} from ${g.from}", style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp))
                 }
             }
         }

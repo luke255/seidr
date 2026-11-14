@@ -200,12 +200,6 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-compose:3.6.3")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.6.3")
 
-    // QR sign-in between devices: ZXing encodes/decodes, CameraX feeds it frames.
-    implementation("com.google.zxing:core:3.5.4")
-    implementation("androidx.camera:camera-camera2:1.6.2")
-    implementation("androidx.camera:camera-lifecycle:1.6.2")
-    implementation("androidx.camera:camera-view:1.6.2")
-
     // The headset visualiser: the Khronos OpenXR loader (finds the Quest's runtime).
     implementation("org.khronos.openxr:openxr_loader_for_android:1.1.65")
 

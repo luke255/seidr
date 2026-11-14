@@ -20,7 +20,7 @@ sealed interface Route {
     data object Downloads : Route
     data object Visualiser : Route
     data object Settings : Route
-    data object LinkDevice : Route
+    data object SignInDevice : Route
     data object Licences : Route
     data class LicenceText(val title: String, val file: String) : Route
 }

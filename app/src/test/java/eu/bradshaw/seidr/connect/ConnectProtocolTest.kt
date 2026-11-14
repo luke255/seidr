@@ -75,4 +75,76 @@ class ConnectProtocolTest {
             controller = { ch -> ops.forEachIndexed { i, op -> ch.send(ConnectMessage.Op(i + 1L, op)) } })
         assertEquals(ops, got)
     }
+
+    // --- Guests (signed-out hosts) ---------------------------------------------------
+
+    private fun <H, C> guestPair(host: (Socket) -> H, controller: (Socket) -> C): Pair<H?, C> {
+        ServerSocket(0).use { server ->
+            var hostResult: H? = null
+            var hostError: Throwable? = null
+            val t = thread {
+                try { server.accept().use { hostResult = host(it) } } catch (e: Throwable) { hostError = e }
+            }
+            val c = Socket("127.0.0.1", server.localPort).use { controller(it) }
+            t.join(5_000)
+            hostError?.let { throw it }
+            return hostResult to c
+        }
+    }
+
+    @Test
+    fun guestHandshakeAgreesOnKeyAndCode() {
+        val identity = ConnectKeys.newKeyPair()
+        val (hostSide, controllerSide) = guestPair(host = { sock ->
+            val ch = ConnectChannel.accept(sock, null) { identity }
+            val hello = ch.receive() as ConnectMessage.Hello
+            ch.send(ConnectMessage.Hello("tab", "Tablet"))
+            val guest = ch.receive() as ConnectMessage.Guest
+            Triple(ch.guest!!.code, hello.verify, guest)
+        }, controller = { sock ->
+            val ch = ConnectChannel.dialGuest(sock)
+            ch.send(ConnectMessage.Hello("fold", "Fold", verify = true))
+            val hello = ch.receive() as ConnectMessage.Hello
+            ch.send(ConnectMessage.Guest("https://m.example", "luke", "pw", "neutral"))
+            Triple(ch.guest!!.code, ch.guest!!.hostKey, hello.name)
+        })
+        val (hostCode, verify, guest) = hostSide!!
+        assertEquals(controllerSide.first, hostCode)
+        assertTrue(hostCode.matches(Regex("\\d{6}")))
+        assertTrue(controllerSide.second.contentEquals(identity.public.encoded))
+        assertEquals("Tablet", controllerSide.third)
+        assertTrue(verify)
+        assertEquals("luke", guest.username)
+    }
+
+    @Test
+    fun eachGuestConnectionHasItsOwnCode() {
+        val identity = ConnectKeys.newKeyPair()
+        val codes = (1..3).map {
+            guestPair(host = { ConnectChannel.accept(it, null) { identity }.guest!!.code },
+                controller = { ConnectChannel.dialGuest(it).guest!!.code }).second
+        }
+        assertEquals(3, codes.toSet().size)
+    }
+
+    @Test
+    fun signedInHostRefusesAGuestAndSignedOutHostRefusesAnAccount() {
+        val identity = ConnectKeys.newKeyPair()
+        val account = ConnectKeys.account("luke", "pw")
+        val signedIn = runCatching {
+            guestPair(host = { ConnectChannel.accept(it, account) { identity } }, controller = { runCatching { ConnectChannel.dialGuest(it) } })
+        }.exceptionOrNull()
+        assertTrue(signedIn is SignedInOrOutException)
+        val signedOut = runCatching {
+            guestPair(host = { ConnectChannel.accept(it, null) { identity } }, controller = { runCatching { ConnectChannel.open(it, account, isHost = false) } })
+        }.exceptionOrNull()
+        assertTrue(signedOut is SignedInOrOutException)
+    }
+
+    @Test
+    fun codesComeOnlyFromTheExchangedValues() {
+        val a = ByteArray(91) { 1 }; val b = ByteArray(91) { 2 }; val n1 = ByteArray(16) { 3 }; val n2 = ByteArray(16) { 4 }
+        assertEquals(ConnectKeys.code(a, b, n1, n2), ConnectKeys.code(a, b, n1, n2))
+        assertNotEquals(ConnectKeys.code(a, b, n1, n2), ConnectKeys.code(b, a, n1, n2))
+    }
 }

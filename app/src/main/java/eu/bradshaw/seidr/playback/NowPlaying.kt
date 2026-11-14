@@ -11,12 +11,12 @@ object NowPlaying {
     /** The song the player is on; its file must not be deleted until playback moves on. */
     @Volatile var currentSongId: String? = null
 
-    /** Reports a play to the server, or keeps it for later if the server is out of reach. */
-    suspend fun scrobble(graph: Graph, songId: String, timeMs: Long) {
+    /** Reports a play to the server, or (with [keepForLater]) keeps it for later if the server is out of reach. */
+    suspend fun scrobble(graph: Graph, songId: String, timeMs: Long, keepForLater: Boolean = true) {
         try {
             graph.client.strict.scrobble(songId, timeMs, true).ok()
         } catch (e: IOException) {
-            graph.db.offline().insertScrobble(PendingScrobble(songId = songId, time = timeMs))
+            if (keepForLater) graph.db.offline().insertScrobble(PendingScrobble(songId = songId, time = timeMs))
         } catch (e: Exception) {
             Log.w("Scrobble", "rejected: $e")
         }

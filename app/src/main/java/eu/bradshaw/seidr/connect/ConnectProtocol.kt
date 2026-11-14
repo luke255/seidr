@@ -13,7 +13,15 @@ import java.io.DataOutputStream
 import java.io.IOException
 import java.net.Socket
 import java.security.GeneralSecurityException
+import java.security.KeyFactory
+import java.security.KeyPair
+import java.security.KeyPairGenerator
+import java.security.MessageDigest
+import java.security.PrivateKey
 import java.security.SecureRandom
+import java.security.spec.ECGenParameterSpec
+import java.security.spec.X509EncodedKeySpec
+import javax.crypto.KeyAgreement
 import java.util.zip.Deflater
 import java.util.zip.Inflater
 import javax.crypto.Cipher
@@ -36,6 +44,15 @@ import javax.crypto.spec.SecretKeySpec
  *   controller → host   Op(seq, …)            player commands, in order
  *   host → controller   State(ack = seq, …)   after every change, and every few seconds
  *   host → controller   Moved(to)             playback went to another device; follow it
+ *   host → controller   Ended(reason)         this link is over (taken over, disconnected); don't retry
+ *
+ * A device that's signed out advertises too, as a guest, so anyone signed in
+ * can play on it or sign it in. With no account key in common, the channel's
+ * key comes from an ECDH exchange instead ([ConnectChannel.dialGuest]): the
+ * host's key is long-term, and a controller trusts it once someone has
+ * checked that both screens show the same six-digit code (then it's pinned).
+ * The controller then sends either Guest (play here, with this login, held in
+ * memory only) or SignIn (save this login; SignedIn says how it went).
  */
 
 /** A device on the network, as discovery found it (or as a [ConnectMessage.Moved] names it). */
@@ -47,6 +64,8 @@ data class Peer(
     val port: Int,
     /** "phone", "tv" or "headset", for the icon. */
     val kind: String = KIND_PHONE,
+    /** Signed out: anyone can play on it, or sign it in. */
+    val guest: Boolean = false,
 ) {
     companion object {
         const val KIND_PHONE = "phone"
@@ -123,8 +142,25 @@ sealed interface RemoteOp {
 
 @Serializable
 sealed interface ConnectMessage {
+    /** [verify]: (controller → guest host) this host's key isn't pinned yet, so show the code. */
     @Serializable @SerialName("hello")
-    data class Hello(val id: String, val name: String, val version: Int = PROTOCOL_VERSION) : ConnectMessage
+    data class Hello(val id: String, val name: String, val version: Int = PROTOCOL_VERSION, val verify: Boolean = false) : ConnectMessage
+
+    /** Controller → guest host: play here for this login. Kept in memory only; [theme] is the sender's colour. */
+    @Serializable @SerialName("guest")
+    data class Guest(val url: String, val username: String, val password: String, val theme: String? = null) : ConnectMessage
+
+    /** Controller → guest host: sign in with this login. */
+    @Serializable @SerialName("signin")
+    data class SignIn(val url: String, val username: String, val password: String) : ConnectMessage
+
+    /** Guest host → controller: how a [SignIn] went (null: signed in). */
+    @Serializable @SerialName("signedin")
+    data class SignedIn(val error: String? = null) : ConnectMessage
+
+    /** Host → controller: this link is over and isn't worth retrying; [reason] is for the user. */
+    @Serializable @SerialName("ended")
+    data class Ended(val reason: String) : ConnectMessage
 
     @Serializable @SerialName("op")
     data class Op(val seq: Long, val op: RemoteOp) : ConnectMessage
@@ -157,7 +193,7 @@ sealed interface ConnectMessage {
     data class Moved(val to: Peer?) : ConnectMessage
 }
 
-const val PROTOCOL_VERSION = 1
+const val PROTOCOL_VERSION = 2
 
 /** Keys for Connect. Pure, so the tests can check that accounts match or don't. */
 object ConnectKeys {
@@ -176,16 +212,74 @@ object ConnectKeys {
 
     private fun hmac(key: ByteArray, data: ByteArray): ByteArray =
         Mac.getInstance("HmacSHA256").run { init(SecretKeySpec(key, "HmacSHA256")); doFinal(data) }
+
+    // --- Guests (signed-out devices) -----------------------------------------------
+
+    /** A device's long-term key, or a controller's key for one connection: ECDH on P-256. */
+    fun newKeyPair(): KeyPair = KeyPairGenerator.getInstance("EC").run {
+        initialize(ECGenParameterSpec("secp256r1"))
+        generateKeyPair()
+    }
+
+    /** Short, stable id for a public key, for pinning. */
+    fun fingerprint(publicKey: ByteArray): String = sha256(publicKey).take(16).joinToString("") { "%02x".format(it) }
+
+    /** ECDH with a peer's key; a key that isn't a valid P-256 point fails as an IOException. */
+    internal fun agreeOrFail(private: PrivateKey, publicKey: ByteArray): ByteArray = try {
+        val theirs = KeyFactory.getInstance("EC").generatePublic(X509EncodedKeySpec(publicKey))
+        KeyAgreement.getInstance("ECDH").run { init(private); doPhase(theirs, true); generateSecret() }
+    } catch (e: GeneralSecurityException) {
+        throw IOException("Bad key", e)
+    } catch (e: IllegalArgumentException) {
+        throw IOException("Bad key", e)
+    }
+
+    /** The host's commitment to its nonce, sent before it sees the controller's. */
+    internal fun commit(hostNonce: ByteArray, controllerKey: ByteArray, hostKey: ByteArray): ByteArray =
+        sha256(join("seidr-guest/commit".toByteArray(), hostNonce, controllerKey, hostKey))
+
+    internal fun guestSession(shared: ByteArray, controllerKey: ByteArray, hostKey: ByteArray, cNonce: ByteArray, hNonce: ByteArray): ByteArray =
+        hmac(shared, join("seidr-guest/session".toByteArray(), controllerKey, hostKey, cNonce, hNonce))
+
+    /**
+     * The six digits both screens show. From public values only: a device in
+     * the middle has different keys on each side, and the commitment stops it
+     * choosing nonces to make the two codes agree.
+     */
+    fun code(controllerKey: ByteArray, hostKey: ByteArray, cNonce: ByteArray, hNonce: ByteArray): String {
+        val h = sha256(join("seidr-guest/code".toByteArray(), controllerKey, hostKey, cNonce, hNonce))
+        val n = ((h[0].toLong() and 0xff) shl 24) or ((h[1].toLong() and 0xff) shl 16) or ((h[2].toLong() and 0xff) shl 8) or (h[3].toLong() and 0xff)
+        return "%06d".format(n % 1_000_000)
+    }
+
+    private fun sha256(data: ByteArray): ByteArray = MessageDigest.getInstance("SHA-256").digest(data)
+
+    /** Length-prefixed, so no two different lists of parts join the same. */
+    private fun join(vararg parts: ByteArray): ByteArray {
+        val out = ByteArrayOutputStream()
+        val d = DataOutputStream(out)
+        parts.forEach { d.writeInt(it.size); d.write(it) }
+        return out.toByteArray()
+    }
 }
+
+/** What a guest handshake settled: the host's long-term key and the code to compare. */
+class GuestHandshake(val hostKey: ByteArray, val code: String)
 
 /** Thrown when a peer's first frame doesn't decrypt: it's signed in as someone else. */
 class WrongAccountException : IOException("not the same account")
+
+/** The peer wanted the other handshake: it signed in or out since it was found. */
+class SignedInOrOutException : IOException("signed in or out since it was found")
 
 /**
  * Length-prefixed, deflated, AES-GCM frames. [open] runs the nonce exchange;
  * [send] is safe from any thread, [receive] is for one reader.
  */
 class ConnectChannel private constructor(private val socket: Socket, private val isHost: Boolean) : Closeable {
+    /** Set by a guest handshake. */
+    var guest: GuestHandshake? = null
+        private set
     private val input = DataInputStream(BufferedInputStream(socket.getInputStream()))
     private val output = DataOutputStream(BufferedOutputStream(socket.getOutputStream()))
     private lateinit var key: SecretKeySpec
@@ -193,17 +287,63 @@ class ConnectChannel private constructor(private val socket: Socket, private val
     private var received = 0L
     private var greeted = false
 
-    private fun exchangeNonces(account: ByteArray) {
+    /** The controller speaks first, so a host can read which handshake it wants ([accept]). */
+    private fun exchangeNonces(account: ByteArray, magicRead: Boolean = false) {
+        if (isHost && !magicRead) readMagic(MAGIC)
         val mine = ByteArray(NONCE_BYTES).also(random::nextBytes)
         output.write(MAGIC)
         output.write(mine)
         output.flush()
-        val magic = ByteArray(MAGIC.size).also(input::readFully)
-        if (!magic.contentEquals(MAGIC)) throw IOException("Not a Seiðr Connect peer")
+        if (!isHost) readMagic(MAGIC)
         val theirs = ByteArray(NONCE_BYTES).also(input::readFully)
         key = SecretKeySpec(
             if (isHost) ConnectKeys.session(account, theirs, mine) else ConnectKeys.session(account, mine, theirs), "AES",
         )
+    }
+
+    private fun readMagic(expected: ByteArray) {
+        val magic = ByteArray(expected.size).also(input::readFully)
+        if (magic.contentEquals(expected)) return
+        throw if (magic.contentEquals(MAGIC) || magic.contentEquals(GUEST_MAGIC)) SignedInOrOutException() else IOException("Not a Seiðr Connect peer")
+    }
+
+    private fun writeBlob(b: ByteArray) { output.writeShort(b.size); output.write(b) }
+
+    private fun readBlob(): ByteArray {
+        val n = input.readUnsignedShort()
+        if (n > MAX_BLOB) throw IOException("Bad handshake")
+        return ByteArray(n).also(input::readFully)
+    }
+
+    /** Controller side of the guest handshake: a fresh key of ours, the host's long-term one. */
+    private fun guestAsController() {
+        val mine = ConnectKeys.newKeyPair()
+        val cKey = mine.public.encoded
+        output.write(GUEST_MAGIC); writeBlob(cKey); output.flush()
+        readMagic(GUEST_MAGIC)
+        val hKey = readBlob()
+        val commitment = readBlob()
+        val cNonce = ByteArray(NONCE_BYTES).also(random::nextBytes)
+        writeBlob(cNonce); output.flush()
+        val hNonce = readBlob()
+        if (!MessageDigest.isEqual(commitment, ConnectKeys.commit(hNonce, cKey, hKey))) throw IOException("Handshake didn't verify")
+        finishGuest(ConnectKeys.agreeOrFail(mine.private, hKey), cKey, hKey, cNonce, hNonce)
+    }
+
+    /** Host side, after the magic: commit to a nonce, take theirs, then reveal ours. */
+    private fun guestAsHost(identity: KeyPair) {
+        val cKey = readBlob()
+        val hKey = identity.public.encoded
+        val hNonce = ByteArray(NONCE_BYTES).also(random::nextBytes)
+        output.write(GUEST_MAGIC); writeBlob(hKey); writeBlob(ConnectKeys.commit(hNonce, cKey, hKey)); output.flush()
+        val cNonce = readBlob()
+        writeBlob(hNonce); output.flush()
+        finishGuest(ConnectKeys.agreeOrFail(identity.private, cKey), cKey, hKey, cNonce, hNonce)
+    }
+
+    private fun finishGuest(shared: ByteArray, cKey: ByteArray, hKey: ByteArray, cNonce: ByteArray, hNonce: ByteArray) {
+        key = SecretKeySpec(ConnectKeys.guestSession(shared, cKey, hKey, cNonce, hNonce), "AES")
+        guest = GuestHandshake(hKey, ConnectKeys.code(cKey, hKey, cNonce, hNonce))
     }
 
     @Synchronized
@@ -249,7 +389,28 @@ class ConnectChannel private constructor(private val socket: Socket, private val
         fun open(socket: Socket, account: ByteArray, isHost: Boolean): ConnectChannel =
             ConnectChannel(socket, isHost).also { it.exchangeNonces(account) }
 
+        /** Controller: the guest handshake with a signed-out device. Its [guest] holds the key and code. */
+        fun dialGuest(socket: Socket): ConnectChannel = ConnectChannel(socket, isHost = false).also { it.guestAsController() }
+
+        /**
+         * Host: takes whichever handshake the controller started. Signed in
+         * ([account] set), only the same account; signed out, only guests.
+         */
+        fun accept(socket: Socket, account: ByteArray?, identity: () -> KeyPair): ConnectChannel {
+            val ch = ConnectChannel(socket, isHost = true)
+            val magic = ByteArray(MAGIC.size).also(ch.input::readFully)
+            when {
+                magic.contentEquals(MAGIC) && account != null -> ch.exchangeNonces(account, magicRead = true)
+                magic.contentEquals(GUEST_MAGIC) && account == null -> ch.guestAsHost(identity())
+                magic.contentEquals(MAGIC) || magic.contentEquals(GUEST_MAGIC) -> throw SignedInOrOutException()
+                else -> throw IOException("Not a Seiðr Connect peer")
+            }
+            return ch
+        }
+
         private val MAGIC = "SLC1".toByteArray()
+        private val GUEST_MAGIC = "SLG1".toByteArray()
+        private const val MAX_BLOB = 1024
         private const val NONCE_BYTES = 16
         private const val GCM_NONCE = 12
         /** A queue of tens of thousands of tracks still fits, deflated. */

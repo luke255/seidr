@@ -61,8 +61,12 @@ the *th* of "weather" in place of the *f*. ASCII spelling: Seidr.
 - **Foldables and tablets**, with two panes side by side.
 - **Play on another device.** Pick a phone or TV on the same Wi-Fi and control
   it from this one.
-- **Sign in by QR code.** Already signed in on one device? Scan to sign in on
-  the next. No typing passwords on a TV.
+- **Sign in from another device.** Already signed in on one device? Sign the
+  next one in from Settings, checking a code on both screens. No typing
+  passwords on a TV.
+- **Play on a device that isn't signed in.** A friend's phone or a TV with
+  Seiðr open shows up too, and plays your music with your login until you
+  disconnect.
 
 ### MilkDrop visualiser
 
@@ -104,12 +108,13 @@ Seiðr has no analytics, tracking, ads or accounts of its own. It talks to:
 
 - **your server**, for everything to do with your music;
 - **GitHub**, to check for a new release (you can turn this off);
-- **your other devices**, on your local network, only when you sign one in by
-  QR code or play on another device.
+- **other devices running Seiðr** on your local network, when you sign one in
+  or play on one.
 
 Your password stays on the device. It isn't sent anywhere except your server,
-and to another device you choose to sign in, encrypted with a one-time key
-from the QR code.
+and to another device you choose to sign in or play on, encrypted with a key
+agreed when you checked the code on both screens. A device you play on keeps
+it in memory only, until you disconnect.
 
 ## How it's made
 
