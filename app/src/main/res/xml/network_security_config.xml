@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Most home servers have no certificate, so plain HTTP is allowed. Login warns
+     when an http:// server is on the open internet (PlainHttp). -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

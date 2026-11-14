@@ -1,0 +1,337 @@
+package eu.bradshaw.seidr.ui.screens
+
+import android.content.Intent
+import android.net.Uri
+import android.os.PowerManager
+import android.provider.Settings as AndroidSettings
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.GraphicEq
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.QrCode2
+import androidx.compose.material.icons.outlined.BatteryChargingFull
+import androidx.compose.material.icons.outlined.Download
+import androidx.compose.material.icons.outlined.Autorenew
+import androidx.compose.material.icons.outlined.Description
+import androidx.compose.material.icons.outlined.Flag
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.SystemUpdate
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.focus.onFocusChanged
+import kotlinx.coroutines.launch
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import eu.bradshaw.seidr.BuildConfig
+import eu.bradshaw.seidr.data.BadKind
+import eu.bradshaw.seidr.ui.LocalActions
+import eu.bradshaw.seidr.ui.LocalIsTv
+import eu.bradshaw.seidr.ui.Route
+import eu.bradshaw.seidr.ui.components.BackTopBar
+import eu.bradshaw.seidr.ui.components.CardDivider
+import eu.bradshaw.seidr.ui.components.CardGroup
+import eu.bradshaw.seidr.ui.components.CardItem
+import eu.bradshaw.seidr.ui.components.CardLabel
+import eu.bradshaw.seidr.ui.components.ToggleItem
+import eu.bradshaw.seidr.ui.components.Chevron
+import eu.bradshaw.seidr.ui.components.LocalBottomChrome
+import eu.bradshaw.seidr.ui.focusRing
+import eu.bradshaw.seidr.ui.theme.ThemeChoice
+import eu.bradshaw.seidr.ui.theme.colorSchemeFor
+import eu.bradshaw.seidr.update.Updater
+
+@Composable
+fun SettingsScreen() {
+    val actions = LocalActions.current
+    val graph = actions.graph
+    val context = LocalContext.current
+    val theme by graph.settings.theme.collectAsStateWithLifecycle()
+    var signOut by remember { mutableStateOf(false) }
+    val tv = LocalIsTv.current
+    var exempt by remember { mutableStateOf(isBatteryExempt(context)) }
+    LifecycleResumeEffect(Unit) { exempt = isBatteryExempt(context); onPauseOrDispose {} }
+
+    Column(Modifier.fillMaxSize()) {
+        BackTopBar("Settings")
+        val scroll = rememberScrollState()
+        val scope = rememberCoroutineScope()
+        Column(Modifier.verticalScroll(scroll)) {
+            AccountCard(onSignOut = { signOut = true })
+
+            CardLabel("Appearance")
+            CardGroup { ThemePicker(ThemeChoice.fromKey(theme)) { graph.settings.setTheme(it.key) } }
+
+            CardLabel("Visualiser")
+            CardGroup {
+                CardItem(Icons.Filled.GraphicEq, "Track info and presets", "What shows over it; loved and hidden presets",
+                    trailing = { Chevron() }) { actions.open(Route.Visualiser) }
+            }
+
+            // TVs are on mains power, and don't download.
+            if (!tv) {
+                CardLabel("Playback and downloads")
+                CardGroup {
+                    CardItem(
+                        Icons.Outlined.BatteryChargingFull, "Background playback",
+                        if (exempt) "Unrestricted: battery optimisation is off"
+                        else "Tap to let Seiðr run unrestricted. Some phones' battery managers stop music otherwise.",
+                        trailing = {
+                            if (exempt) Icon(Icons.Filled.CheckCircle, "On", tint = MaterialTheme.colorScheme.primary)
+                            else Chevron()
+                        },
+                    ) { requestBatteryExemption(context) }
+                    CardDivider()
+                    CardItem(Icons.Outlined.Download, "Downloads and storage", "Queue, storage per playlist, Wi-Fi only",
+                        trailing = { Chevron() }) { actions.open(Route.Downloads) }
+                }
+            }
+
+            // The version line at the foot can't take focus, so a remote would never
+            // scroll to it: reaching the last controls scrolls to the very end.
+            Column(Modifier.onFocusChanged { if (it.hasFocus) scope.launch { scroll.animateScrollTo(scroll.maxValue) } }) {
+            CardLabel("Reporting")
+            val badOn by graph.settings.badReports.collectAsStateWithLifecycle()
+            val found by graph.bad.playlists.collectAsStateWithLifecycle()
+            val allLoaded by graph.library.allPlaylists.collectAsStateWithLifecycle()
+            val missing = BadKind.entries.filter { it !in found }.map { it.playlistName }
+            CardGroup {
+                ToggleItem(Icons.Outlined.Flag, "Report problems", "Adds a flag beside the heart", badOn) {
+                    graph.settings.setBadReports(it)
+                }
+                Text(
+                    buildString {
+                        append("Flag a song with a bad file, wrong art or broken lyrics, and it's added to a playlist on your server: Bad: Songs, Bad: Art or Bad: Lyrics, created if missing. ")
+                        append("Whoever looks after the server can fix each one and take it off the list. These playlists stay out of your library, and songs in Bad: Songs are skipped until they're removed.")
+                        if (badOn && allLoaded != null && missing.isNotEmpty()) append(" Not found on the server: ${missing.joinToString()}.")
+                    },
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(start = 56.dp, end = 16.dp, bottom = 14.dp),
+                )
+            }
+
+            CardLabel("About")
+            CardGroup {
+                // Release builds only: debug builds are another package and don't self-update.
+                if (BuildConfig.UPDATE_URL.isNotEmpty()) {
+                    val auto by graph.settings.autoUpdate.collectAsStateWithLifecycle()
+                    ToggleItem(Icons.Outlined.Autorenew, "Check for updates automatically", "Looks for a new release on GitHub when you open the app", auto) {
+                        graph.settings.setAutoUpdate(it)
+                    }
+                    CardDivider()
+                    var checking by remember { mutableStateOf(false) }
+                    val available by Updater.available.collectAsStateWithLifecycle()
+                    CardItem(
+                        Icons.Outlined.SystemUpdate,
+                        if (available != null) "Install update" else "Check for updates",
+                        when {
+                            checking -> "Checking…"
+                            available != null -> "Version $available is ready"
+                            else -> "Installs a newer version straight away"
+                        },
+                        trailing = { if (available != null) NewBadge() },
+                    ) {
+                        val activity = context as? android.app.Activity ?: return@CardItem
+                        if (checking) return@CardItem
+                        checking = true
+                        Updater.refresh(activity) { version ->
+                            checking = false
+                            if (version == null) actions.toast("You have the latest version (or GitHub is out of reach)")
+                        }
+                    }
+                    CardDivider()
+                }
+                CardItem(Icons.Outlined.Description, "Open-source licences", "Seiðr is free software (GNU GPL 3.0)",
+                    trailing = { Chevron() }) { actions.open(Route.Licences) }
+                CardDivider()
+                CardItem(Icons.Outlined.Info, "Seiðr ${BuildConfig.VERSION_NAME}", "Build ${BuildConfig.VERSION_CODE}")
+            }
+            }
+            Spacer(Modifier.height(24.dp + LocalBottomChrome.current))
+        }
+    }
+
+    if (signOut) {
+        AlertDialog(
+            onDismissRequest = { signOut = false },
+            title = { Text("Sign out?") },
+            text = { Text("Playback stops and sync pauses until you sign in again. Downloaded files are kept.") },
+            confirmButton = {
+                TextButton(onClick = {
+                    signOut = false
+                    graph.player.stopAndClear()
+                    graph.sync.cancelAll()
+                    graph.live.reset()
+                    graph.library.clear()
+                    graph.bad.clear()
+                    graph.lyricsOffsets.clear()
+                    graph.client.clearCache()
+                    graph.settings.clearServer()
+                }) { Text("Sign out") }
+            },
+            dismissButton = { TextButton(onClick = { signOut = false }) { Text("Cancel") } },
+        )
+    }
+}
+
+/** Who's signed in, to which server, with the two things to do about it. */
+@Composable
+private fun AccountCard(onSignOut: () -> Unit) {
+    val actions = LocalActions.current
+    val server by actions.graph.settings.server.collectAsStateWithLifecycle()
+    val online by actions.graph.status.online.collectAsStateWithLifecycle()
+    val cs = MaterialTheme.colorScheme
+    Column(
+        Modifier.padding(horizontal = 16.dp, vertical = 8.dp).fillMaxWidth()
+            .clip(RoundedCornerShape(20.dp)).background(cs.surfaceContainerHigh).padding(16.dp),
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(Modifier.size(52.dp).clip(CircleShape).background(cs.primary), contentAlignment = Alignment.Center) {
+                Text(server?.username?.firstOrNull()?.uppercase() ?: "?", color = cs.onPrimary, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+            }
+            Spacer(Modifier.width(14.dp))
+            Column(Modifier.weight(1f)) {
+                Text(server?.username ?: "Not signed in", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold,
+                    maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Box(Modifier.size(8.dp).clip(CircleShape).background(if (online) Color(0xFF7EE08A) else cs.outline))
+                    Spacer(Modifier.width(6.dp))
+                    Text(
+                        server?.url?.substringAfter("://")?.trimEnd('/') ?: "Not connected",
+                        style = MaterialTheme.typography.bodyMedium, color = cs.onSurfaceVariant,
+                        maxLines = 1, overflow = TextOverflow.Ellipsis,
+                    )
+                }
+            }
+        }
+        Row(Modifier.padding(top = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            FilledTonalButton(
+                onClick = { actions.open(Route.LinkDevice) },
+                contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
+                modifier = Modifier.weight(1f).focusRing(CircleShape),
+            ) {
+                Icon(Icons.Filled.QrCode2, null, Modifier.size(18.dp))
+                Spacer(Modifier.width(8.dp))
+                Text("Sign in another device", maxLines = 1, overflow = TextOverflow.Ellipsis)
+            }
+            OutlinedButton(onClick = onSignOut) { Text("Sign out") }
+        }
+    }
+}
+
+@Composable
+private fun NewBadge() {
+    Text(
+        "NEW", style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold,
+        color = MaterialTheme.colorScheme.onTertiary,
+        modifier = Modifier.clip(CircleShape).background(MaterialTheme.colorScheme.tertiary).padding(horizontal = 10.dp, vertical = 3.dp),
+    )
+}
+
+@Composable
+private fun ThemePicker(selected: ThemeChoice, onSelect: (ThemeChoice) -> Unit) {
+    val context = LocalContext.current
+    val swatches = remember(context) { ThemeChoice.entries.associateWith { colorSchemeFor(it, context).primary } }
+    Column(Modifier.padding(16.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("Colour", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
+            Text(
+                when (selected) {
+                    ThemeChoice.SYSTEM -> "System (wallpaper)"
+                    ThemeChoice.NEUTRAL -> "Neutral"
+                    else -> selected.label
+                },
+                style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        FlowRow(
+            Modifier.fillMaxWidth().padding(top = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            ThemeChoice.entries.forEach { choice ->
+                val isSelected = choice == selected
+                val fill = if (choice == ThemeChoice.NEUTRAL) Color(0xFF2C2C2C) else swatches.getValue(choice)
+                Box(
+                    Modifier.size(42.dp)
+                        .focusRing(CircleShape)
+                        .border(2.dp, if (isSelected) MaterialTheme.colorScheme.onSurface else Color.Transparent, CircleShape)
+                        .padding(4.dp)
+                        .clip(CircleShape)
+                        .background(fill)
+                        .then(if (choice == ThemeChoice.NEUTRAL) Modifier.border(1.dp, MaterialTheme.colorScheme.outline, CircleShape) else Modifier)
+                        .selectable(isSelected, role = Role.RadioButton) { onSelect(choice) }
+                        .semantics { contentDescription = choice.label },
+                    contentAlignment = Alignment.Center,
+                ) {
+                    val tint = if (choice == ThemeChoice.NEUTRAL) Color.White else Color.Black.copy(alpha = 0.7f)
+                    when {
+                        isSelected -> Icon(Icons.Default.Check, null, tint = tint, modifier = Modifier.size(20.dp))
+                        choice == ThemeChoice.SYSTEM -> Icon(Icons.Default.AutoAwesome, null, tint = tint, modifier = Modifier.size(18.dp))
+                    }
+                }
+            }
+        }
+    }
+}
+
+fun isBatteryExempt(context: android.content.Context): Boolean =
+    context.getSystemService(PowerManager::class.java).isIgnoringBatteryOptimizations(context.packageName)
+
+/** Sideloaded, so the direct exemption request is fine (no Play policy applies). */
+fun requestBatteryExemption(context: android.content.Context) {
+    val direct = Intent(AndroidSettings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, Uri.parse("package:${context.packageName}"))
+    runCatching { context.startActivity(direct) }.onFailure {
+        runCatching { context.startActivity(Intent(AndroidSettings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)) }
+    }
+}
