@@ -16,7 +16,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import eu.bradshaw.seidr.ui.LocalActions
 import eu.bradshaw.seidr.ui.Route
@@ -82,14 +81,17 @@ fun LicenceTextScreen(title: String, file: String) {
     val paragraphs by produceState(emptyList<String>(), file) {
         value = withContext(Dispatchers.IO) {
             context.assets.open("licences/$file").bufferedReader().use { it.readText() }
-        }.split(Regex("\n\\s*\n")).map { it.trimEnd() }.filter { it.isNotBlank() }
+        }.split(Regex("\n\\s*\n"))
+            // The files are hard-wrapped at ~70 columns; rewrap each paragraph to the screen.
+            .map { it.trim().replace(Regex("\\s*\n\\s*"), " ") }
+            .filter { it.isNotBlank() }
     }
     Column(Modifier.fillMaxSize()) {
         BackTopBar(title)
         LazyColumn(Modifier.fillMaxSize(), contentPadding = bottomContentPadding(24.dp)) {
             items(paragraphs) { p ->
                 Text(
-                    p, style = MaterialTheme.typography.bodySmall, fontFamily = FontFamily.Monospace,
+                    p, style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.fillMaxWidth().focusable().padding(horizontal = 16.dp, vertical = 6.dp),
                 )
