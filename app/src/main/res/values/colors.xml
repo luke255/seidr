@@ -1,4 +1,6 @@
 <resources>
     <color name="splash_bg">#121212</color>
+    <!-- Brand: the icon, banners and sign-in tile. -->
     <color name="icon_bg">#D42A1E</color>
+    <color name="brand_yellow">#FFC93C</color>
 </resources>

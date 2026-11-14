@@ -108,7 +108,9 @@ fun ScanCodePanel(hint: String, onCode: (PairCode) -> Unit) {
         granted = hasCamera(context) && !needsHeadsetCamera(context)
     }
     RequestLanPermission()
-    LaunchedEffect(Unit) { if (!granted) ask.launch(cameraPermissions()) }
+    // On a Quest the note about ticking Headset cameras comes first, and the
+    // button asks: the system prompt would cover the note straight away.
+    LaunchedEffect(Unit) { if (!granted && !isQuest) ask.launch(cameraPermissions()) }
 
     Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(16.dp)) {
         if (granted) {
@@ -121,7 +123,7 @@ fun ScanCodePanel(hint: String, onCode: (PairCode) -> Unit) {
         } else if (isQuest) {
             Hint("Seiðr needs the headset cameras to scan the code. When your Quest asks, tick Headset cameras, then Allow. " +
                 "If it doesn't ask, allow Camera and Headset cameras in the app's settings.")
-            Button(onClick = { ask.launch(cameraPermissions()) }) { Text("Allow cameras") }
+            Button(onClick = { ask.launch(cameraPermissions()) }) { Text("Allow headset cameras") }
         } else {
             Hint("Seiðr needs the camera to scan the code. If it doesn't ask, allow Camera in the app's system settings.")
             Button(onClick = { ask.launch(cameraPermissions()) }) { Text("Allow camera") }
