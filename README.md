@@ -4,6 +4,9 @@ An Android music player for your [Navidrome](https://www.navidrome.org/) server.
 Offline playlists that keep themselves up to date, a proper queue, and the
 same app on your phone, foldable, car, TV and headset.
 
+*Seiðr* (Old Norse, a kind of sorcery) is said "SAY-ther": like "safer", with
+the *th* of "weather" in place of the *f*. ASCII spelling: Seidr.
+
 <p>
   <img src="docs/screenshots/home.webp" width="32%" alt="Home">
   <img src="docs/screenshots/now-playing.webp" width="32%" alt="Now Playing, coloured from the album cover">
@@ -111,7 +114,7 @@ from the QR code.
 ## How it's made
 
 Seiðr is written entirely by Claude Opus (Anthropic's AI model), working in
-Claude Code. It's designed, directed and tested by a person, on real devices
+Claude Code. It's designed, directed and tested by me, on real devices
 (a Galaxy Fold, an Android TV, a Meta Quest 3 and Android Auto) and against a
 real library. The rules that matter most, like never deleting
 downloads on the strength of a bad response, are covered by unit tests.
