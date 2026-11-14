@@ -138,15 +138,17 @@ class VisualiserActivity : ComponentActivity() {
             setBackgroundColor(Color.BLACK)
             addView(view)
             addView(overlay)
-            // The tuner's readout, if Settings → Visualiser asks for it.
+            // The tuner's readout, if Settings → Visualiser asks for it. Top left,
+            // clear of the track card (bottom left), and hidden while the controls
+            // show, since they use the top.
             val readout = TextView(context).apply {
                 setTextColor(Color.WHITE)
                 setShadowLayer(6f, 0f, 0f, Color.BLACK)
                 textSize = 12f
-                setPadding(48, 0, 48, 36)
+                setPadding(48, 48, 48, 0)
             }
             addView(readout, FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM or Gravity.END,
+                FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.TOP or Gravity.START,
             ))
             lifecycleScope.launch {
                 while (true) {
@@ -165,6 +167,7 @@ class VisualiserActivity : ComponentActivity() {
 
     private fun showControls(on: Boolean) {
         controls = on
+        hud?.animate()?.alpha(if (on) 0f else 1f)?.setDuration(200)
         hideControls.isEnabled = on
         lastInput = SystemClock.uptimeMillis()
     }

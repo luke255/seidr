@@ -92,7 +92,7 @@ class VisEngine(
     fun stats(): String {
         val l = tune.current
         return "%.0f fps · %d×%d · mesh %d×%d · blend %s · level %d · audio −%d ms".format(
-            tune.fps, width, height, l.meshX, l.meshY, if (l.transitions) "on" else "off", tune.level, VisAudio.aheadMs(),
+            tune.fps, width, height, l.meshX, l.meshY, if (l.transitions) "on" else "off", tune.level, VisAudio.aheadMs().coerceAtLeast(0), // -1: no audio yet
         )
     }
 
