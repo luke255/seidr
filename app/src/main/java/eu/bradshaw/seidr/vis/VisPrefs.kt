@@ -112,6 +112,13 @@ class VisPrefs(private val context: Context, user: StateFlow<String?>, scope: Co
         remove(LEVEL_OF + path) // judge it afresh
     }
 
+    // --- The flashing-lights warning (see VisWarning) ---------------------------
+
+    /** This device has shown the warning for the flat ([immersive] false) or the headset's visualiser. */
+    fun warned(immersive: Boolean): Boolean = prefs.getBoolean(if (immersive) WARNED_XR else WARNED, false)
+
+    fun setWarned(immersive: Boolean) = prefs.edit { putBoolean(if (immersive) WARNED_XR else WARNED, true) }
+
     // --- The tuner's memory (see Autotune) -------------------------------------
 
     /** The frame rate to hold to: 60, or 30 once this device has fallen back. */
@@ -202,5 +209,7 @@ class VisPrefs(private val context: Context, user: StateFlow<String?>, scope: Co
         const val LEVEL_OF = "level:" // + preset path: where it settled last time
         const val PACING_FIXED = "pacing_fixed" // see forgetPacingBug
         const val MIGRATED = "per_user" // the user's settings have moved to their own file
+        const val WARNED = "warned"
+        const val WARNED_XR = "warned_xr"
     }
 }

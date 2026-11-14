@@ -158,6 +158,7 @@ import androidx.compose.ui.platform.LocalViewConfiguration
 import eu.bradshaw.seidr.ui.isSelect
 import eu.bradshaw.seidr.ui.focusRing
 import eu.bradshaw.seidr.vis.VisualiserActivity
+import eu.bradshaw.seidr.vis.VisWarning
 import eu.bradshaw.seidr.vis.xr.XrVisualiserActivity
 import eu.bradshaw.seidr.ui.primaryFocus
 import eu.bradshaw.seidr.ui.LocalIsTv
@@ -390,40 +391,7 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
 
             Scrubber(cur)
 
-            // Transport.
-            val playFocus = remember { FocusRequester() }
-            val prevFocus = remember { FocusRequester() }
-            val nextFocus = remember { FocusRequester() }
-            var nextFocused by remember { mutableStateOf(false) }
-            // Shuffle and repeat live at the top of the Queue screen.
-            // Previous and next are the two halves of a pill, split by a circle around
-            // play/pause (its radius plus a gap); each whole half is the button. Play/pause is
-            // drawn last so it wins taps where their bounds overlap.
-            Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                Row(Modifier.width(SkipHalfWidth * 2), horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically) {
-                    // Play/pause overlaps both halves, so the D-pad can't find it (or them)
-                    // sideways by geometry: link the three explicitly.
-                    SkipHalf(start = true, onClick = player::previous,
-                        Modifier.focusRequester(prevFocus).focusProperties { end = playFocus }) { Icon(Icons.Filled.SkipPrevious, "Previous", Modifier.size(36.dp)) }
-                    // Hidden at the end of the queue (its space kept, so the row doesn't shift). If
-                    // it had remote focus, focus moves to play/pause rather than being lost.
-                    if (ui.hasNext) {
-                        SkipHalf(start = false, onClick = player::next, Modifier.focusRequester(nextFocus)
-                            .focusProperties { start = playFocus }.onFocusChanged { nextFocused = it.hasFocus }) {
-                            Icon(Icons.Filled.SkipNext, "Next", Modifier.size(36.dp))
-                        }
-                    } else {
-                        Spacer(Modifier.size(SkipHalfWidth, SkipHalfHeight))
-                        LaunchedEffect(Unit) { if (nextFocused) { nextFocused = false; playFocus.requestFocus() } }
-                    }
-                }
-                FilledIconButton(onClick = player::playPause, Modifier.size(72.dp).focusRing(CircleShape).primaryFocus().focusRequester(playFocus)
-                    .focusProperties { start = prevFocus; end = if (ui.hasNext) nextFocus else FocusRequester.Default }, shape = CircleShape,
-                    colors = IconButtonDefaults.filledIconButtonColors()) {
-                    Icon(if (ui.showPause) Icons.Filled.Pause else Icons.Filled.PlayArrow, if (ui.showPause) "Pause" else "Play", Modifier.size(40.dp))
-                }
-            }
+            Transport()
             // Devices, lyrics, visualiser, queue: each centred in its quarter of the width.
             // On a Quest, the immersive visualiser sits beside the flat one.
             val context = LocalContext.current
@@ -440,11 +408,25 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
                 Box(Modifier.weight(1f), contentAlignment = Alignment.Center) {
                     Row {
                         // It visualises what this device plays: nothing, while another one is playing.
-                        IconButton(onClick = { context.startActivity(Intent(context, VisualiserActivity::class.java)) }, enabled = remote == null) {
+                        // The first time for each, a flashing-lights warning.
+                        val prefs = actions.graph.visPrefs
+                        var warn by remember { mutableStateOf<Boolean?>(null) } // immersive, or not
+                        val open = { immersive: Boolean ->
+                            context.startActivity(Intent(context, if (immersive) XrVisualiserActivity::class.java else VisualiserActivity::class.java))
+                        }
+                        warn?.let { immersive ->
+                            VisWarning(immersive, onCancel = { warn = null }, onContinue = {
+                                warn = null
+                                prefs.setWarned(immersive)
+                                open(immersive)
+                            })
+                        }
+                        val visualise = { immersive: Boolean -> if (prefs.warned(immersive)) open(immersive) else warn = immersive }
+                        IconButton(onClick = { visualise(false) }, enabled = remote == null) {
                             Icon(Icons.Filled.GraphicEq, "Visualiser")
                         }
                         if (headset) {
-                            IconButton(onClick = { context.startActivity(Intent(context, XrVisualiserActivity::class.java)) }, enabled = remote == null) {
+                            IconButton(onClick = { visualise(true) }, enabled = remote == null) {
                                 Icon(Icons.Filled.ViewInAr, "Immersive visualiser")
                             }
                         }
@@ -505,8 +487,48 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
     }
 }
 
+/** Previous, play/pause and next, as on Now Playing (also the visualiser's transport page). */
 @Composable
-private fun Scrubber(cur: QueueEntry) {
+internal fun Transport() {
+    val player = LocalActions.current.player
+    val ui by player.ui.collectAsStateWithLifecycle()
+    val playFocus = remember { FocusRequester() }
+    val prevFocus = remember { FocusRequester() }
+    val nextFocus = remember { FocusRequester() }
+    var nextFocused by remember { mutableStateOf(false) }
+    // Shuffle and repeat live at the top of the Queue screen.
+    // Previous and next are the two halves of a pill, split by a circle around
+    // play/pause (its radius plus a gap); each whole half is the button. Play/pause is
+    // drawn last so it wins taps where their bounds overlap.
+    Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+        Row(Modifier.width(SkipHalfWidth * 2), horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically) {
+            // Play/pause overlaps both halves, so the D-pad can't find it (or them)
+            // sideways by geometry: link the three explicitly.
+            SkipHalf(start = true, onClick = player::previous,
+                Modifier.focusRequester(prevFocus).focusProperties { end = playFocus }) { Icon(Icons.Filled.SkipPrevious, "Previous", Modifier.size(36.dp)) }
+            // Hidden at the end of the queue (its space kept, so the row doesn't shift). If
+            // it had remote focus, focus moves to play/pause rather than being lost.
+            if (ui.hasNext) {
+                SkipHalf(start = false, onClick = player::next, Modifier.focusRequester(nextFocus)
+                    .focusProperties { start = playFocus }.onFocusChanged { nextFocused = it.hasFocus }) {
+                    Icon(Icons.Filled.SkipNext, "Next", Modifier.size(36.dp))
+                }
+            } else {
+                Spacer(Modifier.size(SkipHalfWidth, SkipHalfHeight))
+                LaunchedEffect(Unit) { if (nextFocused) { nextFocused = false; playFocus.requestFocus() } }
+            }
+        }
+        FilledIconButton(onClick = player::playPause, Modifier.size(72.dp).focusRing(CircleShape).primaryFocus().focusRequester(playFocus)
+            .focusProperties { start = prevFocus; end = if (ui.hasNext) nextFocus else FocusRequester.Default }, shape = CircleShape,
+            colors = IconButtonDefaults.filledIconButtonColors()) {
+            Icon(if (ui.showPause) Icons.Filled.Pause else Icons.Filled.PlayArrow, if (ui.showPause) "Pause" else "Play", Modifier.size(40.dp))
+        }
+    }
+}
+
+@Composable
+internal fun Scrubber(cur: QueueEntry) {
     val player = LocalActions.current.player
     val ui by player.ui.collectAsStateWithLifecycle()
     var pos by remember { mutableFloatStateOf(0f) }

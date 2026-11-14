@@ -44,13 +44,18 @@ class VisEngine(
         private set
     private val verdicts = ArrayDeque<Boolean>() // recent presets: too heavy or not
     private var judged = false // the current preset already has a verdict (or failed to load)
+    private val sprite = LogoSprite(context)
+    /** The app's ð over the preset ([LogoSprite]), for the visualiser's logo page. Any thread. */
+    @Volatile var logo = false
 
     /** A fresh GL context: everything projectM held in the last one is gone. */
     fun create(textures: File) {
         if (handle != 0L) ProjectM.nativeDestroy(handle)
         handle = ProjectM.nativeCreate(textures.absolutePath, 1, 1)
+        sprite.create()
         configure()
-        next(hardCut = false)
+        // Cut, not blended: with nothing showing yet, projectM would blend from its own idle logo.
+        next(hardCut = true)
     }
 
     fun resize(width: Int, height: Int) {
@@ -64,6 +69,7 @@ class VisEngine(
         val n = VisAudio.readAudible(pcm)
         ProjectM.nativeAddPcm(handle, pcm, n)
         val events = ProjectM.nativeRender(handle)
+        sprite.draw(logo, now, width, height, pcm, n)
         if (events and ProjectM.LOAD_FAILED != 0) judged = true
         if (events and (ProjectM.LOAD_FAILED or ProjectM.SWITCH_REQUESTED) != 0) next(hardCut = events and ProjectM.HARD_CUT != 0)
 
@@ -184,6 +190,7 @@ class VisEngine(
     }
 
     fun release() {
+        if (handle != 0L) sprite.release()
         if (handle != 0L) ProjectM.nativeDestroy(handle)
         handle = 0L
     }

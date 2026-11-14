@@ -115,15 +115,17 @@ fun rememberLyrics(cur: QueueEntry): LyricsState {
  * a finger is on them, and for a few seconds after, following pauses.
  * Instrumental stretches show a ♪ (see [Lyrics.withBreaks]) with a countdown
  * to the next line. While lyrics show and music plays, the screen stays on.
+ * Not [interactive] (the visualiser's lyrics page), they only follow: no
+ * scrolling, no line taps and no timing ruler (a saved nudge still applies).
  */
 @Composable
-fun LyricsPane(state: LyricsState, cur: QueueEntry, modifier: Modifier = Modifier) {
+fun LyricsPane(state: LyricsState, cur: QueueEntry, modifier: Modifier = Modifier, interactive: Boolean = true) {
     Box(modifier, contentAlignment = Alignment.Center) {
         when (state) {
             LyricsState.Loading -> CircularProgressIndicator()
             LyricsState.None -> Message("No lyrics for this song")
             LyricsState.Failed -> Message("Couldn't load lyrics")
-            is LyricsState.Ready -> LyricsList(state.lyrics, cur)
+            is LyricsState.Ready -> LyricsList(state.lyrics, cur, interactive)
         }
     }
 }
@@ -134,7 +136,7 @@ private fun Message(text: String) {
 }
 
 @Composable
-private fun LyricsList(raw: Lyrics, cur: QueueEntry) {
+private fun LyricsList(raw: Lyrics, cur: QueueEntry, interactive: Boolean) {
     val actions = LocalActions.current
     val player = actions.player
     val offsets = actions.graph.lyricsOffsets
@@ -209,7 +211,7 @@ private fun LyricsList(raw: Lyrics, cur: QueueEntry) {
             modifier = Modifier
                 .fillMaxSize()
                 .fadeEdges { shift }
-                .pointerInput(Unit) {
+                .then(if (!interactive) Modifier else Modifier.pointerInput(Unit) {
                     // Watches without consuming, ahead of the list and the lines (Initial pass).
                     awaitPointerEventScope {
                         while (true) {
@@ -223,7 +225,8 @@ private fun LyricsList(raw: Lyrics, cur: QueueEntry) {
                             hand[1] = SystemClock.uptimeMillis()
                         }
                     }
-                },
+                }),
+            userScrollEnabled = interactive,
             contentPadding = PaddingValues(top = top, bottom = if (lyrics.synced) maxHeight * 2 / 3 else 16.dp),
         ) {
             itemsIndexed(lyrics.lines) { i, line ->
@@ -256,12 +259,12 @@ private fun LyricsList(raw: Lyrics, cur: QueueEntry) {
                     textAlign = TextAlign.Start,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .then(if (start != null) Modifier.clickable { player.seekTo((start - adjust).coerceAtLeast(0)); hand[1] = 0 } else Modifier)
+                        .then(if (start != null && interactive) Modifier.clickable { player.seekTo((start - adjust).coerceAtLeast(0)); hand[1] = 0 } else Modifier)
                         .padding(vertical = LINE_PADDING),
                 )
             }
         }
-        if (lyrics.synced) {
+        if (lyrics.synced && interactive) {
             TimingRuler(
                 adjust = adjust,
                 onAdjust = { adjust = it; active = lyrics.lineAt(player.positionMs + it) },

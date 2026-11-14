@@ -120,9 +120,16 @@ before changing sync or playback.
     frame (presets step per frame, so faster runs them fast; the Quest's
     panels are 72 Hz).
   - `VisOverlay` (Compose, over the GL surface; no frame cost): track card;
-    playback by gesture only (tap/select plays/pauses, swipe or left/right
-    skips, each with a passing sign); a hold or up/down brings up the
-    preset's flag and heart (auto-hides; Back hides). `VisPrefs` (in
+    playback by gesture (tap/select plays/pauses, sideways skips, each with
+    a passing sign). Up/down turn through `VisPage`s (preset flag and heart,
+    transport, track, lyrics, queue, logo; none at first); sideways or Back
+    puts one away; pages never time out. They sit centred with no panels,
+    just shadowed white text, and reuse Now Playing's pieces via a stand-in
+    `AppActions`; the logo page is `LogoSprite`, drawn by `VisEngine` after
+    projectM. The close cross shows only on a headset. `VisWarning` (flashing
+    lights) shows once per device for each mode, from Now Playing's buttons.
+    The first preset is a hard cut, so projectM's idle logo never shows.
+    `VisPrefs` (in
     `Graph`) holds its settings and loved/hidden presets (per user, by
     `Graph.user`, so a guest's come back when they sign in) and the tuner's
     memory (per device); Settings → Visualiser

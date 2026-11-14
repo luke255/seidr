@@ -74,6 +74,8 @@ the *th* of "weather" in place of the *f*. ASCII spelling: Seidr.
 - Runs smoothly on everything from phones to TVs, adjusting itself to each
   device.
 - Tap to play or pause, swipe to skip, and keep the presets you love.
+- Swipe up or down through pages over it: controls, the track, lyrics, the
+  queue, or the logo drifting through the preset.
 - On a Meta Quest, step inside it.
 
 ### Also

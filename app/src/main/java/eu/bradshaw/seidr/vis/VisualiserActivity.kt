@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.Choreographer
 import android.view.Gravity
 import android.view.KeyEvent
-import android.view.MotionEvent
 import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.View
@@ -43,11 +42,13 @@ import javax.microedition.khronos.opengles.GL10
  *
  * Over it, [VisOverlay]: the playing track in a corner. Playback is all
  * gestures, each confirmed by a passing sign: a tap (select on a remote)
- * plays/pauses, sideways swipes (left/right) skip tracks. A hold or a vertical
- * swipe (up/down) brings up the preset's name with a flag (hides it for good)
- * and a heart (loved presets come up about one time in ten), which go again
- * after [AUTO_HIDE_MS] untouched, or on Back. With [EXTRA_PREVIEW] it shows
- * just that one preset, for Settings → Visualiser.
+ * plays/pauses, sideways swipes (left/right) skip tracks. Swipes up and down
+ * (the D-pad's too) turn through the [VisPage]s: the preset's name with a flag
+ * (hides it for good) and a heart (loved presets come up about one time in
+ * ten), Now Playing's transport, the track, lyrics, the queue and the logo.
+ * Sideways or Back puts a page away; pages stay until then. A hold opens the
+ * preset's page. With [EXTRA_PREVIEW] it shows just that one preset, for
+ * Settings → Visualiser. (Now Playing shows [VisWarning] before the first.)
  *
  * Its own activity (opened from Now Playing): GL lifecycles and immersive
  * mode are simpler here than in Compose. The overlay is ordinary views over
@@ -64,14 +65,14 @@ class VisualiserActivity : ComponentActivity() {
     @Volatile private var hud: TextView? = null
     private lateinit var renderer: Renderer
 
-    private var controls by mutableStateOf(false)
+    private var page by mutableStateOf<VisPage?>(null)
     private var message by mutableStateOf<String?>(null)
     /** The preset on screen, for the overlay's heart and flag. */
     private var preset by mutableStateOf<String?>(null)
     /** The last play/pause, for the overlay's passing sign. */
     private var pulse by mutableStateOf<Pulse?>(null)
-    private val hideControls = object : OnBackPressedCallback(false) {
-        override fun handleOnBackPressed() = showControls(false)
+    private val closePage = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() = showPage(null)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,7 +89,7 @@ class VisualiserActivity : ComponentActivity() {
             hide(if (tv) WindowInsetsCompat.Type.systemBars() else WindowInsetsCompat.Type.statusBars())
             systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
-        onBackPressedDispatcher.addCallback(this, hideControls)
+        onBackPressedDispatcher.addCallback(this, closePage)
         if (preview == null) closeWhenGuestLeaves(graph)
 
         if (prefs.forgetPacingBug(display.refreshRate)) Log.i(TAG, "forgot what the tuner learned under the old pacing")
@@ -123,9 +124,10 @@ class VisualiserActivity : ComponentActivity() {
                     graph = graph,
                     preview = preview,
                     preset = preset,
-                    controls = controls,
+                    page = page,
                     message = message,
-                    onControls = ::showControls,
+                    onTurn = { by -> showPage(VisPage.turn(page, by)) },
+                    onPage = ::showPage,
                     onHidePreset = ::hideCurrentPreset,
                     onMessageShown = { message = null },
                     pulse = pulse,
@@ -140,8 +142,8 @@ class VisualiserActivity : ComponentActivity() {
             addView(view)
             addView(overlay)
             // The tuner's readout, if Settings → Visualiser asks for it. Top left,
-            // clear of the track card (bottom left), and hidden while the controls
-            // show, since they use the top.
+            // clear of the track card (bottom left), and hidden while a page
+            // shows, since some use the top.
             val readout = TextView(context).apply {
                 setTextColor(Color.WHITE)
                 setShadowLayer(6f, 0f, 0f, Color.BLACK)
@@ -152,12 +154,6 @@ class VisualiserActivity : ComponentActivity() {
                 FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.TOP or Gravity.START,
             ))
             lifecycleScope.launch {
-                while (true) {
-                    delay(500)
-                    if (controls && SystemClock.uptimeMillis() - lastInput > AUTO_HIDE_MS) showControls(false)
-                }
-            }
-            lifecycleScope.launch {
                 prefs.showStats.collect { on ->
                     readout.visibility = if (on) View.VISIBLE else View.GONE
                     hud = readout.takeIf { on }
@@ -166,11 +162,11 @@ class VisualiserActivity : ComponentActivity() {
         })
     }
 
-    private fun showControls(on: Boolean) {
-        controls = on
-        hud?.animate()?.alpha(if (on) 0f else 1f)?.setDuration(200)
-        hideControls.isEnabled = on
-        lastInput = SystemClock.uptimeMillis()
+    private fun showPage(to: VisPage?) {
+        page = to
+        renderer.engine.logo = to == VisPage.LOGO
+        hud?.animate()?.alpha(if (to != null) 0f else 1f)?.setDuration(200)
+        closePage.isEnabled = to != null
     }
 
     /** Hides the playing preset for good (Settings → Visualiser undoes it) and moves on. */
@@ -180,31 +176,43 @@ class VisualiserActivity : ComponentActivity() {
         message = "Preset hidden. Settings → Visualiser brings it back."
     }
 
+    /** Select is ours (play/pause, held: the preset's page) unless a page with buttons is up. */
+    private val selectIsOurs get() = page?.controls != true && preview == null
+
     /**
-     * Remote, while the controls are hidden: select plays/pauses (held, it
-     * shows the controls, as do up and down); left/right skip tracks.
+     * Remote, ahead of the overlay: up and down turn the pages. Left and
+     * right put a page away, or with none up, skip tracks; on a page with
+     * buttons they move between those instead (Back puts it away).
      */
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        if (controls || preview != null) return super.onKeyDown(keyCode, event)
-        when (keyCode) {
-            KeyEvent.KEYCODE_DPAD_LEFT -> skip(next = false)
-            KeyEvent.KEYCODE_DPAD_RIGHT -> skip(next = true)
-            KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN -> showControls(true)
-            // Decided on release: a hold shows the controls instead (onKeyLongPress).
-            in SELECT -> event.startTracking()
-            else -> return super.onKeyDown(keyCode, event)
+    private fun pageKey(event: KeyEvent): Boolean {
+        if (preview != null) return false
+        val first = event.action == KeyEvent.ACTION_DOWN && event.repeatCount == 0
+        when (event.keyCode) {
+            KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN ->
+                if (first) showPage(VisPage.turn(page, if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) 1 else -1))
+            KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT -> {
+                if (page?.controls == true) return false
+                if (first) { if (page != null) showPage(null) else skip(next = event.keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) }
+            }
+            else -> return false
         }
         return true
     }
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        // Decided on release: a hold shows the preset's page instead (onKeyLongPress).
+        if (keyCode in SELECT && selectIsOurs) { event.startTracking(); return true }
+        return super.onKeyDown(keyCode, event)
+    }
+
     override fun onKeyLongPress(keyCode: Int, event: KeyEvent): Boolean {
-        if (keyCode in SELECT && !controls && preview == null) { showControls(true); return true }
+        if (keyCode in SELECT && selectIsOurs) { if (page == null) showPage(VisPage.PRESET); return true }
         return super.onKeyLongPress(keyCode, event)
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         // A release after a hold comes marked cancelled.
-        if (keyCode in SELECT && event.isTracking && !event.isCanceled && !controls && preview == null) {
+        if (keyCode in SELECT && event.isTracking && !event.isCanceled && selectIsOurs) {
             playPause()
             return true
         }
@@ -231,18 +239,7 @@ class VisualiserActivity : ComponentActivity() {
         lifecycleScope.launch { delay(2_000); if (pulse === p) pulse = null }
     }
 
-    // Any touch or key counts as use: the controls hide after AUTO_HIDE_MS without any.
-    private var lastInput = 0L
-
-    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        lastInput = SystemClock.uptimeMillis()
-        return super.dispatchTouchEvent(ev)
-    }
-
-    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-        lastInput = SystemClock.uptimeMillis()
-        return super.dispatchKeyEvent(event)
-    }
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean = pageKey(event) || super.dispatchKeyEvent(event)
 
     /** Renders below the window's size; the display's scaler stretches it back for free. */
     private fun applyScale(scale: Float) = runOnUiThread {
@@ -327,7 +324,6 @@ class VisualiserActivity : ComponentActivity() {
 
     companion object {
         private const val TAG = VisEngine.TAG
-        private const val AUTO_HIDE_MS = 5_000L
         private val SELECT = setOf(KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER)
 
         /** Shows just this preset (its path in the pack), for Settings → Visualiser. */
