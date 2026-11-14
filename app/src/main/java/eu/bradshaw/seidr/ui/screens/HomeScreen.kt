@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,7 +31,9 @@ import eu.bradshaw.seidr.ui.primaryFocus
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -88,6 +91,7 @@ fun HomeScreen() {
     val server by graph.settings.server.collectAsStateWithLifecycle()
     val kid by graph.kids.rules.collectAsStateWithLifecycle()
     val starred by graph.library.starredSongs.collectAsStateWithLifecycle()
+    val lastLoved by graph.library.lastLoved.collectAsStateWithLifecycle()
     Column(Modifier.fillMaxSize()) {
         RefreshBox(vm.refreshing && vm.data != null, onRefresh = vm::load, modifier = Modifier.weight(1f)) {
             LazyColumn(Modifier.fillMaxSize(), contentPadding = bottomContentPadding()) {
@@ -125,9 +129,19 @@ fun HomeScreen() {
                         }
                     }
                     item {
-                        LazyRow(contentPadding = PaddingValues(horizontal = 10.dp)) {
-                            // null is Loved.
-                            itemsIndexed(withLoved(sortPlaylists(pls, alpha, lastPlayed), alpha, lastPlayed).take(20), key = { _, p -> p?.id ?: "loved" }) { i, p ->
+                        // null is Loved.
+                        val shelf = withLoved(sortPlaylists(pls, alpha, lastPlayed), alpha, lastPlayed, lastLoved)
+                        val row = rememberLazyListState()
+                        // A lazy row keeps its first visible item when items are put in front of it,
+                        // so a playlist that arrives first (one just created, after the cached list
+                        // showed) would open scrolled out of sight. At the start, stay at the start.
+                        remember(shelf.firstOrNull()?.id ?: "loved") {
+                            Snapshot.withoutReadObservation {
+                                if (row.firstVisibleItemIndex == 0 && row.firstVisibleItemScrollOffset == 0) row.requestScrollToItem(0)
+                            }
+                        }
+                        LazyRow(state = row, contentPadding = PaddingValues(horizontal = 10.dp)) {
+                            itemsIndexed(shelf, key = { _, p -> p?.id ?: "loved" }) { i, p ->
                                 val focus = if (i == 0) Modifier.primaryFocus() else Modifier
                                 if (p == null) CoverCard(Loved.NAME, Loved.subtitle(starred), null, onClick = { actions.open(Route.Loved) },
                                     art = { m -> LovedArt(m) }, modifier = focus)
@@ -146,19 +160,28 @@ fun HomeScreen() {
 }
 
 /**
- * A–Z, or most recently played on this phone first ([PlaylistPlays] is local:
- * Subsonic keeps no playlist play history). Never-played playlists follow, A–Z.
+ * A–Z, or most recent first: when it was last played on this phone
+ * ([PlaylistPlays] is local: Subsonic keeps no playlist play history) or
+ * created on the server, whichever is later, so a new playlist shows at the
+ * front. Ties (none of either) go A–Z.
  */
 private fun sortPlaylists(pls: List<Playlist>, alpha: Boolean, lastPlayed: Map<String, Long>): List<Playlist> {
     val byName = compareBy<Playlist, String>(String.CASE_INSENSITIVE_ORDER) { it.name }
     return if (alpha) pls.sortedWith(byName)
-    else pls.sortedWith(compareByDescending<Playlist> { lastPlayed[it.id] ?: 0L }.then(byName))
+    else pls.sortedWith(compareByDescending<Playlist> { recency(it, lastPlayed) }.then(byName))
 }
 
-/** [sorted] with Loved (null) put in: first A–Z, else by when it was last played (first of the never-played). */
-private fun withLoved(sorted: List<Playlist>, alpha: Boolean, lastPlayed: Map<String, Long>): List<Playlist?> {
-    val loved = lastPlayed[Loved.PLAYS_KEY] ?: 0L
-    val at = if (alpha) 0 else sorted.indexOfFirst { (lastPlayed[it.id] ?: 0L) <= loved }.let { if (it < 0) sorted.size else it }
+private fun recency(p: Playlist, lastPlayed: Map<String, Long>): Long = maxOf(lastPlayed[p.id] ?: 0L, epochMs(p.created))
+
+private fun epochMs(iso: String?): Long = iso?.let { runCatching { java.time.Instant.parse(it).toEpochMilli() }.getOrNull() } ?: 0L
+
+/**
+ * [sorted] with Loved (null) put in: first A–Z, else by its recency, which is
+ * when it was last played here or a song was last loved, whichever is later.
+ */
+private fun withLoved(sorted: List<Playlist>, alpha: Boolean, lastPlayed: Map<String, Long>, lastLoved: String?): List<Playlist?> {
+    val loved = maxOf(lastPlayed[Loved.PLAYS_KEY] ?: 0L, epochMs(lastLoved))
+    val at = if (alpha) 0 else sorted.indexOfFirst { recency(it, lastPlayed) <= loved }.let { if (it < 0) sorted.size else it }
     return sorted.toMutableList<Playlist?>().apply { add(at, null) }
 }
 

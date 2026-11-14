@@ -103,9 +103,17 @@ class PlaylistEditor(
         return if (conflict) EditResult.Conflict else r
     }
 
-    /** Returns the new playlist's id, or null on failure. */
+    /**
+     * Returns the new playlist's id, or null on failure. New playlists are
+     * private: createPlaylist takes no visibility, so the server's default
+     * (Navidrome can make new ones public) is undone straight after.
+     */
     suspend fun create(name: String, songIds: List<String>): String? = try {
         val pl = api().createPlaylist(name, songIds).ok().playlist
+        if (pl != null && pl.public) {
+            runCatching { api().updatePlaylist(pl.id, public = false).ok() }
+                .onFailure { Log.w("Editor", "couldn't make ${pl.id} private: $it") }
+        }
         pl?.id
     } catch (e: Exception) {
         Log.w("Editor", "create failed: $e")
