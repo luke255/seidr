@@ -75,7 +75,7 @@ class Graph(val app: Application) {
     private val badReportsOn = kotlinx.coroutines.flow.combine(settings.badReports, settings.server) { on, s -> on && s?.isKid != true }
         .stateIn(scope, kotlinx.coroutines.flow.SharingStarted.Eagerly, settings.badReports.value && settings.server.value?.isKid != true)
 
-    val library = Library(client, badReportsOn, kids, scope)
+    val library = Library(client, badReportsOn, user, settings.othersPrivatePlaylists, kids, scope)
     val db = AppDatabase.build(app)
     val files = MusicFiles(app)
     val downloads = DownloadIndex(db.offline(), scope)

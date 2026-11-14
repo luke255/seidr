@@ -55,6 +55,13 @@ class Settings(context: Context) {
     /** Opt-in: use the server's "Bad: " playlists (see `BadReports`). */
     val badReports: StateFlow<Boolean> = _badReports.asStateFlow()
 
+    private val _othersPrivatePlaylists = MutableStateFlow(prefs.getBoolean("others_private_playlists", false))
+    /**
+     * Opt-in: list other users' private playlists. The server gives them to
+     * admins, but they're someone else's, so `Library` leaves them out by default.
+     */
+    val othersPrivatePlaylists: StateFlow<Boolean> = _othersPrivatePlaylists.asStateFlow()
+
     private val _kidLogins = MutableStateFlow(readKids())
     /** Kids' logins this (grown-up) device can sign other devices in as. */
     val kidLogins: StateFlow<List<KidLogin>> = _kidLogins.asStateFlow()
@@ -122,6 +129,11 @@ class Settings(context: Context) {
     fun setBadReports(value: Boolean) {
         prefs.edit().putBoolean("bad_reports", value).apply()
         _badReports.value = value
+    }
+
+    fun setOthersPrivatePlaylists(value: Boolean) {
+        prefs.edit().putBoolean("others_private_playlists", value).apply()
+        _othersPrivatePlaylists.value = value
     }
 
     private fun readKids(): List<KidLogin> =

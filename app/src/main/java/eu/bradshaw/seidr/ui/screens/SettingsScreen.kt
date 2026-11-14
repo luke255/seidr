@@ -35,6 +35,7 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Devices
 import androidx.compose.material.icons.outlined.BatteryChargingFull
 import androidx.compose.material.icons.outlined.Download
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Autorenew
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Flag
@@ -144,6 +145,19 @@ fun SettingsScreen() {
             // The version line at the foot can't take focus, so a remote would never
             // scroll to it: reaching the last controls scrolls to the very end.
             Column(Modifier.onFocusChanged { if (it.hasFocus) scope.launch { scroll.animateScrollTo(scroll.maxValue) } }) {
+            // Only admins get other people's private playlists, so only they see this.
+            val othersOn by graph.settings.othersPrivatePlaylists.collectAsStateWithLifecycle()
+            val anyOthers = graph.library.allPlaylists.collectAsStateWithLifecycle().value.orEmpty().any(graph.library::isOthersPrivate)
+            if (!kid && (othersOn || anyOthers)) {
+                CardLabel("Library")
+                CardGroup {
+                    ToggleItem(Icons.Outlined.Lock, "Other people's private playlists",
+                        "As an admin, the server shows you everyone's. Off keeps them out of your library.", othersOn) {
+                        graph.settings.setOthersPrivatePlaylists(it)
+                    }
+                }
+            }
+
             if (!kid) {
             CardLabel("Reporting")
             val badOn by graph.settings.badReports.collectAsStateWithLifecycle()

@@ -72,11 +72,13 @@ before changing sync or playback.
   app-data storage, so each is a bookmark on the song (position 0, comment
   `Seidr lyrics offset: +650ms`), synced every pass. Comment-less bookmarks
   (resume points) may be replaced; any other comment is never touched.
-- **`data/BadReports`** (opt-in, Settings → Reporting): reports songs to the
+- **`data/BadReports`** (opt-in, Settings → Reporting; switched on at sign-in
+  when the login owns Bad: playlists): reports songs to the
   server's `Bad: Songs` / `Bad: Art` / `Bad: Lyrics` playlists (created if
   two strict fetches agree one is missing), for whoever looks after the
-  server to fix and remove. `Library.playlists` hides every "Bad:" playlist (`allPlaylists`
-  doesn't). `PlaybackService` hides `Bad: Songs` entries from the queue and
+  server to fix and remove. `Library.playlists` hides every "Bad:" playlist,
+  and other users' private ones (admins get them) unless Settings → Library
+  asks (`allPlaylists` hides neither). `PlaybackService` hides `Bad: Songs` entries from the queue and
   puts them back in place when they leave that list (`HiddenQueue`, saved in
   `queue.json`). The server's lists are the truth, plus unconfirmed edits (in
   flight or in `pending_edit`).

@@ -59,6 +59,14 @@ object Account {
         graph.connect.startDiscovery() // held back while signed out
         // On the app scope: the login screen leaves composition as soon as the config is saved.
         graph.scope.launch { runCatching { graph.library.refreshStarred() } }
+        // Bad: playlists of this login's own mean it reports problems (from another
+        // device, say), so Reporting comes on. Only at sign-in: turning it off sticks.
+        if (!config.isKid && !graph.settings.badReports.value) graph.scope.launch {
+            val me = config.username.trim()
+            val own = runCatching { graph.library.fetchAllPlaylists() }.getOrNull().orEmpty()
+                .filter { it.owner == null || it.owner.trim().equals(me, ignoreCase = true) }
+            if (BadReports.find(own).isNotEmpty()) graph.settings.setBadReports(true)
+        }
     }
 
     /** Playback stops and sync pauses; downloaded files are kept. On the main thread. */

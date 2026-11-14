@@ -30,6 +30,9 @@ import retrofit2.HttpException
 class Library(
     private val client: SubsonicClient,
     private val hideBad: StateFlow<Boolean>,
+    /** The login in use (signed in, else the guest), lowercased. */
+    private val user: StateFlow<String?>,
+    private val showOthersPrivate: StateFlow<Boolean>,
     private val kids: Kids,
     scope: CoroutineScope,
 ) {
@@ -41,18 +44,33 @@ class Library(
     val allPlaylists: StateFlow<List<Playlist>?> = _allPlaylists.asStateFlow()
 
     private val _playlists = MutableStateFlow<List<Playlist>?>(null)
-    /** The playlists screens show: "Bad: " ones are left out while that integration is on. */
+    /**
+     * The playlists screens show: "Bad: " ones are left out while that
+     * integration is on, and other users' private ones (which admins get)
+     * unless Settings asks for them.
+     */
     val playlists: StateFlow<List<Playlist>?> = _playlists.asStateFlow()
 
     init {
         scope.launch { hideBad.collect { publishPlaylists() } }
         scope.launch { kids.rules.collect { publishPlaylists() } }
+        scope.launch { user.collect { publishPlaylists() } }
+        scope.launch { showOthersPrivate.collect { publishPlaylists() } }
     }
 
     private fun visible(list: List<Playlist>): List<Playlist> {
         // The kids' lists are for whoever approves songs, not for browsing.
-        val shown = list.filterNot { KidRules.isKidsList(it.name) || (hideBad.value && BadReports.isBadPlaylist(it.name)) }
+        val shown = list.filterNot {
+            KidRules.isKidsList(it.name) || (hideBad.value && BadReports.isBadPlaylist(it.name)) ||
+                (!showOthersPrivate.value && isOthersPrivate(it))
+        }
         return kid?.playlists(shown) ?: shown
+    }
+
+    /** Someone else's private playlist, which the server shows only because this login is an admin. */
+    fun isOthersPrivate(p: Playlist): Boolean {
+        val me = user.value ?: return false
+        return !p.public && p.owner != null && !p.owner.trim().equals(me, ignoreCase = true)
     }
 
     private fun publishPlaylists() { _playlists.value = _allPlaylists.value?.let(::visible) }
