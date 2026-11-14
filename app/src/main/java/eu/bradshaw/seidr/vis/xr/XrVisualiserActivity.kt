@@ -1,5 +1,6 @@
 package eu.bradshaw.seidr.vis.xr
 
+import eu.bradshaw.seidr.vis.closeWhenGuestLeaves
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -39,6 +40,7 @@ class XrVisualiserActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         thread = Thread(::run, "XrVisualiser").apply { start() }
+        closeWhenGuestLeaves(graph)
     }
 
     override fun onStart() {

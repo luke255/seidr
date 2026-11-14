@@ -89,6 +89,7 @@ class VisualiserActivity : ComponentActivity() {
             systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
         onBackPressedDispatcher.addCallback(this, hideControls)
+        if (preview == null) closeWhenGuestLeaves(graph)
 
         if (prefs.forgetPacingBug(display.refreshRate)) Log.i(TAG, "forgot what the tuner learned under the old pacing")
         // MilkDrop presets are tuned for ~60 fps; never aim past the panel either.
