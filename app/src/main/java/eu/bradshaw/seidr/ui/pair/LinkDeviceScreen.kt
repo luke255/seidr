@@ -86,6 +86,7 @@ fun LinkDeviceScreen() {
                                 }
                             }
                         } else {
+                            eu.bradshaw.seidr.ui.components.SeidrBanner()
                             ShowCodePanel(
                                 role = { PairRole.Giver(config) },
                                 hint = "On the other device, open Seiðr and choose Scan a code. Both devices need to be on the same Wi-Fi or tailnet.",

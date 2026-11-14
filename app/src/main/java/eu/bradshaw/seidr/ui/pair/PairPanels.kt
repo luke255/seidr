@@ -101,21 +101,27 @@ fun ShowCodePanel(role: () -> PairRole, hint: String, onOutcome: (PairOutcome) -
 @Composable
 fun ScanCodePanel(hint: String, onCode: (PairCode) -> Unit) {
     val context = LocalContext.current
-    var granted by remember { mutableStateOf(hasCamera(context)) }
+    // On a Quest the passthrough cameras need their own permission too.
+    var granted by remember { mutableStateOf(hasCamera(context) && !needsHeadsetCamera(context)) }
     var foreign by remember { mutableStateOf(false) }
     val ask = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-        granted = hasCamera(context)
+        granted = hasCamera(context) && !needsHeadsetCamera(context)
     }
     RequestLanPermission()
-    LaunchedEffect(Unit) { if (!granted || needsHeadsetCamera(context)) ask.launch(cameraPermissions()) }
+    LaunchedEffect(Unit) { if (!granted) ask.launch(cameraPermissions()) }
 
     Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(16.dp)) {
         if (granted) {
             QrScanner(
                 onText = { text -> PairCode.parse(text)?.let(onCode) ?: run { foreign = true } },
+                prompt = if (isQuest) "Look at the code on the other device" else "Point the camera at the code on the other device",
                 modifier = Modifier.widthIn(max = PairBoxWidth).fillMaxWidth(),
             )
             Hint(if (foreign) "That isn't a Seiðr code. $hint" else hint)
+        } else if (isQuest) {
+            Hint("Seiðr needs the headset cameras to scan the code. When your Quest asks, tick Headset cameras, then Allow. " +
+                "If it doesn't ask, allow Camera and Headset cameras in the app's settings.")
+            Button(onClick = { ask.launch(cameraPermissions()) }) { Text("Allow cameras") }
         } else {
             Hint("Seiðr needs the camera to scan the code. If it doesn't ask, allow Camera in the app's system settings.")
             Button(onClick = { ask.launch(cameraPermissions()) }) { Text("Allow camera") }
@@ -158,7 +164,7 @@ fun canOfferScan(context: Context): Boolean {
 
 /** Quest (Horizon OS) gates its passthrough cameras behind an extra runtime permission. */
 private const val HEADSET_CAMERA = "horizonos.permission.HEADSET_CAMERA"
-private val isQuest = Build.MANUFACTURER.equals("Oculus", ignoreCase = true) || Build.MANUFACTURER.equals("Meta", ignoreCase = true)
+internal val isQuest = Build.MANUFACTURER.equals("Oculus", ignoreCase = true) || Build.MANUFACTURER.equals("Meta", ignoreCase = true)
 
 private fun cameraPermissions(): Array<String> =
     if (isQuest) arrayOf(Manifest.permission.CAMERA, HEADSET_CAMERA) else arrayOf(Manifest.permission.CAMERA)

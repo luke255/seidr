@@ -134,7 +134,7 @@ fun LoginScreen(graph: Graph) {
                 dismissButton = { TextButton(onClick = { exposed = null }) { Text("Go back") } },
             )
         }
-        Text("Seiðr", style = MaterialTheme.typography.displaySmall, fontWeight = FontWeight.Bold)
+        eu.bradshaw.seidr.ui.components.SeidrBanner()
         val field = Modifier.fillMaxWidth().widthIn(max = 480.dp)
         val signedInHint = "Signed in elsewhere? Open Seiðr there, go to Settings → Sign in another device"
         joining?.let { Working("Signing in from $it…") }

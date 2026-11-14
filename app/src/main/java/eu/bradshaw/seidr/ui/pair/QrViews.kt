@@ -75,7 +75,7 @@ private const val QUIET = 4
  * then whatever exists (a Quest's passthrough cameras report as external).
  */
 @Composable
-fun QrScanner(onText: (String) -> Unit, modifier: Modifier = Modifier) {
+fun QrScanner(onText: (String) -> Unit, prompt: String, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val callback by rememberUpdatedState(onText)
@@ -111,6 +111,14 @@ fun QrScanner(onText: (String) -> Unit, modifier: Modifier = Modifier) {
             AndroidView(
                 factory = { PreviewView(it).apply { scaleType = PreviewView.ScaleType.FILL_CENTER; this.controller = controller } },
                 modifier = Modifier.aspectRatio(1f),
+            )
+            // Over the picture, since on a Quest the view is the passthrough
+            // itself and there's nothing else to say what it's for.
+            Text(
+                prompt, color = Color.White, textAlign = TextAlign.Center, style = MaterialTheme.typography.titleSmall,
+                modifier = Modifier.align(Alignment.TopCenter).padding(12.dp)
+                    .clip(RoundedCornerShape(50)).background(Color.Black.copy(alpha = 0.6f))
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
             )
         }
     }

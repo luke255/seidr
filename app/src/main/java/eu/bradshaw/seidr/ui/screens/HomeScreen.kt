@@ -2,6 +2,9 @@ package eu.bradshaw.seidr.ui.screens
 
 import eu.bradshaw.seidr.ui.components.bottomContentPadding
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
@@ -86,6 +89,10 @@ fun HomeScreen() {
     Column(Modifier.fillMaxSize()) {
         RefreshBox(vm.refreshing && vm.data != null, onRefresh = vm::load, modifier = Modifier.weight(1f)) {
             LazyColumn(Modifier.fillMaxSize(), contentPadding = bottomContentPadding()) {
+                // The list keeps its first visible item in place when items arrive
+                // above it. Playlists usually load after the album shelves, so
+                // without a fixed first item they'd land above the top, out of view.
+                item(key = "top") { Spacer(Modifier.fillMaxWidth().height(1.dp)) }
                 if (!online) item {
                     Text(
                         if (LocalIsTv.current) "You're offline. Seiðr will reconnect when the server is reachable."
