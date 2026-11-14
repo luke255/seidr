@@ -231,7 +231,7 @@ before changing sync or playback.
 
 ## Gotchas
 
-- Android 17: a LAN server address (e.g. 10.0.0.5) needs the runtime
+- Android 17: a LAN server address (e.g. 192.168.1.20) needs the runtime
   `ACCESS_LOCAL_NETWORK` permission. Login asks for it before the first ping,
   and first run asks too. Tailscale addresses don't need it.
   Without it, any mDNS use pops a system device picker, so Connect neither

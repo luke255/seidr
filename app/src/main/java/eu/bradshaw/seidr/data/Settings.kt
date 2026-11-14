@@ -126,7 +126,7 @@ class Settings(context: Context) {
     }
 
     companion object {
-        /** Accepts "10.0.0.5:4533" or a full URL; strips trailing slashes and a trailing /rest. */
+        /** Accepts "192.168.1.20:4533" or a full URL; strips trailing slashes and a trailing /rest. */
         fun normaliseUrl(input: String): String {
             var u = input.trim().trimEnd('/')
             if (!u.startsWith("http://") && !u.startsWith("https://")) u = "http://$u"

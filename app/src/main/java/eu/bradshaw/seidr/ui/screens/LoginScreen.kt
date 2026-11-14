@@ -178,7 +178,7 @@ fun LoginScreen(graph: Graph) {
             LoginMode.FORM -> {
                 title = "Connect to your Navidrome server"
                 main = {
-                    OutlinedTextField(url, { url = it }, label = { Text("Server URL") }, placeholder = { Text("http://10.0.0.5:4533") },
+                    OutlinedTextField(url, { url = it }, label = { Text("Server URL") }, placeholder = { Text("https://music.example.com") },
                         singleLine = true, keyboardOptions = noAutoCaps.copy(keyboardType = KeyboardType.Uri), modifier = field.selectToEdit())
                     OutlinedTextField(user, { user = it }, label = { Text("Username") }, singleLine = true,
                         keyboardOptions = noAutoCaps, modifier = field.selectToEdit())

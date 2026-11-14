@@ -13,7 +13,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class PairingTest {
-    private val config = ServerConfig("http://10.0.0.5:4533", "luke", "p@ss&word=1")
+    private val config = ServerConfig("http://192.168.1.20:4533", "luke", "p@ss&word=1")
     private val loopback = listOf("127.0.0.1")
 
     @Test fun codeRoundTripsWithoutCredentials() {
@@ -65,7 +65,7 @@ class PairingTest {
             PairHost.open("TV", giving = false, hosts = loopback)!!.use { host ->
                 val tv = async { host.await(PairRole.Taker { "Couldn't connect to ${it.url}" }) }
                 val phone = joinPair(host.code, PairRole.Giver(config), "Phone")
-                assertEquals("Couldn't connect to http://10.0.0.5:4533", phone.error)
+                assertEquals("Couldn't connect to http://192.168.1.20:4533", phone.error)
                 // The taker keeps what it received, so the form can be prefilled.
                 assertEquals(config, tv.await().config)
             }
