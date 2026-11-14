@@ -109,7 +109,16 @@ fun QrScanner(onText: (String) -> Unit, prompt: String, modifier: Modifier = Mod
                 style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(24.dp))
         } else {
             AndroidView(
-                factory = { PreviewView(it).apply { scaleType = PreviewView.ScaleType.FILL_CENTER; this.controller = controller } },
+                factory = {
+                    PreviewView(it).apply {
+                        // On a Quest the default SurfaceView preview is a separate layer the
+                        // panel compositor doesn't show, and the panel goes blank (all
+                        // passthrough). A TextureView draws inside the panel like any view.
+                        if (isQuest) implementationMode = PreviewView.ImplementationMode.COMPATIBLE
+                        scaleType = PreviewView.ScaleType.FILL_CENTER
+                        this.controller = controller
+                    }
+                },
                 modifier = Modifier.aspectRatio(1f),
             )
             // Over the picture, since on a Quest the view is the passthrough

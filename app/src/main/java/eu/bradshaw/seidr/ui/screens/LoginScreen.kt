@@ -9,6 +9,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -116,79 +120,114 @@ fun LoginScreen(graph: Graph) {
     // Android 17 blocks LAN addresses without this; ask before the first ping.
     val lanPermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { connect() }
 
-    Column(
-        Modifier.fillMaxSize().imePadding().verticalScroll(rememberScrollState()).padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        exposed?.let { config ->
-            AlertDialog(
-                onDismissRequest = { exposed = null },
-                title = { Text("Unencrypted connection") },
-                text = {
-                    Text("This server is on the internet, but its address starts with http://, so your login and music " +
-                        "travel unencrypted. Anyone along the way could read them and reuse your login. " +
-                        "Use an https:// address if your server has one.")
-                },
-                confirmButton = { TextButton(onClick = { exposed = null; commitServer(graph, config) }) { Text("Connect anyway") } },
-                dismissButton = { TextButton(onClick = { exposed = null }) { Text("Go back") } },
-            )
-        }
-        eu.bradshaw.seidr.ui.components.SeidrBanner()
+    exposed?.let { config ->
+        AlertDialog(
+            onDismissRequest = { exposed = null },
+            title = { Text("Unencrypted connection") },
+            text = {
+                Text("This server is on the internet, but its address starts with http://, so your login and music " +
+                    "travel unencrypted. Anyone along the way could read them and reuse your login. " +
+                    "Use an https:// address if your server has one.")
+            },
+            confirmButton = { TextButton(onClick = { exposed = null; commitServer(graph, config) }) { Text("Connect anyway") } },
+            dismissButton = { TextButton(onClick = { exposed = null }) { Text("Go back") } },
+        )
+    }
+
+    // Each mode is a title, its main panel (the code, the viewfinder or the form)
+    // and the words and buttons around it. Tall windows stack them; wide ones
+    // (TVs, Quest panels, landscape phones) put the panel on the right.
+    BoxWithConstraints(Modifier.fillMaxSize().imePadding()) {
+        val wide = maxWidth > maxHeight && maxWidth >= 600.dp
         val field = Modifier.fillMaxWidth().widthIn(max = 480.dp)
         val signedInHint = "Signed in elsewhere? Open Seiðr there, go to Settings → Sign in another device"
-        joining?.let { Working("Signing in from $it…") }
-        if (joining == null) when (mode) {
+        val showHint = "$signedInHint and scan this code. Both devices need to be on the same Wi-Fi or tailnet."
+        val passwordInstead: @Composable () -> Unit = {
+            TextButton(onClick = { mode = LoginMode.FORM }) { Text("Sign in with a password instead") }
+        }
+        val title: String
+        val main: @Composable ColumnScope.() -> Unit
+        val side: @Composable ColumnScope.() -> Unit
+        when (mode) {
             LoginMode.SHOW_CODE -> {
-                Text("Scan to sign in", color = MaterialTheme.colorScheme.onSurfaceVariant)
-                ShowCodePanel(
-                    role = { taker },
-                    hint = "$signedInHint and scan this code. Both devices need to be on the same Wi-Fi or tailnet.",
-                    onOutcome = ::finish,
-                )
-                TextButton(onClick = { mode = LoginMode.FORM }) { Text("Sign in with a password instead") }
+                title = "Scan to sign in"
+                main = { ShowCodePanel(role = { taker }, hint = if (wide) "" else showHint, onOutcome = ::finish) }
+                side = {
+                    if (wide) eu.bradshaw.seidr.ui.pair.Hint(showHint)
+                    passwordInstead()
+                }
             }
             LoginMode.SCAN -> {
-                Text("Scan a signed-in device", color = MaterialTheme.colorScheme.onSurfaceVariant)
-                ScanCodePanel("$signedInHint and choose Show a code.") { code ->
-                    if (!code.giving) {
-                        finish(PairOutcome(code.name, "${code.name} isn't signed in either. Scan the code in a signed-in device's Settings."))
-                    } else {
-                        joining = code.name
-                        scope.launch {
-                            val outcome = joinPair(code, taker, deviceName(context))
-                            joining = null
-                            finish(outcome)
+                title = "Scan a signed-in device"
+                main = {
+                    ScanCodePanel("$signedInHint and choose Show a code.") { code ->
+                        if (!code.giving) {
+                            finish(PairOutcome(code.name, "${code.name} isn't signed in either. Scan the code in a signed-in device's Settings."))
+                        } else {
+                            joining = code.name
+                            scope.launch {
+                                val outcome = joinPair(code, taker, deviceName(context))
+                                joining = null
+                                finish(outcome)
+                            }
                         }
                     }
                 }
-                TextButton(onClick = { mode = LoginMode.FORM }) { Text("Sign in with a password instead") }
+                side = { passwordInstead() }
             }
             LoginMode.FORM -> {
-                Text("Connect to your Navidrome server", color = MaterialTheme.colorScheme.onSurfaceVariant)
-                OutlinedTextField(url, { url = it }, label = { Text("Server URL") }, placeholder = { Text("http://10.0.0.5:4533") },
-                    singleLine = true, keyboardOptions = noAutoCaps.copy(keyboardType = KeyboardType.Uri), modifier = field.selectToEdit())
-                OutlinedTextField(user, { user = it }, label = { Text("Username") }, singleLine = true,
-                    keyboardOptions = noAutoCaps, modifier = field.selectToEdit())
-                OutlinedTextField(pass, { pass = it }, label = { Text("Password") }, singleLine = true,
-                    visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password), modifier = field.selectToEdit())
-                error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
-                Button(
-                    enabled = !busy && url.isNotBlank() && user.isNotBlank() && pass.isNotBlank(),
-                    onClick = {
-                        if (needsLanPermission(context)) lanPermission.launch(Manifest.permission.ACCESS_LOCAL_NETWORK) else connect()
-                    },
-                    modifier = field.focusRing(CircleShape),
-                ) {
-                    if (busy) CircularProgressIndicator(Modifier.padding(2.dp), strokeWidth = 2.dp) else Text("Connect")
+                title = "Connect to your Navidrome server"
+                main = {
+                    OutlinedTextField(url, { url = it }, label = { Text("Server URL") }, placeholder = { Text("http://10.0.0.5:4533") },
+                        singleLine = true, keyboardOptions = noAutoCaps.copy(keyboardType = KeyboardType.Uri), modifier = field.selectToEdit())
+                    OutlinedTextField(user, { user = it }, label = { Text("Username") }, singleLine = true,
+                        keyboardOptions = noAutoCaps, modifier = field.selectToEdit())
+                    OutlinedTextField(pass, { pass = it }, label = { Text("Password") }, singleLine = true,
+                        visualTransformation = PasswordVisualTransformation(),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password), modifier = field.selectToEdit())
+                    error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+                    Button(
+                        enabled = !busy && url.isNotBlank() && user.isNotBlank() && pass.isNotBlank(),
+                        onClick = {
+                            if (needsLanPermission(context)) lanPermission.launch(Manifest.permission.ACCESS_LOCAL_NETWORK) else connect()
+                        },
+                        modifier = field.focusRing(CircleShape),
+                    ) {
+                        if (busy) CircularProgressIndicator(Modifier.padding(2.dp), strokeWidth = 2.dp) else Text("Connect")
+                    }
                 }
-                Text("Or sign in from a device that's already signed in",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 12.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    if (offerScan) OutlinedButton(onClick = { error = null; mode = LoginMode.SCAN }) { Text("Scan a code") }
-                    OutlinedButton(onClick = { error = null; mode = LoginMode.SHOW_CODE }) { Text("Show a code") }
+                side = {
+                    Text("Or sign in from a device that's already signed in", textAlign = TextAlign.Center,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 12.dp))
+                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        if (offerScan) OutlinedButton(onClick = { error = null; mode = LoginMode.SCAN }) { Text("Scan a code") }
+                        OutlinedButton(onClick = { error = null; mode = LoginMode.SHOW_CODE }) { Text("Show a code") }
+                    }
                 }
+            }
+        }
+        val heading: @Composable ColumnScope.() -> Unit = {
+            eu.bradshaw.seidr.ui.components.SeidrBanner()
+            Text(title, textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        val column = Modifier.verticalScroll(rememberScrollState()).padding(24.dp)
+        val arrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically)
+        val busyJoining = joining
+        if (wide) {
+            Row(Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f).fillMaxHeight().then(column), arrangement, Alignment.CenterHorizontally) {
+                    heading()
+                    if (busyJoining == null) side()
+                }
+                Column(Modifier.weight(1f).fillMaxHeight().then(column), arrangement, Alignment.CenterHorizontally) {
+                    if (busyJoining != null) Working("Signing in from $busyJoining…") else main()
+                }
+            }
+        } else {
+            Column(Modifier.fillMaxSize().then(column), arrangement, Alignment.CenterHorizontally) {
+                heading()
+                if (busyJoining != null) Working("Signing in from $busyJoining…")
+                else { main(); side() }
             }
         }
     }

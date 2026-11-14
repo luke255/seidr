@@ -88,7 +88,8 @@ fun ShowCodePanel(role: () -> PairRole, hint: String, onOutcome: (PairOutcome) -
             else -> {
                 QrCode(c.encode(), Modifier.widthIn(max = PairBoxWidth).fillMaxWidth())
                 val p = peer
-                if (p == null) Hint(hint) else Working("Signing in with $p…")
+                // An empty hint: the caller shows it beside the code instead.
+                if (p != null) Working("Signing in with $p…") else if (hint.isNotEmpty()) Hint(hint)
             }
         }
     }
