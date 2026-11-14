@@ -28,6 +28,8 @@ interface SyncServer {
     suspend fun playlist(id: String): PlaylistFetch
     /** Throws [GoneException] if the album doesn't exist. */
     suspend fun album(id: String): List<ServerTrack>
+    /** Every starred (loved) song. */
+    suspend fun starredSongs(): List<ServerTrack>
 }
 
 /** Storage the engine reads and writes (Room in the app, in-memory in tests). */
@@ -148,6 +150,7 @@ class SyncEngine(
                         if (listing == null) Outcome.Failed("playlist listing failed: $listingError")
                         else fetchPlaylist(source, listing, forceAll || source.id in force)
                     SourceType.ALBUM -> fetchAlbum(source)
+                    SourceType.STARRED -> fetchStarred(source)
                     else -> Outcome.Failed("unknown source type ${source.type}")
                 }
             } catch (e: CancellationException) {
@@ -270,6 +273,20 @@ class SyncEngine(
         // An album with no songs isn't a real state on the server: never trust it.
         if (!SyncPlanner.isTrustworthy(tracks.size, null, store.claimsFor(source.id).size, emptyConfirmed = false) || tracks.isEmpty()) {
             return Outcome.Failed("album returned no songs")
+        }
+        return Outcome.Complete(tracks, source.copy(lastFullFetch = now()))
+    }
+
+    private suspend fun fetchStarred(source: OfflineSource): Outcome {
+        val tracks = server.starredSongs()
+        val claims = store.claimsFor(source.id).size
+        var confirmed = false
+        if (tracks.isEmpty() && claims > 0) {
+            // Unloving everything is possible but rare: require a second empty answer.
+            confirmed = server.starredSongs().isEmpty()
+        }
+        if (!SyncPlanner.isTrustworthy(tracks.size, null, claims, confirmed)) {
+            return Outcome.Failed("loved list came back empty")
         }
         return Outcome.Complete(tracks, source.copy(lastFullFetch = now()))
     }

@@ -184,6 +184,7 @@ fun DownloadsScreen() {
                                 .clickable {
                                     when (s.type) {
                                         SourceType.PLAYLIST -> actions.open(Route.Playlist(s.serverId))
+                                        SourceType.STARRED -> actions.open(Route.Loved)
                                         else -> actions.open(Route.Album(s.serverId))
                                     }
                                 }
@@ -191,11 +192,11 @@ fun DownloadsScreen() {
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             val art = Modifier.size(48.dp).clip(RowArtShape)
-                            Cover(s.coverArt.takeIf { kid == null }, art, size = 160)
+                            if (s.type == SourceType.STARRED) LovedArt(art) else Cover(s.coverArt.takeIf { kid == null }, art, size = 160)
                             Spacer(Modifier.width(12.dp))
                             Column(Modifier.weight(1f)) {
                                 Text(s.name, style = MaterialTheme.typography.bodyLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                                Text("${s.type.replaceFirstChar { it.uppercase() }} · $sub", style = MaterialTheme.typography.bodyMedium,
+                                Text("${if (s.type == SourceType.STARRED) "Playlist" else s.type.replaceFirstChar { it.uppercase() }} · $sub", style = MaterialTheme.typography.bodyMedium,
                                     color = cs.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
                             }
                             Switch(true, { graph.sync.setOffline(s, false) })

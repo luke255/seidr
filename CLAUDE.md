@@ -35,7 +35,9 @@ before changing sync or playback.
   base URL is a placeholder. Writes are POST forms (OpenSubsonic `formPost`).
   Cover-art URLs use a fixed per-install salt, so image caches can key on them.
 - **`data/db`**: Room. `offline_source` → `claim` → `download` (the claims
-  model), plus `pending_edit` and `pending_scrobble`.
+  model), plus `pending_edit` and `pending_scrobble`. Sources are playlists,
+  albums and Loved (the starred songs, `SourceType.STARRED_ID`), which also
+  shows as a built-in playlist (`ui/screens/LovedScreen`), first A–Z.
 - **`sync/`**:
   - `SyncPlanner` (pure) and `SyncEngine` (pure apart from its interfaces)
     hold every rule.

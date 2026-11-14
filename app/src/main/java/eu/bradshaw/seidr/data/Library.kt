@@ -63,6 +63,10 @@ class Library(
     /** Ids of starred ("liked") songs; the heart everywhere reads from this. */
     val starredSongs: StateFlow<Set<String>> = _starredSongs.asStateFlow()
 
+    private val _lastLoved = MutableStateFlow<String?>(null)
+    /** When the newest loved song was loved (ISO 8601), for sorting Loved by "Recently updated". */
+    val lastLoved: StateFlow<String?> = _lastLoved.asStateFlow()
+
     private val _starredAlbums = MutableStateFlow<Set<String>>(emptySet())
     val starredAlbums: StateFlow<Set<String>> = _starredAlbums.asStateFlow()
 
@@ -92,6 +96,8 @@ class Library(
         playlists.value ?: client.cached("getPlaylists.view")?.response?.playlists?.playlist?.let(::visible)
     fun cachedPlaylist(id: String): Playlist? = client.cached("getPlaylist.view", "id" to id)?.response?.playlist
         ?.let { p -> kid.let { k -> if (k == null) p else k.playlist(p) } }
+    fun cachedStarredSongs(): List<Song>? = client.cached("getStarred2.view")?.response?.starred2?.song
+        ?.sortedByDescending { it.starred ?: "" }?.let { s -> kid?.songs(s) ?: s }
     fun cachedAlbum(id: String): Album? = client.cached("getAlbum.view", "id" to id)?.response?.album
         ?.let { a -> kid.let { k -> if (k == null) a else k.album(a) } }
 
@@ -170,10 +176,12 @@ class Library(
         return k.albums(api.getAlbumList2(type, 500).ok().albumList2?.album.orEmpty()).take(size)
     }
 
+    /** Loved songs, most recently loved first (the server's order isn't defined). */
     suspend fun starredSongsList(): List<Song> {
         val s = api.getStarred2().ok().starred2
-        val songs = s?.song.orEmpty()
+        val songs = s?.song.orEmpty().sortedByDescending { it.starred ?: "" }
         _starredSongs.value = songs.map { it.id }.toSet()
+        _lastLoved.value = songs.firstOrNull()?.starred
         _starredAlbums.value = s?.album.orEmpty().map { it.id }.toSet()
         return kid?.songs(songs) ?: songs
     }
@@ -246,6 +254,7 @@ class Library(
         artistsCache = null
         albumsCache = null
         _starredSongs.value = emptySet()
+        _lastLoved.value = null
         _starredAlbums.value = emptySet()
     }
 }

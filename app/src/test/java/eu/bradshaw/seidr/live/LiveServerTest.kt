@@ -92,6 +92,7 @@ class LiveServerTest {
         val album = client.api.getAlbumList2("newest", 1).ok().albumList2!!.album.first()
         store.sources["playlist:${small.id}"] = OfflineSource("playlist:${small.id}", SourceType.PLAYLIST, small.id, small.name)
         store.sources["album:${album.id}"] = OfflineSource("album:${album.id}", SourceType.ALBUM, album.id, album.name)
+        store.sources[SourceType.STARRED_ID] = OfflineSource(SourceType.STARRED_ID, SourceType.STARRED, "starred", "Loved")
         val engine = SyncEngine(sync, store, FakeFiles())
         val r1 = engine.sync()
         assertTrue("no failures: ${r1.failed}", r1.failed.isEmpty())

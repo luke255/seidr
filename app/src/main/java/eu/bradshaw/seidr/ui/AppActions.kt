@@ -53,6 +53,7 @@ class AppActions(
             if (!graph.library.setSongStarred(songId, now)) toast("Couldn't reach the server")
             else {
                 toast(if (now) "Loved" else "Unloved")
+                graph.lovedChanged()
             }
         }
     }

@@ -87,6 +87,7 @@ fun HomeScreen() {
     val alpha by graph.settings.homePlaylistsAlpha.collectAsStateWithLifecycle()
     val server by graph.settings.server.collectAsStateWithLifecycle()
     val kid by graph.kids.rules.collectAsStateWithLifecycle()
+    val starred by graph.library.starredSongs.collectAsStateWithLifecycle()
     Column(Modifier.fillMaxSize()) {
         RefreshBox(vm.refreshing && vm.data != null, onRefresh = vm::load, modifier = Modifier.weight(1f)) {
             LazyColumn(Modifier.fillMaxSize(), contentPadding = bottomContentPadding()) {
@@ -125,9 +126,13 @@ fun HomeScreen() {
                     }
                     item {
                         LazyRow(contentPadding = PaddingValues(horizontal = 10.dp)) {
-                            itemsIndexed(sortPlaylists(pls, alpha, lastPlayed).take(20), key = { _, p -> p.id }) { i, p ->
-                                CoverCard(p.name, playlistSubtitle(p, server?.username), p.coverArt, onClick = { actions.open(Route.Playlist(p.id)) },
-                                    modifier = if (i == 0) Modifier.primaryFocus() else Modifier)
+                            // null is Loved.
+                            itemsIndexed(withLoved(sortPlaylists(pls, alpha, lastPlayed), alpha, lastPlayed).take(20), key = { _, p -> p?.id ?: "loved" }) { i, p ->
+                                val focus = if (i == 0) Modifier.primaryFocus() else Modifier
+                                if (p == null) CoverCard(Loved.NAME, Loved.subtitle(starred), null, onClick = { actions.open(Route.Loved) },
+                                    art = { m -> LovedArt(m) }, modifier = focus)
+                                else CoverCard(p.name, playlistSubtitle(p, server?.username), p.coverArt, onClick = { actions.open(Route.Playlist(p.id)) },
+                                    modifier = focus)
                             }
                         }
                     }
@@ -148,6 +153,13 @@ private fun sortPlaylists(pls: List<Playlist>, alpha: Boolean, lastPlayed: Map<S
     val byName = compareBy<Playlist, String>(String.CASE_INSENSITIVE_ORDER) { it.name }
     return if (alpha) pls.sortedWith(byName)
     else pls.sortedWith(compareByDescending<Playlist> { lastPlayed[it.id] ?: 0L }.then(byName))
+}
+
+/** [sorted] with Loved (null) put in: first A–Z, else by when it was last played (first of the never-played). */
+private fun withLoved(sorted: List<Playlist>, alpha: Boolean, lastPlayed: Map<String, Long>): List<Playlist?> {
+    val loved = lastPlayed[Loved.PLAYS_KEY] ?: 0L
+    val at = if (alpha) 0 else sorted.indexOfFirst { (lastPlayed[it.id] ?: 0L) <= loved }.let { if (it < 0) sorted.size else it }
+    return sorted.toMutableList<Playlist?>().apply { add(at, null) }
 }
 
 private fun androidx.compose.foundation.lazy.LazyListScope.albumShelf(title: String, albums: List<Album>, open: (String) -> Unit) {

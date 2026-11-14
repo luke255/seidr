@@ -468,7 +468,7 @@ class PlaybackService : MediaLibraryService() {
             if (customCommand.customAction == CMD_LIKE) {
                 val id = session.player.currentMediaItem?.mediaId?.let(::songIdOf)
                 if (id != null) scope.launch {
-                    graph.library.setSongStarred(id, id !in graph.library.starredSongs.value)
+                    if (graph.library.setSongStarred(id, id !in graph.library.starredSongs.value)) graph.lovedChanged()
                     updateLikeButton()
                 }
                 return Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))

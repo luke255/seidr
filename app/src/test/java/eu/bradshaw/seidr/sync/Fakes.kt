@@ -16,6 +16,7 @@ class FakeServer {
 
     val playlists = linkedMapOf<String, Pl>()
     val albums = linkedMapOf<String, MutableList<ServerTrack>>()
+    var starred = mutableListOf<ServerTrack>()
 
     var offline = false
     /** Return only the first N tracks of a playlist while still reporting the full count. */
@@ -24,6 +25,8 @@ class FakeServer {
     var hideFromListing: String? = null
     /** Next N album calls report not-found even though the album exists. */
     var flakyAlbumNotFound = 0
+    /** Next N starred calls return an empty list. */
+    var emptyStarredCalls = 0
 
     val calls = mutableListOf<String>()
 
@@ -46,6 +49,7 @@ class FakeServer {
     fun deleteSong(songId: String) {
         playlists.values.forEach { p -> if (p.tracks.removeAll { it.id == songId }) p.changed++ }
         albums.values.forEach { it.removeAll { t -> t.id == songId } }
+        starred.removeAll { it.id == songId }
     }
 
     val server = object : SyncServer {
@@ -66,6 +70,12 @@ class FakeServer {
             net("album:$id")
             if (flakyAlbumNotFound > 0) { flakyAlbumNotFound--; throw GoneException(id) }
             return albums[id]?.toList() ?: throw GoneException(id)
+        }
+
+        override suspend fun starredSongs(): List<ServerTrack> {
+            net("starred")
+            if (emptyStarredCalls > 0) { emptyStarredCalls--; return emptyList() }
+            return starred.toList()
         }
     }
 }

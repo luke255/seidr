@@ -166,12 +166,18 @@ fun LibraryScreen() {
     val downloads by graph.downloads.all.collectAsStateWithLifecycle()
     val playlistSongs by graph.library.playlistSongs.collectAsStateWithLifecycle()
     val server by graph.settings.server.collectAsStateWithLifecycle()
+    val starred by graph.library.starredSongs.collectAsStateWithLifecycle()
+    val lastLoved by graph.library.lastLoved.collectAsStateWithLifecycle()
     // A playlist counts as downloaded if it's a download source, or every track is on the phone anyway.
     val offlinePlaylists = remember(sources, downloads, playlistSongs) {
         val done = downloads.filterValues { it.state == DownloadState.DONE }.keys
         val covered = playlistSongs.filter { (_, ids) -> ids.isNotEmpty() && done.containsAll(ids) }.keys
         val prefix = SourceType.sourceId(SourceType.PLAYLIST, "")
         covered + sources.keys.filter { it.startsWith(prefix) }.map { it.removePrefix(prefix) }
+    }
+    val lovedOffline = remember(sources, downloads, starred) {
+        SourceType.STARRED_ID in sources ||
+            (starred.isNotEmpty() && starred.all { downloads[it]?.state == DownloadState.DONE })
     }
 
     val sortOptions = when (LibTab.entries[tab]) {
@@ -247,24 +253,33 @@ fun LibraryScreen() {
                         if (vm.playlistsError != null) LoadContent(Load.Error(vm.playlistsError!!), { vm.load(true) }) {}
                         else Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
                     } else {
-                        val items = buildList {
-                            list.filter { (!downloadedOnly || it.id in offlinePlaylists) && matches(it.name) }
-                                .let { l ->
-                                    when (sort) {
-                                        1 -> l.sortedBy { it.name.lowercase() }
-                                        2 -> l.sortedByDescending { it.changed ?: "" }
-                                        else -> l
-                                    }
+                        val shown = list.filter { (!downloadedOnly || it.id in offlinePlaylists) && matches(it.name) }
+                            .let { l ->
+                                when (sort) {
+                                    1 -> l.sortedBy { it.name.lowercase() }
+                                    2 -> l.sortedByDescending { it.changed ?: "" }
+                                    else -> l
                                 }
-                                .forEach { p ->
-                                    val owner = p.owner?.takeIf { it != server?.username }?.let { "by $it" }
-                                    add(LibItem(
-                                        p.id, p.name, listOfNotNull(owner, pluralSongs(p.songCount)).joinToString(" · "),
-                                        gridSubtitle = owner ?: pluralSongs(p.songCount),
-                                        badge = if (p.id in offlinePlaylists) Badge.DOWNLOADED else null,
-                                        art = { m -> Cover(p.coverArt, m, size = 300) }, onClick = { actions.open(Route.Playlist(p.id)) },
-                                    ))
-                                }
+                            }
+                        val items = shown.mapTo(mutableListOf()) { p ->
+                            val owner = p.owner?.takeIf { it != server?.username }?.let { "by $it" }
+                            LibItem(
+                                p.id, p.name, listOfNotNull(owner, pluralSongs(p.songCount)).joinToString(" · "),
+                                gridSubtitle = owner ?: pluralSongs(p.songCount),
+                                badge = if (p.id in offlinePlaylists) Badge.DOWNLOADED else null,
+                                art = { m -> Cover(p.coverArt, m, size = 300) }, onClick = { actions.open(Route.Playlist(p.id)) },
+                            )
+                        }
+                        // Loved heads the list, except by "Recently updated", where its newest love places it.
+                        if ((!downloadedOnly || lovedOffline) && matches(Loved.NAME)) {
+                            val at = if (sort != 2) 0 else shown.indexOfFirst { (it.changed ?: "") < (lastLoved ?: "") }
+                                .let { if (it < 0) shown.size else it }
+                            val count = Loved.subtitle(starred)
+                            items.add(at, LibItem(
+                                "loved", Loved.NAME, count ?: "Playlist",
+                                badge = if (lovedOffline) Badge.DOWNLOADED else null,
+                                art = { m -> LovedArt(m) }, onClick = { actions.open(Route.Loved) },
+                            ))
                         }
                         LibContent(items, grid, empty = emptyText(q, downloadedOnly))
                     }

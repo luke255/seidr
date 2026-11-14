@@ -59,8 +59,6 @@ class SyncCoordinator(
         try {
             // Replay offline playlist edits first so the mirror reflects them.
             runCatching { beforeSync() }.onFailure { Log.w("Sync", "pending replay failed: $it") }
-            // Liked Songs is no longer a download source; this pass's file sweep drops what only it claimed.
-            engine.lock.withLock { dao.deleteSource(RETIRED_STARRED_ID) }
             val report = engine.sync(force)
             Log.i("Sync", "pass: ok=${report.ok.size} unchanged=${report.unchanged.size} failed=${report.failed} " +
                 "gone=${report.gone} queued=${report.queued} redl=${report.redownload} deleted=${report.deleted.size} deferred=${report.deferred}")
@@ -139,9 +137,5 @@ class SyncCoordinator(
         work.cancelUniqueWork("sync-periodic")
         work.cancelUniqueWork("sync-retry")
         work.cancelUniqueWork("downloads")
-    }
-
-    private companion object {
-        const val RETIRED_STARRED_ID = "starred:starred"
     }
 }

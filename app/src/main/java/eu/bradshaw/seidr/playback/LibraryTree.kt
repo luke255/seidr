@@ -12,6 +12,7 @@ import eu.bradshaw.seidr.Graph
 import eu.bradshaw.seidr.data.api.Album
 import eu.bradshaw.seidr.data.api.Playlist
 import eu.bradshaw.seidr.data.api.Song
+import eu.bradshaw.seidr.ui.screens.Loved
 import kotlinx.coroutines.withTimeoutOrNull
 
 /**
@@ -21,7 +22,7 @@ import kotlinx.coroutines.withTimeoutOrNull
  * - **Recent**: playlists and albums, most recently played on this phone first,
  *   then the never-played playlists A–Z (as the phone's Recent sort). An album
  *   only counts when it was played from its own page ([AlbumPlays]).
- * - **Playlists**: all of them, A–Z.
+ * - **Playlists**: Loved (the starred songs), then all the others A–Z.
  *
  * Playlists and albums are playable, not folders: a playlist shuffles, an album
  * plays in order. Browse ids name the context: `play/<context>/<index>` or
@@ -87,6 +88,7 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
         }
         val c = contextSongs(ctx) ?: return null
         if (ctx.startsWith(PL)) graph.playlistPlays.record(ctx.removePrefix(PL))
+        if (ctx == LOVED) graph.playlistPlays.record(Loved.PLAYS_KEY)
         c.album?.let(graph.albumPlays::record)
         return queue(c.songs, start, c.name, shuffle)
     }
@@ -95,18 +97,30 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
         graph.library.cachedPlaylists() ?: fetchOrNull { graph.library.refreshPlaylists() }.orEmpty()
 
     private suspend fun playlistItems(): List<MediaItem> =
-        playlists().sortedWith(byName).map { playable("shuffle/$PL${it.id}", it.name, "${it.songCount} songs", it.coverArt, MediaMetadata.MEDIA_TYPE_PLAYLIST) }
+        listOf(lovedItem(withCount = true)) +
+            playlists().sortedWith(byName).map { playable("shuffle/$PL${it.id}", it.name, "${it.songCount} songs", it.coverArt, MediaMetadata.MEDIA_TYPE_PLAYLIST) }
+
+    /** Loved, with the newest loved song's cover (it has none of its own). */
+    private fun lovedItem(withCount: Boolean): MediaItem {
+        val songs = graph.library.cachedStarredSongs()
+        val cover = songs?.firstNotNullOfOrNull { it.coverArt }
+        val sub = if (withCount && songs != null) "${songs.size} songs" else "Playlist"
+        return playable("shuffle/$LOVED", Loved.NAME, sub, cover, MediaMetadata.MEDIA_TYPE_PLAYLIST)
+    }
 
     private suspend fun recent(): List<MediaItem> {
         val last = graph.playlistPlays.lastPlayed.value
         val (played, unplayed) = playlists().partition { it.id in last }
-        val pls = played.map { p -> last.getValue(p.id) to playlistItem(p) }
+        val loved = last[Loved.PLAYS_KEY]
+        val pls = played.map { p -> last.getValue(p.id) to playlistItem(p) } +
+            listOfNotNull(loved?.let { it to lovedItem(withCount = false) })
         val kid = graph.kids.current
         val albums = graph.albumPlays.recent().filter { kid?.albumShows(it.id) != false }.map { a ->
             val art = a.coverArt.takeIf { kid?.albumArtShows(a.id) != false }
             a.at to playable("play/$AL${a.id}/0", a.name, a.artist, art, MediaMetadata.MEDIA_TYPE_ALBUM)
         }
         return (pls + albums).sortedByDescending { it.first }.take(RECENT_COUNT).map { it.second } +
+            listOfNotNull(if (loved == null) lovedItem(withCount = false) else null) +
             unplayed.sortedWith(byName).map(::playlistItem)
     }
 
@@ -146,6 +160,8 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
     private data class Ctx(val name: String, val songs: List<Song>, val album: Album? = null)
 
     private suspend fun contextSongs(ctx: String): Ctx? = when {
+        ctx == LOVED -> freshOr({ graph.library.cachedStarredSongs() }) { graph.library.starredSongsList() }
+            ?.let { Ctx(Loved.NAME, it) }
         ctx.startsWith(PL) -> ctx.removePrefix(PL).let { id ->
             freshOr({ graph.library.cachedPlaylist(id) }) { graph.library.playlist(id) }?.let { Ctx(it.name, it.entry) }
         }
@@ -225,6 +241,7 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
         const val PLAYLISTS = "playlists"
         const val PL = "pl:"
         const val AL = "al:"
+        const val LOVED = "loved"
         private const val RECENT_COUNT = 40
         private const val PLAY_FETCH_MS = 4_000L
         private const val FIRST_FETCH_MS = 10_000L

@@ -110,6 +110,12 @@ class Graph(val app: Application) {
         },
     )
 
+    /** Loves changed (here or elsewhere): a downloaded Loved list follows them. */
+    fun lovedChanged() {
+        val id = eu.bradshaw.seidr.data.db.SourceType.STARRED_ID
+        if (id in downloads.sources.value) sync.request(setOf(id))
+    }
+
     val bad = BadReports(badReportsOn, library, editor, db.offline(), scope) { client.strict }
 
     init {

@@ -38,6 +38,10 @@ class SyncEngineTest {
         store.sources[sid] = OfflineSource(sid, SourceType.ALBUM, id, id)
     }
 
+    private fun enableLoved() {
+        store.sources[SourceType.STARRED_ID] = OfflineSource(SourceType.STARRED_ID, SourceType.STARRED, "starred", "Loved")
+    }
+
     private suspend fun syncAndDownload(): SyncReport = engine.sync().also { store.completeAll() }
     private fun onDisk() = store.downloads.filterValues { it.state == DownloadState.DONE }.keys
 
@@ -168,7 +172,8 @@ class SyncEngineTest {
         fake.playlist("p", "a", "b")
         fake.albums["al"] = mutableListOf(track("b"), track("c"))
         fake.playlist("p2", "b")
-        enablePlaylist("p"); enablePlaylist("p2"); enableAlbum("al")
+        fake.starred = mutableListOf(track("b"))
+        enablePlaylist("p"); enablePlaylist("p2"); enableAlbum("al"); enableLoved()
         syncAndDownload()
         fake.deleteSong("b")
         val r = syncAndDownload()
@@ -212,15 +217,16 @@ class SyncEngineTest {
         fake.playlist("p", "a", "b")
         fake.albums["al"] = mutableListOf(track("c"))
         fake.playlist("p2", "d")
-        enablePlaylist("p"); enablePlaylist("p2"); enableAlbum("al")
+        fake.starred = mutableListOf(track("e"))
+        enablePlaylist("p"); enablePlaylist("p2"); enableAlbum("al"); enableLoved()
         syncAndDownload()
         fake.offline = true
         val r = syncAndDownload()
-        assertEquals(3, r.failed.size)
+        assertEquals(4, r.failed.size)
         assertTrue(r.deleted.isEmpty())
         assertTrue(files.deleted.isEmpty())
-        assertEquals(setOf("a", "b", "c", "d"), onDisk())
-        assertEquals(3, store.sources.size)
+        assertEquals(setOf("a", "b", "c", "d", "e"), onDisk())
+        assertEquals(4, store.sources.size)
     }
 
     // --- The safety rule -----------------------------------------------------------
@@ -383,5 +389,47 @@ class SyncEngineTest {
         playing = emptySet()
         engine.sweep()
         assertEquals(setOf("a"), onDisk())
+    }
+
+    // --- Loved (starred songs) ---------------------------------------------------
+
+    @Test fun `loved list empty once is not trusted`() = runTest {
+        enableLoved()
+        fake.starred = mutableListOf(track("a"), track("b"))
+        syncAndDownload()
+        fake.emptyStarredCalls = 1 // glitch: first call empty, confirmation call full
+        val r = syncAndDownload()
+        assertTrue(r.failed.containsKey(SourceType.STARRED_ID))
+        assertEquals(setOf("a", "b"), onDisk())
+    }
+
+    @Test fun `loved list really emptied is mirrored after confirmation`() = runTest {
+        enableLoved()
+        fake.starred = mutableListOf(track("a"))
+        syncAndDownload()
+        fake.starred.clear()
+        val r = syncAndDownload()
+        assertEquals(listOf("a"), r.deleted)
+    }
+
+    @Test fun `loved changes are diffed every pass`() = runTest {
+        enableLoved()
+        fake.starred = mutableListOf(track("a"))
+        syncAndDownload()
+        fake.starred = mutableListOf(track("b"))
+        val r = syncAndDownload()
+        assertEquals(listOf("a"), r.deleted)
+        assertEquals(setOf("b"), onDisk())
+    }
+
+    @Test fun `unloved track in a downloaded playlist stays`() = runTest {
+        fake.playlist("p", "a")
+        fake.starred = mutableListOf(track("a"), track("b"))
+        enablePlaylist("p"); enableLoved()
+        syncAndDownload()
+        fake.starred.clear(); fake.starred += track("b")
+        val r = syncAndDownload()
+        assertTrue(r.deleted.isEmpty())
+        assertEquals(setOf("a", "b"), onDisk())
     }
 }

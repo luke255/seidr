@@ -8,8 +8,11 @@ import androidx.room.PrimaryKey
 object SourceType {
     const val PLAYLIST = "playlist"
     const val ALBUM = "album"
+    /** Loved songs (the server's starred songs). There's only one, so its id is fixed. */
+    const val STARRED = "starred"
 
     fun sourceId(type: String, serverId: String) = "$type:$serverId"
+    const val STARRED_ID = "starred:starred"
 }
 
 /** Something the user has switched Download on for. Its id is "<type>:<serverId>". */
@@ -19,7 +22,7 @@ data class OfflineSource(
     val type: String,
     val serverId: String,
     val name: String,
-    /** The playlist's `changed` timestamp at the last complete fetch; null for albums. */
+    /** The playlist's `changed` timestamp at the last complete fetch; null for albums and Loved. */
     val changed: String? = null,
     val enabled: Boolean = true,
     /** Wall-clock millis of the last complete fetch; forces a periodic full re-check. */

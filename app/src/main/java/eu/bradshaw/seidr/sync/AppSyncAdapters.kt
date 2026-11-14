@@ -44,6 +44,11 @@ class SubsonicSyncServer(private val api: () -> SubsonicApi) : SyncServer {
         if (a.songCount != a.song.size) throw SubsonicException(0, "album response incomplete")
         a.song.map { it.toServerTrack() }
     }
+
+    override suspend fun starredSongs(): List<ServerTrack> {
+        val s = api().getStarred2().ok().starred2 ?: throw SubsonicException(0, "no starred list in response")
+        return s.song.map { it.toServerTrack() }
+    }
 }
 
 class RoomSyncStore(private val dao: OfflineDao) : SyncStore {

@@ -159,7 +159,10 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
         starredJob?.cancel()
         starredJob = scope.launch {
             delay(1_500)
+            val before = graph.library.starredSongs.value
             graph.library.refreshStarred()
+            // Play counts send song events too, so only sync Loved when loves changed.
+            if (graph.library.starredSongs.value != before) graph.lovedChanged()
         }
     }
 

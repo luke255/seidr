@@ -105,6 +105,7 @@ private fun RouteContent(route: Route) {
         Route.Search -> SearchScreen()
         Route.Library -> LibraryScreen()
         is Route.Playlist -> PlaylistScreen(route.id)
+        Route.Loved -> eu.bradshaw.seidr.ui.screens.LovedScreen()
         is Route.Album -> AlbumScreen(route.id)
         is Route.Artist -> ArtistScreen(route.id)
         Route.Downloads -> DownloadsScreen()
