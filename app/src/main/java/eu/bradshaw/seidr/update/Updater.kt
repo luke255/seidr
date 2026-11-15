@@ -165,10 +165,11 @@ object Updater {
             }
         }
         val actual = md.digest().joinToString("") { "%02x".format(it) }
-        val expected = info.optString("sha256")
-        if (expected.isNotEmpty() && actual != expected) {
+        // Required: a version.json without one is refused, not trusted.
+        val expected = info.optString("sha256").lowercase()
+        if (expected.isEmpty() || actual != expected) {
             apk.delete()
-            throw IOException("APK sha256 doesn't match version.json")
+            throw IOException(if (expected.isEmpty()) "version.json has no sha256" else "APK sha256 doesn't match version.json")
         }
         return Ready(code, versionName, apk)
     }
