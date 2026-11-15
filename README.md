@@ -136,7 +136,8 @@ Seiðr has no analytics, tracking, ads or accounts of its own. It talks to:
 - **other devices running Seiðr** on your local network, when you sign one in
   or play on one.
 
-Your password stays on the device. It isn't sent anywhere except your server,
+Your password stays on the device, encrypted at rest with a key held in
+Android's Keystore. It isn't sent anywhere except your server,
 and to another device you choose to sign in or play on, encrypted with a key
 agreed when you checked the code on both screens. A device you play on keeps
 it in memory only, until you disconnect.

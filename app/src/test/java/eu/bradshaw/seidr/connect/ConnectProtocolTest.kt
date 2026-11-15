@@ -33,7 +33,6 @@ class ConnectProtocolTest {
         val spec = javax.crypto.spec.PBEKeySpec(pw.toCharArray(), "seidr-connect/2\u0000luke".toByteArray(), 600_000, 256)
         val expected = javax.crypto.SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(spec).encoded
         assertTrue(key.contentEquals(expected))
-        assertTrue(ConnectKeys.isDerived(" LUKE", "pässwörd"))
     }
 
     @Test

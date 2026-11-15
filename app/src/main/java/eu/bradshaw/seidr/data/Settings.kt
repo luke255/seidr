@@ -21,12 +21,14 @@ data class ServerConfig(val url: String, val username: String, val password: Str
 data class KidLogin(val username: String, val password: String)
 
 /**
- * App preferences in plain SharedPreferences (app-private storage). The
- * password has to be stored recoverably because Subsonic token auth hashes it
- * with a fresh salt on every request.
+ * App preferences in SharedPreferences (app-private storage). The password
+ * has to be stored recoverably because Subsonic token auth hashes it with a
+ * fresh salt on every request, so it and the kids' logins are encrypted under
+ * a Keystore key ([Secrets]).
  */
 class Settings(context: Context) {
     private val prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+    private val secrets = Secrets(prefs)
 
     private val _server = MutableStateFlow(readServer())
     val server: StateFlow<ServerConfig?> = _server.asStateFlow()
@@ -81,7 +83,7 @@ class Settings(context: Context) {
     private fun readServer(): ServerConfig? {
         val url = prefs.getString("server_url", null) ?: return null
         val user = prefs.getString("username", null) ?: return null
-        val pass = prefs.getString("password", null) ?: return null
+        val pass = secrets.read("password") ?: return null
         return ServerConfig(url, user, pass, prefs.getString("kid_of", null))
     }
 
@@ -89,14 +91,16 @@ class Settings(context: Context) {
         val edit = prefs.edit()
             .putString("server_url", config.url)
             .putString("username", config.username)
-            .putString("password", config.password)
         if (config.kidOf != null) edit.putString("kid_of", config.kidOf) else edit.remove("kid_of")
         edit.apply()
+        secrets.write("password", config.password)
         _server.value = config
     }
 
     fun clearServer() {
-        prefs.edit().remove("server_url").remove("username").remove("password").remove("kid_of").remove("kid_logins").apply()
+        prefs.edit().remove("server_url").remove("username").remove("kid_of").apply()
+        secrets.write("password", null)
+        secrets.write("kid_logins", null)
         _server.value = null
         _kidLogins.value = emptyList()
     }
@@ -137,20 +141,20 @@ class Settings(context: Context) {
     }
 
     private fun readKids(): List<KidLogin> =
-        prefs.getString("kid_logins", null)?.let {
+        secrets.read("kid_logins")?.let {
             runCatching { Json.decodeFromString<List<KidLogin>>(it) }.getOrNull()
         } ?: emptyList()
 
     /** Adds or replaces (by username) a kid's login. */
     fun saveKid(kid: KidLogin) {
         val list = _kidLogins.value.filterNot { it.username.equals(kid.username, ignoreCase = true) } + kid
-        prefs.edit().putString("kid_logins", Json.encodeToString(list)).apply()
+        secrets.write("kid_logins", Json.encodeToString(list))
         _kidLogins.value = list
     }
 
     fun removeKid(username: String) {
         val list = _kidLogins.value.filterNot { it.username.equals(username, ignoreCase = true) }
-        prefs.edit().putString("kid_logins", Json.encodeToString(list)).apply()
+        secrets.write("kid_logins", Json.encodeToString(list))
         _kidLogins.value = list
     }
 

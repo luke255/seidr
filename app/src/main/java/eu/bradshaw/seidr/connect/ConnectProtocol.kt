@@ -233,10 +233,6 @@ object ConnectKeys {
         return key
     }
 
-    /** Already derived for this login, so [account] would return at once. */
-    fun isDerived(username: String, password: String): Boolean =
-        synchronized(memo) { loginId(username.trim().lowercase(), password).joinToString("") { "%02x".format(it) } in memo }
-
     /**
      * Tells logins apart in memory (a guest's, say) without the cost of
      * [account]. Never sent or advertised: it's a fast hash of the password.
@@ -244,7 +240,7 @@ object ConnectKeys {
     fun loginId(username: String, password: String): ByteArray =
         sha256("seidr-login\u0000${username.trim().lowercase()}\u0000$password".toByteArray())
 
-    /** About a second on a slow TV; done once per login and kept in memory. */
+    /** ~0.3 s on a phone, ~5 s on a slow TV: callers derive once per login and keep it. */
     private const val ACCOUNT_ITERATIONS = 600_000
     private val memo = object : LinkedHashMap<String, ByteArray>(4, 0.75f, true) {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, ByteArray>?) = size > 4

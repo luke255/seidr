@@ -6,6 +6,7 @@ import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import android.util.Log
 import eu.bradshaw.seidr.data.KidLogin
+import eu.bradshaw.seidr.data.Secrets
 import eu.bradshaw.seidr.data.ServerConfig
 import eu.bradshaw.seidr.data.Settings
 import eu.bradshaw.seidr.ui.isTv
@@ -58,6 +59,7 @@ class Connect(
     private val startService: () -> Unit,
 ) {
     private val prefs = app.getSharedPreferences("connect", Context.MODE_PRIVATE)
+    private val secrets = Secrets(prefs)
     private val main = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
     /** Stable per install. */
@@ -79,11 +81,21 @@ class Connect(
         class Ready(val key: ByteArray) : AccountKey
     }
     private val keyState = MutableStateFlow(
-        settings.server.value?.let { s ->
-            if (ConnectKeys.isDerived(s.username, s.password)) AccountKey.Ready(ConnectKeys.account(s.username, s.password))
-            else AccountKey.Deriving
-        } ?: AccountKey.SignedOut,
+        settings.server.value?.let { s -> storedKey(s)?.let(AccountKey::Ready) ?: AccountKey.Deriving } ?: AccountKey.SignedOut,
     )
+
+    /**
+     * The key derived for this login before, kept encrypted ([Secrets]) with
+     * the login's id: deriving takes ~5 s on a slow TV, so it's done once per
+     * sign-in, not on every start.
+     */
+    private fun storedKey(s: ServerConfig): ByteArray? {
+        val (id, key) = secrets.read("account_key")?.split(':')?.takeIf { it.size == 2 } ?: return null
+        if (id != b64(ConnectKeys.loginId(s.username, s.password))) return null
+        return runCatching { Base64.decode(key, Base64.NO_WRAP) }.getOrNull()?.takeIf { it.size == 32 }
+    }
+
+    private fun b64(b: ByteArray) = Base64.encodeToString(b, Base64.NO_WRAP)
 
     /** Null while signed out, and while the key is still being derived after a sign-in. */
     val accountKey: ByteArray? get() = (keyState.value as? AccountKey.Ready)?.key
@@ -99,12 +111,19 @@ class Connect(
             settings.server.collectLatest { s ->
                 if (s == null) {
                     keyState.value = AccountKey.SignedOut
+                    secrets.write("account_key", null)
                 } else {
-                    if (!ConnectKeys.isDerived(s.username, s.password)) keyState.value = AccountKey.Deriving
-                    val started = android.os.SystemClock.elapsedRealtime()
-                    val key = withContext(Dispatchers.Default) { ConnectKeys.account(s.username, s.password) }
-                    Log.i(TAG, "account key ready in ${android.os.SystemClock.elapsedRealtime() - started} ms")
-                    keyState.value = AccountKey.Ready(key)
+                    val stored = storedKey(s)
+                    if (stored != null) {
+                        keyState.value = AccountKey.Ready(stored)
+                    } else {
+                        keyState.value = AccountKey.Deriving
+                        val started = android.os.SystemClock.elapsedRealtime()
+                        val key = withContext(Dispatchers.Default) { ConnectKeys.account(s.username, s.password) }
+                        Log.i(TAG, "account key derived in ${android.os.SystemClock.elapsedRealtime() - started} ms")
+                        secrets.write("account_key", b64(ConnectKeys.loginId(s.username, s.password)) + ":" + b64(key))
+                        keyState.value = AccountKey.Ready(key)
+                    }
                 }
                 // Advertising and discovery wait for the key; catch them up.
                 if (wantedPort > 0) advertise(wantedPort)
@@ -118,14 +137,12 @@ class Connect(
         val f = KeyFactory.getInstance("EC")
         runCatching {
             val pub = Base64.decode(prefs.getString("identity_pub", null)!!, Base64.NO_WRAP)
-            val priv = Base64.decode(prefs.getString("identity_priv", null)!!, Base64.NO_WRAP)
+            val priv = Base64.decode(secrets.read("identity_priv")!!, Base64.NO_WRAP)
             KeyPair(f.generatePublic(X509EncodedKeySpec(pub)), f.generatePrivate(PKCS8EncodedKeySpec(priv)))
         }.getOrElse {
             ConnectKeys.newKeyPair().also {
-                prefs.edit()
-                    .putString("identity_pub", Base64.encodeToString(it.public.encoded, Base64.NO_WRAP))
-                    .putString("identity_priv", Base64.encodeToString(it.private.encoded, Base64.NO_WRAP))
-                    .apply()
+                prefs.edit().putString("identity_pub", Base64.encodeToString(it.public.encoded, Base64.NO_WRAP)).apply()
+                secrets.write("identity_priv", Base64.encodeToString(it.private.encoded, Base64.NO_WRAP))
             }
         }
     }
