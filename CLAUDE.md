@@ -196,6 +196,13 @@ before changing sync or playback.
     actions end with the Settings cog). Home has no header.
   - `AppActions` (via `LocalActions`) is how screens navigate, play, toast
     and open the add-to-playlist dialog.
+  - All user-visible text is in `res/values/strings*.xml` (by area: `strings`
+    for non-UI, `strings_settings`, `strings_library`, `strings_player`), one
+    whole sentence per string with positional args, `<plurals>` for counts;
+    translations in `values-<lang>/`. Lint fails on a missing translation, so
+    new text needs every language. Non-composable formatters read through
+    `AppText` (set in `SeidrApp`). Server playlist names stay code constants,
+    passed in as arguments.
   - Android TV (leanback launcher, banner) is driven by remote; `ui/Focus.kt`
     holds the D-pad rules. Overlays trap focus (`overlayFocus`), screens open
     on their `primaryFocus` and Back returns via `rememberedFocus`, text
