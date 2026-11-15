@@ -168,6 +168,20 @@ class Connect(
     /** Host side: a code to show while a controller checks it. */
     val shown: StateFlow<ShownCode?> = _shown.asStateFlow()
 
+    /**
+     * Host side, signed out: another device wants to sign this one in. Nothing
+     * is saved (or even tried) until someone here says yes.
+     */
+    class SignInRequest(val from: String, val username: String, val server: String, val kid: Boolean) {
+        internal val answer = CompletableDeferred<Boolean>()
+        fun allow() { answer.complete(true) }
+        fun deny() { answer.complete(false) }
+    }
+
+    internal val _signInRequest = MutableStateFlow<SignInRequest?>(null)
+    /** A sign-in waiting for this device's answer. */
+    val signInRequest: StateFlow<SignInRequest?> = _signInRequest.asStateFlow()
+
     private val _messages = MutableSharedFlow<String>(extraBufferCapacity = 4)
     /** Things to tell the user ("Lost connection to …"). */
     val messages: SharedFlow<String> = _messages.asSharedFlow()
@@ -207,7 +221,7 @@ class Connect(
         return withContext(Dispatchers.IO) {
             try {
                 d.ch.send(ConnectMessage.SignIn(config.url, config.username, config.password, config.kidOf))
-                // It pings the server before it answers.
+                // Someone there allows it, then it pings the server, then it answers.
                 d.socket.soTimeout = SIGN_IN_TIMEOUT_MS
                 when (val r = d.ch.receive()) {
                     is ConnectMessage.SignedIn -> r.error?.let { SignInResult.Failed(it) } ?: SignInResult.Done
@@ -443,7 +457,12 @@ class Connect(
         /** Three missed heartbeats. */
         internal const val READ_TIMEOUT_MS = 15_000
         /** Long enough for the other device to ping the server (8 s connect, a slow reply). */
-        private const val SIGN_IN_TIMEOUT_MS = 30_000
+        /** How long a signed-out device waits for someone to allow a sign-in. */
+        internal const val ASK_TIMEOUT_MS = 90_000L
+        /** A controller from before the prompt gives up after 30 s; answer it sooner. */
+        internal const val OLD_ASK_TIMEOUT_MS = 20_000L
+        /** The host's prompt, then its server ping. */
+        private const val SIGN_IN_TIMEOUT_MS = (ASK_TIMEOUT_MS + 30_000).toInt()
         /** How long the code waits for someone to compare it. */
         internal const val CHECK_TIMEOUT_MS = 120_000L
     }

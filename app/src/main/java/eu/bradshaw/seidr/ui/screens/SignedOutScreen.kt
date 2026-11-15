@@ -40,6 +40,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
+import eu.bradshaw.seidr.ui.keys
+import eu.bradshaw.seidr.ui.focusWhenReady
+import androidx.compose.ui.platform.LocalInputModeManager
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -90,6 +94,7 @@ fun SignedOutScreen(graph: Graph, nav: Navigator) {
             SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).safeDrawingPadding().padding(bottom = 16.dp))
         }
         ShownCode(graph.connect)
+        SignInRequestDialog(graph.connect)
     }
 }
 
@@ -174,6 +179,31 @@ private fun ShownCode(connect: Connect) {
             }
         },
         confirmButton = {},
+    )
+}
+
+/**
+ * Host side: another device wants to sign this one in. Nothing happens until
+ * someone here allows it. With a remote, Don't allow has focus first.
+ */
+@Composable
+private fun SignInRequestDialog(connect: Connect) {
+    val request by connect.signInRequest.collectAsStateWithLifecycle()
+    val r = request ?: return
+    val deny = remember(r) { FocusRequester() }
+    val input = LocalInputModeManager.current
+    LaunchedEffect(r) { if (input.keys) deny.focusWhenReady() }
+    AlertDialog(
+        onDismissRequest = r::deny,
+        title = { Text("Sign in this device?") },
+        text = {
+            Text(
+                "${r.from} wants to sign this device in as ${r.username}" +
+                    (if (r.kid) ", a kid's account," else "") + " on ${r.server}.",
+            )
+        },
+        confirmButton = { TextButton(onClick = r::allow) { Text("Allow") } },
+        dismissButton = { TextButton(onClick = r::deny, modifier = Modifier.focusRequester(deny)) { Text("Don't allow") } },
     )
 }
 

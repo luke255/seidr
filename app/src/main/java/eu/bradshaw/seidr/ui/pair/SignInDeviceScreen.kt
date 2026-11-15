@@ -89,7 +89,7 @@ fun SignInDeviceScreen() {
             val w = working
             val r = result
             when {
-                w != null -> Column(Modifier.padding(24.dp)) { Working("Signing in ${w.name}…") }
+                w != null -> Column(Modifier.padding(24.dp)) { Working("Signing in ${w.name}… Allow it on ${w.name}.") }
                 r != null -> {
                     val (peer, outcome) = r
                     Column(Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally,

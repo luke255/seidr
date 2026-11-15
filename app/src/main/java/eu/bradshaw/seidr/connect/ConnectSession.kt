@@ -275,7 +275,23 @@ class ConnectSession(
                 when (wants) {
                     is ConnectMessage.SignIn -> {
                         val config = ServerConfig(Settings.normaliseUrl(wants.url), wants.username.trim(), wants.password, kidOf(wants.kidOf))
-                        val error = Account.probe(graph, context, config)
+                        // The code protects the sender, not this device: ask here before anything is tried.
+                        val host = runCatching { java.net.URI(config.url).host }.getOrNull() ?: config.url
+                        val req = Connect.SignInRequest(hello.name, config.username, host, config.isKid)
+                        withContext(Dispatchers.Main) { connect._signInRequest.value = req }
+                        val wait = if (hello.version >= SIGN_IN_PROMPT_VERSION) Connect.ASK_TIMEOUT_MS else Connect.OLD_ASK_TIMEOUT_MS
+                        val allowed = try {
+                            withTimeoutOrNull(wait) { req.answer.await() }
+                        } finally {
+                            withContext(NonCancellable + Dispatchers.Main) {
+                                if (connect._signInRequest.value === req) connect._signInRequest.value = null
+                            }
+                        }
+                        val error = when (allowed) {
+                            null -> "No one answered on ${connect.name}"
+                            false -> "Not allowed on ${connect.name}"
+                            true -> Account.probe(graph, context, config)
+                        }
                         if (error == null) withContext(Dispatchers.Main) { Account.commit(graph, config) }
                         ch.send(ConnectMessage.SignedIn(error))
                         Log.i(Connect.TAG, "${hello.name} signed this device in: ${error ?: "ok"}")

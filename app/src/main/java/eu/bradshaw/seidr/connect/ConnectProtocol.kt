@@ -200,6 +200,9 @@ sealed interface ConnectMessage {
 
 const val PROTOCOL_VERSION = 4
 
+/** The first version whose host asks before accepting a sign-in, so its controller waits longer. */
+const val SIGN_IN_PROMPT_VERSION = 4
+
 /** The first version that knows kids' logins; an older host would drop [ConnectMessage.SignIn.kidOf] and not filter. */
 const val KIDS_VERSION = 3
 
