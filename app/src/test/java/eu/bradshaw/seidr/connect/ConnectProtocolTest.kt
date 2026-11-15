@@ -2,6 +2,7 @@ package eu.bradshaw.seidr.connect
 
 import eu.bradshaw.seidr.playback.QueueEntry
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -21,6 +22,25 @@ class ConnectProtocolTest {
         val tag = ConnectKeys.tag(ConnectKeys.account("luke", "pw"))
         assertNotEquals(tag, ConnectKeys.tag(ConnectKeys.account("jake", "pw")))
         assertNotEquals(tag, ConnectKeys.tag(ConnectKeys.account("luke", "pw2")))
+    }
+
+    @Test
+    fun accountKeyIsPbkdf2OfTheLogin() {
+        // Pins the derivation: every install must get the same key for the same login.
+        val key = ConnectKeys.account("Luke", "pässwörd")
+        val pw = java.security.MessageDigest.getInstance("SHA-256").digest("pässwörd".toByteArray())
+            .joinToString("") { "%02x".format(it) }
+        val spec = javax.crypto.spec.PBEKeySpec(pw.toCharArray(), "seidr-connect/2\u0000luke".toByteArray(), 600_000, 256)
+        val expected = javax.crypto.SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(spec).encoded
+        assertTrue(key.contentEquals(expected))
+        assertTrue(ConnectKeys.isDerived(" LUKE", "pässwörd"))
+    }
+
+    @Test
+    fun loginIdIsCheapAndDistinct() {
+        assertTrue(ConnectKeys.loginId("Luke", "pw").contentEquals(ConnectKeys.loginId("luke ", "pw")))
+        assertFalse(ConnectKeys.loginId("luke", "pw").contentEquals(ConnectKeys.loginId("luke", "pw2")))
+        assertFalse(ConnectKeys.loginId("luke", "pw").contentEquals(ConnectKeys.account("luke", "pw")))
     }
 
     private fun pair(hostKey: ByteArray, controllerKey: ByteArray, host: (ConnectChannel) -> Unit, controller: (ConnectChannel) -> Unit) {

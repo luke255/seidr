@@ -33,6 +33,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.withTimeoutOrNull
 import java.net.Inet4Address
 import java.util.UUID
@@ -40,7 +41,7 @@ import java.util.UUID
 /**
  * A login a signed-out device is playing for, sent by the device controlling
  * it. In memory only: gone on disconnect, takeover or restart. [key] is its
- * Connect account key, to tell a second controller of the same user from a
+ * [ConnectKeys.loginId], to tell a second controller of the same user from a
  * takeover; [from] names the sending device; [theme] is its colour.
  */
 class GuestLogin(val config: ServerConfig, val key: ByteArray, val from: String, val theme: String?)
@@ -71,8 +72,46 @@ class Connect(
         else -> Peer.KIND_PHONE
     }
 
-    /** Null while signed out: no Connect then. */
-    val accountKey: ByteArray? get() = settings.server.value?.let { ConnectKeys.account(it.username, it.password) }
+    /** The account key: signed out, being derived (slow on purpose), or ready. */
+    private sealed interface AccountKey {
+        data object SignedOut : AccountKey
+        data object Deriving : AccountKey
+        class Ready(val key: ByteArray) : AccountKey
+    }
+    private val keyState = MutableStateFlow(
+        settings.server.value?.let { s ->
+            if (ConnectKeys.isDerived(s.username, s.password)) AccountKey.Ready(ConnectKeys.account(s.username, s.password))
+            else AccountKey.Deriving
+        } ?: AccountKey.SignedOut,
+    )
+
+    /** Null while signed out, and while the key is still being derived after a sign-in. */
+    val accountKey: ByteArray? get() = (keyState.value as? AccountKey.Ready)?.key
+
+    /** [accountKey], waiting out a derivation in progress. Null when signed out. */
+    suspend fun awaitAccountKey(): ByteArray? =
+        (keyState.first { it != AccountKey.Deriving } as? AccountKey.Ready)?.key
+
+    init {
+        // PBKDF2 takes up to a second on a slow TV: never on the main thread, once per login.
+        // Dispatched (not immediate), so it starts after the rest of this class is set up.
+        main.launch(Dispatchers.Main) {
+            settings.server.collectLatest { s ->
+                if (s == null) {
+                    keyState.value = AccountKey.SignedOut
+                } else {
+                    if (!ConnectKeys.isDerived(s.username, s.password)) keyState.value = AccountKey.Deriving
+                    val started = android.os.SystemClock.elapsedRealtime()
+                    val key = withContext(Dispatchers.Default) { ConnectKeys.account(s.username, s.password) }
+                    Log.i(TAG, "account key ready in ${android.os.SystemClock.elapsedRealtime() - started} ms")
+                    keyState.value = AccountKey.Ready(key)
+                }
+                // Advertising and discovery wait for the key; catch them up.
+                if (wantedPort > 0) advertise(wantedPort)
+                if (discoveryWanted) startDiscovery()
+            }
+        }
+    }
 
     /** This install's long-term key, which signed-in devices pin once its code is checked. */
     val identity: KeyPair by lazy {
@@ -192,7 +231,7 @@ class Connect(
      * Throws IOException when it can't get through.
      */
     internal suspend fun dial(peer: Peer, ask: Boolean, signingIn: Boolean = false, signingInAs: String? = null): Dialled? {
-        val account = accountKey ?: throw IOException("not signed in")
+        val account = awaitAccountKey() ?: throw IOException("not signed in")
         val (socket, ch, hello) = withContext(Dispatchers.IO) {
             val socket = connectTo(peer) ?: throw IOException("unreachable")
             try {
@@ -284,9 +323,11 @@ class Connect(
      * signed out as a guest anyone can use. Again after a sign-in or out.
      */
     fun advertise(port: Int) {
-        unadvertise()
+        unregister()
         wantedPort = port
         if (!lanAllowed()) return
+        // Not as a guest while a sign-in's key is still being derived: init advertises once it's ready.
+        if (keyState.value == AccountKey.Deriving) return
         val key = accountKey
         val info = NsdServiceInfo().apply {
             serviceName = "Seiðr ${deviceId.take(8)}"
@@ -308,7 +349,13 @@ class Connect(
             .onFailure { Log.w(TAG, "advertising failed", it); registration = null }
     }
 
+    /** Stops advertising for good (the service is going). */
     fun unadvertise() {
+        wantedPort = 0
+        unregister()
+    }
+
+    private fun unregister() {
         registration?.let { runCatching { nsd.unregisterService(it) } }
         registration = null
     }
@@ -320,7 +367,11 @@ class Connect(
     private val watching = mutableMapOf<String, NsdManager.ServiceInfoCallback>()
     private val found = mutableMapOf<String, Peer>()
 
+    /** Discovery was asked for and not stopped: start it once the account key is ready. */
+    private var discoveryWanted = false
+
     fun startDiscovery() = main.launch {
+        discoveryWanted = true
         if (discovery != null || accountKey == null || !lanAllowed()) return@launch
         val listener = object : NsdManager.DiscoveryListener {
             override fun onDiscoveryStarted(serviceType: String) {}
@@ -339,6 +390,7 @@ class Connect(
     }
 
     fun stopDiscovery() = main.launch {
+        discoveryWanted = false
         discovery?.let { runCatching { nsd.stopServiceDiscovery(it) } }
         discovery = null
         watching.keys.toList().forEach(::forget)

@@ -26,6 +26,8 @@ import java.util.zip.Deflater
 import java.util.zip.Inflater
 import javax.crypto.Cipher
 import javax.crypto.Mac
+import javax.crypto.SecretKeyFactory
+import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.GCMParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
@@ -196,7 +198,7 @@ sealed interface ConnectMessage {
     data class Moved(val to: Peer?) : ConnectMessage
 }
 
-const val PROTOCOL_VERSION = 3
+const val PROTOCOL_VERSION = 4
 
 /** The first version that knows kids' logins; an older host would drop [ConnectMessage.SignIn.kidOf] and not filter. */
 const val KIDS_VERSION = 3
@@ -207,10 +209,49 @@ object ConnectKeys {
      * The same on every device signed in as this user. Not the server URL: one
      * device may reach the server over the LAN and another over Tailscale.
      */
-    fun account(username: String, password: String): ByteArray =
-        hmac("seidr-connect/1".toByteArray(), "${username.trim().lowercase()}\u0000$password".toByteArray())
+    fun account(username: String, password: String): ByteArray {
+        val user = username.trim().lowercase()
+        val memoKey = loginId(user, password).joinToString("") { "%02x".format(it) }
+        synchronized(memo) { memo[memoKey]?.let { return it.copyOf() } }
+        // PBKDF2 makes each guess slow: the tag below is public on the LAN and a
+        // captured handshake is a second check, so a fast hash would let anyone
+        // try passwords offline. The password goes in as hex of its SHA-256, so
+        // no provider's choice of character encoding can change the key.
+        val spec = PBEKeySpec(
+            sha256(password.toByteArray()).joinToString("") { "%02x".format(it) }.toCharArray(),
+            "seidr-connect/2\u0000$user".toByteArray(), ACCOUNT_ITERATIONS, 256,
+        )
+        val key = try {
+            SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(spec).encoded
+        } finally {
+            spec.clearPassword()
+        }
+        synchronized(memo) { memo[memoKey] = key.copyOf() }
+        return key
+    }
 
-    /** Advertised over mDNS so discovery can skip other accounts. Reveals nothing about the login. */
+    /** Already derived for this login, so [account] would return at once. */
+    fun isDerived(username: String, password: String): Boolean =
+        synchronized(memo) { loginId(username.trim().lowercase(), password).joinToString("") { "%02x".format(it) } in memo }
+
+    /**
+     * Tells logins apart in memory (a guest's, say) without the cost of
+     * [account]. Never sent or advertised: it's a fast hash of the password.
+     */
+    fun loginId(username: String, password: String): ByteArray =
+        sha256("seidr-login\u0000${username.trim().lowercase()}\u0000$password".toByteArray())
+
+    /** About a second on a slow TV; done once per login and kept in memory. */
+    private const val ACCOUNT_ITERATIONS = 600_000
+    private val memo = object : LinkedHashMap<String, ByteArray>(4, 0.75f, true) {
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, ByteArray>?) = size > 4
+    }
+
+    /**
+     * Advertised over mDNS so discovery can skip other accounts. Anyone on the
+     * network sees it, so it is a password check for whoever has the username:
+     * a slow one, thanks to [account], but not nothing.
+     */
     fun tag(account: ByteArray): String = hmac(account, "tag".toByteArray()).take(6).joinToString("") { "%02x".format(it) }
 
     internal fun session(account: ByteArray, controllerNonce: ByteArray, hostNonce: ByteArray): ByteArray =
@@ -414,7 +455,7 @@ class ConnectChannel private constructor(private val socket: Socket, private val
             return ch
         }
 
-        private val MAGIC = "SLC1".toByteArray()
+        private val MAGIC = "SLC2".toByteArray() // SLC1 was the fast-hash account key (protocol 3)
         private val GUEST_MAGIC = "SLG1".toByteArray()
         private const val MAX_BLOB = 1024
         private const val NONCE_BYTES = 16

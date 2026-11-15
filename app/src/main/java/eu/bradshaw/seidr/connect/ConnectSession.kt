@@ -82,8 +82,8 @@ class ConnectSession(
         // The advertised tag is per account (or none, signed out). Either way the old
         // connections were made under the other key.
         scope.launch {
+            // (Connect re-advertises itself, once the new account key is ready.)
             graph.settings.server.drop(1).collect {
-                if (port > 0) connect.advertise(port)
                 if (it == null) {
                     link?.let(::dropLink)
                     clients.toList().forEach { c -> c.close() }
@@ -257,7 +257,7 @@ class ConnectSession(
         try {
             socket.soTimeout = HANDSHAKE_TIMEOUT_MS
             socket.tcpNoDelay = true
-            val ch = ConnectChannel.accept(socket, connect.accountKey) { connect.identity }
+            val ch = ConnectChannel.accept(socket, connect.awaitAccountKey()) { connect.identity }
             val hello = ch.receive() as? ConnectMessage.Hello ?: throw IOException("Expected hello")
             ch.send(ConnectMessage.Hello(connect.deviceId, connect.name))
             var guestKey: ByteArray? = null
@@ -284,7 +284,7 @@ class ConnectSession(
                     }
                     is ConnectMessage.Guest -> {
                         val config = ServerConfig(Settings.normaliseUrl(wants.url), wants.username.trim(), wants.password, kidOf(wants.kidOf))
-                        guestKey = ConnectKeys.account(config.username, config.password)
+                        guestKey = ConnectKeys.loginId(config.username, config.password)
                         withContext(Dispatchers.Main) { startGuest(GuestLogin(config, guestKey, hello.name, wants.theme)) }
                     }
                     else -> throw IOException("Expected guest or sign-in")
