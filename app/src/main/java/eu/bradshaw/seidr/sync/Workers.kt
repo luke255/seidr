@@ -120,11 +120,34 @@ class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWork
 
     private suspend fun fetch(d: Download, part: File, remaining: Int): File {
         val url = g.client.downloadUrl(d.trackId) ?: throw IOException("not logged in")
+        // The first response's Last-Modified/ETag, so a resume only continues the same file.
+        val since = File(part.path + ".since")
+        if (!part.exists()) since.delete()
         val have = part.length()
-        val req = Request.Builder().url(url).apply { if (have > 0) header("Range", "bytes=$have-") }.build()
+        val validator = if (have > 0) since.takeIf { it.isFile }?.readText()?.takeIf { it.isNotBlank() } else null
+        val req = Request.Builder().url(url).apply {
+            if (have > 0) header("Range", "bytes=$have-")
+            if (validator != null) header("If-Range", validator)
+        }.build()
         g.client.mediaHttp.newCall(req).execute().use { resp ->
-            if (!resp.isSuccessful) throw IOException("HTTP ${resp.code}")
-            val append = resp.code == 206
+            val append = when (val start = DownloadRules.start(resp.code, resp.header("Content-Type"), have)) {
+                DownloadRules.Start.Restart -> null
+                is DownloadRules.Start.Fail -> {
+                    if (!DownloadRules.isEnvelope(resp.header("Content-Type"))) throw IOException(start.message)
+                    // The server answered, but with an error: the part is no use either.
+                    part.delete(); since.delete()
+                    val why = runCatching { resp.body.string() }.getOrNull()?.let(DownloadRules::envelopeMessage)
+                    throw IOException(why ?: start.message)
+                }
+                is DownloadRules.Start.Write -> start.append
+            }
+            if (append == null) {
+                // A part at or past full size: throw it away and start again (have is 0 next time).
+                part.delete(); since.delete()
+                return fetch(d, part, remaining)
+            }
+            if (!append) (resp.header("ETag") ?: resp.header("Last-Modified"))
+                ?.let { since.writeText(it) } ?: since.delete()
             val total = if (append) have + resp.body.contentLength() else resp.body.contentLength()
             var written = if (append) have else 0L
             var lastUpdate = 0L
@@ -147,8 +170,14 @@ class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWork
                 }
                 out.fd.sync()
             }
-            if (total > 0 && written != total) throw IOException("incomplete: $written of $total bytes")
+            DownloadRules.finish(d.size, total, part.length())?.let { why ->
+                // A short read can resume; anything else (wrong size, wrong body) starts clean.
+                val len = part.length()
+                if (len >= total || (d.size > 0 && len >= d.size)) { part.delete(); since.delete() }
+                throw IOException(why)
+            }
         }
+        since.delete()
         val dest = g.files.trackFile(d.trackId, d.suffix)
         if (!part.renameTo(dest)) throw IOException("could not move ${part.name} into place")
         return dest

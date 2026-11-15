@@ -47,4 +47,14 @@ class SyncPlannerTest {
         )
         assertTrue(plan.redownload.isEmpty())
     }
+
+    @Test fun `a queued row with a stale size is re-queued with the server's`() {
+        val plan = SyncPlanner.planFiles(
+            claimed = setOf("a"),
+            files = listOf(LocalFile("a", false, 1000, "flac")),
+            known = mapOf("a" to track("a", size = 2000)),
+            protected = emptySet(),
+        )
+        assertEquals(listOf(2000L), plan.redownload.map { it.size })
+    }
 }

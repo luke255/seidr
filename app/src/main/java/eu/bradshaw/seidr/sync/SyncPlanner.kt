@@ -70,7 +70,7 @@ object SyncPlanner {
     data class FilePlan(
         /** Claimed tracks with no file and no download row: queue them. */
         val queue: List<ServerTrack>,
-        /** Downloaded files whose size or suffix no longer matches the server (re-tag, quality upgrade). */
+        /** Files or queued rows whose size or suffix no longer matches the server (re-tag, quality upgrade). */
         val redownload: List<ServerTrack>,
         /** Track ids with zero claims whose files should be removed now. */
         val delete: List<String>,
@@ -103,7 +103,7 @@ object SyncPlanner {
         }
         val queue = claimed.filter { it !in byId }.mapNotNull { known[it] }
         val redownload = files.filter { f ->
-            f.done && f.trackId in claimed && known[f.trackId]?.let { s ->
+            f.trackId in claimed && known[f.trackId]?.let { s ->
                 (s.size > 0 && s.size != f.size) || !s.suffix.equals(f.suffix, ignoreCase = true)
             } == true
         }.mapNotNull { known[it.trackId] }
