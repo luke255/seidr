@@ -105,7 +105,7 @@
     <!-- Downloads -->
     <string name="downloads_title">Downloads</string>
     <!-- Storage summary. %1$s is a song count (e.g. "12 songs"), %2$s a size (e.g. "1.2 GB"). -->
-    <string name="downloads_summary">%1$s · %2$s</string>
+    <string name="downloads_summary" translatable="false">%1$s · %2$s</string>
     <!-- %1$s is a size (e.g. "3.4 GB") -->
     <string name="downloads_free">%1$s free on this phone</string>
     <string name="downloads_queue">Queue</string>
@@ -153,7 +153,7 @@
     <string name="downloads_kind_playlist">Playlist</string>
     <string name="downloads_kind_album">Album</string>
     <!-- Row subtitle. %1$s is the kind (Playlist or Album), %2$s is the progress text. -->
-    <string name="downloads_kind_line">%1$s · %2$s</string>
+    <string name="downloads_kind_line" translatable="false">%1$s · %2$s</string>
 
     <!-- Home -->
     <string name="home_offline_tv">You\'re offline. Seiðr will reconnect when the server is reachable.</string>

@@ -89,7 +89,6 @@
     <string name="playlist_delete_confirm">Elimina</string>
 
     <string name="downloads_title">Download</string>
-    <string name="downloads_summary">%1$s · %2$s</string>
     <string name="downloads_free">%1$s liberi su questo telefono</string>
     <string name="downloads_queue">Coda</string>
     <string name="downloads_all_done">È tutto scaricato</string>
@@ -134,7 +133,6 @@
     <string name="downloads_waiting_short">In attesa</string>
     <string name="downloads_kind_playlist">Playlist</string>
     <string name="downloads_kind_album">Album</string>
-    <string name="downloads_kind_line">%1$s · %2$s</string>
 
     <string name="home_offline_tv">Sei offline. Seiðr si riconnetterà quando il server sarà raggiungibile.</string>
     <string name="home_offline">Sei offline. La musica scaricata è ancora qui: guarda nella Libreria con il filtro Scaricati.</string>

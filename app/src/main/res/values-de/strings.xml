@@ -48,7 +48,6 @@
     <string name="connect_not_allowed">Auf %1$s nicht erlaubt</string>
     <string name="connect_taken_over">%1$s spielt jetzt auf %2$s</string>
     <string name="connect_update_first">Aktualisiere zuerst Seiðr auf %1$s</string>
-    <string name="connect_lost">%1$s ist nicht mehr verbunden</string>
     <string name="connect_lost_connection">Verbindung zu %1$s verloren</string>
 
     <string name="account_connect_failed">Verbindung zu %1$s fehlgeschlagen: %2$s</string>

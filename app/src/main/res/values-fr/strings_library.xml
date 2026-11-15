@@ -89,7 +89,6 @@
     <string name="playlist_delete_confirm">Supprimer</string>
 
     <string name="downloads_title">Téléchargements</string>
-    <string name="downloads_summary">%1$s · %2$s</string>
     <string name="downloads_free">%1$s disponibles sur ce téléphone</string>
     <string name="downloads_queue">File d\'attente</string>
     <string name="downloads_all_done">Tout est téléchargé</string>
@@ -134,7 +133,6 @@
     <string name="downloads_waiting_short">En attente</string>
     <string name="downloads_kind_playlist">Playlist</string>
     <string name="downloads_kind_album">Album</string>
-    <string name="downloads_kind_line">%1$s · %2$s</string>
 
     <string name="home_offline_tv">Vous êtes hors ligne. Seiðr se reconnectera dès que le serveur sera joignable.</string>
     <string name="home_offline">Vous êtes hors ligne. La musique téléchargée est toujours là : regardez dans la Bibliothèque avec le filtre Téléchargés.</string>

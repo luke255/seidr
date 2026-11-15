@@ -2,6 +2,11 @@ package eu.bradshaw.seidr.ui.screens
 
 import androidx.compose.ui.res.stringResource
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
@@ -22,8 +27,8 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -46,6 +51,7 @@ import eu.bradshaw.seidr.ui.focusWhenReady
 import androidx.compose.ui.platform.LocalInputModeManager
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -118,7 +124,7 @@ private fun GuestPlayer(actions: AppActions) {
 
 /**
  * Nothing playing and no one signed in: Now Playing's layout with the app's
- * logo for art, the device's name for a title, and Log in for controls.
+ * logo for art, the device's name for a title, how to play here, and Log in.
  */
 @Composable
 private fun Idle(onLogin: () -> Unit) {
@@ -130,13 +136,16 @@ private fun Idle(onLogin: () -> Unit) {
             Image(painterResource(R.drawable.ic_launcher_foreground), contentDescription = stringResource(R.string.login_logo_description), modifier = Modifier.fillMaxSize())
         }
     }
+    // Ready to play is the headline; Log in is there but quiet (outlined, set
+    // apart), so a kid looking for "the button" doesn't land on it.
     val words: @Composable () -> Unit = {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            ReadyPill(Modifier.padding(bottom = 12.dp))
             Text(name, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold,
                 maxLines = 1, overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center)
             Text(stringResource(R.string.login_idle_hint), style = MaterialTheme.typography.bodyLarge, color = cs.onSurfaceVariant,
                 textAlign = TextAlign.Center)
-            Button(onClick = onLogin, modifier = Modifier.padding(top = 28.dp).widthIn(min = 200.dp).focusRing(CircleShape).primaryFocus()) {
+            OutlinedButton(onClick = onLogin, modifier = Modifier.padding(top = 40.dp).focusRing(CircleShape).primaryFocus()) {
                 Text(stringResource(R.string.login_log_in))
             }
         }
@@ -161,6 +170,23 @@ private fun Idle(onLogin: () -> Unit) {
                 Box(Modifier.padding(top = 24.dp)) { words() }
             }
         }
+    }
+}
+
+/** "Ready to play", with a slowly breathing dot: this device is waiting to be played on. */
+@Composable
+private fun ReadyPill(modifier: Modifier = Modifier) {
+    val cs = MaterialTheme.colorScheme
+    val pulse by rememberInfiniteTransition(label = "ready").animateFloat(
+        initialValue = 1f, targetValue = 0.3f,
+        animationSpec = infiniteRepeatable(tween(1100), RepeatMode.Reverse), label = "dot",
+    )
+    Row(
+        modifier.clip(CircleShape).background(cs.primary.copy(alpha = 0.16f)).padding(horizontal = 14.dp, vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Box(Modifier.size(8.dp).graphicsLayer { alpha = pulse }.background(cs.primary, CircleShape))
+        Text(stringResource(R.string.login_idle_ready), style = MaterialTheme.typography.labelLarge, color = cs.primary)
     }
 }
 

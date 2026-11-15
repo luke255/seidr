@@ -504,7 +504,7 @@ class ConnectSession(
                 runCatching { ch.send(ConnectMessage.Guest(config.url, config.username, config.password,
                     eu.bradshaw.seidr.ui.theme.portableTheme(graph.settings.theme.value, context), config.kidOf)) }.isSuccess
             }
-            if (!sent) { ch.close(); if (!quiet) connect.tell(connect.str(R.string.connect_lost, peer.name)); return null }
+            if (!sent) { ch.close(); if (!quiet) connect.tell(connect.str(R.string.connect_lost_connection, peer.name)); return null }
         }
         val l = Link(peer, ch, socket)
         l.start()

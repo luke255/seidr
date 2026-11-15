@@ -35,7 +35,6 @@
     <string name="settings_whats_new_hint">Le modifiche di ogni versione</string>
     <string name="settings_licences">Licenze open source</string>
     <string name="settings_licences_hint">Seiðr è software libero (GNU GPL 3.0)</string>
-    <string name="settings_app_version">Seiðr %1$s</string>
     <string name="settings_build">Build %1$d</string>
     <string name="settings_new_badge">NUOVO</string>
 
@@ -66,7 +65,6 @@
     <string name="kids_help_step1">1. Crea per ogni bambino un account Navidrome tutto suo (non admin) e aggiungilo qui.</string>
     <string name="kids_help_step2">2. Esegui l\'accesso sul suo dispositivo da Accedi su un dispositivo. Tieni la password per te.</string>
     <string name="kids_help_step3">3. Scegli cosa può avere con tre playlist sul tuo account, create quando aggiungi un bambino:</string>
-    <string name="kids_help_list_what">" – %1$s"</string>
     <string name="kids_help_approved">i brani che può riprodurre</string>
     <string name="kids_help_safe_titles">mostrati in grigio, solo il nome</string>
     <string name="kids_help_safe_art">mostrati in grigio, con la copertina</string>
@@ -90,15 +88,14 @@
     <string name="login_go_back">Torna indietro</string>
     <string name="login_heading">Connettiti al tuo server Navidrome</string>
     <string name="login_server_url">URL del server</string>
-    <string name="login_server_url_placeholder">https://music.example.com</string>
     <string name="login_username">Nome utente</string>
     <string name="login_password">Password</string>
     <string name="login_log_in">Accedi</string>
     <string name="login_other_device_title">Hai già eseguito l\'accesso su un altro dispositivo?</string>
     <string name="login_other_device_steps">Apri Seiðr lì e vai in Impostazioni → Accedi su un dispositivo, poi scegli %1$s. Devono essere entrambi sulla stessa rete Wi-Fi, con Seiðr aperto su questo. Controlla che il codice sia lo stesso sui due schermi, ed è fatta.</string>
     <string name="login_back">Indietro</string>
-    <string name="login_logo_description">Seiðr</string>
-    <string name="login_idle_hint">Riproduci da un altro dispositivo, oppure accedi</string>
+    <string name="login_idle_ready">Pronto per la riproduzione</string>
+    <string name="login_idle_hint">Apri Seiðr sul telefono, tocca «Riproduci su» e scegli questo dispositivo.</string>
     <string name="login_pairing_code">Codice di abbinamento</string>
     <string name="login_check_same_code">Controlla che %1$s mostri lo stesso codice.</string>
     <string name="login_sign_in_this_device">Eseguire l\'accesso su questo dispositivo?</string>
@@ -117,30 +114,17 @@
 
     <string name="licences_title">Licenze open source</string>
     <string name="licences_includes">Seiðr include</string>
-    <string name="licences_licence_by">%1$s · %2$s</string>
-    <string name="licences_app_name">Seiðr</string>
-    <string name="licences_app_by">github.com/luke255/seidr</string>
-    <string name="licences_gpl3">GNU GPL 3.0</string>
-    <string name="licences_lgpl21">GNU LGPL 2.1</string>
-    <string name="licences_apache2">Apache 2.0</string>
     <string name="licences_shared_freely">Condiviso liberamente; gli autori possono chiederne la rimozione</string>
-    <string name="licences_projectm">projectM 4.1.8</string>
     <string name="licences_projectm_by">Il team di projectM. Distribuito senza modifiche; il codice sorgente è nel repository di Seiðr</string>
     <string name="licences_presets">Preset MilkDrop (Cream of the Crop)</string>
     <string name="licences_presets_by">Selezione di Jason Fletcher; ogni preset è dell\'autore indicato nel nome</string>
     <string name="licences_textures">Pacchetto di texture MilkDrop</string>
     <string name="licences_textures_by">Raccolto dal team di projectM</string>
     <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
-    <string name="licences_google">Google</string>
     <string name="licences_material_icons">Icone Material</string>
-    <string name="licences_kotlin">Kotlin, kotlinx.coroutines, kotlinx.serialization</string>
-    <string name="licences_jetbrains">JetBrains</string>
     <string name="licences_okhttp">OkHttp e Retrofit</string>
-    <string name="licences_square">Square</string>
-    <string name="licences_coil">Coil</string>
     <string name="licences_coil_by">I collaboratori di Coil</string>
     <string name="licences_openxr">Loader OpenXR</string>
-    <string name="licences_khronos">The Khronos Group</string>
 
     <string name="vissettings_title">Visualizzatore</string>
     <string name="vissettings_track_info">Mostra info sul brano</string>

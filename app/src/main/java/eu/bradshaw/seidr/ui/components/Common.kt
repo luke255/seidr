@@ -54,7 +54,7 @@ fun <T> LoadContent(state: Load<T>, onRetry: () -> Unit, content: @Composable (T
             Text(stringResource(R.string.common_load_failed), style = MaterialTheme.typography.titleMedium)
             Text(state.message, style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(vertical = 8.dp))
-            Button(onClick = onRetry, modifier = Modifier.focusRing(CircleShape)) { Text(stringResource(R.string.common_retry)) }
+            Button(onClick = onRetry, modifier = Modifier.focusRing(CircleShape)) { Text(stringResource(R.string.common_try_again)) }
         }
         is Load.Ready -> content(state.value)
     }

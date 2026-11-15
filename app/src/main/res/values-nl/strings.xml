@@ -48,7 +48,6 @@
     <string name="connect_not_allowed">Niet toegestaan op %1$s</string>
     <string name="connect_taken_over">%1$s speelt nu af op %2$s</string>
     <string name="connect_update_first">Werk Seiðr eerst bij op %1$s</string>
-    <string name="connect_lost">%1$s is weggevallen</string>
     <string name="connect_lost_connection">Verbinding met %1$s verbroken</string>
 
     <string name="account_connect_failed">Kan geen verbinding maken met %1$s: %2$s</string>

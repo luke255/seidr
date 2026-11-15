@@ -8,7 +8,6 @@
     <string name="common_done">Done</string>
     <string name="common_more">More</string>
     <string name="common_remove">Remove</string>
-    <string name="common_retry">Retry</string>
     <string name="common_try_again">Try again</string>
     <!-- Pill shown while the server can't be reached. Keep short. -->
     <string name="common_offline">Offline</string>
@@ -114,7 +113,7 @@
     <string name="player_hold_to_reshuffle">Hold to reshuffle</string>
 
     <!-- ===== Queue ===== -->
-    <string name="queue_title">Play Queue</string>
+    <string name="queue_title">Play queue</string>
     <string name="queue_empty">The queue is empty</string>
     <string name="queue_earlier">Earlier</string>
     <string name="queue_now_playing">Now playing</string>

@@ -62,7 +62,6 @@
     <!-- %1$s is a person\'s or device\'s name, %2$s the device that now plays. -->
     <string name="connect_taken_over">%1$s is playing on %2$s now</string>
     <string name="connect_update_first">Update Seiðr on %1$s first</string>
-    <string name="connect_lost">Lost %1$s</string>
     <string name="connect_lost_connection">Lost connection to %1$s</string>
 
     <!-- Sign-in checks (Account). %1$s is a server address or a username; %2$s a technical error. -->
@@ -70,7 +69,7 @@
     <string name="account_lan_permission">Seiðr needs the Nearby devices / local network permission to reach a server on your home network.</string>
     <string name="account_check_failed_why">Couldn\'t check %1$s\'s account: %2$s</string>
     <string name="account_check_failed">Couldn\'t check %1$s\'s account</string>
-    <string name="account_kid_is_admin">%1$s is an admin on the server. Kids need an account that isn\'t.</string>
+    <string name="account_kid_is_admin">%1$s is an admin on the server. A kid\'s account can\'t be an admin.</string>
     <string name="account_not_grownup">Not signed in as a grown-up</string>
     <string name="account_own_check_failed">Couldn\'t check your account on the server</string>
     <string name="account_admin_only">Only server admins can view as a kid</string>

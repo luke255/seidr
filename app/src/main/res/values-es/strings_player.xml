@@ -7,7 +7,6 @@
     <string name="common_done">Hecho</string>
     <string name="common_more">Más</string>
     <string name="common_remove">Quitar</string>
-    <string name="common_retry">Reintentar</string>
     <string name="common_try_again">Volver a intentarlo</string>
     <string name="common_offline">Sin conexión</string>
     <string name="common_load_failed">No se ha podido cargar</string>

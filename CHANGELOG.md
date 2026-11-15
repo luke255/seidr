@@ -4,6 +4,12 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.6.1
+
+- A signed-out device now says plainly that it's ready to play, and how to
+  play on it from Seiðr on your phone. Log in is still there, just quieter.
+- Clearer wording in a few places.
+
 ## 1.6.0
 
 - **Update all your devices.** Playing on another device of yours now uses a

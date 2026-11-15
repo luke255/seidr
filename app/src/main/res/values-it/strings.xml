@@ -50,7 +50,6 @@
     <string name="connect_not_allowed">Non consentito su %1$s</string>
     <string name="connect_taken_over">%1$s ora sta riproducendo su %2$s</string>
     <string name="connect_update_first">Prima aggiorna Seiðr su %1$s</string>
-    <string name="connect_lost">%1$s non è più raggiungibile</string>
     <string name="connect_lost_connection">Connessione con %1$s persa</string>
 
     <string name="account_connect_failed">Impossibile connettersi a %1$s: %2$s</string>

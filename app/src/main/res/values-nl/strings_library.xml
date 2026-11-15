@@ -85,7 +85,6 @@
     <string name="playlist_delete_confirm">Verwijderen</string>
 
     <string name="downloads_title">Downloads</string>
-    <string name="downloads_summary">%1$s · %2$s</string>
     <string name="downloads_free">%1$s vrij op deze telefoon</string>
     <string name="downloads_queue">Wachtrij</string>
     <string name="downloads_all_done">Alles is gedownload</string>
@@ -125,7 +124,6 @@
     <string name="downloads_waiting_short">Wacht</string>
     <string name="downloads_kind_playlist">Playlist</string>
     <string name="downloads_kind_album">Album</string>
-    <string name="downloads_kind_line">%1$s · %2$s</string>
 
     <string name="home_offline_tv">Je bent offline. Seiðr maakt weer verbinding zodra de server bereikbaar is.</string>
     <string name="home_offline">Je bent offline. Gedownloade muziek is er nog: kijk in Bibliotheek met het filter Gedownload.</string>

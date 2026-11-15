@@ -50,7 +50,6 @@
     <string name="connect_not_allowed">Refusé sur %1$s</string>
     <string name="connect_taken_over">%1$s écoute maintenant sur %2$s</string>
     <string name="connect_update_first">Mettez d\'abord Seiðr à jour sur %1$s</string>
-    <string name="connect_lost">%1$s n\'est plus joignable</string>
     <string name="connect_lost_connection">Connexion à %1$s perdue</string>
 
     <string name="account_connect_failed">Impossible de se connecter à %1$s : %2$s</string>
