@@ -80,6 +80,19 @@ class Navigator : ViewModel() {
         push(route)
     }
 
+    /** The kid view the stacks were built under (see `MainActivity`). */
+    var kidView: Any? = null
+
+    /** Every tab back to its root, on [t], with fresh ViewModels (e.g. browsing as a kid starts or ends). */
+    fun reset(t: Tab = Tab.HOME) {
+        stacks.values.forEach { s ->
+            s.forEach { it.viewModelStore.clear() }
+            val root = Entry(s.first().route)
+            s.clear(); s.add(root)
+        }
+        tab = t
+    }
+
     /** Set from outside Compose (notification tap) to open Now Playing. */
     var requestNowPlaying by mutableStateOf(false)
 

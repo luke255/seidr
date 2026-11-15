@@ -27,6 +27,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.stateIn
 import okhttp3.OkHttpClient
 import java.io.File
@@ -76,6 +79,21 @@ class Graph(val app: Application) {
         .stateIn(scope, kotlinx.coroutines.flow.SharingStarted.Eagerly, settings.badReports.value && settings.server.value?.isKid != true)
 
     val library = Library(client, badReportsOn, user, settings.othersPrivatePlaylists, kids, scope)
+
+    /** While an admin browses as one of their kids (see `KidView`); null otherwise. */
+    val kidView = kotlinx.coroutines.flow.MutableStateFlow<eu.bradshaw.seidr.data.KidView?>(null)
+    /** What the browsing screens read: the viewed kid's library, else [library]. */
+    val browse: Library get() = kidView.value?.library ?: library
+    /** The kid rules the browsing screens apply: the viewed kid's, else [kids]. */
+    val browseKids: eu.bradshaw.seidr.data.Kids get() = kidView.value?.kids ?: kids
+    /** Whose screens these are: the viewed kid's login, else the signed-in one. */
+    val browseLogin: kotlinx.coroutines.flow.StateFlow<eu.bradshaw.seidr.data.ServerConfig?> =
+        kotlinx.coroutines.flow.combine(settings.server, kidView) { s, v -> v?.config ?: s }
+            .stateIn(scope, kotlinx.coroutines.flow.SharingStarted.Eagerly, settings.server.value)
+    /** Browsing as a kid: the screens offer nothing that writes. */
+    val readOnly: Boolean get() = kidView.value != null
+
+    fun stopKidView() { kidView.getAndUpdate { null }?.close() }
     val db = AppDatabase.build(app)
     val files = MusicFiles(app)
     val downloads = DownloadIndex(db.offline(), scope)
@@ -119,6 +137,8 @@ class Graph(val app: Application) {
     val bad = BadReports(badReportsOn, library, editor, db.offline(), scope) { client.strict }
 
     init {
+        // Signed out or in as someone else: whatever kid view was open was theirs.
+        scope.launch { settings.server.drop(1).collect { stopKidView() } }
         sync = SyncCoordinator(app, engine, db.offline(), settings, scope, beforeSync = {
             editor.replayPending()
             NowPlaying.flushScrobbles(this)

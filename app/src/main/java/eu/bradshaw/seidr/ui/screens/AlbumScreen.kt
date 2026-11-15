@@ -55,7 +55,7 @@ class AlbumVm(private val graph: Graph, val id: String) : ViewModel() {
 
     fun load() {
         viewModelScope.launch {
-            state = try { Load.Ready(graph.library.album(id)) } catch (e: Exception) { Load.Error(e.message ?: "Error") }
+            state = try { Load.Ready(graph.browse.album(id)) } catch (e: Exception) { Load.Error(e.message ?: "Error") }
         }
     }
 }
@@ -66,7 +66,7 @@ fun AlbumScreen(id: String) {
     val graph = actions.graph
     val vm = viewModel(key = "album:$id") { AlbumVm(graph, id) }
     val ui by graph.player.ui.collectAsStateWithLifecycle()
-    val starredAlbums by graph.library.starredAlbums.collectAsStateWithLifecycle()
+    val starredAlbums by graph.browse.starredAlbums.collectAsStateWithLifecycle()
 
     LoadContent(vm.state, vm::load) { album ->
         val songs = album.song
@@ -94,9 +94,9 @@ fun AlbumScreen(id: String) {
             offline = OfflineSource(SourceType.sourceId(SourceType.ALBUM, album.id), SourceType.ALBUM, album.id, album.name, coverArt = album.coverArt),
             trackCount = songs.size,
             topActions = {
-                IconButton(onClick = {
+                if (!graph.readOnly) IconButton(onClick = {
                     actions.launch {
-                        if (!graph.library.setAlbumStarred(album.id, !saved)) actions.toast("Couldn't reach the server")
+                        if (!graph.browse.setAlbumStarred(album.id, !saved)) actions.toast("Couldn't reach the server")
                     }
                 }) {
                     Icon(if (saved) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder, if (saved) "Remove from library" else "Save to library",

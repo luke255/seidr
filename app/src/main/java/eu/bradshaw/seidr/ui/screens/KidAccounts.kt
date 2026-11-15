@@ -1,6 +1,14 @@
 package eu.bradshaw.seidr.ui.screens
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.automirrored.outlined.HelpOutline
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -8,8 +16,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.ChildCare
 import androidx.compose.material.icons.outlined.Close
+import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -19,14 +29,22 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import eu.bradshaw.seidr.data.Account
@@ -38,6 +56,7 @@ import eu.bradshaw.seidr.ui.components.CardDivider
 import eu.bradshaw.seidr.ui.components.CardGroup
 import eu.bradshaw.seidr.ui.components.CardItem
 import eu.bradshaw.seidr.ui.components.CardLabel
+import eu.bradshaw.seidr.ui.focusRing
 import eu.bradshaw.seidr.ui.selectToEdit
 import kotlinx.coroutines.launch
 
@@ -50,30 +69,31 @@ fun KidAccountsSection() {
     val actions = LocalActions.current
     val graph = actions.graph
     val kids by graph.settings.kidLogins.collectAsStateWithLifecycle()
+    val own by graph.settings.server.collectAsStateWithLifecycle()
     var adding by remember { mutableStateOf(false) }
     var removing by remember { mutableStateOf<KidLogin?>(null) }
+    var viewing by remember { mutableStateOf<KidLogin?>(null) }
+    var help by remember { mutableStateOf(false) }
+    // View as: admins only, asked of the server each time (offline, it doesn't show).
+    val admin by produceState(false, own) { value = own?.let { Account.isAdmin(graph, it) } == true }
 
     CardLabel("Kids")
     CardGroup {
         kids.forEach { kid ->
-            CardItem(Icons.Outlined.ChildCare, kid.username, "Sign in their devices from Sign in a device", trailing = {
+            CardItem(Icons.Outlined.ChildCare, kid.username, null, trailing = {
+                if (admin) IconButton(onClick = { viewing = kid }) { Icon(Icons.Outlined.Visibility, "View as ${kid.username}") }
                 IconButton(onClick = { removing = kid }) { Icon(Icons.Outlined.Close, "Remove ${kid.username}") }
             })
             CardDivider()
         }
         CardItem(Icons.Outlined.Add, "Add a kid's account", null) { adding = true }
-        Text(
-            "Add each child's own Navidrome account (not an admin), then sign their device in with Sign in a device. " +
-                "It plays only the songs in your \"${KidRules.APPROVED}\" playlist. Songs only in \"${KidRules.SAFE_TITLES}\" " +
-                "or \"${KidRules.SAFE_ART}\" show greyed out, with just their name or cover; everything else stays hidden. " +
-                "Adding a kid creates these playlists on your account if they're missing. Seiðr keeps them out of your library, " +
-                "so approve songs with Navidrome's web player or another app. Keep the kid's password to yourself: they sign in through you.",
-            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(start = 56.dp, end = 16.dp, bottom = 14.dp),
-        )
+        CardDivider()
+        CardItem(Icons.AutoMirrored.Outlined.HelpOutline, "How kids' accounts work", null) { help = true }
     }
 
+    if (help) KidsHelpDialog(admin, onDone = { help = false })
     if (adding) AddKidDialog(onDone = { adding = false })
+    viewing?.let { kid -> ViewAsDialog(kid, onDone = { viewing = null }) }
     removing?.let { kid ->
         AlertDialog(
             onDismissRequest = { removing = null },
@@ -82,6 +102,89 @@ fun KidAccountsSection() {
             confirmButton = { TextButton(onClick = { graph.settings.removeKid(kid.username); removing = null }) { Text("Remove") } },
             dismissButton = { TextButton(onClick = { removing = null }) { Text("Cancel") } },
         )
+    }
+}
+
+@Composable
+private fun KidsHelpDialog(admin: Boolean, onDone: () -> Unit) {
+    val muted = MaterialTheme.colorScheme.onSurfaceVariant
+    AlertDialog(
+        onDismissRequest = onDone,
+        title = { Text("Kids' accounts") },
+        text = {
+            Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Text("1. Make each child their own Navidrome account (not an admin) and add it here.")
+                Text("2. Sign their device in from Sign in a device. Keep their password to yourself.")
+                Text("3. Choose what they get with three playlists on your account, made when you add a kid:")
+                Column(Modifier.padding(start = 12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    @Composable fun list(name: String, what: String) = Text(buildAnnotatedString {
+                        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) { append(name) }
+                        append(" – $what")
+                    })
+                    list(KidRules.APPROVED, "songs they can play")
+                    list(KidRules.SAFE_TITLES, "shown greyed out, name only")
+                    list(KidRules.SAFE_ART, "shown greyed out, with the cover")
+                }
+                Text("Everything else is hidden from them. These playlists stay out of your library, so edit them in " +
+                    "Navidrome's web player or another app.", color = muted)
+                if (admin) Text("The eye button shows Seiðr as that kid sees it, without changing anything.", color = muted)
+            }
+        },
+        confirmButton = { TextButton(onClick = onDone) { Text("Got it") } },
+    )
+}
+
+@Composable
+private fun ViewAsDialog(kid: KidLogin, onDone: () -> Unit) {
+    val actions = LocalActions.current
+    val scope = rememberCoroutineScope()
+    var busy by remember { mutableStateOf(false) }
+    var error by remember { mutableStateOf<String?>(null) }
+    AlertDialog(
+        onDismissRequest = { if (!busy) onDone() },
+        title = { Text("View as ${kid.username}?") },
+        text = {
+            Column {
+                Text("Browse with just what ${kid.username}'s devices show. It's read-only: you stay signed in, " +
+                    "and songs you play here count as your plays, not ${kid.username}'s. Go back from the banner on Home or Settings.")
+                error?.let { Text(it, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(top = 8.dp)) }
+            }
+        },
+        confirmButton = {
+            TextButton(enabled = !busy, onClick = {
+                busy = true; error = null
+                scope.launch {
+                    error = Account.viewAs(actions.graph, kid)
+                    busy = false
+                    if (error == null) onDone()
+                }
+            }) {
+                if (busy) CircularProgressIndicator(Modifier.padding(2.dp), strokeWidth = 2.dp) else Text("View as ${kid.username}")
+            }
+        },
+        dismissButton = { TextButton(enabled = !busy, onClick = onDone) { Text("Cancel") } },
+    )
+}
+
+/** While an admin browses as a kid (see `KidView`): who, and the way back. */
+@Composable
+fun ViewingAsBanner(modifier: Modifier = Modifier) {
+    val graph = LocalActions.current.graph
+    val kid = graph.kidView.collectAsStateWithLifecycle().value?.config ?: return
+    val own = graph.settings.server.collectAsStateWithLifecycle().value ?: return
+    val cs = MaterialTheme.colorScheme
+    Row(
+        modifier.padding(horizontal = 16.dp, vertical = 8.dp).fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp)).background(cs.tertiaryContainer)
+            .padding(start = 16.dp, end = 8.dp, top = 6.dp, bottom = 6.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(Icons.Outlined.Visibility, null, tint = cs.onTertiaryContainer)
+        Text("Viewing as ${kid.username}", color = cs.onTertiaryContainer, style = MaterialTheme.typography.bodyLarge,
+            maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f).padding(horizontal = 12.dp))
+        FilledTonalButton(onClick = { graph.stopKidView() }, modifier = Modifier.focusRing(CircleShape)) {
+            Text("Back to ${own.username}", maxLines = 1, overflow = TextOverflow.Ellipsis)
+        }
     }
 }
 

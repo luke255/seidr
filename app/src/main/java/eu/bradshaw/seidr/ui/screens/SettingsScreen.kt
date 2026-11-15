@@ -109,6 +109,7 @@ fun SettingsScreen() {
         val scroll = rememberScrollState()
         val scope = rememberCoroutineScope()
         Column(Modifier.verticalScroll(scroll)) {
+            ViewingAsBanner()
             AccountCard(onSignOut = { signOut = true })
 
             CardLabel("Appearance")
@@ -165,13 +166,13 @@ fun SettingsScreen() {
             val allLoaded by graph.library.allPlaylists.collectAsStateWithLifecycle()
             val missing = BadKind.entries.filter { it !in found }.map { it.playlistName }
             CardGroup {
-                ToggleItem(Icons.Outlined.Flag, "Report problems", "Adds a flag beside the heart", badOn) {
+                ToggleItem(Icons.Outlined.Flag, "Report problems", "Adds Report a problem to each song's ⋮ menu", badOn) {
                     graph.settings.setBadReports(it)
                 }
                 Text(
                     buildString {
-                        append("Flag a song with a bad file, wrong art or broken lyrics, and it's added to a playlist on your server: Bad: Songs, Bad: Art or Bad: Lyrics, created if missing. ")
-                        append("Whoever looks after the server can fix each one and take it off the list. These playlists stay out of your library, and songs in Bad: Songs are skipped until they're removed.")
+                        append("A bad file, wrong art or broken lyrics goes on the server's Bad: Songs, Bad: Art or Bad: Lyrics playlist for whoever runs it to fix. ")
+                        append("Songs in Bad: Songs are skipped until they're fixed.")
                         if (badOn && allLoaded != null && missing.isNotEmpty()) append(" Not found on the server: ${missing.joinToString()}.")
                     },
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,

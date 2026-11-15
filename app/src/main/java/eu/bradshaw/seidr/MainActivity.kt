@@ -30,6 +30,8 @@ import eu.bradshaw.seidr.ui.screens.requestBatteryExemption
 import eu.bradshaw.seidr.ui.theme.SeidrTheme
 import eu.bradshaw.seidr.ui.theme.ThemeChoice
 import eu.bradshaw.seidr.update.Updater
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     private val nav: Navigator by viewModels()
@@ -47,6 +49,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         handleIntent(intent)
+        // Browsing as a kid starts or ends: every tab back to its root, so no screen
+        // keeps what it loaded from the other library. Not on recreation (unfolding).
+        lifecycleScope.launch {
+            graph.kidView.collect { if (nav.kidView !== it) { nav.kidView = it; nav.reset() } }
+        }
         setContent {
             val server by graph.settings.server.collectAsStateWithLifecycle()
             // Playing for someone else: their colour.
@@ -59,7 +66,9 @@ class MainActivity : ComponentActivity() {
                     if (server == null) {
                         SignedOutScreen(graph, nav)
                     } else {
-                        MainScreen(graph, nav)
+                        // Browsing as a kid starts or ends: every screen comes back fresh, reading the other library.
+                        val view by graph.kidView.collectAsStateWithLifecycle()
+                        androidx.compose.runtime.key(view) { MainScreen(graph, nav) }
                         FirstRunPrompts()
                     }
                 }

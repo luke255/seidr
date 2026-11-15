@@ -68,7 +68,7 @@ class PlaylistVm(private val graph: Graph, val id: String) : ViewModel() {
         load()
         // Edits made elsewhere in the app (add to playlist from search, say) must show here.
         viewModelScope.launch {
-            graph.library.playlistEdited.collect { if (it == id) load() }
+            graph.browse.playlistEdited.collect { if (it == id) load() }
         }
         // Opening a playlist is a sync trigger (cheap when nothing changed).
         if (SourceType.sourceId(SourceType.PLAYLIST, id) in graph.downloads.sources.value) {
@@ -79,7 +79,7 @@ class PlaylistVm(private val graph: Graph, val id: String) : ViewModel() {
     fun load() {
         viewModelScope.launch {
             if (state !is Load.Ready) state = Load.Loading
-            state = try { Load.Ready(graph.library.playlist(id)) } catch (e: Exception) { Load.Error(e.message ?: "Error") }
+            state = try { Load.Ready(graph.browse.playlist(id)) } catch (e: Exception) { Load.Error(e.message ?: "Error") }
         }
     }
 }
@@ -97,9 +97,9 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
     val actions = LocalActions.current
     val graph = actions.graph
     val ui by graph.player.ui.collectAsStateWithLifecycle()
-    val server by graph.settings.server.collectAsStateWithLifecycle()
+    val server by graph.browseLogin.collectAsStateWithLifecycle()
     val me = server?.username
-    val editable = !playlist.readonly && (playlist.owner == null || playlist.owner == me)
+    val editable = !graph.readOnly && !playlist.readonly && (playlist.owner == null || playlist.owner == me)
     val songs = playlist.entry
 
     var editing by remember { mutableStateOf(false) }
@@ -213,7 +213,7 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                     actions.launch {
                         actions.report(graph.editor.rename(playlist.id, name.trim()), "Renamed")
                         vm.load()
-                        runCatching { graph.library.refreshPlaylists() }
+                        runCatching { graph.browse.refreshPlaylists() }
                     }
                 }) { Text("Save") }
             },
@@ -232,7 +232,7 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                         val r = graph.editor.delete(playlist.id)
                         actions.report(r, "Deleted ${playlist.name}")
                         if (r == eu.bradshaw.seidr.sync.EditResult.Applied) {
-                            runCatching { graph.library.refreshPlaylists() }
+                            runCatching { graph.browse.refreshPlaylists() }
                             actions.nav.pop()
                         }
                     }

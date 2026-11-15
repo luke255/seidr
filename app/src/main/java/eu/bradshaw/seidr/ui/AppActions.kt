@@ -48,9 +48,10 @@ class AppActions(
     }
 
     fun toggleLike(songId: String) {
+        if (graph.readOnly) return toast("Read-only while viewing as a kid")
         scope.launch {
-            val now = songId !in graph.library.starredSongs.value
-            if (!graph.library.setSongStarred(songId, now)) toast("Couldn't reach the server")
+            val now = songId !in graph.browse.starredSongs.value
+            if (!graph.browse.setSongStarred(songId, now)) toast("Couldn't reach the server")
             else {
                 toast(if (now) "Loved" else "Unloved")
                 graph.lovedChanged()
@@ -60,6 +61,7 @@ class AppActions(
 
     /** Reports [songId] to a "Bad: " playlist, or takes the report back. */
     fun reportBad(kind: BadKind, songId: String) {
+        if (graph.readOnly) return toast("Read-only while viewing as a kid")
         scope.launch { toast(graph.bad.toggle(kind, songId)) }
     }
 

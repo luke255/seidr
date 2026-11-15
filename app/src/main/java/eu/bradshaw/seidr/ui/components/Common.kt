@@ -98,7 +98,7 @@ fun pluralSongs(n: Int) = if (n == 1) "1 song" else "$n songs"
 /** Signed in as a kid: how many of [songs] they can play ("3 approved"); otherwise null. */
 @androidx.compose.runtime.Composable
 fun approvedCount(songs: List<eu.bradshaw.seidr.data.api.Song>): String? {
-    val kid = eu.bradshaw.seidr.ui.LocalActions.current.graph.kids.rules.collectAsStateWithLifecycle().value ?: return null
+    val kid = eu.bradshaw.seidr.ui.LocalActions.current.graph.browseKids.rules.collectAsStateWithLifecycle().value ?: return null
     return "${songs.count { !it.locked && kid.playable(it.id) }} approved"
 }
 

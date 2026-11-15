@@ -86,8 +86,8 @@ class SearchVm(private val graph: Graph) : ViewModel() {
         job = viewModelScope.launch {
             delay(250) // instant, but not one request per keystroke
             try {
-                result = graph.library.search(q.trim())
-                val pls = graph.library.playlists.value ?: runCatching { graph.library.refreshPlaylists() }.getOrDefault(emptyList())
+                result = graph.browse.search(q.trim())
+                val pls = graph.browse.playlists.value ?: runCatching { graph.browse.refreshPlaylists() }.getOrDefault(emptyList())
                 playlists = pls.filter { it.name.contains(q.trim(), ignoreCase = true) }
                 error = null
             } catch (e: Exception) {

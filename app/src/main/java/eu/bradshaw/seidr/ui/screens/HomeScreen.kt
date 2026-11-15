@@ -69,9 +69,9 @@ class HomeVm(private val graph: Graph) : ViewModel() {
     fun load() {
         viewModelScope.launch {
             refreshing = true
-            fun list(type: String) = async { runCatching { graph.library.albumList(type, 20) }.getOrDefault(emptyList()) }
+            fun list(type: String) = async { runCatching { graph.browse.albumList(type, 20) }.getOrDefault(emptyList()) }
             val newest = list("newest"); val frequent = list("frequent"); val starred = list("starred")
-            launch { runCatching { graph.library.refreshPlaylists() } }
+            launch { runCatching { graph.browse.refreshPlaylists() } }
             data = HomeData(newest.await(), frequent.await(), starred.await())
             refreshing = false
         }
@@ -84,14 +84,14 @@ fun HomeScreen() {
     val actions = LocalActions.current
     val graph = actions.graph
     val vm = viewModel(key = "home") { HomeVm(graph) }
-    val playlists by graph.library.playlists.collectAsStateWithLifecycle()
+    val playlists by graph.browse.playlists.collectAsStateWithLifecycle()
     val online by graph.status.online.collectAsStateWithLifecycle()
     val lastPlayed by graph.playlistPlays.lastPlayed.collectAsStateWithLifecycle()
     val alpha by graph.settings.homePlaylistsAlpha.collectAsStateWithLifecycle()
-    val server by graph.settings.server.collectAsStateWithLifecycle()
-    val kid by graph.kids.rules.collectAsStateWithLifecycle()
-    val starred by graph.library.starredSongs.collectAsStateWithLifecycle()
-    val lastLoved by graph.library.lastLoved.collectAsStateWithLifecycle()
+    val server by graph.browseLogin.collectAsStateWithLifecycle()
+    val kid by graph.browseKids.rules.collectAsStateWithLifecycle()
+    val starred by graph.browse.starredSongs.collectAsStateWithLifecycle()
+    val lastLoved by graph.browse.lastLoved.collectAsStateWithLifecycle()
     Column(Modifier.fillMaxSize()) {
         RefreshBox(vm.refreshing && vm.data != null, onRefresh = vm::load, modifier = Modifier.weight(1f)) {
             LazyColumn(Modifier.fillMaxSize(), contentPadding = bottomContentPadding()) {
@@ -99,6 +99,7 @@ fun HomeScreen() {
                 // above it. Playlists usually load after the album shelves, so
                 // without a fixed first item they'd land above the top, out of view.
                 item(key = "top") { Spacer(Modifier.fillMaxWidth().height(1.dp)) }
+                item(key = "viewing-as") { ViewingAsBanner() }
                 if (!online) item {
                     Text(
                         if (LocalIsTv.current) "You're offline. Seiðr will reconnect when the server is reachable."

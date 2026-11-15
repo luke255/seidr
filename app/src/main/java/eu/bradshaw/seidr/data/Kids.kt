@@ -6,6 +6,9 @@ import eu.bradshaw.seidr.data.api.SubsonicApi
 import eu.bradshaw.seidr.data.api.SubsonicClient
 import eu.bradshaw.seidr.data.api.ok
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -80,27 +83,36 @@ class Kids(
     suspend fun refresh(): KidRules? = lock.withLock {
         val c = loginNow()?.takeIf { it.isKid } ?: return null
         val owner = c.kidOf!!
+        val key = keyOf(c)
         val listing = api().getPlaylists().ok().playlists?.playlist.orEmpty()
-        val ids = mutableListOf<String>()
-        suspend fun fetch(name: String): List<KidSong> {
-            val out = LinkedHashMap<String, KidSong>()
-            for (p in listing.filter { KidRules.trusted(it, name, owner) }) {
-                val full = api().getPlaylist(p.id).ok().playlist ?: throw IOException("no playlist in response")
-                if (full.entry.size != full.songCount) throw IOException("$name incomplete (${full.entry.size} of ${full.songCount})")
-                ids += p.id
-                full.entry.forEach { s: Song -> out.putIfAbsent(s.id, KidRules.kidSong(s)) }
+        val trusted = KidRules.NAMES.associateWith { name -> listing.filter { KidRules.trusted(it, name, owner) } }
+        val versions = trusted.values.flatten().associate { it.id to "${it.changed}|${it.songCount}" }
+        // The lists run to thousands of songs (megabytes each), so they're
+        // fetched again only when the server says one changed.
+        val saved = read(key)
+        val lists = if (saved != null && saved.versions == versions && saved.playlistIds.toSet() == versions.keys) saved
+        else coroutineScope {
+            suspend fun fetch(name: String): List<KidSong> {
+                val out = LinkedHashMap<String, KidSong>()
+                val fulls = trusted.getValue(name).map { p -> async { api().getPlaylist(p.id).ok().playlist ?: throw IOException("no playlist in response") } }
+                for (full in fulls.awaitAll()) {
+                    if (full.entry.size != full.songCount) throw IOException("$name incomplete (${full.entry.size} of ${full.songCount})")
+                    full.entry.forEach { s: Song -> out.putIfAbsent(s.id, KidRules.kidSong(s)) }
+                }
+                return out.values.toList()
             }
-            return out.values.toList()
+            val (approved, titles, art) = listOf(KidRules.APPROVED, KidRules.SAFE_TITLES, KidRules.SAFE_ART)
+                .map { async { fetch(it) } }.awaitAll()
+            KidLists(approved, titles, art, versions.keys.toList(), versions)
         }
-        val lists = KidLists(fetch(KidRules.APPROVED), fetch(KidRules.SAFE_TITLES), fetch(KidRules.SAFE_ART), ids)
         // Signed out or in as someone else meanwhile: these lists aren't theirs.
         if (loginNow() != c) return null
-        val key = keyOf(c)
-        write(key, lists)
-        val rules = KidRules(lists)
+        if (lists !== saved) write(key, lists)
+        // Unchanged lists keep the rules already loaded, so nothing downstream redoes its filtering.
+        val rules = loaded?.takeIf { it.key == key && lists === saved }?.rules ?: KidRules(lists)
         loaded = Loaded(key, rules)
         _rules.value = rules
-        Log.i(TAG, "lists: ${lists.approved.size} approved, ${lists.titles.size} titles, ${lists.art.size} art")
+        Log.i(TAG, "lists${if (lists === saved) " (unchanged)" else ""}: ${lists.approved.size} approved, ${lists.titles.size} titles, ${lists.art.size} art")
         rules
     }
 

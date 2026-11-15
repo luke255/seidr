@@ -76,8 +76,8 @@ class ArtistVm(private val graph: Graph, val id: String) : ViewModel() {
     fun load() {
         viewModelScope.launch {
             state = try {
-                val artist = graph.library.artist(id)
-                val top = async { graph.library.topSongs(artist.name) }
+                val artist = graph.browse.artist(id)
+                val top = async { graph.browse.topSongs(artist.name) }
                 // OpenSubsonic release types split albums from singles and EPs where tagged.
                 val isSingle = { a: Album -> a.releaseTypes.any { it.equals("single", true) || it.equals("ep", true) } }
                 val compilation = { a: Album -> a.isCompilation || a.releaseTypes.any { it.equals("compilation", true) } }
@@ -96,7 +96,7 @@ class ArtistVm(private val graph: Graph, val id: String) : ViewModel() {
     /** Every song by the artist, for Shuffle Play when the server has no top tracks. */
     suspend fun allSongs(): List<Song> {
         val page = (state as? Load.Ready)?.value ?: return emptyList()
-        return (page.albums + page.singles + page.appearsOn).flatMap { runCatching { graph.library.album(it.id).song }.getOrDefault(emptyList()) }
+        return (page.albums + page.singles + page.appearsOn).flatMap { runCatching { graph.browse.album(it.id).song }.getOrDefault(emptyList()) }
     }
 }
 
@@ -130,7 +130,7 @@ fun ArtistScreen(id: String) {
             albums.isNotEmpty() && albums.all { it.songCount > 0 && (done[it.id] ?: 0) >= it.songCount }
         }
         // A kid's artist may have only songs they can't play yet.
-        val playable = graph.kids.current?.artistPlayable(page.artist.id) != false
+        val playable = graph.browseKids.current?.artistPlayable(page.artist.id) != false
         val facts = listOfNotNull(pluralAlbums(albums.size), pluralSongs(songCount).takeIf { songCount > 0 }).joinToString(" · ")
         Column(Modifier.fillMaxSize()) {
             BackTopBar(page.artist.name, showTitle = showTitle)

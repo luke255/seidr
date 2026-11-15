@@ -60,14 +60,14 @@ class LovedVm(private val graph: Graph) : ViewModel() {
         if (SourceType.STARRED_ID in graph.downloads.sources.value) graph.sync.request(setOf(SourceType.STARRED_ID))
         // Loves made elsewhere add rows; un-loves just hide (below) until the next load.
         viewModelScope.launch {
-            var known = graph.library.starredSongs.value
-            graph.library.starredSongs.collect { now -> if (!known.containsAll(now)) load(); known = now }
+            var known = graph.browse.starredSongs.value
+            graph.browse.starredSongs.collect { now -> if (!known.containsAll(now)) load(); known = now }
         }
     }
 
     fun load() {
         viewModelScope.launch {
-            state = try { Load.Ready(graph.library.starredSongsList()) } catch (e: Exception) { Load.Error(e.message ?: "Error") }
+            state = try { Load.Ready(graph.browse.starredSongsList()) } catch (e: Exception) { Load.Error(e.message ?: "Error") }
         }
     }
 }
@@ -78,7 +78,7 @@ fun LovedScreen() {
     val actions = LocalActions.current
     val graph = actions.graph
     val vm = viewModel(key = "loved") { LovedVm(graph) }
-    val starred by graph.library.starredSongs.collectAsStateWithLifecycle()
+    val starred by graph.browse.starredSongs.collectAsStateWithLifecycle()
     val ui by graph.player.ui.collectAsStateWithLifecycle()
     LoadContent(vm.state, vm::load) { all ->
         // Hide songs un-loved since the list loaded.

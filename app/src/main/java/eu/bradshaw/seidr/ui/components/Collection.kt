@@ -188,6 +188,7 @@ fun CollectionLayout(
     ArtWash(washCover)
     val showTitle by remember { derivedStateOf { listState.firstVisibleItemIndex > 0 } }
     val tv = LocalIsTv.current
+    val readOnly = LocalActions.current.graph.readOnly
     val wide = LocalWideShell.current
     val scope = rememberCoroutineScope()
     Column(Modifier.fillMaxSize()) {
@@ -240,7 +241,8 @@ fun CollectionLayout(
                 }
             }
             // No downloads on TV: it streams.
-            if (offline != null && !tv) item(key = "download") { DownloadToggle(offline, trackCount) }
+            // Browsing as a kid is read-only; downloads are the admin's.
+            if (offline != null && !tv && !readOnly) item(key = "download") { DownloadToggle(offline, trackCount) }
             rows()
         }
         }

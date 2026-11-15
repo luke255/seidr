@@ -53,7 +53,7 @@ data class MenuAction(val label: String, val icon: ImageVector, val keepOpen: Bo
 @Composable
 fun TrackMenu(song: Song, expanded: Boolean, onDismiss: () -> Unit, extra: List<MenuAction> = emptyList()) {
     val actions = LocalActions.current
-    val starred by actions.graph.library.starredSongs.collectAsStateWithLifecycle()
+    val starred by actions.graph.browse.starredSongs.collectAsStateWithLifecycle()
     val liked = song.id in starred
     val badOn by actions.graph.bad.enabled.collectAsStateWithLifecycle()
     var reporting by remember(expanded) { mutableStateOf(false) }
@@ -65,16 +65,17 @@ fun TrackMenu(song: Song, expanded: Boolean, onDismiss: () -> Unit, extra: List<
         Text(song.title, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp).width(220.dp))
         fun item(label: String, icon: ImageVector, block: () -> Unit) = MenuAction(label, icon, onClick = block)
+        val readOnly = actions.graph.readOnly // browsing as a kid
         val items = buildList {
-            add(item(if (liked) "Unlove" else "Love", if (liked) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder) {
+            if (!readOnly) add(item(if (liked) "Unlove" else "Love", if (liked) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder) {
                 actions.toggleLike(song.id)
             })
-            add(item("Add to playlist", Icons.AutoMirrored.Filled.PlaylistAdd) { actions.addToPlaylist = listOf(song) })
+            if (!readOnly) add(item("Add to playlist", Icons.AutoMirrored.Filled.PlaylistAdd) { actions.addToPlaylist = listOf(song) })
             add(item("Add to queue", Icons.AutoMirrored.Filled.QueueMusic) { actions.queue(listOf(song)) })
             song.albumId?.let { id -> add(item("Go to album", Icons.Filled.Album) { actions.open(Route.Album(id)) }) }
             song.artistId?.let { id -> add(item("Go to artist", Icons.Filled.Person) { actions.open(Route.Artist(id)) }) }
             addAll(extra)
-            if (badOn) add(MenuAction("Report a problem", Icons.Outlined.Flag, keepOpen = true) { reporting = true })
+            if (badOn && !readOnly) add(MenuAction("Report a problem", Icons.Outlined.Flag, keepOpen = true) { reporting = true })
         }
         items.forEach { a ->
             DropdownMenuItem(
@@ -92,12 +93,12 @@ fun AddToPlaylistDialog() {
     val actions = LocalActions.current
     val songs = actions.addToPlaylist ?: return
     val graph = actions.graph
-    val playlists by graph.library.playlists.collectAsStateWithLifecycle()
+    val playlists by graph.browse.playlists.collectAsStateWithLifecycle()
     val server by graph.settings.server.collectAsStateWithLifecycle()
     val me = server?.username
     var creating by remember { mutableStateOf(false) }
     var name by remember { mutableStateOf("") }
-    LaunchedEffect(Unit) { runCatching { graph.library.refreshPlaylists() } }
+    LaunchedEffect(Unit) { runCatching { graph.browse.refreshPlaylists() } }
     val dismiss = { actions.addToPlaylist = null }
 
     if (creating) {
@@ -113,7 +114,7 @@ fun AddToPlaylistDialog() {
                         if (id == null) actions.toast("Couldn't create the playlist (needs the server)")
                         else {
                             actions.toast("Created \"${name.trim()}\"")
-                            runCatching { graph.library.refreshPlaylists() }
+                            runCatching { graph.browse.refreshPlaylists() }
                         }
                     }
                 }) { Text("Create") }

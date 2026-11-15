@@ -7,6 +7,7 @@ import eu.bradshaw.seidr.data.api.ResponseStore
 import eu.bradshaw.seidr.data.api.SubsonicClient
 import eu.bradshaw.seidr.data.api.ok
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -67,6 +68,40 @@ object Account {
                 .filter { it.owner == null || it.owner.trim().equals(me, ignoreCase = true) }
             if (BadReports.find(own).isNotEmpty()) graph.settings.setBadReports(true)
         }
+    }
+
+    /** Whether [config]'s login is a server admin (strict: null if the server can't say). */
+    suspend fun isAdmin(graph: Graph, config: ServerConfig): Boolean? =
+        try {
+            graph.client.strict.getUser(config.username).ok().user?.adminRole
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
+            null
+        }
+
+    /**
+     * Opens a read-only [KidView] of [kid] for an admin: checks the admin role
+     * and the kid's login, and fetches their lists first so screens open on
+     * the kid's view, not an empty one. Returns an error message, or null.
+     */
+    suspend fun viewAs(graph: Graph, kid: KidLogin): String? {
+        val own = graph.settings.server.value?.takeIf { !it.isKid } ?: return "Not signed in as a grown-up"
+        when (isAdmin(graph, own)) {
+            null -> return "Couldn't check your account on the server"
+            false -> return "Only server admins can view as a kid"
+            true -> {}
+        }
+        val view = KidView(ServerConfig(own.url, kid.username, kid.password, kidOf = own.username), graph)
+        try {
+            view.kids.refresh()
+        } catch (e: Exception) {
+            view.close()
+            if (e is CancellationException) throw e
+            return "Couldn't open ${kid.username}'s view: ${e.message ?: e.javaClass.simpleName}"
+        }
+        if (graph.settings.server.value != own) { view.close(); return "Signed in as someone else meanwhile" }
+        graph.kidView.getAndUpdate { view }?.close()
+        return null
     }
 
     /** Playback stops and sync pauses; downloaded files are kept. On the main thread. */

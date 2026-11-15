@@ -29,6 +29,8 @@ data class KidLists(
     val art: List<KidSong> = emptyList(),
     /** Ids of the trusted playlists these came from, so a live edit to one is noticed. */
     val playlistIds: List<String> = emptyList(),
+    /** Each of those playlists' `changed|songCount` when fetched: unchanged, they aren't fetched again. */
+    val versions: Map<String, String> = emptyMap(),
 )
 
 class KidRules(val lists: KidLists) {

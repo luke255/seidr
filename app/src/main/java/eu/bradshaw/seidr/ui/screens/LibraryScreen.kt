@@ -119,12 +119,12 @@ class LibraryVm(private val graph: Graph) : ViewModel() {
         viewModelScope.launch {
             refreshing = refresh
             launch {
-                playlistsError = try { graph.library.refreshPlaylists(); null } catch (e: Exception) { e.message ?: "Error" }
+                playlistsError = try { graph.browse.refreshPlaylists(); null } catch (e: Exception) { e.message ?: "Error" }
             }
             launch {
-                artists = try { Load.Ready(graph.library.artists(refresh)) } catch (e: Exception) { Load.Error(e.message ?: "Error") }
+                artists = try { Load.Ready(graph.browse.artists(refresh)) } catch (e: Exception) { Load.Error(e.message ?: "Error") }
             }
-            albums = try { Load.Ready(graph.library.allAlbums(refresh)) } catch (e: Exception) { Load.Error(e.message ?: "Error") }
+            albums = try { Load.Ready(graph.browse.allAlbums(refresh)) } catch (e: Exception) { Load.Error(e.message ?: "Error") }
             refreshing = false
         }
     }
@@ -161,13 +161,13 @@ fun LibraryScreen() {
     var query by rememberSaveable { mutableStateOf("") }
     val grid by graph.settings.libraryGrid.collectAsStateWithLifecycle()
 
-    val playlists by graph.library.playlists.collectAsStateWithLifecycle()
+    val playlists by graph.browse.playlists.collectAsStateWithLifecycle()
     val sources by graph.downloads.sources.collectAsStateWithLifecycle()
     val downloads by graph.downloads.all.collectAsStateWithLifecycle()
-    val playlistSongs by graph.library.playlistSongs.collectAsStateWithLifecycle()
-    val server by graph.settings.server.collectAsStateWithLifecycle()
-    val starred by graph.library.starredSongs.collectAsStateWithLifecycle()
-    val lastLoved by graph.library.lastLoved.collectAsStateWithLifecycle()
+    val playlistSongs by graph.browse.playlistSongs.collectAsStateWithLifecycle()
+    val server by graph.browseLogin.collectAsStateWithLifecycle()
+    val starred by graph.browse.starredSongs.collectAsStateWithLifecycle()
+    val lastLoved by graph.browse.lastLoved.collectAsStateWithLifecycle()
     // A playlist counts as downloaded if it's a download source, or every track is on the phone anyway.
     val offlinePlaylists = remember(sources, downloads, playlistSongs) {
         val done = downloads.filterValues { it.state == DownloadState.DONE }.keys
@@ -204,7 +204,7 @@ fun LibraryScreen() {
         } else {
             TabHeader("Library") {
                 IconButton(onClick = { searching = true }) { Icon(Icons.Filled.Search, "Search your library") }
-                IconButton(onClick = { creating = true }) { Icon(Icons.Filled.Add, "Create playlist") }
+                if (!graph.readOnly) IconButton(onClick = { creating = true }) { Icon(Icons.Filled.Add, "Create playlist") }
                 if (!LocalWideShell.current) SettingsButton()
             }
         }
@@ -330,7 +330,7 @@ fun LibraryScreen() {
                         val id = graph.editor.create(name.trim(), emptyList())
                         if (id == null) actions.toast("Couldn't create the playlist (needs the server)")
                         else {
-                            runCatching { graph.library.refreshPlaylists() }
+                            runCatching { graph.browse.refreshPlaylists() }
                             actions.open(Route.Playlist(id))
                         }
                     }

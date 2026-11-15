@@ -93,8 +93,13 @@ before changing sync or playback.
   (`Song.locked`) with just that; anything else is hidden. `Library` filters
   everything it returns; `PlaybackService` hides unapproved queue entries
   and its data source refuses them; `SyncEngine`'s `TrackGate` claims only
-  approved tracks, from lists fetched strictly that pass. Kid logins travel
+  approved tracks, from lists checked strictly that pass (the lists are
+  megabytes, so they're refetched only when `changed`/songCount move). Kid logins travel
   in `SignIn`/`Guest` (`kidOf`), sent only to hosts of `KIDS_VERSION`+.
+  Admins can browse as a kid (`KidView`): a read-only lens with the kid's
+  own client, `Kids` and `Library`, which only browsing screens read
+  (`Graph.browse`/`browseKids`/`browseLogin`; `readOnly` hides every edit).
+  Sync, playback, scrobbles and Connect stay on the admin's login.
 - **`data/LiveEvents`**: while the app is on screen, listens to Navidrome's
   native `/api/events` stream (JWT from `/auth/login`). Events only trigger
   sync or screen reloads; on any failure it backs off and polling carries on.
