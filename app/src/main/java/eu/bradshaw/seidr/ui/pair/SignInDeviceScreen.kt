@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.pair
 
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import android.Manifest
 import android.content.Context
 import android.os.Build
@@ -79,7 +81,7 @@ fun SignInDeviceScreen() {
     val signedOut = devices.filter { it.guest }
 
     Column(Modifier.fillMaxSize()) {
-        BackTopBar("Sign in a device")
+        BackTopBar(stringResource(R.string.pair_title))
         Column(
             Modifier.fillMaxSize().verticalScroll(rememberScrollState())
                 .padding(top = 8.dp, bottom = 24.dp + LocalBottomChrome.current),
@@ -89,36 +91,33 @@ fun SignInDeviceScreen() {
             val w = working
             val r = result
             when {
-                w != null -> Column(Modifier.padding(24.dp)) { Working("Signing in ${w.name}… Allow it on ${w.name}.") }
+                w != null -> Column(Modifier.padding(24.dp)) { Working(stringResource(R.string.pair_signing_in, w.name)) }
                 r != null -> {
                     val (peer, outcome) = r
                     Column(Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(16.dp)) {
                         if (outcome is Connect.SignInResult.Done) {
                             Icon(Icons.Filled.CheckCircle, null, Modifier.size(48.dp), tint = MaterialTheme.colorScheme.primary)
-                            Text("${peer.name} is signed in as $who", textAlign = TextAlign.Center)
-                            Button(onClick = { actions.nav.pop() }) { Text("Done") }
+                            Text(stringResource(R.string.pair_signed_in_as, peer.name, who), textAlign = TextAlign.Center)
+                            Button(onClick = { actions.nav.pop() }) { Text(stringResource(R.string.common_done)) }
                         } else {
-                            Text((outcome as? Connect.SignInResult.Failed)?.message ?: "Cancelled", textAlign = TextAlign.Center)
+                            Text((outcome as? Connect.SignInResult.Failed)?.message ?: stringResource(R.string.pair_cancelled), textAlign = TextAlign.Center)
                             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                                OutlinedButton(onClick = { actions.nav.pop() }) { Text("Close") }
-                                Button(onClick = { result = null }) { Text("Try again") }
+                                OutlinedButton(onClick = { actions.nav.pop() }) { Text(stringResource(R.string.common_close)) }
+                                Button(onClick = { result = null }) { Text(stringResource(R.string.common_try_again)) }
                             }
                         }
                     }
                 }
                 else -> {
-                    Hint("Open Seiðr on the device you want to sign in, on the same Wi-Fi as this one. " +
-                        "It shows up here while it's signed out. You'll check that both screens show the same code, " +
-                        "then it signs in as $who." +
-                        if (server?.isKid == true) " It'll be a kid's device too, with the same songs." else "")
+                    Hint(stringResource(if (server?.isKid == true) R.string.pair_intro_kid else R.string.pair_intro, who))
                     // Kids' devices don't keep other logins, so only a grown-up's has a choice.
                     if (kids.isNotEmpty() && server?.isKid != true) {
                         CardGroup {
-                            CardItem(Icons.Filled.Person, server?.username.orEmpty(), "You",
+                            CardItem(Icons.Filled.Person, server?.username.orEmpty(), stringResource(R.string.pair_you),
                                 trailing = { RadioButton(asKid == null, null) }) { asKid = null }
                             kids.forEach { kid ->
-                                CardItem(Icons.Outlined.ChildCare, kid.username, "Kid: approved songs only",
+                                CardItem(Icons.Outlined.ChildCare, kid.username, stringResource(R.string.pair_kid_approved_only),
                                     trailing = { RadioButton(asKid == kid, null) }) { asKid = kid }
                             }
                         }
@@ -126,7 +125,7 @@ fun SignInDeviceScreen() {
                     if (signedOut.isNotEmpty()) {
                         CardGroup {
                             signedOut.forEach { peer ->
-                                CardItem(kindIcon(peer.kind), peer.name, "Not signed in") {
+                                CardItem(kindIcon(peer.kind), peer.name, stringResource(R.string.devices_not_signed_in)) {
                                     if (working != null) return@CardItem
                                     working = peer
                                     scope.launch {
@@ -139,11 +138,11 @@ fun SignInDeviceScreen() {
                         }
                     }
                     if (lanMissing) {
-                        Hint("Seiðr needs the Nearby devices permission to find other devices.")
-                        TextButton(onClick = { if (Build.VERSION.SDK_INT >= 37) lan.launch(Manifest.permission.ACCESS_LOCAL_NETWORK) }) { Text("Allow") }
+                        Hint(stringResource(R.string.pair_permission_rationale))
+                        TextButton(onClick = { if (Build.VERSION.SDK_INT >= 37) lan.launch(Manifest.permission.ACCESS_LOCAL_NETWORK) }) { Text(stringResource(R.string.devices_allow)) }
                     } else if (signedOut.isEmpty()) {
                         LinearProgressIndicator(Modifier.widthIn(max = 320.dp).fillMaxWidth().padding(horizontal = 24.dp))
-                        Hint("Looking for signed-out devices…")
+                        Hint(stringResource(R.string.pair_looking))
                     }
                 }
             }

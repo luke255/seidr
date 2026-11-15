@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.player
 
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.EaseOutCubic
 import androidx.compose.animation.core.tween
@@ -157,9 +159,9 @@ internal fun RepeatButton(mode: Int, onClick: () -> Unit) {
     val off = mode == Player.REPEAT_MODE_OFF
     val tint = if (off) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.primary
     val label = when (mode) {
-        Player.REPEAT_MODE_ONE -> "Repeat one"
-        Player.REPEAT_MODE_ALL -> "Repeat all"
-        else -> "Repeat off"
+        Player.REPEAT_MODE_ONE -> stringResource(R.string.player_repeat_one)
+        Player.REPEAT_MODE_ALL -> stringResource(R.string.player_repeat_all)
+        else -> stringResource(R.string.player_repeat_off)
     }
     IconButton(onClick = onClick) {
         Icon(
@@ -203,6 +205,11 @@ internal fun ShuffleButton(on: Boolean, onToggle: () -> Unit, onReshuffle: () ->
     val toggle by rememberUpdatedState(onToggle)
     val reshuffle by rememberUpdatedState(onReshuffle)
     val haptics = LocalHapticFeedback.current
+    val shuffleLabel = stringResource(R.string.player_shuffle)
+    val shuffleOn = stringResource(R.string.player_on)
+    val shuffleOff = stringResource(R.string.player_off)
+    val toggleShuffleLabel = stringResource(R.string.player_toggle_shuffle)
+    val reshuffleLabel = stringResource(R.string.player_reshuffle)
     val scope = rememberCoroutineScope()
     val fill = remember { Animatable(0f) }
     val spin = remember { Animatable(0f) }
@@ -282,10 +289,10 @@ internal fun ShuffleButton(on: Boolean, onToggle: () -> Unit, onReshuffle: () ->
             .focusable(interactionSource = interaction)
             .semantics {
                 role = Role.Button
-                contentDescription = "Shuffle"
-                stateDescription = if (on) "On" else "Off"
-                onClick("Toggle shuffle") { toggle(); true }
-                onLongClick("Reshuffle") { done(); true }
+                contentDescription = shuffleLabel
+                stateDescription = if (on) shuffleOn else shuffleOff
+                onClick(toggleShuffleLabel) { toggle(); true }
+                onLongClick(reshuffleLabel) { done(); true }
             }
             .pointerInput(Unit) {
                 awaitEachGesture {
@@ -336,7 +343,7 @@ internal fun ShuffleButton(on: Boolean, onToggle: () -> Unit, onReshuffle: () ->
                     color = MaterialTheme.colorScheme.inverseSurface, contentColor = MaterialTheme.colorScheme.inverseOnSurface,
                 ) {
                     Column(Modifier.width(180.dp).padding(horizontal = 16.dp, vertical = 12.dp)) {
-                        Text(if (state == Bubble.DONE) "Reshuffled" else "Hold to reshuffle", style = MaterialTheme.typography.labelLarge)
+                        Text(stringResource(if (state == Bubble.DONE) R.string.player_reshuffled else R.string.player_hold_to_reshuffle), style = MaterialTheme.typography.labelLarge)
                         Spacer(Modifier.height(8.dp))
                         LinearProgressIndicator(
                             progress = { if (state == Bubble.DONE) 1f else fill.value }, modifier = Modifier.fillMaxWidth(),

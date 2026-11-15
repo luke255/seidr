@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.components
 
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.indication
@@ -146,7 +148,7 @@ fun Modifier.reorderable(state: ReorderState, key: Any): Modifier =
 fun LiftHandle(lifted: Boolean, modifier: Modifier) {
     Icon(
         if (lifted) Icons.Filled.SwapVert else Icons.Filled.DragHandle,
-        if (lifted) "Moving: up or down, then select to drop" else "Drag to reorder",
+        stringResource(if (lifted) R.string.common_moving_hint else R.string.common_drag_to_reorder),
         modifier.padding(8.dp),
         tint = if (lifted) MaterialTheme.colorScheme.primary else LocalContentColor.current,
     )

@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui
 
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import androidx.activity.compose.PredictiveBackHandler
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
@@ -90,12 +92,12 @@ import eu.bradshaw.seidr.ui.screens.PlaylistScreen
 import eu.bradshaw.seidr.ui.screens.SearchScreen
 import eu.bradshaw.seidr.ui.screens.SettingsScreen
 
-private data class TabSpec(val tab: Tab, val label: String, val selected: ImageVector, val unselected: ImageVector)
+private data class TabSpec(val tab: Tab, @androidx.annotation.StringRes val label: Int, val selected: ImageVector, val unselected: ImageVector)
 
 private val tabs = listOf(
-    TabSpec(Tab.HOME, "Home", Icons.Filled.Home, Icons.Outlined.Home),
-    TabSpec(Tab.SEARCH, "Search", Icons.Filled.Search, Icons.Outlined.Search),
-    TabSpec(Tab.LIBRARY, "Library", Icons.Filled.LibraryMusic, Icons.Outlined.LibraryMusic),
+    TabSpec(Tab.HOME, R.string.nav_home, Icons.Filled.Home, Icons.Outlined.Home),
+    TabSpec(Tab.SEARCH, R.string.nav_search, Icons.Filled.Search, Icons.Outlined.Search),
+    TabSpec(Tab.LIBRARY, R.string.nav_library, Icons.Filled.LibraryMusic, Icons.Outlined.LibraryMusic),
 )
 
 @Composable
@@ -172,6 +174,9 @@ private fun EntryHost(entry: Entry, saveable: SaveableStateHolder, focus: EntryF
 fun MainScreen(graph: Graph, nav: Navigator) {
     val snackbar = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+    // Plain helpers (pluralSongs, formatBytes, ...) read their strings from this.
+    val appContext = androidx.compose.ui.platform.LocalContext.current.applicationContext
+    remember(appContext) { eu.bradshaw.seidr.ui.components.AppText.context = appContext; appContext }
     val actions = remember(nav) { AppActions(graph, nav, snackbar, scope) }
     androidx.compose.runtime.LaunchedEffect(actions) { graph.connect.messages.collect { actions.toast(it) } }
     val saveable = rememberSaveableStateHolder()
@@ -287,7 +292,7 @@ fun MainScreen(graph: Graph, nav: Navigator) {
 private fun NavItem(spec: TabSpec, selected: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
     val color = if (selected) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant
     NavItemLayout(
-        if (selected) spec.selected else spec.unselected, spec.label, color, bold = selected,
+        if (selected) spec.selected else spec.unselected, stringResource(spec.label), color, bold = selected,
         modifier.clip(RoundedCornerShape(12.dp)).selectable(selected, onClick = onClick, role = Role.Tab),
     )
 }
@@ -307,7 +312,7 @@ private fun NowPlayingItem(actions: AppActions, modifier: Modifier = Modifier) {
         else -> cs.onSurfaceVariant.copy(alpha = 0.38f)
     }
     NavItemLayout(
-        if (ui.isPlaying) Icons.Filled.PlayCircle else Icons.Outlined.PlayCircle, "Now Playing", color, bold = false,
+        if (ui.isPlaying) Icons.Filled.PlayCircle else Icons.Outlined.PlayCircle, stringResource(R.string.nav_now_playing), color, bold = false,
         modifier.clip(RoundedCornerShape(12.dp))
             .clickable(enabled = has, role = Role.Button) { actions.nowPlayingOpen = true },
     )

@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import eu.bradshaw.seidr.Graph
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.data.BadKind
 import eu.bradshaw.seidr.data.api.Song
 import eu.bradshaw.seidr.sync.EditResult
@@ -44,16 +45,16 @@ class AppActions(
 
     fun queue(songs: List<Song>) {
         player.addToQueue(songs)
-        toast(if (songs.size == 1) "Added to queue" else "Added ${songs.size} songs to queue")
+        toast(graph.app.resources.getQuantityString(R.plurals.menu_added_to_queue, songs.size, songs.size))
     }
 
     fun toggleLike(songId: String) {
-        if (graph.readOnly) return toast("Read-only while viewing as a kid")
+        if (graph.readOnly) return toast(graph.app.getString(R.string.common_read_only_kid))
         scope.launch {
             val now = songId !in graph.browse.starredSongs.value
-            if (!graph.browse.setSongStarred(songId, now)) toast("Couldn't reach the server")
+            if (!graph.browse.setSongStarred(songId, now)) toast(graph.app.getString(R.string.common_cant_reach_server))
             else {
-                toast(if (now) "Loved" else "Unloved")
+                toast(graph.app.getString(if (now) R.string.common_loved else R.string.common_unloved))
                 graph.lovedChanged()
             }
         }
@@ -61,16 +62,16 @@ class AppActions(
 
     /** Reports [songId] to a "Bad: " playlist, or takes the report back. */
     fun reportBad(kind: BadKind, songId: String) {
-        if (graph.readOnly) return toast("Read-only while viewing as a kid")
+        if (graph.readOnly) return toast(graph.app.getString(R.string.common_read_only_kid))
         scope.launch { toast(graph.bad.toggle(kind, songId)) }
     }
 
     fun report(result: EditResult, applied: String) {
         toast(when (result) {
             EditResult.Applied -> applied
-            EditResult.Queued -> "Offline: will save to the server when it's back"
-            EditResult.Conflict -> "The playlist changed elsewhere, so nothing was saved. Reloaded."
-            is EditResult.Failed -> "Couldn't save: ${result.message}"
+            EditResult.Queued -> graph.app.getString(R.string.common_edit_queued)
+            EditResult.Conflict -> graph.app.getString(R.string.common_edit_conflict)
+            is EditResult.Failed -> graph.app.getString(R.string.common_edit_failed, result.message)
         })
     }
 
