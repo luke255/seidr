@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">Terug</string>
+    <string name="common_cancel">Annuleren</string>
+    <string name="common_clear">Wissen</string>
+    <string name="common_close">Sluiten</string>
+    <string name="common_done">Klaar</string>
+    <string name="common_more">Meer</string>
+    <string name="common_remove">Verwijderen</string>
+    <string name="common_retry">Opnieuw</string>
+    <string name="common_try_again">Opnieuw proberen</string>
+    <string name="common_offline">Offline</string>
+    <string name="common_load_failed">Kan dit niet laden</string>
+    <string name="common_drag_to_reorder">Sleep om de volgorde te wijzigen</string>
+    <string name="common_moving_hint">Verplaatsen: omhoog of omlaag, dan selecteren om neer te zetten</string>
+    <string name="common_shuffle_play">Shuffle afspelen</string>
+    <string name="common_play_in_order">Op volgorde afspelen</string>
+    <string name="common_play">Afspelen</string>
+
+    <string name="common_download">Downloaden</string>
+    <string name="common_downloaded">Gedownload</string>
+    <string name="common_queued">In de wachtrij</string>
+    <string name="common_download_failed">Download mislukt</string>
+    <string name="common_waiting_to_download">Wacht op download…</string>
+    <string name="common_downloading_progress">Downloaden… %1$d van %2$d</string>
+    <string name="common_download_when_reachable">Wordt gedownload zodra de server bereikbaar is</string>
+    <string name="common_downloads_removed">Downloads voor %1$s verwijderd</string>
+    <string name="common_not_approved_yet">Nog niet goedgekeurd</string>
+
+    <string name="common_read_only_kid">Alleen-lezen terwijl je als kind kijkt</string>
+    <string name="common_cant_reach_server">Kan de server niet bereiken</string>
+    <string name="common_loved">Toegevoegd aan Favorieten</string>
+    <string name="common_unloved">Verwijderd uit Favorieten</string>
+    <string name="common_edit_queued">Offline: wordt op de server opgeslagen zodra die terug is</string>
+    <string name="common_edit_conflict">De playlist is ergens anders gewijzigd, dus er is niets opgeslagen. Opnieuw geladen.</string>
+    <string name="common_edit_failed">Kan niet opslaan: %1$s</string>
+
+    <plurals name="common_songs">
+        <item quantity="one">%d nummer</item>
+        <item quantity="other">%d nummers</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="one">%d album</item>
+        <item quantity="other">%d albums</item>
+    </plurals>
+    <plurals name="common_approved_count">
+        <item quantity="one">%1$d goedgekeurd</item>
+        <item quantity="other">%1$d goedgekeurd</item>
+    </plurals>
+    <string name="common_by_owner">van %1$s</string>
+    <string name="common_duration_hr_min">%1$d u %2$d min</string>
+    <string name="common_duration_min">%1$d min</string>
+    <string name="common_size_gb">%1$.1f GB</string>
+    <string name="common_size_mb">%1$.0f MB</string>
+    <string name="common_size_kb">%1$.0f kB</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_search">Zoeken</string>
+    <string name="nav_library">Bibliotheek</string>
+    <string name="nav_now_playing">Speelt nu</string>
+    <string name="nav_settings">Instellingen</string>
+    <string name="nav_update_available">Update beschikbaar</string>
+    <string name="nav_settings_update_available">Instellingen, update beschikbaar</string>
+
+    <string name="player_nothing_playing">Er speelt niets</string>
+    <string name="player_playing_from">SPEELT AF VAN</string>
+    <string name="player_queue">Wachtrij</string>
+    <string name="player_disconnect">Verbinding verbreken</string>
+    <string name="player_play_on_another_device">Afspelen op ander apparaat</string>
+    <string name="player_lyrics">Songtekst</string>
+    <string name="player_hide_lyrics">Songtekst verbergen</string>
+    <string name="player_visualiser">Visualizer</string>
+    <string name="player_immersive_visualiser">Immersieve visualizer</string>
+    <string name="player_previous">Vorige</string>
+    <string name="player_next">Volgende</string>
+    <string name="player_play">Afspelen</string>
+    <string name="player_pause">Pauzeren</string>
+    <string name="player_playing_on">Speelt af op %1$s</string>
+    <string name="player_playing_for">Speelt af voor %1$s vanaf %2$s</string>
+    <string name="player_repeat_one">Eén nummer herhalen</string>
+    <string name="player_repeat_all">Alles herhalen</string>
+    <string name="player_repeat_off">Herhalen uit</string>
+    <string name="player_shuffle">Shuffle</string>
+    <string name="player_on">Aan</string>
+    <string name="player_off">Uit</string>
+    <string name="player_toggle_shuffle">Shuffle aan- of uitzetten</string>
+    <string name="player_reshuffle">Opnieuw shuffelen</string>
+    <string name="player_reshuffled">Opnieuw geshuffeld</string>
+    <string name="player_hold_to_reshuffle">Houd vast om opnieuw te shuffelen</string>
+
+    <string name="queue_title">Wachtrij</string>
+    <string name="queue_empty">De wachtrij is leeg</string>
+    <string name="queue_earlier">Eerder</string>
+    <string name="queue_now_playing">Speelt nu</string>
+    <string name="queue_next">Hierna</string>
+    <string name="queue_next_in_queue">Hierna in de wachtrij</string>
+    <string name="queue_clear">Wachtrij wissen</string>
+    <string name="queue_next_from">Hierna uit: %1$s</string>
+    <string name="queue_fallback_context">wachtrij</string>
+    <string name="queue_remove">Uit wachtrij verwijderen</string>
+
+    <string name="lyrics_none">Geen songtekst voor dit nummer</string>
+    <string name="lyrics_failed">Kan de songtekst niet laden</string>
+    <string name="lyrics_earlier">Songtekst eerder</string>
+    <string name="lyrics_later">Songtekst later</string>
+    <string name="lyrics_original_timing">Oorspronkelijke timing</string>
+    <string name="lyrics_reset">Herstellen</string>
+
+    <string name="devices_title">Afspelen op</string>
+    <string name="devices_this_device">Dit apparaat</string>
+    <string name="devices_not_signed_in">Niet aangemeld</string>
+    <string name="devices_connecting">Verbinden…</string>
+    <string name="devices_connected">Verbonden</string>
+    <string name="devices_allow">Toestaan</string>
+    <string name="devices_permission_rationale">Seiðr heeft de toestemming Apparaten in de buurt nodig om je andere apparaten te vinden.</string>
+    <string name="devices_looking">Apparaten zoeken. Open Seiðr op een ander apparaat op dezelfde wifi: een dat als jou is aangemeld, of een dat niet is aangemeld.</string>
+
+    <string name="menu_love">Vind ik leuk</string>
+    <string name="menu_unlove">Vind ik niet meer leuk</string>
+    <string name="menu_add_to_playlist">Toevoegen aan playlist</string>
+    <string name="menu_add_to_queue">Toevoegen aan wachtrij</string>
+    <string name="menu_go_to_album">Naar album</string>
+    <string name="menu_go_to_artist">Naar artiest</string>
+    <plurals name="menu_added_to_queue">
+        <item quantity="one">Toegevoegd aan wachtrij</item>
+        <item quantity="other">%d nummers toegevoegd aan wachtrij</item>
+    </plurals>
+    <string name="menu_new_playlist">Nieuwe playlist</string>
+    <string name="menu_playlist_name">Naam</string>
+    <string name="menu_create">Maken</string>
+    <string name="menu_create_failed">Kan de playlist niet maken (server nodig)</string>
+    <string name="menu_created">‘%1$s’ gemaakt</string>
+    <string name="menu_added_to">Toegevoegd aan %1$s</string>
+
+    <string name="menu_report_a_problem">Probleem melden</string>
+    <string name="menu_report_no_playlist">Geen playlist %1$s</string>
+    <string name="menu_report_undo_song">Melding over nummer intrekken</string>
+    <string name="menu_report_undo_art">Melding over hoes intrekken</string>
+    <string name="menu_report_undo_lyrics">Melding over songtekst intrekken</string>
+    <string name="menu_report_bad_song">Kapot nummer (overslaan)</string>
+    <string name="menu_report_bad_art">Verkeerde hoes</string>
+    <string name="menu_report_bad_lyrics">Foute songtekst</string>
+
+    <string name="pair_title">Apparaat aanmelden</string>
+    <string name="pair_signing_in">%1$s aanmelden… Sta het toe op %1$s.</string>
+    <string name="pair_signed_in_as">%1$s is aangemeld als %2$s</string>
+    <string name="pair_cancelled">Geannuleerd</string>
+    <string name="pair_intro">Open Seiðr op het apparaat dat je wilt aanmelden, op dezelfde wifi als dit apparaat. Het verschijnt hier zolang het niet is aangemeld. Je controleert of beide schermen dezelfde code tonen, en dan wordt het aangemeld als %1$s.</string>
+    <string name="pair_intro_kid">Open Seiðr op het apparaat dat je wilt aanmelden, op dezelfde wifi als dit apparaat. Het verschijnt hier zolang het niet is aangemeld. Je controleert of beide schermen dezelfde code tonen, en dan wordt het aangemeld als %1$s. Het wordt dan ook een kinderapparaat, met dezelfde nummers.</string>
+    <string name="pair_you">Jij</string>
+    <string name="pair_kid_approved_only">Kind: alleen goedgekeurde nummers</string>
+    <string name="pair_permission_rationale">Seiðr heeft de toestemming Apparaten in de buurt nodig om andere apparaten te vinden.</string>
+    <string name="pair_looking">Zoeken naar niet-aangemelde apparaten…</string>
+
+    <string name="theme_system">Systeem</string>
+    <string name="theme_neutral">Neutraal</string>
+    <string name="theme_red">Rood</string>
+    <string name="theme_orange">Oranje</string>
+    <string name="theme_amber">Amber</string>
+    <string name="theme_yellow">Geel</string>
+    <string name="theme_lime">Limoen</string>
+    <string name="theme_green">Groen</string>
+    <string name="theme_emerald">Smaragd</string>
+    <string name="theme_teal">Blauwgroen</string>
+    <string name="theme_cyan">Cyaan</string>
+    <string name="theme_sky">Hemelsblauw</string>
+    <string name="theme_blue">Blauw</string>
+    <string name="theme_indigo">Indigo</string>
+    <string name="theme_violet">Violet</string>
+    <string name="theme_purple">Paars</string>
+    <string name="theme_magenta">Magenta</string>
+    <string name="theme_pink">Roze</string>
+</resources>

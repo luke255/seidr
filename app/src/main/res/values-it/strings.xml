@@ -1,0 +1,99 @@
+<resources>
+    <string name="channel_updates">Aggiornamenti dell\'app</string>
+    <string name="update_offer_title">Aggiornare %1$s?</string>
+    <string name="update_offer_text">La versione %1$s è pronta per l\'installazione (hai la %2$s). L\'app si chiude durante l\'aggiornamento.</string>
+    <string name="update_install">Installa</string>
+    <string name="update_later">Più tardi</string>
+    <string name="update_whats_new">Novità</string>
+    <string name="update_whats_new_title">Novità della versione %1$s</string>
+    <string name="update_ready_title">Aggiornamento pronto</string>
+    <string name="update_ready_text">Tocca per installare la versione %1$s</string>
+
+    <string name="notif_channel_downloads">Download</string>
+    <string name="notif_channel_storage">Avvisi sullo spazio</string>
+    <plurals name="notif_downloading">
+        <item quantity="one">Download di %1$d brano</item>
+        <item quantity="many">Download di %1$d brani</item>
+        <item quantity="other">Download di %1$d brani</item>
+    </plurals>
+    <string name="notif_preparing">Preparazione…</string>
+    <string name="notif_storage_title">Download in pausa: spazio esaurito</string>
+    <string name="notif_storage_text">Libera circa %1$d MB per continuare. Niente di ciò che era già scaricato è stato rimosso.</string>
+
+    <string name="sync_server_error">Errore del server</string>
+    <string name="sync_cant_reach">Server non raggiungibile</string>
+
+    <string name="car_recent">Recenti</string>
+    <string name="car_playlists">Playlist</string>
+    <string name="car_playlist">Playlist</string>
+    <plurals name="car_songs">
+        <item quantity="one">%1$d brano</item>
+        <item quantity="many">%1$d brani</item>
+        <item quantity="other">%1$d brani</item>
+    </plurals>
+
+    <string name="playback_love">Mi piace</string>
+    <string name="playback_unlove">Non mi piace più</string>
+
+    <string name="connect_not_signed_in">Su questo dispositivo non è stato eseguito l\'accesso</string>
+    <string name="connect_update_for_kids">Prima aggiorna Seiðr su %1$s: questa versione non può proteggere le credenziali di un bambino</string>
+    <string name="connect_no_answer">%1$s non ha risposto</string>
+    <string name="connect_lost_why">Connessione con %1$s persa: %2$s</string>
+    <string name="connect_peer_other_account">Su %1$s ha eseguito l\'accesso qualcun altro</string>
+    <string name="connect_peer_changed">Su %1$s qualcuno ha appena eseguito l\'accesso o è uscito. Riprova tra un attimo.</string>
+    <string name="connect_peer_unreachable">Impossibile raggiungere %1$s. Seiðr è aperto lì?</string>
+    <string name="connect_playback_not_ready">La riproduzione non è ancora pronta</string>
+    <string name="connect_device_fallback">Dispositivo Seiðr</string>
+    <string name="connect_peer_disconnected">%1$s si è disconnesso</string>
+    <string name="connect_peer_signed_in">Accesso eseguito su %1$s</string>
+    <string name="connect_nobody_answered">Nessuno ha risposto su %1$s</string>
+    <string name="connect_not_allowed">Non consentito su %1$s</string>
+    <string name="connect_taken_over">%1$s ora sta riproducendo su %2$s</string>
+    <string name="connect_update_first">Prima aggiorna Seiðr su %1$s</string>
+    <string name="connect_lost">%1$s non è più raggiungibile</string>
+    <string name="connect_lost_connection">Connessione con %1$s persa</string>
+
+    <string name="account_connect_failed">Impossibile connettersi a %1$s: %2$s</string>
+    <string name="account_lan_permission">Seiðr ha bisogno dell\'autorizzazione Dispositivi nelle vicinanze / rete locale per raggiungere un server sulla tua rete di casa.</string>
+    <string name="account_check_failed_why">Impossibile verificare l\'account di %1$s: %2$s</string>
+    <string name="account_check_failed">Impossibile verificare l\'account di %1$s</string>
+    <string name="account_kid_is_admin">%1$s è admin sul server. Ai bambini serve un account che non lo sia.</string>
+    <string name="account_not_grownup">Non hai eseguito l\'accesso con un account adulto</string>
+    <string name="account_own_check_failed">Impossibile verificare il tuo account sul server</string>
+    <string name="account_admin_only">Solo gli admin del server possono vedere come un bambino</string>
+    <string name="account_view_failed">Impossibile aprire la vista di %1$s: %2$s</string>
+    <string name="account_someone_else">Nel frattempo ha eseguito l\'accesso qualcun altro</string>
+
+    <string name="kids_signed_in_as_kid">Accesso eseguito con un account bambino</string>
+    <string name="kids_setup_failed">Impossibile preparare le playlist dei bambini: %1$s</string>
+
+    <string name="report_no_playlist">Sul server non c\'è una playlist «%1$s»</string>
+    <string name="report_removed">Rimosso da %1$s</string>
+    <string name="report_song_reported">Segnalato. Questo brano verrà saltato.</string>
+    <string name="report_art_reported">Copertina segnalata</string>
+    <string name="report_lyrics_reported">Testo segnalato</string>
+    <string name="report_queued">Offline: %1$s verrà aggiornata quando il server tornerà disponibile</string>
+    <string name="report_conflict">Impossibile aggiornare %1$s</string>
+    <string name="report_failed">Impossibile aggiornare %1$s: %2$s</string>
+
+    <string name="main_battery_title">Non fermare la musica</string>
+    <string name="main_battery_text">Su alcuni telefoni la gestione della batteria interrompe la riproduzione e i download in background. Lasciare che Seiðr funzioni senza limitazioni? Puoi cambiarlo più tardi nelle Impostazioni.</string>
+    <string name="main_battery_allow">Consenti</string>
+
+    <string name="vis_close">Chiudi il visualizzatore</string>
+    <string name="vis_now_playing">In riproduzione</string>
+    <string name="vis_next_in_queue">A seguire in coda</string>
+    <string name="vis_next_from">A seguire da: %1$s</string>
+    <string name="vis_next_from_queue">A seguire da: coda</string>
+    <string name="vis_hide_preset">Nascondi preset</string>
+    <string name="vis_love_preset">Mi piace questo preset</string>
+    <string name="vis_unlove_preset">Non mi piace più questo preset</string>
+    <string name="vis_preview">Anteprima</string>
+    <string name="vis_preset_hidden">Preset nascosto. Lo ritrovi in Impostazioni → Visualizzatore.</string>
+    <string name="vis_xr_failed">Impossibile avviare il visualizzatore immersivo</string>
+    <string name="vis_warning_title">Luci lampeggianti</string>
+    <string name="vis_warning_headset">Alcuni preset lampeggiano, pulsano e vorticano rapidamente, e nel visore riempiono tutto il campo visivo. Questo può scatenare crisi nelle persone con epilessia fotosensibile, e causare nausea o disorientamento. Resta seduto e, se non ti senti bene, togli il visore.</string>
+    <string name="vis_warning_flat">Alcuni preset lampeggiano, pulsano e vorticano rapidamente. Questo può scatenare crisi nelle persone con epilessia fotosensibile. Se non ti senti bene, distogli lo sguardo e chiudi il visualizzatore.</string>
+    <string name="vis_continue">Continua</string>
+    <string name="vis_not_now">Non ora</string>
+</resources>

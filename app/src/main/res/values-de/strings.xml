@@ -1,0 +1,97 @@
+<resources>
+    <string name="channel_updates">App-Updates</string>
+    <string name="update_offer_title">%1$s aktualisieren?</string>
+    <string name="update_offer_text">Version %1$s kann installiert werden (du hast %2$s). Die App wird während des Updates geschlossen.</string>
+    <string name="update_install">Installieren</string>
+    <string name="update_later">Später</string>
+    <string name="update_whats_new">Was ist neu</string>
+    <string name="update_whats_new_title">Neu in %1$s</string>
+    <string name="update_ready_title">Update bereit</string>
+    <string name="update_ready_text">Tippe, um Version %1$s zu installieren</string>
+
+    <string name="notif_channel_downloads">Downloads</string>
+    <string name="notif_channel_storage">Speicherwarnungen</string>
+    <plurals name="notif_downloading">
+        <item quantity="one">%1$d Song wird heruntergeladen</item>
+        <item quantity="other">%1$d Songs werden heruntergeladen</item>
+    </plurals>
+    <string name="notif_preparing">Wird vorbereitet…</string>
+    <string name="notif_storage_title">Downloads pausiert: Speicher voll</string>
+    <string name="notif_storage_text">Gib etwa %1$d MB frei, damit es weitergeht. Bereits Heruntergeladenes wurde nicht entfernt.</string>
+
+    <string name="sync_server_error">Serverfehler</string>
+    <string name="sync_cant_reach">Server nicht erreichbar</string>
+
+    <string name="car_recent">Zuletzt</string>
+    <string name="car_playlists">Playlists</string>
+    <string name="car_playlist">Playlist</string>
+    <plurals name="car_songs">
+        <item quantity="one">%1$d Song</item>
+        <item quantity="other">%1$d Songs</item>
+    </plurals>
+
+    <string name="playback_love">Gefällt mir</string>
+    <string name="playback_unlove">Gefällt mir nicht mehr</string>
+
+    <string name="connect_not_signed_in">Dieses Gerät ist nicht angemeldet</string>
+    <string name="connect_update_for_kids">Aktualisiere zuerst Seiðr auf %1$s: Diese Version kann die Anmeldedaten eines Kindes nicht schützen</string>
+    <string name="connect_no_answer">%1$s hat nicht geantwortet</string>
+    <string name="connect_lost_why">Verbindung zu %1$s verloren: %2$s</string>
+    <string name="connect_peer_other_account">Auf %1$s ist jemand anderes angemeldet</string>
+    <string name="connect_peer_changed">Auf %1$s hat sich jemand an- oder abgemeldet. Versuch es gleich noch einmal.</string>
+    <string name="connect_peer_unreachable">%1$s ist nicht erreichbar. Ist Seiðr dort geöffnet?</string>
+    <string name="connect_playback_not_ready">Die Wiedergabe ist noch nicht bereit</string>
+    <string name="connect_device_fallback">Seiðr-Gerät</string>
+    <string name="connect_peer_disconnected">%1$s hat die Verbindung getrennt</string>
+    <string name="connect_peer_signed_in">%1$s ist jetzt angemeldet</string>
+    <string name="connect_nobody_answered">Auf %1$s hat niemand geantwortet</string>
+    <string name="connect_not_allowed">Auf %1$s nicht erlaubt</string>
+    <string name="connect_taken_over">%1$s spielt jetzt auf %2$s</string>
+    <string name="connect_update_first">Aktualisiere zuerst Seiðr auf %1$s</string>
+    <string name="connect_lost">%1$s ist nicht mehr verbunden</string>
+    <string name="connect_lost_connection">Verbindung zu %1$s verloren</string>
+
+    <string name="account_connect_failed">Verbindung zu %1$s fehlgeschlagen: %2$s</string>
+    <string name="account_lan_permission">Seiðr braucht die Berechtigung „Geräte in der Nähe“ bzw. „Lokales Netzwerk“, um einen Server in deinem Heimnetz zu erreichen.</string>
+    <string name="account_check_failed_why">Das Konto von %1$s konnte nicht geprüft werden: %2$s</string>
+    <string name="account_check_failed">Das Konto von %1$s konnte nicht geprüft werden</string>
+    <string name="account_kid_is_admin">%1$s ist Admin auf dem Server. Kinder brauchen ein Konto ohne Adminrechte.</string>
+    <string name="account_not_grownup">Nicht mit einem Erwachsenenkonto angemeldet</string>
+    <string name="account_own_check_failed">Dein Konto konnte auf dem Server nicht geprüft werden</string>
+    <string name="account_admin_only">Nur Server-Admins können die Ansicht eines Kindes öffnen</string>
+    <string name="account_view_failed">Die Ansicht von %1$s konnte nicht geöffnet werden: %2$s</string>
+    <string name="account_someone_else">Inzwischen ist jemand anderes angemeldet</string>
+
+    <string name="kids_signed_in_as_kid">Als Kind angemeldet</string>
+    <string name="kids_setup_failed">Die Kinder-Playlists konnten nicht eingerichtet werden: %1$s</string>
+
+    <string name="report_no_playlist">Keine Playlist „%1$s“ auf dem Server</string>
+    <string name="report_removed">Aus %1$s entfernt</string>
+    <string name="report_song_reported">Gemeldet. Dieser Song wird übersprungen.</string>
+    <string name="report_art_reported">Cover gemeldet</string>
+    <string name="report_lyrics_reported">Songtext gemeldet</string>
+    <string name="report_queued">Offline: %1$s wird aktualisiert, sobald der Server wieder da ist</string>
+    <string name="report_conflict">%1$s konnte nicht aktualisiert werden</string>
+    <string name="report_failed">%1$s konnte nicht aktualisiert werden: %2$s</string>
+
+    <string name="main_battery_title">Musik weiterlaufen lassen</string>
+    <string name="main_battery_text">Die Akkuverwaltung mancher Handys stoppt Wiedergabe und Downloads im Hintergrund. Darf Seiðr uneingeschränkt laufen? Du kannst das später in den Einstellungen ändern.</string>
+    <string name="main_battery_allow">Erlauben</string>
+
+    <string name="vis_close">Visualizer schließen</string>
+    <string name="vis_now_playing">Läuft gerade</string>
+    <string name="vis_next_in_queue">Als Nächstes in der Warteschlange</string>
+    <string name="vis_next_from">Als Nächstes aus: %1$s</string>
+    <string name="vis_next_from_queue">Als Nächstes aus: Warteschlange</string>
+    <string name="vis_hide_preset">Preset ausblenden</string>
+    <string name="vis_love_preset">Preset gefällt mir</string>
+    <string name="vis_unlove_preset">Preset gefällt mir nicht mehr</string>
+    <string name="vis_preview">Vorschau</string>
+    <string name="vis_preset_hidden">Preset ausgeblendet. Unter Einstellungen → Visualizer holst du es zurück.</string>
+    <string name="vis_xr_failed">Der immersive Visualizer konnte nicht gestartet werden</string>
+    <string name="vis_warning_title">Flackernde Lichter</string>
+    <string name="vis_warning_headset">Manche Presets blitzen, flackern und wirbeln schnell, und im Headset füllen sie dein ganzes Sichtfeld. Das kann bei Menschen mit fotosensitiver Epilepsie Anfälle auslösen und zu Übelkeit oder Orientierungslosigkeit führen. Bleib sitzen, und nimm das Headset ab, wenn dir unwohl wird.</string>
+    <string name="vis_warning_flat">Manche Presets blitzen, flackern und wirbeln schnell. Das kann bei Menschen mit fotosensitiver Epilepsie Anfälle auslösen. Wenn dir unwohl wird, schau weg und schließe den Visualizer.</string>
+    <string name="vis_continue">Weiter</string>
+    <string name="vis_not_now">Nicht jetzt</string>
+</resources>

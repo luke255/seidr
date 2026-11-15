@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="library_songs">
+        <item quantity="one">%d nummer</item>
+        <item quantity="other">%d nummers</item>
+    </plurals>
+    <plurals name="library_albums">
+        <item quantity="one">%d album</item>
+        <item quantity="other">%d albums</item>
+    </plurals>
+
+    <string name="library_title">Bibliotheek</string>
+    <string name="library_tab_playlists">Playlists</string>
+    <string name="library_tab_artists">Artiesten</string>
+    <string name="library_tab_albums">Albums</string>
+    <string name="library_search_playlists">Playlists zoeken</string>
+    <string name="library_search_artists">Artiesten zoeken</string>
+    <string name="library_search_albums">Albums zoeken</string>
+    <string name="library_close_search">Zoeken sluiten</string>
+    <string name="library_search_library">Zoeken in je bibliotheek</string>
+    <string name="library_create_playlist">Playlist maken</string>
+    <string name="library_downloaded">Gedownload</string>
+    <string name="library_sort_custom">Eigen volgorde</string>
+    <string name="library_sort_name">Naam</string>
+    <string name="library_sort_updated">Laatst bijgewerkt</string>
+    <string name="library_sort_most_albums">Meeste albums</string>
+    <string name="library_sort_artist">Artiest</string>
+    <string name="library_sort_added">Laatst toegevoegd</string>
+    <string name="library_sort_year">Jaar</string>
+    <string name="library_show_list">Als lijst tonen</string>
+    <string name="library_show_grid">Als raster tonen</string>
+    <string name="library_by_owner">van %1$s</string>
+    <string name="library_playlist">Playlist</string>
+    <string name="library_name">Naam</string>
+    <string name="library_create">Maken</string>
+    <string name="library_cancel">Annuleren</string>
+    <string name="library_create_failed">Kan de playlist niet maken (server nodig)</string>
+    <string name="library_no_match">Niets gevonden voor ‘%1$s’</string>
+    <string name="library_none_downloaded">Hier is nog niets gedownload</string>
+    <string name="library_empty">Hier is nog niets</string>
+    <plurals name="library_downloading_left">
+        <item quantity="one">Downloaden: nog %d nummer</item>
+        <item quantity="other">Downloaden: nog %d nummers</item>
+    </plurals>
+
+    <string name="search_title">Zoeken</string>
+    <string name="search_hint">Artiesten, nummers, albums of playlists</string>
+    <string name="search_recent">Recente zoekopdrachten</string>
+    <string name="search_clear">Wissen</string>
+    <string name="search_filter_all">Alles</string>
+    <string name="search_filter_songs">Nummers</string>
+    <string name="search_filter_artists">Artiesten</string>
+    <string name="search_filter_albums">Albums</string>
+    <string name="search_filter_playlists">Playlists</string>
+    <string name="search_failed">Zoeken mislukt</string>
+    <string name="search_no_results">Geen resultaten voor ‘%1$s’</string>
+    <string name="search_context">Zoeken: %1$s</string>
+    <string name="search_top_result">Topresultaat</string>
+    <string name="search_kind_artist">Artiest</string>
+    <string name="search_kind_album">Album</string>
+    <string name="search_kind_song">Nummer</string>
+    <string name="search_kind_album_by">Album · %1$s</string>
+    <string name="search_kind_song_by">Nummer · %1$s</string>
+    <plurals name="search_kind_playlist">
+        <item quantity="one">Playlist · %d nummer</item>
+        <item quantity="other">Playlist · %d nummers</item>
+    </plurals>
+
+    <string name="playlist_by_owner">van %1$s</string>
+    <string name="playlist_done">Klaar</string>
+    <string name="playlist_options">Playlistopties</string>
+    <string name="playlist_reorder">Volgorde wijzigen</string>
+    <string name="playlist_rename">Naam wijzigen</string>
+    <string name="playlist_delete">Playlist verwijderen</string>
+    <string name="playlist_remove_from_this">Verwijderen uit deze playlist</string>
+    <string name="playlist_order_saved">Volgorde van playlist opgeslagen</string>
+    <string name="playlist_removed_from">Verwijderd uit %1$s</string>
+    <string name="playlist_rename_title">Naam van playlist wijzigen</string>
+    <string name="playlist_renamed">Naam gewijzigd</string>
+    <string name="playlist_save">Opslaan</string>
+    <string name="playlist_cancel">Annuleren</string>
+    <string name="playlist_delete_title">‘%1$s’ verwijderen?</string>
+    <string name="playlist_delete_body">De playlist wordt op de server verwijderd. Downloads die alleen hierdoor bewaard bleven, gaan van de telefoon af.</string>
+    <string name="playlist_deleted">%1$s verwijderd</string>
+    <string name="playlist_delete_confirm">Verwijderen</string>
+
+    <string name="downloads_title">Downloads</string>
+    <string name="downloads_summary">%1$s · %2$s</string>
+    <string name="downloads_free">%1$s vrij op deze telefoon</string>
+    <string name="downloads_queue">Wachtrij</string>
+    <string name="downloads_all_done">Alles is gedownload</string>
+    <plurals name="downloads_waiting">
+        <item quantity="one">%d nummer wacht</item>
+        <item quantity="other">%d nummers wachten</item>
+    </plurals>
+    <string name="downloads_wifi_only_note">Downloadt alleen via wifi</string>
+    <plurals name="downloads_failed">
+        <item quantity="one">%d mislukt</item>
+        <item quantity="other">%d mislukt</item>
+    </plurals>
+    <string name="downloads_retry">Opnieuw</string>
+    <plurals name="downloads_edits_waiting">
+        <item quantity="one">%d playlistwijziging wacht</item>
+        <item quantity="other">%d playlistwijzigingen wachten</item>
+    </plurals>
+    <string name="downloads_edits_note">Worden verstuurd zodra de server bereikbaar is</string>
+    <string name="downloads_settings">Instellingen</string>
+    <string name="downloads_wifi_only">Alleen via wifi downloaden</string>
+    <string name="downloads_wifi_only_hint">Zet uit om ook via mobiele data te downloaden</string>
+    <string name="downloads_syncing">Synchroniseren…</string>
+    <string name="downloads_not_synced">Nog niet gesynchroniseerd</string>
+    <string name="downloads_last_synced">Laatst gesynchroniseerd: %1$s</string>
+    <plurals name="downloads_unchecked">
+        <item quantity="one">%d kon niet worden gecontroleerd; er is niets verwijderd</item>
+        <item quantity="other">%d konden niet worden gecontroleerd; er is niets verwijderd</item>
+    </plurals>
+    <string name="downloads_sync_now">Nu synchroniseren</string>
+    <string name="downloads_downloaded">Gedownload</string>
+    <string name="downloads_nothing">Nog niets</string>
+    <string name="downloads_nothing_hint">Zet Downloaden aan bij een playlist of album om het op de telefoon te bewaren.</string>
+    <plurals name="downloads_progress">
+        <item quantity="one">%1$d van %2$d nummer · %3$s</item>
+        <item quantity="other">%1$d van %2$d nummers · %3$s</item>
+    </plurals>
+    <string name="downloads_waiting_short">Wacht</string>
+    <string name="downloads_kind_playlist">Playlist</string>
+    <string name="downloads_kind_album">Album</string>
+    <string name="downloads_kind_line">%1$s · %2$s</string>
+
+    <string name="home_offline_tv">Je bent offline. Seiðr maakt weer verbinding zodra de server bereikbaar is.</string>
+    <string name="home_offline">Je bent offline. Gedownloade muziek is er nog: kijk in Bibliotheek met het filter Gedownload.</string>
+    <string name="home_kid_empty">Er is nog niets voor je goedgekeurd. Vraag degene die je heeft aangemeld om nummers toe te voegen.</string>
+    <string name="home_playlists">Playlists</string>
+    <string name="home_sort_az">A–Z</string>
+    <string name="home_sort_recent">Recent</string>
+    <string name="home_by_owner">van %1$s</string>
+    <string name="home_recently_added">Laatst toegevoegd</string>
+    <string name="home_most_played">Meest gespeeld</string>
+    <string name="home_saved_albums">Bewaarde albums</string>
+
+    <string name="artist_load_failed">Kan nummers niet laden</string>
+    <string name="artist_label">Artiest</string>
+    <string name="artist_popular">Populair</string>
+    <string name="artist_show_less">Minder tonen</string>
+    <string name="artist_show_all">Alles tonen</string>
+    <string name="artist_albums">Albums</string>
+    <string name="artist_singles">Singles en ep\'s</string>
+    <string name="artist_appears_on">Komt voor op</string>
+
+    <string name="album_unreachable">Kan de server niet bereiken</string>
+    <string name="album_remove_from_library">Uit bibliotheek verwijderen</string>
+    <string name="album_save_to_library">In bibliotheek bewaren</string>
+    <string name="album_disc">Schijf %1$s</string>
+
+    <string name="loved_title">Favorieten</string>
+</resources>

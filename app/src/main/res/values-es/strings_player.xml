@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">Atrás</string>
+    <string name="common_cancel">Cancelar</string>
+    <string name="common_clear">Borrar</string>
+    <string name="common_close">Cerrar</string>
+    <string name="common_done">Hecho</string>
+    <string name="common_more">Más</string>
+    <string name="common_remove">Quitar</string>
+    <string name="common_retry">Reintentar</string>
+    <string name="common_try_again">Volver a intentarlo</string>
+    <string name="common_offline">Sin conexión</string>
+    <string name="common_load_failed">No se ha podido cargar</string>
+    <string name="common_drag_to_reorder">Arrastra para reordenar</string>
+    <string name="common_moving_hint">Moviendo: arriba o abajo, y selecciona para soltar</string>
+    <string name="common_shuffle_play">Reproducción aleatoria</string>
+    <string name="common_play_in_order">Reproducir en orden</string>
+    <string name="common_play">Reproducir</string>
+
+    <string name="common_download">Descargar</string>
+    <string name="common_downloaded">Descargado</string>
+    <string name="common_queued">En cola</string>
+    <string name="common_download_failed">Descarga fallida</string>
+    <string name="common_waiting_to_download">Esperando para descargar…</string>
+    <string name="common_downloading_progress">Descargando… %1$d de %2$d</string>
+    <string name="common_download_when_reachable">Se descargará cuando haya conexión con el servidor</string>
+    <string name="common_downloads_removed">Descargas de %1$s quitadas</string>
+    <string name="common_not_approved_yet">Aún no aprobada</string>
+
+    <string name="common_read_only_kid">Solo lectura mientras ves como un niño</string>
+    <string name="common_cant_reach_server">No se ha podido conectar con el servidor</string>
+    <string name="common_loved">Añadida a Favoritas</string>
+    <string name="common_unloved">Quitada de Favoritas</string>
+    <string name="common_edit_queued">Sin conexión: se guardará en el servidor cuando vuelva</string>
+    <string name="common_edit_conflict">La playlist ha cambiado en otro sitio, así que no se ha guardado nada. Se ha recargado.</string>
+    <string name="common_edit_failed">No se ha podido guardar: %1$s</string>
+
+    <plurals name="common_songs">
+        <item quantity="one">%d canción</item>
+        <item quantity="many">%d canciones</item>
+        <item quantity="other">%d canciones</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="one">%d álbum</item>
+        <item quantity="many">%d álbumes</item>
+        <item quantity="other">%d álbumes</item>
+    </plurals>
+    <plurals name="common_approved_count">
+        <item quantity="one">%1$d aprobada</item>
+        <item quantity="many">%1$d aprobadas</item>
+        <item quantity="other">%1$d aprobadas</item>
+    </plurals>
+    <string name="common_by_owner">de %1$s</string>
+    <string name="common_duration_hr_min">%1$d h %2$d min</string>
+    <string name="common_duration_min">%1$d min</string>
+    <string name="common_size_gb">%1$.1f GB</string>
+    <string name="common_size_mb">%1$.0f MB</string>
+    <string name="common_size_kb">%1$.0f KB</string>
+
+    <string name="nav_home">Inicio</string>
+    <string name="nav_search">Buscar</string>
+    <string name="nav_library">Biblioteca</string>
+    <string name="nav_now_playing">Sonando</string>
+    <string name="nav_settings">Ajustes</string>
+    <string name="nav_update_available">Actualización disponible</string>
+    <string name="nav_settings_update_available">Ajustes, actualización disponible</string>
+
+    <string name="player_nothing_playing">No suena nada</string>
+    <string name="player_playing_from">SONANDO DESDE</string>
+    <string name="player_queue">Cola</string>
+    <string name="player_disconnect">Desconectar</string>
+    <string name="player_play_on_another_device">Reproducir en otro dispositivo</string>
+    <string name="player_lyrics">Letra</string>
+    <string name="player_hide_lyrics">Ocultar la letra</string>
+    <string name="player_visualiser">Visualizador</string>
+    <string name="player_immersive_visualiser">Visualizador inmersivo</string>
+    <string name="player_previous">Anterior</string>
+    <string name="player_next">Siguiente</string>
+    <string name="player_play">Reproducir</string>
+    <string name="player_pause">Pausar</string>
+    <string name="player_playing_on">Sonando en %1$s</string>
+    <string name="player_playing_for">Sonando para %1$s desde %2$s</string>
+    <string name="player_repeat_one">Repetir una</string>
+    <string name="player_repeat_all">Repetir todo</string>
+    <string name="player_repeat_off">Repetición desactivada</string>
+    <string name="player_shuffle">Aleatorio</string>
+    <string name="player_on">Activado</string>
+    <string name="player_off">Desactivado</string>
+    <string name="player_toggle_shuffle">Activar o desactivar el modo aleatorio</string>
+    <string name="player_reshuffle">Volver a mezclar</string>
+    <string name="player_reshuffled">Mezclado de nuevo</string>
+    <string name="player_hold_to_reshuffle">Mantén pulsado para volver a mezclar</string>
+
+    <string name="queue_title">Cola de reproducción</string>
+    <string name="queue_empty">La cola está vacía</string>
+    <string name="queue_earlier">Antes</string>
+    <string name="queue_now_playing">Sonando ahora</string>
+    <string name="queue_next">A continuación</string>
+    <string name="queue_next_in_queue">A continuación en la cola</string>
+    <string name="queue_clear">Vaciar la cola</string>
+    <string name="queue_next_from">A continuación de: %1$s</string>
+    <string name="queue_fallback_context">la cola</string>
+    <string name="queue_remove">Quitar de la cola</string>
+
+    <string name="lyrics_none">Esta canción no tiene letra</string>
+    <string name="lyrics_failed">No se ha podido cargar la letra</string>
+    <string name="lyrics_earlier">Letra antes</string>
+    <string name="lyrics_later">Letra después</string>
+    <string name="lyrics_original_timing">Tiempo original</string>
+    <string name="lyrics_reset">Restablecer</string>
+
+    <string name="devices_title">Reproducir en</string>
+    <string name="devices_this_device">Este dispositivo</string>
+    <string name="devices_not_signed_in">Sin sesión iniciada</string>
+    <string name="devices_connecting">Conectando…</string>
+    <string name="devices_connected">Conectado</string>
+    <string name="devices_allow">Permitir</string>
+    <string name="devices_permission_rationale">Seiðr necesita el permiso de dispositivos cercanos para encontrar tus otros dispositivos.</string>
+    <string name="devices_looking">Buscando dispositivos. Abre Seiðr en otro dispositivo de la misma Wi-Fi: uno con tu sesión iniciada o uno sin sesión.</string>
+
+    <string name="menu_love">Me gusta</string>
+    <string name="menu_unlove">Ya no me gusta</string>
+    <string name="menu_add_to_playlist">Añadir a una playlist</string>
+    <string name="menu_add_to_queue">Añadir a la cola</string>
+    <string name="menu_go_to_album">Ir al álbum</string>
+    <string name="menu_go_to_artist">Ir al artista</string>
+    <plurals name="menu_added_to_queue">
+        <item quantity="one">Añadida a la cola</item>
+        <item quantity="many">%d canciones añadidas a la cola</item>
+        <item quantity="other">%d canciones añadidas a la cola</item>
+    </plurals>
+    <string name="menu_new_playlist">Nueva playlist</string>
+    <string name="menu_playlist_name">Nombre</string>
+    <string name="menu_create">Crear</string>
+    <string name="menu_create_failed">No se ha podido crear la playlist (hace falta el servidor)</string>
+    <string name="menu_created">«%1$s» creada</string>
+    <string name="menu_added_to">Añadida a %1$s</string>
+
+    <string name="menu_report_a_problem">Informar de un problema</string>
+    <string name="menu_report_no_playlist">No hay playlist %1$s</string>
+    <string name="menu_report_undo_song">Deshacer aviso de canción</string>
+    <string name="menu_report_undo_art">Deshacer aviso de portada</string>
+    <string name="menu_report_undo_lyrics">Deshacer aviso de letra</string>
+    <string name="menu_report_bad_song">Canción dañada (saltarla)</string>
+    <string name="menu_report_bad_art">Portada incorrecta</string>
+    <string name="menu_report_bad_lyrics">Letra incorrecta</string>
+
+    <string name="pair_title">Iniciar sesión en un dispositivo</string>
+    <string name="pair_signing_in">Iniciando sesión en %1$s… Permítelo en %1$s.</string>
+    <string name="pair_signed_in_as">%1$s tiene la sesión iniciada como %2$s</string>
+    <string name="pair_cancelled">Cancelado</string>
+    <string name="pair_intro">Abre Seiðr en el dispositivo en el que quieres iniciar sesión, en la misma Wi-Fi que este. Aparece aquí mientras no tenga sesión. Comprobarás que las dos pantallas muestran el mismo código, y entonces inicia sesión como %1$s.</string>
+    <string name="pair_intro_kid">Abre Seiðr en el dispositivo en el que quieres iniciar sesión, en la misma Wi-Fi que este. Aparece aquí mientras no tenga sesión. Comprobarás que las dos pantallas muestran el mismo código, y entonces inicia sesión como %1$s. También será un dispositivo infantil, con las mismas canciones.</string>
+    <string name="pair_you">Tú</string>
+    <string name="pair_kid_approved_only">Niño: solo canciones aprobadas</string>
+    <string name="pair_permission_rationale">Seiðr necesita el permiso de dispositivos cercanos para encontrar otros dispositivos.</string>
+    <string name="pair_looking">Buscando dispositivos sin sesión…</string>
+
+    <string name="theme_system">Sistema</string>
+    <string name="theme_neutral">Neutro</string>
+    <string name="theme_red">Rojo</string>
+    <string name="theme_orange">Naranja</string>
+    <string name="theme_amber">Ámbar</string>
+    <string name="theme_yellow">Amarillo</string>
+    <string name="theme_lime">Lima</string>
+    <string name="theme_green">Verde</string>
+    <string name="theme_emerald">Esmeralda</string>
+    <string name="theme_teal">Verde azulado</string>
+    <string name="theme_cyan">Cian</string>
+    <string name="theme_sky">Celeste</string>
+    <string name="theme_blue">Azul</string>
+    <string name="theme_indigo">Índigo</string>
+    <string name="theme_violet">Violeta</string>
+    <string name="theme_purple">Morado</string>
+    <string name="theme_magenta">Magenta</string>
+    <string name="theme_pink">Rosa</string>
+</resources>

@@ -1,0 +1,97 @@
+<resources>
+    <string name="channel_updates">App-updates</string>
+    <string name="update_offer_title">%1$s bijwerken?</string>
+    <string name="update_offer_text">Versie %1$s staat klaar om te installeren (je hebt %2$s). De app sluit tijdens het bijwerken.</string>
+    <string name="update_install">Installeren</string>
+    <string name="update_later">Later</string>
+    <string name="update_whats_new">Wat is er nieuw</string>
+    <string name="update_whats_new_title">Nieuw in %1$s</string>
+    <string name="update_ready_title">Update staat klaar</string>
+    <string name="update_ready_text">Tik om versie %1$s te installeren</string>
+
+    <string name="notif_channel_downloads">Downloads</string>
+    <string name="notif_channel_storage">Opslagwaarschuwingen</string>
+    <plurals name="notif_downloading">
+        <item quantity="one">%1$d nummer downloaden</item>
+        <item quantity="other">%1$d nummers downloaden</item>
+    </plurals>
+    <string name="notif_preparing">Voorbereiden…</string>
+    <string name="notif_storage_title">Downloads gepauzeerd: opslag vol</string>
+    <string name="notif_storage_text">Maak ongeveer %1$d MB vrij om door te gaan. Er is niets verwijderd dat al gedownload was.</string>
+
+    <string name="sync_server_error">Serverfout</string>
+    <string name="sync_cant_reach">Server niet bereikbaar</string>
+
+    <string name="car_recent">Recent</string>
+    <string name="car_playlists">Playlists</string>
+    <string name="car_playlist">Playlist</string>
+    <plurals name="car_songs">
+        <item quantity="one">%1$d nummer</item>
+        <item quantity="other">%1$d nummers</item>
+    </plurals>
+
+    <string name="playback_love">Vind ik leuk</string>
+    <string name="playback_unlove">Vind ik niet meer leuk</string>
+
+    <string name="connect_not_signed_in">Dit apparaat is niet aangemeld</string>
+    <string name="connect_update_for_kids">Werk Seiðr eerst bij op %1$s: deze versie kan de inloggegevens van een kind niet veilig houden</string>
+    <string name="connect_no_answer">%1$s reageerde niet</string>
+    <string name="connect_lost_why">Verbinding met %1$s verbroken: %2$s</string>
+    <string name="connect_peer_other_account">Op %1$s is iemand anders aangemeld</string>
+    <string name="connect_peer_changed">Op %1$s is net iemand aan- of afgemeld. Probeer het zo nog eens.</string>
+    <string name="connect_peer_unreachable">%1$s is niet bereikbaar. Staat Seiðr daar open?</string>
+    <string name="connect_playback_not_ready">Het afspelen is nog niet klaar</string>
+    <string name="connect_device_fallback">Seiðr-apparaat</string>
+    <string name="connect_peer_disconnected">%1$s heeft de verbinding verbroken</string>
+    <string name="connect_peer_signed_in">%1$s is aangemeld</string>
+    <string name="connect_nobody_answered">Niemand reageerde op %1$s</string>
+    <string name="connect_not_allowed">Niet toegestaan op %1$s</string>
+    <string name="connect_taken_over">%1$s speelt nu af op %2$s</string>
+    <string name="connect_update_first">Werk Seiðr eerst bij op %1$s</string>
+    <string name="connect_lost">%1$s is weggevallen</string>
+    <string name="connect_lost_connection">Verbinding met %1$s verbroken</string>
+
+    <string name="account_connect_failed">Kan geen verbinding maken met %1$s: %2$s</string>
+    <string name="account_lan_permission">Seiðr heeft de toestemming Apparaten in de buurt / lokaal netwerk nodig om een server op je thuisnetwerk te bereiken.</string>
+    <string name="account_check_failed_why">Kan het account van %1$s niet controleren: %2$s</string>
+    <string name="account_check_failed">Kan het account van %1$s niet controleren</string>
+    <string name="account_kid_is_admin">%1$s is beheerder op de server. Kinderen hebben een account nodig dat dat niet is.</string>
+    <string name="account_not_grownup">Niet aangemeld als volwassene</string>
+    <string name="account_own_check_failed">Kan je account niet controleren op de server</string>
+    <string name="account_admin_only">Alleen serverbeheerders kunnen als kind meekijken</string>
+    <string name="account_view_failed">Kan de weergave van %1$s niet openen: %2$s</string>
+    <string name="account_someone_else">Intussen is iemand anders aangemeld</string>
+
+    <string name="kids_signed_in_as_kid">Aangemeld als kind</string>
+    <string name="kids_setup_failed">Kan de playlists voor kinderen niet instellen: %1$s</string>
+
+    <string name="report_no_playlist">Geen playlist ‘%1$s’ op de server</string>
+    <string name="report_removed">Verwijderd uit %1$s</string>
+    <string name="report_song_reported">Gemeld. Dit nummer wordt overgeslagen.</string>
+    <string name="report_art_reported">Hoes gemeld</string>
+    <string name="report_lyrics_reported">Songtekst gemeld</string>
+    <string name="report_queued">Offline: %1$s wordt bijgewerkt zodra de server terug is</string>
+    <string name="report_conflict">Kan %1$s niet bijwerken</string>
+    <string name="report_failed">Kan %1$s niet bijwerken: %2$s</string>
+
+    <string name="main_battery_title">Muziek laten doorspelen</string>
+    <string name="main_battery_text">Het batterijbeheer van sommige telefoons stopt afspelen en downloaden op de achtergrond. Mag Seiðr onbeperkt draaien? Je kunt dit later wijzigen in Instellingen.</string>
+    <string name="main_battery_allow">Toestaan</string>
+
+    <string name="vis_close">Visualizer sluiten</string>
+    <string name="vis_now_playing">Speelt nu</string>
+    <string name="vis_next_in_queue">Hierna in de wachtrij</string>
+    <string name="vis_next_from">Hierna uit: %1$s</string>
+    <string name="vis_next_from_queue">Hierna uit: wachtrij</string>
+    <string name="vis_hide_preset">Preset verbergen</string>
+    <string name="vis_love_preset">Preset leuk vinden</string>
+    <string name="vis_unlove_preset">Preset niet meer leuk vinden</string>
+    <string name="vis_preview">Voorbeeld</string>
+    <string name="vis_preset_hidden">Preset verborgen. Via Instellingen → Visualizer haal je hem terug.</string>
+    <string name="vis_xr_failed">De immersieve visualizer kon niet starten</string>
+    <string name="vis_warning_title">Flitsend licht</string>
+    <string name="vis_warning_headset">Sommige presets flitsen, knipperen en draaien snel, en in de headset vullen ze je hele blikveld. Dat kan aanvallen uitlokken bij mensen met lichtgevoelige epilepsie, en kan misselijkheid of desoriëntatie geven. Blijf zitten, en zet de headset af als je je niet lekker voelt.</string>
+    <string name="vis_warning_flat">Sommige presets flitsen, knipperen en draaien snel. Dat kan aanvallen uitlokken bij mensen met lichtgevoelige epilepsie. Voel je je niet lekker, kijk dan weg en sluit de visualizer.</string>
+    <string name="vis_continue">Doorgaan</string>
+    <string name="vis_not_now">Niet nu</string>
+</resources>

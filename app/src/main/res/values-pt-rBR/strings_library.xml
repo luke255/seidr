@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="library_songs">
+        <item quantity="one">%d música</item>
+        <item quantity="many">%d músicas</item>
+        <item quantity="other">%d músicas</item>
+    </plurals>
+    <plurals name="library_albums">
+        <item quantity="one">%d álbum</item>
+        <item quantity="many">%d álbuns</item>
+        <item quantity="other">%d álbuns</item>
+    </plurals>
+
+    <string name="library_title">Biblioteca</string>
+    <string name="library_tab_playlists">Playlists</string>
+    <string name="library_tab_artists">Artistas</string>
+    <string name="library_tab_albums">Álbuns</string>
+    <string name="library_search_playlists">Buscar playlists</string>
+    <string name="library_search_artists">Buscar artistas</string>
+    <string name="library_search_albums">Buscar álbuns</string>
+    <string name="library_close_search">Fechar a busca</string>
+    <string name="library_search_library">Buscar na sua biblioteca</string>
+    <string name="library_create_playlist">Criar playlist</string>
+    <string name="library_downloaded">Baixados</string>
+    <string name="library_sort_custom">Ordem personalizada</string>
+    <string name="library_sort_name">Nome</string>
+    <string name="library_sort_updated">Atualizadas recentemente</string>
+    <string name="library_sort_most_albums">Mais álbuns</string>
+    <string name="library_sort_artist">Artista</string>
+    <string name="library_sort_added">Adicionados recentemente</string>
+    <string name="library_sort_year">Ano</string>
+    <string name="library_show_list">Ver em lista</string>
+    <string name="library_show_grid">Ver em grade</string>
+    <string name="library_by_owner">de %1$s</string>
+    <string name="library_playlist">Playlist</string>
+    <string name="library_name">Nome</string>
+    <string name="library_create">Criar</string>
+    <string name="library_cancel">Cancelar</string>
+    <string name="library_create_failed">Não foi possível criar a playlist (precisa do servidor)</string>
+    <string name="library_no_match">Nada corresponde a “%1$s”</string>
+    <string name="library_none_downloaded">Nada baixado aqui ainda</string>
+    <string name="library_empty">Nada aqui ainda</string>
+    <plurals name="library_downloading_left">
+        <item quantity="one">Baixando: falta %d música</item>
+        <item quantity="many">Baixando: faltam %d músicas</item>
+        <item quantity="other">Baixando: faltam %d músicas</item>
+    </plurals>
+
+    <string name="search_title">Buscar</string>
+    <string name="search_hint">Artistas, músicas, álbuns ou playlists</string>
+    <string name="search_recent">Buscas recentes</string>
+    <string name="search_clear">Limpar</string>
+    <string name="search_filter_all">Tudo</string>
+    <string name="search_filter_songs">Músicas</string>
+    <string name="search_filter_artists">Artistas</string>
+    <string name="search_filter_albums">Álbuns</string>
+    <string name="search_filter_playlists">Playlists</string>
+    <string name="search_failed">A busca falhou</string>
+    <string name="search_no_results">Nenhum resultado para “%1$s”</string>
+    <string name="search_context">Busca: %1$s</string>
+    <string name="search_top_result">Melhor resultado</string>
+    <string name="search_kind_artist">Artista</string>
+    <string name="search_kind_album">Álbum</string>
+    <string name="search_kind_song">Música</string>
+    <string name="search_kind_album_by">Álbum · %1$s</string>
+    <string name="search_kind_song_by">Música · %1$s</string>
+    <plurals name="search_kind_playlist">
+        <item quantity="one">Playlist · %d música</item>
+        <item quantity="many">Playlist · %d músicas</item>
+        <item quantity="other">Playlist · %d músicas</item>
+    </plurals>
+
+    <string name="playlist_by_owner">de %1$s</string>
+    <string name="playlist_done">Concluir</string>
+    <string name="playlist_options">Opções da playlist</string>
+    <string name="playlist_reorder">Reordenar músicas</string>
+    <string name="playlist_rename">Renomear</string>
+    <string name="playlist_delete">Excluir playlist</string>
+    <string name="playlist_remove_from_this">Remover desta playlist</string>
+    <string name="playlist_order_saved">Ordem da playlist salva</string>
+    <string name="playlist_removed_from">Removida de %1$s</string>
+    <string name="playlist_rename_title">Renomear playlist</string>
+    <string name="playlist_renamed">Renomeada</string>
+    <string name="playlist_save">Salvar</string>
+    <string name="playlist_cancel">Cancelar</string>
+    <string name="playlist_delete_title">Excluir “%1$s”?</string>
+    <string name="playlist_delete_body">Ela será excluída no servidor. Os downloads que só ela mantinha serão removidos do celular.</string>
+    <string name="playlist_deleted">%1$s excluída</string>
+    <string name="playlist_delete_confirm">Excluir</string>
+
+    <string name="downloads_title">Downloads</string>
+    <string name="downloads_summary">%1$s · %2$s</string>
+    <string name="downloads_free">%1$s livres neste celular</string>
+    <string name="downloads_queue">Fila</string>
+    <string name="downloads_all_done">Está tudo baixado</string>
+    <plurals name="downloads_waiting">
+        <item quantity="one">%d música aguardando</item>
+        <item quantity="many">%d músicas aguardando</item>
+        <item quantity="other">%d músicas aguardando</item>
+    </plurals>
+    <string name="downloads_wifi_only_note">Downloads só no Wi-Fi</string>
+    <plurals name="downloads_failed">
+        <item quantity="one">%d falhou</item>
+        <item quantity="many">%d falharam</item>
+        <item quantity="other">%d falharam</item>
+    </plurals>
+    <string name="downloads_retry">Tentar de novo</string>
+    <plurals name="downloads_edits_waiting">
+        <item quantity="one">%d edição de playlist aguardando</item>
+        <item quantity="many">%d edições de playlists aguardando</item>
+        <item quantity="other">%d edições de playlists aguardando</item>
+    </plurals>
+    <string name="downloads_edits_note">Enviadas quando o servidor estiver acessível</string>
+    <string name="downloads_settings">Ajustes</string>
+    <string name="downloads_wifi_only">Baixar só pelo Wi-Fi</string>
+    <string name="downloads_wifi_only_hint">Desative para baixar também pelos dados móveis</string>
+    <string name="downloads_syncing">Sincronizando…</string>
+    <string name="downloads_not_synced">Ainda não sincronizado</string>
+    <string name="downloads_last_synced">Última sincronização: %1$s</string>
+    <plurals name="downloads_unchecked">
+        <item quantity="one">%d não pôde ser verificado; nada foi removido</item>
+        <item quantity="many">%d não puderam ser verificados; nada foi removido</item>
+        <item quantity="other">%d não puderam ser verificados; nada foi removido</item>
+    </plurals>
+    <string name="downloads_sync_now">Sincronizar agora</string>
+    <string name="downloads_downloaded">Baixados</string>
+    <string name="downloads_nothing">Nada ainda</string>
+    <string name="downloads_nothing_hint">Ative Baixar em uma playlist ou álbum para manter no celular.</string>
+    <plurals name="downloads_progress">
+        <item quantity="one">%1$d de %2$d música · %3$s</item>
+        <item quantity="many">%1$d de %2$d músicas · %3$s</item>
+        <item quantity="other">%1$d de %2$d músicas · %3$s</item>
+    </plurals>
+    <string name="downloads_waiting_short">Aguardando</string>
+    <string name="downloads_kind_playlist">Playlist</string>
+    <string name="downloads_kind_album">Álbum</string>
+    <string name="downloads_kind_line">%1$s · %2$s</string>
+
+    <string name="home_offline_tv">Você está offline. O Seiðr vai se reconectar quando o servidor estiver acessível.</string>
+    <string name="home_offline">Você está offline. As músicas baixadas continuam aqui: veja na Biblioteca com o filtro Baixados.</string>
+    <string name="home_kid_empty">Nada foi aprovado para você ainda. Peça a quem fez seu login para adicionar algumas músicas.</string>
+    <string name="home_playlists">Playlists</string>
+    <string name="home_sort_az">A–Z</string>
+    <string name="home_sort_recent">Recentes</string>
+    <string name="home_by_owner">de %1$s</string>
+    <string name="home_recently_added">Adicionados recentemente</string>
+    <string name="home_most_played">Mais tocados</string>
+    <string name="home_saved_albums">Álbuns salvos</string>
+
+    <string name="artist_load_failed">Não foi possível carregar as músicas</string>
+    <string name="artist_label">Artista</string>
+    <string name="artist_popular">Populares</string>
+    <string name="artist_show_less">Mostrar menos</string>
+    <string name="artist_show_all">Mostrar tudo</string>
+    <string name="artist_albums">Álbuns</string>
+    <string name="artist_singles">Singles e EPs</string>
+    <string name="artist_appears_on">Aparece em</string>
+
+    <string name="album_unreachable">Não foi possível acessar o servidor</string>
+    <string name="album_remove_from_library">Remover da biblioteca</string>
+    <string name="album_save_to_library">Salvar na biblioteca</string>
+    <string name="album_disc">Disco %1$s</string>
+
+    <string name="loved_title">Curtidas</string>
+</resources>
