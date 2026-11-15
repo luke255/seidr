@@ -137,6 +137,7 @@ abstract class DistTask : DefaultTask() {
     @get:Input abstract val repo: Property<String>
     @get:Input abstract val minSdk: Property<Int>
     @get:Input abstract val signed: Property<Boolean>
+    @get:InputFile abstract val changelog: RegularFileProperty
     @get:OutputDirectory abstract val outDir: DirectoryProperty
 
     @TaskAction
@@ -151,6 +152,17 @@ abstract class DistTask : DefaultTask() {
         val dest = File(out, name)
         File(output.outputFile).copyTo(dest, overwrite = true)
         val sha = MessageDigest.getInstance("SHA-256").digest(dest.readBytes()).joinToString("") { "%02x".format(it) }
+        // This version's section of CHANGELOG.md, for the update prompt's What's new
+        // (the installed app only has its own). Same rules as update/Changelog.kt.
+        val section = changelog.get().asFile.readLines()
+            .dropWhile { it.trim() != "## $version" }.drop(1).takeWhile { !it.startsWith("## ") }
+        val items = mutableListOf<String>()
+        for (line in section) when {
+            line.startsWith("- ") -> items += line.removePrefix("- ").trim()
+            line.isNotBlank() && line.first().isWhitespace() && items.isNotEmpty() -> items[items.lastIndex] += " " + line.trim()
+        }
+        if (items.isEmpty()) throw GradleException("CHANGELOG.md has no entries under ## $version")
+        val notes = groovy.json.JsonOutput.toJson(items.joinToString("\n") { "• " + it.replace("**", "") })
         File(out, "version.json").writeText(
             """
             {
@@ -160,7 +172,8 @@ abstract class DistTask : DefaultTask() {
               "apk": "https://github.com/${repo.get()}/releases/download/v$version/$name",
               "sha256": "$sha",
               "size": ${dest.length()},
-              "minSdk": ${minSdk.get()}
+              "minSdk": ${minSdk.get()},
+              "notes": $notes
             }
             """.trimIndent() + "\n"
         )
@@ -179,8 +192,29 @@ androidComponents {
             repo.set(githubRepo)
             minSdk.set(34)
             signed.set(canSign)
+            changelog.set(rootProject.layout.projectDirectory.file("CHANGELOG.md"))
             outDir.set(rootProject.layout.buildDirectory.dir("dist"))
         }
+    }
+    // CHANGELOG.md at the root is the one copy; each build bundles it as an asset (What's new).
+    onVariants { variant ->
+        val copy = tasks.register<ChangelogAsset>("${variant.name}ChangelogAsset") {
+            changelog.set(rootProject.layout.projectDirectory.file("CHANGELOG.md"))
+        }
+        variant.sources.assets?.addGeneratedSourceDirectory(copy, ChangelogAsset::outDir)
+    }
+}
+
+abstract class ChangelogAsset : DefaultTask() {
+    @get:InputFile abstract val changelog: RegularFileProperty
+    @get:OutputDirectory abstract val outDir: DirectoryProperty
+
+    @TaskAction
+    fun run() {
+        val out = outDir.get().asFile
+        out.deleteRecursively()
+        out.mkdirs()
+        changelog.get().asFile.copyTo(File(out, "CHANGELOG.md"))
     }
 }
 

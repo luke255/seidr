@@ -113,6 +113,7 @@ private fun RouteContent(route: Route) {
         Route.Settings -> SettingsScreen()
         Route.SignInDevice -> eu.bradshaw.seidr.ui.pair.SignInDeviceScreen()
         Route.Licences -> eu.bradshaw.seidr.ui.screens.LicencesScreen()
+        Route.WhatsNew -> eu.bradshaw.seidr.ui.screens.WhatsNewScreen()
         is Route.LicenceText -> eu.bradshaw.seidr.ui.screens.LicenceTextScreen(route.title, route.file)
     }
 }

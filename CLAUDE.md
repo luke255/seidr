@@ -256,9 +256,20 @@ before changing sync or playback.
 - Signing: `~/.config/seidr/release.jks` plus `signing.properties`, outside
   the repo. Without them release builds are unsigned. The debug build has the
   `.debug` suffix and installs alongside the release build.
+- `CHANGELOG.md` (root, newest first, `## <version>` + `- ` items written for
+  users) is the one source for Settings → What's new (bundled as an asset),
+  the update prompt (`version.json`'s `notes`) and the GitHub release body.
+  Add entries as you go; a section newer than `seidr.version` on top is fine.
+  `ChangelogTest` needs a non-empty section for `seidr.version`.
+- Lint must pass (`:app:lintDebug`, no baseline; deliberate checks are
+  disabled in `lint {}` with reasons). `scripts/hooks/pre-push` runs tests and
+  lint before every push (`git config core.hooksPath scripts/hooks` once per
+  clone); CI (`.github/workflows/check.yml`) runs the same.
 - Release: bump `seidr.version`, commit on main, run `scripts/release.sh`. It
-  builds `:app:dist` (signed APK + `version.json` in `build/dist/`), pushes,
-  and publishes a GitHub release with both files; the tag is `v<version>`.
+  refuses unless `CHANGELOG.md`'s top section is that version, runs tests and
+  lint, builds `:app:dist` (signed APK + `version.json` in `build/dist/`),
+  pushes, and publishes a GitHub release with both files and that section as
+  its notes; the tag is `v<version>`.
   It needs a token with Contents read/write (`GITHUB_TOKEN` or
   `~/.config/seidr/github-token`).
 - Debug builds only: `scripts/debug-account.sh` signs in or adds a kid

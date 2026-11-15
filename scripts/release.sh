@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 # Publishes the version in gradle.properties as a GitHub release:
-#   1. checks the tree is clean, on main, and the version isn't released yet;
-#   2. builds the signed APK and version.json (./gradlew :app:dist);
+#   1. checks the tree is clean, on main, the version isn't released yet, and
+#      CHANGELOG.md's top section is this version, with entries;
+#   2. runs the unit tests and lint (what CI runs), then builds the signed APK
+#      and version.json (./gradlew :app:dist);
 #   3. pushes main, then creates the release as a draft, uploads both files,
 #      and publishes it (which creates the tag). Installed copies see it on
 #      their next update check.
 #
 # Needs: the release keystore in ~/.config/seidr/, ANDROID_HOME, and a GitHub
 # token with Contents read/write on the repo, in GITHUB_TOKEN or
-# ~/.config/seidr/github-token. Release notes are the commit subjects since the
-# previous release; edit them on GitHub afterwards if you like.
+# ~/.config/seidr/github-token. The release notes are CHANGELOG.md's section
+# for this version.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -25,6 +27,12 @@ token=${GITHUB_TOKEN:-$(cat "$HOME/.config/seidr/github-token" 2>/dev/null || tr
 
 [[ -z $(git status --porcelain) ]] || die "uncommitted changes; commit or stash them first"
 [[ $(git rev-parse --abbrev-ref HEAD) == main ]] || die "release from main"
+
+# This version's section of CHANGELOG.md: it must be the top one, with entries.
+top=$(sed -n 's/^## //p' CHANGELOG.md | head -n1)
+[[ $top == "$version" ]] || die "CHANGELOG.md's top section is '$top', not $version: write this version's notes first"
+notes=$(awk -v v="## $version" '$0 == v {on=1; next} /^## / {on=0} on' CHANGELOG.md | sed -e '/./,$!d' | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}')
+grep -q '^- ' <<<"$notes" || die "CHANGELOG.md's $version section has no entries"
 
 api() {
     curl -sS --fail-with-body -H "Authorization: Bearer $token" -H "Accept: application/vnd.github+json" \
@@ -42,13 +50,10 @@ case $status in
     *) die "GitHub answered $status when checking for $tag" ;;
 esac
 
-./gradlew --console=plain --quiet :app:dist
+./gradlew --console=plain --quiet :app:testDebugUnitTest :app:lintDebug :app:dist
 apk="build/dist/seidr-$version.apk"
 [[ -f $apk && -f build/dist/version.json ]] || die "dist didn't produce $apk"
 
-git fetch --quiet --tags origin
-prev=$(git describe --tags --abbrev=0 --match 'v*' 2>/dev/null || true)
-notes=$(git log --no-merges --format='- %s' ${prev:+$prev..}HEAD)
 git push --quiet origin main
 sha=$(git rev-parse HEAD)
 

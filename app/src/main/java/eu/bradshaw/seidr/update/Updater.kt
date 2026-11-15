@@ -57,7 +57,7 @@ object Updater {
     private val main = Handler(Looper.getMainLooper())
 
     /** A downloaded, verified update waiting for the user's answer. On disk, not in memory: the APK is large. */
-    private class Ready(val code: Long, val versionName: String, val apk: File)
+    private class Ready(val code: Long, val versionName: String, val apk: File, val notes: String?)
 
     // Main thread only.
     private var ready: Ready? = null
@@ -171,7 +171,7 @@ object Updater {
             apk.delete()
             throw IOException(if (expected.isEmpty()) "version.json has no sha256" else "APK sha256 doesn't match version.json")
         }
-        return Ready(code, versionName, apk)
+        return Ready(code, versionName, apk, info.optString("notes").takeIf { it.isNotBlank() })
     }
 
     private fun offer(activity: Activity, update: Ready) {
@@ -195,7 +195,20 @@ object Updater {
                 ready = null
                 declined = update.code
             }
+            .apply {
+                // Opens over the offer and comes back to it: the offer is still waiting (ready).
+                if (update.notes != null) setNeutralButton(R.string.update_whats_new) { _, _ -> showNotes(activity, update) }
+            }
             .setCancelable(false) // an outside tap shouldn't count as an answer
+            .show()
+    }
+
+    private fun showNotes(activity: Activity, update: Ready) {
+        dialog = AlertDialog.Builder(activity)
+            .setTitle(activity.getString(R.string.update_whats_new_title, update.versionName))
+            .setMessage(update.notes)
+            .setPositiveButton(android.R.string.ok, null)
+            .setOnDismissListener { if (ready === update && !activity.isFinishing) offer(activity, update) }
             .show()
     }
 

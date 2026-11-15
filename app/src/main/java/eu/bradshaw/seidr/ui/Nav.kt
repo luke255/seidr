@@ -23,6 +23,7 @@ sealed interface Route {
     data object Settings : Route
     data object SignInDevice : Route
     data object Licences : Route
+    data object WhatsNew : Route
     data class LicenceText(val title: String, val file: String) : Route
 }
 

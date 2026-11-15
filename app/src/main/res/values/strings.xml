@@ -6,6 +6,8 @@
     <string name="update_offer_text">Version %1$s is ready to install (you have %2$s). The app closes while it updates.</string>
     <string name="update_install">Install</string>
     <string name="update_later">Later</string>
+    <string name="update_whats_new">What\'s new</string>
+    <string name="update_whats_new_title">What\'s new in %1$s</string>
     <string name="update_ready_title">Update ready</string>
     <string name="update_ready_text">Tap to install version %1$s</string>
 </resources>

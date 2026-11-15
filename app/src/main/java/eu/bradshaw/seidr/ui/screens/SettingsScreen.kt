@@ -40,6 +40,7 @@ import androidx.compose.material.icons.outlined.Autorenew
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.NewReleases
 import androidx.compose.material.icons.outlined.SystemUpdate
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
@@ -212,6 +213,9 @@ fun SettingsScreen() {
                     }
                     CardDivider()
                 }
+                CardItem(Icons.Outlined.NewReleases, "What's new", "Changes in each version",
+                    trailing = { Chevron() }) { actions.open(Route.WhatsNew) }
+                CardDivider()
                 CardItem(Icons.Outlined.Description, "Open-source licences", "Seiðr is free software (GNU GPL 3.0)",
                     trailing = { Chevron() }) { actions.open(Route.Licences) }
                 CardDivider()
