@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.screens
 
+import eu.bradshaw.seidr.R
+import androidx.compose.ui.res.stringResource
 import android.content.Intent
 import android.net.Uri
 import android.os.PowerManager
@@ -106,37 +108,36 @@ fun SettingsScreen() {
     LifecycleResumeEffect(Unit) { exempt = isBatteryExempt(context); onPauseOrDispose {} }
 
     Column(Modifier.fillMaxSize()) {
-        BackTopBar("Settings")
+        BackTopBar(stringResource(R.string.settings_title))
         val scroll = rememberScrollState()
         val scope = rememberCoroutineScope()
         Column(Modifier.verticalScroll(scroll)) {
             ViewingAsBanner()
             AccountCard(onSignOut = { signOut = true })
 
-            CardLabel("Appearance")
+            CardLabel(stringResource(R.string.settings_appearance))
             CardGroup { ThemePicker(ThemeChoice.fromKey(theme)) { graph.settings.setTheme(it.key) } }
 
-            CardLabel("Visualiser")
+            CardLabel(stringResource(R.string.settings_visualiser))
             CardGroup {
-                CardItem(Icons.Filled.GraphicEq, "Track info and presets", "What shows over it; loved and hidden presets",
+                CardItem(Icons.Filled.GraphicEq, stringResource(R.string.settings_vis_item), stringResource(R.string.settings_vis_item_hint),
                     trailing = { Chevron() }) { actions.open(Route.Visualiser) }
             }
 
             // TVs are on mains power, and don't download.
             if (!tv) {
-                CardLabel("Playback and downloads")
+                CardLabel(stringResource(R.string.settings_playback_downloads))
                 CardGroup {
                     CardItem(
-                        Icons.Outlined.BatteryChargingFull, "Background playback",
-                        if (exempt) "Unrestricted: battery optimisation is off"
-                        else "Tap to let Seiðr run unrestricted. Some phones' battery managers stop music otherwise.",
+                        Icons.Outlined.BatteryChargingFull, stringResource(R.string.settings_background_playback),
+                        stringResource(if (exempt) R.string.settings_battery_off else R.string.settings_battery_tap),
                         trailing = {
-                            if (exempt) Icon(Icons.Filled.CheckCircle, "On", tint = MaterialTheme.colorScheme.primary)
+                            if (exempt) Icon(Icons.Filled.CheckCircle, stringResource(R.string.settings_on), tint = MaterialTheme.colorScheme.primary)
                             else Chevron()
                         },
                     ) { requestBatteryExemption(context) }
                     CardDivider()
-                    CardItem(Icons.Outlined.Download, "Downloads and storage", "Queue, storage per playlist, Wi-Fi only",
+                    CardItem(Icons.Outlined.Download, stringResource(R.string.settings_downloads_storage), stringResource(R.string.settings_downloads_storage_hint),
                         trailing = { Chevron() }) { actions.open(Route.Downloads) }
                 }
             }
@@ -151,30 +152,31 @@ fun SettingsScreen() {
             val othersOn by graph.settings.othersPrivatePlaylists.collectAsStateWithLifecycle()
             val anyOthers = graph.library.allPlaylists.collectAsStateWithLifecycle().value.orEmpty().any(graph.library::isOthersPrivate)
             if (!kid && (othersOn || anyOthers)) {
-                CardLabel("Library")
+                CardLabel(stringResource(R.string.settings_library))
                 CardGroup {
-                    ToggleItem(Icons.Outlined.Lock, "Other people's private playlists",
-                        "As an admin, the server shows you everyone's. Off keeps them out of your library.", othersOn) {
+                    ToggleItem(Icons.Outlined.Lock, stringResource(R.string.settings_others_private),
+                        stringResource(R.string.settings_others_private_hint), othersOn) {
                         graph.settings.setOthersPrivatePlaylists(it)
                     }
                 }
             }
 
             if (!kid) {
-            CardLabel("Reporting")
+            CardLabel(stringResource(R.string.settings_reporting))
             val badOn by graph.settings.badReports.collectAsStateWithLifecycle()
             val found by graph.bad.playlists.collectAsStateWithLifecycle()
             val allLoaded by graph.library.allPlaylists.collectAsStateWithLifecycle()
             val missing = BadKind.entries.filter { it !in found }.map { it.playlistName }
+            val reportInfo = stringResource(R.string.settings_report_info, BadKind.SONG.playlistName, BadKind.ART.playlistName, BadKind.LYRICS.playlistName)
+            val reportMissing = stringResource(R.string.settings_report_missing, missing.joinToString())
             CardGroup {
-                ToggleItem(Icons.Outlined.Flag, "Report problems", "Adds Report a problem to each song's ⋮ menu", badOn) {
+                ToggleItem(Icons.Outlined.Flag, stringResource(R.string.settings_report_problems), stringResource(R.string.settings_report_problems_hint), badOn) {
                     graph.settings.setBadReports(it)
                 }
                 Text(
                     buildString {
-                        append("A bad file, wrong art or broken lyrics goes on the server's Bad: Songs, Bad: Art or Bad: Lyrics playlist for whoever runs it to fix. ")
-                        append("Songs in Bad: Songs are skipped until they're fixed.")
-                        if (badOn && allLoaded != null && missing.isNotEmpty()) append(" Not found on the server: ${missing.joinToString()}.")
+                        append(reportInfo)
+                        if (badOn && allLoaded != null && missing.isNotEmpty()) append(" ").append(reportMissing)
                     },
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(start = 56.dp, end = 16.dp, bottom = 14.dp),
@@ -182,24 +184,25 @@ fun SettingsScreen() {
             }
             }
 
-            CardLabel("About")
+            CardLabel(stringResource(R.string.settings_about))
             CardGroup {
                 // Release builds only: debug builds are another package and don't self-update.
                 if (BuildConfig.UPDATE_URL.isNotEmpty()) {
                     val auto by graph.settings.autoUpdate.collectAsStateWithLifecycle()
-                    ToggleItem(Icons.Outlined.Autorenew, "Check for updates automatically", "Looks for a new release on GitHub when you open the app", auto) {
+                    ToggleItem(Icons.Outlined.Autorenew, stringResource(R.string.settings_auto_update), stringResource(R.string.settings_auto_update_hint), auto) {
                         graph.settings.setAutoUpdate(it)
                     }
                     CardDivider()
                     var checking by remember { mutableStateOf(false) }
+                    val latestMessage = stringResource(R.string.settings_latest_version)
                     val available by Updater.available.collectAsStateWithLifecycle()
                     CardItem(
                         Icons.Outlined.SystemUpdate,
-                        if (available != null) "Install update" else "Check for updates",
+                        stringResource(if (available != null) R.string.settings_install_update else R.string.settings_check_updates),
                         when {
-                            checking -> "Checking…"
-                            available != null -> "Version $available is ready"
-                            else -> "Installs a newer version straight away"
+                            checking -> stringResource(R.string.settings_checking)
+                            available != null -> stringResource(R.string.settings_version_ready, available.orEmpty())
+                            else -> stringResource(R.string.settings_installs_straight_away)
                         },
                         trailing = { if (available != null) NewBadge() },
                     ) {
@@ -208,18 +211,18 @@ fun SettingsScreen() {
                         checking = true
                         Updater.refresh(activity) { version ->
                             checking = false
-                            if (version == null) actions.toast("You have the latest version (or GitHub is out of reach)")
+                            if (version == null) actions.toast(latestMessage)
                         }
                     }
                     CardDivider()
                 }
-                CardItem(Icons.Outlined.NewReleases, "What's new", "Changes in each version",
+                CardItem(Icons.Outlined.NewReleases, stringResource(R.string.settings_whats_new), stringResource(R.string.settings_whats_new_hint),
                     trailing = { Chevron() }) { actions.open(Route.WhatsNew) }
                 CardDivider()
-                CardItem(Icons.Outlined.Description, "Open-source licences", "Seiðr is free software (GNU GPL 3.0)",
+                CardItem(Icons.Outlined.Description, stringResource(R.string.settings_licences), stringResource(R.string.settings_licences_hint),
                     trailing = { Chevron() }) { actions.open(Route.Licences) }
                 CardDivider()
-                CardItem(Icons.Outlined.Info, "Seiðr ${BuildConfig.VERSION_NAME}", "Build ${BuildConfig.VERSION_CODE}")
+                CardItem(Icons.Outlined.Info, stringResource(R.string.settings_app_version, BuildConfig.VERSION_NAME), stringResource(R.string.settings_build, BuildConfig.VERSION_CODE))
             }
             }
             Spacer(Modifier.height(24.dp + LocalBottomChrome.current))
@@ -229,15 +232,15 @@ fun SettingsScreen() {
     if (signOut) {
         AlertDialog(
             onDismissRequest = { signOut = false },
-            title = { Text("Sign out?") },
-            text = { Text("Playback stops and sync pauses until you sign in again. Downloaded files are kept.") },
+            title = { Text(stringResource(R.string.settings_sign_out_title)) },
+            text = { Text(stringResource(R.string.settings_sign_out_message)) },
             confirmButton = {
                 TextButton(onClick = {
                     signOut = false
                     eu.bradshaw.seidr.data.Account.signOut(graph)
-                }) { Text("Sign out") }
+                }) { Text(stringResource(R.string.settings_sign_out)) }
             },
-            dismissButton = { TextButton(onClick = { signOut = false }) { Text("Cancel") } },
+            dismissButton = { TextButton(onClick = { signOut = false }) { Text(stringResource(R.string.settings_cancel)) } },
         )
     }
 }
@@ -259,14 +262,16 @@ private fun AccountCard(onSignOut: () -> Unit) {
             }
             Spacer(Modifier.width(14.dp))
             Column(Modifier.weight(1f)) {
-                Text(server?.username ?: "Not signed in", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold,
+                Text(server?.username ?: stringResource(R.string.settings_not_signed_in), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold,
                     maxLines = 1, overflow = TextOverflow.Ellipsis)
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Box(Modifier.size(8.dp).clip(CircleShape).background(if (online) Color(0xFF7EE08A) else cs.outline))
                     Spacer(Modifier.width(6.dp))
                     Text(
-                        (server?.url?.substringAfter("://")?.trimEnd('/') ?: "Not connected") +
-                            (server?.kidOf?.let { " · Kid's account" } ?: ""),
+                        server?.url?.substringAfter("://")?.trimEnd('/').let { host ->
+                            if (server?.kidOf != null) stringResource(R.string.settings_server_kid, host ?: stringResource(R.string.settings_not_connected))
+                            else host ?: stringResource(R.string.settings_not_connected)
+                        },
                         style = MaterialTheme.typography.bodyMedium, color = cs.onSurfaceVariant,
                         maxLines = 1, overflow = TextOverflow.Ellipsis,
                     )
@@ -281,9 +286,9 @@ private fun AccountCard(onSignOut: () -> Unit) {
             ) {
                 Icon(Icons.Filled.Devices, null, Modifier.size(18.dp))
                 Spacer(Modifier.width(8.dp))
-                Text("Sign in a device", maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(stringResource(R.string.settings_sign_in_device), maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
-            OutlinedButton(onClick = onSignOut) { Text("Sign out") }
+            OutlinedButton(onClick = onSignOut) { Text(stringResource(R.string.settings_sign_out)) }
         }
     }
 }
@@ -291,7 +296,7 @@ private fun AccountCard(onSignOut: () -> Unit) {
 @Composable
 private fun NewBadge() {
     Text(
-        "NEW", style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold,
+        stringResource(R.string.settings_new_badge), style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold,
         color = MaterialTheme.colorScheme.onTertiary,
         modifier = Modifier.clip(CircleShape).background(MaterialTheme.colorScheme.tertiary).padding(horizontal = 10.dp, vertical = 3.dp),
     )
@@ -303,11 +308,11 @@ private fun ThemePicker(selected: ThemeChoice, onSelect: (ThemeChoice) -> Unit) 
     val swatches = remember(context) { ThemeChoice.entries.associateWith { colorSchemeFor(it, context).primary } }
     Column(Modifier.padding(16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text("Colour", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
+            Text(stringResource(R.string.settings_colour), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
             Text(
                 when (selected) {
-                    ThemeChoice.SYSTEM -> "System (wallpaper)"
-                    ThemeChoice.NEUTRAL -> "Neutral"
+                    ThemeChoice.SYSTEM -> stringResource(R.string.settings_theme_system)
+                    ThemeChoice.NEUTRAL -> stringResource(R.string.settings_theme_neutral)
                     else -> selected.label
                 },
                 style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,

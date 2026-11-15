@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.screens
 
+import eu.bradshaw.seidr.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,11 +37,11 @@ fun WhatsNewScreen() {
         }
     }
     Column(Modifier.fillMaxSize()) {
-        BackTopBar("What's new")
+        BackTopBar(stringResource(R.string.whatsnew_title))
         LazyColumn(Modifier.fillMaxSize(), contentPadding = bottomContentPadding(24.dp)) {
             for (r in releases) {
                 item(key = r.version) {
-                    CardLabel(if (r.version == BuildConfig.VERSION_NAME) "${r.version} (this version)" else r.version)
+                    CardLabel(if (r.version == BuildConfig.VERSION_NAME) stringResource(R.string.whatsnew_this_version, r.version) else r.version)
                 }
                 // An item per change, focusable, so a remote can step through them.
                 items(r.items) { change ->

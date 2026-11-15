@@ -1,5 +1,8 @@
 package eu.bradshaw.seidr.ui.screens
 
+import androidx.annotation.StringRes
+import eu.bradshaw.seidr.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,20 +33,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /** One thing Seiðr ships, and the licence text for it in `assets/licences` (null: none). */
-private class Credit(val name: String, val by: String, val licence: String, val file: String?)
+private class Credit(@StringRes val name: Int, @StringRes val by: Int, @StringRes val licence: Int, val file: String?)
 
-private val APP = Credit("Seiðr", "github.com/luke255/seidr", "GNU GPL 3.0", "GPL-3.0.txt")
+private val APP = Credit(R.string.licences_app_name, R.string.licences_app_by, R.string.licences_gpl3, "GPL-3.0.txt")
 
 private val CREDITS = listOf(
-    Credit("projectM 4.1.8", "The projectM team. Shipped unmodified; its source is in Seiðr's repository", "GNU LGPL 2.1", "LGPL-2.1.txt"),
-    Credit("MilkDrop presets (Cream of the Crop)", "Curated by Jason Fletcher; each preset by the author in its name", "Shared freely; authors may ask for removal", null),
-    Credit("MilkDrop texture pack", "Collected by the projectM team", "Shared freely; authors may ask for removal", null),
-    Credit("AndroidX: Compose, Material 3, Media3, Room, WorkManager", "Google", "Apache 2.0", "Apache-2.0.txt"),
-    Credit("Material icons", "Google", "Apache 2.0", "Apache-2.0.txt"),
-    Credit("Kotlin, kotlinx.coroutines, kotlinx.serialization", "JetBrains", "Apache 2.0", "Apache-2.0.txt"),
-    Credit("OkHttp and Retrofit", "Square", "Apache 2.0", "Apache-2.0.txt"),
-    Credit("Coil", "Coil contributors", "Apache 2.0", "Apache-2.0.txt"),
-    Credit("OpenXR loader", "The Khronos Group", "Apache 2.0", "Apache-2.0.txt"),
+    Credit(R.string.licences_projectm, R.string.licences_projectm_by, R.string.licences_lgpl21, "LGPL-2.1.txt"),
+    Credit(R.string.licences_presets, R.string.licences_presets_by, R.string.licences_shared_freely, null),
+    Credit(R.string.licences_textures, R.string.licences_textures_by, R.string.licences_shared_freely, null),
+    Credit(R.string.licences_androidx, R.string.licences_google, R.string.licences_apache2, "Apache-2.0.txt"),
+    Credit(R.string.licences_material_icons, R.string.licences_google, R.string.licences_apache2, "Apache-2.0.txt"),
+    Credit(R.string.licences_kotlin, R.string.licences_jetbrains, R.string.licences_apache2, "Apache-2.0.txt"),
+    Credit(R.string.licences_okhttp, R.string.licences_square, R.string.licences_apache2, "Apache-2.0.txt"),
+    Credit(R.string.licences_coil, R.string.licences_coil_by, R.string.licences_apache2, "Apache-2.0.txt"),
+    Credit(R.string.licences_openxr, R.string.licences_khronos, R.string.licences_apache2, "Apache-2.0.txt"),
 )
 
 /** Settings → About → Open-source licences. */
@@ -51,16 +54,19 @@ private val CREDITS = listOf(
 fun LicencesScreen() {
     val actions = LocalActions.current
     @Composable
-    fun item(c: Credit) = CardItem(
-        Icons.Outlined.Description, c.name, "${c.licence} · ${c.by}",
-        trailing = if (c.file != null) ({ Chevron() }) else null,
-        onClick = c.file?.let { f -> { actions.open(Route.LicenceText(c.licence, f)) } },
-    )
+    fun item(c: Credit) {
+        val licence = stringResource(c.licence)
+        CardItem(
+            Icons.Outlined.Description, stringResource(c.name), stringResource(R.string.licences_licence_by, licence, stringResource(c.by)),
+            trailing = if (c.file != null) ({ Chevron() }) else null,
+            onClick = c.file?.let { f -> { actions.open(Route.LicenceText(licence, f)) } },
+        )
+    }
     Column(Modifier.fillMaxSize()) {
-        BackTopBar("Open-source licences")
+        BackTopBar(stringResource(R.string.licences_title))
         LazyColumn(Modifier.fillMaxSize(), contentPadding = bottomContentPadding(24.dp)) {
             item { CardGroup { item(APP) } }
-            item { CardLabel("Seiðr includes") }
+            item { CardLabel(stringResource(R.string.licences_includes)) }
             item {
                 CardGroup {
                     CREDITS.forEachIndexed { i, c ->

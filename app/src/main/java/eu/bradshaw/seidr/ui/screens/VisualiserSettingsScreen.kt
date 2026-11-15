@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.screens
 
+import eu.bradshaw.seidr.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -46,39 +48,39 @@ fun VisualiserSettingsScreen() {
     val preview = { p: VisPrefs.Preset -> VisualiserActivity.preview(context, p.path) }
 
     Column(Modifier.fillMaxSize()) {
-        BackTopBar("Visualiser")
+        BackTopBar(stringResource(R.string.vissettings_title))
         LazyColumn(Modifier.fillMaxSize(), contentPadding = bottomContentPadding(24.dp)) {
             item {
                 CardGroup {
-                    ToggleItem(Icons.Outlined.Info, "Show track info", "Cover, title and time in a corner. Off, they show only with the controls (hold, or up/down on a remote).",
+                    ToggleItem(Icons.Outlined.Info, stringResource(R.string.vissettings_track_info), stringResource(R.string.vissettings_track_info_hint),
                         showInfo) { prefs.setShowInfo(it) }
                     CardDivider()
-                    ToggleItem(Icons.Outlined.Speed, "Show performance", "Frame rate, render size and quality level in a corner, as the visualiser adjusts itself.",
+                    ToggleItem(Icons.Outlined.Speed, stringResource(R.string.vissettings_performance), stringResource(R.string.vissettings_performance_hint),
                         showStats) { prefs.setShowStats(it) }
                 }
             }
 
-            item { CardLabel("Loved presets") }
-            item { Hint("The heart in the visualiser's controls. Loved presets come up about one time in ten.") }
+            item { CardLabel(stringResource(R.string.vissettings_loved)) }
+            item { Hint(stringResource(R.string.vissettings_loved_hint)) }
             if (loved.isNotEmpty()) item {
                 CardGroup {
                     loved.forEachIndexed { i, p ->
                         if (i > 0) CardDivider()
-                        PresetRow(p, p.folder, "Unlove", onClick = { preview(p) }) { prefs.setLoved(p.path, false) }
+                        PresetRow(p, p.folder, stringResource(R.string.vissettings_unlove), onClick = { preview(p) }) { prefs.setLoved(p.path, false) }
                     }
                 }
             }
 
-            item { CardLabel("Hidden presets") }
+            item { CardLabel(stringResource(R.string.vissettings_hidden)) }
             item {
-                Hint("The flag in the visualiser's controls hides a preset. Presets too heavy for this device to show smoothly are hidden for you. Tap one to preview it.")
+                Hint(stringResource(R.string.vissettings_hidden_hint))
             }
             if (hidden.isNotEmpty()) item {
                 CardGroup {
                     hidden.forEachIndexed { i, p ->
                         if (i > 0) CardDivider()
-                        val why = if (p.byUser) "Hidden by you" else "Too heavy for this device"
-                        PresetRow(p, listOf(why, p.folder).filter { it.isNotEmpty() }.joinToString(" · "), "Unhide",
+                        val why = stringResource(if (p.byUser) R.string.vissettings_hidden_by_you else R.string.vissettings_too_heavy)
+                        PresetRow(p, listOf(why, p.folder).filter { it.isNotEmpty() }.joinToString(" · "), stringResource(R.string.vissettings_unhide),
                             onClick = { preview(p) }) { prefs.unhide(p.path) }
                     }
                 }

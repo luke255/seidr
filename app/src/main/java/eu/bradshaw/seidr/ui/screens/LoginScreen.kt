@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.screens
 
+import eu.bradshaw.seidr.R
+import androidx.compose.ui.res.stringResource
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -93,14 +95,12 @@ fun LoginScreen(graph: Graph, onBack: () -> Unit) {
     exposed?.let { config ->
         AlertDialog(
             onDismissRequest = { exposed = null },
-            title = { Text("Unencrypted connection") },
+            title = { Text(stringResource(R.string.login_unencrypted_title)) },
             text = {
-                Text("This server is on the internet, but its address starts with http://, so your login and music " +
-                    "travel unencrypted. Anyone along the way could read them and reuse your login. " +
-                    "Use an https:// address if your server has one.")
+                Text(stringResource(R.string.login_unencrypted_message))
             },
-            confirmButton = { TextButton(onClick = { exposed = null; Account.commit(graph, config) }) { Text("Connect anyway") } },
-            dismissButton = { TextButton(onClick = { exposed = null }) { Text("Go back") } },
+            confirmButton = { TextButton(onClick = { exposed = null; Account.commit(graph, config) }) { Text(stringResource(R.string.login_connect_anyway)) } },
+            dismissButton = { TextButton(onClick = { exposed = null }) { Text(stringResource(R.string.login_go_back)) } },
         )
     }
 
@@ -112,14 +112,14 @@ fun LoginScreen(graph: Graph, onBack: () -> Unit) {
         val name = remember { deviceName(context) }
         val heading: @Composable ColumnScope.() -> Unit = {
             eu.bradshaw.seidr.ui.components.SeidrBanner()
-            Text("Connect to your Navidrome server", textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(stringResource(R.string.login_heading), textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
         val form: @Composable ColumnScope.() -> Unit = {
-            OutlinedTextField(url, { url = it }, label = { Text("Server URL") }, placeholder = { Text("https://music.example.com") },
+            OutlinedTextField(url, { url = it }, label = { Text(stringResource(R.string.login_server_url)) }, placeholder = { Text(stringResource(R.string.login_server_url_placeholder)) },
                 singleLine = true, keyboardOptions = noAutoCaps.copy(keyboardType = KeyboardType.Uri), modifier = field.selectToEdit())
-            OutlinedTextField(user, { user = it }, label = { Text("Username") }, singleLine = true,
+            OutlinedTextField(user, { user = it }, label = { Text(stringResource(R.string.login_username)) }, singleLine = true,
                 keyboardOptions = noAutoCaps, modifier = field.selectToEdit())
-            OutlinedTextField(pass, { pass = it }, label = { Text("Password") }, singleLine = true,
+            OutlinedTextField(pass, { pass = it }, label = { Text(stringResource(R.string.login_password)) }, singleLine = true,
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password), modifier = field.selectToEdit())
             error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
@@ -130,16 +130,15 @@ fun LoginScreen(graph: Graph, onBack: () -> Unit) {
                 },
                 modifier = field.focusRing(CircleShape),
             ) {
-                if (busy) CircularProgressIndicator(Modifier.padding(2.dp), strokeWidth = 2.dp) else Text("Log in")
+                if (busy) CircularProgressIndicator(Modifier.padding(2.dp), strokeWidth = 2.dp) else Text(stringResource(R.string.login_log_in))
             }
         }
         val other: @Composable ColumnScope.() -> Unit = {
-            Text("Signed in on another device?", fontWeight = FontWeight.Bold, textAlign = TextAlign.Center,
+            Text(stringResource(R.string.login_other_device_title), fontWeight = FontWeight.Bold, textAlign = TextAlign.Center,
                 modifier = Modifier.padding(top = 12.dp))
-            Text("Open Seiðr there and go to Settings → Sign in a device, then pick $name. " +
-                "Both need to be on the same Wi-Fi, with Seiðr open on this one. Check the code matches on both screens, and you're in.",
+            Text(stringResource(R.string.login_other_device_steps, name),
                 textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.widthIn(max = 420.dp))
-            OutlinedButton(onClick = onBack) { Text("Back") }
+            OutlinedButton(onClick = onBack) { Text(stringResource(R.string.login_back)) }
         }
         val column = Modifier.verticalScroll(rememberScrollState()).padding(24.dp)
         val arrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically)

@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.screens
 
+import eu.bradshaw.seidr.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -77,18 +79,18 @@ fun KidAccountsSection() {
     // View as: admins only, asked of the server each time (offline, it doesn't show).
     val admin by produceState(false, own) { value = own?.let { Account.isAdmin(graph, it) } == true }
 
-    CardLabel("Kids")
+    CardLabel(stringResource(R.string.kids_title))
     CardGroup {
         kids.forEach { kid ->
             CardItem(Icons.Outlined.ChildCare, kid.username, null, trailing = {
-                if (admin) IconButton(onClick = { viewing = kid }) { Icon(Icons.Outlined.Visibility, "View as ${kid.username}") }
-                IconButton(onClick = { removing = kid }) { Icon(Icons.Outlined.Close, "Remove ${kid.username}") }
+                if (admin) IconButton(onClick = { viewing = kid }) { Icon(Icons.Outlined.Visibility, stringResource(R.string.kids_view_as_description, kid.username)) }
+                IconButton(onClick = { removing = kid }) { Icon(Icons.Outlined.Close, stringResource(R.string.kids_remove_description, kid.username)) }
             })
             CardDivider()
         }
-        CardItem(Icons.Outlined.Add, "Add a kid's account", null) { adding = true }
+        CardItem(Icons.Outlined.Add, stringResource(R.string.kids_add), null) { adding = true }
         CardDivider()
-        CardItem(Icons.AutoMirrored.Outlined.HelpOutline, "How kids' accounts work", null) { help = true }
+        CardItem(Icons.AutoMirrored.Outlined.HelpOutline, stringResource(R.string.kids_how), null) { help = true }
     }
 
     if (help) KidsHelpDialog(admin, onDone = { help = false })
@@ -97,10 +99,10 @@ fun KidAccountsSection() {
     removing?.let { kid ->
         AlertDialog(
             onDismissRequest = { removing = null },
-            title = { Text("Remove ${kid.username}?") },
-            text = { Text("This device forgets their login. Devices already signed in as ${kid.username} stay signed in.") },
-            confirmButton = { TextButton(onClick = { graph.settings.removeKid(kid.username); removing = null }) { Text("Remove") } },
-            dismissButton = { TextButton(onClick = { removing = null }) { Text("Cancel") } },
+            title = { Text(stringResource(R.string.kids_remove_title, kid.username)) },
+            text = { Text(stringResource(R.string.kids_remove_message, kid.username)) },
+            confirmButton = { TextButton(onClick = { graph.settings.removeKid(kid.username); removing = null }) { Text(stringResource(R.string.kids_remove)) } },
+            dismissButton = { TextButton(onClick = { removing = null }) { Text(stringResource(R.string.kids_cancel)) } },
         )
     }
 }
@@ -110,27 +112,26 @@ private fun KidsHelpDialog(admin: Boolean, onDone: () -> Unit) {
     val muted = MaterialTheme.colorScheme.onSurfaceVariant
     AlertDialog(
         onDismissRequest = onDone,
-        title = { Text("Kids' accounts") },
+        title = { Text(stringResource(R.string.kids_help_title)) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Text("1. Make each child their own Navidrome account (not an admin) and add it here.")
-                Text("2. Sign their device in from Sign in a device. Keep their password to yourself.")
-                Text("3. Choose what they get with three playlists on your account, made when you add a kid:")
+                Text(stringResource(R.string.kids_help_step1))
+                Text(stringResource(R.string.kids_help_step2))
+                Text(stringResource(R.string.kids_help_step3))
                 Column(Modifier.padding(start = 12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     @Composable fun list(name: String, what: String) = Text(buildAnnotatedString {
                         withStyle(SpanStyle(fontWeight = FontWeight.Bold)) { append(name) }
-                        append(" – $what")
+                        append(stringResource(R.string.kids_help_list_what, what))
                     })
-                    list(KidRules.APPROVED, "songs they can play")
-                    list(KidRules.SAFE_TITLES, "shown greyed out, name only")
-                    list(KidRules.SAFE_ART, "shown greyed out, with the cover")
+                    list(KidRules.APPROVED, stringResource(R.string.kids_help_approved))
+                    list(KidRules.SAFE_TITLES, stringResource(R.string.kids_help_safe_titles))
+                    list(KidRules.SAFE_ART, stringResource(R.string.kids_help_safe_art))
                 }
-                Text("Everything else is hidden from them. These playlists stay out of your library, so edit them in " +
-                    "Navidrome's web player or another app.", color = muted)
-                if (admin) Text("The eye button shows Seiðr as that kid sees it, without changing anything.", color = muted)
+                Text(stringResource(R.string.kids_help_hidden), color = muted)
+                if (admin) Text(stringResource(R.string.kids_help_eye), color = muted)
             }
         },
-        confirmButton = { TextButton(onClick = onDone) { Text("Got it") } },
+        confirmButton = { TextButton(onClick = onDone) { Text(stringResource(R.string.kids_got_it)) } },
     )
 }
 
@@ -142,11 +143,10 @@ private fun ViewAsDialog(kid: KidLogin, onDone: () -> Unit) {
     var error by remember { mutableStateOf<String?>(null) }
     AlertDialog(
         onDismissRequest = { if (!busy) onDone() },
-        title = { Text("View as ${kid.username}?") },
+        title = { Text(stringResource(R.string.kids_view_as_title, kid.username)) },
         text = {
             Column {
-                Text("Browse with just what ${kid.username}'s devices show. It's read-only: you stay signed in, " +
-                    "and songs you play here count as your plays, not ${kid.username}'s. Go back from the banner on Home or Settings.")
+                Text(stringResource(R.string.kids_view_as_message, kid.username))
                 error?.let { Text(it, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(top = 8.dp)) }
             }
         },
@@ -159,10 +159,10 @@ private fun ViewAsDialog(kid: KidLogin, onDone: () -> Unit) {
                     if (error == null) onDone()
                 }
             }) {
-                if (busy) CircularProgressIndicator(Modifier.padding(2.dp), strokeWidth = 2.dp) else Text("View as ${kid.username}")
+                if (busy) CircularProgressIndicator(Modifier.padding(2.dp), strokeWidth = 2.dp) else Text(stringResource(R.string.kids_view_as_button, kid.username))
             }
         },
-        dismissButton = { TextButton(enabled = !busy, onClick = onDone) { Text("Cancel") } },
+        dismissButton = { TextButton(enabled = !busy, onClick = onDone) { Text(stringResource(R.string.kids_cancel)) } },
     )
 }
 
@@ -180,10 +180,10 @@ fun ViewingAsBanner(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(Icons.Outlined.Visibility, null, tint = cs.onTertiaryContainer)
-        Text("Viewing as ${kid.username}", color = cs.onTertiaryContainer, style = MaterialTheme.typography.bodyLarge,
+        Text(stringResource(R.string.kids_viewing_as, kid.username), color = cs.onTertiaryContainer, style = MaterialTheme.typography.bodyLarge,
             maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f).padding(horizontal = 12.dp))
         FilledTonalButton(onClick = { graph.stopKidView() }, modifier = Modifier.focusRing(CircleShape)) {
-            Text("Back to ${own.username}", maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(stringResource(R.string.kids_back_to, own.username), maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
     }
 }
@@ -200,17 +200,18 @@ private fun AddKidDialog(onDone: () -> Unit) {
     var busy by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf<String?>(null) }
     val noCaps = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false)
+    val ownAccountError = stringResource(R.string.kids_own_account)
 
     AlertDialog(
         onDismissRequest = { if (!busy) onDone() },
-        title = { Text("Add a kid's account") },
+        title = { Text(stringResource(R.string.kids_add)) },
         text = {
             Column {
-                Text("Their Navidrome login on ${own?.url?.substringAfter("://").orEmpty()}.",
+                Text(stringResource(R.string.kids_add_message, own?.url?.substringAfter("://").orEmpty()),
                     color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(bottom = 8.dp))
-                OutlinedTextField(user, { user = it }, label = { Text("Username") }, singleLine = true,
+                OutlinedTextField(user, { user = it }, label = { Text(stringResource(R.string.kids_username)) }, singleLine = true,
                     keyboardOptions = noCaps, modifier = Modifier.fillMaxWidth().selectToEdit())
-                OutlinedTextField(pass, { pass = it }, label = { Text("Password") }, singleLine = true,
+                OutlinedTextField(pass, { pass = it }, label = { Text(stringResource(R.string.kids_password)) }, singleLine = true,
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     modifier = Modifier.fillMaxWidth().padding(top = 4.dp).selectToEdit())
@@ -221,7 +222,7 @@ private fun AddKidDialog(onDone: () -> Unit) {
             TextButton(enabled = !busy && user.isNotBlank() && pass.isNotBlank() && own != null, onClick = {
                 val server = own ?: return@TextButton
                 val name = user.trim()
-                if (name.equals(server.username, ignoreCase = true)) { error = "That's your own account"; return@TextButton }
+                if (name.equals(server.username, ignoreCase = true)) { error = ownAccountError; return@TextButton }
                 busy = true; error = null
                 scope.launch {
                     error = Account.probeKid(graph, context, ServerConfig(server.url, name, pass))
@@ -234,9 +235,9 @@ private fun AddKidDialog(onDone: () -> Unit) {
                     }
                 }
             }) {
-                if (busy) CircularProgressIndicator(Modifier.padding(2.dp), strokeWidth = 2.dp) else Text("Add")
+                if (busy) CircularProgressIndicator(Modifier.padding(2.dp), strokeWidth = 2.dp) else Text(stringResource(R.string.kids_add_button))
             }
         },
-        dismissButton = { TextButton(enabled = !busy, onClick = onDone) { Text("Cancel") } },
+        dismissButton = { TextButton(enabled = !busy, onClick = onDone) { Text(stringResource(R.string.kids_cancel)) } },
     )
 }

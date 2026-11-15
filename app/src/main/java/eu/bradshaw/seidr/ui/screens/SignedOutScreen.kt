@@ -1,5 +1,6 @@
 package eu.bradshaw.seidr.ui.screens
 
+import androidx.compose.ui.res.stringResource
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
@@ -126,17 +127,17 @@ private fun Idle(onLogin: () -> Unit) {
     val cs = MaterialTheme.colorScheme
     val logo: @Composable (Modifier) -> Unit = { m ->
         Box(m.aspectRatio(1f).clip(RoundedCornerShape(8.dp)).background(colorResource(R.color.icon_bg)), contentAlignment = Alignment.Center) {
-            Image(painterResource(R.drawable.ic_launcher_foreground), contentDescription = "Seiðr", modifier = Modifier.fillMaxSize())
+            Image(painterResource(R.drawable.ic_launcher_foreground), contentDescription = stringResource(R.string.login_logo_description), modifier = Modifier.fillMaxSize())
         }
     }
     val words: @Composable () -> Unit = {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(name, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold,
                 maxLines = 1, overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center)
-            Text("Play from another app, or log in", style = MaterialTheme.typography.bodyLarge, color = cs.onSurfaceVariant,
+            Text(stringResource(R.string.login_idle_hint), style = MaterialTheme.typography.bodyLarge, color = cs.onSurfaceVariant,
                 textAlign = TextAlign.Center)
             Button(onClick = onLogin, modifier = Modifier.padding(top = 28.dp).widthIn(min = 200.dp).focusRing(CircleShape).primaryFocus()) {
-                Text("Log in")
+                Text(stringResource(R.string.login_log_in))
             }
         }
     }
@@ -170,12 +171,12 @@ private fun ShownCode(connect: Connect) {
     val s = shown ?: return
     AlertDialog(
         onDismissRequest = {},
-        title = { Text("Pairing code") },
+        title = { Text(stringResource(R.string.login_pairing_code)) },
         text = {
             Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
                 Text(spaced(s.code), fontSize = 44.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace,
                     modifier = Modifier.padding(vertical = 12.dp))
-                Text("Check that ${s.from} shows the same code.", textAlign = TextAlign.Center)
+                Text(stringResource(R.string.login_check_same_code, s.from), textAlign = TextAlign.Center)
             }
         },
         confirmButton = {},
@@ -195,15 +196,17 @@ private fun SignInRequestDialog(connect: Connect) {
     LaunchedEffect(r) { if (input.keys) deny.focusWhenReady() }
     AlertDialog(
         onDismissRequest = r::deny,
-        title = { Text("Sign in this device?") },
+        title = { Text(stringResource(R.string.login_sign_in_this_device)) },
         text = {
             Text(
-                "${r.from} wants to sign this device in as ${r.username}" +
-                    (if (r.kid) ", a kid's account," else "") + " on ${r.server}.",
+                stringResource(
+                    if (r.kid) R.string.login_sign_in_request_kid else R.string.login_sign_in_request,
+                    r.from, r.username, r.server,
+                ),
             )
         },
-        confirmButton = { TextButton(onClick = r::allow) { Text("Allow") } },
-        dismissButton = { TextButton(onClick = r::deny, modifier = Modifier.focusRequester(deny)) { Text("Don't allow") } },
+        confirmButton = { TextButton(onClick = r::allow) { Text(stringResource(R.string.login_allow)) } },
+        dismissButton = { TextButton(onClick = r::deny, modifier = Modifier.focusRequester(deny)) { Text(stringResource(R.string.login_dont_allow)) } },
     )
 }
 
@@ -217,21 +220,21 @@ fun CheckCode(connect: Connect, username: String?) {
     val c = check ?: return
     AlertDialog(
         onDismissRequest = c::cancel,
-        title = { Text(if (c.signingIn) "Sign in ${c.peer.name}?" else "Play on ${c.peer.name}?") },
+        title = { Text(stringResource(if (c.signingIn) R.string.login_sign_in_peer else R.string.login_play_on_peer, c.peer.name)) },
         text = {
             Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
-                Text("Check that ${c.peer.name} shows this code:", textAlign = TextAlign.Center)
+                Text(stringResource(R.string.login_check_this_code, c.peer.name), textAlign = TextAlign.Center)
                 Text(spaced(c.code), fontSize = 44.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace,
                     modifier = Modifier.padding(vertical = 12.dp))
                 Text(
-                    if (c.signingIn) c.signingInAs?.let { "It will sign in as $it, a kid's account: approved songs only." }
-                        ?: "It will sign in as ${username.orEmpty()}, with your password."
-                    else "It plays with your login until it's disconnected. You won't be asked again for this device.",
+                    if (c.signingIn) c.signingInAs?.let { stringResource(R.string.login_will_sign_in_kid, it) }
+                        ?: stringResource(R.string.login_will_sign_in, username.orEmpty())
+                    else stringResource(R.string.login_will_play),
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center,
                 )
             }
         },
-        confirmButton = { TextButton(onClick = c::confirm) { Text("It matches") } },
-        dismissButton = { TextButton(onClick = c::cancel) { Text("Cancel") } },
+        confirmButton = { TextButton(onClick = c::confirm) { Text(stringResource(R.string.login_it_matches)) } },
+        dismissButton = { TextButton(onClick = c::cancel) { Text(stringResource(R.string.login_cancel)) } },
     )
 }
