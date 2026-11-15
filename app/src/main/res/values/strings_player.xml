@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ===== Common: shared by player, components and screens ===== -->
+    <string name="common_back">Back</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_clear">Clear</string>
+    <string name="common_close">Close</string>
+    <string name="common_done">Done</string>
+    <string name="common_more">More</string>
+    <string name="common_remove">Remove</string>
+    <string name="common_retry">Retry</string>
+    <string name="common_try_again">Try again</string>
+    <!-- Pill shown while the server can't be reached. Keep short. -->
+    <string name="common_offline">Offline</string>
+    <string name="common_load_failed">Couldn\'t load this</string>
+    <!-- Accessibility labels for the drag handle on reorderable rows. -->
+    <string name="common_drag_to_reorder">Drag to reorder</string>
+    <string name="common_moving_hint">Moving: up or down, then select to drop</string>
+    <!-- Accessibility labels for the round buttons under a playlist/album header. -->
+    <string name="common_shuffle_play">Shuffle play</string>
+    <string name="common_play_in_order">Play in order</string>
+    <string name="common_play">Play</string>
+
+    <!-- Download state: icons, the Download switch and its toasts. -->
+    <string name="common_download">Download</string>
+    <string name="common_downloaded">Downloaded</string>
+    <string name="common_queued">Queued</string>
+    <string name="common_download_failed">Download failed</string>
+    <string name="common_waiting_to_download">Waiting to download…</string>
+    <!-- %1$d = tracks downloaded so far, %2$d = total tracks. -->
+    <string name="common_downloading_progress">Downloading… %1$d of %2$d</string>
+    <string name="common_download_when_reachable">Will download when the server is reachable</string>
+    <!-- %1$s = name of the playlist or album. -->
+    <string name="common_downloads_removed">Removed downloads for %1$s</string>
+    <!-- Accessibility label on a song that a kid\'s login can\'t play yet. -->
+    <string name="common_not_approved_yet">Not approved yet</string>
+
+    <!-- Toasts from AppActions. -->
+    <string name="common_read_only_kid">Read-only while viewing as a kid</string>
+    <string name="common_cant_reach_server">Couldn\'t reach the server</string>
+    <string name="common_loved">Loved</string>
+    <string name="common_unloved">Unloved</string>
+    <string name="common_edit_queued">Offline: will save to the server when it\'s back</string>
+    <string name="common_edit_conflict">The playlist changed elsewhere, so nothing was saved. Reloaded.</string>
+    <!-- %1$s = the error message. -->
+    <string name="common_edit_failed">Couldn\'t save: %1$s</string>
+
+    <!-- Counts in subtitles. -->
+    <plurals name="common_songs">
+        <item quantity="one">%d song</item>
+        <item quantity="other">%d songs</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="one">%d album</item>
+        <item quantity="other">%d albums</item>
+    </plurals>
+    <!-- Signed in as a kid: how many songs in the list they may play. %1$d = count. -->
+    <plurals name="common_approved_count">
+        <item quantity="one">%1$d approved</item>
+        <item quantity="other">%1$d approved</item>
+    </plurals>
+    <!-- Playlist owner in a subtitle, shown only for other people\'s playlists. %1$s = username. -->
+    <string name="common_by_owner">by %1$s</string>
+    <!-- Durations. %1$d = hours, %2$d = minutes. -->
+    <string name="common_duration_hr_min">%1$d hr %2$d min</string>
+    <string name="common_duration_min">%1$d min</string>
+    <!-- File sizes. %1$.1f / %1$.0f = the number. -->
+    <string name="common_size_gb">%1$.1f GB</string>
+    <string name="common_size_mb">%1$.0f MB</string>
+    <string name="common_size_kb">%1$.0f KB</string>
+
+    <!-- ===== Navigation: bar and rail labels. Keep very short. ===== -->
+    <string name="nav_home">Home</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_library">Library</string>
+    <string name="nav_now_playing">Now Playing</string>
+    <string name="nav_settings">Settings</string>
+    <!-- Accessibility labels for the Settings cog while an app update is waiting. -->
+    <string name="nav_update_available">Update available</string>
+    <string name="nav_settings_update_available">Settings, update available</string>
+
+    <!-- ===== Now Playing ===== -->
+    <string name="player_nothing_playing">Nothing playing</string>
+    <!-- Small all-caps heading above the name of the playlist/album being played. Keep short. -->
+    <string name="player_playing_from">PLAYING FROM</string>
+    <!-- Shown when the playing-from name is unknown; also the Queue button description. -->
+    <string name="player_queue">Queue</string>
+    <string name="player_disconnect">Disconnect</string>
+    <string name="player_play_on_another_device">Play on another device</string>
+    <string name="player_lyrics">Lyrics</string>
+    <string name="player_hide_lyrics">Hide lyrics</string>
+    <string name="player_visualiser">Visualiser</string>
+    <string name="player_immersive_visualiser">Immersive visualiser</string>
+    <string name="player_previous">Previous</string>
+    <string name="player_next">Next</string>
+    <string name="player_play">Play</string>
+    <string name="player_pause">Pause</string>
+    <!-- Pill under the controls. %1$s = name of the other device that is playing. -->
+    <string name="player_playing_on">Playing on %1$s</string>
+    <!-- Shown on a signed-out device. %1$s = username playing, %2$s = name of the device they play from. -->
+    <string name="player_playing_for">Playing for %1$s from %2$s</string>
+    <!-- Repeat and shuffle buttons. -->
+    <string name="player_repeat_one">Repeat one</string>
+    <string name="player_repeat_all">Repeat all</string>
+    <string name="player_repeat_off">Repeat off</string>
+    <string name="player_shuffle">Shuffle</string>
+    <string name="player_on">On</string>
+    <string name="player_off">Off</string>
+    <!-- Accessibility action labels. -->
+    <string name="player_toggle_shuffle">Toggle shuffle</string>
+    <string name="player_reshuffle">Reshuffle</string>
+    <!-- Bubble above the shuffle button. -->
+    <string name="player_reshuffled">Reshuffled</string>
+    <string name="player_hold_to_reshuffle">Hold to reshuffle</string>
+
+    <!-- ===== Queue ===== -->
+    <string name="queue_title">Play Queue</string>
+    <string name="queue_empty">The queue is empty</string>
+    <string name="queue_earlier">Earlier</string>
+    <string name="queue_now_playing">Now playing</string>
+    <string name="queue_next">Next</string>
+    <string name="queue_next_in_queue">Next in queue</string>
+    <string name="queue_clear">Clear queue</string>
+    <!-- Section heading. %1$s = name of the playlist or album the rest of the queue comes from. -->
+    <string name="queue_next_from">Next from: %1$s</string>
+    <!-- Used as %1$s in queue_next_from when no name is known. Lower case. -->
+    <string name="queue_fallback_context">queue</string>
+    <string name="queue_remove">Remove from queue</string>
+
+    <!-- ===== Lyrics ===== -->
+    <string name="lyrics_none">No lyrics for this song</string>
+    <string name="lyrics_failed">Couldn\'t load lyrics</string>
+    <!-- Timing nudge ruler: the label under the current offset, and its reset button. -->
+    <string name="lyrics_earlier">Lyrics earlier</string>
+    <string name="lyrics_later">Lyrics later</string>
+    <string name="lyrics_original_timing">Original timing</string>
+    <string name="lyrics_reset">Reset</string>
+
+    <!-- ===== Play on (devices dialog) ===== -->
+    <string name="devices_title">Play on</string>
+    <string name="devices_this_device">This device</string>
+    <string name="devices_not_signed_in">Not signed in</string>
+    <string name="devices_connecting">Connecting…</string>
+    <string name="devices_connected">Connected</string>
+    <string name="devices_allow">Allow</string>
+    <string name="devices_permission_rationale">Seiðr needs the Nearby devices permission to find your other devices.</string>
+    <string name="devices_looking">Looking for devices. Open Seiðr on another device on the same Wi-Fi: one signed in as you, or one that isn\'t signed in.</string>
+
+    <!-- ===== Track menu and add-to-playlist ===== -->
+    <string name="menu_love">Love</string>
+    <string name="menu_unlove">Unlove</string>
+    <string name="menu_add_to_playlist">Add to playlist</string>
+    <string name="menu_add_to_queue">Add to queue</string>
+    <string name="menu_go_to_album">Go to album</string>
+    <string name="menu_go_to_artist">Go to artist</string>
+    <!-- Toast after adding songs to the queue. -->
+    <plurals name="menu_added_to_queue">
+        <item quantity="one">Added to queue</item>
+        <item quantity="other">Added %d songs to queue</item>
+    </plurals>
+    <string name="menu_new_playlist">New playlist</string>
+    <!-- Text field label for the playlist name. -->
+    <string name="menu_playlist_name">Name</string>
+    <string name="menu_create">Create</string>
+    <string name="menu_create_failed">Couldn\'t create the playlist (needs the server)</string>
+    <!-- %1$s = playlist name. -->
+    <string name="menu_created">Created \"%1$s\"</string>
+    <!-- Toast after adding. %1$s = playlist name. -->
+    <string name="menu_added_to">Added to %1$s</string>
+
+    <!-- Report a problem (Bad: playlists). -->
+    <string name="menu_report_a_problem">Report a problem</string>
+    <!-- Shown when the server lacks the playlist. %1$s = the server playlist name (kept as is). -->
+    <string name="menu_report_no_playlist">No %1$s playlist</string>
+    <string name="menu_report_undo_song">Undo song report</string>
+    <string name="menu_report_undo_art">Undo artwork report</string>
+    <string name="menu_report_undo_lyrics">Undo lyrics report</string>
+    <string name="menu_report_bad_song">Bad song (skip it)</string>
+    <string name="menu_report_bad_art">Bad artwork</string>
+    <string name="menu_report_bad_lyrics">Bad lyrics</string>
+
+    <!-- ===== Sign in a device ===== -->
+    <string name="pair_title">Sign in a device</string>
+    <!-- %1$s = name of the device being signed in. -->
+    <string name="pair_signing_in">Signing in %1$s… Allow it on %1$s.</string>
+    <!-- %1$s = device name, %2$s = username. -->
+    <string name="pair_signed_in_as">%1$s is signed in as %2$s</string>
+    <string name="pair_cancelled">Cancelled</string>
+    <!-- %1$s = username the device will sign in as. -->
+    <string name="pair_intro">Open Seiðr on the device you want to sign in, on the same Wi-Fi as this one. It shows up here while it\'s signed out. You\'ll check that both screens show the same code, then it signs in as %1$s.</string>
+    <string name="pair_intro_kid">Open Seiðr on the device you want to sign in, on the same Wi-Fi as this one. It shows up here while it\'s signed out. You\'ll check that both screens show the same code, then it signs in as %1$s. It\'ll be a kid\'s device too, with the same songs.</string>
+    <!-- Choice of who to sign in: yourself, or one of your kids. -->
+    <string name="pair_you">You</string>
+    <string name="pair_kid_approved_only">Kid: approved songs only</string>
+    <string name="pair_permission_rationale">Seiðr needs the Nearby devices permission to find other devices.</string>
+    <string name="pair_looking">Looking for signed-out devices…</string>
+
+    <!-- ===== Colour names in Settings → Colour ===== -->
+    <string name="theme_system">System</string>
+    <string name="theme_neutral">Neutral</string>
+    <string name="theme_red">Red</string>
+    <string name="theme_orange">Orange</string>
+    <string name="theme_amber">Amber</string>
+    <string name="theme_yellow">Yellow</string>
+    <string name="theme_lime">Lime</string>
+    <string name="theme_green">Green</string>
+    <string name="theme_emerald">Emerald</string>
+    <string name="theme_teal">Teal</string>
+    <string name="theme_cyan">Cyan</string>
+    <string name="theme_sky">Sky</string>
+    <string name="theme_blue">Blue</string>
+    <string name="theme_indigo">Indigo</string>
+    <string name="theme_violet">Violet</string>
+    <string name="theme_purple">Purple</string>
+    <string name="theme_magenta">Magenta</string>
+    <string name="theme_pink">Pink</string>
+</resources>

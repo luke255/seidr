@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.player
 
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import android.content.Intent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.EaseOutCubic
@@ -225,10 +227,10 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
     val devicesButton: @Composable () -> Unit = {
         if (asGuest) {
             IconButton(onClick = { actions.graph.connect.disconnectGuest() }) {
-                Icon(Icons.Filled.LinkOff, "Disconnect", tint = MaterialTheme.colorScheme.primary)
+                Icon(Icons.Filled.LinkOff, stringResource(R.string.player_disconnect), tint = MaterialTheme.colorScheme.primary)
             }
         } else IconButton(onClick = { devicesOpen = true }) {
-            Icon(Icons.Filled.Devices, "Play on another device",
+            Icon(Icons.Filled.Devices, stringResource(R.string.player_play_on_another_device),
                 tint = if (remote != null) MaterialTheme.colorScheme.primary else LocalContentColor.current)
         }
     }
@@ -240,17 +242,17 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
     // Header: close, "Playing from", overflow.
     val header: @Composable () -> Unit = {
         Row(Modifier.fillMaxWidth().padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-            if (onClose != null) IconButton(onClick = onClose) { Icon(Icons.Filled.KeyboardArrowDown, "Close") }
+            if (onClose != null) IconButton(onClick = onClose) { Icon(Icons.Filled.KeyboardArrowDown, stringResource(R.string.common_close)) }
             else Spacer(Modifier.size(48.dp))
             Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("PLAYING FROM", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                Text(ui.contextName ?: "Queue", style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold,
+                Text(stringResource(R.string.player_playing_from), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(ui.contextName ?: stringResource(R.string.player_queue), style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold,
                     maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
             var menu by remember { mutableStateOf(false) }
             if (asGuest) Spacer(Modifier.size(48.dp))
             else Box {
-                IconButton(onClick = { menu = true }, enabled = cur != null) { Icon(Icons.Filled.MoreVert, "More") }
+                IconButton(onClick = { menu = true }, enabled = cur != null) { Icon(Icons.Filled.MoreVert, stringResource(R.string.common_more)) }
                 if (cur != null) TrackMenu(cur.asSong(), menu, { menu = false })
             }
         }
@@ -278,7 +280,7 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
                 header()
                 Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("Nothing playing")
+                        Text(stringResource(R.string.player_nothing_playing))
                         devicesButton()
                     }
                 }
@@ -401,7 +403,7 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
                 Box(Modifier.weight(1f), contentAlignment = Alignment.Center) { devicesButton() }
                 Box(Modifier.weight(1f), contentAlignment = Alignment.Center) {
                     IconButton(onClick = { showLyrics = !showLyrics }, enabled = showLyrics || lyrics != LyricsState.None) {
-                        Icon(Icons.Filled.Lyrics, if (showLyrics) "Hide lyrics" else "Lyrics",
+                        Icon(Icons.Filled.Lyrics, stringResource(if (showLyrics) R.string.player_hide_lyrics else R.string.player_lyrics),
                             tint = if (showLyrics) MaterialTheme.colorScheme.primary else LocalContentColor.current)
                     }
                 }
@@ -423,17 +425,17 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
                         }
                         val visualise = { immersive: Boolean -> if (prefs.warned(immersive)) open(immersive) else warn = immersive }
                         IconButton(onClick = { visualise(false) }, enabled = remote == null) {
-                            Icon(Icons.Filled.GraphicEq, "Visualiser")
+                            Icon(Icons.Filled.GraphicEq, stringResource(R.string.player_visualiser))
                         }
                         if (headset) {
                             IconButton(onClick = { visualise(true) }, enabled = remote == null) {
-                                Icon(Icons.Filled.ViewInAr, "Immersive visualiser")
+                                Icon(Icons.Filled.ViewInAr, stringResource(R.string.player_immersive_visualiser))
                             }
                         }
                     }
                 }
                 Box(Modifier.weight(1f), contentAlignment = Alignment.Center) {
-                    IconButton(onClick = onQueue) { Icon(Icons.AutoMirrored.Filled.QueueMusic, "Queue") }
+                    IconButton(onClick = onQueue) { Icon(Icons.AutoMirrored.Filled.QueueMusic, stringResource(R.string.player_queue)) }
                 }
             }
             remote?.let { r ->
@@ -442,14 +444,14 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
                         verticalAlignment = Alignment.CenterVertically) {
                         Icon(kindIcon(r.kind), null, Modifier.size(16.dp), tint = MaterialTheme.colorScheme.primary)
                         Spacer(Modifier.width(6.dp))
-                        Text("Playing on ${r.name}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
+                        Text(stringResource(R.string.player_playing_on, r.name), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
                             maxLines = 1, overflow = TextOverflow.Ellipsis)
                     }
                 }
             }
             if (asGuest) guest?.let { g ->
                 Box(Modifier.fillMaxWidth().padding(bottom = 8.dp), contentAlignment = Alignment.Center) {
-                    Text("Playing for ${g.config.username} from ${g.from}", style = MaterialTheme.typography.labelLarge,
+                    Text(stringResource(R.string.player_playing_for, g.config.username, g.from), style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.primary, maxLines = 1, overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp))
                 }
@@ -506,13 +508,13 @@ internal fun Transport() {
             // Play/pause overlaps both halves, so the D-pad can't find it (or them)
             // sideways by geometry: link the three explicitly.
             SkipHalf(start = true, onClick = player::previous,
-                Modifier.focusRequester(prevFocus).focusProperties { end = playFocus }) { Icon(Icons.Filled.SkipPrevious, "Previous", Modifier.size(36.dp)) }
+                Modifier.focusRequester(prevFocus).focusProperties { end = playFocus }) { Icon(Icons.Filled.SkipPrevious, stringResource(R.string.player_previous), Modifier.size(36.dp)) }
             // Hidden at the end of the queue (its space kept, so the row doesn't shift). If
             // it had remote focus, focus moves to play/pause rather than being lost.
             if (ui.hasNext) {
                 SkipHalf(start = false, onClick = player::next, Modifier.focusRequester(nextFocus)
                     .focusProperties { start = playFocus }.onFocusChanged { nextFocused = it.hasFocus }) {
-                    Icon(Icons.Filled.SkipNext, "Next", Modifier.size(36.dp))
+                    Icon(Icons.Filled.SkipNext, stringResource(R.string.player_next), Modifier.size(36.dp))
                 }
             } else {
                 Spacer(Modifier.size(SkipHalfWidth, SkipHalfHeight))
@@ -522,7 +524,7 @@ internal fun Transport() {
         FilledIconButton(onClick = player::playPause, Modifier.size(72.dp).focusRing(CircleShape).primaryFocus().focusRequester(playFocus)
             .focusProperties { start = prevFocus; end = if (ui.hasNext) nextFocus else FocusRequester.Default }, shape = CircleShape,
             colors = IconButtonDefaults.filledIconButtonColors()) {
-            Icon(if (ui.showPause) Icons.Filled.Pause else Icons.Filled.PlayArrow, if (ui.showPause) "Pause" else "Play", Modifier.size(40.dp))
+            Icon(if (ui.showPause) Icons.Filled.Pause else Icons.Filled.PlayArrow, stringResource(if (ui.showPause) R.string.player_pause else R.string.player_play), Modifier.size(40.dp))
         }
     }
 }

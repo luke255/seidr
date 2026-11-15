@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.components
 
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -67,15 +69,15 @@ fun TrackMenu(song: Song, expanded: Boolean, onDismiss: () -> Unit, extra: List<
         fun item(label: String, icon: ImageVector, block: () -> Unit) = MenuAction(label, icon, onClick = block)
         val readOnly = actions.graph.readOnly // browsing as a kid
         val items = buildList {
-            if (!readOnly) add(item(if (liked) "Unlove" else "Love", if (liked) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder) {
+            if (!readOnly) add(item(stringResource(if (liked) R.string.menu_unlove else R.string.menu_love), if (liked) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder) {
                 actions.toggleLike(song.id)
             })
-            if (!readOnly) add(item("Add to playlist", Icons.AutoMirrored.Filled.PlaylistAdd) { actions.addToPlaylist = listOf(song) })
-            add(item("Add to queue", Icons.AutoMirrored.Filled.QueueMusic) { actions.queue(listOf(song)) })
-            song.albumId?.let { id -> add(item("Go to album", Icons.Filled.Album) { actions.open(Route.Album(id)) }) }
-            song.artistId?.let { id -> add(item("Go to artist", Icons.Filled.Person) { actions.open(Route.Artist(id)) }) }
+            if (!readOnly) add(item(stringResource(R.string.menu_add_to_playlist), Icons.AutoMirrored.Filled.PlaylistAdd) { actions.addToPlaylist = listOf(song) })
+            add(item(stringResource(R.string.menu_add_to_queue), Icons.AutoMirrored.Filled.QueueMusic) { actions.queue(listOf(song)) })
+            song.albumId?.let { id -> add(item(stringResource(R.string.menu_go_to_album), Icons.Filled.Album) { actions.open(Route.Album(id)) }) }
+            song.artistId?.let { id -> add(item(stringResource(R.string.menu_go_to_artist), Icons.Filled.Person) { actions.open(Route.Artist(id)) }) }
             addAll(extra)
-            if (badOn && !readOnly) add(MenuAction("Report a problem", Icons.Outlined.Flag, keepOpen = true) { reporting = true })
+            if (badOn && !readOnly) add(MenuAction(stringResource(R.string.menu_report_a_problem), Icons.Outlined.Flag, keepOpen = true) { reporting = true })
         }
         items.forEach { a ->
             DropdownMenuItem(
@@ -96,50 +98,53 @@ fun AddToPlaylistDialog() {
     val playlists by graph.browse.playlists.collectAsStateWithLifecycle()
     val server by graph.settings.server.collectAsStateWithLifecycle()
     val me = server?.username
+    val createFailed = stringResource(R.string.menu_create_failed)
     var creating by remember { mutableStateOf(false) }
     var name by remember { mutableStateOf("") }
+    val created = stringResource(R.string.menu_created, name.trim())
     LaunchedEffect(Unit) { runCatching { graph.browse.refreshPlaylists() } }
     val dismiss = { actions.addToPlaylist = null }
 
     if (creating) {
         AlertDialog(
             onDismissRequest = dismiss,
-            title = { Text("New playlist") },
-            text = { OutlinedTextField(name, { name = it }, label = { Text("Name") }, singleLine = true, modifier = Modifier.selectToEdit()) },
+            title = { Text(stringResource(R.string.menu_new_playlist)) },
+            text = { OutlinedTextField(name, { name = it }, label = { Text(stringResource(R.string.menu_playlist_name)) }, singleLine = true, modifier = Modifier.selectToEdit()) },
             confirmButton = {
                 TextButton(enabled = name.isNotBlank(), onClick = {
                     dismiss()
                     actions.launch {
                         val id = graph.editor.create(name.trim(), songs.map { it.id })
-                        if (id == null) actions.toast("Couldn't create the playlist (needs the server)")
+                        if (id == null) actions.toast(createFailed)
                         else {
-                            actions.toast("Created \"${name.trim()}\"")
+                            actions.toast(created)
                             runCatching { graph.browse.refreshPlaylists() }
                         }
                     }
-                }) { Text("Create") }
+                }) { Text(stringResource(R.string.menu_create)) }
             },
-            dismissButton = { TextButton(onClick = dismiss) { Text("Cancel") } },
+            dismissButton = { TextButton(onClick = dismiss) { Text(stringResource(R.string.common_cancel)) } },
         )
         return
     }
 
     AlertDialog(
         onDismissRequest = dismiss,
-        title = { Text("Add to playlist") },
+        title = { Text(stringResource(R.string.menu_add_to_playlist)) },
         text = {
             LazyColumn(Modifier.heightIn(max = 420.dp)) {
                 item {
-                    PickerRow("New playlist", Icons.Filled.Add) { creating = true }
+                    PickerRow(stringResource(R.string.menu_new_playlist), Icons.Filled.Add) { creating = true }
                 }
                 val editable = playlists.orEmpty().filter { !it.readonly && (me == null || it.owner == null || it.owner == me) }
                 items(editable, key = { it.id }) { p ->
+                    val addedTo = stringResource(R.string.menu_added_to, p.name)
                     Row(
                         Modifier.fillMaxWidth().clickable {
                             dismiss()
                             actions.launch {
                                 val r = graph.editor.add(p.id, songs.map { it.id })
-                                actions.report(r, "Added to ${p.name}")
+                                actions.report(r, addedTo)
                             }
                         }.padding(vertical = 8.dp),
                         verticalAlignment = Alignment.CenterVertically,
@@ -152,7 +157,7 @@ fun AddToPlaylistDialog() {
             }
         },
         confirmButton = {},
-        dismissButton = { TextButton(onClick = dismiss) { Text("Cancel") } },
+        dismissButton = { TextButton(onClick = dismiss) { Text(stringResource(R.string.common_cancel)) } },
     )
 }
 

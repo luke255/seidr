@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.components
 
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.ui.ArtWash
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.draw.clip
@@ -73,7 +75,7 @@ fun BackTopBar(
     TopAppBar(
         title = { if (showTitle) Text(title, maxLines = 1, overflow = TextOverflow.Ellipsis, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold) },
         navigationIcon = {
-            if (showBack) IconButton(onClick = { nav.pop() }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back") }
+            if (showBack) IconButton(onClick = { nav.pop() }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.common_back)) }
         },
         actions = actions,
         colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
@@ -92,16 +94,16 @@ fun PlayButtons(onShuffle: () -> Unit, enabled: Boolean = true, onPlay: (() -> U
     val shuffleThenOpen = { onShuffle(); actions.nowPlayingOpen = true }
     val playThenOpen = onPlay?.let { play -> { play(); actions.nowPlayingOpen = true } }
     Row(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.CenterVertically) {
-        val shuffle: @Composable (Boolean) -> Unit = { primary -> RoundPlayButton(shuffleThenOpen, enabled, primary) { Icon(Icons.Filled.Shuffle, "Shuffle play", Modifier.size(28.dp)) } }
+        val shuffle: @Composable (Boolean) -> Unit = { primary -> RoundPlayButton(shuffleThenOpen, enabled, primary) { Icon(Icons.Filled.Shuffle, stringResource(R.string.common_shuffle_play), Modifier.size(28.dp)) } }
         when {
             playThenOpen == null -> shuffle(true)
             shufflePrimary -> {
-                RoundPlayButton(playThenOpen, enabled, primary = false) { Icon(Icons.Filled.PlayArrow, "Play in order", Modifier.size(32.dp)) }
+                RoundPlayButton(playThenOpen, enabled, primary = false) { Icon(Icons.Filled.PlayArrow, stringResource(R.string.common_play_in_order), Modifier.size(32.dp)) }
                 shuffle(true)
             }
             else -> {
                 shuffle(false)
-                RoundPlayButton(playThenOpen, enabled, primary = true) { Icon(Icons.Filled.PlayArrow, "Play", Modifier.size(32.dp)) }
+                RoundPlayButton(playThenOpen, enabled, primary = true) { Icon(Icons.Filled.PlayArrow, stringResource(R.string.common_play), Modifier.size(32.dp)) }
             }
         }
     }
@@ -125,7 +127,7 @@ fun HeaderFacts(text: String, downloaded: Boolean) {
             maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
         if (downloaded) {
             Spacer(Modifier.width(6.dp))
-            Icon(Icons.Filled.ArrowCircleDown, "Downloaded", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
+            Icon(Icons.Filled.ArrowCircleDown, stringResource(R.string.common_downloaded), tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
         }
     }
 }
@@ -138,15 +140,17 @@ fun HeaderFacts(text: String, downloaded: Boolean) {
 fun DownloadToggle(source: OfflineSource, totalTracks: Int) {
     val actions = LocalActions.current
     val graph = actions.graph
+    val willDownload = stringResource(R.string.common_download_when_reachable)
+    val removedToast = stringResource(R.string.common_downloads_removed, source.name)
     val sources by graph.downloads.sources.collectAsStateWithLifecycle()
     val usage by graph.downloads.usage.collectAsStateWithLifecycle()
     val enabled = source.id in sources
     val u = usage[source.id]
     val label = when {
-        !enabled -> "Download"
-        u == null || u.tracks == 0 -> "Waiting to download…"
-        u.done < u.tracks -> "Downloading… ${u.done} of ${u.tracks}"
-        else -> "Downloaded"
+        !enabled -> stringResource(R.string.common_download)
+        u == null || u.tracks == 0 -> stringResource(R.string.common_waiting_to_download)
+        u.done < u.tracks -> stringResource(R.string.common_downloading_progress, u.done, u.tracks)
+        else -> stringResource(R.string.common_downloaded)
     }
     Row(
         Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
@@ -156,8 +160,8 @@ fun DownloadToggle(source: OfflineSource, totalTracks: Int) {
             color = if (enabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
         Switch(checked = enabled, onCheckedChange = { on ->
             graph.sync.setOffline(source, on)
-            if (on && !graph.status.online.value) actions.toast("Will download when the server is reachable")
-            if (!on) actions.toast("Removed downloads for ${source.name}")
+            if (on && !graph.status.online.value) actions.toast(willDownload)
+            if (!on) actions.toast(removedToast)
         })
     }
 }

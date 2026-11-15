@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.components
 
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import androidx.compose.ui.draw.clip
 import eu.bradshaw.seidr.ui.highlightClickable
 import androidx.compose.foundation.clickable
@@ -73,10 +75,10 @@ fun rememberAllDownloaded(songIds: Collection<String>): Boolean {
 fun OfflineIndicator(state: TrackOffline) {
     val tint = MaterialTheme.colorScheme.primary
     when (state) {
-        TrackOffline.DONE -> Icon(Icons.Filled.ArrowCircleDown, "Downloaded", tint = tint, modifier = Modifier.size(16.dp))
+        TrackOffline.DONE -> Icon(Icons.Filled.ArrowCircleDown, stringResource(R.string.common_downloaded), tint = tint, modifier = Modifier.size(16.dp))
         TrackOffline.DOWNLOADING -> CircularProgressIndicator(Modifier.size(14.dp), strokeWidth = 2.dp)
-        TrackOffline.QUEUED -> Icon(Icons.Filled.Downloading, "Queued", tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(16.dp))
-        TrackOffline.FAILED -> Icon(Icons.Filled.ErrorOutline, "Download failed", tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(16.dp))
+        TrackOffline.QUEUED -> Icon(Icons.Filled.Downloading, stringResource(R.string.common_queued), tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(16.dp))
+        TrackOffline.FAILED -> Icon(Icons.Filled.ErrorOutline, stringResource(R.string.common_download_failed), tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(16.dp))
         TrackOffline.NONE -> {}
     }
 }
@@ -150,10 +152,10 @@ fun TrackRow(
           }
             if (locked) {
                 Box(Modifier.padding(end = 8.dp).size(48.dp), contentAlignment = Alignment.Center) {
-                    Icon(Icons.Filled.Lock, "Not approved yet", tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(20.dp))
+                    Icon(Icons.Filled.Lock, stringResource(R.string.common_not_approved_yet), tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(20.dp))
                 }
             } else Box(Modifier.padding(end = 8.dp)) {
-                IconButton(onClick = { menu = true }) { Icon(Icons.Filled.MoreVert, "More") }
+                IconButton(onClick = { menu = true }) { Icon(Icons.Filled.MoreVert, stringResource(R.string.common_more)) }
                 TrackMenu(song, expanded = menu, onDismiss = { menu = false }, extra = extraMenu)
             }
         }
@@ -174,7 +176,7 @@ fun TrackRow(
             // Only while swiping: the row itself is transparent, so an always-on icon shows through.
             if (swipe.dismissDirection == SwipeToDismissBoxValue.StartToEnd) {
                 Box(Modifier.fillMaxSize().padding(start = 24.dp), contentAlignment = Alignment.CenterStart) {
-                    Icon(Icons.AutoMirrored.Filled.QueueMusic, "Add to queue", tint = MaterialTheme.colorScheme.primary)
+                    Icon(Icons.AutoMirrored.Filled.QueueMusic, stringResource(R.string.menu_add_to_queue), tint = MaterialTheme.colorScheme.primary)
                 }
             }
         },

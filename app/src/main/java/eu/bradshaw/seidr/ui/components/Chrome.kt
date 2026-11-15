@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.components
 
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -93,12 +95,12 @@ fun SettingsButton(modifier: Modifier = Modifier, label: Boolean = false) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
-            cog(if (update != null) "Update available" else null, cs.onSurfaceVariant)
-            Text("Settings", color = cs.onSurfaceVariant, fontSize = 11.sp, maxLines = 1, modifier = Modifier.padding(top = 2.dp))
+            cog(if (update != null) stringResource(R.string.nav_update_available) else null, cs.onSurfaceVariant)
+            Text(stringResource(R.string.nav_settings), color = cs.onSurfaceVariant, fontSize = 11.sp, maxLines = 1, modifier = Modifier.padding(top = 2.dp))
         }
     } else {
         IconButton(onClick = { actions.open(Route.Settings) }, modifier) {
-            cog(if (update != null) "Settings, update available" else "Settings", LocalContentColor.current)
+            cog(stringResource(if (update != null) R.string.nav_settings_update_available else R.string.nav_settings), LocalContentColor.current)
         }
     }
 }
@@ -138,7 +140,7 @@ fun OfflinePill() {
     ) {
         Icon(Icons.Filled.CloudOff, null, Modifier.size(14.dp), tint = cs.onSurfaceVariant)
         Spacer(Modifier.width(6.dp))
-        Text("Offline", style = MaterialTheme.typography.labelMedium, color = cs.onSurfaceVariant)
+        Text(stringResource(R.string.common_offline), style = MaterialTheme.typography.labelMedium, color = cs.onSurfaceVariant)
     }
 }
 
@@ -158,7 +160,7 @@ fun SearchField(
         placeholder = { Text(placeholder, maxLines = 1, overflow = TextOverflow.Ellipsis) },
         leadingIcon = { Icon(Icons.Filled.Search, null) },
         trailingIcon = {
-            if (value.isNotEmpty()) androidx.compose.material3.IconButton(onClick = { onValueChange("") }) { Icon(Icons.Filled.Clear, "Clear") }
+            if (value.isNotEmpty()) androidx.compose.material3.IconButton(onClick = { onValueChange("") }) { Icon(Icons.Filled.Clear, stringResource(R.string.common_clear)) }
         },
         singleLine = true,
         keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(imeAction = androidx.compose.ui.text.input.ImeAction.Search),

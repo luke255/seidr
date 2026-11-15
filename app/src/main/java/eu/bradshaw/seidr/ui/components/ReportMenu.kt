@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.components
 
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -35,7 +37,7 @@ fun ColumnScope.ReportItems(songId: String, onDismiss: () -> Unit) {
     val actions = LocalActions.current
     val reported by actions.graph.bad.reported.collectAsStateWithLifecycle()
     val playlists by actions.graph.bad.playlists.collectAsStateWithLifecycle()
-    Text("Report a problem", style = MaterialTheme.typography.titleSmall,
+    Text(stringResource(R.string.menu_report_a_problem), style = MaterialTheme.typography.titleSmall,
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp).width(220.dp))
     BadKind.entries.forEach { kind ->
         val on = songId in reported[kind].orEmpty()
@@ -43,10 +45,17 @@ fun ColumnScope.ReportItems(songId: String, onDismiss: () -> Unit) {
         DropdownMenuItem(
             text = {
                 Text(when {
-                    !there -> "No ${kind.playlistName} playlist"
-                    on -> "Undo ${kind.noun} report"
-                    kind == BadKind.SONG -> "Bad song (skip it)"
-                    else -> "Bad ${kind.noun}"
+                    !there -> stringResource(R.string.menu_report_no_playlist, kind.playlistName)
+                    on -> stringResource(when (kind) {
+                        BadKind.SONG -> R.string.menu_report_undo_song
+                        BadKind.ART -> R.string.menu_report_undo_art
+                        BadKind.LYRICS -> R.string.menu_report_undo_lyrics
+                    })
+                    else -> stringResource(when (kind) {
+                        BadKind.SONG -> R.string.menu_report_bad_song
+                        BadKind.ART -> R.string.menu_report_bad_art
+                        BadKind.LYRICS -> R.string.menu_report_bad_lyrics
+                    })
                 })
             },
             leadingIcon = { Icon(kind.icon, null) },

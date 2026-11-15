@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.player
 
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.EaseInOutCubic
 import androidx.compose.animation.core.animateFloatAsState
@@ -123,8 +125,8 @@ fun LyricsPane(state: LyricsState, cur: QueueEntry, modifier: Modifier = Modifie
     Box(modifier, contentAlignment = Alignment.Center) {
         when (state) {
             LyricsState.Loading -> CircularProgressIndicator()
-            LyricsState.None -> Message("No lyrics for this song")
-            LyricsState.Failed -> Message("Couldn't load lyrics")
+            LyricsState.None -> Message(stringResource(R.string.lyrics_none))
+            LyricsState.Failed -> Message(stringResource(R.string.lyrics_failed))
             is LyricsState.Ready -> LyricsList(state.lyrics, cur, interactive)
         }
     }
@@ -403,14 +405,14 @@ private fun TimingRuler(adjust: Long, onAdjust: (Long) -> Unit, onDone: () -> Un
                     )
                     Text(
                         when {
-                            adjust > 0 -> "Lyrics earlier"
-                            adjust < 0 -> "Lyrics later"
-                            else -> "Original timing"
+                            adjust > 0 -> stringResource(R.string.lyrics_earlier)
+                            adjust < 0 -> stringResource(R.string.lyrics_later)
+                            else -> stringResource(R.string.lyrics_original_timing)
                         },
                         style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     if (adjust != 0L) {
-                        TextButton(onClick = { onAdjust(0); onDone(); touched++ }, enabled = shown) { Text("Reset") }
+                        TextButton(onClick = { onAdjust(0); onDone(); touched++ }, enabled = shown) { Text(stringResource(R.string.lyrics_reset)) }
                     }
                 }
             }

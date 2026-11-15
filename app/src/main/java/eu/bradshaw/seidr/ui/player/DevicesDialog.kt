@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.player
 
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import android.Manifest
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -71,15 +73,15 @@ fun DevicesDialog(onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
         icon = { Icon(Icons.Filled.Devices, null) },
-        title = { Text("Play on") },
+        title = { Text(stringResource(R.string.devices_title)) },
         text = {
             Column {
-                DeviceRow(kindIcon(connect.kind), connect.name, THIS_DEVICE, selected = active == null, busy = false) {
+                DeviceRow(kindIcon(connect.kind), connect.name, stringResource(R.string.devices_this_device), selected = active == null, busy = false) {
                     connect.playOn(null)
                     onDismiss()
                 }
                 others.forEach { d ->
-                    DeviceRow(kindIcon(d.kind), d.name, if (d.guest) "Not signed in" else null, selected = active?.id == d.id, busy = connecting == d.id) {
+                    DeviceRow(kindIcon(d.kind), d.name, if (d.guest) stringResource(R.string.devices_not_signed_in) else null, selected = active?.id == d.id, busy = connecting == d.id) {
                         if (connecting != null) return@DeviceRow
                         if (active?.id == d.id) { onDismiss(); return@DeviceRow }
                         asked = true
@@ -88,18 +90,18 @@ fun DevicesDialog(onDismiss: () -> Unit) {
                 }
                 Spacer(Modifier.padding(top = 12.dp))
                 if (lanMissing) {
-                    Text("Seiðr needs the Nearby devices permission to find your other devices.",
+                    Text(stringResource(R.string.devices_permission_rationale),
                         style = MaterialTheme.typography.bodySmall)
-                    TextButton(onClick = { if (Build.VERSION.SDK_INT >= 37) lan.launch(Manifest.permission.ACCESS_LOCAL_NETWORK) }) { Text("Allow") }
+                    TextButton(onClick = { if (Build.VERSION.SDK_INT >= 37) lan.launch(Manifest.permission.ACCESS_LOCAL_NETWORK) }) { Text(stringResource(R.string.devices_allow)) }
                 } else if (others.isEmpty()) {
                     LinearProgressIndicator(Modifier.fillMaxWidth().padding(vertical = 8.dp))
-                    Text("Looking for devices. Open Seiðr on another device on the same Wi-Fi: one signed in as you, or one that isn't signed in.",
+                    Text(stringResource(R.string.devices_looking),
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
         },
         confirmButton = {},
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Close") } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.common_close)) } },
     )
 }
 
@@ -118,8 +120,8 @@ private fun DeviceRow(icon: ImageVector, name: String, label: String?, selected:
         Column(Modifier.weight(1f)) {
             Text(name, color = tint, fontWeight = if (selected) FontWeight.Bold else null, maxLines = 1, overflow = TextOverflow.Ellipsis)
             val sub = when {
-                busy -> "Connecting…"
-                selected && label != THIS_DEVICE -> "Connected"
+                busy -> stringResource(R.string.devices_connecting)
+                selected && label != stringResource(R.string.devices_this_device) -> stringResource(R.string.devices_connected)
                 else -> label
             }
             if (sub != null) Text(sub, style = MaterialTheme.typography.bodySmall,
@@ -133,4 +135,3 @@ fun kindIcon(kind: String): ImageVector = when (kind) {
     Peer.KIND_HEADSET -> Icons.Filled.ViewInAr
     else -> Icons.Filled.Smartphone
 }
-private const val THIS_DEVICE = "This device"

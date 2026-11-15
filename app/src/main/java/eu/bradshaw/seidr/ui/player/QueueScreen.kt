@@ -1,5 +1,7 @@
 package eu.bradshaw.seidr.ui.player
 
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.focusable
@@ -116,8 +118,8 @@ fun QueueScreen(onClose: () -> Unit, modifier: Modifier = Modifier, readOnly: Bo
 
     Column(modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).safeDrawingPadding().onFocusChanged { hasFocus = it.hasFocus }) {
         Row(Modifier.fillMaxWidth().padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onClose) { Icon(Icons.Filled.KeyboardArrowDown, "Close") }
-            Text("Play Queue", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+            IconButton(onClick = onClose) { Icon(Icons.Filled.KeyboardArrowDown, stringResource(R.string.common_close)) }
+            Text(stringResource(R.string.queue_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
             if (!readOnly) {
                 ShuffleButton(ui.shuffle, onToggle = player::toggleShuffle, onReshuffle = player::reshuffle)
                 RepeatButton(ui.repeat, onClick = player::cycleRepeat)
@@ -125,7 +127,7 @@ fun QueueScreen(onClose: () -> Unit, modifier: Modifier = Modifier, readOnly: Bo
         }
         val cur = ui.current
         if (cur == null) {
-            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Text("The queue is empty") }
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Text(stringResource(R.string.queue_empty)) }
             return@Column
         }
         if (readOnly) {
@@ -133,14 +135,14 @@ fun QueueScreen(onClose: () -> Unit, modifier: Modifier = Modifier, readOnly: Bo
             LazyColumn(state = listState, modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 24.dp)) {
                 val earlier = ui.queue.take(ui.index)
                 if (earlier.isNotEmpty()) {
-                    item(key = "h:earlier") { Header("Earlier") }
+                    item(key = "h:earlier") { Header(stringResource(R.string.queue_earlier)) }
                     items(earlier, key = { it.key }) { e -> QueueRow(e, playing = false, past = true, onClick = null, onRemove = null, handle = null) }
                 }
-                item(key = "h:now") { Header("Now playing") }
+                item(key = "h:now") { Header(stringResource(R.string.queue_now_playing)) }
                 item(key = "now") { QueueRow(cur, playing = true, onClick = null, onRemove = null, handle = null, modifier = Modifier.primaryFocus()) }
                 val next = ui.queue.drop(ui.index + 1)
                 if (next.isNotEmpty()) {
-                    item(key = "h:next") { Header("Next") }
+                    item(key = "h:next") { Header(stringResource(R.string.queue_next)) }
                     items(next, key = { it.key }) { e -> QueueRow(e, playing = false, onClick = null, onRemove = null, handle = null) }
                 }
             }
@@ -152,7 +154,7 @@ fun QueueScreen(onClose: () -> Unit, modifier: Modifier = Modifier, readOnly: Bo
 
         LazyColumn(state = listState, modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 24.dp)) {
             if (earlier.isNotEmpty()) {
-                item(key = "h:earlier") { Header("Earlier") }
+                item(key = "h:earlier") { Header(stringResource(R.string.queue_earlier)) }
                 items(earlier, key = { it.key }) { e ->
                     val remove: () -> Unit = { player.removeQueueItem(ui.queue.indexOfFirst { it.key == e.key }) }
                     SwipeRemove(onRemove = remove) {
@@ -162,13 +164,13 @@ fun QueueScreen(onClose: () -> Unit, modifier: Modifier = Modifier, readOnly: Bo
                     }
                 }
             }
-            item(key = "h:now") { Header("Now playing") }
+            item(key = "h:now") { Header(stringResource(R.string.queue_now_playing)) }
             item(key = "now") { QueueRow(cur, playing = true, onClick = {}, onRemove = null, handle = null, modifier = Modifier.primaryFocus()) }
             if (user.isNotEmpty()) {
                 item(key = "h:user") {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Box(Modifier.weight(1f)) { Header("Next in queue") }
-                        TextButton(onClick = player::clearUserQueue, modifier = Modifier.padding(end = 8.dp)) { Text("Clear queue") }
+                        Box(Modifier.weight(1f)) { Header(stringResource(R.string.queue_next_in_queue)) }
+                        TextButton(onClick = player::clearUserQueue, modifier = Modifier.padding(end = 8.dp)) { Text(stringResource(R.string.queue_clear)) }
                     }
                 }
                 items(user, key = { it.key }) { e ->
@@ -182,7 +184,7 @@ fun QueueScreen(onClose: () -> Unit, modifier: Modifier = Modifier, readOnly: Bo
                 }
             }
             if (after.isNotEmpty()) {
-                item(key = "h:ctx") { Header("Next from: ${ui.contextName ?: "queue"}") }
+                item(key = "h:ctx") { Header(stringResource(R.string.queue_next_from, ui.contextName ?: stringResource(R.string.queue_fallback_context))) }
                 items(after, key = { it.key }) { e ->
                     val remove: () -> Unit = { player.removeQueueItem(ui.queue.indexOfFirst { it.key == e.key }) }
                     SwipeRemove(onRemove = remove) {
@@ -211,7 +213,7 @@ private fun SwipeRemove(onRemove: () -> Unit, content: @Composable () -> Unit) {
     }
     SwipeToDismissBox(state, backgroundContent = {
         Box(Modifier.fillMaxSize().padding(horizontal = 24.dp), contentAlignment = Alignment.CenterEnd) {
-            Icon(Icons.Filled.Delete, "Remove", tint = MaterialTheme.colorScheme.error)
+            Icon(Icons.Filled.Delete, stringResource(R.string.common_remove), tint = MaterialTheme.colorScheme.error)
         }
     }) { content() }
 }
@@ -229,7 +231,7 @@ private fun QueueRow(
     ) {
       Row(
         Modifier.weight(1f)
-            .then(if (onClick == null) Modifier.focusable() else Modifier.combinedClickable(onLongClickLabel = "More", onLongClick = { menu = true }, onClick = onClick))
+            .then(if (onClick == null) Modifier.focusable() else Modifier.combinedClickable(onLongClickLabel = stringResource(R.string.common_more), onLongClick = { menu = true }, onClick = onClick))
             .padding(start = 16.dp, end = 8.dp, top = 6.dp, bottom = 6.dp)
             .alpha(if (past) 0.5f else 1f),
         verticalAlignment = Alignment.CenterVertically,
@@ -247,7 +249,7 @@ private fun QueueRow(
         if (onClick != null) Box {
             TrackMenu(
                 e.asSong(), expanded = menu, onDismiss = { menu = false },
-                extra = listOfNotNull(onRemove?.let { MenuAction("Remove from queue", Icons.Filled.RemoveCircleOutline, onClick = it) }),
+                extra = listOfNotNull(onRemove?.let { MenuAction(stringResource(R.string.queue_remove), Icons.Filled.RemoveCircleOutline, onClick = it) }),
             )
         }
     }

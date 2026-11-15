@@ -15,6 +15,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -48,10 +51,10 @@ fun <T> LoadContent(state: Load<T>, onRetry: () -> Unit, content: @Composable (T
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text("Couldn't load this", style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(R.string.common_load_failed), style = MaterialTheme.typography.titleMedium)
             Text(state.message, style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(vertical = 8.dp))
-            Button(onClick = onRetry, modifier = Modifier.focusRing(CircleShape)) { Text("Retry") }
+            Button(onClick = onRetry, modifier = Modifier.focusRing(CircleShape)) { Text(stringResource(R.string.common_retry)) }
         }
         is Load.Ready -> content(state.value)
     }
@@ -81,29 +84,45 @@ fun formatDuration(seconds: Int): String {
     return "%d:%02d".format(s / 60, s % 60)
 }
 
+/**
+ * The plain (non-composable) helpers below need string resources too, so they
+ * read them from the application context, which [MainScreen] hands over before
+ * any screen composes. It follows the app's language like any other context.
+ */
+@Suppress("StaticFieldLeak") // the application context lives as long as the process
+object AppText {
+    @Volatile var context: android.content.Context? = null
+    val res: android.content.res.Resources? get() = context?.resources
+}
+
 fun formatLongDuration(seconds: Int): String {
     val h = seconds / 3600
     val m = (seconds % 3600) / 60
-    return if (h > 0) "$h hr $m min" else "$m min"
+    val res = AppText.res ?: return "$h:$m"
+    return if (h > 0) res.getString(R.string.common_duration_hr_min, h, m) else res.getString(R.string.common_duration_min, m)
 }
 
-fun formatBytes(bytes: Long): String = when {
-    bytes >= 1L shl 30 -> "%.1f GB".format(bytes / (1L shl 30).toDouble())
-    bytes >= 1L shl 20 -> "%.0f MB".format(bytes / (1L shl 20).toDouble())
-    else -> "%.0f KB".format(bytes / 1024.0)
+fun formatBytes(bytes: Long): String {
+    val res = AppText.res ?: return "$bytes"
+    return when {
+        bytes >= 1L shl 30 -> res.getString(R.string.common_size_gb, bytes / (1L shl 30).toDouble())
+        bytes >= 1L shl 20 -> res.getString(R.string.common_size_mb, bytes / (1L shl 20).toDouble())
+        else -> res.getString(R.string.common_size_kb, bytes / 1024.0)
+    }
 }
 
-fun pluralSongs(n: Int) = if (n == 1) "1 song" else "$n songs"
+fun pluralSongs(n: Int): String = AppText.res?.getQuantityString(R.plurals.common_songs, n, n) ?: "$n"
 
 /** Signed in as a kid: how many of [songs] they can play ("3 approved"); otherwise null. */
 @androidx.compose.runtime.Composable
 fun approvedCount(songs: List<eu.bradshaw.seidr.data.api.Song>): String? {
     val kid = eu.bradshaw.seidr.ui.LocalActions.current.graph.browseKids.rules.collectAsStateWithLifecycle().value ?: return null
-    return "${songs.count { !it.locked && kid.playable(it.id) }} approved"
+    val n = songs.count { !it.locked && kid.playable(it.id) }
+    return pluralStringResource(R.plurals.common_approved_count, n, n)
 }
 
-fun pluralAlbums(n: Int) = if (n == 1) "1 album" else "$n albums"
+fun pluralAlbums(n: Int): String = AppText.res?.getQuantityString(R.plurals.common_albums, n, n) ?: "$n"
 
 /** "N songs", plus "by owner" only when someone else owns it (it's noise for your own). */
 fun playlistSubtitle(p: eu.bradshaw.seidr.data.api.Playlist, me: String?) =
-    listOfNotNull(p.owner?.takeIf { it != me }?.let { "by $it" }, pluralSongs(p.songCount)).joinToString(" · ")
+    listOfNotNull(p.owner?.takeIf { it != me }?.let { AppText.res?.getString(R.string.common_by_owner, it) ?: it }, pluralSongs(p.songCount)).joinToString(" · ")
