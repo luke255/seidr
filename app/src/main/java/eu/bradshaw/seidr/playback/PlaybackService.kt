@@ -94,14 +94,13 @@ class PlaybackService : MediaLibraryService() {
         val resolving = ResolvingDataSource.Factory(DefaultDataSource.Factory(this, http)) { spec ->
             if (spec.uri.scheme != "seidr") return@Factory spec
             val songId = spec.uri.lastPathSegment ?: return@Factory spec
-            // Kid mode's last line: whatever route a song came by, it plays only if approved.
-            if (graph.kids.current?.playable(songId) == false) throw IOException("Not approved")
-            // Local files first, even when online.
-            val local = graph.downloads.localFile(songId)
-            if (local != null) spec.withUri(Uri.fromFile(local))
-            // Offline: fail fast instead of waiting out the connect timeout.
-            else if (!graph.status.online.value) throw IOException("Offline and not downloaded")
-            else spec.withUri(Uri.parse(graph.client.streamUrl(songId) ?: throw IOException("Not logged in")))
+            val kid = graph.kids.current
+            val local = if (kid?.playable(songId) == false) null else graph.downloads.localFile(songId)
+            when (val s = KidGate.source(songId, kid, local, graph.status.online.value)) {
+                is KidGate.Source.Refused -> throw IOException(s.why)
+                is KidGate.Source.Local -> spec.withUri(Uri.fromFile(s.file))
+                KidGate.Source.Stream -> spec.withUri(Uri.parse(graph.client.streamUrl(songId) ?: throw IOException("Not logged in")))
+            }
         }
 
         // The audio sink is wrapped so the visualiser can see what's playing

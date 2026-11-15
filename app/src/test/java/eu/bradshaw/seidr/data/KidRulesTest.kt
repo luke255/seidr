@@ -106,4 +106,18 @@ class KidRulesTest {
         assertEquals(listOf("al-2"), r.album.map { it.id })
         assertEquals(listOf("t"), r.song.map { it.id })
     }
+
+    @Test fun `covers are served only where the art would show`() {
+        assertTrue(rules.coverAllowed("mf-ok"))
+        assertTrue(rules.coverAllowed("mf-a_5f2c"))
+        assertFalse("safe title only", rules.coverAllowed("mf-t"))
+        assertFalse("on no list", rules.coverAllowed("mf-x"))
+        assertTrue(rules.coverAllowed("al-al-1_a4609b56"))
+        assertTrue(rules.coverAllowed("al-al-3"))
+        assertFalse("album with only a safe title", rules.coverAllowed("al-al-2"))
+        assertFalse("artist art never", rules.coverAllowed("ar-ar-1_1a18"))
+        assertFalse("playlist art never", rules.coverAllowed("pl-pl-approved_0060"))
+        assertFalse("unknown scheme fails closed", rules.coverAllowed("ok"))
+        assertFalse("no lists yet", KidRules(KidLists()).coverAllowed("mf-ok"))
+    }
 }

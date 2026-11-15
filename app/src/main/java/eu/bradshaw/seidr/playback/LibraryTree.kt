@@ -114,10 +114,8 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
         val loved = last[Loved.PLAYS_KEY]
         val pls = played.map { p -> last.getValue(p.id) to playlistItem(p) } +
             listOfNotNull(loved?.let { it to lovedItem(withCount = false) })
-        val kid = graph.kids.current
-        val albums = graph.albumPlays.recent().filter { kid?.albumShows(it.id) != false }.map { a ->
-            val art = a.coverArt.takeIf { kid?.albumArtShows(a.id) != false }
-            a.at to playable("play/$AL${a.id}/0", a.name, a.artist, art, MediaMetadata.MEDIA_TYPE_ALBUM)
+        val albums = KidGate.recentAlbums(graph.albumPlays.recent(), graph.kids.current).map { a ->
+            a.at to playable("play/$AL${a.id}/0", a.name, a.artist, a.coverArt, MediaMetadata.MEDIA_TYPE_ALBUM)
         }
         return (pls + albums).sortedByDescending { it.first }.take(RECENT_COUNT).map { it.second } +
             listOfNotNull(if (loved == null) lovedItem(withCount = false) else null) +
@@ -181,16 +179,9 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
 
     /** The same queue rules as [PlayerConnection.playContext], minus "Next in queue". */
     private fun queue(songs: List<Song>, start: Int, name: String, shuffle: Boolean): MediaSession.MediaItemsWithStartPosition? {
-        var all = songs.mapIndexed { i, s -> s.toEntry(ctxIndex = i, ctxName = name) }
-        var first = all.getOrNull(start)
-        graph.kids.current?.let { kid ->
-            all = all.filter { kid.playable(it.songId) }
-            if (first != null && first !in all) first = null
-        }
-        if (!graph.status.online.value) {
-            all = all.filter { graph.downloads.isDownloaded(it.songId) }
-            if (first != null && first !in all) first = null
-        }
+        val entries = songs.mapIndexed { i, s -> s.toEntry(ctxIndex = i, ctxName = name) }
+        val (all, first) = KidGate.queue(entries, entries.getOrNull(start), graph.kids.current, graph.status.online.value,
+            graph.downloads::isDownloaded)
         if (all.isEmpty()) return null
         PlayerPrefs.setShuffle(context, shuffle)
         val head = first ?: if (shuffle) all.random() else all.first()
