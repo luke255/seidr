@@ -153,7 +153,7 @@ fun HomeScreen() {
                         LazyRow(state = row, contentPadding = PaddingValues(horizontal = 10.dp)) {
                             itemsIndexed(shelf, key = { _, p -> p?.id ?: "loved" }) { i, p ->
                                 val focus = if (i == 0) Modifier.primaryFocus() else Modifier
-                                if (p == null) CoverCard(Loved.NAME, Loved.subtitle(starred), null, onClick = { actions.open(Route.Loved) },
+                                if (p == null) CoverCard(Loved.title, Loved.subtitle(starred), null, onClick = { actions.open(Route.Loved) },
                                     art = { m -> LovedArt(m) }, modifier = focus)
                                 else CoverCard(p.name, playlistLine(p, server?.username), p.coverArt, onClick = { actions.open(Route.Playlist(p.id)) },
                                     modifier = focus)

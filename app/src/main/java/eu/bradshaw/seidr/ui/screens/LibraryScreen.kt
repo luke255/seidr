@@ -291,12 +291,12 @@ fun LibraryScreen() {
                             )
                         }
                         // Loved heads the list, except by "Recently updated", where its newest love places it.
-                        if ((!downloadedOnly || lovedOffline) && matches(Loved.NAME)) {
+                        if ((!downloadedOnly || lovedOffline) && matches(Loved.title)) {
                             val at = if (sort != 2) 0 else shown.indexOfFirst { (it.changed ?: "") < (lastLoved ?: "") }
                                 .let { if (it < 0) shown.size else it }
                             val count = Loved.subtitle(starred)
                             items.add(at, LibItem(
-                                "loved", Loved.NAME, count ?: stringResource(R.string.library_playlist),
+                                "loved", Loved.title, count ?: stringResource(R.string.library_playlist),
                                 badge = if (lovedOffline) Badge.DOWNLOADED else null,
                                 art = { m -> LovedArt(m) }, onClick = { actions.open(Route.Loved) },
                             ))

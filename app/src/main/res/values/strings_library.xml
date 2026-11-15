@@ -186,4 +186,6 @@
     <!-- Disc heading in a multi-disc album. %1$s is the disc number. -->
     <string name="album_disc">Disc %1$s</string>
 
+    <!-- The built-in playlist of the songs you've loved (starred). -->
+    <string name="loved_title">Loved</string>
 </resources>

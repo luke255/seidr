@@ -176,7 +176,6 @@ fun MainScreen(graph: Graph, nav: Navigator) {
     val scope = rememberCoroutineScope()
     // Plain helpers (pluralSongs, formatBytes, ...) read their strings from this.
     val appContext = androidx.compose.ui.platform.LocalContext.current.applicationContext
-    remember(appContext) { eu.bradshaw.seidr.ui.components.AppText.context = appContext; appContext }
     val actions = remember(nav) { AppActions(graph, nav, snackbar, scope) }
     androidx.compose.runtime.LaunchedEffect(actions) { graph.connect.messages.collect { actions.toast(it) } }
     val saveable = rememberSaveableStateHolder()

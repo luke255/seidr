@@ -42,7 +42,9 @@ import kotlinx.coroutines.launch
 
 /** The built-in Loved playlist: the server's starred songs. */
 object Loved {
+    /** Stored with its download source; [title] is what's shown. */
     const val NAME = "Loved"
+    val title: String get() = eu.bradshaw.seidr.ui.components.AppText.res?.getString(eu.bradshaw.seidr.R.string.loved_title) ?: NAME
     /** Its key in [eu.bradshaw.seidr.data.PlaylistPlays] (real playlist ids never look like this). */
     const val PLAYS_KEY = "loved"
     val source = OfflineSource(SourceType.STARRED_ID, SourceType.STARRED, "starred", NAME)
@@ -87,10 +89,10 @@ fun LovedScreen() {
         val songs = remember(all, starred) { all.filter { it.id in starred } }
         fun play(i: Int, shuffle: Boolean? = null) {
             graph.playlistPlays.record(Loved.PLAYS_KEY)
-            actions.player.playContext(songs, i, Loved.NAME, shuffle)
+            actions.player.playContext(songs, i, Loved.title, shuffle)
         }
         CollectionLayout(
-            title = Loved.NAME,
+            title = Loved.title,
             art = { m -> LovedArt(m) },
             subtitle = {
                 HeaderFacts(

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Seiðr</string>
+    <string name="app_name" translatable="false">Seiðr</string>
 
     <!-- Self-update (Updater). -->
     <string name="channel_updates">App updates</string>

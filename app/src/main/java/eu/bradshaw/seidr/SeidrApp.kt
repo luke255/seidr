@@ -38,6 +38,8 @@ class SeidrApp : Application(), SingletonImageLoader.Factory {
 
     override fun onCreate() {
         super.onCreate()
+        // Before anything formats text outside composition (the service, the car).
+        eu.bradshaw.seidr.ui.components.AppText.context = this
         graph = Graph.get(this)
         Notifications.createChannels(this)
         graph.scope.launch { graph.library.loadCachedPlaylists() }

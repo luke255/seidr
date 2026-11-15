@@ -28,25 +28,25 @@ import androidx.compose.ui.unit.dp
  * follows the phone's Material You palette and Neutral is the original
  * near-black look.
  */
-enum class ThemeChoice(@androidx.annotation.StringRes val labelRes: Int, val label: String, val hue: Double? = null) {
-    SYSTEM(R.string.theme_system, "System"),
-    NEUTRAL(R.string.theme_neutral, "Neutral"),
-    RED(R.string.theme_red, "Red", 30.0),
-    ORANGE(R.string.theme_orange, "Orange", 55.0),
-    AMBER(R.string.theme_amber, "Amber", 75.0),
-    YELLOW(R.string.theme_yellow, "Yellow", 98.0),
-    LIME(R.string.theme_lime, "Lime", 120.0),
-    GREEN(R.string.theme_green, "Green", 140.0),
-    EMERALD(R.string.theme_emerald, "Emerald", 160.0),
-    TEAL(R.string.theme_teal, "Teal", 185.0),
-    CYAN(R.string.theme_cyan, "Cyan", 210.0),
-    SKY(R.string.theme_sky, "Sky", 240.0),
-    BLUE(R.string.theme_blue, "Blue", 268.0),
-    INDIGO(R.string.theme_indigo, "Indigo", 288.0),
-    VIOLET(R.string.theme_violet, "Violet", 305.0),
-    PURPLE(R.string.theme_purple, "Purple", 320.0),
-    MAGENTA(R.string.theme_magenta, "Magenta", 338.0),
-    PINK(R.string.theme_pink, "Pink", 0.0);
+enum class ThemeChoice(@androidx.annotation.StringRes val labelRes: Int, val hue: Double? = null) {
+    SYSTEM(R.string.theme_system),
+    NEUTRAL(R.string.theme_neutral),
+    RED(R.string.theme_red, 30.0),
+    ORANGE(R.string.theme_orange, 55.0),
+    AMBER(R.string.theme_amber, 75.0),
+    YELLOW(R.string.theme_yellow, 98.0),
+    LIME(R.string.theme_lime, 120.0),
+    GREEN(R.string.theme_green, 140.0),
+    EMERALD(R.string.theme_emerald, 160.0),
+    TEAL(R.string.theme_teal, 185.0),
+    CYAN(R.string.theme_cyan, 210.0),
+    SKY(R.string.theme_sky, 240.0),
+    BLUE(R.string.theme_blue, 268.0),
+    INDIGO(R.string.theme_indigo, 288.0),
+    VIOLET(R.string.theme_violet, 305.0),
+    PURPLE(R.string.theme_purple, 320.0),
+    MAGENTA(R.string.theme_magenta, 338.0),
+    PINK(R.string.theme_pink, 0.0);
 
     val key: String get() = name.lowercase()
 

@@ -313,7 +313,7 @@ private fun ThemePicker(selected: ThemeChoice, onSelect: (ThemeChoice) -> Unit) 
                 when (selected) {
                     ThemeChoice.SYSTEM -> stringResource(R.string.settings_theme_system)
                     ThemeChoice.NEUTRAL -> stringResource(R.string.settings_theme_neutral)
-                    else -> selected.label
+                    else -> stringResource(selected.labelRes)
                 },
                 style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -325,6 +325,7 @@ private fun ThemePicker(selected: ThemeChoice, onSelect: (ThemeChoice) -> Unit) 
         ) {
             ThemeChoice.entries.forEach { choice ->
                 val isSelected = choice == selected
+                val label = stringResource(choice.labelRes)
                 val fill = if (choice == ThemeChoice.NEUTRAL) Color(0xFF2C2C2C) else swatches.getValue(choice)
                 Box(
                     Modifier.size(42.dp)
@@ -335,7 +336,7 @@ private fun ThemePicker(selected: ThemeChoice, onSelect: (ThemeChoice) -> Unit) 
                         .background(fill)
                         .then(if (choice == ThemeChoice.NEUTRAL) Modifier.border(1.dp, MaterialTheme.colorScheme.outline, CircleShape) else Modifier)
                         .selectable(isSelected, role = Role.RadioButton) { onSelect(choice) }
-                        .semantics { contentDescription = choice.label },
+                        .semantics { contentDescription = label },
                     contentAlignment = Alignment.Center,
                 ) {
                     val tint = if (choice == ThemeChoice.NEUTRAL) Color.White else Color.Black.copy(alpha = 0.7f)

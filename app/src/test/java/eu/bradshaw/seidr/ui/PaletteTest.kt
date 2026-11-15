@@ -36,10 +36,10 @@ class PaletteTest {
                 val (hi, lo) = listOf(a.luminance(), b.luminance()).sortedDescending()
                 return (hi + 0.05) / (lo + 0.05)
             }
-            assertTrue("${choice.label} primary on background", contrast(cs.primary, cs.background) >= 4.5)
-            assertTrue("${choice.label} onPrimary on primary", contrast(cs.onPrimary, cs.primary) >= 4.5)
-            assertTrue("${choice.label} subtitles", contrast(cs.onSurfaceVariant, cs.background) >= 4.5)
-            println("${choice.label}: primary #%06X container #%06X bg #%06X".format(
+            assertTrue("${choice.name} primary on background", contrast(cs.primary, cs.background) >= 4.5)
+            assertTrue("${choice.name} onPrimary on primary", contrast(cs.onPrimary, cs.primary) >= 4.5)
+            assertTrue("${choice.name} subtitles", contrast(cs.onSurfaceVariant, cs.background) >= 4.5)
+            println("${choice.name}: primary #%06X container #%06X bg #%06X".format(
                 argb(cs.primary), argb(cs.primaryContainer), argb(cs.background)))
         }
     }

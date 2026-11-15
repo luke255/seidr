@@ -106,7 +106,7 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
         val songs = graph.library.cachedStarredSongs()
         val cover = songs?.firstNotNullOfOrNull { it.coverArt }
         val sub = if (withCount && songs != null) songCount(songs.size) else context.getString(R.string.car_playlist)
-        return playable("shuffle/$LOVED", Loved.NAME, sub, cover, MediaMetadata.MEDIA_TYPE_PLAYLIST)
+        return playable("shuffle/$LOVED", Loved.title, sub, cover, MediaMetadata.MEDIA_TYPE_PLAYLIST)
     }
 
     private suspend fun recent(): List<MediaItem> {
@@ -162,7 +162,7 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
 
     private suspend fun contextSongs(ctx: String): Ctx? = when {
         ctx == LOVED -> freshOr({ graph.library.cachedStarredSongs() }) { graph.library.starredSongsList() }
-            ?.let { Ctx(Loved.NAME, it) }
+            ?.let { Ctx(Loved.title, it) }
         ctx.startsWith(PL) -> ctx.removePrefix(PL).let { id ->
             freshOr({ graph.library.cachedPlaylist(id) }) { graph.library.playlist(id) }?.let { Ctx(it.name, it.entry) }
         }
