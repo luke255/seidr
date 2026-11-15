@@ -7,6 +7,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import eu.bradshaw.seidr.Graph
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.data.db.Download
 import eu.bradshaw.seidr.data.db.DownloadState
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +41,7 @@ class SyncWorker(context: Context, params: WorkerParameters) : CoroutineWorker(c
 class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     private val g = Graph.get(context)
 
-    override suspend fun getForegroundInfo() = foregroundInfo("Preparing…", 0, -1)
+    override suspend fun getForegroundInfo() = foregroundInfo(applicationContext.getString(R.string.notif_preparing), 0, -1)
 
     private fun foregroundInfo(title: String, remaining: Int, progress: Int) = ForegroundInfo(
         Notifications.DOWNLOAD_ID,

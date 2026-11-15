@@ -90,6 +90,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import eu.bradshaw.seidr.Graph
+import eu.bradshaw.seidr.R
+import androidx.compose.ui.res.stringResource
 import eu.bradshaw.seidr.playback.PlayerConnection
 import eu.bradshaw.seidr.ui.LocalIsTv
 import eu.bradshaw.seidr.ui.components.Cover
@@ -259,7 +261,7 @@ fun VisOverlay(
                         AnimatedVisibility(page != null || preview != null, Modifier.align(Alignment.TopEnd), enter = fadeIn(), exit = fadeOut()) {
                             IconButton(onClick = onClose, Modifier.size(52.dp).panel(CircleShape),
                                 colors = IconButtonDefaults.iconButtonColors(contentColor = Color.White)) {
-                                Icon(Icons.Filled.Close, "Close visualiser")
+                                Icon(Icons.Filled.Close, stringResource(R.string.vis_close))
                             }
                         }
                     }
@@ -372,10 +374,16 @@ private fun QueuePage(player: PlayerConnection, modifier: Modifier) {
         val fit = ((maxHeight - 44.dp * 2 - 60.dp) / 60.dp).toInt().coerceIn(0, 12)
         val next = ui.queue.drop(ui.index + 1).take(fit)
         Column(Modifier.widthIn(max = 560.dp).fillMaxWidth()) {
-            QueueHeader("Now playing")
+            QueueHeader(stringResource(R.string.vis_now_playing))
             QueueLine(cur, now = true)
             if (next.isNotEmpty()) {
-                QueueHeader(if (next.first().user) "Next in queue" else "Next from: ${ui.contextName ?: "queue"}")
+                QueueHeader(
+                    when {
+                        next.first().user -> stringResource(R.string.vis_next_in_queue)
+                        ui.contextName != null -> stringResource(R.string.vis_next_from, ui.contextName!!)
+                        else -> stringResource(R.string.vis_next_from_queue)
+                    },
+                )
                 for (e in next) QueueLine(e, now = false)
             }
         }
@@ -446,7 +454,7 @@ private fun PresetBar(prefs: VisPrefs, path: String, onHide: () -> Unit, modifie
     val side = IconButtonDefaults.iconButtonColors(contentColor = Color.White)
     Row(modifier.padding(6.dp), verticalAlignment = Alignment.CenterVertically) {
         IconButton(onClick = onHide, Modifier.size(52.dp).focusRing(CircleShape, Color.White), colors = side) {
-            GlowIcon(Icons.Outlined.Flag, "Hide preset")
+            GlowIcon(Icons.Outlined.Flag, stringResource(R.string.vis_hide_preset))
         }
         Column(Modifier.weight(1f, fill = false).widthIn(max = 520.dp).padding(horizontal = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Text(preset.name, style = MaterialTheme.typography.titleSmall.copy(shadow = glow), fontWeight = FontWeight.Bold,
@@ -458,7 +466,7 @@ private fun PresetBar(prefs: VisPrefs, path: String, onHide: () -> Unit, modifie
         }
         IconButton(onClick = { prefs.setLoved(path, !loved) },
             Modifier.size(52.dp).focusRing(CircleShape, Color.White).focusRequester(heartFocus), colors = side) {
-            GlowIcon(if (loved) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder, if (loved) "Unlove preset" else "Love preset",
+            GlowIcon(if (loved) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder, stringResource(if (loved) R.string.vis_unlove_preset else R.string.vis_love_preset),
                 tint = if (loved) MaterialTheme.colorScheme.primary else Color.White)
         }
     }
@@ -487,7 +495,7 @@ private fun PulseSign(pulse: Pulse, modifier: Modifier) {
 private fun PresetLabel(path: String, modifier: Modifier) {
     val preset = VisPrefs.Preset(path)
     Column(modifier.widthIn(max = 640.dp)) {
-        Text("Preview", style = MaterialTheme.typography.labelMedium.copy(shadow = glow), color = Color.White.copy(alpha = 0.7f))
+        Text(stringResource(R.string.vis_preview), style = MaterialTheme.typography.labelMedium.copy(shadow = glow), color = Color.White.copy(alpha = 0.7f))
         Text(preset.name, style = MaterialTheme.typography.titleMedium.copy(shadow = glow), fontWeight = FontWeight.Bold,
             color = Color.White, maxLines = 2, overflow = TextOverflow.Ellipsis)
         if (preset.folder.isNotEmpty()) {

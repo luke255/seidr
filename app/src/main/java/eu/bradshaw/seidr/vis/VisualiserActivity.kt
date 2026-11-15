@@ -1,5 +1,6 @@
 package eu.bradshaw.seidr.vis
 
+import eu.bradshaw.seidr.R
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -174,7 +175,7 @@ class VisualiserActivity : ComponentActivity() {
     private fun hideCurrentPreset() {
         if (preview != null) return
         view.queueEvent { renderer.engine.hideCurrent() }
-        message = "Preset hidden. Settings → Visualiser brings it back."
+        message = getString(R.string.vis_preset_hidden)
     }
 
     /** Select is ours (play/pause, held: the preset's page) unless a page with buttons is up. */

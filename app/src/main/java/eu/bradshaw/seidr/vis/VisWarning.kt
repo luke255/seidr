@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.ui.focusRing
 
 /**
@@ -27,22 +29,13 @@ fun VisWarning(immersive: Boolean, onContinue: () -> Unit, onCancel: () -> Unit)
     AlertDialog(
         onDismissRequest = onCancel,
         properties = DialogProperties(dismissOnClickOutside = false),
-        title = { Text("Flashing lights") },
+        title = { Text(stringResource(R.string.vis_warning_title)) },
         text = {
-            Text(
-                if (immersive) {
-                    "Some presets flash, strobe and swirl quickly, and in the headset they fill your view. " +
-                        "That can trigger seizures in people with photosensitive epilepsy, and can bring on " +
-                        "motion sickness or disorientation. Stay seated, and if you feel unwell, take the headset off."
-                } else {
-                    "Some presets flash, strobe and swirl quickly. That can trigger seizures in people with " +
-                        "photosensitive epilepsy. If you feel unwell, look away and close the visualiser."
-                },
-            )
+            Text(stringResource(if (immersive) R.string.vis_warning_headset else R.string.vis_warning_flat))
         },
         confirmButton = {
-            Button(onClick = onContinue, Modifier.focusRequester(go).focusRing(CircleShape)) { Text("Continue") }
+            Button(onClick = onContinue, Modifier.focusRequester(go).focusRing(CircleShape)) { Text(stringResource(R.string.vis_continue)) }
         },
-        dismissButton = { TextButton(onClick = onCancel) { Text("Not now") } },
+        dismissButton = { TextButton(onClick = onCancel) { Text(stringResource(R.string.vis_not_now)) } },
     )
 }

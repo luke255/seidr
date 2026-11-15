@@ -9,6 +9,7 @@ import androidx.media3.common.Player
 import androidx.media3.common.Timeline
 import androidx.media3.common.util.UnstableApi
 import eu.bradshaw.seidr.Graph
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.data.Account
 import eu.bradshaw.seidr.data.ServerConfig
 import eu.bradshaw.seidr.data.Settings
@@ -88,7 +89,7 @@ class ConnectSession(
                     link?.let(::dropLink)
                     clients.toList().forEach { c -> c.close() }
                 } else {
-                    endGuest("${connect.name} signed in")
+                    endGuest(connect.str(R.string.connect_peer_signed_in, connect.name))
                 }
             }
         }
@@ -288,8 +289,8 @@ class ConnectSession(
                             }
                         }
                         val error = when (allowed) {
-                            null -> "No one answered on ${connect.name}"
-                            false -> "Not allowed on ${connect.name}"
+                            null -> connect.str(R.string.connect_nobody_answered, connect.name)
+                            false -> connect.str(R.string.connect_not_allowed, connect.name)
                             true -> Account.probe(graph, context, config)
                         }
                         if (error == null) withContext(Dispatchers.Main) { Account.commit(graph, config) }
@@ -389,7 +390,7 @@ class ConnectSession(
         val cur = graph.guest.value
         if (cur != null && !cur.key.contentEquals(login.key)) {
             clients.filter { it.guestKey?.contentEquals(login.key) != true }.forEach {
-                it.post(ConnectMessage.Ended("${login.from} is playing on ${connect.name} now"))
+                it.post(ConnectMessage.Ended(connect.str(R.string.connect_taken_over, login.from, connect.name)))
                 it.close()
             }
             clearPlayback()
@@ -496,20 +497,20 @@ class ConnectSession(
         if (peer.guest) {
             if (config.isKid && d.hello.version < eu.bradshaw.seidr.connect.KIDS_VERSION) {
                 ch.close()
-                if (!quiet) connect.tell("Update Seiðr on ${peer.name} first")
+                if (!quiet) connect.tell(connect.str(R.string.connect_update_first, peer.name))
                 return null
             }
             val sent = withContext(Dispatchers.IO) {
                 runCatching { ch.send(ConnectMessage.Guest(config.url, config.username, config.password,
                     eu.bradshaw.seidr.ui.theme.portableTheme(graph.settings.theme.value, context), config.kidOf)) }.isSuccess
             }
-            if (!sent) { ch.close(); if (!quiet) connect.tell("Lost ${peer.name}"); return null }
+            if (!sent) { ch.close(); if (!quiet) connect.tell(connect.str(R.string.connect_lost, peer.name)); return null }
         }
         val l = Link(peer, ch, socket)
         l.start()
         if (withTimeoutOrNull(FIRST_STATE_TIMEOUT_MS) { l.first.await() } == null) {
             l.close()
-            if (!quiet) connect.tell("${peer.name} didn't answer")
+            if (!quiet) connect.tell(connect.str(R.string.connect_no_answer, peer.name))
             return null
         }
         return l
@@ -632,7 +633,7 @@ class ConnectSession(
             val queue = l.player.queue
             dropLink(l)
             if (state != null && queue.isNotEmpty()) adopt(state, queue, play = false)
-            connect.tell("Lost connection to ${l.peer.name}")
+            connect.tell(connect.str(R.string.connect_lost_connection, l.peer.name))
         }
     }
 

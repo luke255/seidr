@@ -1,5 +1,6 @@
 package eu.bradshaw.seidr.vis.xr
 
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.vis.closeWhenGuestLeaves
 import android.content.Context
 import android.content.Intent
@@ -59,7 +60,7 @@ class XrVisualiserActivity : ComponentActivity() {
         if (xr == 0L) {
             // Back to the flat visualiser, rather than a dead end.
             runOnUiThread {
-                Toast.makeText(this, "The immersive visualiser couldn't start", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.vis_xr_failed), Toast.LENGTH_LONG).show()
                 startActivity(Intent(this, VisualiserActivity::class.java))
                 finish()
             }

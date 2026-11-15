@@ -1,6 +1,8 @@
 package eu.bradshaw.seidr.data
 
+import android.content.Context
 import android.util.Log
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.data.api.Playlist
 import eu.bradshaw.seidr.data.api.SubsonicApi
 import eu.bradshaw.seidr.data.api.ok
@@ -45,6 +47,7 @@ class BadReports(
     private val editor: PlaylistEditor,
     private val dao: OfflineDao,
     private val scope: CoroutineScope,
+    private val context: Context,
     /** The strict API: deciding a playlist is missing must never rest on a cached list. */
     private val api: () -> SubsonicApi,
 ) {
@@ -99,7 +102,7 @@ class BadReports(
     /** Reports [songId], or takes the report back if it's already there. Returns a message for the user. */
     suspend fun toggle(kind: BadKind, songId: String): String {
         val playlist = find(library.allPlaylists.value.orEmpty())[kind]
-            ?: return "No \"${kind.playlistName}\" playlist on the server"
+            ?: return context.getString(R.string.report_no_playlist, kind.playlistName)
         val report = songId !in reported.value[kind].orEmpty()
         inFlight.update { it.with(kind, songId, report) }
         val result = if (report) editor.add(playlist.id, listOf(songId)) else editor.remove(playlist.id, songId, null)
@@ -108,13 +111,14 @@ class BadReports(
         inFlight.update { m -> m + (kind to m[kind].orEmpty().minus(songId)) }
         return when (result) {
             EditResult.Applied -> when {
-                !report -> "Removed from ${kind.playlistName}"
-                kind == BadKind.SONG -> "Reported. This song will be skipped."
-                else -> "Reported the ${kind.noun}"
+                !report -> context.getString(R.string.report_removed, kind.playlistName)
+                kind == BadKind.SONG -> context.getString(R.string.report_song_reported)
+                kind == BadKind.ART -> context.getString(R.string.report_art_reported)
+                else -> context.getString(R.string.report_lyrics_reported)
             }
-            EditResult.Queued -> "Offline: will update ${kind.playlistName} when the server's back"
-            EditResult.Conflict -> "Couldn't update ${kind.playlistName}"
-            is EditResult.Failed -> "Couldn't update ${kind.playlistName}: ${result.message}"
+            EditResult.Queued -> context.getString(R.string.report_queued, kind.playlistName)
+            EditResult.Conflict -> context.getString(R.string.report_conflict, kind.playlistName)
+            is EditResult.Failed -> context.getString(R.string.report_failed, kind.playlistName, result.message)
         }
     }
 
