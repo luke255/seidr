@@ -72,6 +72,7 @@ class Graph(val app: Application) {
         api = { client.strict },
         dir = File(app.filesDir, "kids"),
         scope = scope,
+        context = app,
     )
 
     /** Settings → Reporting, which kids don't get. */
@@ -126,6 +127,7 @@ class Graph(val app: Application) {
             library.notifyPlaylistEdited(id)
             sync.request(setOf(PlaylistEditor.sourceId(id)))
         },
+        text = { app.getString(it) },
     )
 
     /** Loves changed (here or elsewhere): a downloaded Loved list follows them. */
@@ -134,7 +136,7 @@ class Graph(val app: Application) {
         if (id in downloads.sources.value) sync.request(setOf(id))
     }
 
-    val bad = BadReports(badReportsOn, library, editor, db.offline(), scope) { client.strict }
+    val bad = BadReports(badReportsOn, library, editor, db.offline(), scope, app) { client.strict }
 
     init {
         // Signed out or in as someone else: whatever kid view was open was theirs.

@@ -5,6 +5,8 @@ import android.content.Context
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import android.util.Log
+import androidx.annotation.StringRes
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.data.KidLogin
 import eu.bradshaw.seidr.data.Secrets
 import eu.bradshaw.seidr.data.ServerConfig
@@ -204,13 +206,16 @@ class Connect(
     val messages: SharedFlow<String> = _messages.asSharedFlow()
     internal fun tell(message: String) { _messages.tryEmit(message) }
 
+    /** User-facing text in this device's language (these go to the UI, or over the wire to another device). */
+    internal fun str(@StringRes id: Int, vararg args: Any): String = app.getString(id, *args)
+
     @Volatile internal var session: ConnectSession? = null
         set(value) { field = value; sessionUp.value = value != null }
     private val sessionUp = MutableStateFlow(false)
 
     /** Signed-out side: stops playing for whoever sent music here, and forgets their login. */
     fun disconnectGuest() {
-        main.launch { session?.endGuest("${name} disconnected") }
+        main.launch { session?.endGuest(str(R.string.connect_peer_disconnected, name)) }
     }
 
     sealed interface SignInResult {
@@ -224,7 +229,7 @@ class Connect(
      * device's login, or [kid]'s (a kid's login stays a kid's either way).
      */
     suspend fun signIn(peer: Peer, kid: KidLogin? = null): SignInResult {
-        val own = settings.server.value ?: return SignInResult.Failed("This device isn't signed in")
+        val own = settings.server.value ?: return SignInResult.Failed(str(R.string.connect_not_signed_in))
         val config = if (kid == null) own else ServerConfig(own.url, kid.username, kid.password, kidOf = own.username)
         val d = try {
             dial(peer, ask = true, signingIn = true, signingInAs = kid?.username) ?: return SignInResult.Cancelled
@@ -233,7 +238,7 @@ class Connect(
         }
         if (config.isKid && d.hello.version < KIDS_VERSION) {
             d.ch.close()
-            return SignInResult.Failed("Update Seiðr on ${peer.name} first: this version can't keep a kid's login safe")
+            return SignInResult.Failed(str(R.string.connect_update_for_kids, peer.name))
         }
         return withContext(Dispatchers.IO) {
             try {
@@ -242,10 +247,10 @@ class Connect(
                 d.socket.soTimeout = SIGN_IN_TIMEOUT_MS
                 when (val r = d.ch.receive()) {
                     is ConnectMessage.SignedIn -> r.error?.let { SignInResult.Failed(it) } ?: SignInResult.Done
-                    else -> SignInResult.Failed("${peer.name} didn't answer")
+                    else -> SignInResult.Failed(str(R.string.connect_no_answer, peer.name))
                 }
             } catch (e: IOException) {
-                SignInResult.Failed("Lost ${peer.name}: ${e.message}")
+                SignInResult.Failed(str(R.string.connect_lost_why, peer.name, e.message.toString()))
             } finally {
                 d.ch.close()
             }
@@ -297,9 +302,9 @@ class Connect(
 
     /** What to tell the user when [dial] fails. */
     internal fun dialError(peer: Peer, e: IOException): String = when (e) {
-        is WrongAccountException -> "${peer.name} is signed in as someone else"
-        is SignedInOrOutException -> "${peer.name} has signed in or out. Try again in a moment."
-        else -> "Couldn't reach ${peer.name}. Is Seiðr open on it?"
+        is WrongAccountException -> str(R.string.connect_peer_other_account, peer.name)
+        is SignedInOrOutException -> str(R.string.connect_peer_changed, peer.name)
+        else -> str(R.string.connect_peer_unreachable, peer.name)
     }
 
     private fun connectTo(peer: Peer): Socket? {
@@ -322,7 +327,7 @@ class Connect(
                 startService()
                 withTimeoutOrNull(5_000) { sessionUp.first { it } }
                 session
-            } ?: return@launch tell("Playback isn't ready yet")
+            } ?: return@launch tell(str(R.string.connect_playback_not_ready))
             s.playOn(peer?.takeIf { it.id != deviceId })
         }
     }
@@ -452,7 +457,7 @@ class Connect(
         if (id == null || id == deviceId || key == null || (!isGuest && attr("a") != ConnectKeys.tag(key)) || hosts.isEmpty() || info.port <= 0) {
             found.remove(name)
         } else {
-            found[name] = Peer(id, attr("n").orEmpty().ifBlank { "Seiðr device" }, hosts, info.port, attr("k") ?: Peer.KIND_PHONE, isGuest)
+            found[name] = Peer(id, attr("n").orEmpty().ifBlank { str(R.string.connect_device_fallback) }, hosts, info.port, attr("k") ?: Peer.KIND_PHONE, isGuest)
         }
         publish()
     }

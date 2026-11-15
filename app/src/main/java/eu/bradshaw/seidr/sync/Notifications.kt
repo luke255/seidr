@@ -19,8 +19,8 @@ object Notifications {
 
     fun createChannels(context: Context) {
         val nm = context.getSystemService(NotificationManager::class.java)
-        nm.createNotificationChannel(NotificationChannel(DOWNLOADS, "Downloads", NotificationManager.IMPORTANCE_LOW))
-        nm.createNotificationChannel(NotificationChannel(STORAGE, "Storage warnings", NotificationManager.IMPORTANCE_DEFAULT))
+        nm.createNotificationChannel(NotificationChannel(DOWNLOADS, context.getString(R.string.notif_channel_downloads), NotificationManager.IMPORTANCE_LOW))
+        nm.createNotificationChannel(NotificationChannel(STORAGE, context.getString(R.string.notif_channel_storage), NotificationManager.IMPORTANCE_DEFAULT))
         nm.createNotificationChannel(NotificationChannel(UPDATES, context.getString(R.string.channel_updates), NotificationManager.IMPORTANCE_LOW))
     }
 
@@ -32,7 +32,7 @@ object Notifications {
     fun downloading(context: Context, title: String, remaining: Int, progress: Int) =
         NotificationCompat.Builder(context, DOWNLOADS)
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle("Downloading $remaining track${if (remaining == 1) "" else "s"}")
+            .setContentTitle(context.resources.getQuantityString(R.plurals.notif_downloading, remaining, remaining))
             .setContentText(title)
             .setProgress(100, progress, progress < 0)
             .setOngoing(true)
@@ -43,8 +43,8 @@ object Notifications {
     fun storageFull(context: Context, needMb: Long) {
         val n = NotificationCompat.Builder(context, STORAGE)
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle("Downloads paused: storage full")
-            .setContentText("Free up about $needMb MB to continue. Nothing already downloaded was removed.")
+            .setContentTitle(context.getString(R.string.notif_storage_title))
+            .setContentText(context.getString(R.string.notif_storage_text, needMb))
             .setContentIntent(openApp(context))
             .setAutoCancel(true)
             .build()

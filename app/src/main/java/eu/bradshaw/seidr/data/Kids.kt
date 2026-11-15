@@ -1,6 +1,8 @@
 package eu.bradshaw.seidr.data
 
+import android.content.Context
 import android.util.Log
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.data.api.Song
 import eu.bradshaw.seidr.data.api.SubsonicApi
 import eu.bradshaw.seidr.data.api.SubsonicClient
@@ -37,6 +39,7 @@ class Kids(
     private val api: () -> SubsonicApi,
     private val dir: File,
     private val scope: CoroutineScope,
+    private val context: Context,
 ) {
     private class Loaded(val key: String, val rules: KidRules)
 
@@ -123,7 +126,7 @@ class Kids(
      * message, or null.
      */
     suspend fun ensureLists(): String? = lock.withLock {
-        val me = loginNow()?.takeIf { !it.isKid } ?: return "Signed in as a kid"
+        val me = loginNow()?.takeIf { !it.isKid } ?: return context.getString(R.string.kids_signed_in_as_kid)
         suspend fun mine() = api().getPlaylists().ok().playlists?.playlist.orEmpty()
             .filter { p -> KidRules.NAMES.any { KidRules.trusted(p, it, me.username) } }
         return try {
@@ -139,7 +142,7 @@ class Kids(
             null
         } catch (e: Exception) {
             if (e is kotlinx.coroutines.CancellationException) throw e
-            "Couldn't set up the kids' playlists: ${e.message ?: e.javaClass.simpleName}"
+            context.getString(R.string.kids_setup_failed, e.message ?: e.javaClass.simpleName)
         }
     }
 

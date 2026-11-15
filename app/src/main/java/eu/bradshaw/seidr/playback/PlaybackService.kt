@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.vis.xr.XrVisualiserActivity
 import android.os.SystemClock
 import android.util.Log
@@ -374,7 +375,7 @@ class PlaybackService : MediaLibraryService() {
         val id = session.player.currentMediaItem?.mediaId?.let(::songIdOf)
         val liked = id != null && id in graph.library.starredSongs.value
         val button = CommandButton.Builder(if (liked) CommandButton.ICON_HEART_FILLED else CommandButton.ICON_HEART_UNFILLED)
-            .setDisplayName(if (liked) "Unlove" else "Love")
+            .setDisplayName(getString(if (liked) R.string.playback_unlove else R.string.playback_love))
             .setSessionCommand(SessionCommand(CMD_LIKE, Bundle.EMPTY))
             .setSlots(CommandButton.SLOT_OVERFLOW)
             .build()

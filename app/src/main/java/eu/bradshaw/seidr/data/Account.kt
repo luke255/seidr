@@ -3,6 +3,7 @@ package eu.bradshaw.seidr.data
 import android.content.Context
 import android.util.Log
 import eu.bradshaw.seidr.Graph
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.data.api.ResponseStore
 import eu.bradshaw.seidr.data.api.SubsonicClient
 import eu.bradshaw.seidr.data.api.ok
@@ -25,8 +26,8 @@ object Account {
             null
         } catch (e: Exception) {
             if (e is CancellationException) throw e
-            "Couldn't connect to ${config.url}: ${e.message ?: e.javaClass.simpleName}" +
-                if (needsLanPermission(context)) "\nSeiðr needs the Nearby devices / local network permission to reach a server on your home network." else ""
+            context.getString(R.string.account_connect_failed, config.url, e.message ?: e.javaClass.simpleName) +
+                if (needsLanPermission(context)) "\n" + context.getString(R.string.account_lan_permission) else ""
         }
     }
 
@@ -41,11 +42,11 @@ object Account {
             probe.strict.getUser(config.username).ok().user
         } catch (e: Exception) {
             if (e is CancellationException) throw e
-            return "Couldn't check ${config.username}'s account: ${e.message ?: e.javaClass.simpleName}"
+            return context.getString(R.string.account_check_failed_why, config.username, e.message ?: e.javaClass.simpleName)
         }
         return when {
-            user == null -> "Couldn't check ${config.username}'s account"
-            user.adminRole -> "${config.username} is an admin on the server. Kids need an account that isn't."
+            user == null -> context.getString(R.string.account_check_failed, config.username)
+            user.adminRole -> context.getString(R.string.account_kid_is_admin, config.username)
             else -> null
         }
     }
@@ -85,10 +86,10 @@ object Account {
      * the kid's view, not an empty one. Returns an error message, or null.
      */
     suspend fun viewAs(graph: Graph, kid: KidLogin): String? {
-        val own = graph.settings.server.value?.takeIf { !it.isKid } ?: return "Not signed in as a grown-up"
+        val own = graph.settings.server.value?.takeIf { !it.isKid } ?: return graph.app.getString(R.string.account_not_grownup)
         when (isAdmin(graph, own)) {
-            null -> return "Couldn't check your account on the server"
-            false -> return "Only server admins can view as a kid"
+            null -> return graph.app.getString(R.string.account_own_check_failed)
+            false -> return graph.app.getString(R.string.account_admin_only)
             true -> {}
         }
         val view = KidView(ServerConfig(own.url, kid.username, kid.password, kidOf = own.username), graph)
@@ -97,9 +98,9 @@ object Account {
         } catch (e: Exception) {
             view.close()
             if (e is CancellationException) throw e
-            return "Couldn't open ${kid.username}'s view: ${e.message ?: e.javaClass.simpleName}"
+            return graph.app.getString(R.string.account_view_failed, kid.username, e.message ?: e.javaClass.simpleName)
         }
-        if (graph.settings.server.value != own) { view.close(); return "Signed in as someone else meanwhile" }
+        if (graph.settings.server.value != own) { view.close(); return graph.app.getString(R.string.account_someone_else) }
         graph.kidView.getAndUpdate { view }?.close()
         return null
     }

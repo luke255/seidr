@@ -1,6 +1,7 @@
 package eu.bradshaw.seidr.sync
 
 import android.util.Log
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.data.api.SubsonicApi
 import eu.bradshaw.seidr.data.api.SubsonicException
 import eu.bradshaw.seidr.data.api.ok
@@ -45,6 +46,8 @@ fun OfflineDao.asEditQueue() = object : EditQueue {
 class PlaylistEditor(
     private val api: () -> SubsonicApi,
     private val dao: EditQueue,
+    /** Looks up the user-facing wording of the errors; tests leave it blank. */
+    private val text: (Int) -> String = { "" },
     private val afterEdit: (playlistId: String) -> Unit,
 ) {
     private suspend fun fresh(playlistId: String): List<String> =
@@ -55,12 +58,12 @@ class PlaylistEditor(
         afterEdit(playlistId)
         EditResult.Applied
     } catch (e: SubsonicException) {
-        EditResult.Failed(e.message ?: "Server error")
+        EditResult.Failed(e.message ?: text(R.string.sync_server_error))
     } catch (e: IOException) {
         if (queued != null) {
             dao.insertEdit(queued)
             EditResult.Queued
-        } else EditResult.Failed("Can't reach the server")
+        } else EditResult.Failed(text(R.string.sync_cant_reach))
     }
 
     suspend fun add(playlistId: String, songIds: List<String>): EditResult =
@@ -75,7 +78,7 @@ class PlaylistEditor(
                 afterEdit(playlistId)
                 EditResult.Applied
             } catch (e: SubsonicException) {
-                EditResult.Failed(e.message ?: "Server error")
+                EditResult.Failed(e.message ?: text(R.string.sync_server_error))
             } catch (e: IOException) {
                 songIds.forEach { dao.insertEdit(PendingEdit(playlistId = playlistId, type = EditType.ADD, songId = it)) }
                 EditResult.Queued

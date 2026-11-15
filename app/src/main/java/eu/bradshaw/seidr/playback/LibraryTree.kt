@@ -8,6 +8,7 @@ import androidx.media3.common.MediaMetadata
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.session.MediaConstants
 import androidx.media3.session.MediaSession
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.Graph
 import eu.bradshaw.seidr.data.api.Album
 import eu.bradshaw.seidr.data.api.Playlist
@@ -40,12 +41,12 @@ import kotlinx.coroutines.withTimeoutOrNull
 @OptIn(UnstableApi::class)
 class LibraryTree(private val context: Context, private val graph: Graph) {
 
-    fun root(): MediaItem = folder(ROOT, "Seiðr")
+    fun root(): MediaItem = folder(ROOT, context.getString(R.string.app_name))
 
     suspend fun children(parentId: String): List<MediaItem> = when (parentId) {
         ROOT -> listOf(
-            folder(RECENT, "Recent", grid = true),
-            folder(PLAYLISTS, "Playlists"),
+            folder(RECENT, context.getString(R.string.car_recent), grid = true),
+            folder(PLAYLISTS, context.getString(R.string.car_playlists)),
         )
         RECENT -> recent()
         PLAYLISTS -> playlistItems()
@@ -98,13 +99,13 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
 
     private suspend fun playlistItems(): List<MediaItem> =
         listOf(lovedItem(withCount = true)) +
-            playlists().sortedWith(byName).map { playable("shuffle/$PL${it.id}", it.name, "${it.songCount} songs", it.coverArt, MediaMetadata.MEDIA_TYPE_PLAYLIST) }
+            playlists().sortedWith(byName).map { playable("shuffle/$PL${it.id}", it.name, songCount(it.songCount), it.coverArt, MediaMetadata.MEDIA_TYPE_PLAYLIST) }
 
     /** Loved, with the newest loved song's cover (it has none of its own). */
     private fun lovedItem(withCount: Boolean): MediaItem {
         val songs = graph.library.cachedStarredSongs()
         val cover = songs?.firstNotNullOfOrNull { it.coverArt }
-        val sub = if (withCount && songs != null) "${songs.size} songs" else "Playlist"
+        val sub = if (withCount && songs != null) songCount(songs.size) else context.getString(R.string.car_playlist)
         return playable("shuffle/$LOVED", Loved.NAME, sub, cover, MediaMetadata.MEDIA_TYPE_PLAYLIST)
     }
 
@@ -122,7 +123,9 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
             unplayed.sortedWith(byName).map(::playlistItem)
     }
 
-    private fun playlistItem(p: Playlist) = playable("shuffle/$PL${p.id}", p.name, "Playlist", p.coverArt, MediaMetadata.MEDIA_TYPE_PLAYLIST)
+    private fun playlistItem(p: Playlist) = playable("shuffle/$PL${p.id}", p.name, context.getString(R.string.car_playlist), p.coverArt, MediaMetadata.MEDIA_TYPE_PLAYLIST)
+
+    private fun songCount(n: Int) = context.resources.getQuantityString(R.plurals.car_songs, n, n)
 
     private val byName = compareBy<Playlist, String>(String.CASE_INSENSITIVE_ORDER) { it.name }
 

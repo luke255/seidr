@@ -1,5 +1,6 @@
 package eu.bradshaw.seidr
 
+import androidx.compose.ui.res.stringResource
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -98,17 +99,17 @@ class MainActivity : ComponentActivity() {
         if (showBattery) {
             AlertDialog(
                 onDismissRequest = { showBattery = false; graph.settings.batteryPromptShown = true },
-                title = { Text("Keep music playing") },
-                text = { Text("Some phones' battery managers stop background playback and downloads. Let Seiðr run unrestricted? You can change this later in Settings.") },
+                title = { Text(stringResource(R.string.main_battery_title)) },
+                text = { Text(stringResource(R.string.main_battery_text)) },
                 confirmButton = {
                     TextButton(onClick = {
                         showBattery = false
                         graph.settings.batteryPromptShown = true
                         requestBatteryExemption(this)
-                    }) { Text("Allow") }
+                    }) { Text(stringResource(R.string.main_battery_allow)) }
                 },
                 dismissButton = {
-                    TextButton(onClick = { showBattery = false; graph.settings.batteryPromptShown = true }) { Text("Not now") }
+                    TextButton(onClick = { showBattery = false; graph.settings.batteryPromptShown = true }) { Text(stringResource(R.string.vis_not_now)) }
                 },
             )
         }
