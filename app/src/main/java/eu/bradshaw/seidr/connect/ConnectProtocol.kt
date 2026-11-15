@@ -350,7 +350,7 @@ class ConnectChannel private constructor(private val socket: Socket, private val
     private fun readMagic(expected: ByteArray) {
         val magic = ByteArray(expected.size).also(input::readFully)
         if (magic.contentEquals(expected)) return
-        throw if (magic.contentEquals(MAGIC) || magic.contentEquals(GUEST_MAGIC)) SignedInOrOutException() else IOException("Not a Seiðr Connect peer")
+        throw if (magic.contentEquals(MAGIC) || magic.contentEquals(GUEST_MAGIC)) SignedInOrOutException() else IOException("Not a Seiðr device")
     }
 
     private fun writeBlob(b: ByteArray) { output.writeShort(b.size); output.write(b) }
@@ -449,7 +449,7 @@ class ConnectChannel private constructor(private val socket: Socket, private val
                 magic.contentEquals(MAGIC) && account != null -> ch.exchangeNonces(account, magicRead = true)
                 magic.contentEquals(GUEST_MAGIC) && account == null -> ch.guestAsHost(identity())
                 magic.contentEquals(MAGIC) || magic.contentEquals(GUEST_MAGIC) -> throw SignedInOrOutException()
-                else -> throw IOException("Not a Seiðr Connect peer")
+                else -> throw IOException("Not a Seiðr device")
             }
             return ch
         }
