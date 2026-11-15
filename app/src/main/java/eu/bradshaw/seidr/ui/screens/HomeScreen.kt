@@ -31,9 +31,9 @@ import eu.bradshaw.seidr.ui.primaryFocus
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -136,8 +136,13 @@ fun HomeScreen() {
                         // A lazy row keeps its first visible item when items are put in front of it,
                         // so a playlist that arrives first (one just created, after the cached list
                         // showed) would open scrolled out of sight. At the start, stay at the start.
-                        remember(shelf.firstOrNull()?.id ?: "loved") {
-                            Snapshot.withoutReadObservation {
+                        // SideEffect runs after this composition is applied but before the row's
+                        // next layout, which is when the request has to land.
+                        val first = shelf.firstOrNull()?.id ?: "loved"
+                        val seenFirst = remember { arrayOfNulls<String>(1) }
+                        SideEffect {
+                            if (seenFirst[0] != first) {
+                                seenFirst[0] = first
                                 if (row.firstVisibleItemIndex == 0 && row.firstVisibleItemScrollOffset == 0) row.requestScrollToItem(0)
                             }
                         }
