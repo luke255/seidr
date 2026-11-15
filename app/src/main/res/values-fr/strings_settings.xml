@@ -66,7 +66,7 @@
     <string name="kids_help_step1">1. Créez pour chaque enfant son propre compte Navidrome (pas un compte admin) et ajoutez-le ici.</string>
     <string name="kids_help_step2">2. Connectez son appareil depuis Connecter un appareil. Gardez son mot de passe pour vous.</string>
     <string name="kids_help_step3">3. Choisissez ce qu\'il reçoit grâce à trois playlists sur votre compte, créées quand vous ajoutez un enfant :</string>
-    <string name="kids_help_list_what"> – %1$s</string>
+    <string name="kids_help_list_what">" – %1$s"</string>
     <string name="kids_help_approved">les titres qu\'il peut écouter</string>
     <string name="kids_help_safe_titles">affichés en grisé, nom seulement</string>
     <string name="kids_help_safe_art">affichés en grisé, avec la pochette</string>

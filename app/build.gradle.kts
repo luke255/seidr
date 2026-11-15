@@ -103,6 +103,9 @@ android {
         }
     }
 
+    // Lists the translations (values-*) for Android's per-app language setting.
+    androidResources { generateLocaleConfig = true }
+
     buildFeatures {
         compose = true
         buildConfig = true

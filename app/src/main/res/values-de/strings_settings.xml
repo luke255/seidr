@@ -66,7 +66,7 @@
     <string name="kids_help_step1">1. Lege für jedes Kind ein eigenes Navidrome-Konto an (kein Admin) und füge es hier hinzu.</string>
     <string name="kids_help_step2">2. Melde das Gerät des Kindes über „Gerät anmelden“ an. Behalte das Passwort für dich.</string>
     <string name="kids_help_step3">3. Was das Kind bekommt, legst du mit drei Playlists in deinem Konto fest. Sie werden angelegt, wenn du ein Kind hinzufügst:</string>
-    <string name="kids_help_list_what"> – %1$s</string>
+    <string name="kids_help_list_what">" – %1$s"</string>
     <string name="kids_help_approved">Songs, die es abspielen darf</string>
     <string name="kids_help_safe_titles">ausgegraut angezeigt, nur mit Namen</string>
     <string name="kids_help_safe_art">ausgegraut angezeigt, mit Cover</string>

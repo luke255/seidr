@@ -87,7 +87,7 @@
     <string name="kids_help_step2">2. Sign their device in from Sign in a device. Keep their password to yourself.</string>
     <string name="kids_help_step3">3. Choose what they get with three playlists on your account, made when you add a kid:</string>
     <!-- Follows a bold playlist name (not translated) in a list; %1$s is what that playlist does. Keep the leading space ( ). -->
-    <string name="kids_help_list_what"> – %1$s</string>
+    <string name="kids_help_list_what">" – %1$s"</string>
     <string name="kids_help_approved">songs they can play</string>
     <string name="kids_help_safe_titles">shown greyed out, name only</string>
     <string name="kids_help_safe_art">shown greyed out, with the cover</string>

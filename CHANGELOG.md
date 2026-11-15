@@ -19,6 +19,9 @@ them, not how.
 - Free space for downloads counts space Android can clear for you.
 - Kids' logins: cover art shown in the car follows the kids' lists too.
 - What's new: this list, in Settings → About and on the update prompt.
+- Seiðr speaks German, French, Spanish, Dutch, Brazilian Portuguese and
+  Italian, following your phone's language (or Seiðr's own, in Android's
+  app language settings).
 
 ## 1.5.0
 

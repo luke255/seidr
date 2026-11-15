@@ -66,7 +66,7 @@
     <string name="kids_help_step1">1. Maak voor elk kind een eigen Navidrome-account (geen beheerder) en voeg het hier toe.</string>
     <string name="kids_help_step2">2. Meld het apparaat van je kind aan via Apparaat aanmelden. Houd het wachtwoord voor jezelf.</string>
     <string name="kids_help_step3">3. Bepaal wat je kind krijgt met drie playlists op jouw account, die worden gemaakt zodra je een kind toevoegt:</string>
-    <string name="kids_help_list_what"> – %1$s</string>
+    <string name="kids_help_list_what">" – %1$s"</string>
     <string name="kids_help_approved">nummers die je kind mag afspelen</string>
     <string name="kids_help_safe_titles">grijs weergegeven, alleen de naam</string>
     <string name="kids_help_safe_art">grijs weergegeven, met de hoes</string>
