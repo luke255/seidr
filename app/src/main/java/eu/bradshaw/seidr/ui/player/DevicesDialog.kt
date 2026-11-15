@@ -1,6 +1,7 @@
 package eu.bradshaw.seidr.ui.player
 
 import android.Manifest
+import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
@@ -89,7 +90,7 @@ fun DevicesDialog(onDismiss: () -> Unit) {
                 if (lanMissing) {
                     Text("Seiðr needs the Nearby devices permission to find your other devices.",
                         style = MaterialTheme.typography.bodySmall)
-                    TextButton(onClick = { lan.launch(Manifest.permission.ACCESS_LOCAL_NETWORK) }) { Text("Allow") }
+                    TextButton(onClick = { if (Build.VERSION.SDK_INT >= 37) lan.launch(Manifest.permission.ACCESS_LOCAL_NETWORK) }) { Text("Allow") }
                 } else if (others.isEmpty()) {
                     LinearProgressIndicator(Modifier.fillMaxWidth().padding(vertical = 8.dp))
                     Text("Looking for devices. Open Seiðr on another device on the same Wi-Fi: one signed in as you, or one that isn't signed in.",

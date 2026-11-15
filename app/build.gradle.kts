@@ -32,6 +32,24 @@ val signingProps = Properties().apply {
 val canSign = keystoreFile.isFile
 
 android {
+    lint {
+        // Each of these is deliberate; the reason is beside it.
+        disable += listOf(
+            "InsecureBaseConfiguration", // home servers are often plain http on the LAN or Tailscale
+            "ExportedService",           // the media session must be reachable by controllers and Android Auto
+            "ExportedContentProvider",   // CoverProvider serves art to the car, which needs it exported
+            "BatteryLife",               // background playback has to survive OEM battery managers
+            "NonResizeableActivity",     // the immersive XR activity is a fixed landscape surface
+            "DiscouragedApi",            // the same activity's orientation; getIdentifier reads Samsung's palettes
+            "ChromeOsAbiSupport",        // no x86 build: phones, TVs and the Quest are all ARM
+            "VectorPath", "VectorRaster", // banner and wordmark are drawn once, rarely
+            "UseKtx",                    // style only
+            "AndroidGradlePluginVersion", "GradleDependency", "NewerVersionAvailable", // versions move on our schedule
+        )
+        abortOnError = true
+        warningsAsErrors = false
+    }
+
     namespace = "eu.bradshaw.seidr"
     compileSdk = 37
     ndkVersion = "30.0.16248370"

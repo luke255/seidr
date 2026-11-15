@@ -72,7 +72,7 @@ class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWork
 
             val part = g.files.partFile(next.trackId)
             val need = (next.size - part.length()).coerceAtLeast(0) + RESERVE_BYTES
-            if (g.files.musicDir.usableSpace < need) {
+            if (g.files.freeBytes() < need) {
                 Log.w(TAG, "storage full, pausing (need ${need / 1_000_000} MB)")
                 Notifications.storageFull(applicationContext, need / 1_000_000)
                 return@withContext Result.success()

@@ -143,11 +143,11 @@ fun Modifier.reorderable(state: ReorderState, key: Any): Modifier =
  * up/down arrow, so it's clear the arrow keys now move the row.
  */
 @Composable
-fun LiftHandle(lifted: Boolean, handle: Modifier) {
+fun LiftHandle(lifted: Boolean, modifier: Modifier) {
     Icon(
         if (lifted) Icons.Filled.SwapVert else Icons.Filled.DragHandle,
         if (lifted) "Moving: up or down, then select to drop" else "Drag to reorder",
-        handle.padding(8.dp),
+        modifier.padding(8.dp),
         tint = if (lifted) MaterialTheme.colorScheme.primary else LocalContentColor.current,
     )
 }

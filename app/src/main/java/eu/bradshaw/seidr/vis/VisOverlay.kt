@@ -115,7 +115,7 @@ private fun Typography.glowing(): Typography {
 
 /** An icon with a soft dark shadow under it, like the text's. */
 @Composable
-private fun GlowIcon(icon: ImageVector, description: String?, tint: Color = Color.White, modifier: Modifier = Modifier) {
+private fun GlowIcon(icon: ImageVector, description: String?, modifier: Modifier = Modifier, tint: Color = Color.White) {
     Box(modifier) {
         Icon(icon, null, Modifier.offset(y = 1.dp).blur(5.dp, BlurredEdgeTreatment.Unbounded), tint = Color.Black.copy(alpha = 0.85f))
         Icon(icon, description, tint = tint)

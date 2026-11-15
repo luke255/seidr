@@ -140,7 +140,7 @@ fun SignInDeviceScreen() {
                     }
                     if (lanMissing) {
                         Hint("Seiðr needs the Nearby devices permission to find other devices.")
-                        TextButton(onClick = { lan.launch(Manifest.permission.ACCESS_LOCAL_NETWORK) }) { Text("Allow") }
+                        TextButton(onClick = { if (Build.VERSION.SDK_INT >= 37) lan.launch(Manifest.permission.ACCESS_LOCAL_NETWORK) }) { Text("Allow") }
                     } else if (signedOut.isEmpty()) {
                         LinearProgressIndicator(Modifier.widthIn(max = 320.dp).fillMaxWidth().padding(horizontal = 24.dp))
                         Hint("Looking for signed-out devices…")

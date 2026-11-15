@@ -57,7 +57,9 @@ import eu.bradshaw.seidr.ui.components.bottomContentPadding
 import eu.bradshaw.seidr.ui.components.formatBytes
 import eu.bradshaw.seidr.ui.components.pluralSongs
 import eu.bradshaw.seidr.ui.focusRing
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 
 /** Storage, queue status, the download settings, and what's kept on the phone. Same card style as Settings. */
 @Composable
@@ -70,8 +72,8 @@ fun DownloadsScreen() {
     val wifiOnly by graph.settings.wifiOnly.collectAsStateWithLifecycle()
     val sync by graph.sync.status.collectAsStateWithLifecycle()
     val pendingEdits by graph.db.offline().editCount().collectAsStateWithLifecycle(0)
-    var free by remember { mutableLongStateOf(graph.files.musicDir.usableSpace) }
-    LaunchedEffect(Unit) { while (true) { free = graph.files.musicDir.usableSpace; delay(5000) } }
+    var free by remember { mutableLongStateOf(0L) }
+    LaunchedEffect(Unit) { while (true) { free = withContext(Dispatchers.IO) { graph.files.freeBytes() }; delay(5000) } }
 
     // A kid sees only approved songs here (anything else is on its way out at the next sync).
     val kid by graph.kids.rules.collectAsStateWithLifecycle()

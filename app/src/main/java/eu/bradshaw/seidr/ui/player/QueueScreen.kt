@@ -34,6 +34,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -76,7 +77,7 @@ fun QueueScreen(onClose: () -> Unit, modifier: Modifier = Modifier, readOnly: Bo
 
     // Local mirror so drags feel immediate; the player gets one move on release.
     val local = remember(ui.queue, ui.index) { mutableStateListOf<QueueEntry>().apply { addAll(ui.queue) } }
-    var dragFrom by remember { mutableStateOf(-1) }
+    var dragFrom by remember { mutableIntStateOf(-1) }
     var dragKey by remember { mutableStateOf<String?>(null) }
     val userKeys = remember(ui.queue, ui.index) { ui.userRange.map { ui.queue[it].key }.toSet() }
     // Earlier tracks can't be dragged, nor dragged into.
@@ -217,8 +218,8 @@ private fun SwipeRemove(onRemove: () -> Unit, content: @Composable () -> Unit) {
 
 @Composable
 private fun QueueRow(
-    e: QueueEntry, playing: Boolean, onClick: (() -> Unit)?, onRemove: (() -> Unit)?, handle: Modifier?,
-    modifier: Modifier = Modifier, lifted: Boolean = false, past: Boolean = false,
+    e: QueueEntry, playing: Boolean, onClick: (() -> Unit)?, onRemove: (() -> Unit)?,
+    modifier: Modifier = Modifier, handle: Modifier? = null, lifted: Boolean = false, past: Boolean = false,
 ) {
     var menu by remember { mutableStateOf(false) }
     // The handle sits beside the clickable part rather than inside it, so a remote can reach it.

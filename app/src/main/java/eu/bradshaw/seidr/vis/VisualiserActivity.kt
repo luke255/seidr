@@ -1,5 +1,6 @@
 package eu.bradshaw.seidr.vis
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -239,6 +240,8 @@ class VisualiserActivity : ComponentActivity() {
         lifecycleScope.launch { delay(2_000); if (pulse === p) pulse = null }
     }
 
+    // Lint reads the override as a call into androidx-internal API; it is the platform method.
+    @SuppressLint("RestrictedApi")
     override fun dispatchKeyEvent(event: KeyEvent): Boolean = pageKey(event) || super.dispatchKeyEvent(event)
 
     /** Renders below the window's size; the display's scaler stretches it back for free. */
