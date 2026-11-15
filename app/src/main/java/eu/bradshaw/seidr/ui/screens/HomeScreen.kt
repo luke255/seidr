@@ -51,7 +51,8 @@ import eu.bradshaw.seidr.ui.LocalActions
 import eu.bradshaw.seidr.ui.Route
 import eu.bradshaw.seidr.ui.components.CoverCard
 import eu.bradshaw.seidr.ui.components.SectionHeader
-import eu.bradshaw.seidr.ui.components.playlistSubtitle
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -92,6 +93,9 @@ fun HomeScreen() {
     val kid by graph.browseKids.rules.collectAsStateWithLifecycle()
     val starred by graph.browse.starredSongs.collectAsStateWithLifecycle()
     val lastLoved by graph.browse.lastLoved.collectAsStateWithLifecycle()
+    val recentlyAdded = stringResource(R.string.home_recently_added)
+    val mostPlayed = stringResource(R.string.home_most_played)
+    val savedAlbums = stringResource(R.string.home_saved_albums)
     Column(Modifier.fillMaxSize()) {
         RefreshBox(vm.refreshing && vm.data != null, onRefresh = vm::load, modifier = Modifier.weight(1f)) {
             LazyColumn(Modifier.fillMaxSize(), contentPadding = bottomContentPadding()) {
@@ -102,8 +106,8 @@ fun HomeScreen() {
                 item(key = "viewing-as") { ViewingAsBanner() }
                 if (!online) item {
                     Text(
-                        if (LocalIsTv.current) "You're offline. Seiðr will reconnect when the server is reachable."
-                        else "You're offline. Downloaded music is still here: look in Library with the Downloaded filter.",
+                        if (LocalIsTv.current) stringResource(R.string.home_offline_tv)
+                        else stringResource(R.string.home_offline),
                         style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(16.dp),
                     )
@@ -111,7 +115,7 @@ fun HomeScreen() {
                 // A kid with nothing approved yet sees why, rather than an empty app.
                 if (kid?.lists?.approved?.isEmpty() == true) item {
                     Text(
-                        "Nothing's been approved for you yet. Ask whoever signed you in to add some songs.",
+                        stringResource(R.string.home_kid_empty),
                         style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(16.dp),
                     )
@@ -122,10 +126,10 @@ fun HomeScreen() {
                     item {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             // Home has no tab header, so the first shelf sits where the other tabs' titles do.
-                            SectionHeader("Playlists", Modifier.weight(1f), top = 16.dp)
+                            SectionHeader(stringResource(R.string.home_playlists), Modifier.weight(1f), top = 16.dp)
                             TextButton(onClick = { graph.settings.setHomePlaylistsAlpha(!alpha) }, Modifier.padding(top = 4.dp, end = 4.dp)) {
                                 Icon(Icons.AutoMirrored.Filled.Sort, null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.onSurface)
-                                Text(if (alpha) " A–Z" else " Recent", color = MaterialTheme.colorScheme.onSurface)
+                                Text(" " + stringResource(if (alpha) R.string.home_sort_az else R.string.home_sort_recent), color = MaterialTheme.colorScheme.onSurface)
                             }
                         }
                     }
@@ -151,15 +155,15 @@ fun HomeScreen() {
                                 val focus = if (i == 0) Modifier.primaryFocus() else Modifier
                                 if (p == null) CoverCard(Loved.NAME, Loved.subtitle(starred), null, onClick = { actions.open(Route.Loved) },
                                     art = { m -> LovedArt(m) }, modifier = focus)
-                                else CoverCard(p.name, playlistSubtitle(p, server?.username), p.coverArt, onClick = { actions.open(Route.Playlist(p.id)) },
+                                else CoverCard(p.name, playlistLine(p, server?.username), p.coverArt, onClick = { actions.open(Route.Playlist(p.id)) },
                                     modifier = focus)
                             }
                         }
                     }
                 }
-                albumShelf("Recently added", d?.newest.orEmpty()) { actions.open(Route.Album(it)) }
-                albumShelf("Most played", d?.frequent.orEmpty()) { actions.open(Route.Album(it)) }
-                albumShelf("Saved albums", d?.starred.orEmpty()) { actions.open(Route.Album(it)) }
+                albumShelf(recentlyAdded, d?.newest.orEmpty()) { actions.open(Route.Album(it)) }
+                albumShelf(mostPlayed, d?.frequent.orEmpty()) { actions.open(Route.Album(it)) }
+                albumShelf(savedAlbums, d?.starred.orEmpty()) { actions.open(Route.Album(it)) }
             }
         }
     }
@@ -200,3 +204,9 @@ private fun androidx.compose.foundation.lazy.LazyListScope.albumShelf(title: Str
         }
     }
 }
+
+/** "N songs", plus "by owner" only when someone else owns it (it's noise for your own). */
+@Composable
+private fun playlistLine(p: Playlist, me: String?): String =
+    listOfNotNull(p.owner?.takeIf { it != me }?.let { stringResource(R.string.home_by_owner, it) }, songsText(p.songCount))
+        .joinToString(" · ")

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Shared counts used by the library screens' subtitles. %d is the number. -->
+    <plurals name="library_songs">
+        <item quantity="one">%d song</item>
+        <item quantity="other">%d songs</item>
+    </plurals>
+    <plurals name="library_albums">
+        <item quantity="one">%d album</item>
+        <item quantity="other">%d albums</item>
+    </plurals>
+
+    <!-- Library -->
+    <string name="library_title">Library</string>
+    <string name="library_tab_playlists">Playlists</string>
+    <string name="library_tab_artists">Artists</string>
+    <string name="library_tab_albums">Albums</string>
+    <string name="library_search_playlists">Search playlists</string>
+    <string name="library_search_artists">Search artists</string>
+    <string name="library_search_albums">Search albums</string>
+    <string name="library_close_search">Close search</string>
+    <string name="library_search_library">Search your library</string>
+    <string name="library_create_playlist">Create playlist</string>
+    <string name="library_downloaded">Downloaded</string>
+    <string name="library_sort_custom">Custom order</string>
+    <string name="library_sort_name">Name</string>
+    <string name="library_sort_updated">Recently updated</string>
+    <string name="library_sort_most_albums">Most albums</string>
+    <string name="library_sort_artist">Artist</string>
+    <string name="library_sort_added">Recently added</string>
+    <string name="library_sort_year">Year</string>
+    <string name="library_show_list">Show as list</string>
+    <string name="library_show_grid">Show as grid</string>
+    <!-- Playlist owner shown in a subtitle. %1$s is the owner\'s username. -->
+    <string name="library_by_owner">by %1$s</string>
+    <!-- Subtitle of the built-in Loved playlist while its song count is unknown -->
+    <string name="library_playlist">Playlist</string>
+    <string name="library_name">Name</string>
+    <string name="library_create">Create</string>
+    <string name="library_cancel">Cancel</string>
+    <string name="library_create_failed">Couldn\'t create the playlist (needs the server)</string>
+    <!-- Empty-search message. %1$s is what the user typed. -->
+    <string name="library_no_match">Nothing matches \"%1$s\"</string>
+    <string name="library_none_downloaded">Nothing downloaded here yet</string>
+    <string name="library_empty">Nothing here yet</string>
+    <!-- Strip shown while downloads run. %d is how many songs remain. -->
+    <plurals name="library_downloading_left">
+        <item quantity="one">Downloading: %d song to go</item>
+        <item quantity="other">Downloading: %d songs to go</item>
+    </plurals>
+
+    <!-- Search -->
+    <string name="search_title">Search</string>
+    <string name="search_hint">Artists, songs, albums or playlists</string>
+    <string name="search_recent">Recent searches</string>
+    <string name="search_clear">Clear</string>
+    <string name="search_filter_all">All</string>
+    <string name="search_filter_songs">Songs</string>
+    <string name="search_filter_artists">Artists</string>
+    <string name="search_filter_albums">Albums</string>
+    <string name="search_filter_playlists">Playlists</string>
+    <string name="search_failed">Search failed</string>
+    <!-- %1$s is what the user searched for -->
+    <string name="search_no_results">No results for \"%1$s\"</string>
+    <!-- Name of the queue source after playing a search result. %1$s is the search text. -->
+    <string name="search_context">Search: %1$s</string>
+    <string name="search_top_result">Top result</string>
+    <!-- Kind label under the top result card -->
+    <string name="search_kind_artist">Artist</string>
+    <string name="search_kind_album">Album</string>
+    <string name="search_kind_song">Song</string>
+    <!-- %1$s is the artist name -->
+    <string name="search_kind_album_by">Album · %1$s</string>
+    <string name="search_kind_song_by">Song · %1$s</string>
+    <!-- Top result is a playlist. %d is its song count. -->
+    <plurals name="search_kind_playlist">
+        <item quantity="one">Playlist · %d song</item>
+        <item quantity="other">Playlist · %d songs</item>
+    </plurals>
+
+    <!-- Playlist -->
+    <!-- %1$s is the playlist owner\'s username -->
+    <string name="playlist_by_owner">by %1$s</string>
+    <string name="playlist_done">Done</string>
+    <string name="playlist_options">Playlist options</string>
+    <string name="playlist_reorder">Reorder songs</string>
+    <string name="playlist_rename">Rename</string>
+    <string name="playlist_delete">Delete playlist</string>
+    <string name="playlist_remove_from_this">Remove from this playlist</string>
+    <string name="playlist_order_saved">Playlist order saved</string>
+    <!-- %1$s is the playlist name -->
+    <string name="playlist_removed_from">Removed from %1$s</string>
+    <string name="playlist_rename_title">Rename playlist</string>
+    <string name="playlist_renamed">Renamed</string>
+    <string name="playlist_save">Save</string>
+    <string name="playlist_cancel">Cancel</string>
+    <!-- %1$s is the playlist name -->
+    <string name="playlist_delete_title">Delete \"%1$s\"?</string>
+    <string name="playlist_delete_body">This deletes it on the server. Downloads only it was keeping are removed from the phone.</string>
+    <!-- Toast after deleting. %1$s is the playlist name. -->
+    <string name="playlist_deleted">Deleted %1$s</string>
+    <string name="playlist_delete_confirm">Delete</string>
+
+    <!-- Downloads -->
+    <string name="downloads_title">Downloads</string>
+    <!-- Storage summary. %1$s is a song count (e.g. "12 songs"), %2$s a size (e.g. "1.2 GB"). -->
+    <string name="downloads_summary">%1$s · %2$s</string>
+    <!-- %1$s is a size (e.g. "3.4 GB") -->
+    <string name="downloads_free">%1$s free on this phone</string>
+    <string name="downloads_queue">Queue</string>
+    <string name="downloads_all_done">Everything is downloaded</string>
+    <!-- %d is the number of queued songs -->
+    <plurals name="downloads_waiting">
+        <item quantity="one">%d song waiting</item>
+        <item quantity="other">%d songs waiting</item>
+    </plurals>
+    <string name="downloads_wifi_only_note">Downloads on Wi-Fi only</string>
+    <!-- %d is the number of failed downloads -->
+    <plurals name="downloads_failed">
+        <item quantity="one">%d failed</item>
+        <item quantity="other">%d failed</item>
+    </plurals>
+    <string name="downloads_retry">Retry</string>
+    <!-- %d is the number of playlist edits queued while offline -->
+    <plurals name="downloads_edits_waiting">
+        <item quantity="one">%d playlist edit waiting</item>
+        <item quantity="other">%d playlist edits waiting</item>
+    </plurals>
+    <string name="downloads_edits_note">Sent when the server is reachable</string>
+    <string name="downloads_settings">Settings</string>
+    <string name="downloads_wifi_only">Download using Wi-Fi only</string>
+    <string name="downloads_wifi_only_hint">Turn off to also download on mobile data</string>
+    <string name="downloads_syncing">Syncing…</string>
+    <string name="downloads_not_synced">Not synced yet</string>
+    <!-- %1$s is a relative time such as "5 minutes ago" -->
+    <string name="downloads_last_synced">Last synced %1$s</string>
+    <!-- %d is how many playlists or albums could not be checked during sync -->
+    <plurals name="downloads_unchecked">
+        <item quantity="one">%d couldn\'t be checked; nothing was removed</item>
+        <item quantity="other">%d couldn\'t be checked; nothing was removed</item>
+    </plurals>
+    <string name="downloads_sync_now">Sync now</string>
+    <string name="downloads_downloaded">Downloaded</string>
+    <string name="downloads_nothing">Nothing yet</string>
+    <string name="downloads_nothing_hint">Switch on Download for a playlist or album to keep it on the phone.</string>
+    <!-- Per-source progress. %1$d songs done, %2$d total songs, %3$s size (e.g. "120 MB"). -->
+    <plurals name="downloads_progress">
+        <item quantity="one">%1$d of %2$d song · %3$s</item>
+        <item quantity="other">%1$d of %2$d songs · %3$s</item>
+    </plurals>
+    <string name="downloads_waiting_short">Waiting</string>
+    <string name="downloads_kind_playlist">Playlist</string>
+    <string name="downloads_kind_album">Album</string>
+    <!-- Row subtitle. %1$s is the kind (Playlist or Album), %2$s is the progress text. -->
+    <string name="downloads_kind_line">%1$s · %2$s</string>
+
+    <!-- Home -->
+    <string name="home_offline_tv">You\'re offline. Seiðr will reconnect when the server is reachable.</string>
+    <string name="home_offline">You\'re offline. Downloaded music is still here: look in Library with the Downloaded filter.</string>
+    <string name="home_kid_empty">Nothing\'s been approved for you yet. Ask whoever signed you in to add some songs.</string>
+    <string name="home_playlists">Playlists</string>
+    <!-- Playlist shelf sort button: alphabetical / most recent first -->
+    <string name="home_sort_az">A–Z</string>
+    <string name="home_sort_recent">Recent</string>
+    <!-- %1$s is the playlist owner\'s username -->
+    <string name="home_by_owner">by %1$s</string>
+    <string name="home_recently_added">Recently added</string>
+    <string name="home_most_played">Most played</string>
+    <string name="home_saved_albums">Saved albums</string>
+
+    <!-- Artist -->
+    <string name="artist_load_failed">Couldn\'t load songs</string>
+    <string name="artist_label">Artist</string>
+    <string name="artist_popular">Popular</string>
+    <string name="artist_show_less">Show less</string>
+    <string name="artist_show_all">Show all</string>
+    <string name="artist_albums">Albums</string>
+    <string name="artist_singles">Singles and EPs</string>
+    <string name="artist_appears_on">Appears on</string>
+
+    <!-- Album -->
+    <string name="album_unreachable">Couldn\'t reach the server</string>
+    <string name="album_remove_from_library">Remove from library</string>
+    <string name="album_save_to_library">Save to library</string>
+    <!-- Disc heading in a multi-disc album. %1$s is the disc number. -->
+    <string name="album_disc">Disc %1$s</string>
+
+</resources>

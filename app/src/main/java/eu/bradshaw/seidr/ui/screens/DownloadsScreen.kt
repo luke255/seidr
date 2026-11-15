@@ -55,7 +55,9 @@ import eu.bradshaw.seidr.ui.components.CardLabel
 import eu.bradshaw.seidr.ui.components.Cover
 import eu.bradshaw.seidr.ui.components.bottomContentPadding
 import eu.bradshaw.seidr.ui.components.formatBytes
-import eu.bradshaw.seidr.ui.components.pluralSongs
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.ui.focusRing
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -85,7 +87,7 @@ fun DownloadsScreen() {
     val cs = MaterialTheme.colorScheme
 
     Column(Modifier.fillMaxSize()) {
-        BackTopBar("Downloads")
+        BackTopBar(stringResource(R.string.downloads_title))
         LazyColumn(Modifier.fillMaxSize(), contentPadding = bottomContentPadding(24.dp)) {
             item {
                 val used = done.sumOf { it.size }
@@ -93,7 +95,7 @@ fun DownloadsScreen() {
                     Modifier.padding(horizontal = 16.dp, vertical = 8.dp).fillMaxWidth()
                         .clip(RoundedCornerShape(20.dp)).background(cs.surfaceContainerHigh).padding(16.dp),
                 ) {
-                    Text("${pluralSongs(done.size)} · ${formatBytes(used)}", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+                    Text(stringResource(R.string.downloads_summary, songsText(done.size), formatBytes(used)), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
                     Spacer(Modifier.height(12.dp))
                     LinearProgressIndicator(
                         progress = { if (used + free > 0) (used.toFloat() / (used + free)).coerceIn(0.01f, 1f) else 0f },
@@ -101,18 +103,18 @@ fun DownloadsScreen() {
                         trackColor = cs.surfaceContainerHighest, drawStopIndicator = {}, gapSize = 0.dp,
                     )
                     Spacer(Modifier.height(8.dp))
-                    Text("${formatBytes(free)} free on this phone", style = MaterialTheme.typography.bodyMedium, color = cs.onSurfaceVariant)
+                    Text(stringResource(R.string.downloads_free, formatBytes(free)), style = MaterialTheme.typography.bodyMedium, color = cs.onSurfaceVariant)
                 }
             }
 
-            item { CardLabel("Queue") }
+            item { CardLabel(stringResource(R.string.downloads_queue)) }
             item {
                 CardGroup {
                     var first = true
                     @Composable fun gap() { if (!first) CardDivider(); first = false }
                     if (active.isEmpty() && queued == 0 && failed.isEmpty()) {
                         gap()
-                        CardItem(Icons.Filled.CheckCircle, "Everything is downloaded", null)
+                        CardItem(Icons.Filled.CheckCircle, stringResource(R.string.downloads_all_done), null)
                     }
                     active.forEach { d ->
                         gap()
@@ -127,28 +129,29 @@ fun DownloadsScreen() {
                     }
                     if (queued > 0) {
                         gap()
-                        CardItem(Icons.Outlined.Schedule, "${pluralSongs(queued)} waiting", if (wifiOnly) "Downloads on Wi-Fi only" else null)
+                        CardItem(Icons.Outlined.Schedule, pluralStringResource(R.plurals.downloads_waiting, queued, queued),
+                            if (wifiOnly) stringResource(R.string.downloads_wifi_only_note) else null)
                     }
                     if (failed.isNotEmpty()) {
                         gap()
                         CardItem(
-                            Icons.Outlined.ErrorOutline, "${failed.size} failed",
+                            Icons.Outlined.ErrorOutline, pluralStringResource(R.plurals.downloads_failed, failed.size, failed.size),
                             failed.mapNotNull { it.error }.distinct().take(2).joinToString("; ").ifEmpty { null },
-                            trailing = { TextButton(onClick = { graph.sync.retryFailed() }) { Text("Retry") } },
+                            trailing = { TextButton(onClick = { graph.sync.retryFailed() }) { Text(stringResource(R.string.downloads_retry)) } },
                         )
                     }
                     if (pendingEdits > 0) {
                         gap()
-                        CardItem(Icons.Outlined.Edit, if (pendingEdits == 1) "1 playlist edit waiting" else "$pendingEdits playlist edits waiting",
-                            "Sent when the server is reachable")
+                        CardItem(Icons.Outlined.Edit, pluralStringResource(R.plurals.downloads_edits_waiting, pendingEdits, pendingEdits),
+                            stringResource(R.string.downloads_edits_note))
                     }
                 }
             }
 
-            item { CardLabel("Settings") }
+            item { CardLabel(stringResource(R.string.downloads_settings)) }
             item {
                 CardGroup {
-                    CardItem(Icons.Outlined.Wifi, "Download using Wi-Fi only", "Turn off to also download on mobile data",
+                    CardItem(Icons.Outlined.Wifi, stringResource(R.string.downloads_wifi_only), stringResource(R.string.downloads_wifi_only_hint),
                         trailing = { Switch(wifiOnly, null) }) {
                         graph.settings.setWifiOnly(!wifiOnly); graph.sync.requeueDownloads()
                     }
@@ -157,30 +160,31 @@ fun DownloadsScreen() {
                     CardItem(
                         Icons.Outlined.Sync,
                         when {
-                            sync.running -> "Syncing…"
-                            sync.lastRunAt == 0L -> "Not synced yet"
-                            else -> "Last synced " + DateUtils.getRelativeTimeSpanString(sync.lastRunAt)
+                            sync.running -> stringResource(R.string.downloads_syncing)
+                            sync.lastRunAt == 0L -> stringResource(R.string.downloads_not_synced)
+                            else -> stringResource(R.string.downloads_last_synced, DateUtils.getRelativeTimeSpanString(sync.lastRunAt).toString())
                         },
-                        if (failedSources.isNotEmpty()) "${failedSources.size} couldn't be checked; nothing was removed" else null,
+                        if (failedSources.isNotEmpty()) pluralStringResource(R.plurals.downloads_unchecked, failedSources.size, failedSources.size) else null,
                         // Correctness never depends on this; it's just here for impatience.
                         trailing = {
                             FilledTonalButton(onClick = { graph.sync.request(sources.keys) }, enabled = !sync.running,
-                                modifier = Modifier.focusRing(CircleShape)) { Text("Sync now") }
+                                modifier = Modifier.focusRing(CircleShape)) { Text(stringResource(R.string.downloads_sync_now)) }
                         },
                     )
                 }
             }
 
-            item { CardLabel("Downloaded") }
+            item { CardLabel(stringResource(R.string.downloads_downloaded)) }
             item {
                 CardGroup {
                     if (sources.isEmpty()) {
-                        CardItem(null, "Nothing yet", "Switch on Download for a playlist or album to keep it on the phone.")
+                        CardItem(null, stringResource(R.string.downloads_nothing), stringResource(R.string.downloads_nothing_hint))
                     }
                     sources.values.sortedBy { it.name.lowercase() }.forEachIndexed { i, s ->
                         if (i > 0) CardDivider()
                         val u = usage[s.id]
-                        val sub = if (u == null) "Waiting" else "${u.done} of ${pluralSongs(u.tracks)} · ${formatBytes(u.bytes)}"
+                        val sub = if (u == null) stringResource(R.string.downloads_waiting_short)
+                            else pluralStringResource(R.plurals.downloads_progress, u.tracks, u.done, u.tracks, formatBytes(u.bytes))
                         Row(
                             Modifier.fillMaxWidth()
                                 .clickable {
@@ -198,7 +202,12 @@ fun DownloadsScreen() {
                             Spacer(Modifier.width(12.dp))
                             Column(Modifier.weight(1f)) {
                                 Text(s.name, style = MaterialTheme.typography.bodyLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                                Text("${if (s.type == SourceType.STARRED) "Playlist" else s.type.replaceFirstChar { it.uppercase() }} · $sub", style = MaterialTheme.typography.bodyMedium,
+                                val kind = when (s.type) {
+                                    SourceType.STARRED, SourceType.PLAYLIST -> stringResource(R.string.downloads_kind_playlist)
+                                    SourceType.ALBUM -> stringResource(R.string.downloads_kind_album)
+                                    else -> s.type.replaceFirstChar { it.uppercase() }
+                                }
+                                Text(stringResource(R.string.downloads_kind_line, kind, sub), style = MaterialTheme.typography.bodyMedium,
                                     color = cs.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
                             }
                             Switch(true, { graph.sync.setOffline(s, false) })
