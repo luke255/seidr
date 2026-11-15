@@ -55,7 +55,8 @@ import eu.bradshaw.seidr.ui.components.TrackRow
 import eu.bradshaw.seidr.ui.components.dragHandle
 import eu.bradshaw.seidr.ui.components.LiftHandle
 import eu.bradshaw.seidr.ui.components.formatLongDuration
-import eu.bradshaw.seidr.ui.components.pluralSongs
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.ui.components.rememberReorderState
 import eu.bradshaw.seidr.ui.components.reorderable
 import kotlinx.coroutines.launch
@@ -120,6 +121,12 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
         onDragEnd = {},
     )
 
+    val orderSaved = stringResource(R.string.playlist_order_saved)
+    val removedFrom = stringResource(R.string.playlist_removed_from, playlist.name)
+    val removeLabel = stringResource(R.string.playlist_remove_from_this)
+    val renamed = stringResource(R.string.playlist_renamed)
+    val deleted = stringResource(R.string.playlist_deleted, playlist.name)
+
     val source = OfflineSource(
         SourceType.sourceId(SourceType.PLAYLIST, playlist.id), SourceType.PLAYLIST, playlist.id, playlist.name,
         coverArt = playlist.coverArt,
@@ -132,8 +139,8 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
         subtitle = {
             HeaderFacts(
                 listOfNotNull(
-                    playlist.owner?.let { "by $it" },
-                    pluralSongs(playlist.songCount),
+                    playlist.owner?.let { stringResource(R.string.playlist_by_owner, it) },
+                    songsText(playlist.songCount),
                     approvedCount(songs),
                     formatLongDuration(playlist.duration),
                 ).joinToString(" · "),
@@ -154,19 +161,19 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                     val desired = order.map { it.second.id }
                     val seen = songs.map { it.id }
                     if (desired != seen) actions.launch {
-                        actions.report(graph.editor.reorder(playlist.id, seen, desired), "Playlist order saved")
+                        actions.report(graph.editor.reorder(playlist.id, seen, desired), orderSaved)
                         vm.load()
                     }
-                }) { Icon(Icons.Filled.Check, "Done") }
+                }) { Icon(Icons.Filled.Check, stringResource(R.string.playlist_done)) }
             } else if (editable) {
                 Box {
-                    IconButton(onClick = { menu = true }) { Icon(Icons.Filled.MoreVert, "Playlist options") }
+                    IconButton(onClick = { menu = true }) { Icon(Icons.Filled.MoreVert, stringResource(R.string.playlist_options)) }
                     DropdownMenu(menu, { menu = false }) {
-                        DropdownMenuItem({ Text("Reorder songs") }, leadingIcon = { Icon(Icons.Filled.DragHandle, null) },
+                        DropdownMenuItem({ Text(stringResource(R.string.playlist_reorder)) }, leadingIcon = { Icon(Icons.Filled.DragHandle, null) },
                             onClick = { menu = false; editing = true })
-                        DropdownMenuItem({ Text("Rename") }, leadingIcon = { Icon(Icons.Filled.Edit, null) },
+                        DropdownMenuItem({ Text(stringResource(R.string.playlist_rename)) }, leadingIcon = { Icon(Icons.Filled.Edit, null) },
                             onClick = { menu = false; renaming = true })
-                        DropdownMenuItem({ Text("Delete playlist") }, leadingIcon = { Icon(Icons.Filled.Delete, null) },
+                        DropdownMenuItem({ Text(stringResource(R.string.playlist_delete)) }, leadingIcon = { Icon(Icons.Filled.Delete, null) },
                             onClick = { menu = false; confirmDelete = true })
                     }
                 }
@@ -190,9 +197,9 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                     song,
                     onClick = { graph.playlistPlays.record(playlist.id); actions.player.playContext(songs, i, playlist.name) },
                     playing = ui.current?.songId == song.id,
-                    extraMenu = if (editable) listOf(MenuAction("Remove from this playlist", Icons.Filled.RemoveCircleOutline) {
+                    extraMenu = if (editable) listOf(MenuAction(removeLabel, Icons.Filled.RemoveCircleOutline) {
                         actions.launch {
-                            actions.report(graph.editor.remove(playlist.id, song.id, i), "Removed from ${playlist.name}")
+                            actions.report(graph.editor.remove(playlist.id, song.id, i), removedFrom)
                             vm.load()
                         }
                     }) else emptyList(),
@@ -205,40 +212,40 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
         var name by remember { mutableStateOf(playlist.name) }
         AlertDialog(
             onDismissRequest = { renaming = false },
-            title = { Text("Rename playlist") },
+            title = { Text(stringResource(R.string.playlist_rename_title)) },
             text = { OutlinedTextField(name, { name = it }, singleLine = true, modifier = Modifier.selectToEdit()) },
             confirmButton = {
                 TextButton(enabled = name.isNotBlank(), onClick = {
                     renaming = false
                     actions.launch {
-                        actions.report(graph.editor.rename(playlist.id, name.trim()), "Renamed")
+                        actions.report(graph.editor.rename(playlist.id, name.trim()), renamed)
                         vm.load()
                         runCatching { graph.browse.refreshPlaylists() }
                     }
-                }) { Text("Save") }
+                }) { Text(stringResource(R.string.playlist_save)) }
             },
-            dismissButton = { TextButton(onClick = { renaming = false }) { Text("Cancel") } },
+            dismissButton = { TextButton(onClick = { renaming = false }) { Text(stringResource(R.string.playlist_cancel)) } },
         )
     }
     if (confirmDelete) {
         AlertDialog(
             onDismissRequest = { confirmDelete = false },
-            title = { Text("Delete \"${playlist.name}\"?") },
-            text = { Text("This deletes it on the server. Downloads only it was keeping are removed from the phone.") },
+            title = { Text(stringResource(R.string.playlist_delete_title, playlist.name)) },
+            text = { Text(stringResource(R.string.playlist_delete_body)) },
             confirmButton = {
                 TextButton(onClick = {
                     confirmDelete = false
                     actions.launch {
                         val r = graph.editor.delete(playlist.id)
-                        actions.report(r, "Deleted ${playlist.name}")
+                        actions.report(r, deleted)
                         if (r == eu.bradshaw.seidr.sync.EditResult.Applied) {
                             runCatching { graph.browse.refreshPlaylists() }
                             actions.nav.pop()
                         }
                     }
-                }) { Text("Delete") }
+                }) { Text(stringResource(R.string.playlist_delete_confirm)) }
             },
-            dismissButton = { TextButton(onClick = { confirmDelete = false }) { Text("Cancel") } },
+            dismissButton = { TextButton(onClick = { confirmDelete = false }) { Text(stringResource(R.string.playlist_cancel)) } },
         )
     }
 }

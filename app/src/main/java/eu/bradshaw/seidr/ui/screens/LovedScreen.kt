@@ -35,7 +35,8 @@ import eu.bradshaw.seidr.ui.components.LoadContent
 import eu.bradshaw.seidr.ui.components.TrackRow
 import eu.bradshaw.seidr.ui.components.approvedCount
 import eu.bradshaw.seidr.ui.components.formatLongDuration
-import eu.bradshaw.seidr.ui.components.pluralSongs
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.ui.components.rememberAllDownloaded
 import kotlinx.coroutines.launch
 
@@ -47,7 +48,8 @@ object Loved {
     val source = OfflineSource(SourceType.STARRED_ID, SourceType.STARRED, "starred", NAME)
 
     /** Its count, or null until the starred list has loaded (rather than "0 songs"). */
-    fun subtitle(starred: Set<String>) = starred.takeIf { it.isNotEmpty() }?.let { pluralSongs(it.size) }
+    @Composable
+    fun subtitle(starred: Set<String>) = starred.takeIf { it.isNotEmpty() }?.let { songsText(it.size) }
 }
 
 class LovedVm(private val graph: Graph) : ViewModel() {
@@ -92,7 +94,7 @@ fun LovedScreen() {
             art = { m -> LovedArt(m) },
             subtitle = {
                 HeaderFacts(
-                    listOfNotNull(pluralSongs(songs.size), approvedCount(songs), formatLongDuration(songs.sumOf { it.duration }))
+                    listOfNotNull(songsText(songs.size), approvedCount(songs), formatLongDuration(songs.sumOf { it.duration }))
                         .joinToString(" · "),
                     downloaded = rememberAllDownloaded(remember(songs) { songs.map { it.id } }),
                 )

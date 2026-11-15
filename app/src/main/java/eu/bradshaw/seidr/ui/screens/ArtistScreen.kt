@@ -54,7 +54,8 @@ import eu.bradshaw.seidr.ui.components.BackTopBar
 import eu.bradshaw.seidr.ui.components.Cover
 import eu.bradshaw.seidr.ui.components.HeaderFacts
 import eu.bradshaw.seidr.ui.components.pluralAlbums
-import eu.bradshaw.seidr.ui.components.pluralSongs
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.data.db.DownloadState
 import eu.bradshaw.seidr.ui.components.CoverCard
 import eu.bradshaw.seidr.ui.components.Load
@@ -113,11 +114,12 @@ fun ArtistScreen(id: String) {
         val showTitle by remember { derivedStateOf { listState.firstVisibleItemIndex > 0 } }
         val wide = LocalWideShell.current
         ArtWash(page.artist.coverArt)
+        val loadFailed = stringResource(R.string.artist_load_failed)
         val shuffle: () -> Unit = {
             if (page.top.isNotEmpty()) actions.player.shufflePlay(page.top, page.artist.name)
             else actions.launch {
                 val songs = vm.allSongs()
-                if (songs.isEmpty()) { actions.nowPlayingOpen = false; actions.toast("Couldn't load songs") } else actions.player.shufflePlay(songs, page.artist.name)
+                if (songs.isEmpty()) { actions.nowPlayingOpen = false; actions.toast(loadFailed) } else actions.player.shufflePlay(songs, page.artist.name)
             }
             Unit
         }
@@ -131,7 +133,10 @@ fun ArtistScreen(id: String) {
         }
         // A kid's artist may have only songs they can't play yet.
         val playable = graph.browseKids.current?.artistPlayable(page.artist.id) != false
-        val facts = listOfNotNull(pluralAlbums(albums.size), pluralSongs(songCount).takeIf { songCount > 0 }).joinToString(" · ")
+        val facts = listOfNotNull(albumsText(albums.size), songsText(songCount).takeIf { songCount > 0 }).joinToString(" · ")
+        val albumsTitle = stringResource(R.string.artist_albums)
+        val singlesTitle = stringResource(R.string.artist_singles)
+        val appearsOnTitle = stringResource(R.string.artist_appears_on)
         Column(Modifier.fillMaxSize()) {
             BackTopBar(page.artist.name, showTitle = showTitle)
             LazyColumn(Modifier.fillMaxSize(), state = listState, contentPadding = bottomContentPadding(24.dp)) {
@@ -141,7 +146,7 @@ fun ArtistScreen(id: String) {
                             ArtistImage(page.artist.coverArt, Modifier.size(160.dp).shadow(12.dp, CircleShape))
                             Spacer(Modifier.width(24.dp))
                             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                                Text("Artist", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text(stringResource(R.string.artist_label), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 Text(page.artist.name, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold,
                                     maxLines = 2, overflow = TextOverflow.Ellipsis)
                                 HeaderFacts(facts, allDownloaded)
@@ -159,7 +164,7 @@ fun ArtistScreen(id: String) {
                     }
                 }
                 if (page.top.isNotEmpty()) {
-                    item { SectionHeader("Popular") }
+                    item { SectionHeader(stringResource(R.string.artist_popular)) }
                     val shown = if (showAllTop) page.top else page.top.take(5)
                     itemsIndexed(shown, key = { i, s -> "top:$i:${s.id}" }) { i, song ->
                         val playing = ui.current?.songId == song.id
@@ -175,13 +180,13 @@ fun ArtistScreen(id: String) {
                     }
                     if (page.top.size > 5) item {
                         TextButton(onClick = { showAllTop = !showAllTop }, modifier = Modifier.padding(horizontal = 8.dp)) {
-                            Text(if (showAllTop) "Show less" else "Show all", color = MaterialTheme.colorScheme.onSurface)
+                            Text(stringResource(if (showAllTop) R.string.artist_show_less else R.string.artist_show_all), color = MaterialTheme.colorScheme.onSurface)
                         }
                     }
                 }
-                shelf("Albums", page.albums) { actions.open(Route.Album(it)) }
-                shelf("Singles and EPs", page.singles) { actions.open(Route.Album(it)) }
-                shelf("Appears on", page.appearsOn) { actions.open(Route.Album(it)) }
+                shelf(albumsTitle, page.albums) { actions.open(Route.Album(it)) }
+                shelf(singlesTitle, page.singles) { actions.open(Route.Album(it)) }
+                shelf(appearsOnTitle, page.appearsOn) { actions.open(Route.Album(it)) }
             }
         }
     }

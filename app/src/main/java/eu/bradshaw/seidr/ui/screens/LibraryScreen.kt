@@ -96,8 +96,10 @@ import eu.bradshaw.seidr.ui.highlightClickable
 import eu.bradshaw.seidr.ui.CardPadding
 import eu.bradshaw.seidr.ui.CardArtShape
 import eu.bradshaw.seidr.ui.components.bottomContentPadding
-import eu.bradshaw.seidr.ui.components.pluralAlbums
-import eu.bradshaw.seidr.ui.components.pluralSongs
+import androidx.annotation.StringRes
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.ui.focusRing
 import eu.bradshaw.seidr.ui.rememberedFocus
 import eu.bradshaw.seidr.ui.selectToEdit
@@ -130,7 +132,19 @@ class LibraryVm(private val graph: Graph) : ViewModel() {
     }
 }
 
-private enum class LibTab(val label: String) { PLAYLISTS("Playlists"), ARTISTS("Artists"), ALBUMS("Albums") }
+private enum class LibTab(@StringRes val label: Int, @StringRes val searchHint: Int) {
+    PLAYLISTS(R.string.library_tab_playlists, R.string.library_search_playlists),
+    ARTISTS(R.string.library_tab_artists, R.string.library_search_artists),
+    ALBUMS(R.string.library_tab_albums, R.string.library_search_albums),
+}
+
+/** "1 song" / "N songs", from resources. */
+@Composable
+internal fun songsText(n: Int): String = pluralStringResource(R.plurals.library_songs, n, n)
+
+/** "1 album" / "N albums", from resources. */
+@Composable
+internal fun albumsText(n: Int): String = pluralStringResource(R.plurals.library_albums, n, n)
 
 /** One thing in the library, as either a list row or a grid cell. */
 private class LibItem(
@@ -181,9 +195,15 @@ fun LibraryScreen() {
     }
 
     val sortOptions = when (LibTab.entries[tab]) {
-        LibTab.PLAYLISTS -> listOf("Custom order", "Name", "Recently updated")
-        LibTab.ARTISTS -> listOf("Name", "Most albums")
-        LibTab.ALBUMS -> listOf("Name", "Artist", "Recently added", "Year")
+        LibTab.PLAYLISTS -> listOf(
+            stringResource(R.string.library_sort_custom), stringResource(R.string.library_sort_name),
+            stringResource(R.string.library_sort_updated),
+        )
+        LibTab.ARTISTS -> listOf(stringResource(R.string.library_sort_name), stringResource(R.string.library_sort_most_albums))
+        LibTab.ALBUMS -> listOf(
+            stringResource(R.string.library_sort_name), stringResource(R.string.library_sort_artist),
+            stringResource(R.string.library_sort_added), stringResource(R.string.library_sort_year),
+        )
     }
     if (sort >= sortOptions.size) sort = 0
     val q = query.trim()
@@ -194,17 +214,17 @@ fun LibraryScreen() {
         if (searching) {
             val field = remember { FocusRequester() }
             Row(Modifier.fillMaxWidth().height(64.dp).padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = { searching = false; query = "" }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Close search") }
+                IconButton(onClick = { searching = false; query = "" }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.library_close_search)) }
                 SearchField(
-                    query, { query = it }, "Search ${LibTab.entries[tab].label.lowercase()}",
+                    query, { query = it }, stringResource(LibTab.entries[tab].searchHint),
                     modifier = Modifier.weight(1f).padding(end = 12.dp).focusRequester(field),
                 )
             }
             LaunchedEffect(Unit) { runCatching { field.requestFocus() } }
         } else {
-            TabHeader("Library") {
-                IconButton(onClick = { searching = true }) { Icon(Icons.Filled.Search, "Search your library") }
-                if (!graph.readOnly) IconButton(onClick = { creating = true }) { Icon(Icons.Filled.Add, "Create playlist") }
+            TabHeader(stringResource(R.string.library_title)) {
+                IconButton(onClick = { searching = true }) { Icon(Icons.Filled.Search, stringResource(R.string.library_search_library)) }
+                if (!graph.readOnly) IconButton(onClick = { creating = true }) { Icon(Icons.Filled.Add, stringResource(R.string.library_create_playlist)) }
                 if (!LocalWideShell.current) SettingsButton()
             }
         }
@@ -215,10 +235,10 @@ fun LibraryScreen() {
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            LibTab.entries.forEachIndexed { i, t -> FilterPill(t.label, tab == i, { tab = i }) }
+            LibTab.entries.forEachIndexed { i, t -> FilterPill(stringResource(t.label), tab == i, { tab = i }) }
             if (!tv) {
                 Box(Modifier.padding(horizontal = 2.dp).width(1.dp).height(20.dp).background(MaterialTheme.colorScheme.outlineVariant))
-                FilterPill("Downloaded", downloadedOnly, { downloadedOnly = !downloadedOnly }, icon = {
+                FilterPill(stringResource(R.string.library_downloaded), downloadedOnly, { downloadedOnly = !downloadedOnly }, icon = {
                     Icon(Icons.Filled.ArrowCircleDown, null, Modifier.size(16.dp),
                         tint = if (downloadedOnly) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.primary)
                 })
@@ -239,7 +259,7 @@ fun LibraryScreen() {
                 }
             }
             IconButton(onClick = { graph.settings.setLibraryGrid(!grid) }) {
-                if (grid) Icon(Icons.AutoMirrored.Filled.ViewList, "Show as list") else Icon(Icons.Filled.GridView, "Show as grid")
+                if (grid) Icon(Icons.AutoMirrored.Filled.ViewList, stringResource(R.string.library_show_list)) else Icon(Icons.Filled.GridView, stringResource(R.string.library_show_grid))
             }
         }
 
@@ -262,10 +282,10 @@ fun LibraryScreen() {
                                 }
                             }
                         val items = shown.mapTo(mutableListOf()) { p ->
-                            val owner = p.owner?.takeIf { it != server?.username }?.let { "by $it" }
+                            val owner = p.owner?.takeIf { it != server?.username }?.let { stringResource(R.string.library_by_owner, it) }
                             LibItem(
-                                p.id, p.name, listOfNotNull(owner, pluralSongs(p.songCount)).joinToString(" · "),
-                                gridSubtitle = owner ?: pluralSongs(p.songCount),
+                                p.id, p.name, listOfNotNull(owner, songsText(p.songCount)).joinToString(" · "),
+                                gridSubtitle = owner ?: songsText(p.songCount),
                                 badge = if (p.id in offlinePlaylists) Badge.DOWNLOADED else null,
                                 art = { m -> Cover(p.coverArt, m, size = 300) }, onClick = { actions.open(Route.Playlist(p.id)) },
                             )
@@ -276,7 +296,7 @@ fun LibraryScreen() {
                                 .let { if (it < 0) shown.size else it }
                             val count = Loved.subtitle(starred)
                             items.add(at, LibItem(
-                                "loved", Loved.NAME, count ?: "Playlist",
+                                "loved", Loved.NAME, count ?: stringResource(R.string.library_playlist),
                                 badge = if (lovedOffline) Badge.DOWNLOADED else null,
                                 art = { m -> LovedArt(m) }, onClick = { actions.open(Route.Loved) },
                             ))
@@ -289,7 +309,7 @@ fun LibraryScreen() {
                     val items = all.filter { (!downloadedOnly || it.id in withDownloads) && matches(it.name) }
                         .let { l -> if (sort == 1) l.sortedByDescending { it.albumCount } else l.sortedBy { it.name.lowercase() } }
                         .map { a ->
-                            LibItem(a.id, a.name, pluralAlbums(a.albumCount),
+                            LibItem(a.id, a.name, albumsText(a.albumCount),
                                 round = true, art = { m -> ArtistImage(a.coverArt, m) }, onClick = { actions.open(Route.Artist(a.id)) })
                         }
                     LibContent(items, grid, empty = emptyText(q, downloadedOnly))
@@ -319,32 +339,34 @@ fun LibraryScreen() {
 
     if (creating) {
         var name by rememberSaveable { mutableStateOf("") }
+        val createFailed = stringResource(R.string.library_create_failed)
         AlertDialog(
             onDismissRequest = { creating = false },
-            title = { Text("Create playlist") },
-            text = { OutlinedTextField(name, { name = it }, label = { Text("Name") }, singleLine = true, modifier = Modifier.selectToEdit()) },
+            title = { Text(stringResource(R.string.library_create_playlist)) },
+            text = { OutlinedTextField(name, { name = it }, label = { Text(stringResource(R.string.library_name)) }, singleLine = true, modifier = Modifier.selectToEdit()) },
             confirmButton = {
                 TextButton(enabled = name.isNotBlank(), onClick = {
                     creating = false
                     actions.launch {
                         val id = graph.editor.create(name.trim(), emptyList())
-                        if (id == null) actions.toast("Couldn't create the playlist (needs the server)")
+                        if (id == null) actions.toast(createFailed)
                         else {
                             runCatching { graph.browse.refreshPlaylists() }
                             actions.open(Route.Playlist(id))
                         }
                     }
-                }) { Text("Create") }
+                }) { Text(stringResource(R.string.library_create)) }
             },
-            dismissButton = { TextButton(onClick = { creating = false }) { Text("Cancel") } },
+            dismissButton = { TextButton(onClick = { creating = false }) { Text(stringResource(R.string.library_cancel)) } },
         )
     }
 }
 
+@Composable
 private fun emptyText(query: String, downloadedOnly: Boolean) = when {
-    query.isNotEmpty() -> "Nothing matches \"$query\""
-    downloadedOnly -> "Nothing downloaded here yet"
-    else -> "Nothing here yet"
+    query.isNotEmpty() -> stringResource(R.string.library_no_match, query)
+    downloadedOnly -> stringResource(R.string.library_none_downloaded)
+    else -> stringResource(R.string.library_empty)
 }
 
 @Composable
@@ -401,7 +423,7 @@ private fun GridCell(item: LibItem) {
 private fun BadgeIcon(badge: Badge) {
     val tint = MaterialTheme.colorScheme.primary
     when (badge) {
-        Badge.DOWNLOADED -> Icon(Icons.Filled.ArrowCircleDown, "Downloaded", tint = tint, modifier = Modifier.size(15.dp))
+        Badge.DOWNLOADED -> Icon(Icons.Filled.ArrowCircleDown, stringResource(R.string.library_downloaded), tint = tint, modifier = Modifier.size(15.dp))
     }
 }
 
@@ -427,7 +449,7 @@ private fun DownloadStrip() {
     ) {
         Icon(Icons.Filled.Download, null, Modifier.size(18.dp), tint = cs.primary)
         Spacer(Modifier.width(10.dp))
-        Text("Downloading: ${if (left == 1) "1 song" else "$left songs"} to go", style = MaterialTheme.typography.bodyMedium,
+        Text(pluralStringResource(R.plurals.library_downloading_left, left, left), style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.weight(1f))
         if (current != null && current.size > 0) LinearProgressIndicator(
             progress = { (current.bytesDone.toFloat() / current.size).coerceIn(0f, 1f) },

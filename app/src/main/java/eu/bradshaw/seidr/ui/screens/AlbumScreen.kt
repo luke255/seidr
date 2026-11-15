@@ -40,7 +40,8 @@ import eu.bradshaw.seidr.ui.components.SectionHeader
 import eu.bradshaw.seidr.ui.components.TrackNumber
 import eu.bradshaw.seidr.ui.components.TrackRow
 import eu.bradshaw.seidr.ui.components.formatLongDuration
-import eu.bradshaw.seidr.ui.components.pluralSongs
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import kotlinx.coroutines.launch
 
 class AlbumVm(private val graph: Graph, val id: String) : ViewModel() {
@@ -72,6 +73,7 @@ fun AlbumScreen(id: String) {
         val songs = album.song
         val discs = songs.mapNotNull { it.discNumber }.distinct().size > 1
         val saved = album.id in starredAlbums
+        val unreachable = stringResource(R.string.album_unreachable)
         CollectionLayout(
             washCover = album.coverArt,
             title = album.name,
@@ -83,7 +85,7 @@ fun AlbumScreen(id: String) {
                     modifier = Modifier.clickable(enabled = album.artistId != null) { album.artistId?.let { actions.open(Route.Artist(it)) } },
                 )
                 HeaderFacts(
-                    listOfNotNull(album.year?.toString(), pluralSongs(album.songCount), approvedCount(songs), formatLongDuration(album.duration)).joinToString(" · "),
+                    listOfNotNull(album.year?.toString(), songsText(album.songCount), approvedCount(songs), formatLongDuration(album.duration)).joinToString(" · "),
                     downloaded = rememberAllDownloaded(remember(songs) { songs.map { it.id } }),
                 )
             },
@@ -96,10 +98,10 @@ fun AlbumScreen(id: String) {
             topActions = {
                 if (!graph.readOnly) IconButton(onClick = {
                     actions.launch {
-                        if (!graph.browse.setAlbumStarred(album.id, !saved)) actions.toast("Couldn't reach the server")
+                        if (!graph.browse.setAlbumStarred(album.id, !saved)) actions.toast(unreachable)
                     }
                 }) {
-                    Icon(if (saved) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder, if (saved) "Remove from library" else "Save to library",
+                    Icon(if (saved) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder, stringResource(if (saved) R.string.album_remove_from_library else R.string.album_save_to_library),
                         tint = if (saved) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
                 }
             },
@@ -108,7 +110,7 @@ fun AlbumScreen(id: String) {
             songs.forEachIndexed { i, song ->
                 if (discs && song.discNumber != lastDisc) {
                     lastDisc = song.discNumber
-                    item(key = "disc:${song.discNumber}") { SectionHeader("Disc ${song.discNumber}") }
+                    item(key = "disc:${song.discNumber}") { SectionHeader(stringResource(R.string.album_disc, song.discNumber.toString())) }
                 }
                 item(key = "$i:${song.id}") {
                     TrackRow(

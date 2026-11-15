@@ -60,8 +60,10 @@ import eu.bradshaw.seidr.ui.components.SectionHeader
 import eu.bradshaw.seidr.ui.components.TabHeader
 import eu.bradshaw.seidr.ui.components.TrackRow
 import eu.bradshaw.seidr.ui.components.bottomContentPadding
-import eu.bradshaw.seidr.ui.components.pluralAlbums
-import eu.bradshaw.seidr.ui.components.pluralSongs
+import androidx.annotation.StringRes
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
+import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.ui.highlightClickable
 import eu.bradshaw.seidr.ui.rememberedFocus
 import kotlinx.coroutines.Job
@@ -91,7 +93,7 @@ class SearchVm(private val graph: Graph) : ViewModel() {
                 playlists = pls.filter { it.name.contains(q.trim(), ignoreCase = true) }
                 error = null
             } catch (e: Exception) {
-                error = e.message ?: "Search failed"
+                error = e.message ?: "" // blank: the screen shows its own "Search failed"
             }
         }
     }
@@ -99,7 +101,10 @@ class SearchVm(private val graph: Graph) : ViewModel() {
     fun remember() = graph.settings.addRecentSearch(query)
 }
 
-private enum class Filter(val label: String) { ALL("All"), SONGS("Songs"), ARTISTS("Artists"), ALBUMS("Albums"), PLAYLISTS("Playlists") }
+private enum class Filter(@StringRes val label: Int) {
+    ALL(R.string.search_filter_all), SONGS(R.string.search_filter_songs), ARTISTS(R.string.search_filter_artists),
+    ALBUMS(R.string.search_filter_albums), PLAYLISTS(R.string.search_filter_playlists),
+}
 
 /** The best match for the "All" view's big card. */
 private sealed interface Top {
@@ -134,9 +139,9 @@ fun SearchScreen() {
     var filter by rememberSaveable { mutableIntStateOf(0) }
 
     Column(Modifier.fillMaxSize()) {
-        TabHeader("Search")
+        TabHeader(stringResource(R.string.search_title))
         SearchField(
-            vm.query, vm::onQuery, "Artists, songs, albums or playlists",
+            vm.query, vm::onQuery, stringResource(R.string.search_hint),
             modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
             onSearch = { vm.remember() },
         )
@@ -146,9 +151,9 @@ fun SearchScreen() {
                 if (recent.isNotEmpty()) {
                     item {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            SectionHeader("Recent searches", Modifier.weight(1f))
+                            SectionHeader(stringResource(R.string.search_recent), Modifier.weight(1f))
                             TextButton(onClick = { graph.settings.clearRecentSearches() }, modifier = Modifier.padding(end = 8.dp, top = 12.dp)) {
-                                Text("Clear", color = MaterialTheme.colorScheme.onSurface)
+                                Text(stringResource(R.string.search_clear), color = MaterialTheme.colorScheme.onSurface)
                             }
                         }
                     }
@@ -166,13 +171,20 @@ fun SearchScreen() {
             Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Filter.entries.forEachIndexed { i, f -> FilterPill(f.label, filter == i, { filter = i }) }
+            Filter.entries.forEachIndexed { i, f -> FilterPill(stringResource(f.label), filter == i, { filter = i }) }
         }
 
         val r = vm.result
         val f = Filter.entries[filter]
+        val songsTitle = stringResource(R.string.search_filter_songs)
+        val artistsTitle = stringResource(R.string.search_filter_artists)
+        val albumsTitle = stringResource(R.string.search_filter_albums)
+        val playlistsTitle = stringResource(R.string.search_filter_playlists)
+        val context = stringResource(R.string.search_context, vm.query)
+        val failed = stringResource(R.string.search_failed)
+        val noResults = stringResource(R.string.search_no_results, vm.query)
         LazyColumn(Modifier.fillMaxSize(), contentPadding = bottomContentPadding()) {
-            vm.error?.let { e -> item { Text(e, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(16.dp)) } }
+            vm.error?.let { e -> item { Text(e.ifEmpty { failed }, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(16.dp)) } }
             if (r == null) return@LazyColumn
             val none = when (f) {
                 Filter.ALL -> r.artist.isEmpty() && r.album.isEmpty() && r.song.isEmpty() && vm.playlists.isEmpty()
@@ -182,25 +194,25 @@ fun SearchScreen() {
                 Filter.PLAYLISTS -> vm.playlists.isEmpty()
             }
             if (none) {
-                item { Text("No results for \"${vm.query}\"", color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(16.dp)) }
+                item { Text(noResults, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(16.dp)) }
                 return@LazyColumn
             }
             // "All" shows the best match and the first few of each; a chip shows the rest.
             val cap = if (f == Filter.ALL) 4 else Int.MAX_VALUE
             if (f == Filter.ALL) pickTop(r, vm.playlists, vm.query)?.let { top -> item(key = "top") { TopResult(top, r, vm) } }
-            val playSong = { i: Int -> vm.remember(); actions.player.playContext(r.song, i, "Search: ${vm.query}") }
-            if (f == Filter.ALL || f == Filter.SONGS) section(f, "Songs", r.song.take(cap), { "s:${it.id}" }) { i, s ->
+            val playSong = { i: Int -> vm.remember(); actions.player.playContext(r.song, i, context) }
+            if (f == Filter.ALL || f == Filter.SONGS) section(f, songsTitle, r.song.take(cap), { "s:${it.id}" }) { i, s ->
                 TrackRow(s, onClick = { playSong(i) }, playing = ui.current?.songId == s.id)
             }
-            if (f == Filter.ALL || f == Filter.ARTISTS) section(f, "Artists", r.artist.take(cap), { "ar:${it.id}" }) { _, a ->
-                ListRow(a.name, pluralAlbums(a.albumCount).takeIf { a.albumCount > 0 }, onClick = { vm.remember(); actions.open(Route.Artist(a.id)) }, art = { m -> ArtistImage(a.coverArt, m) })
+            if (f == Filter.ALL || f == Filter.ARTISTS) section(f, artistsTitle, r.artist.take(cap), { "ar:${it.id}" }) { _, a ->
+                ListRow(a.name, albumsText(a.albumCount).takeIf { a.albumCount > 0 }, onClick = { vm.remember(); actions.open(Route.Artist(a.id)) }, art = { m -> ArtistImage(a.coverArt, m) })
             }
-            if (f == Filter.ALL || f == Filter.ALBUMS) section(f, "Albums", r.album.take(cap), { "al:${it.id}" }) { _, a ->
+            if (f == Filter.ALL || f == Filter.ALBUMS) section(f, albumsTitle, r.album.take(cap), { "al:${it.id}" }) { _, a ->
                 ListRow(a.name, listOfNotNull(a.artistLine.takeIf { it.isNotBlank() }, a.year?.toString()).joinToString(" · "),
                     onClick = { vm.remember(); actions.open(Route.Album(a.id)) }, art = { m -> Cover(a.coverArt, m, size = 160) })
             }
-            if (f == Filter.ALL || f == Filter.PLAYLISTS) section(f, "Playlists", vm.playlists.take(cap), { "p:${it.id}" }) { _, p ->
-                ListRow(p.name, pluralSongs(p.songCount), onClick = { vm.remember(); actions.open(Route.Playlist(p.id)) },
+            if (f == Filter.ALL || f == Filter.PLAYLISTS) section(f, playlistsTitle, vm.playlists.take(cap), { "p:${it.id}" }) { _, p ->
+                ListRow(p.name, songsText(p.songCount), onClick = { vm.remember(); actions.open(Route.Playlist(p.id)) },
                     art = { m -> Cover(p.coverArt, m, size = 160) })
             }
         }
@@ -221,22 +233,26 @@ private fun TopResult(top: Top, r: SearchResult, vm: SearchVm) {
     val actions = LocalActions.current
     val cs = MaterialTheme.colorScheme
     val (title, label) = when (top) {
-        is Top.OfArtist -> top.artist.name to "Artist"
-        is Top.OfAlbum -> top.album.name to listOfNotNull("Album", top.album.artistLine.takeIf { it.isNotBlank() }).joinToString(" · ")
-        is Top.OfSong -> top.song.title to listOfNotNull("Song", top.song.artistLine.takeIf { it.isNotBlank() }).joinToString(" · ")
-        is Top.OfPlaylist -> top.playlist.name to "Playlist · " + pluralSongs(top.playlist.songCount)
+        is Top.OfArtist -> top.artist.name to stringResource(R.string.search_kind_artist)
+        is Top.OfAlbum -> top.album.name to (top.album.artistLine.takeIf { it.isNotBlank() }
+            ?.let { stringResource(R.string.search_kind_album_by, it) } ?: stringResource(R.string.search_kind_album))
+        is Top.OfSong -> top.song.title to (top.song.artistLine.takeIf { it.isNotBlank() }
+            ?.let { stringResource(R.string.search_kind_song_by, it) } ?: stringResource(R.string.search_kind_song))
+        is Top.OfPlaylist -> top.playlist.name to
+            pluralStringResource(R.plurals.search_kind_playlist, top.playlist.songCount, top.playlist.songCount)
     }
+    val context = stringResource(R.string.search_context, vm.query)
     val open = {
         vm.remember()
         when (top) {
             is Top.OfArtist -> actions.open(Route.Artist(top.artist.id))
             is Top.OfAlbum -> actions.open(Route.Album(top.album.id))
-            is Top.OfSong -> actions.player.playContext(r.song, top.index, "Search: ${vm.query}")
+            is Top.OfSong -> actions.player.playContext(r.song, top.index, context)
             is Top.OfPlaylist -> actions.open(Route.Playlist(top.playlist.id))
         }
     }
     Column {
-        SectionHeader("Top result")
+        SectionHeader(stringResource(R.string.search_top_result))
         Column(
             Modifier.padding(horizontal = 16.dp).fillMaxWidth()
                 .clip(RoundedCornerShape(HighlightCorner)).background(cs.surfaceContainer)
