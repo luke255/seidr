@@ -109,6 +109,7 @@ the *th* of "weather" in place of the *f*. ASCII spelling: Seidr.
 - **Report problems** (optional): flag a song with a bad file, wrong art or
   broken lyrics, and it's added to a `Bad: Songs`, `Bad: Art` or `Bad: Lyrics`
   playlist on your server for whoever looks after it to fix.
+- **What's new** in each version, in Settings → About.
 
 ## Install
 
@@ -116,8 +117,9 @@ Download the APK from the [latest release](https://github.com/luke255/seidr/rele
 and open it on your device. You may need to allow installing apps from your
 browser or file manager.
 
-Seiðr updates itself: when a new release is out it offers to install it.
-You can turn the automatic check off in Settings → About.
+Seiðr updates itself: when a new release is out it offers to install it,
+with what's new. You can turn the automatic check off in Settings → About.
+If you'd rather use Obtainium, turn that check off so the two don't compete.
 
 **Requirements:** Android 14 or later, and a Navidrome server. Most features
 work with any OpenSubsonic server, but live updates and cover art for
@@ -139,10 +141,10 @@ Seiðr has no analytics, tracking, ads or accounts of its own. It talks to:
   or play on one.
 
 Your password stays on the device, encrypted at rest with a key held in
-Android's Keystore. It isn't sent anywhere except your server,
-and to another device you choose to sign in or play on, encrypted with a key
-agreed when you checked the code on both screens. A device you play on keeps
-it in memory only, until you disconnect.
+Android's Keystore. It isn't sent anywhere except your server, and to another
+device you choose to sign in or play on, encrypted with a key agreed when you
+checked the code on both screens. A device you play on keeps it in memory
+only, until you disconnect.
 Kids' logins you add are kept on your device the same way, only to sign their
 devices in.
 
@@ -163,6 +165,10 @@ You need JDK 17 or later and the Android SDK with NDK 30.0.16248370 and CMake
 ./gradlew :app:assembleDebug        # debug build (installs beside a release)
 ./gradlew :app:testDebugUnitTest    # unit tests
 ```
+
+Lint has to pass too (`./gradlew :app:lintDebug`); `git config core.hooksPath
+scripts/hooks` runs both before every push. Security reports: see
+[SECURITY.md](SECURITY.md).
 
 A release build is signed only if `~/.config/seidr/release.jks` and
 `signing.properties` exist; otherwise it's unsigned and doesn't self-update.
