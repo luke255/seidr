@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Runs what CI runs (unit tests and lint) before anything is pushed, so CI
+# doesn't go red. Enable once per clone:  git config core.hooksPath scripts/hooks
+# Skip in an emergency with: git push --no-verify
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+echo "pre-push: unit tests and lint…" >&2
+gradle=(./gradlew --console=plain --quiet :app:testDebugUnitTest :app:lintDebug)
+if [[ -z ${ANDROID_HOME:-} ]] && command -v distrobox >/dev/null && distrobox list 2>/dev/null | grep -q androidbuild; then
+    # This machine builds inside the androidbuild distrobox.
+    distrobox enter androidbuild -- bash -c "export ANDROID_HOME=\$HOME/.android-sdk; ${gradle[*]}"
+else
+    "${gradle[@]}"
+fi

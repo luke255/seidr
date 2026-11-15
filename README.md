@@ -1,5 +1,7 @@
 <p align="center"><img src="docs/banner.svg" alt="Seiðr" width="640"></p>
 
+<p align="center"><a href="https://github.com/luke255/seidr/actions/workflows/check.yml"><img src="https://github.com/luke255/seidr/actions/workflows/check.yml/badge.svg" alt="Tests and lint"></a></p>
+
 An Android music player for your [Navidrome](https://www.navidrome.org/) server.
 Offline playlists that keep themselves up to date, a proper queue, and the
 same app on your phone, foldable, car, TV and headset.
