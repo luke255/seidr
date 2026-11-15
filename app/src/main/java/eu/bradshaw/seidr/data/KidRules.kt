@@ -52,6 +52,20 @@ class KidRules(val lists: KidLists) {
     private val playableArtists = lists.approved.flatMapTo(HashSet()) { it.artistIds }
     fun artistPlayable(id: String) = id in playableArtists
 
+    /**
+     * Whether a cover id's art may be served (`CoverProvider`, which other apps
+     * can ask). Navidrome names covers by what they belong to: `mf-<song>`,
+     * `al-<album>`; artist and playlist art never shows, and anything else fails closed.
+     */
+    fun coverAllowed(coverId: String): Boolean {
+        val id = coverId.drop(3).substringBefore('_')
+        return when (coverId.take(3)) {
+            "mf-" -> showArt(id)
+            "al-" -> albumArtShows(id)
+            else -> false
+        }
+    }
+
     /** The song as a kid sees it, or null if it doesn't show. */
     fun song(s: Song): Song? = when {
         playable(s.id) -> s

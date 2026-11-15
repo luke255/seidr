@@ -15,7 +15,8 @@ import java.io.FileNotFoundException
  * Serves cover art as `content://` URIs, which is what Android Auto loads for
  * browse items (it won't fetch our http URLs). Uses the cover saved with
  * downloads when there is one, else fetches from the server into a small cache.
- * Read-only; covers aren't sensitive.
+ * Read-only. It's exported (the car needs it), so any app can ask: on a kid's
+ * login it serves only art the kid's rules would show.
  */
 class CoverProvider : ContentProvider() {
     override fun onCreate() = true
@@ -24,6 +25,8 @@ class CoverProvider : ContentProvider() {
         val id = uri.lastPathSegment?.takeIf { it.matches(Regex("[A-Za-z0-9_-]+")) } ?: throw FileNotFoundException()
         val ctx = context ?: throw FileNotFoundException()
         val graph = Graph.get(ctx)
+        // Fails closed: a kid's login with no lists yet has empty rules.
+        graph.kids.current?.let { if (!it.coverAllowed(id)) throw FileNotFoundException() }
         val file = graph.files.coverFile(id).takeIf { it.isFile } ?: cached(ctx.cacheDir, graph, id)
         return ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
     }
@@ -39,7 +42,14 @@ class CoverProvider : ContentProvider() {
             tmp.outputStream().use { resp.body.byteStream().copyTo(it) }
             tmp.renameTo(f)
         }
+        trim(dir)
         return f
+    }
+
+    private fun trim(dir: File) {
+        val files = dir.listFiles { f -> f.name.endsWith(".jpg") }?.toList() ?: return
+        val evict = CoverCache.evict(files.map { CoverCache.Entry(it.name, it.length(), it.lastModified()) })
+        files.filter { it.name in evict }.forEach { it.delete() }
     }
 
     override fun getType(uri: Uri) = "image/*"
