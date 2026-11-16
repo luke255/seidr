@@ -202,7 +202,8 @@ before changing sync or playback.
     TV): rail with Settings at its foot, rounded list + detail panes (nothing
     overlaps, so remote focus never hides). No mini player: both bar and rail
     end their tabs with a Now Playing item. Now Playing/Queue are full-screen
-    on both. Search and Library
+    on both, and the screens under them aren't drawn once covered (the
+    TV's GPU can't afford both). Search and Library
     use `TabHeader` (title, Offline pill, actions; on narrow, Library's
     actions end with the Settings cog). Home has no header.
   - `AppActions` (via `LocalActions`) is how screens navigate, play, toast

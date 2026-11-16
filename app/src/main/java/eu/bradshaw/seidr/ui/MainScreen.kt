@@ -11,6 +11,9 @@ import androidx.compose.ui.graphics.graphicsLayer
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
@@ -216,8 +219,23 @@ fun MainScreen(graph: Graph, nav: Navigator) {
     androidx.compose.runtime.LaunchedEffect(actions.nowPlayingOpen) { if (actions.nowPlayingOpen) npSwipe.snapTo(0f) }
     androidx.compose.runtime.LaunchedEffect(actions.queueOpen) { if (actions.queueOpen) queueSwipe.snapTo(0f) }
 
+    // Now Playing and the queue slide over the screens; once one covers them, the screens
+    // underneath stay composed but aren't drawn. Drawn anyway, a TV's GPU spent most of each
+    // frame of a cover slide on Home's covers hidden under Now Playing.
+    val npShown = remember { MutableTransitionState(false) }
+    val queueShown = remember { MutableTransitionState(false) }
+    if (npShown.targetState != actions.nowPlayingOpen) npShown.targetState = actions.nowPlayingOpen
+    if (queueShown.targetState != actions.queueOpen) queueShown.targetState = actions.queueOpen
+    val covered by remember {
+        derivedStateOf {
+            (npShown.isIdle && npShown.currentState && npSwipe.value == 0f) ||
+                (queueShown.isIdle && queueShown.currentState && queueSwipe.value == 0f)
+        }
+    }
+
     CompositionLocalProvider(LocalActions provides actions, LocalWashes provides washes) {
-        BoxWithConstraints(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).focusArea(mainFocus)) {
+        BoxWithConstraints(Modifier.fillMaxSize().drawWithContent { if (!covered) drawContent() }
+            .background(MaterialTheme.colorScheme.background).focusArea(mainFocus)) {
             val wide = maxWidth >= 600.dp
             // How far a back swipe has slid the top screen off (0..1); narrow only.
             val swipe = remember { Animatable(0f) }
@@ -270,13 +288,13 @@ fun MainScreen(graph: Graph, nav: Navigator) {
         // Now Playing and the queue cover the whole window on both screens.
         val npPull = Modifier.graphicsLayer { translationY = npSwipe.value * size.height }
         val queuePull = Modifier.graphicsLayer { translationY = queueSwipe.value * size.height }
-        AnimatedVisibility(actions.nowPlayingOpen, npPull, enter = slideInVertically { it }, exit = slideOutVertically { it }) {
+        AnimatedVisibility(npShown, npPull, enter = slideInVertically { it }, exit = slideOutVertically { it }) {
             CompositionLocalProvider(LocalPrimaryFocus provides nowPlayingPrimary) {
                 NowPlayingScreen(onClose = { actions.nowPlayingOpen = false }, onQueue = { actions.queueOpen = true },
                     modifier = Modifier.overlayFocus(actions.nowPlayingOpen && !actions.queueOpen, nowPlayingPrimary))
             }
         }
-        AnimatedVisibility(actions.queueOpen, queuePull, enter = slideInVertically { it }, exit = slideOutVertically { it }) {
+        AnimatedVisibility(queueShown, queuePull, enter = slideInVertically { it }, exit = slideOutVertically { it }) {
             CompositionLocalProvider(LocalPrimaryFocus provides queuePrimary) {
                 QueueScreen(onClose = { actions.queueOpen = false }, modifier = Modifier.overlayFocus(actions.queueOpen, queuePrimary))
             }

@@ -18,7 +18,7 @@ them, not how.
 - Download has moved into the ⋮ menu on playlists and albums.
 - Downloads show one steady progress bar for the whole batch, instead of
   flashing and sitting near empty for each song.
-- Skipping tracks is smoother in Now Playing, especially on TVs.
+- Skipping tracks is much smoother in Now Playing, especially on TVs.
 
 ## 1.6.3
 
