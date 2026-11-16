@@ -1,0 +1,96 @@
+<resources>
+    <string name="channel_updates">Ενημερώσεις εφαρμογής</string>
+    <string name="update_offer_title">Ενημέρωση %1$s;</string>
+    <string name="update_offer_text">Η έκδοση %1$s είναι έτοιμη για εγκατάσταση (έχεις την %2$s). Η εφαρμογή κλείνει όσο ενημερώνεται.</string>
+    <string name="update_install">Εγκατάσταση</string>
+    <string name="update_later">Αργότερα</string>
+    <string name="update_whats_new">Τι νέο υπάρχει</string>
+    <string name="update_whats_new_title">Τι νέο υπάρχει στην έκδοση %1$s</string>
+    <string name="update_ready_title">Η ενημέρωση είναι έτοιμη</string>
+    <string name="update_ready_text">Πάτησε για εγκατάσταση της έκδοσης %1$s</string>
+
+    <string name="notif_channel_downloads">Λήψεις</string>
+    <string name="notif_channel_storage">Προειδοποιήσεις αποθηκευτικού χώρου</string>
+    <plurals name="notif_downloading">
+        <item quantity="one">Γίνεται λήψη %1$d κομματιού</item>
+        <item quantity="other">Γίνεται λήψη %1$d κομματιών</item>
+    </plurals>
+    <string name="notif_preparing">Προετοιμασία…</string>
+    <string name="notif_storage_title">Οι λήψεις σταμάτησαν: ο χώρος γέμισε</string>
+    <string name="notif_storage_text">Ελευθέρωσε περίπου %1$d MB για να συνεχιστούν. Τίποτα από όσα είχαν ήδη ληφθεί δεν αφαιρέθηκε.</string>
+
+    <string name="sync_server_error">Σφάλμα διακομιστή</string>
+    <string name="sync_cant_reach">Δεν υπάρχει πρόσβαση στον διακομιστή</string>
+
+    <string name="car_recent">Πρόσφατα</string>
+    <string name="car_playlists">Playlist</string>
+    <string name="car_playlist">Playlist</string>
+    <plurals name="car_songs">
+        <item quantity="one">%1$d τραγούδι</item>
+        <item quantity="other">%1$d τραγούδια</item>
+    </plurals>
+
+    <string name="playback_love">Μου αρέσει</string>
+    <string name="playback_unlove">Δεν μου αρέσει πια</string>
+
+    <string name="connect_not_signed_in">Κανείς δεν έχει συνδεθεί σε αυτή τη συσκευή</string>
+    <string name="connect_update_for_kids">Ενημέρωσε πρώτα το Seiðr στη συσκευή %1$s: αυτή η έκδοση δεν μπορεί να κρατήσει ασφαλή τα στοιχεία σύνδεσης ενός παιδιού</string>
+    <string name="connect_no_answer">Η συσκευή %1$s δεν απάντησε</string>
+    <string name="connect_lost_why">Χάθηκε η σύνδεση με τη συσκευή %1$s: %2$s</string>
+    <string name="connect_peer_other_account">Στη συσκευή %1$s έχει συνδεθεί κάποιος άλλος</string>
+    <string name="connect_peer_changed">Στη συσκευή %1$s μόλις έγινε σύνδεση ή αποσύνδεση. Δοκίμασε ξανά σε λίγο.</string>
+    <string name="connect_peer_unreachable">Δεν βρέθηκε η συσκευή %1$s. Είναι ανοιχτό εκεί το Seiðr;</string>
+    <string name="connect_playback_not_ready">Η αναπαραγωγή δεν είναι έτοιμη ακόμα</string>
+    <string name="connect_device_fallback">Συσκευή Seiðr</string>
+    <string name="connect_peer_disconnected">Η συσκευή %1$s αποσυνδέθηκε</string>
+    <string name="connect_peer_signed_in">Η συσκευή %1$s συνδέθηκε σε λογαριασμό</string>
+    <string name="connect_nobody_answered">Κανείς δεν απάντησε στη συσκευή %1$s</string>
+    <string name="connect_not_allowed">Δεν επιτράπηκε στη συσκευή %1$s</string>
+    <string name="connect_taken_over">Τώρα στη συσκευή %2$s παίζει: %1$s</string>
+    <string name="connect_update_first">Ενημέρωσε πρώτα το Seiðr στη συσκευή %1$s</string>
+    <string name="connect_lost_connection">Χάθηκε η σύνδεση με τη συσκευή %1$s</string>
+
+    <string name="account_connect_failed">Η σύνδεση με %1$s απέτυχε: %2$s</string>
+    <string name="account_lan_permission">Το Seiðr χρειάζεται την άδεια «Κοντινές συσκευές / τοπικό δίκτυο» για να φτάσει σε διακομιστή στο οικιακό σου δίκτυο.</string>
+    <string name="account_check_failed_why">Δεν ήταν δυνατός ο έλεγχος του λογαριασμού %1$s: %2$s</string>
+    <string name="account_check_failed">Δεν ήταν δυνατός ο έλεγχος του λογαριασμού %1$s</string>
+    <string name="account_kid_is_admin">Ο λογαριασμός %1$s είναι διαχειριστής στον διακομιστή. Ένας παιδικός λογαριασμός δεν μπορεί να είναι διαχειριστής.</string>
+    <string name="account_not_grownup">Δεν έχεις συνδεθεί ως ενήλικας</string>
+    <string name="account_own_check_failed">Δεν ήταν δυνατός ο έλεγχος του λογαριασμού σου στον διακομιστή</string>
+    <string name="account_admin_only">Μόνο οι διαχειριστές του διακομιστή μπορούν να δουν την προβολή παιδιού</string>
+    <string name="account_view_failed">Δεν άνοιξε η προβολή του λογαριασμού %1$s: %2$s</string>
+    <string name="account_someone_else">Στο μεταξύ συνδέθηκε κάποιος άλλος</string>
+
+    <string name="kids_signed_in_as_kid">Έχεις συνδεθεί με παιδικό λογαριασμό</string>
+    <string name="kids_setup_failed">Δεν δημιουργήθηκαν οι playlist για τα παιδιά: %1$s</string>
+
+    <string name="report_no_playlist">Δεν υπάρχει playlist «%1$s» στον διακομιστή</string>
+    <string name="report_removed">Αφαιρέθηκε από: %1$s</string>
+    <string name="report_song_reported">Αναφέρθηκε. Αυτό το τραγούδι θα παραλείπεται.</string>
+    <string name="report_art_reported">Το εξώφυλλο αναφέρθηκε</string>
+    <string name="report_lyrics_reported">Οι στίχοι αναφέρθηκαν</string>
+    <string name="report_queued">Εκτός σύνδεσης: η playlist %1$s θα ενημερωθεί όταν επανέλθει ο διακομιστής</string>
+    <string name="report_conflict">Δεν ενημερώθηκε η playlist %1$s</string>
+    <string name="report_failed">Δεν ενημερώθηκε η playlist %1$s: %2$s</string>
+
+    <string name="main_battery_title">Η μουσική να μη σταματά</string>
+    <string name="main_battery_text">Σε ορισμένα τηλέφωνα η διαχείριση μπαταρίας σταματά την αναπαραγωγή και τις λήψεις στο παρασκήνιο. Να εκτελείται το Seiðr χωρίς περιορισμούς; Μπορείς να το αλλάξεις αργότερα από τις Ρυθμίσεις.</string>
+    <string name="main_battery_allow">Να επιτρέπεται</string>
+
+    <string name="vis_close">Κλείσιμο οπτικοποίησης</string>
+    <string name="vis_now_playing">Παίζει τώρα</string>
+    <string name="vis_next_in_queue">Επόμενα στην ουρά</string>
+    <string name="vis_next_from">Επόμενα από: %1$s</string>
+    <string name="vis_next_from_queue">Επόμενα από: ουρά</string>
+    <string name="vis_hide_preset">Απόκρυψη preset</string>
+    <string name="vis_love_preset">Μου αρέσει το preset</string>
+    <string name="vis_unlove_preset">Δεν μου αρέσει πια το preset</string>
+    <string name="vis_preview">Προεπισκόπηση</string>
+    <string name="vis_preset_hidden">Το preset κρύφτηκε. Το επαναφέρεις από Ρυθμίσεις → Οπτικοποίηση.</string>
+    <string name="vis_xr_failed">Η καθηλωτική οπτικοποίηση δεν ξεκίνησε</string>
+    <string name="vis_warning_title">Φώτα που αναβοσβήνουν</string>
+    <string name="vis_warning_headset">Ορισμένα preset αναβοσβήνουν, τρεμοπαίζουν και στροβιλίζονται γρήγορα, και στο headset γεμίζουν όλο το οπτικό σου πεδίο. Αυτό μπορεί να προκαλέσει κρίσεις σε άτομα με φωτοευαίσθητη επιληψία, καθώς και ναυτία ή αποπροσανατολισμό. Παράμεινε σε καθιστή θέση και, αν δεν νιώσεις καλά, βγάλε το headset.</string>
+    <string name="vis_warning_flat">Ορισμένα preset αναβοσβήνουν, τρεμοπαίζουν και στροβιλίζονται γρήγορα. Αυτό μπορεί να προκαλέσει κρίσεις σε άτομα με φωτοευαίσθητη επιληψία. Αν δεν νιώσεις καλά, κοίτα αλλού και κλείσε την οπτικοποίηση.</string>
+    <string name="vis_continue">Συνέχεια</string>
+    <string name="vis_not_now">Όχι τώρα</string>
+</resources>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="library_songs">
+        <item quantity="one">%d dal</item>
+        <item quantity="other">%d dal</item>
+    </plurals>
+    <plurals name="library_albums">
+        <item quantity="one">%d album</item>
+        <item quantity="other">%d album</item>
+    </plurals>
+
+    <string name="library_title">Könyvtár</string>
+    <string name="library_tab_playlists">Lejátszási listák</string>
+    <string name="library_tab_artists">Előadók</string>
+    <string name="library_tab_albums">Albumok</string>
+    <string name="library_search_playlists">Keresés a lejátszási listák között</string>
+    <string name="library_search_artists">Keresés az előadók között</string>
+    <string name="library_search_albums">Keresés az albumok között</string>
+    <string name="library_close_search">Keresés bezárása</string>
+    <string name="library_search_library">Keresés a könyvtáradban</string>
+    <string name="library_create_playlist">Lejátszási lista létrehozása</string>
+    <string name="library_downloaded">Letöltve</string>
+    <string name="library_sort_custom">Egyéni sorrend</string>
+    <string name="library_sort_name">Név</string>
+    <string name="library_sort_updated">Legutóbb frissítve</string>
+    <string name="library_sort_most_albums">Legtöbb album</string>
+    <string name="library_sort_artist">Előadó</string>
+    <string name="library_sort_added">Legutóbb hozzáadva</string>
+    <string name="library_sort_year">Év</string>
+    <string name="library_show_list">Megjelenítés listaként</string>
+    <string name="library_show_grid">Megjelenítés rácsként</string>
+    <string name="library_by_owner">készítette: %1$s</string>
+    <string name="library_playlist">Lejátszási lista</string>
+    <string name="library_name">Név</string>
+    <string name="library_create">Létrehozás</string>
+    <string name="library_cancel">Mégse</string>
+    <string name="library_create_failed">Nem sikerült létrehozni a lejátszási listát (ehhez kell a szerver)</string>
+    <string name="library_no_match">Nincs találat erre: „%1$s”</string>
+    <string name="library_none_downloaded">Itt még nincs semmi letöltve</string>
+    <string name="library_empty">Itt még nincs semmi</string>
+    <plurals name="library_downloading_left">
+        <item quantity="one">Letöltés: még %d dal van hátra</item>
+        <item quantity="other">Letöltés: még %d dal van hátra</item>
+    </plurals>
+
+    <string name="search_title">Keresés</string>
+    <string name="search_hint">Előadók, dalok, albumok vagy lejátszási listák</string>
+    <string name="search_recent">Legutóbbi keresések</string>
+    <string name="search_clear">Törlés</string>
+    <string name="search_filter_all">Összes</string>
+    <string name="search_filter_songs">Dalok</string>
+    <string name="search_filter_artists">Előadók</string>
+    <string name="search_filter_albums">Albumok</string>
+    <string name="search_filter_playlists">Lejátszási listák</string>
+    <string name="search_failed">A keresés nem sikerült</string>
+    <string name="search_no_results">Nincs találat erre: „%1$s”</string>
+    <string name="search_context">Keresés: %1$s</string>
+    <string name="search_top_result">Legjobb találat</string>
+    <string name="search_kind_artist">Előadó</string>
+    <string name="search_kind_album">Album</string>
+    <string name="search_kind_song">Dal</string>
+    <string name="search_kind_album_by">Album · %1$s</string>
+    <string name="search_kind_song_by">Dal · %1$s</string>
+    <plurals name="search_kind_playlist">
+        <item quantity="one">Lejátszási lista · %d dal</item>
+        <item quantity="other">Lejátszási lista · %d dal</item>
+    </plurals>
+
+    <string name="playlist_by_owner">készítette: %1$s</string>
+    <string name="playlist_done">Kész</string>
+    <string name="playlist_options">A lejátszási lista beállításai</string>
+    <string name="playlist_reorder">Dalok átrendezése</string>
+    <string name="playlist_rename">Átnevezés</string>
+    <string name="playlist_delete">Lejátszási lista törlése</string>
+    <string name="playlist_remove_from_this">Eltávolítás erről a lejátszási listáról</string>
+    <string name="playlist_order_saved">A lejátszási lista sorrendje elmentve</string>
+    <string name="playlist_removed_from">Eltávolítva innen: %1$s</string>
+    <string name="playlist_rename_title">Lejátszási lista átnevezése</string>
+    <string name="playlist_renamed">Átnevezve</string>
+    <string name="playlist_save">Mentés</string>
+    <string name="playlist_cancel">Mégse</string>
+    <string name="playlist_delete_title">Törlöd ezt: „%1$s”?</string>
+    <string name="playlist_delete_body">Ezzel a szerverről is törlődik. Azok a letöltések, amelyeket csak ez a lista tartott meg, lekerülnek a telefonról.</string>
+    <string name="playlist_deleted">Törölve: %1$s</string>
+    <string name="playlist_delete_confirm">Törlés</string>
+
+    <string name="downloads_title">Letöltések</string>
+    <string name="downloads_free">%1$s szabad ezen a telefonon</string>
+    <string name="downloads_queue">Várólista</string>
+    <string name="downloads_all_done">Minden le van töltve</string>
+    <plurals name="downloads_waiting">
+        <item quantity="one">%d dal várakozik</item>
+        <item quantity="other">%d dal várakozik</item>
+    </plurals>
+    <string name="downloads_wifi_only_note">Letöltés csak Wi-Fi-n</string>
+    <plurals name="downloads_failed">
+        <item quantity="one">%d sikertelen</item>
+        <item quantity="other">%d sikertelen</item>
+    </plurals>
+    <string name="downloads_retry">Újra</string>
+    <plurals name="downloads_edits_waiting">
+        <item quantity="one">%d listamódosítás várakozik</item>
+        <item quantity="other">%d listamódosítás várakozik</item>
+    </plurals>
+    <string name="downloads_edits_note">Elküldjük, amint a szerver elérhető</string>
+    <string name="downloads_settings">Beállítások</string>
+    <string name="downloads_wifi_only">Letöltés csak Wi-Fi-n</string>
+    <string name="downloads_wifi_only_hint">Kapcsold ki, ha mobiladat-kapcsolaton is letöltenél</string>
+    <string name="downloads_syncing">Szinkronizálás…</string>
+    <string name="downloads_not_synced">Még nem volt szinkronizálás</string>
+    <string name="downloads_last_synced">Utolsó szinkronizálás: %1$s</string>
+    <plurals name="downloads_unchecked">
+        <item quantity="one">%d elemet nem sikerült ellenőrizni; semmi sem törlődött</item>
+        <item quantity="other">%d elemet nem sikerült ellenőrizni; semmi sem törlődött</item>
+    </plurals>
+    <string name="downloads_sync_now">Szinkronizálás most</string>
+    <string name="downloads_downloaded">Letöltve</string>
+    <string name="downloads_nothing">Még semmi</string>
+    <string name="downloads_nothing_hint">Kapcsold be a Letöltést egy lejátszási listánál vagy albumnál, hogy a telefonon maradjon.</string>
+    <plurals name="downloads_progress">
+        <item quantity="one">%1$d / %2$d dal · %3$s</item>
+        <item quantity="other">%1$d / %2$d dal · %3$s</item>
+    </plurals>
+    <string name="downloads_waiting_short">Várakozik</string>
+    <string name="downloads_kind_playlist">Lejátszási lista</string>
+    <string name="downloads_kind_album">Album</string>
+
+    <string name="home_offline_tv">Offline vagy. A Seiðr újracsatlakozik, amint a szerver elérhető.</string>
+    <string name="home_offline">Offline vagy. A letöltött zenéid itt vannak: nézd meg a Könyvtárat a Letöltve szűrővel.</string>
+    <string name="home_kid_empty">Neked még semmit sem hagytak jóvá. Kérd meg azt, aki bejelentkeztetett, hogy adjon hozzá néhány dalt.</string>
+    <string name="home_playlists">Lejátszási listák</string>
+    <string name="home_sort_az">A–Z</string>
+    <string name="home_sort_recent">Legutóbbi</string>
+    <string name="home_by_owner">készítette: %1$s</string>
+    <string name="home_recently_added">Legutóbb hozzáadva</string>
+    <string name="home_most_played">Legtöbbet játszott</string>
+    <string name="home_saved_albums">Mentett albumok</string>
+
+    <string name="artist_load_failed">Nem sikerült betölteni a dalokat</string>
+    <string name="artist_label">Előadó</string>
+    <string name="artist_popular">Népszerű</string>
+    <string name="artist_show_less">Kevesebb</string>
+    <string name="artist_show_all">Összes</string>
+    <string name="artist_albums">Albumok</string>
+    <string name="artist_singles">Kislemezek és EP-k</string>
+    <string name="artist_appears_on">Közreműködik</string>
+
+    <string name="album_unreachable">A szerver nem érhető el</string>
+    <string name="album_remove_from_library">Eltávolítás a könyvtárból</string>
+    <string name="album_save_to_library">Mentés a könyvtárba</string>
+    <string name="album_disc">%1$s. lemez</string>
+
+    <string name="loved_title">Kedvencek</string>
+</resources>

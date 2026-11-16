@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="library_songs">
+        <item quantity="one">%d şarkı</item>
+        <item quantity="other">%d şarkı</item>
+    </plurals>
+    <plurals name="library_albums">
+        <item quantity="one">%d albüm</item>
+        <item quantity="other">%d albüm</item>
+    </plurals>
+
+    <string name="library_title">Kitaplık</string>
+    <string name="library_tab_playlists">Çalma listeleri</string>
+    <string name="library_tab_artists">Sanatçılar</string>
+    <string name="library_tab_albums">Albümler</string>
+    <string name="library_search_playlists">Çalma listelerinde ara</string>
+    <string name="library_search_artists">Sanatçılarda ara</string>
+    <string name="library_search_albums">Albümlerde ara</string>
+    <string name="library_close_search">Aramayı kapat</string>
+    <string name="library_search_library">Kitaplığında ara</string>
+    <string name="library_create_playlist">Çalma listesi oluştur</string>
+    <string name="library_downloaded">İndirilenler</string>
+    <string name="library_sort_custom">Özel sıra</string>
+    <string name="library_sort_name">Ad</string>
+    <string name="library_sort_updated">Son güncellenen</string>
+    <string name="library_sort_most_albums">En çok albüm</string>
+    <string name="library_sort_artist">Sanatçı</string>
+    <string name="library_sort_added">Son eklenen</string>
+    <string name="library_sort_year">Yıl</string>
+    <string name="library_show_list">Liste olarak göster</string>
+    <string name="library_show_grid">Izgara olarak göster</string>
+    <string name="library_by_owner">sahibi: %1$s</string>
+    <string name="library_playlist">Çalma listesi</string>
+    <string name="library_name">Ad</string>
+    <string name="library_create">Oluştur</string>
+    <string name="library_cancel">İptal</string>
+    <string name="library_create_failed">Çalma listesi oluşturulamadı (sunucu gerekiyor)</string>
+    <string name="library_no_match">“%1$s” ile eşleşen bir şey yok</string>
+    <string name="library_none_downloaded">Burada henüz indirilmiş bir şey yok</string>
+    <string name="library_empty">Burada henüz bir şey yok</string>
+    <plurals name="library_downloading_left">
+        <item quantity="one">İndiriliyor: %d şarkı kaldı</item>
+        <item quantity="other">İndiriliyor: %d şarkı kaldı</item>
+    </plurals>
+
+    <string name="search_title">Ara</string>
+    <string name="search_hint">Sanatçı, şarkı, albüm veya çalma listesi</string>
+    <string name="search_recent">Son aramalar</string>
+    <string name="search_clear">Temizle</string>
+    <string name="search_filter_all">Tümü</string>
+    <string name="search_filter_songs">Şarkılar</string>
+    <string name="search_filter_artists">Sanatçılar</string>
+    <string name="search_filter_albums">Albümler</string>
+    <string name="search_filter_playlists">Çalma listeleri</string>
+    <string name="search_failed">Arama yapılamadı</string>
+    <string name="search_no_results">“%1$s” için sonuç yok</string>
+    <string name="search_context">Arama: %1$s</string>
+    <string name="search_top_result">En iyi sonuç</string>
+    <string name="search_kind_artist">Sanatçı</string>
+    <string name="search_kind_album">Albüm</string>
+    <string name="search_kind_song">Şarkı</string>
+    <string name="search_kind_album_by">Albüm · %1$s</string>
+    <string name="search_kind_song_by">Şarkı · %1$s</string>
+    <plurals name="search_kind_playlist">
+        <item quantity="one">Çalma listesi · %d şarkı</item>
+        <item quantity="other">Çalma listesi · %d şarkı</item>
+    </plurals>
+
+    <string name="playlist_by_owner">sahibi: %1$s</string>
+    <string name="playlist_done">Bitti</string>
+    <string name="playlist_options">Çalma listesi seçenekleri</string>
+    <string name="playlist_reorder">Şarkıları yeniden sırala</string>
+    <string name="playlist_rename">Yeniden adlandır</string>
+    <string name="playlist_delete">Çalma listesini sil</string>
+    <string name="playlist_remove_from_this">Bu çalma listesinden çıkar</string>
+    <string name="playlist_order_saved">Çalma listesinin sırası kaydedildi</string>
+    <string name="playlist_removed_from">Şuradan çıkarıldı: %1$s</string>
+    <string name="playlist_rename_title">Çalma listesini yeniden adlandır</string>
+    <string name="playlist_renamed">Yeniden adlandırıldı</string>
+    <string name="playlist_save">Kaydet</string>
+    <string name="playlist_cancel">İptal</string>
+    <string name="playlist_delete_title">“%1$s” silinsin mi?</string>
+    <string name="playlist_delete_body">Liste sunucudan silinir. Yalnızca bu liste yüzünden tutulan indirmeler telefondan kaldırılır.</string>
+    <string name="playlist_deleted">Silindi: %1$s</string>
+    <string name="playlist_delete_confirm">Sil</string>
+
+    <string name="downloads_title">İndirmeler</string>
+    <string name="downloads_free">Bu telefonda %1$s boş</string>
+    <string name="downloads_queue">Sıra</string>
+    <string name="downloads_all_done">Her şey indirildi</string>
+    <plurals name="downloads_waiting">
+        <item quantity="one">%d şarkı bekliyor</item>
+        <item quantity="other">%d şarkı bekliyor</item>
+    </plurals>
+    <string name="downloads_wifi_only_note">Yalnızca Wi-Fi ile indirilir</string>
+    <plurals name="downloads_failed">
+        <item quantity="one">%d başarısız</item>
+        <item quantity="other">%d başarısız</item>
+    </plurals>
+    <string name="downloads_retry">Yeniden dene</string>
+    <plurals name="downloads_edits_waiting">
+        <item quantity="one">%d liste değişikliği bekliyor</item>
+        <item quantity="other">%d liste değişikliği bekliyor</item>
+    </plurals>
+    <string name="downloads_edits_note">Sunucuya ulaşılınca gönderilir</string>
+    <string name="downloads_settings">Ayarlar</string>
+    <string name="downloads_wifi_only">Yalnızca Wi-Fi ile indir</string>
+    <string name="downloads_wifi_only_hint">Mobil veriyle de indirmek için kapat</string>
+    <string name="downloads_syncing">Eşitleniyor…</string>
+    <string name="downloads_not_synced">Henüz eşitlenmedi</string>
+    <string name="downloads_last_synced">Son eşitleme: %1$s</string>
+    <plurals name="downloads_unchecked">
+        <item quantity="one">%d öğe kontrol edilemedi; hiçbir şey silinmedi</item>
+        <item quantity="other">%d öğe kontrol edilemedi; hiçbir şey silinmedi</item>
+    </plurals>
+    <string name="downloads_sync_now">Şimdi eşitle</string>
+    <string name="downloads_downloaded">İndirilenler</string>
+    <string name="downloads_nothing">Henüz bir şey yok</string>
+    <string name="downloads_nothing_hint">Bir çalma listesini veya albümü telefonda tutmak için İndir’i aç.</string>
+    <plurals name="downloads_progress">
+        <item quantity="one">%1$d / %2$d şarkı · %3$s</item>
+        <item quantity="other">%1$d / %2$d şarkı · %3$s</item>
+    </plurals>
+    <string name="downloads_waiting_short">Bekliyor</string>
+    <string name="downloads_kind_playlist">Çalma listesi</string>
+    <string name="downloads_kind_album">Albüm</string>
+
+    <string name="home_offline_tv">Çevrimdışısın. Sunucuya ulaşılınca Seiðr yeniden bağlanır.</string>
+    <string name="home_offline">Çevrimdışısın. İndirdiğin müzikler hâlâ burada: Kitaplık’ta İndirilenler filtresine bak.</string>
+    <string name="home_kid_empty">Senin için henüz bir şey onaylanmadı. Oturumunu açan kişiden birkaç şarkı eklemesini iste.</string>
+    <string name="home_playlists">Çalma listeleri</string>
+    <string name="home_sort_az">A–Z</string>
+    <string name="home_sort_recent">En yeni</string>
+    <string name="home_by_owner">sahibi: %1$s</string>
+    <string name="home_recently_added">Son eklenenler</string>
+    <string name="home_most_played">En çok çalınanlar</string>
+    <string name="home_saved_albums">Kaydedilen albümler</string>
+
+    <string name="artist_load_failed">Şarkılar yüklenemedi</string>
+    <string name="artist_label">Sanatçı</string>
+    <string name="artist_popular">Popüler</string>
+    <string name="artist_show_less">Daha az göster</string>
+    <string name="artist_show_all">Tümünü göster</string>
+    <string name="artist_albums">Albümler</string>
+    <string name="artist_singles">Single’lar ve EP’ler</string>
+    <string name="artist_appears_on">Yer aldığı albümler</string>
+
+    <string name="album_unreachable">Sunucuya ulaşılamadı</string>
+    <string name="album_remove_from_library">Kitaplıktan kaldır</string>
+    <string name="album_save_to_library">Kitaplığa kaydet</string>
+    <string name="album_disc">Disk %1$s</string>
+
+    <string name="loved_title">Beğenilenler</string>
+</resources>

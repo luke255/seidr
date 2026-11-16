@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Beállítások</string>
+    <string name="settings_appearance">Megjelenés</string>
+    <string name="settings_visualiser">Vizualizáció</string>
+    <string name="settings_vis_item">Száminformációk és presetek</string>
+    <string name="settings_vis_item_hint">Mi látszik fölötte; kedvelt és elrejtett presetek</string>
+    <string name="settings_playback_downloads">Lejátszás és letöltések</string>
+    <string name="settings_background_playback">Lejátszás a háttérben</string>
+    <string name="settings_battery_off">Korlátozás nélkül: az akkumulátor-optimalizálás ki van kapcsolva</string>
+    <string name="settings_battery_tap">Koppints, hogy a Seiðr korlátozás nélkül futhasson. Egyes telefonok akkumulátorkezelője különben leállítja a zenét.</string>
+    <string name="settings_on">Bekapcsolva</string>
+    <string name="settings_downloads_storage">Letöltések és tárhely</string>
+    <string name="settings_downloads_storage_hint">Várólista, tárhely listánként, csak Wi-Fi</string>
+    <string name="settings_library">Könyvtár</string>
+    <string name="settings_others_private">Mások privát lejátszási listái</string>
+    <string name="settings_others_private_hint">Rendszergazda vagy, ezért a szerver mindenkiét megmutatja neked. Kikapcsolva nem kerülnek be a könyvtáradba.</string>
+
+    <string name="settings_reporting">Hibajelentés</string>
+    <string name="settings_report_problems">Hibák jelentése</string>
+    <string name="settings_report_problems_hint">Minden dal ⋮ menüjébe felveszi a Hiba jelentése pontot</string>
+    <string name="settings_report_info">A hibás fájl, a rossz borító vagy a hibás dalszöveg a szerver %1$s, %2$s vagy %3$s lejátszási listájára kerül, hogy a szerver üzemeltetője kijavíthassa. A(z) %1$s listán lévő dalokat kihagyjuk, amíg ki nem javítják őket.</string>
+    <string name="settings_report_missing">Nem található a szerveren: %1$s.</string>
+
+    <string name="settings_about">Névjegy</string>
+    <string name="settings_auto_update">Frissítések automatikus keresése</string>
+    <string name="settings_auto_update_hint">Az alkalmazás megnyitásakor új kiadást keres a GitHubon</string>
+    <string name="settings_install_update">Frissítés telepítése</string>
+    <string name="settings_check_updates">Frissítések keresése</string>
+    <string name="settings_checking">Keresés…</string>
+    <string name="settings_version_ready">A(z) %1$s verzió készen áll</string>
+    <string name="settings_installs_straight_away">Az újabb verziót azonnal telepíti</string>
+    <string name="settings_latest_version">A legújabb verziót használod (vagy a GitHub nem érhető el)</string>
+    <string name="settings_whats_new">Újdonságok</string>
+    <string name="settings_whats_new_hint">Az egyes verziók változásai</string>
+    <string name="settings_licences">Nyílt forráskódú licencek</string>
+    <string name="settings_licences_hint">A Seiðr szabad szoftver (GNU GPL 3.0)</string>
+    <string name="settings_build">%1$d. build</string>
+    <string name="settings_new_badge">ÚJ</string>
+
+    <string name="settings_sign_out_title">Kijelentkezel?</string>
+    <string name="settings_sign_out_message">A lejátszás leáll, a szinkronizálás pedig szünetel, amíg újra be nem jelentkezel. A letöltött fájlok megmaradnak.</string>
+    <string name="settings_sign_out">Kijelentkezés</string>
+    <string name="settings_cancel">Mégse</string>
+
+    <string name="settings_not_signed_in">Nincs bejelentkezve</string>
+    <string name="settings_not_connected">Nincs kapcsolat</string>
+    <string name="settings_server_kid">%1$s · Gyerekfiók</string>
+    <string name="settings_sign_in_device">Eszköz bejelentkeztetése</string>
+
+    <string name="settings_colour">Szín</string>
+    <string name="settings_theme_system">Rendszer (háttérkép)</string>
+    <string name="settings_theme_neutral">Semleges</string>
+
+    <string name="kids_title">Gyerekek</string>
+    <string name="kids_view_as_description">Megtekintés %1$s nevében</string>
+    <string name="kids_remove_description">Eltávolítás: %1$s</string>
+    <string name="kids_add">Gyerekfiók hozzáadása</string>
+    <string name="kids_how">Hogyan működnek a gyerekfiókok</string>
+    <string name="kids_remove_title">Eltávolítod: %1$s?</string>
+    <string name="kids_remove_message">Ez az eszköz elfelejti a bejelentkezési adatait. Azok az eszközök, amelyeken %1$s már be van jelentkezve, bejelentkezve maradnak.</string>
+    <string name="kids_remove">Eltávolítás</string>
+    <string name="kids_cancel">Mégse</string>
+    <string name="kids_help_title">Gyerekfiókok</string>
+    <string name="kids_help_step1">1. Készíts minden gyereknek saját Navidrome-fiókot (ne rendszergazdait), és add hozzá itt.</string>
+    <string name="kids_help_step2">2. Az eszközét az Eszköz bejelentkeztetése pontból jelentkeztesd be. A jelszavát tartsd meg magadnak.</string>
+    <string name="kids_help_step3">3. Azt, hogy mit érhet el, három lejátszási listával szabályozod a saját fiókodban; ezek akkor jönnek létre, amikor hozzáadsz egy gyereket:</string>
+    <string name="kids_help_approved">dalok, amelyeket lejátszhat</string>
+    <string name="kids_help_safe_titles">kiszürkítve látszik, csak a címmel</string>
+    <string name="kids_help_safe_art">kiszürkítve látszik, a borítóval együtt</string>
+    <string name="kids_help_hidden">Minden más rejtve marad előle. Ezek a lejátszási listák nem jelennek meg a könyvtáradban, ezért a Navidrome webes lejátszójában vagy egy másik alkalmazásban szerkeszd őket.</string>
+    <string name="kids_help_eye">A szem gombbal úgy láthatod a Seiðrt, ahogy az a gyerek látja, és közben semmi sem változik.</string>
+    <string name="kids_got_it">Értem</string>
+    <string name="kids_view_as_title">Megtekinted %1$s nevében?</string>
+    <string name="kids_view_as_message">Csak azt látod, amit %1$s eszközei mutatnak. Csak olvasható: te maradsz bejelentkezve, és amit itt lejátszol, az a te lejátszásodnak számít, nem annak, akit nézel (%1$s). A Kezdőlapon vagy a Beállításokban lévő sávról léphetsz vissza.</string>
+    <string name="kids_view_as_button">Megtekintés %1$s nevében</string>
+    <string name="kids_viewing_as">Megtekintés %1$s nevében</string>
+    <string name="kids_back_to">Vissza: %1$s</string>
+    <string name="kids_own_account">Ez a saját fiókod</string>
+    <string name="kids_add_message">A Navidrome-bejelentkezési adatai ezen a szerveren: %1$s.</string>
+    <string name="kids_username">Felhasználónév</string>
+    <string name="kids_password">Jelszó</string>
+    <string name="kids_add_button">Hozzáadás</string>
+
+    <string name="login_unencrypted_title">Titkosítatlan kapcsolat</string>
+    <string name="login_unencrypted_message">Ez a szerver az interneten van, de a címe http://-vel kezdődik, így a bejelentkezési adataid és a zenéd titkosítatlanul utaznak. Útközben bárki elolvashatja őket, és felhasználhatja a bejelentkezési adataidat. Használj https:// címet, ha a szerverednek van ilyen.</string>
+    <string name="login_connect_anyway">Csatlakozás mégis</string>
+    <string name="login_go_back">Vissza</string>
+    <string name="login_heading">Csatlakozz a Navidrome-szerveredhez</string>
+    <string name="login_server_url">Szerver URL-címe</string>
+    <string name="login_username">Felhasználónév</string>
+    <string name="login_password">Jelszó</string>
+    <string name="login_log_in">Bejelentkezés</string>
+    <string name="login_other_device_title">Be vagy jelentkezve egy másik eszközön?</string>
+    <string name="login_other_device_steps">Nyisd meg ott a Seiðrt, menj a Beállítások → Eszköz bejelentkeztetése pontra, majd válaszd ki ezt: %1$s. Mindkét eszköznek ugyanazon a Wi-Fi-n kell lennie, és ezen is legyen megnyitva a Seiðr. Ellenőrizd, hogy a kód mindkét képernyőn egyezik, és már bent is vagy.</string>
+    <string name="login_back">Vissza</string>
+    <string name="login_idle_ready">Lejátszásra kész</string>
+    <string name="login_idle_hint">Nyisd meg a Seiðrt egy másik eszközön, koppints a „Lejátszás itt” gombra, majd válaszd ki ezt.</string>
+    <string name="login_pairing_code">Párosítási kód</string>
+    <string name="login_check_same_code">Ellenőrizd, hogy a másik eszközön (%1$s) ugyanez a kód látszik.</string>
+    <string name="login_sign_in_this_device">Bejelentkezteted ezt az eszközt?</string>
+    <string name="login_sign_in_request">Egy másik eszköz (%1$s) be szeretné jelentkeztetni ezt az eszközt %2$s néven ezen a szerveren: %3$s.</string>
+    <string name="login_sign_in_request_kid">Egy másik eszköz (%1$s) be szeretné jelentkeztetni ezt az eszközt %2$s néven (gyerekfiók) ezen a szerveren: %3$s.</string>
+    <string name="login_allow">Engedélyezés</string>
+    <string name="login_dont_allow">Tiltás</string>
+    <string name="login_cancel">Mégse</string>
+    <string name="login_sign_in_peer">Bejelentkezteted ezt: %1$s?</string>
+    <string name="login_play_on_peer">Lejátszás itt: %1$s?</string>
+    <string name="login_check_this_code">Ellenőrizd, hogy a másik eszközön (%1$s) ez a kód látszik:</string>
+    <string name="login_will_sign_in_kid">%1$s néven jelentkezik be, ami gyerekfiók: csak jóváhagyott dalok.</string>
+    <string name="login_will_sign_in">%1$s néven jelentkezik be, a te jelszavaddal.</string>
+    <string name="login_will_play">A te bejelentkezéseddel játszik, amíg le nem választod. Ennél az eszköznél többet nem kérdezünk rá.</string>
+    <string name="login_it_matches">Egyezik</string>
+
+    <string name="licences_title">Nyílt forráskódú licencek</string>
+    <string name="licences_includes">A Seiðr részei</string>
+    <string name="licences_shared_freely">Szabadon megosztva; a szerzők kérhetik az eltávolítást</string>
+    <string name="licences_projectm_by">A projectM csapata. Módosítás nélkül szállítva; a forrása a Seiðr tárolójában található</string>
+    <string name="licences_presets">MilkDrop-presetek (Cream of the Crop)</string>
+    <string name="licences_presets_by">Válogatta Jason Fletcher; minden preset szerzője a preset nevében szerepel</string>
+    <string name="licences_textures">MilkDrop-textúracsomag</string>
+    <string name="licences_textures_by">Összegyűjtötte a projectM csapata</string>
+    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
+    <string name="licences_material_icons">Material ikonok</string>
+    <string name="licences_okhttp">OkHttp és Retrofit</string>
+    <string name="licences_coil_by">A Coil közreműködői</string>
+    <string name="licences_openxr">OpenXR-betöltő</string>
+
+    <string name="vissettings_title">Vizualizáció</string>
+    <string name="vissettings_track_info">Száminformációk megjelenítése</string>
+    <string name="vissettings_track_info_hint">Borító, cím és idő az egyik sarokban. Kikapcsolva csak a vezérlőkkel együtt látszanak (nyomva tartással, vagy a távirányító fel/le gombjával).</string>
+    <string name="vissettings_performance">Teljesítmény megjelenítése</string>
+    <string name="vissettings_performance_hint">Képkockasebesség, renderelési méret és minőségi szint az egyik sarokban, ahogy a vizualizáció beállítja magát.</string>
+    <string name="vissettings_loved">Kedvelt presetek</string>
+    <string name="vissettings_loved_hint">A szív a vizualizáció vezérlői között. A kedvelt presetek nagyjából tízből egyszer kerülnek sorra.</string>
+    <string name="vissettings_unlove">Kedvelés visszavonása</string>
+    <string name="vissettings_hidden">Elrejtett presetek</string>
+    <string name="vissettings_hidden_hint">A vizualizáció vezérlői között lévő zászló elrejti a presetet. Azokat a preseteket, amelyek túl nehezek ahhoz, hogy ez az eszköz simán megjelenítse őket, magunktól elrejtjük. Koppints egyre az előnézethez.</string>
+    <string name="vissettings_hidden_by_you">Te rejtetted el</string>
+    <string name="vissettings_too_heavy">Túl nehéz ennek az eszköznek</string>
+    <string name="vissettings_unhide">Megjelenítés</string>
+
+    <string name="whatsnew_title">Újdonságok</string>
+    <string name="whatsnew_this_version">%1$s (ez a verzió)</string>
+
+</resources>

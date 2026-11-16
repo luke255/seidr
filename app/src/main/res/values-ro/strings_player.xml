@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">Înapoi</string>
+    <string name="common_cancel">Anulează</string>
+    <string name="common_clear">Șterge</string>
+    <string name="common_close">Închide</string>
+    <string name="common_done">Gata</string>
+    <string name="common_more">Mai multe</string>
+    <string name="common_remove">Elimină</string>
+    <string name="common_try_again">Reîncearcă</string>
+    <string name="common_offline">Offline</string>
+    <string name="common_load_failed">Nu s-a putut încărca</string>
+    <string name="common_drag_to_reorder">Trage pentru a reordona</string>
+    <string name="common_moving_hint">Mutare: sus sau jos, apoi selectează ca să-l lași</string>
+    <string name="common_shuffle_play">Redare aleatorie</string>
+    <string name="common_play_in_order">Redare în ordine</string>
+    <string name="common_play">Redă</string>
+
+    <string name="common_download">Descarcă</string>
+    <string name="common_downloaded">Descărcat</string>
+    <string name="common_queued">În coadă</string>
+    <string name="common_download_failed">Descărcarea nu a reușit</string>
+    <string name="common_waiting_to_download">Așteaptă descărcarea…</string>
+    <string name="common_downloading_progress">Se descarcă… %1$d din %2$d</string>
+    <string name="common_download_when_reachable">Se va descărca atunci când serverul poate fi contactat</string>
+    <string name="common_downloads_removed">Descărcările pentru %1$s au fost șterse</string>
+    <string name="common_not_approved_yet">Încă neaprobată</string>
+
+    <string name="common_read_only_kid">Doar citire cât privești ca un copil</string>
+    <string name="common_cant_reach_server">Serverul nu a putut fi contactat</string>
+    <string name="common_loved">Adăugat la Favorite</string>
+    <string name="common_unloved">Scos din Favorite</string>
+    <string name="common_edit_queued">Offline: se va salva pe server când revine</string>
+    <string name="common_edit_conflict">Playlistul s-a schimbat în altă parte, așa că nu s-a salvat nimic. A fost reîncărcat.</string>
+    <string name="common_edit_failed">Nu s-a putut salva: %1$s</string>
+
+    <plurals name="common_songs">
+        <item quantity="one">%d melodie</item>
+        <item quantity="few">%d melodii</item>
+        <item quantity="other">%d de melodii</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="one">%d album</item>
+        <item quantity="few">%d albume</item>
+        <item quantity="other">%d de albume</item>
+    </plurals>
+    <plurals name="common_approved_count">
+        <item quantity="one">%1$d aprobată</item>
+        <item quantity="few">%1$d aprobate</item>
+        <item quantity="other">%1$d aprobate</item>
+    </plurals>
+    <string name="common_by_owner">de %1$s</string>
+    <string name="common_duration_hr_min">%1$d h %2$d min</string>
+    <string name="common_duration_min">%1$d min</string>
+    <string name="common_size_gb">%1$.1f GB</string>
+    <string name="common_size_mb">%1$.0f MB</string>
+    <string name="common_size_kb">%1$.0f KB</string>
+
+    <string name="nav_home">Acasă</string>
+    <string name="nav_search">Caută</string>
+    <string name="nav_library">Bibliotecă</string>
+    <string name="nav_now_playing">În redare</string>
+    <string name="nav_settings">Setări</string>
+    <string name="nav_update_available">Actualizare disponibilă</string>
+    <string name="nav_settings_update_available">Setări, actualizare disponibilă</string>
+
+    <string name="player_nothing_playing">Nu se redă nimic</string>
+    <string name="player_playing_from">SE REDĂ DIN</string>
+    <string name="player_queue">Coadă</string>
+    <string name="player_disconnect">Deconectează</string>
+    <string name="player_play_on_another_device">Redă pe alt dispozitiv</string>
+    <string name="player_lyrics">Versuri</string>
+    <string name="player_hide_lyrics">Ascunde versurile</string>
+    <string name="player_visualiser">Vizualizator</string>
+    <string name="player_immersive_visualiser">Vizualizator imersiv</string>
+    <string name="player_previous">Anterioara</string>
+    <string name="player_next">Următoarea</string>
+    <string name="player_play">Redă</string>
+    <string name="player_pause">Pauză</string>
+    <string name="player_playing_on">Se redă pe %1$s</string>
+    <string name="player_playing_for">Se redă pentru %1$s de pe %2$s</string>
+    <string name="player_repeat_one">Repetă piesa</string>
+    <string name="player_repeat_all">Repetă tot</string>
+    <string name="player_repeat_off">Repetare oprită</string>
+    <string name="player_shuffle">Aleatoriu</string>
+    <string name="player_on">Pornit</string>
+    <string name="player_off">Oprit</string>
+    <string name="player_toggle_shuffle">Pornește sau oprește redarea aleatorie</string>
+    <string name="player_reshuffle">Amestecă din nou</string>
+    <string name="player_reshuffled">Amestecat din nou</string>
+    <string name="player_hold_to_reshuffle">Ține apăsat ca să amesteci din nou</string>
+
+    <string name="queue_title">Coadă de redare</string>
+    <string name="queue_empty">Coada e goală</string>
+    <string name="queue_earlier">Mai devreme</string>
+    <string name="queue_now_playing">În redare</string>
+    <string name="queue_next">Urmează</string>
+    <string name="queue_next_in_queue">Urmează în coadă</string>
+    <string name="queue_clear">Golește coada</string>
+    <string name="queue_next_from">Urmează din: %1$s</string>
+    <string name="queue_fallback_context">coadă</string>
+    <string name="queue_remove">Elimină din coadă</string>
+
+    <string name="lyrics_none">Nu există versuri pentru melodia aceasta</string>
+    <string name="lyrics_failed">Versurile nu au putut fi încărcate</string>
+    <string name="lyrics_earlier">Versuri mai devreme</string>
+    <string name="lyrics_later">Versuri mai târziu</string>
+    <string name="lyrics_original_timing">Sincronizare originală</string>
+    <string name="lyrics_reset">Resetează</string>
+
+    <string name="devices_title">Redă pe</string>
+    <string name="devices_this_device">Acest dispozitiv</string>
+    <string name="devices_not_signed_in">Neautentificat</string>
+    <string name="devices_connecting">Se conectează…</string>
+    <string name="devices_connected">Conectat</string>
+    <string name="devices_allow">Permite</string>
+    <string name="devices_permission_rationale">Seiðr are nevoie de permisiunea Dispozitive din apropiere ca să-ți găsească celelalte dispozitive.</string>
+    <string name="devices_looking">Se caută dispozitive. Deschide Seiðr pe alt dispozitiv din aceeași rețea Wi-Fi: unul autentificat cu contul tău sau unul pe care nu e autentificat nimeni.</string>
+
+    <string name="menu_love">Îmi place</string>
+    <string name="menu_unlove">Nu-mi mai place</string>
+    <string name="menu_add_to_playlist">Adaugă la un playlist</string>
+    <string name="menu_add_to_queue">Adaugă în coadă</string>
+    <string name="menu_go_to_album">Mergi la album</string>
+    <string name="menu_go_to_artist">Mergi la artist</string>
+    <plurals name="menu_added_to_queue">
+        <item quantity="one">Adăugată în coadă</item>
+        <item quantity="few">%d melodii adăugate în coadă</item>
+        <item quantity="other">%d de melodii adăugate în coadă</item>
+    </plurals>
+    <string name="menu_new_playlist">Playlist nou</string>
+    <string name="menu_playlist_name">Nume</string>
+    <string name="menu_create">Creează</string>
+    <string name="menu_create_failed">Playlistul nu a putut fi creat (e nevoie de server)</string>
+    <string name="menu_created">S-a creat „%1$s”</string>
+    <string name="menu_added_to">Adăugat la %1$s</string>
+
+    <string name="menu_report_a_problem">Semnalează o problemă</string>
+    <string name="menu_report_no_playlist">Nu există playlistul %1$s</string>
+    <string name="menu_report_undo_song">Anulează semnalarea melodiei</string>
+    <string name="menu_report_undo_art">Anulează semnalarea copertei</string>
+    <string name="menu_report_undo_lyrics">Anulează semnalarea versurilor</string>
+    <string name="menu_report_bad_song">Melodie cu probleme (sari peste ea)</string>
+    <string name="menu_report_bad_art">Copertă greșită</string>
+    <string name="menu_report_bad_lyrics">Versuri greșite</string>
+
+    <string name="pair_title">Autentifică un dispozitiv</string>
+    <string name="pair_signing_in">Se autentifică %1$s… Permite acest lucru pe %1$s.</string>
+    <string name="pair_signed_in_as">%1$s este autentificat ca %2$s</string>
+    <string name="pair_cancelled">Anulat</string>
+    <string name="pair_intro">Deschide Seiðr pe dispozitivul pe care vrei să-l autentifici, în aceeași rețea Wi-Fi cu acesta. Apare aici cât timp nu e autentificat nimeni pe el. Verifici că ambele ecrane arată același cod, apoi se autentifică drept %1$s.</string>
+    <string name="pair_intro_kid">Deschide Seiðr pe dispozitivul pe care vrei să-l autentifici, în aceeași rețea Wi-Fi cu acesta. Apare aici cât timp nu e autentificat nimeni pe el. Verifici că ambele ecrane arată același cod, apoi se autentifică drept %1$s. Va fi și el un dispozitiv de copil, cu aceleași melodii.</string>
+    <string name="pair_you">Tu</string>
+    <string name="pair_kid_approved_only">Copil: doar melodii aprobate</string>
+    <string name="pair_permission_rationale">Seiðr are nevoie de permisiunea Dispozitive din apropiere ca să găsească alte dispozitive.</string>
+    <string name="pair_looking">Se caută dispozitive neautentificate…</string>
+
+    <string name="theme_system">Sistem</string>
+    <string name="theme_neutral">Neutru</string>
+    <string name="theme_red">Roșu</string>
+    <string name="theme_orange">Portocaliu</string>
+    <string name="theme_amber">Chihlimbar</string>
+    <string name="theme_yellow">Galben</string>
+    <string name="theme_lime">Lime</string>
+    <string name="theme_green">Verde</string>
+    <string name="theme_emerald">Smarald</string>
+    <string name="theme_teal">Turcoaz închis</string>
+    <string name="theme_cyan">Cyan</string>
+    <string name="theme_sky">Azuriu</string>
+    <string name="theme_blue">Albastru</string>
+    <string name="theme_indigo">Indigo</string>
+    <string name="theme_violet">Violet</string>
+    <string name="theme_purple">Mov</string>
+    <string name="theme_magenta">Magenta</string>
+    <string name="theme_pink">Roz</string>
+</resources>

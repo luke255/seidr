@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="library_songs">
+        <item quantity="one">%d melodie</item>
+        <item quantity="few">%d melodii</item>
+        <item quantity="other">%d de melodii</item>
+    </plurals>
+    <plurals name="library_albums">
+        <item quantity="one">%d album</item>
+        <item quantity="few">%d albume</item>
+        <item quantity="other">%d de albume</item>
+    </plurals>
+
+    <string name="library_title">Bibliotecă</string>
+    <string name="library_tab_playlists">Playlisturi</string>
+    <string name="library_tab_artists">Artiști</string>
+    <string name="library_tab_albums">Albume</string>
+    <string name="library_search_playlists">Caută în playlisturi</string>
+    <string name="library_search_artists">Caută în artiști</string>
+    <string name="library_search_albums">Caută în albume</string>
+    <string name="library_close_search">Închide căutarea</string>
+    <string name="library_search_library">Caută în biblioteca ta</string>
+    <string name="library_create_playlist">Creează un playlist</string>
+    <string name="library_downloaded">Descărcate</string>
+    <string name="library_sort_custom">Ordine personalizată</string>
+    <string name="library_sort_name">Nume</string>
+    <string name="library_sort_updated">Actualizate recent</string>
+    <string name="library_sort_most_albums">Cele mai multe albume</string>
+    <string name="library_sort_artist">Artist</string>
+    <string name="library_sort_added">Adăugate recent</string>
+    <string name="library_sort_year">An</string>
+    <string name="library_show_list">Afișează ca listă</string>
+    <string name="library_show_grid">Afișează ca grilă</string>
+    <string name="library_by_owner">de %1$s</string>
+    <string name="library_playlist">Playlist</string>
+    <string name="library_name">Nume</string>
+    <string name="library_create">Creează</string>
+    <string name="library_cancel">Anulează</string>
+    <string name="library_create_failed">Playlistul nu a putut fi creat (e nevoie de server)</string>
+    <string name="library_no_match">Nimic nu se potrivește cu „%1$s”</string>
+    <string name="library_none_downloaded">Încă nu e nimic descărcat aici</string>
+    <string name="library_empty">Încă nu e nimic aici</string>
+    <plurals name="library_downloading_left">
+        <item quantity="one">Se descarcă: a mai rămas %d melodie</item>
+        <item quantity="few">Se descarcă: au mai rămas %d melodii</item>
+        <item quantity="other">Se descarcă: au mai rămas %d de melodii</item>
+    </plurals>
+
+    <string name="search_title">Caută</string>
+    <string name="search_hint">Artiști, melodii, albume sau playlisturi</string>
+    <string name="search_recent">Căutări recente</string>
+    <string name="search_clear">Șterge</string>
+    <string name="search_filter_all">Toate</string>
+    <string name="search_filter_songs">Melodii</string>
+    <string name="search_filter_artists">Artiști</string>
+    <string name="search_filter_albums">Albume</string>
+    <string name="search_filter_playlists">Playlisturi</string>
+    <string name="search_failed">Căutarea nu a reușit</string>
+    <string name="search_no_results">Niciun rezultat pentru „%1$s”</string>
+    <string name="search_context">Căutare: %1$s</string>
+    <string name="search_top_result">Cel mai bun rezultat</string>
+    <string name="search_kind_artist">Artist</string>
+    <string name="search_kind_album">Album</string>
+    <string name="search_kind_song">Melodie</string>
+    <string name="search_kind_album_by">Album · %1$s</string>
+    <string name="search_kind_song_by">Melodie · %1$s</string>
+    <plurals name="search_kind_playlist">
+        <item quantity="one">Playlist · %d melodie</item>
+        <item quantity="few">Playlist · %d melodii</item>
+        <item quantity="other">Playlist · %d de melodii</item>
+    </plurals>
+
+    <string name="playlist_by_owner">de %1$s</string>
+    <string name="playlist_done">Gata</string>
+    <string name="playlist_options">Opțiuni pentru playlist</string>
+    <string name="playlist_reorder">Reordonează melodiile</string>
+    <string name="playlist_rename">Redenumește</string>
+    <string name="playlist_delete">Șterge playlistul</string>
+    <string name="playlist_remove_from_this">Elimină din acest playlist</string>
+    <string name="playlist_order_saved">Ordinea playlistului a fost salvată</string>
+    <string name="playlist_removed_from">Eliminat din %1$s</string>
+    <string name="playlist_rename_title">Redenumește playlistul</string>
+    <string name="playlist_renamed">Redenumit</string>
+    <string name="playlist_save">Salvează</string>
+    <string name="playlist_cancel">Anulează</string>
+    <string name="playlist_delete_title">Ștergi „%1$s”?</string>
+    <string name="playlist_delete_body">Se șterge de pe server. Descărcările păstrate doar datorită lui sunt șterse de pe telefon.</string>
+    <string name="playlist_deleted">S-a șters %1$s</string>
+    <string name="playlist_delete_confirm">Șterge</string>
+
+    <string name="downloads_title">Descărcări</string>
+    <string name="downloads_free">%1$s liberi pe acest telefon</string>
+    <string name="downloads_queue">Coadă</string>
+    <string name="downloads_all_done">Totul este descărcat</string>
+    <plurals name="downloads_waiting">
+        <item quantity="one">%d melodie în așteptare</item>
+        <item quantity="few">%d melodii în așteptare</item>
+        <item quantity="other">%d de melodii în așteptare</item>
+    </plurals>
+    <string name="downloads_wifi_only_note">Se descarcă doar prin Wi-Fi</string>
+    <plurals name="downloads_failed">
+        <item quantity="one">%d eșuată</item>
+        <item quantity="few">%d eșuate</item>
+        <item quantity="other">%d eșuate</item>
+    </plurals>
+    <string name="downloads_retry">Reîncearcă</string>
+    <plurals name="downloads_edits_waiting">
+        <item quantity="one">%d modificare de playlist în așteptare</item>
+        <item quantity="few">%d modificări de playlist în așteptare</item>
+        <item quantity="other">%d de modificări de playlist în așteptare</item>
+    </plurals>
+    <string name="downloads_edits_note">Se trimit când serverul poate fi contactat</string>
+    <string name="downloads_settings">Setări</string>
+    <string name="downloads_wifi_only">Descarcă doar prin Wi-Fi</string>
+    <string name="downloads_wifi_only_hint">Dezactivează ca să descarci și prin date mobile</string>
+    <string name="downloads_syncing">Se sincronizează…</string>
+    <string name="downloads_not_synced">Încă nesincronizat</string>
+    <string name="downloads_last_synced">Ultima sincronizare: %1$s</string>
+    <plurals name="downloads_unchecked">
+        <item quantity="one">%d nu a putut fi verificat; nu s-a șters nimic</item>
+        <item quantity="few">%d nu au putut fi verificate; nu s-a șters nimic</item>
+        <item quantity="other">%d nu au putut fi verificate; nu s-a șters nimic</item>
+    </plurals>
+    <string name="downloads_sync_now">Sincronizează acum</string>
+    <string name="downloads_downloaded">Descărcate</string>
+    <string name="downloads_nothing">Încă nimic</string>
+    <string name="downloads_nothing_hint">Activează Descarcă la un playlist sau album ca să-l păstrezi pe telefon.</string>
+    <plurals name="downloads_progress">
+        <item quantity="one">%1$d din %2$d melodie · %3$s</item>
+        <item quantity="few">%1$d din %2$d melodii · %3$s</item>
+        <item quantity="other">%1$d din %2$d de melodii · %3$s</item>
+    </plurals>
+    <string name="downloads_waiting_short">În așteptare</string>
+    <string name="downloads_kind_playlist">Playlist</string>
+    <string name="downloads_kind_album">Album</string>
+
+    <string name="home_offline_tv">Ești offline. Seiðr se reconectează când serverul poate fi contactat.</string>
+    <string name="home_offline">Ești offline. Muzica descărcată e tot aici: caut-o în Bibliotecă, cu filtrul Descărcate.</string>
+    <string name="home_kid_empty">Încă nu ți s-a aprobat nimic. Roagă pe cine te-a autentificat să adauge câteva melodii.</string>
+    <string name="home_playlists">Playlisturi</string>
+    <string name="home_sort_az">A–Z</string>
+    <string name="home_sort_recent">Recente</string>
+    <string name="home_by_owner">de %1$s</string>
+    <string name="home_recently_added">Adăugate recent</string>
+    <string name="home_most_played">Cele mai ascultate</string>
+    <string name="home_saved_albums">Albume salvate</string>
+
+    <string name="artist_load_failed">Melodiile nu au putut fi încărcate</string>
+    <string name="artist_label">Artist</string>
+    <string name="artist_popular">Populare</string>
+    <string name="artist_show_less">Mai puține</string>
+    <string name="artist_show_all">Toate</string>
+    <string name="artist_albums">Albume</string>
+    <string name="artist_singles">Single-uri și EP-uri</string>
+    <string name="artist_appears_on">Apare pe</string>
+
+    <string name="album_unreachable">Serverul nu a putut fi contactat</string>
+    <string name="album_remove_from_library">Elimină din bibliotecă</string>
+    <string name="album_save_to_library">Salvează în bibliotecă</string>
+    <string name="album_disc">Discul %1$s</string>
+
+    <string name="loved_title">Favorite</string>
+</resources>

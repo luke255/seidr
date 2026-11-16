@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">Πίσω</string>
+    <string name="common_cancel">Άκυρο</string>
+    <string name="common_clear">Απαλοιφή</string>
+    <string name="common_close">Κλείσιμο</string>
+    <string name="common_done">Τέλος</string>
+    <string name="common_more">Περισσότερα</string>
+    <string name="common_remove">Αφαίρεση</string>
+    <string name="common_try_again">Δοκίμασε ξανά</string>
+    <string name="common_offline">Εκτός σύνδεσης</string>
+    <string name="common_load_failed">Δεν φορτώθηκε</string>
+    <string name="common_drag_to_reorder">Σύρε για αλλαγή σειράς</string>
+    <string name="common_moving_hint">Μετακίνηση: πάνω ή κάτω, μετά επιλογή για να το αφήσεις</string>
+    <string name="common_shuffle_play">Τυχαία αναπαραγωγή</string>
+    <string name="common_play_in_order">Αναπαραγωγή με τη σειρά</string>
+    <string name="common_play">Αναπαραγωγή</string>
+
+    <string name="common_download">Λήψη</string>
+    <string name="common_downloaded">Έχει ληφθεί</string>
+    <string name="common_queued">Στην ουρά</string>
+    <string name="common_download_failed">Η λήψη απέτυχε</string>
+    <string name="common_waiting_to_download">Αναμονή για λήψη…</string>
+    <string name="common_downloading_progress">Λήψη… %1$d από %2$d</string>
+    <string name="common_download_when_reachable">Η λήψη θα γίνει όταν υπάρχει πρόσβαση στον διακομιστή</string>
+    <string name="common_downloads_removed">Οι λήψεις αφαιρέθηκαν: %1$s</string>
+    <string name="common_not_approved_yet">Δεν έχει εγκριθεί ακόμα</string>
+
+    <string name="common_read_only_kid">Μόνο ανάγνωση στην προβολή παιδιού</string>
+    <string name="common_cant_reach_server">Δεν υπήρξε πρόσβαση στον διακομιστή</string>
+    <string name="common_loved">Προστέθηκε στα Αγαπημένα</string>
+    <string name="common_unloved">Αφαιρέθηκε από τα Αγαπημένα</string>
+    <string name="common_edit_queued">Εκτός σύνδεσης: θα αποθηκευτεί στον διακομιστή όταν επανέλθει</string>
+    <string name="common_edit_conflict">Η playlist άλλαξε από αλλού, οπότε δεν αποθηκεύτηκε τίποτα. Φορτώθηκε ξανά.</string>
+    <string name="common_edit_failed">Δεν αποθηκεύτηκε: %1$s</string>
+
+    <plurals name="common_songs">
+        <item quantity="one">%d τραγούδι</item>
+        <item quantity="other">%d τραγούδια</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="one">%d άλμπουμ</item>
+        <item quantity="other">%d άλμπουμ</item>
+    </plurals>
+    <plurals name="common_approved_count">
+        <item quantity="one">%1$d εγκεκριμένο</item>
+        <item quantity="other">%1$d εγκεκριμένα</item>
+    </plurals>
+    <string name="common_by_owner">από %1$s</string>
+    <string name="common_duration_hr_min">%1$d ώ. %2$d λ.</string>
+    <string name="common_duration_min">%1$d λ.</string>
+    <string name="common_size_gb">%1$.1f GB</string>
+    <string name="common_size_mb">%1$.0f MB</string>
+    <string name="common_size_kb">%1$.0f KB</string>
+
+    <string name="nav_home">Αρχική</string>
+    <string name="nav_search">Αναζήτηση</string>
+    <string name="nav_library">Βιβλιοθήκη</string>
+    <string name="nav_now_playing">Παίζει τώρα</string>
+    <string name="nav_settings">Ρυθμίσεις</string>
+    <string name="nav_update_available">Διαθέσιμη ενημέρωση</string>
+    <string name="nav_settings_update_available">Ρυθμίσεις, διαθέσιμη ενημέρωση</string>
+
+    <string name="player_nothing_playing">Δεν παίζει τίποτα</string>
+    <string name="player_playing_from">ΠΑΙΖΕΙ ΑΠΟ</string>
+    <string name="player_queue">Ουρά</string>
+    <string name="player_disconnect">Διακοπή σύνδεσης</string>
+    <string name="player_play_on_another_device">Αναπαραγωγή σε άλλη συσκευή</string>
+    <string name="player_lyrics">Στίχοι</string>
+    <string name="player_hide_lyrics">Απόκρυψη στίχων</string>
+    <string name="player_visualiser">Οπτικοποίηση</string>
+    <string name="player_immersive_visualiser">Καθηλωτική οπτικοποίηση</string>
+    <string name="player_previous">Προηγούμενο</string>
+    <string name="player_next">Επόμενο</string>
+    <string name="player_play">Αναπαραγωγή</string>
+    <string name="player_pause">Παύση</string>
+    <string name="player_playing_on">Παίζει στη συσκευή %1$s</string>
+    <string name="player_playing_for">Παίζει για %1$s από τη συσκευή %2$s</string>
+    <string name="player_repeat_one">Επανάληψη ενός</string>
+    <string name="player_repeat_all">Επανάληψη όλων</string>
+    <string name="player_repeat_off">Χωρίς επανάληψη</string>
+    <string name="player_shuffle">Τυχαία σειρά</string>
+    <string name="player_on">Ενεργή</string>
+    <string name="player_off">Ανενεργή</string>
+    <string name="player_toggle_shuffle">Εναλλαγή τυχαίας σειράς</string>
+    <string name="player_reshuffle">Νέο ανακάτεμα</string>
+    <string name="player_reshuffled">Ανακατεύτηκαν ξανά</string>
+    <string name="player_hold_to_reshuffle">Κράτα πατημένο για νέο ανακάτεμα</string>
+
+    <string name="queue_title">Ουρά αναπαραγωγής</string>
+    <string name="queue_empty">Η ουρά είναι άδεια</string>
+    <string name="queue_earlier">Προηγούμενα</string>
+    <string name="queue_now_playing">Παίζει τώρα</string>
+    <string name="queue_next">Επόμενα</string>
+    <string name="queue_next_in_queue">Επόμενα στην ουρά</string>
+    <string name="queue_clear">Άδειασμα ουράς</string>
+    <string name="queue_next_from">Επόμενα από: %1$s</string>
+    <string name="queue_fallback_context">ουρά</string>
+    <string name="queue_remove">Αφαίρεση από την ουρά</string>
+
+    <string name="lyrics_none">Δεν υπάρχουν στίχοι για αυτό το τραγούδι</string>
+    <string name="lyrics_failed">Οι στίχοι δεν φορτώθηκαν</string>
+    <string name="lyrics_earlier">Στίχοι νωρίτερα</string>
+    <string name="lyrics_later">Στίχοι αργότερα</string>
+    <string name="lyrics_original_timing">Αρχικός συγχρονισμός</string>
+    <string name="lyrics_reset">Επαναφορά</string>
+
+    <string name="devices_title">Αναπαραγωγή σε</string>
+    <string name="devices_this_device">Αυτή η συσκευή</string>
+    <string name="devices_not_signed_in">Χωρίς σύνδεση σε λογαριασμό</string>
+    <string name="devices_connecting">Γίνεται σύνδεση…</string>
+    <string name="devices_connected">Συνδέθηκε</string>
+    <string name="devices_allow">Να επιτρέπεται</string>
+    <string name="devices_permission_rationale">Το Seiðr χρειάζεται την άδεια «Κοντινές συσκευές» για να βρει τις άλλες σου συσκευές.</string>
+    <string name="devices_looking">Αναζήτηση συσκευών. Άνοιξε το Seiðr σε άλλη συσκευή στο ίδιο Wi-Fi: μία όπου έχεις συνδεθεί εσύ ή μία όπου δεν έχει συνδεθεί κανείς.</string>
+
+    <string name="menu_love">Μου αρέσει</string>
+    <string name="menu_unlove">Δεν μου αρέσει πια</string>
+    <string name="menu_add_to_playlist">Προσθήκη σε playlist</string>
+    <string name="menu_add_to_queue">Προσθήκη στην ουρά</string>
+    <string name="menu_go_to_album">Μετάβαση στο άλμπουμ</string>
+    <string name="menu_go_to_artist">Μετάβαση στον καλλιτέχνη</string>
+    <plurals name="menu_added_to_queue">
+        <item quantity="one">Προστέθηκε στην ουρά</item>
+        <item quantity="other">Προστέθηκαν %d τραγούδια στην ουρά</item>
+    </plurals>
+    <string name="menu_new_playlist">Νέα playlist</string>
+    <string name="menu_playlist_name">Όνομα</string>
+    <string name="menu_create">Δημιουργία</string>
+    <string name="menu_create_failed">Η playlist δεν δημιουργήθηκε (χρειάζεται ο διακομιστής)</string>
+    <string name="menu_created">Δημιουργήθηκε: «%1$s»</string>
+    <string name="menu_added_to">Προστέθηκε σε: %1$s</string>
+
+    <string name="menu_report_a_problem">Αναφορά προβλήματος</string>
+    <string name="menu_report_no_playlist">Δεν υπάρχει playlist %1$s</string>
+    <string name="menu_report_undo_song">Αναίρεση αναφοράς τραγουδιού</string>
+    <string name="menu_report_undo_art">Αναίρεση αναφοράς εξωφύλλου</string>
+    <string name="menu_report_undo_lyrics">Αναίρεση αναφοράς στίχων</string>
+    <string name="menu_report_bad_song">Προβληματικό τραγούδι (παράλειψη)</string>
+    <string name="menu_report_bad_art">Λάθος εξώφυλλο</string>
+    <string name="menu_report_bad_lyrics">Λάθος στίχοι</string>
+
+    <string name="pair_title">Σύνδεση συσκευής</string>
+    <string name="pair_signing_in">Γίνεται σύνδεση της συσκευής %1$s… Επίτρεψέ το στη συσκευή %1$s.</string>
+    <string name="pair_signed_in_as">Η συσκευή %1$s συνδέθηκε ως %2$s</string>
+    <string name="pair_cancelled">Ακυρώθηκε</string>
+    <string name="pair_intro">Άνοιξε το Seiðr στη συσκευή που θέλεις να συνδέσεις, στο ίδιο Wi-Fi με αυτήν εδώ. Εμφανίζεται εδώ όσο δεν έχει συνδεθεί κανείς σε αυτήν. Θα ελέγξεις ότι οι δύο οθόνες δείχνουν τον ίδιο κωδικό και μετά θα συνδεθεί ως %1$s.</string>
+    <string name="pair_intro_kid">Άνοιξε το Seiðr στη συσκευή που θέλεις να συνδέσεις, στο ίδιο Wi-Fi με αυτήν εδώ. Εμφανίζεται εδώ όσο δεν έχει συνδεθεί κανείς σε αυτήν. Θα ελέγξεις ότι οι δύο οθόνες δείχνουν τον ίδιο κωδικό και μετά θα συνδεθεί ως %1$s. Θα είναι κι αυτή παιδική συσκευή, με τα ίδια τραγούδια.</string>
+    <string name="pair_you">Εσύ</string>
+    <string name="pair_kid_approved_only">Παιδί: μόνο εγκεκριμένα τραγούδια</string>
+    <string name="pair_permission_rationale">Το Seiðr χρειάζεται την άδεια «Κοντινές συσκευές» για να βρει άλλες συσκευές.</string>
+    <string name="pair_looking">Αναζήτηση συσκευών χωρίς σύνδεση σε λογαριασμό…</string>
+
+    <string name="theme_system">Σύστημα</string>
+    <string name="theme_neutral">Ουδέτερο</string>
+    <string name="theme_red">Κόκκινο</string>
+    <string name="theme_orange">Πορτοκαλί</string>
+    <string name="theme_amber">Κεχριμπαρί</string>
+    <string name="theme_yellow">Κίτρινο</string>
+    <string name="theme_lime">Λαχανί</string>
+    <string name="theme_green">Πράσινο</string>
+    <string name="theme_emerald">Σμαραγδί</string>
+    <string name="theme_teal">Πετρόλ</string>
+    <string name="theme_cyan">Κυανό</string>
+    <string name="theme_sky">Ουρανί</string>
+    <string name="theme_blue">Μπλε</string>
+    <string name="theme_indigo">Λουλακί</string>
+    <string name="theme_violet">Βιολετί</string>
+    <string name="theme_purple">Μοβ</string>
+    <string name="theme_magenta">Ματζέντα</string>
+    <string name="theme_pink">Ροζ</string>
+</resources>

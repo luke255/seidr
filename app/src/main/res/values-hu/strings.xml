@@ -1,0 +1,96 @@
+<resources>
+    <string name="channel_updates">Alkalmazásfrissítések</string>
+    <string name="update_offer_title">Frissíted ezt: %1$s?</string>
+    <string name="update_offer_text">A(z) %1$s verzió telepítésre kész (a mostani: %2$s). Frissítés közben az alkalmazás bezárul.</string>
+    <string name="update_install">Telepítés</string>
+    <string name="update_later">Később</string>
+    <string name="update_whats_new">Újdonságok</string>
+    <string name="update_whats_new_title">Újdonságok – %1$s</string>
+    <string name="update_ready_title">A frissítés kész</string>
+    <string name="update_ready_text">Koppints a(z) %1$s verzió telepítéséhez</string>
+
+    <string name="notif_channel_downloads">Letöltések</string>
+    <string name="notif_channel_storage">Tárhely-figyelmeztetések</string>
+    <plurals name="notif_downloading">
+        <item quantity="one">%1$d szám letöltése</item>
+        <item quantity="other">%1$d szám letöltése</item>
+    </plurals>
+    <string name="notif_preparing">Előkészítés…</string>
+    <string name="notif_storage_title">Letöltések szüneteltetve: megtelt a tárhely</string>
+    <string name="notif_storage_text">A folytatáshoz szabadíts fel kb. %1$d MB-ot. A már letöltött zenékből semmi sem törlődött.</string>
+
+    <string name="sync_server_error">Szerverhiba</string>
+    <string name="sync_cant_reach">A szerver nem érhető el</string>
+
+    <string name="car_recent">Legutóbbiak</string>
+    <string name="car_playlists">Lejátszási listák</string>
+    <string name="car_playlist">Lejátszási lista</string>
+    <plurals name="car_songs">
+        <item quantity="one">%1$d dal</item>
+        <item quantity="other">%1$d dal</item>
+    </plurals>
+
+    <string name="playback_love">Kedvelés</string>
+    <string name="playback_unlove">Kedvelés visszavonása</string>
+
+    <string name="connect_not_signed_in">Ezen az eszközön senki sincs bejelentkezve</string>
+    <string name="connect_update_for_kids">Előbb frissítsd a Seiðrt ezen az eszközön: %1$s. Ez a verzió nem tud vigyázni egy gyerek bejelentkezési adataira.</string>
+    <string name="connect_no_answer">Nem válaszolt: %1$s</string>
+    <string name="connect_lost_why">Megszakadt a kapcsolat (%1$s): %2$s</string>
+    <string name="connect_peer_other_account">Ezen az eszközön valaki más van bejelentkezve: %1$s</string>
+    <string name="connect_peer_changed">Ezen az eszközön be- vagy kijelentkeztek: %1$s. Próbáld újra egy pillanat múlva.</string>
+    <string name="connect_peer_unreachable">Nem érhető el: %1$s. Meg van nyitva rajta a Seiðr?</string>
+    <string name="connect_playback_not_ready">A lejátszás még nem áll készen</string>
+    <string name="connect_device_fallback">Seiðr-eszköz</string>
+    <string name="connect_peer_disconnected">Leválasztva: %1$s</string>
+    <string name="connect_peer_signed_in">Bejelentkezett: %1$s</string>
+    <string name="connect_nobody_answered">Senki sem válaszolt ezen az eszközön: %1$s</string>
+    <string name="connect_not_allowed">Nem engedélyezték ezen az eszközön: %1$s</string>
+    <string name="connect_taken_over">%1$s most itt játszik: %2$s</string>
+    <string name="connect_update_first">Előbb frissítsd a Seiðrt ezen az eszközön: %1$s</string>
+    <string name="connect_lost_connection">Megszakadt a kapcsolat: %1$s</string>
+
+    <string name="account_connect_failed">Nem sikerült csatlakozni (%1$s): %2$s</string>
+    <string name="account_lan_permission">A Seiðrnek szüksége van a Közeli eszközök / helyi hálózat engedélyre, hogy elérje az otthoni hálózatodon lévő szervert.</string>
+    <string name="account_check_failed_why">Nem sikerült ellenőrizni %1$s fiókját: %2$s</string>
+    <string name="account_check_failed">Nem sikerült ellenőrizni %1$s fiókját</string>
+    <string name="account_kid_is_admin">%1$s rendszergazda a szerveren. Gyerekfiók nem lehet rendszergazda.</string>
+    <string name="account_not_grownup">Nem felnőttként vagy bejelentkezve</string>
+    <string name="account_own_check_failed">Nem sikerült ellenőrizni a fiókodat a szerveren</string>
+    <string name="account_admin_only">Csak a szerver rendszergazdái nézhetik gyerekként</string>
+    <string name="account_view_failed">Nem sikerült megnyitni %1$s nézetét: %2$s</string>
+    <string name="account_someone_else">Közben valaki más jelentkezett be</string>
+
+    <string name="kids_signed_in_as_kid">Gyerekként vagy bejelentkezve</string>
+    <string name="kids_setup_failed">Nem sikerült létrehozni a gyerekek lejátszási listáit: %1$s</string>
+
+    <string name="report_no_playlist">Nincs „%1$s” lejátszási lista a szerveren</string>
+    <string name="report_removed">Eltávolítva innen: %1$s</string>
+    <string name="report_song_reported">Jelentve. Ez a dal ki lesz hagyva.</string>
+    <string name="report_art_reported">Borító jelentve</string>
+    <string name="report_lyrics_reported">Dalszöveg jelentve</string>
+    <string name="report_queued">Offline: a(z) %1$s akkor frissül, ha a szerver újra elérhető</string>
+    <string name="report_conflict">Nem sikerült frissíteni: %1$s</string>
+    <string name="report_failed">Nem sikerült frissíteni (%1$s): %2$s</string>
+
+    <string name="main_battery_title">Szóljon tovább a zene</string>
+    <string name="main_battery_text">Egyes telefonok akkumulátorkezelője leállítja a háttérben futó lejátszást és letöltést. Futhat a Seiðr korlátozás nélkül? Ezt később a Beállításokban módosíthatod.</string>
+    <string name="main_battery_allow">Engedélyezés</string>
+
+    <string name="vis_close">Vizualizáció bezárása</string>
+    <string name="vis_now_playing">Most szól</string>
+    <string name="vis_next_in_queue">Következik a sorban</string>
+    <string name="vis_next_from">Következik innen: %1$s</string>
+    <string name="vis_next_from_queue">Következik innen: sor</string>
+    <string name="vis_hide_preset">Preset elrejtése</string>
+    <string name="vis_love_preset">Preset kedvelése</string>
+    <string name="vis_unlove_preset">Preset kedvelésének visszavonása</string>
+    <string name="vis_preview">Előnézet</string>
+    <string name="vis_preset_hidden">Preset elrejtve. A Beállítások → Vizualizáció alatt visszahozhatod.</string>
+    <string name="vis_xr_failed">Nem sikerült elindítani az immerzív vizualizációt</string>
+    <string name="vis_warning_title">Villogó fények</string>
+    <string name="vis_warning_headset">Néhány preset gyorsan villog, vibrál és örvénylik, a headsetben pedig az egész látóteredet betölti. Ez fényérzékeny epilepsziában szenvedőknél rohamot válthat ki, és émelygést vagy tájékozódási zavart is okozhat. Maradj ülve, és ha rosszul érzed magad, vedd le a headsetet.</string>
+    <string name="vis_warning_flat">Néhány preset gyorsan villog, vibrál és örvénylik. Ez fényérzékeny epilepsziában szenvedőknél rohamot válthat ki. Ha rosszul érzed magad, nézz félre, és zárd be a vizualizációt.</string>
+    <string name="vis_continue">Tovább</string>
+    <string name="vis_not_now">Most nem</string>
+</resources>

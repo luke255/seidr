@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">Geri</string>
+    <string name="common_cancel">İptal</string>
+    <string name="common_clear">Temizle</string>
+    <string name="common_close">Kapat</string>
+    <string name="common_done">Bitti</string>
+    <string name="common_more">Diğer</string>
+    <string name="common_remove">Kaldır</string>
+    <string name="common_try_again">Yeniden dene</string>
+    <string name="common_offline">Çevrimdışı</string>
+    <string name="common_load_failed">Bu yüklenemedi</string>
+    <string name="common_drag_to_reorder">Yeniden sıralamak için sürükle</string>
+    <string name="common_moving_hint">Taşınıyor: yukarı veya aşağı, sonra bırakmak için seç</string>
+    <string name="common_shuffle_play">Karışık çal</string>
+    <string name="common_play_in_order">Sırayla çal</string>
+    <string name="common_play">Çal</string>
+
+    <string name="common_download">İndir</string>
+    <string name="common_downloaded">İndirildi</string>
+    <string name="common_queued">Sırada</string>
+    <string name="common_download_failed">İndirilemedi</string>
+    <string name="common_waiting_to_download">İndirilmeyi bekliyor…</string>
+    <string name="common_downloading_progress">İndiriliyor… %1$d / %2$d</string>
+    <string name="common_download_when_reachable">Sunucuya ulaşılınca indirilecek</string>
+    <string name="common_downloads_removed">İndirmeler kaldırıldı: %1$s</string>
+    <string name="common_not_approved_yet">Henüz onaylanmadı</string>
+
+    <string name="common_read_only_kid">Çocuk gözüyle bakarken salt okunur</string>
+    <string name="common_cant_reach_server">Sunucuya ulaşılamadı</string>
+    <string name="common_loved">Beğenilenlere eklendi</string>
+    <string name="common_unloved">Beğenilenlerden çıkarıldı</string>
+    <string name="common_edit_queued">Çevrimdışı: sunucu geri gelince kaydedilecek</string>
+    <string name="common_edit_conflict">Çalma listesi başka bir yerde değişti, bu yüzden hiçbir şey kaydedilmedi. Yeniden yüklendi.</string>
+    <string name="common_edit_failed">Kaydedilemedi: %1$s</string>
+
+    <plurals name="common_songs">
+        <item quantity="one">%d şarkı</item>
+        <item quantity="other">%d şarkı</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="one">%d albüm</item>
+        <item quantity="other">%d albüm</item>
+    </plurals>
+    <plurals name="common_approved_count">
+        <item quantity="one">%1$d onaylı</item>
+        <item quantity="other">%1$d onaylı</item>
+    </plurals>
+    <string name="common_by_owner">sahibi: %1$s</string>
+    <string name="common_duration_hr_min">%1$d sa %2$d dk</string>
+    <string name="common_duration_min">%1$d dk</string>
+    <string name="common_size_gb">%1$.1f GB</string>
+    <string name="common_size_mb">%1$.0f MB</string>
+    <string name="common_size_kb">%1$.0f KB</string>
+
+    <string name="nav_home">Ana sayfa</string>
+    <string name="nav_search">Ara</string>
+    <string name="nav_library">Kitaplık</string>
+    <string name="nav_now_playing">Şimdi çalıyor</string>
+    <string name="nav_settings">Ayarlar</string>
+    <string name="nav_update_available">Güncelleme var</string>
+    <string name="nav_settings_update_available">Ayarlar, güncelleme var</string>
+
+    <string name="player_nothing_playing">Çalan bir şey yok</string>
+    <string name="player_playing_from">ÇALINAN KAYNAK</string>
+    <string name="player_queue">Sıra</string>
+    <string name="player_disconnect">Bağlantıyı kes</string>
+    <string name="player_play_on_another_device">Başka bir cihazda çal</string>
+    <string name="player_lyrics">Şarkı sözleri</string>
+    <string name="player_hide_lyrics">Şarkı sözlerini gizle</string>
+    <string name="player_visualiser">Görselleştirici</string>
+    <string name="player_immersive_visualiser">Sürükleyici görselleştirici</string>
+    <string name="player_previous">Önceki</string>
+    <string name="player_next">Sonraki</string>
+    <string name="player_play">Çal</string>
+    <string name="player_pause">Duraklat</string>
+    <string name="player_playing_on">Çaldığı cihaz: %1$s</string>
+    <string name="player_playing_for">%1$s için çalıyor, kaynak cihaz: %2$s</string>
+    <string name="player_repeat_one">Birini tekrarla</string>
+    <string name="player_repeat_all">Tümünü tekrarla</string>
+    <string name="player_repeat_off">Tekrar kapalı</string>
+    <string name="player_shuffle">Karıştır</string>
+    <string name="player_on">Açık</string>
+    <string name="player_off">Kapalı</string>
+    <string name="player_toggle_shuffle">Karıştırmayı aç veya kapat</string>
+    <string name="player_reshuffle">Yeniden karıştır</string>
+    <string name="player_reshuffled">Yeniden karıştırıldı</string>
+    <string name="player_hold_to_reshuffle">Yeniden karıştırmak için basılı tut</string>
+
+    <string name="queue_title">Çalma sırası</string>
+    <string name="queue_empty">Sıra boş</string>
+    <string name="queue_earlier">Öncekiler</string>
+    <string name="queue_now_playing">Şimdi çalıyor</string>
+    <string name="queue_next">Sıradaki</string>
+    <string name="queue_next_in_queue">Sıradakiler</string>
+    <string name="queue_clear">Sırayı temizle</string>
+    <string name="queue_next_from">Sıradaki kaynak: %1$s</string>
+    <string name="queue_fallback_context">sıra</string>
+    <string name="queue_remove">Sıradan çıkar</string>
+
+    <string name="lyrics_none">Bu şarkının sözleri yok</string>
+    <string name="lyrics_failed">Şarkı sözleri yüklenemedi</string>
+    <string name="lyrics_earlier">Sözler daha erken</string>
+    <string name="lyrics_later">Sözler daha geç</string>
+    <string name="lyrics_original_timing">Özgün zamanlama</string>
+    <string name="lyrics_reset">Sıfırla</string>
+
+    <string name="devices_title">Şurada çal</string>
+    <string name="devices_this_device">Bu cihaz</string>
+    <string name="devices_not_signed_in">Oturum açılmamış</string>
+    <string name="devices_connecting">Bağlanıyor…</string>
+    <string name="devices_connected">Bağlandı</string>
+    <string name="devices_allow">İzin ver</string>
+    <string name="devices_permission_rationale">Seiðr’in diğer cihazlarını bulabilmesi için Yakındaki cihazlar izni gerekiyor.</string>
+    <string name="devices_looking">Cihazlar aranıyor. Aynı Wi-Fi’deki başka bir cihazda Seiðr’i aç: senin hesabınla oturum açılmış ya da hiç oturum açılmamış bir cihaz olsun.</string>
+
+    <string name="menu_love">Beğen</string>
+    <string name="menu_unlove">Beğenmekten vazgeç</string>
+    <string name="menu_add_to_playlist">Çalma listesine ekle</string>
+    <string name="menu_add_to_queue">Sıraya ekle</string>
+    <string name="menu_go_to_album">Albüme git</string>
+    <string name="menu_go_to_artist">Sanatçıya git</string>
+    <plurals name="menu_added_to_queue">
+        <item quantity="one">Sıraya eklendi</item>
+        <item quantity="other">%d şarkı sıraya eklendi</item>
+    </plurals>
+    <string name="menu_new_playlist">Yeni çalma listesi</string>
+    <string name="menu_playlist_name">Ad</string>
+    <string name="menu_create">Oluştur</string>
+    <string name="menu_create_failed">Çalma listesi oluşturulamadı (sunucu gerekiyor)</string>
+    <string name="menu_created">“%1$s” oluşturuldu</string>
+    <string name="menu_added_to">Şuraya eklendi: %1$s</string>
+
+    <string name="menu_report_a_problem">Sorun bildir</string>
+    <string name="menu_report_no_playlist">%1$s çalma listesi yok</string>
+    <string name="menu_report_undo_song">Şarkı bildirimini geri al</string>
+    <string name="menu_report_undo_art">Kapak bildirimini geri al</string>
+    <string name="menu_report_undo_lyrics">Söz bildirimini geri al</string>
+    <string name="menu_report_bad_song">Sorunlu şarkı (atla)</string>
+    <string name="menu_report_bad_art">Hatalı kapak</string>
+    <string name="menu_report_bad_lyrics">Hatalı sözler</string>
+
+    <string name="pair_title">Bir cihazda oturum aç</string>
+    <string name="pair_signing_in">%1$s adlı cihazda oturum açılıyor… O cihazda (%1$s) izin ver.</string>
+    <string name="pair_signed_in_as">%1$s adlı cihazda %2$s olarak oturum açıldı</string>
+    <string name="pair_cancelled">İptal edildi</string>
+    <string name="pair_intro">Oturum açmak istediğin cihazda, bununla aynı Wi-Fi’deyken Seiðr’i aç. Oturumu kapalı olduğu sürece burada görünür. İki ekranda da aynı kodun göründüğünü kontrol edersin, sonra cihazda %1$s olarak oturum açılır.</string>
+    <string name="pair_intro_kid">Oturum açmak istediğin cihazda, bununla aynı Wi-Fi’deyken Seiðr’i aç. Oturumu kapalı olduğu sürece burada görünür. İki ekranda da aynı kodun göründüğünü kontrol edersin, sonra cihazda %1$s olarak oturum açılır. O da aynı şarkıların bulunduğu bir çocuk cihazı olur.</string>
+    <string name="pair_you">Sen</string>
+    <string name="pair_kid_approved_only">Çocuk: yalnızca onaylı şarkılar</string>
+    <string name="pair_permission_rationale">Seiðr’in başka cihazları bulabilmesi için Yakındaki cihazlar izni gerekiyor.</string>
+    <string name="pair_looking">Oturumu kapalı cihazlar aranıyor…</string>
+
+    <string name="theme_system">Sistem</string>
+    <string name="theme_neutral">Nötr</string>
+    <string name="theme_red">Kırmızı</string>
+    <string name="theme_orange">Turuncu</string>
+    <string name="theme_amber">Kehribar</string>
+    <string name="theme_yellow">Sarı</string>
+    <string name="theme_lime">Limon yeşili</string>
+    <string name="theme_green">Yeşil</string>
+    <string name="theme_emerald">Zümrüt</string>
+    <string name="theme_teal">Petrol yeşili</string>
+    <string name="theme_cyan">Camgöbeği</string>
+    <string name="theme_sky">Gök mavisi</string>
+    <string name="theme_blue">Mavi</string>
+    <string name="theme_indigo">Çivit</string>
+    <string name="theme_violet">Menekşe</string>
+    <string name="theme_purple">Mor</string>
+    <string name="theme_magenta">Macenta</string>
+    <string name="theme_pink">Pembe</string>
+</resources>

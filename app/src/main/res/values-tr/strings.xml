@@ -1,0 +1,96 @@
+<resources>
+    <string name="channel_updates">Uygulama güncellemeleri</string>
+    <string name="update_offer_title">%1$s güncellensin mi?</string>
+    <string name="update_offer_text">%1$s sürümü yüklenmeye hazır (sendeki sürüm: %2$s). Uygulama güncellenirken kapanır.</string>
+    <string name="update_install">Yükle</string>
+    <string name="update_later">Sonra</string>
+    <string name="update_whats_new">Yenilikler</string>
+    <string name="update_whats_new_title">Yenilikler: %1$s</string>
+    <string name="update_ready_title">Güncelleme hazır</string>
+    <string name="update_ready_text">%1$s sürümünü yüklemek için dokun</string>
+
+    <string name="notif_channel_downloads">İndirmeler</string>
+    <string name="notif_channel_storage">Depolama uyarıları</string>
+    <plurals name="notif_downloading">
+        <item quantity="one">%1$d parça indiriliyor</item>
+        <item quantity="other">%1$d parça indiriliyor</item>
+    </plurals>
+    <string name="notif_preparing">Hazırlanıyor…</string>
+    <string name="notif_storage_title">İndirmeler duraklatıldı: depolama alanı dolu</string>
+    <string name="notif_storage_text">Devam etmek için yaklaşık %1$d MB yer aç. Daha önce indirilenlerden hiçbiri silinmedi.</string>
+
+    <string name="sync_server_error">Sunucu hatası</string>
+    <string name="sync_cant_reach">Sunucuya ulaşılamıyor</string>
+
+    <string name="car_recent">Son çalınanlar</string>
+    <string name="car_playlists">Çalma listeleri</string>
+    <string name="car_playlist">Çalma listesi</string>
+    <plurals name="car_songs">
+        <item quantity="one">%1$d şarkı</item>
+        <item quantity="other">%1$d şarkı</item>
+    </plurals>
+
+    <string name="playback_love">Beğen</string>
+    <string name="playback_unlove">Beğenmekten vazgeç</string>
+
+    <string name="connect_not_signed_in">Bu cihazda oturum açılmamış</string>
+    <string name="connect_update_for_kids">Önce şu cihazdaki Seiðr’i güncelle: %1$s. Bu sürüm bir çocuğun giriş bilgilerini güvende tutamaz.</string>
+    <string name="connect_no_answer">%1$s yanıt vermedi</string>
+    <string name="connect_lost_why">%1$s ile bağlantı koptu: %2$s</string>
+    <string name="connect_peer_other_account">%1$s adlı cihazda başka biri oturum açmış</string>
+    <string name="connect_peer_changed">%1$s adlı cihazda oturum açıldı veya kapatıldı. Birazdan tekrar dene.</string>
+    <string name="connect_peer_unreachable">%1$s adlı cihaza ulaşılamadı. Seiðr orada açık mı?</string>
+    <string name="connect_playback_not_ready">Çalma henüz hazır değil</string>
+    <string name="connect_device_fallback">Seiðr cihazı</string>
+    <string name="connect_peer_disconnected">%1$s bağlantıyı kesti</string>
+    <string name="connect_peer_signed_in">%1$s oturum açtı</string>
+    <string name="connect_nobody_answered">%1$s adlı cihazda kimse yanıt vermedi</string>
+    <string name="connect_not_allowed">%1$s adlı cihazda izin verilmedi</string>
+    <string name="connect_taken_over">%2$s adlı cihazda artık %1$s çalıyor</string>
+    <string name="connect_update_first">Önce şu cihazdaki Seiðr’i güncelle: %1$s</string>
+    <string name="connect_lost_connection">%1$s ile bağlantı koptu</string>
+
+    <string name="account_connect_failed">%1$s ile bağlantı kurulamadı: %2$s</string>
+    <string name="account_lan_permission">Seiðr’in ev ağındaki bir sunucuya ulaşabilmesi için Yakındaki cihazlar / yerel ağ izni gerekiyor.</string>
+    <string name="account_check_failed_why">%1$s adlı hesap kontrol edilemedi: %2$s</string>
+    <string name="account_check_failed">%1$s adlı hesap kontrol edilemedi</string>
+    <string name="account_kid_is_admin">%1$s sunucuda yönetici. Bir çocuk hesabı yönetici olamaz.</string>
+    <string name="account_not_grownup">Yetişkin olarak oturum açılmamış</string>
+    <string name="account_own_check_failed">Sunucudaki hesabın kontrol edilemedi</string>
+    <string name="account_admin_only">Yalnızca sunucu yöneticileri çocuk gözüyle görüntüleyebilir</string>
+    <string name="account_view_failed">%1$s görünümü açılamadı: %2$s</string>
+    <string name="account_someone_else">Bu arada başka biri oturum açtı</string>
+
+    <string name="kids_signed_in_as_kid">Çocuk olarak oturum açıldı</string>
+    <string name="kids_setup_failed">Çocuklar için çalma listeleri oluşturulamadı: %1$s</string>
+
+    <string name="report_no_playlist">Sunucuda “%1$s” adlı çalma listesi yok</string>
+    <string name="report_removed">Şuradan çıkarıldı: %1$s</string>
+    <string name="report_song_reported">Bildirildi. Bu şarkı atlanacak.</string>
+    <string name="report_art_reported">Kapak bildirildi</string>
+    <string name="report_lyrics_reported">Şarkı sözleri bildirildi</string>
+    <string name="report_queued">Çevrimdışı: sunucu geri gelince %1$s güncellenecek</string>
+    <string name="report_conflict">%1$s güncellenemedi</string>
+    <string name="report_failed">%1$s güncellenemedi: %2$s</string>
+
+    <string name="main_battery_title">Müzik hiç kesilmesin</string>
+    <string name="main_battery_text">Bazı telefonların pil yöneticileri arka plandaki çalmayı ve indirmeleri durdurur. Seiðr kısıtlama olmadan çalışsın mı? Bunu sonra Ayarlar’dan değiştirebilirsin.</string>
+    <string name="main_battery_allow">İzin ver</string>
+
+    <string name="vis_close">Görselleştiriciyi kapat</string>
+    <string name="vis_now_playing">Şimdi çalıyor</string>
+    <string name="vis_next_in_queue">Sıradakiler</string>
+    <string name="vis_next_from">Sıradaki kaynak: %1$s</string>
+    <string name="vis_next_from_queue">Sıradaki kaynak: sıra</string>
+    <string name="vis_hide_preset">Ön ayarı gizle</string>
+    <string name="vis_love_preset">Ön ayarı beğen</string>
+    <string name="vis_unlove_preset">Ön ayarı beğenmekten vazgeç</string>
+    <string name="vis_preview">Önizleme</string>
+    <string name="vis_preset_hidden">Ön ayar gizlendi. Ayarlar → Görselleştirici’den geri getirebilirsin.</string>
+    <string name="vis_xr_failed">Sürükleyici görselleştirici başlatılamadı</string>
+    <string name="vis_warning_title">Yanıp sönen ışıklar</string>
+    <string name="vis_warning_headset">Bazı ön ayarlar hızla yanıp söner, çakar ve döner; başlıkta ise bütün görüş alanını kaplar. Bu, ışığa duyarlı epilepsisi olan kişilerde nöbeti tetikleyebilir, hareket tutmasına veya baş dönmesine yol açabilir. Oturarak izle; kendini kötü hissedersen başlığı çıkar.</string>
+    <string name="vis_warning_flat">Bazı ön ayarlar hızla yanıp söner, çakar ve döner. Bu, ışığa duyarlı epilepsisi olan kişilerde nöbeti tetikleyebilir. Kendini kötü hissedersen başka yöne bak ve görselleştiriciyi kapat.</string>
+    <string name="vis_continue">Devam</string>
+    <string name="vis_not_now">Şimdi değil</string>
+</resources>

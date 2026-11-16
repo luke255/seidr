@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Setări</string>
+    <string name="settings_appearance">Aspect</string>
+    <string name="settings_visualiser">Vizualizator</string>
+    <string name="settings_vis_item">Informații despre piesă și preseturi</string>
+    <string name="settings_vis_item_hint">Ce apare peste el; preseturi favorite și ascunse</string>
+    <string name="settings_playback_downloads">Redare și descărcări</string>
+    <string name="settings_background_playback">Redare în fundal</string>
+    <string name="settings_battery_off">Fără restricții: optimizarea bateriei e dezactivată</string>
+    <string name="settings_battery_tap">Atinge ca să lași Seiðr să ruleze fără restricții. Altfel, pe unele telefoane gestionarea bateriei oprește muzica.</string>
+    <string name="settings_on">Activat</string>
+    <string name="settings_downloads_storage">Descărcări și stocare</string>
+    <string name="settings_downloads_storage_hint">Coadă, spațiu pe playlist, doar Wi-Fi</string>
+    <string name="settings_library">Bibliotecă</string>
+    <string name="settings_others_private">Playlisturile private ale altora</string>
+    <string name="settings_others_private_hint">Ești administrator, așa că serverul ți le arată pe ale tuturor. Dezactivat, rămân în afara bibliotecii tale.</string>
+
+    <string name="settings_reporting">Semnalări</string>
+    <string name="settings_report_problems">Semnalează probleme</string>
+    <string name="settings_report_problems_hint">Adaugă Semnalează o problemă în meniul ⋮ al fiecărei melodii</string>
+    <string name="settings_report_info">Un fișier stricat, o copertă greșită sau versuri greșite ajung în playlistul %1$s, %2$s sau %3$s de pe server, ca să le repare cine se ocupă de el. Melodiile din %1$s sunt sărite până sunt reparate.</string>
+    <string name="settings_report_missing">Negăsite pe server: %1$s.</string>
+
+    <string name="settings_about">Despre</string>
+    <string name="settings_auto_update">Caută actualizări automat</string>
+    <string name="settings_auto_update_hint">Caută o versiune nouă pe GitHub când deschizi aplicația</string>
+    <string name="settings_install_update">Instalează actualizarea</string>
+    <string name="settings_check_updates">Caută actualizări</string>
+    <string name="settings_checking">Se caută…</string>
+    <string name="settings_version_ready">Versiunea %1$s e pregătită</string>
+    <string name="settings_installs_straight_away">Instalează imediat o versiune mai nouă</string>
+    <string name="settings_latest_version">Ai cea mai nouă versiune (sau GitHub nu poate fi contactat)</string>
+    <string name="settings_whats_new">Noutăți</string>
+    <string name="settings_whats_new_hint">Schimbările din fiecare versiune</string>
+    <string name="settings_licences">Licențe open-source</string>
+    <string name="settings_licences_hint">Seiðr este software liber (GNU GPL 3.0)</string>
+    <string name="settings_build">Build %1$d</string>
+    <string name="settings_new_badge">NOU</string>
+
+    <string name="settings_sign_out_title">Ieși din cont?</string>
+    <string name="settings_sign_out_message">Redarea se oprește, iar sincronizarea rămâne în pauză până te autentifici din nou. Fișierele descărcate se păstrează.</string>
+    <string name="settings_sign_out">Ieși din cont</string>
+    <string name="settings_cancel">Anulează</string>
+
+    <string name="settings_not_signed_in">Neautentificat</string>
+    <string name="settings_not_connected">Neconectat</string>
+    <string name="settings_server_kid">%1$s · Cont de copil</string>
+    <string name="settings_sign_in_device">Autentifică un dispozitiv</string>
+
+    <string name="settings_colour">Culoare</string>
+    <string name="settings_theme_system">Sistem (imagine de fundal)</string>
+    <string name="settings_theme_neutral">Neutru</string>
+
+    <string name="kids_title">Copii</string>
+    <string name="kids_view_as_description">Vezi ca %1$s</string>
+    <string name="kids_remove_description">Elimină %1$s</string>
+    <string name="kids_add">Adaugă un cont de copil</string>
+    <string name="kids_how">Cum funcționează conturile de copil</string>
+    <string name="kids_remove_title">Elimini %1$s?</string>
+    <string name="kids_remove_message">Acest dispozitiv îi uită datele de autentificare. Dispozitivele deja autentificate ca %1$s rămân autentificate.</string>
+    <string name="kids_remove">Elimină</string>
+    <string name="kids_cancel">Anulează</string>
+    <string name="kids_help_title">Conturi de copil</string>
+    <string name="kids_help_step1">1. Fă-i fiecărui copil propriul cont Navidrome (nu de administrator) și adaugă-l aici.</string>
+    <string name="kids_help_step2">2. Autentifică-i dispozitivul din Autentifică un dispozitiv. Parola copilului păstreaz-o pentru tine.</string>
+    <string name="kids_help_step3">3. Alegi ce primește prin trei playlisturi din contul tău, create când adaugi un copil:</string>
+    <string name="kids_help_approved">melodii pe care le poate asculta</string>
+    <string name="kids_help_safe_titles">apar estompate, doar cu numele</string>
+    <string name="kids_help_safe_art">apar estompate, cu tot cu copertă</string>
+    <string name="kids_help_hidden">Orice altceva îi rămâne ascuns. Aceste playlisturi nu apar în biblioteca ta, așa că editează-le în playerul web Navidrome sau în altă aplicație.</string>
+    <string name="kids_help_eye">Butonul cu ochi îți arată Seiðr așa cum îl vede copilul respectiv, fără să schimbe nimic.</string>
+    <string name="kids_got_it">Am înțeles</string>
+    <string name="kids_view_as_title">Vezi ca %1$s?</string>
+    <string name="kids_view_as_message">Răsfoiești doar ce arată dispozitivele lui %1$s. E doar pentru citire: rămâi autentificat cu contul tău, iar melodiile pe care le redai aici se numără la ascultările tale, nu la ale lui %1$s. Te întorci din banda de pe Acasă sau din Setări.</string>
+    <string name="kids_view_as_button">Vezi ca %1$s</string>
+    <string name="kids_viewing_as">Vezi ca %1$s</string>
+    <string name="kids_back_to">Înapoi la %1$s</string>
+    <string name="kids_own_account">Acesta e chiar contul tău</string>
+    <string name="kids_add_message">Datele de autentificare Navidrome ale copilului, de pe %1$s.</string>
+    <string name="kids_username">Nume de utilizator</string>
+    <string name="kids_password">Parolă</string>
+    <string name="kids_add_button">Adaugă</string>
+
+    <string name="login_unencrypted_title">Conexiune necriptată</string>
+    <string name="login_unencrypted_message">Serverul acesta e pe internet, dar adresa lui începe cu http://, așa că datele tale de autentificare și muzica circulă necriptat. Oricine de pe traseu le-ar putea citi și ți-ar putea folosi datele de autentificare. Folosește o adresă https://, dacă serverul tău are una.</string>
+    <string name="login_connect_anyway">Conectează oricum</string>
+    <string name="login_go_back">Înapoi</string>
+    <string name="login_heading">Conectează-te la serverul tău Navidrome</string>
+    <string name="login_server_url">Adresa URL a serverului</string>
+    <string name="login_username">Nume de utilizator</string>
+    <string name="login_password">Parolă</string>
+    <string name="login_log_in">Autentifică-te</string>
+    <string name="login_other_device_title">Ești autentificat pe alt dispozitiv?</string>
+    <string name="login_other_device_steps">Deschide Seiðr acolo și mergi la Setări → Autentifică un dispozitiv, apoi alege %1$s. Amândouă trebuie să fie în aceeași rețea Wi-Fi, cu Seiðr deschis pe acesta. Verifică dacă pe ambele ecrane apare același cod și gata, ai intrat.</string>
+    <string name="login_back">Înapoi</string>
+    <string name="login_idle_ready">Gata de redare</string>
+    <string name="login_idle_hint">Deschide Seiðr pe alt dispozitiv, atinge „Redă pe”, apoi alege-l pe acesta.</string>
+    <string name="login_pairing_code">Cod de asociere</string>
+    <string name="login_check_same_code">Verifică dacă %1$s arată același cod.</string>
+    <string name="login_sign_in_this_device">Autentifici acest dispozitiv?</string>
+    <string name="login_sign_in_request">%1$s vrea să autentifice acest dispozitiv ca %2$s pe %3$s.</string>
+    <string name="login_sign_in_request_kid">%1$s vrea să autentifice acest dispozitiv ca %2$s, un cont de copil, pe %3$s.</string>
+    <string name="login_allow">Permite</string>
+    <string name="login_dont_allow">Nu permite</string>
+    <string name="login_cancel">Anulează</string>
+    <string name="login_sign_in_peer">Autentifici %1$s?</string>
+    <string name="login_play_on_peer">Redai pe %1$s?</string>
+    <string name="login_check_this_code">Verifică dacă %1$s arată acest cod:</string>
+    <string name="login_will_sign_in_kid">Se va autentifica drept %1$s, un cont de copil: doar melodii aprobate.</string>
+    <string name="login_will_sign_in">Se va autentifica drept %1$s, cu parola ta.</string>
+    <string name="login_will_play">Redă cu datele tale de autentificare până când e deconectat. Pentru acest dispozitiv nu vei mai fi întrebat.</string>
+    <string name="login_it_matches">Se potrivește</string>
+
+    <string name="licences_title">Licențe open-source</string>
+    <string name="licences_includes">Seiðr include</string>
+    <string name="licences_shared_freely">Distribuite liber; autorii pot cere eliminarea</string>
+    <string name="licences_projectm_by">Echipa projectM. Livrat nemodificat; sursa lui se află în depozitul Seiðr</string>
+    <string name="licences_presets">Preseturi MilkDrop (Cream of the Crop)</string>
+    <string name="licences_presets_by">Selecție de Jason Fletcher; fiecare preset aparține autorului din numele lui</string>
+    <string name="licences_textures">Pachet de texturi MilkDrop</string>
+    <string name="licences_textures_by">Adunate de echipa projectM</string>
+    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
+    <string name="licences_material_icons">Pictograme Material</string>
+    <string name="licences_okhttp">OkHttp și Retrofit</string>
+    <string name="licences_coil_by">Contribuitorii Coil</string>
+    <string name="licences_openxr">Încărcătorul OpenXR</string>
+
+    <string name="vissettings_title">Vizualizator</string>
+    <string name="vissettings_track_info">Arată informațiile despre piesă</string>
+    <string name="vissettings_track_info_hint">Coperta, titlul și timpul, într-un colț. Dezactivat, apar doar împreună cu comenzile (ține apăsat sau sus/jos pe telecomandă).</string>
+    <string name="vissettings_performance">Arată performanța</string>
+    <string name="vissettings_performance_hint">Cadrele pe secundă, dimensiunea de randare și nivelul de calitate, într-un colț, pe măsură ce vizualizatorul se reglează singur.</string>
+    <string name="vissettings_loved">Preseturi favorite</string>
+    <string name="vissettings_loved_hint">Inima din comenzile vizualizatorului. Preseturile favorite apar cam o dată din zece.</string>
+    <string name="vissettings_unlove">Nu-mi mai place</string>
+    <string name="vissettings_hidden">Preseturi ascunse</string>
+    <string name="vissettings_hidden_hint">Steagul din comenzile vizualizatorului ascunde un preset. Preseturile prea grele ca acest dispozitiv să le afișeze fluid sunt ascunse automat. Atinge unul ca să-l previzualizezi.</string>
+    <string name="vissettings_hidden_by_you">Ascunse de tine</string>
+    <string name="vissettings_too_heavy">Prea grele pentru acest dispozitiv</string>
+    <string name="vissettings_unhide">Reafișează</string>
+
+    <string name="whatsnew_title">Noutăți</string>
+    <string name="whatsnew_this_version">%1$s (versiunea aceasta)</string>
+
+</resources>

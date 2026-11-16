@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">Vissza</string>
+    <string name="common_cancel">Mégse</string>
+    <string name="common_clear">Törlés</string>
+    <string name="common_close">Bezárás</string>
+    <string name="common_done">Kész</string>
+    <string name="common_more">Továbbiak</string>
+    <string name="common_remove">Eltávolítás</string>
+    <string name="common_try_again">Újra</string>
+    <string name="common_offline">Offline</string>
+    <string name="common_load_failed">Ezt nem sikerült betölteni</string>
+    <string name="common_drag_to_reorder">Húzd az átrendezéshez</string>
+    <string name="common_moving_hint">Áthelyezés: fel vagy le, majd a kiválasztás gombbal teheted le</string>
+    <string name="common_shuffle_play">Véletlen sorrendű lejátszás</string>
+    <string name="common_play_in_order">Lejátszás sorban</string>
+    <string name="common_play">Lejátszás</string>
+
+    <string name="common_download">Letöltés</string>
+    <string name="common_downloaded">Letöltve</string>
+    <string name="common_queued">Sorban áll</string>
+    <string name="common_download_failed">A letöltés nem sikerült</string>
+    <string name="common_waiting_to_download">Letöltésre vár…</string>
+    <string name="common_downloading_progress">Letöltés… %1$d / %2$d</string>
+    <string name="common_download_when_reachable">Letöltjük, amint a szerver elérhető</string>
+    <string name="common_downloads_removed">Letöltések eltávolítva: %1$s</string>
+    <string name="common_not_approved_yet">Még nincs jóváhagyva</string>
+
+    <string name="common_read_only_kid">Gyerekként nézve csak olvasható</string>
+    <string name="common_cant_reach_server">A szerver nem érhető el</string>
+    <string name="common_loved">A Kedvencekhez adva</string>
+    <string name="common_unloved">Kivéve a Kedvencekből</string>
+    <string name="common_edit_queued">Offline: akkor mentjük a szerverre, ha újra elérhető</string>
+    <string name="common_edit_conflict">A lejátszási lista közben máshol megváltozott, ezért semmit sem mentettünk. Újratöltve.</string>
+    <string name="common_edit_failed">Nem sikerült menteni: %1$s</string>
+
+    <plurals name="common_songs">
+        <item quantity="one">%d dal</item>
+        <item quantity="other">%d dal</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="one">%d album</item>
+        <item quantity="other">%d album</item>
+    </plurals>
+    <plurals name="common_approved_count">
+        <item quantity="one">%1$d jóváhagyva</item>
+        <item quantity="other">%1$d jóváhagyva</item>
+    </plurals>
+    <string name="common_by_owner">készítette: %1$s</string>
+    <string name="common_duration_hr_min">%1$d ó %2$d p</string>
+    <string name="common_duration_min">%1$d p</string>
+    <string name="common_size_gb">%1$.1f GB</string>
+    <string name="common_size_mb">%1$.0f MB</string>
+    <string name="common_size_kb">%1$.0f KB</string>
+
+    <string name="nav_home">Kezdőlap</string>
+    <string name="nav_search">Keresés</string>
+    <string name="nav_library">Könyvtár</string>
+    <string name="nav_now_playing">Most szól</string>
+    <string name="nav_settings">Beállítások</string>
+    <string name="nav_update_available">Frissítés érhető el</string>
+    <string name="nav_settings_update_available">Beállítások, frissítés érhető el</string>
+
+    <string name="player_nothing_playing">Most nem szól semmi</string>
+    <string name="player_playing_from">LEJÁTSZÁS INNEN</string>
+    <string name="player_queue">Sor</string>
+    <string name="player_disconnect">Leválasztás</string>
+    <string name="player_play_on_another_device">Lejátszás másik eszközön</string>
+    <string name="player_lyrics">Dalszöveg</string>
+    <string name="player_hide_lyrics">Dalszöveg elrejtése</string>
+    <string name="player_visualiser">Vizualizáció</string>
+    <string name="player_immersive_visualiser">Immerzív vizualizáció</string>
+    <string name="player_previous">Előző</string>
+    <string name="player_next">Következő</string>
+    <string name="player_play">Lejátszás</string>
+    <string name="player_pause">Szünet</string>
+    <string name="player_playing_on">Itt szól: %1$s</string>
+    <string name="player_playing_for">%1$s zenéje szól, innen irányítva: %2$s</string>
+    <string name="player_repeat_one">Egy szám ismétlése</string>
+    <string name="player_repeat_all">Összes ismétlése</string>
+    <string name="player_repeat_off">Ismétlés kikapcsolva</string>
+    <string name="player_shuffle">Keverés</string>
+    <string name="player_on">Be</string>
+    <string name="player_off">Ki</string>
+    <string name="player_toggle_shuffle">Keverés be- vagy kikapcsolása</string>
+    <string name="player_reshuffle">Újrakeverés</string>
+    <string name="player_reshuffled">Újrakeverve</string>
+    <string name="player_hold_to_reshuffle">Tartsd nyomva az újrakeveréshez</string>
+
+    <string name="queue_title">Lejátszási sor</string>
+    <string name="queue_empty">A sor üres</string>
+    <string name="queue_earlier">Korábban</string>
+    <string name="queue_now_playing">Most szól</string>
+    <string name="queue_next">Következik</string>
+    <string name="queue_next_in_queue">Következik a sorban</string>
+    <string name="queue_clear">Sor törlése</string>
+    <string name="queue_next_from">Következik innen: %1$s</string>
+    <string name="queue_fallback_context">sor</string>
+    <string name="queue_remove">Eltávolítás a sorból</string>
+
+    <string name="lyrics_none">Ehhez a dalhoz nincs dalszöveg</string>
+    <string name="lyrics_failed">Nem sikerült betölteni a dalszöveget</string>
+    <string name="lyrics_earlier">Dalszöveg korábban</string>
+    <string name="lyrics_later">Dalszöveg később</string>
+    <string name="lyrics_original_timing">Eredeti időzítés</string>
+    <string name="lyrics_reset">Visszaállítás</string>
+
+    <string name="devices_title">Lejátszás itt</string>
+    <string name="devices_this_device">Ez az eszköz</string>
+    <string name="devices_not_signed_in">Nincs bejelentkezve</string>
+    <string name="devices_connecting">Csatlakozás…</string>
+    <string name="devices_connected">Csatlakoztatva</string>
+    <string name="devices_allow">Engedélyezés</string>
+    <string name="devices_permission_rationale">A Seiðrnek szüksége van a Közeli eszközök engedélyre, hogy megtalálja a többi eszközödet.</string>
+    <string name="devices_looking">Eszközök keresése. Nyisd meg a Seiðrt egy másik eszközön ugyanazon a Wi-Fi-n: olyanon, amelyen te vagy bejelentkezve, vagy olyanon, amelyen senki sincs.</string>
+
+    <string name="menu_love">Kedvelés</string>
+    <string name="menu_unlove">Kedvelés visszavonása</string>
+    <string name="menu_add_to_playlist">Hozzáadás lejátszási listához</string>
+    <string name="menu_add_to_queue">Hozzáadás a sorhoz</string>
+    <string name="menu_go_to_album">Ugrás az albumhoz</string>
+    <string name="menu_go_to_artist">Ugrás az előadóhoz</string>
+    <plurals name="menu_added_to_queue">
+        <item quantity="one">Hozzáadva a sorhoz</item>
+        <item quantity="other">%d dal hozzáadva a sorhoz</item>
+    </plurals>
+    <string name="menu_new_playlist">Új lejátszási lista</string>
+    <string name="menu_playlist_name">Név</string>
+    <string name="menu_create">Létrehozás</string>
+    <string name="menu_create_failed">Nem sikerült létrehozni a lejátszási listát (ehhez kell a szerver)</string>
+    <string name="menu_created">Létrehozva: „%1$s”</string>
+    <string name="menu_added_to">Hozzáadva ide: %1$s</string>
+
+    <string name="menu_report_a_problem">Hiba jelentése</string>
+    <string name="menu_report_no_playlist">Nincs %1$s lejátszási lista</string>
+    <string name="menu_report_undo_song">Daljelentés visszavonása</string>
+    <string name="menu_report_undo_art">Borítójelentés visszavonása</string>
+    <string name="menu_report_undo_lyrics">Dalszövegjelentés visszavonása</string>
+    <string name="menu_report_bad_song">Hibás dal (kihagyás)</string>
+    <string name="menu_report_bad_art">Hibás borító</string>
+    <string name="menu_report_bad_lyrics">Hibás dalszöveg</string>
+
+    <string name="pair_title">Eszköz bejelentkeztetése</string>
+    <string name="pair_signing_in">Bejelentkeztetés: %1$s… Engedélyezd ezen az eszközön: %1$s.</string>
+    <string name="pair_signed_in_as">Az eszköz (%1$s) bejelentkezve %2$s néven</string>
+    <string name="pair_cancelled">Megszakítva</string>
+    <string name="pair_intro">Nyisd meg a Seiðrt azon az eszközön, amelyet be szeretnél jelentkeztetni, ugyanazon a Wi-Fi-n, mint ez. Amíg nincs rajta bejelentkezve senki, megjelenik itt. Ellenőrizd, hogy mindkét képernyőn ugyanaz a kód látszik, és az eszköz bejelentkezik %1$s néven.</string>
+    <string name="pair_intro_kid">Nyisd meg a Seiðrt azon az eszközön, amelyet be szeretnél jelentkeztetni, ugyanazon a Wi-Fi-n, mint ez. Amíg nincs rajta bejelentkezve senki, megjelenik itt. Ellenőrizd, hogy mindkét képernyőn ugyanaz a kód látszik, és az eszköz bejelentkezik %1$s néven. Az is gyerekeszköz lesz, ugyanazokkal a dalokkal.</string>
+    <string name="pair_you">Te</string>
+    <string name="pair_kid_approved_only">Gyerek: csak jóváhagyott dalok</string>
+    <string name="pair_permission_rationale">A Seiðrnek szüksége van a Közeli eszközök engedélyre, hogy megtalálja a többi eszközt.</string>
+    <string name="pair_looking">Kijelentkezett eszközök keresése…</string>
+
+    <string name="theme_system">Rendszer</string>
+    <string name="theme_neutral">Semleges</string>
+    <string name="theme_red">Piros</string>
+    <string name="theme_orange">Narancs</string>
+    <string name="theme_amber">Borostyán</string>
+    <string name="theme_yellow">Sárga</string>
+    <string name="theme_lime">Lime</string>
+    <string name="theme_green">Zöld</string>
+    <string name="theme_emerald">Smaragd</string>
+    <string name="theme_teal">Kékeszöld</string>
+    <string name="theme_cyan">Cián</string>
+    <string name="theme_sky">Égkék</string>
+    <string name="theme_blue">Kék</string>
+    <string name="theme_indigo">Indigó</string>
+    <string name="theme_violet">Ibolya</string>
+    <string name="theme_purple">Lila</string>
+    <string name="theme_magenta">Magenta</string>
+    <string name="theme_pink">Rózsaszín</string>
+</resources>

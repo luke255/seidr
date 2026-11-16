@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Ρυθμίσεις</string>
+    <string name="settings_appearance">Εμφάνιση</string>
+    <string name="settings_visualiser">Οπτικοποίηση</string>
+    <string name="settings_vis_item">Πληροφορίες κομματιού και preset</string>
+    <string name="settings_vis_item_hint">Τι εμφανίζεται από πάνω· αγαπημένα και κρυμμένα preset</string>
+    <string name="settings_playback_downloads">Αναπαραγωγή και λήψεις</string>
+    <string name="settings_background_playback">Αναπαραγωγή στο παρασκήνιο</string>
+    <string name="settings_battery_off">Χωρίς περιορισμούς: η βελτιστοποίηση μπαταρίας είναι ανενεργή</string>
+    <string name="settings_battery_tap">Πάτησε για να εκτελείται το Seiðr χωρίς περιορισμούς. Αλλιώς, σε ορισμένα τηλέφωνα η διαχείριση μπαταρίας σταματά τη μουσική.</string>
+    <string name="settings_on">Ενεργό</string>
+    <string name="settings_downloads_storage">Λήψεις και αποθηκευτικός χώρος</string>
+    <string name="settings_downloads_storage_hint">Ουρά, χώρος ανά playlist, μόνο Wi-Fi</string>
+    <string name="settings_library">Βιβλιοθήκη</string>
+    <string name="settings_others_private">Ιδιωτικές playlist άλλων</string>
+    <string name="settings_others_private_hint">Είσαι διαχειριστής, οπότε ο διακομιστής σού δείχνει τις playlist όλων. Όταν είναι ανενεργό, μένουν εκτός της βιβλιοθήκης σου.</string>
+
+    <string name="settings_reporting">Αναφορές</string>
+    <string name="settings_report_problems">Αναφορά προβλημάτων</string>
+    <string name="settings_report_problems_hint">Προσθέτει την «Αναφορά προβλήματος» στο μενού ⋮ κάθε τραγουδιού</string>
+    <string name="settings_report_info">Ένα χαλασμένο αρχείο, ένα λάθος εξώφυλλο ή προβληματικοί στίχοι μπαίνουν στην playlist %1$s, %2$s ή %3$s του διακομιστή, για να τα διορθώσει όποιος τον φροντίζει. Τα τραγούδια της %1$s παραλείπονται μέχρι να διορθωθούν.</string>
+    <string name="settings_report_missing">Δεν βρέθηκαν στον διακομιστή: %1$s.</string>
+
+    <string name="settings_about">Σχετικά</string>
+    <string name="settings_auto_update">Αυτόματος έλεγχος για ενημερώσεις</string>
+    <string name="settings_auto_update_hint">Ψάχνει για νέα έκδοση στο GitHub όταν ανοίγεις την εφαρμογή</string>
+    <string name="settings_install_update">Εγκατάσταση ενημέρωσης</string>
+    <string name="settings_check_updates">Έλεγχος για ενημερώσεις</string>
+    <string name="settings_checking">Γίνεται έλεγχος…</string>
+    <string name="settings_version_ready">Η έκδοση %1$s είναι έτοιμη</string>
+    <string name="settings_installs_straight_away">Εγκαθιστά αμέσως νεότερη έκδοση</string>
+    <string name="settings_latest_version">Έχεις την τελευταία έκδοση (ή δεν υπάρχει πρόσβαση στο GitHub)</string>
+    <string name="settings_whats_new">Τι νέο υπάρχει</string>
+    <string name="settings_whats_new_hint">Οι αλλαγές κάθε έκδοσης</string>
+    <string name="settings_licences">Άδειες ανοιχτού κώδικα</string>
+    <string name="settings_licences_hint">Το Seiðr είναι ελεύθερο λογισμικό (GNU GPL 3.0)</string>
+    <string name="settings_build">Build %1$d</string>
+    <string name="settings_new_badge">ΝΕΟ</string>
+
+    <string name="settings_sign_out_title">Αποσύνδεση;</string>
+    <string name="settings_sign_out_message">Η αναπαραγωγή σταματά και ο συγχρονισμός διακόπτεται μέχρι να συνδεθείς ξανά. Τα ληφθέντα αρχεία διατηρούνται.</string>
+    <string name="settings_sign_out">Αποσύνδεση</string>
+    <string name="settings_cancel">Άκυρο</string>
+
+    <string name="settings_not_signed_in">Χωρίς σύνδεση σε λογαριασμό</string>
+    <string name="settings_not_connected">Χωρίς σύνδεση</string>
+    <string name="settings_server_kid">%1$s · Παιδικός λογαριασμός</string>
+    <string name="settings_sign_in_device">Σύνδεση συσκευής</string>
+
+    <string name="settings_colour">Χρώμα</string>
+    <string name="settings_theme_system">Σύστημα (ταπετσαρία)</string>
+    <string name="settings_theme_neutral">Ουδέτερο</string>
+
+    <string name="kids_title">Παιδιά</string>
+    <string name="kids_view_as_description">Προβολή ως %1$s</string>
+    <string name="kids_remove_description">Αφαίρεση %1$s</string>
+    <string name="kids_add">Προσθήκη παιδικού λογαριασμού</string>
+    <string name="kids_how">Πώς λειτουργούν οι παιδικοί λογαριασμοί</string>
+    <string name="kids_remove_title">Αφαίρεση %1$s;</string>
+    <string name="kids_remove_message">Αυτή η συσκευή ξεχνά τα στοιχεία σύνδεσης του παιδιού. Οι συσκευές που έχουν ήδη συνδεθεί ως %1$s παραμένουν συνδεδεμένες.</string>
+    <string name="kids_remove">Αφαίρεση</string>
+    <string name="kids_cancel">Άκυρο</string>
+    <string name="kids_help_title">Παιδικοί λογαριασμοί</string>
+    <string name="kids_help_step1">1. Φτιάξε για κάθε παιδί δικό του λογαριασμό Navidrome (όχι διαχειριστή) και πρόσθεσέ τον εδώ.</string>
+    <string name="kids_help_step2">2. Σύνδεσε τη συσκευή του από τη «Σύνδεση συσκευής». Κράτα τον κωδικό του για τον εαυτό σου.</string>
+    <string name="kids_help_step3">3. Ορίζεις τι βλέπει με τρεις playlist στον λογαριασμό σου, που δημιουργούνται όταν προσθέτεις ένα παιδί:</string>
+    <string name="kids_help_approved">τραγούδια που μπορεί να παίξει</string>
+    <string name="kids_help_safe_titles">εμφανίζονται γκρι, μόνο με το όνομα</string>
+    <string name="kids_help_safe_art">εμφανίζονται γκρι, μαζί με το εξώφυλλο</string>
+    <string name="kids_help_hidden">Όλα τα άλλα μένουν κρυφά από το παιδί. Αυτές οι playlist δεν εμφανίζονται στη βιβλιοθήκη σου, οπότε επεξεργάσου τες από το web player του Navidrome ή από άλλη εφαρμογή.</string>
+    <string name="kids_help_eye">Το κουμπί με το μάτι δείχνει το Seiðr όπως το βλέπει εκείνο το παιδί, χωρίς να αλλάζει τίποτα.</string>
+    <string name="kids_got_it">Κατάλαβα</string>
+    <string name="kids_view_as_title">Προβολή ως %1$s;</string>
+    <string name="kids_view_as_message">Περιηγείσαι μόνο σε όσα δείχνουν οι συσκευές του λογαριασμού %1$s. Είναι μόνο για ανάγνωση: η σύνδεσή σου παραμένει, και τα τραγούδια που παίζεις εδώ μετρούν ως δικές σου ακροάσεις, όχι του λογαριασμού %1$s. Επιστρέφεις από τη λωρίδα στην Αρχική ή στις Ρυθμίσεις.</string>
+    <string name="kids_view_as_button">Προβολή ως %1$s</string>
+    <string name="kids_viewing_as">Προβολή ως %1$s</string>
+    <string name="kids_back_to">Πίσω σε %1$s</string>
+    <string name="kids_own_account">Αυτός είναι ο δικός σου λογαριασμός</string>
+    <string name="kids_add_message">Τα στοιχεία σύνδεσης του παιδιού στο Navidrome, στον διακομιστή %1$s.</string>
+    <string name="kids_username">Όνομα χρήστη</string>
+    <string name="kids_password">Κωδικός πρόσβασης</string>
+    <string name="kids_add_button">Προσθήκη</string>
+
+    <string name="login_unencrypted_title">Μη κρυπτογραφημένη σύνδεση</string>
+    <string name="login_unencrypted_message">Αυτός ο διακομιστής βρίσκεται στο διαδίκτυο, αλλά η διεύθυνσή του αρχίζει με http://, οπότε τα στοιχεία σύνδεσης και η μουσική σου ταξιδεύουν χωρίς κρυπτογράφηση. Οποιοσδήποτε στη διαδρομή θα μπορούσε να τα διαβάσει και να ξαναχρησιμοποιήσει τα στοιχεία σου. Χρησιμοποίησε διεύθυνση https://, αν ο διακομιστής σου έχει.</string>
+    <string name="login_connect_anyway">Σύνδεση παρ’ όλα αυτά</string>
+    <string name="login_go_back">Πίσω</string>
+    <string name="login_heading">Συνδέσου στον διακομιστή σου Navidrome</string>
+    <string name="login_server_url">URL διακομιστή</string>
+    <string name="login_username">Όνομα χρήστη</string>
+    <string name="login_password">Κωδικός πρόσβασης</string>
+    <string name="login_log_in">Σύνδεση</string>
+    <string name="login_other_device_title">Έχεις συνδεθεί σε άλλη συσκευή;</string>
+    <string name="login_other_device_steps">Άνοιξε εκεί το Seiðr και πήγαινε στις Ρυθμίσεις → Σύνδεση συσκευής, μετά διάλεξε %1$s. Και οι δύο πρέπει να είναι στο ίδιο Wi-Fi, με το Seiðr ανοιχτό σε αυτήν εδώ. Έλεγξε ότι ο κωδικός είναι ίδιος στις δύο οθόνες, και μπήκες.</string>
+    <string name="login_back">Πίσω</string>
+    <string name="login_idle_ready">Έτοιμη για αναπαραγωγή</string>
+    <string name="login_idle_hint">Άνοιξε το Seiðr σε άλλη συσκευή, πάτησε «Αναπαραγωγή σε» και μετά διάλεξε αυτήν εδώ.</string>
+    <string name="login_pairing_code">Κωδικός σύζευξης</string>
+    <string name="login_check_same_code">Έλεγξε ότι η συσκευή %1$s δείχνει τον ίδιο κωδικό.</string>
+    <string name="login_sign_in_this_device">Σύνδεση αυτής της συσκευής;</string>
+    <string name="login_sign_in_request">Η συσκευή %1$s θέλει να συνδέσει αυτή τη συσκευή ως %2$s στον διακομιστή %3$s.</string>
+    <string name="login_sign_in_request_kid">Η συσκευή %1$s θέλει να συνδέσει αυτή τη συσκευή ως %2$s, παιδικό λογαριασμό, στον διακομιστή %3$s.</string>
+    <string name="login_allow">Να επιτρέπεται</string>
+    <string name="login_dont_allow">Να μην επιτρέπεται</string>
+    <string name="login_cancel">Άκυρο</string>
+    <string name="login_sign_in_peer">Σύνδεση της συσκευής %1$s;</string>
+    <string name="login_play_on_peer">Αναπαραγωγή στη συσκευή %1$s;</string>
+    <string name="login_check_this_code">Έλεγξε ότι η συσκευή %1$s δείχνει αυτόν τον κωδικό:</string>
+    <string name="login_will_sign_in_kid">Θα συνδεθεί ως %1$s, παιδικός λογαριασμός: μόνο εγκεκριμένα τραγούδια.</string>
+    <string name="login_will_sign_in">Θα συνδεθεί ως %1$s, με τον κωδικό σου.</string>
+    <string name="login_will_play">Παίζει με τον δικό σου λογαριασμό μέχρι να διακοπεί η σύνδεση. Δεν θα ερωτηθείς ξανά για αυτή τη συσκευή.</string>
+    <string name="login_it_matches">Ταιριάζει</string>
+
+    <string name="licences_title">Άδειες ανοιχτού κώδικα</string>
+    <string name="licences_includes">Το Seiðr περιλαμβάνει</string>
+    <string name="licences_shared_freely">Διανέμονται ελεύθερα· οι δημιουργοί μπορούν να ζητήσουν αφαίρεση</string>
+    <string name="licences_projectm_by">Η ομάδα του projectM. Διανέμεται χωρίς τροποποιήσεις· ο πηγαίος κώδικάς του βρίσκεται στο αποθετήριο του Seiðr</string>
+    <string name="licences_presets">Preset του MilkDrop (Cream of the Crop)</string>
+    <string name="licences_presets_by">Επιμέλεια: Jason Fletcher· κάθε preset ανήκει στον δημιουργό που αναφέρει το όνομά του</string>
+    <string name="licences_textures">Πακέτο υφών MilkDrop</string>
+    <string name="licences_textures_by">Συλλογή της ομάδας του projectM</string>
+    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
+    <string name="licences_material_icons">Εικονίδια Material</string>
+    <string name="licences_okhttp">OkHttp και Retrofit</string>
+    <string name="licences_coil_by">Οι συντελεστές του Coil</string>
+    <string name="licences_openxr">OpenXR loader</string>
+
+    <string name="vissettings_title">Οπτικοποίηση</string>
+    <string name="vissettings_track_info">Εμφάνιση πληροφοριών κομματιού</string>
+    <string name="vissettings_track_info_hint">Εξώφυλλο, τίτλος και χρόνος σε μια γωνία. Όταν είναι ανενεργό, εμφανίζονται μόνο μαζί με τα χειριστήρια (παρατεταμένο πάτημα, ή πάνω/κάτω στο τηλεχειριστήριο).</string>
+    <string name="vissettings_performance">Εμφάνιση επιδόσεων</string>
+    <string name="vissettings_performance_hint">Ρυθμός καρέ, μέγεθος απόδοσης και επίπεδο ποιότητας σε μια γωνία, καθώς η οπτικοποίηση προσαρμόζεται μόνη της.</string>
+    <string name="vissettings_loved">Αγαπημένα preset</string>
+    <string name="vissettings_loved_hint">Η καρδιά στα χειριστήρια της οπτικοποίησης. Τα αγαπημένα preset εμφανίζονται περίπου μία φορά στις δέκα.</string>
+    <string name="vissettings_unlove">Δεν μου αρέσει πια</string>
+    <string name="vissettings_hidden">Κρυμμένα preset</string>
+    <string name="vissettings_hidden_hint">Η σημαία στα χειριστήρια της οπτικοποίησης κρύβει ένα preset. Όσα preset είναι πολύ βαριά για να προβάλλονται ομαλά σε αυτή τη συσκευή κρύβονται αυτόματα. Πάτησε ένα για προεπισκόπηση.</string>
+    <string name="vissettings_hidden_by_you">Τα έκρυψες εσύ</string>
+    <string name="vissettings_too_heavy">Πολύ βαριά για αυτή τη συσκευή</string>
+    <string name="vissettings_unhide">Επανεμφάνιση</string>
+
+    <string name="whatsnew_title">Τι νέο υπάρχει</string>
+    <string name="whatsnew_this_version">%1$s (αυτή η έκδοση)</string>
+
+</resources>

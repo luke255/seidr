@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Ayarlar</string>
+    <string name="settings_appearance">Görünüm</string>
+    <string name="settings_visualiser">Görselleştirici</string>
+    <string name="settings_vis_item">Parça bilgisi ve ön ayarlar</string>
+    <string name="settings_vis_item_hint">Üzerinde neler görünür; beğenilen ve gizlenen ön ayarlar</string>
+    <string name="settings_playback_downloads">Çalma ve indirmeler</string>
+    <string name="settings_background_playback">Arka planda çalma</string>
+    <string name="settings_battery_off">Kısıtlama yok: pil optimizasyonu kapalı</string>
+    <string name="settings_battery_tap">Seiðr’in kısıtlama olmadan çalışması için dokun. Yoksa bazı telefonların pil yöneticileri müziği durdurur.</string>
+    <string name="settings_on">Açık</string>
+    <string name="settings_downloads_storage">İndirmeler ve depolama</string>
+    <string name="settings_downloads_storage_hint">Sıra, liste başına depolama, yalnızca Wi-Fi</string>
+    <string name="settings_library">Kitaplık</string>
+    <string name="settings_others_private">Başkalarının özel çalma listeleri</string>
+    <string name="settings_others_private_hint">Yöneticisin, bu yüzden sunucu sana herkesinkini gösterir. Kapalıyken kitaplığına girmezler.</string>
+
+    <string name="settings_reporting">Bildirme</string>
+    <string name="settings_report_problems">Sorunları bildir</string>
+    <string name="settings_report_problems_hint">Her şarkının ⋮ menüsüne Sorun bildir seçeneğini ekler</string>
+    <string name="settings_report_info">Bozuk bir dosya, yanlış bir kapak veya hatalı sözler, sunucuyla ilgilenen kişi düzeltsin diye sunucudaki %1$s, %2$s veya %3$s çalma listesine eklenir. Şu listedeki şarkılar düzeltilene kadar atlanır: %1$s.</string>
+    <string name="settings_report_missing">Sunucuda bulunamadı: %1$s.</string>
+
+    <string name="settings_about">Hakkında</string>
+    <string name="settings_auto_update">Güncellemeleri otomatik denetle</string>
+    <string name="settings_auto_update_hint">Uygulamayı açtığında GitHub’da yeni sürüm var mı diye bakar</string>
+    <string name="settings_install_update">Güncellemeyi yükle</string>
+    <string name="settings_check_updates">Güncellemeleri denetle</string>
+    <string name="settings_checking">Denetleniyor…</string>
+    <string name="settings_version_ready">%1$s sürümü hazır</string>
+    <string name="settings_installs_straight_away">Daha yeni bir sürümü hemen yükler</string>
+    <string name="settings_latest_version">En son sürümü kullanıyorsun (ya da GitHub’a ulaşılamıyor)</string>
+    <string name="settings_whats_new">Yenilikler</string>
+    <string name="settings_whats_new_hint">Her sürümdeki değişiklikler</string>
+    <string name="settings_licences">Açık kaynak lisansları</string>
+    <string name="settings_licences_hint">Seiðr özgür bir yazılımdır (GNU GPL 3.0)</string>
+    <string name="settings_build">Derleme %1$d</string>
+    <string name="settings_new_badge">YENİ</string>
+
+    <string name="settings_sign_out_title">Oturum kapatılsın mı?</string>
+    <string name="settings_sign_out_message">Yeniden oturum açana kadar çalma durur, eşitleme de duraklar. İndirilen dosyalar saklanır.</string>
+    <string name="settings_sign_out">Oturumu kapat</string>
+    <string name="settings_cancel">İptal</string>
+
+    <string name="settings_not_signed_in">Oturum açılmamış</string>
+    <string name="settings_not_connected">Bağlı değil</string>
+    <string name="settings_server_kid">%1$s · Çocuk hesabı</string>
+    <string name="settings_sign_in_device">Bir cihazda oturum aç</string>
+
+    <string name="settings_colour">Renk</string>
+    <string name="settings_theme_system">Sistem (duvar kâğıdı)</string>
+    <string name="settings_theme_neutral">Nötr</string>
+
+    <string name="kids_title">Çocuklar</string>
+    <string name="kids_view_as_description">%1$s olarak görüntüle</string>
+    <string name="kids_remove_description">Kaldır: %1$s</string>
+    <string name="kids_add">Çocuk hesabı ekle</string>
+    <string name="kids_how">Çocuk hesapları nasıl çalışır</string>
+    <string name="kids_remove_title">%1$s kaldırılsın mı?</string>
+    <string name="kids_remove_message">Bu cihaz çocuğun giriş bilgilerini unutur. %1$s olarak oturum açılmış cihazlarda oturum açık kalır.</string>
+    <string name="kids_remove">Kaldır</string>
+    <string name="kids_cancel">İptal</string>
+    <string name="kids_help_title">Çocuk hesapları</string>
+    <string name="kids_help_step1">1. Her çocuğa kendi Navidrome hesabını aç (yönetici olmasın) ve buraya ekle.</string>
+    <string name="kids_help_step2">2. Çocuğun cihazında, Bir cihazda oturum aç seçeneğiyle oturum aç. Parolasını kendine sakla.</string>
+    <string name="kids_help_step3">3. Neleri alacağını, hesabındaki üç çalma listesiyle belirlersin; bunlar bir çocuk eklediğinde oluşturulur:</string>
+    <string name="kids_help_approved">çalabildiği şarkılar</string>
+    <string name="kids_help_safe_titles">soluk görünür, yalnızca adıyla</string>
+    <string name="kids_help_safe_art">soluk görünür, kapağıyla birlikte</string>
+    <string name="kids_help_hidden">Geri kalan her şey ondan gizlenir. Bu çalma listeleri kitaplığında görünmez; onları Navidrome’un web oynatıcısında veya başka bir uygulamada düzenle.</string>
+    <string name="kids_help_eye">Göz düğmesi, hiçbir şeyi değiştirmeden Seiðr’i o çocuğun gördüğü gibi gösterir.</string>
+    <string name="kids_got_it">Anladım</string>
+    <string name="kids_view_as_title">%1$s olarak görüntülensin mi?</string>
+    <string name="kids_view_as_message">Yalnızca %1$s kullanıcısının cihazlarında görünenlere göz atarsın. Salt okunurdur: oturumun açık kalır ve burada çaldığın şarkılar ona (%1$s) değil, sana yazılır. Ana sayfa veya Ayarlar’daki şeritten geri dönebilirsin.</string>
+    <string name="kids_view_as_button">%1$s olarak görüntüle</string>
+    <string name="kids_viewing_as">%1$s olarak görüntüleniyor</string>
+    <string name="kids_back_to">Geri dön: %1$s</string>
+    <string name="kids_own_account">Bu senin kendi hesabın</string>
+    <string name="kids_add_message">Çocuğun şu sunucudaki Navidrome giriş bilgileri: %1$s.</string>
+    <string name="kids_username">Kullanıcı adı</string>
+    <string name="kids_password">Parola</string>
+    <string name="kids_add_button">Ekle</string>
+
+    <string name="login_unencrypted_title">Şifrelenmemiş bağlantı</string>
+    <string name="login_unencrypted_message">Bu sunucu internette, ama adresi http:// ile başlıyor; yani giriş bilgilerin ve müziğin şifrelenmeden gidip geliyor. Yol üzerindeki herkes bunları okuyabilir ve giriş bilgilerini kullanabilir. Sunucunun varsa https:// ile başlayan bir adres kullan.</string>
+    <string name="login_connect_anyway">Yine de bağlan</string>
+    <string name="login_go_back">Geri dön</string>
+    <string name="login_heading">Navidrome sunucuna bağlan</string>
+    <string name="login_server_url">Sunucu URL’si</string>
+    <string name="login_username">Kullanıcı adı</string>
+    <string name="login_password">Parola</string>
+    <string name="login_log_in">Oturum aç</string>
+    <string name="login_other_device_title">Başka bir cihazda oturumun açık mı?</string>
+    <string name="login_other_device_steps">Orada Seiðr’i aç, Ayarlar → Bir cihazda oturum aç bölümüne git ve şunu seç: %1$s. İkisi de aynı Wi-Fi’de olmalı, bu cihazda da Seiðr açık olmalı. Kodun iki ekranda da aynı olduğunu kontrol et, hepsi bu.</string>
+    <string name="login_back">Geri</string>
+    <string name="login_idle_ready">Çalmaya hazır</string>
+    <string name="login_idle_hint">Başka bir cihazda Seiðr’i aç, “Şurada çal”a dokun, sonra bu cihazı seç.</string>
+    <string name="login_pairing_code">Eşleştirme kodu</string>
+    <string name="login_check_same_code">%1$s adlı cihazda da aynı kodun göründüğünü kontrol et.</string>
+    <string name="login_sign_in_this_device">Bu cihazda oturum açılsın mı?</string>
+    <string name="login_sign_in_request">%1$s, bu cihazda %3$s sunucusuna %2$s olarak oturum açmak istiyor.</string>
+    <string name="login_sign_in_request_kid">%1$s, bu cihazda %3$s sunucusuna %2$s olarak (çocuk hesabı) oturum açmak istiyor.</string>
+    <string name="login_allow">İzin ver</string>
+    <string name="login_dont_allow">İzin verme</string>
+    <string name="login_cancel">İptal</string>
+    <string name="login_sign_in_peer">%1$s adlı cihazda oturum açılsın mı?</string>
+    <string name="login_play_on_peer">%1$s adlı cihazda çalınsın mı?</string>
+    <string name="login_check_this_code">%1$s adlı cihazda şu kodun göründüğünü kontrol et:</string>
+    <string name="login_will_sign_in_kid">%1$s olarak oturum açacak; bu bir çocuk hesabı: yalnızca onaylı şarkılar.</string>
+    <string name="login_will_sign_in">%1$s olarak, senin parolanla oturum açacak.</string>
+    <string name="login_will_play">Bağlantısı kesilene kadar senin hesabınla çalar. Bu cihaz için bir daha sorulmaz.</string>
+    <string name="login_it_matches">Eşleşiyor</string>
+
+    <string name="licences_title">Açık kaynak lisansları</string>
+    <string name="licences_includes">Seiðr’in içindekiler</string>
+    <string name="licences_shared_freely">Serbestçe paylaşılmıştır; yazarlar kaldırılmasını isteyebilir</string>
+    <string name="licences_projectm_by">projectM ekibi. Değiştirilmeden dağıtılır; kaynak kodu Seiðr’in deposundadır</string>
+    <string name="licences_presets">MilkDrop ön ayarları (Cream of the Crop)</string>
+    <string name="licences_presets_by">Derleyen: Jason Fletcher; her ön ayar, adında geçen yazara aittir</string>
+    <string name="licences_textures">MilkDrop doku paketi</string>
+    <string name="licences_textures_by">projectM ekibi tarafından derlendi</string>
+    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
+    <string name="licences_material_icons">Material simgeleri</string>
+    <string name="licences_okhttp">OkHttp ve Retrofit</string>
+    <string name="licences_coil_by">Coil’e katkıda bulunanlar</string>
+    <string name="licences_openxr">OpenXR yükleyicisi</string>
+
+    <string name="vissettings_title">Görselleştirici</string>
+    <string name="vissettings_track_info">Parça bilgisini göster</string>
+    <string name="vissettings_track_info_hint">Bir köşede kapak, başlık ve süre. Kapalıyken yalnızca kontrollerle birlikte görünürler (basılı tut ya da kumandada yukarı/aşağı).</string>
+    <string name="vissettings_performance">Performansı göster</string>
+    <string name="vissettings_performance_hint">Görselleştirici kendini ayarlarken bir köşede kare hızı, işleme boyutu ve kalite düzeyi.</string>
+    <string name="vissettings_loved">Beğenilen ön ayarlar</string>
+    <string name="vissettings_loved_hint">Görselleştiricinin kontrollerindeki kalp. Beğenilen ön ayarlar aşağı yukarı on seferde bir çıkar.</string>
+    <string name="vissettings_unlove">Beğenmekten vazgeç</string>
+    <string name="vissettings_hidden">Gizlenen ön ayarlar</string>
+    <string name="vissettings_hidden_hint">Görselleştiricinin kontrollerindeki bayrak bir ön ayarı gizler. Bu cihazın akıcı gösteremeyeceği kadar ağır ön ayarlar senin yerine gizlenir. Önizlemek için birine dokun.</string>
+    <string name="vissettings_hidden_by_you">Senin gizlediklerin</string>
+    <string name="vissettings_too_heavy">Bu cihaz için fazla ağır</string>
+    <string name="vissettings_unhide">Göster</string>
+
+    <string name="whatsnew_title">Yenilikler</string>
+    <string name="whatsnew_this_version">%1$s (bu sürüm)</string>
+
+</resources>

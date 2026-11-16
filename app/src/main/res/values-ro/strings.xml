@@ -1,0 +1,98 @@
+<resources>
+    <string name="channel_updates">Actualizări ale aplicației</string>
+    <string name="update_offer_title">Actualizezi %1$s?</string>
+    <string name="update_offer_text">Versiunea %1$s e gata de instalare (acum ai %2$s). Aplicația se închide cât se actualizează.</string>
+    <string name="update_install">Instalează</string>
+    <string name="update_later">Mai târziu</string>
+    <string name="update_whats_new">Noutăți</string>
+    <string name="update_whats_new_title">Noutăți în %1$s</string>
+    <string name="update_ready_title">Actualizare pregătită</string>
+    <string name="update_ready_text">Atinge pentru a instala versiunea %1$s</string>
+
+    <string name="notif_channel_downloads">Descărcări</string>
+    <string name="notif_channel_storage">Avertismente de stocare</string>
+    <plurals name="notif_downloading">
+        <item quantity="one">Se descarcă %1$d piesă</item>
+        <item quantity="few">Se descarcă %1$d piese</item>
+        <item quantity="other">Se descarcă %1$d de piese</item>
+    </plurals>
+    <string name="notif_preparing">Se pregătește…</string>
+    <string name="notif_storage_title">Descărcări în pauză: spațiu de stocare plin</string>
+    <string name="notif_storage_text">Eliberează cam %1$d MB ca să continue. Nimic din ce era deja descărcat nu a fost șters.</string>
+
+    <string name="sync_server_error">Eroare de server</string>
+    <string name="sync_cant_reach">Serverul nu poate fi contactat</string>
+
+    <string name="car_recent">Recente</string>
+    <string name="car_playlists">Playlisturi</string>
+    <string name="car_playlist">Playlist</string>
+    <plurals name="car_songs">
+        <item quantity="one">%1$d melodie</item>
+        <item quantity="few">%1$d melodii</item>
+        <item quantity="other">%1$d de melodii</item>
+    </plurals>
+
+    <string name="playback_love">Îmi place</string>
+    <string name="playback_unlove">Nu-mi mai place</string>
+
+    <string name="connect_not_signed_in">Pe acest dispozitiv nu e autentificat nimeni</string>
+    <string name="connect_update_for_kids">Actualizează mai întâi Seiðr pe %1$s: versiunea aceasta nu poate păstra în siguranță datele de autentificare ale unui copil</string>
+    <string name="connect_no_answer">%1$s nu a răspuns</string>
+    <string name="connect_lost_why">S-a pierdut legătura cu %1$s: %2$s</string>
+    <string name="connect_peer_other_account">Pe %1$s e autentificat altcineva</string>
+    <string name="connect_peer_changed">Pe %1$s tocmai s-a schimbat contul. Încearcă din nou peste o clipă.</string>
+    <string name="connect_peer_unreachable">Nu s-a putut ajunge la %1$s. E deschis Seiðr acolo?</string>
+    <string name="connect_playback_not_ready">Redarea nu e încă pregătită</string>
+    <string name="connect_device_fallback">Dispozitiv Seiðr</string>
+    <string name="connect_peer_disconnected">%1$s s-a deconectat</string>
+    <string name="connect_peer_signed_in">%1$s s-a autentificat</string>
+    <string name="connect_nobody_answered">Nu a răspuns nimeni pe %1$s</string>
+    <string name="connect_not_allowed">Nu s-a permis pe %1$s</string>
+    <string name="connect_taken_over">%1$s redă acum pe %2$s</string>
+    <string name="connect_update_first">Actualizează mai întâi Seiðr pe %1$s</string>
+    <string name="connect_lost_connection">S-a pierdut conexiunea cu %1$s</string>
+
+    <string name="account_connect_failed">Nu s-a putut face conexiunea la %1$s: %2$s</string>
+    <string name="account_lan_permission">Seiðr are nevoie de permisiunea Dispozitive din apropiere / rețea locală ca să ajungă la un server din rețeaua ta de acasă.</string>
+    <string name="account_check_failed_why">Nu s-a putut verifica contul %1$s: %2$s</string>
+    <string name="account_check_failed">Nu s-a putut verifica contul %1$s</string>
+    <string name="account_kid_is_admin">%1$s este administrator pe server. Un cont de copil nu poate fi administrator.</string>
+    <string name="account_not_grownup">Nu ești autentificat ca adult</string>
+    <string name="account_own_check_failed">Nu s-a putut verifica contul tău pe server</string>
+    <string name="account_admin_only">Doar administratorii serverului pot vedea aplicația ca un copil</string>
+    <string name="account_view_failed">Nu s-a putut deschide vizualizarea pentru %1$s: %2$s</string>
+    <string name="account_someone_else">Între timp s-a autentificat altcineva</string>
+
+    <string name="kids_signed_in_as_kid">Autentificat cu un cont de copil</string>
+    <string name="kids_setup_failed">Nu s-au putut crea playlisturile pentru copii: %1$s</string>
+
+    <string name="report_no_playlist">Nu există playlistul „%1$s” pe server</string>
+    <string name="report_removed">Eliminat din %1$s</string>
+    <string name="report_song_reported">Semnalat. Melodia aceasta va fi sărită.</string>
+    <string name="report_art_reported">Coperta a fost semnalată</string>
+    <string name="report_lyrics_reported">Versurile au fost semnalate</string>
+    <string name="report_queued">Offline: %1$s se va actualiza când revine serverul</string>
+    <string name="report_conflict">Nu s-a putut actualiza %1$s</string>
+    <string name="report_failed">Nu s-a putut actualiza %1$s: %2$s</string>
+
+    <string name="main_battery_title">Muzica să nu se oprească</string>
+    <string name="main_battery_text">Pe unele telefoane, gestionarea bateriei oprește redarea și descărcările din fundal. Lași Seiðr să ruleze fără restricții? Poți schimba asta mai târziu din Setări.</string>
+    <string name="main_battery_allow">Permite</string>
+
+    <string name="vis_close">Închide vizualizatorul</string>
+    <string name="vis_now_playing">În redare</string>
+    <string name="vis_next_in_queue">Urmează în coadă</string>
+    <string name="vis_next_from">Urmează din: %1$s</string>
+    <string name="vis_next_from_queue">Urmează din: coadă</string>
+    <string name="vis_hide_preset">Ascunde presetul</string>
+    <string name="vis_love_preset">Îmi place presetul</string>
+    <string name="vis_unlove_preset">Nu-mi mai place presetul</string>
+    <string name="vis_preview">Previzualizare</string>
+    <string name="vis_preset_hidden">Preset ascuns. Îl aduci înapoi din Setări → Vizualizator.</string>
+    <string name="vis_xr_failed">Vizualizatorul imersiv nu a putut porni</string>
+    <string name="vis_warning_title">Lumini intermitente</string>
+    <string name="vis_warning_headset">Unele preseturi clipesc, pâlpâie și se învârt rapid, iar în cască îți umplu tot câmpul vizual. Asta poate declanșa crize la persoanele cu epilepsie fotosensibilă și poate provoca rău de mișcare sau dezorientare. Rămâi așezat, iar dacă nu te simți bine, scoate-ți casca.</string>
+    <string name="vis_warning_flat">Unele preseturi clipesc, pâlpâie și se învârt rapid. Asta poate declanșa crize la persoanele cu epilepsie fotosensibilă. Dacă nu te simți bine, uită-te în altă parte și închide vizualizatorul.</string>
+    <string name="vis_continue">Continuă</string>
+    <string name="vis_not_now">Nu acum</string>
+</resources>

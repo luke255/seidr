@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="library_songs">
+        <item quantity="one">%d τραγούδι</item>
+        <item quantity="other">%d τραγούδια</item>
+    </plurals>
+    <plurals name="library_albums">
+        <item quantity="one">%d άλμπουμ</item>
+        <item quantity="other">%d άλμπουμ</item>
+    </plurals>
+
+    <string name="library_title">Βιβλιοθήκη</string>
+    <string name="library_tab_playlists">Playlist</string>
+    <string name="library_tab_artists">Καλλιτέχνες</string>
+    <string name="library_tab_albums">Άλμπουμ</string>
+    <string name="library_search_playlists">Αναζήτηση σε playlist</string>
+    <string name="library_search_artists">Αναζήτηση σε καλλιτέχνες</string>
+    <string name="library_search_albums">Αναζήτηση σε άλμπουμ</string>
+    <string name="library_close_search">Κλείσιμο αναζήτησης</string>
+    <string name="library_search_library">Αναζήτηση στη βιβλιοθήκη σου</string>
+    <string name="library_create_playlist">Δημιουργία playlist</string>
+    <string name="library_downloaded">Ληφθέντα</string>
+    <string name="library_sort_custom">Προσαρμοσμένη σειρά</string>
+    <string name="library_sort_name">Όνομα</string>
+    <string name="library_sort_updated">Πρόσφατα ενημερωμένα</string>
+    <string name="library_sort_most_albums">Περισσότερα άλμπουμ</string>
+    <string name="library_sort_artist">Καλλιτέχνης</string>
+    <string name="library_sort_added">Πρόσφατες προσθήκες</string>
+    <string name="library_sort_year">Έτος</string>
+    <string name="library_show_list">Προβολή ως λίστα</string>
+    <string name="library_show_grid">Προβολή ως πλέγμα</string>
+    <string name="library_by_owner">από %1$s</string>
+    <string name="library_playlist">Playlist</string>
+    <string name="library_name">Όνομα</string>
+    <string name="library_create">Δημιουργία</string>
+    <string name="library_cancel">Άκυρο</string>
+    <string name="library_create_failed">Η playlist δεν δημιουργήθηκε (χρειάζεται ο διακομιστής)</string>
+    <string name="library_no_match">Τίποτα δεν ταιριάζει με «%1$s»</string>
+    <string name="library_none_downloaded">Δεν έχει ληφθεί τίποτα εδώ ακόμα</string>
+    <string name="library_empty">Τίποτα εδώ ακόμα</string>
+    <plurals name="library_downloading_left">
+        <item quantity="one">Λήψη: απομένει %d τραγούδι</item>
+        <item quantity="other">Λήψη: απομένουν %d τραγούδια</item>
+    </plurals>
+
+    <string name="search_title">Αναζήτηση</string>
+    <string name="search_hint">Καλλιτέχνες, τραγούδια, άλμπουμ ή playlist</string>
+    <string name="search_recent">Πρόσφατες αναζητήσεις</string>
+    <string name="search_clear">Απαλοιφή</string>
+    <string name="search_filter_all">Όλα</string>
+    <string name="search_filter_songs">Τραγούδια</string>
+    <string name="search_filter_artists">Καλλιτέχνες</string>
+    <string name="search_filter_albums">Άλμπουμ</string>
+    <string name="search_filter_playlists">Playlist</string>
+    <string name="search_failed">Η αναζήτηση απέτυχε</string>
+    <string name="search_no_results">Κανένα αποτέλεσμα για «%1$s»</string>
+    <string name="search_context">Αναζήτηση: %1$s</string>
+    <string name="search_top_result">Κορυφαίο αποτέλεσμα</string>
+    <string name="search_kind_artist">Καλλιτέχνης</string>
+    <string name="search_kind_album">Άλμπουμ</string>
+    <string name="search_kind_song">Τραγούδι</string>
+    <string name="search_kind_album_by">Άλμπουμ · %1$s</string>
+    <string name="search_kind_song_by">Τραγούδι · %1$s</string>
+    <plurals name="search_kind_playlist">
+        <item quantity="one">Playlist · %d τραγούδι</item>
+        <item quantity="other">Playlist · %d τραγούδια</item>
+    </plurals>
+
+    <string name="playlist_by_owner">από %1$s</string>
+    <string name="playlist_done">Τέλος</string>
+    <string name="playlist_options">Επιλογές playlist</string>
+    <string name="playlist_reorder">Αλλαγή σειράς τραγουδιών</string>
+    <string name="playlist_rename">Μετονομασία</string>
+    <string name="playlist_delete">Διαγραφή playlist</string>
+    <string name="playlist_remove_from_this">Αφαίρεση από αυτή την playlist</string>
+    <string name="playlist_order_saved">Η σειρά της playlist αποθηκεύτηκε</string>
+    <string name="playlist_removed_from">Αφαιρέθηκε από: %1$s</string>
+    <string name="playlist_rename_title">Μετονομασία playlist</string>
+    <string name="playlist_renamed">Μετονομάστηκε</string>
+    <string name="playlist_save">Αποθήκευση</string>
+    <string name="playlist_cancel">Άκυρο</string>
+    <string name="playlist_delete_title">Διαγραφή «%1$s»;</string>
+    <string name="playlist_delete_body">Διαγράφεται από τον διακομιστή. Οι λήψεις που κρατούσε μόνο αυτή αφαιρούνται από το τηλέφωνο.</string>
+    <string name="playlist_deleted">Διαγράφηκε: %1$s</string>
+    <string name="playlist_delete_confirm">Διαγραφή</string>
+
+    <string name="downloads_title">Λήψεις</string>
+    <string name="downloads_free">%1$s ελεύθερα σε αυτό το τηλέφωνο</string>
+    <string name="downloads_queue">Ουρά</string>
+    <string name="downloads_all_done">Έχουν ληφθεί όλα</string>
+    <plurals name="downloads_waiting">
+        <item quantity="one">%d τραγούδι σε αναμονή</item>
+        <item quantity="other">%d τραγούδια σε αναμονή</item>
+    </plurals>
+    <string name="downloads_wifi_only_note">Λήψεις μόνο μέσω Wi-Fi</string>
+    <plurals name="downloads_failed">
+        <item quantity="one">%d απέτυχε</item>
+        <item quantity="other">%d απέτυχαν</item>
+    </plurals>
+    <string name="downloads_retry">Επανάληψη</string>
+    <plurals name="downloads_edits_waiting">
+        <item quantity="one">%d αλλαγή σε playlist σε αναμονή</item>
+        <item quantity="other">%d αλλαγές σε playlist σε αναμονή</item>
+    </plurals>
+    <string name="downloads_edits_note">Στέλνονται όταν υπάρχει πρόσβαση στον διακομιστή</string>
+    <string name="downloads_settings">Ρυθμίσεις</string>
+    <string name="downloads_wifi_only">Λήψη μόνο μέσω Wi-Fi</string>
+    <string name="downloads_wifi_only_hint">Απενεργοποίησέ το για λήψη και με δεδομένα κινητής</string>
+    <string name="downloads_syncing">Συγχρονισμός…</string>
+    <string name="downloads_not_synced">Δεν έχει γίνει συγχρονισμός ακόμα</string>
+    <string name="downloads_last_synced">Τελευταίος συγχρονισμός: %1$s</string>
+    <plurals name="downloads_unchecked">
+        <item quantity="one">%d δεν ήταν δυνατό να ελεγχθεί· δεν αφαιρέθηκε τίποτα</item>
+        <item quantity="other">%d δεν ήταν δυνατό να ελεγχθούν· δεν αφαιρέθηκε τίποτα</item>
+    </plurals>
+    <string name="downloads_sync_now">Συγχρονισμός τώρα</string>
+    <string name="downloads_downloaded">Ληφθέντα</string>
+    <string name="downloads_nothing">Τίποτα ακόμα</string>
+    <string name="downloads_nothing_hint">Ενεργοποίησε τη Λήψη σε μια playlist ή ένα άλμπουμ για να μένει στο τηλέφωνο.</string>
+    <plurals name="downloads_progress">
+        <item quantity="one">%1$d από %2$d τραγούδι · %3$s</item>
+        <item quantity="other">%1$d από %2$d τραγούδια · %3$s</item>
+    </plurals>
+    <string name="downloads_waiting_short">Σε αναμονή</string>
+    <string name="downloads_kind_playlist">Playlist</string>
+    <string name="downloads_kind_album">Άλμπουμ</string>
+
+    <string name="home_offline_tv">Είσαι εκτός σύνδεσης. Το Seiðr θα επανασυνδεθεί όταν υπάρχει πρόσβαση στον διακομιστή.</string>
+    <string name="home_offline">Είσαι εκτός σύνδεσης. Η μουσική που έχεις κατεβάσει είναι ακόμα εδώ: δες στη Βιβλιοθήκη, με το φίλτρο Ληφθέντα.</string>
+    <string name="home_kid_empty">Δεν έχει εγκριθεί τίποτα για σένα ακόμα. Ζήτα από όποιον σε συνέδεσε να προσθέσει μερικά τραγούδια.</string>
+    <string name="home_playlists">Playlist</string>
+    <string name="home_sort_az">Α–Ω</string>
+    <string name="home_sort_recent">Πρόσφατα</string>
+    <string name="home_by_owner">από %1$s</string>
+    <string name="home_recently_added">Πρόσφατες προσθήκες</string>
+    <string name="home_most_played">Τα πιο πολυπαιγμένα</string>
+    <string name="home_saved_albums">Αποθηκευμένα άλμπουμ</string>
+
+    <string name="artist_load_failed">Τα τραγούδια δεν φορτώθηκαν</string>
+    <string name="artist_label">Καλλιτέχνης</string>
+    <string name="artist_popular">Δημοφιλή</string>
+    <string name="artist_show_less">Λιγότερα</string>
+    <string name="artist_show_all">Όλα</string>
+    <string name="artist_albums">Άλμπουμ</string>
+    <string name="artist_singles">Single και EP</string>
+    <string name="artist_appears_on">Συμμετέχει σε</string>
+
+    <string name="album_unreachable">Δεν υπήρξε πρόσβαση στον διακομιστή</string>
+    <string name="album_remove_from_library">Αφαίρεση από τη βιβλιοθήκη</string>
+    <string name="album_save_to_library">Αποθήκευση στη βιβλιοθήκη</string>
+    <string name="album_disc">Δίσκος %1$s</string>
+
+    <string name="loved_title">Αγαπημένα</string>
+</resources>
