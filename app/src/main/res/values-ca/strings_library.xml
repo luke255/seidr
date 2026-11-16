@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="library_songs">
+        <item quantity="one">%d cançó</item>
+        <item quantity="many">%d cançons</item>
+        <item quantity="other">%d cançons</item>
+    </plurals>
+    <plurals name="library_albums">
+        <item quantity="one">%d àlbum</item>
+        <item quantity="many">%d àlbums</item>
+        <item quantity="other">%d àlbums</item>
+    </plurals>
+
+    <string name="library_title">Biblioteca</string>
+    <string name="library_tab_playlists">Llistes</string>
+    <string name="library_tab_artists">Artistes</string>
+    <string name="library_tab_albums">Àlbums</string>
+    <string name="library_search_playlists">Cerca llistes</string>
+    <string name="library_search_artists">Cerca artistes</string>
+    <string name="library_search_albums">Cerca àlbums</string>
+    <string name="library_close_search">Tanca la cerca</string>
+    <string name="library_search_library">Cerca a la teva biblioteca</string>
+    <string name="library_create_playlist">Crea una llista</string>
+    <string name="library_downloaded">Baixat</string>
+    <string name="library_sort_custom">Ordre personalitzat</string>
+    <string name="library_sort_name">Nom</string>
+    <string name="library_sort_updated">Actualitzades fa poc</string>
+    <string name="library_sort_most_albums">Més àlbums</string>
+    <string name="library_sort_artist">Artista</string>
+    <string name="library_sort_added">Afegits fa poc</string>
+    <string name="library_sort_year">Any</string>
+    <string name="library_show_list">Mostra com a llista</string>
+    <string name="library_show_grid">Mostra com a quadrícula</string>
+    <string name="library_by_owner">de %1$s</string>
+    <string name="library_playlist">Llista de reproducció</string>
+    <string name="library_name">Nom</string>
+    <string name="library_create">Crea</string>
+    <string name="library_cancel">Cancel·la</string>
+    <string name="library_create_failed">No s\'ha pogut crear la llista (cal el servidor)</string>
+    <string name="library_no_match">Res no coincideix amb «%1$s»</string>
+    <string name="library_none_downloaded">Aquí encara no hi ha res baixat</string>
+    <string name="library_empty">Aquí encara no hi ha res</string>
+    <plurals name="library_downloading_left">
+        <item quantity="one">S\'està baixant: falta %d cançó</item>
+        <item quantity="many">S\'està baixant: falten %d cançons</item>
+        <item quantity="other">S\'està baixant: falten %d cançons</item>
+    </plurals>
+
+    <string name="search_title">Cerca</string>
+    <string name="search_hint">Artistes, cançons, àlbums o llistes</string>
+    <string name="search_recent">Cerques recents</string>
+    <string name="search_clear">Esborra</string>
+    <string name="search_filter_all">Tot</string>
+    <string name="search_filter_songs">Cançons</string>
+    <string name="search_filter_artists">Artistes</string>
+    <string name="search_filter_albums">Àlbums</string>
+    <string name="search_filter_playlists">Llistes</string>
+    <string name="search_failed">La cerca ha fallat</string>
+    <string name="search_no_results">Cap resultat per a «%1$s»</string>
+    <string name="search_context">Cerca: %1$s</string>
+    <string name="search_top_result">Millor resultat</string>
+    <string name="search_kind_artist">Artista</string>
+    <string name="search_kind_album">Àlbum</string>
+    <string name="search_kind_song">Cançó</string>
+    <string name="search_kind_album_by">Àlbum · %1$s</string>
+    <string name="search_kind_song_by">Cançó · %1$s</string>
+    <plurals name="search_kind_playlist">
+        <item quantity="one">Llista · %d cançó</item>
+        <item quantity="many">Llista · %d cançons</item>
+        <item quantity="other">Llista · %d cançons</item>
+    </plurals>
+
+    <string name="playlist_by_owner">de %1$s</string>
+    <string name="playlist_done">Fet</string>
+    <string name="playlist_options">Opcions de la llista</string>
+    <string name="playlist_reorder">Reordena les cançons</string>
+    <string name="playlist_rename">Canvia el nom</string>
+    <string name="playlist_delete">Suprimeix la llista</string>
+    <string name="playlist_remove_from_this">Treu d\'aquesta llista</string>
+    <string name="playlist_order_saved">S\'ha desat l\'ordre de la llista</string>
+    <string name="playlist_removed_from">S\'ha tret de %1$s</string>
+    <string name="playlist_rename_title">Canvia el nom de la llista</string>
+    <string name="playlist_renamed">S\'ha canviat el nom</string>
+    <string name="playlist_save">Desa</string>
+    <string name="playlist_cancel">Cancel·la</string>
+    <string name="playlist_delete_title">Vols suprimir «%1$s»?</string>
+    <string name="playlist_delete_body">Se suprimeix al servidor. Les baixades que només mantenia aquesta llista es treuen del telèfon.</string>
+    <string name="playlist_deleted">S\'ha suprimit %1$s</string>
+    <string name="playlist_delete_confirm">Suprimeix</string>
+
+    <string name="downloads_title">Baixades</string>
+    <string name="downloads_free">%1$s lliures en aquest telèfon</string>
+    <string name="downloads_queue">Cua</string>
+    <string name="downloads_all_done">Ja està tot baixat</string>
+    <plurals name="downloads_waiting">
+        <item quantity="one">%d cançó en espera</item>
+        <item quantity="many">%d cançons en espera</item>
+        <item quantity="other">%d cançons en espera</item>
+    </plurals>
+    <string name="downloads_wifi_only_note">Baixades només amb Wi-Fi</string>
+    <plurals name="downloads_failed">
+        <item quantity="one">%d ha fallat</item>
+        <item quantity="many">%d han fallat</item>
+        <item quantity="other">%d han fallat</item>
+    </plurals>
+    <string name="downloads_retry">Torna-ho a provar</string>
+    <plurals name="downloads_edits_waiting">
+        <item quantity="one">%d canvi de llista en espera</item>
+        <item quantity="many">%d canvis de llistes en espera</item>
+        <item quantity="other">%d canvis de llistes en espera</item>
+    </plurals>
+    <string name="downloads_edits_note">S\'envien quan es pugui connectar amb el servidor</string>
+    <string name="downloads_settings">Configuració</string>
+    <string name="downloads_wifi_only">Baixa només amb Wi-Fi</string>
+    <string name="downloads_wifi_only_hint">Desactiva-ho per baixar també amb dades mòbils</string>
+    <string name="downloads_syncing">S\'està sincronitzant…</string>
+    <string name="downloads_not_synced">Encara no s\'ha sincronitzat</string>
+    <string name="downloads_last_synced">Última sincronització: %1$s</string>
+    <plurals name="downloads_unchecked">
+        <item quantity="one">%d no s\'ha pogut comprovar; no s\'ha tret res</item>
+        <item quantity="many">%d no s\'han pogut comprovar; no s\'ha tret res</item>
+        <item quantity="other">%d no s\'han pogut comprovar; no s\'ha tret res</item>
+    </plurals>
+    <string name="downloads_sync_now">Sincronitza ara</string>
+    <string name="downloads_downloaded">Baixat</string>
+    <string name="downloads_nothing">Encara res</string>
+    <string name="downloads_nothing_hint">Activa Baixa en una llista o un àlbum per tenir-lo al telèfon.</string>
+    <plurals name="downloads_progress">
+        <item quantity="one">%1$d de %2$d cançó · %3$s</item>
+        <item quantity="many">%1$d de %2$d cançons · %3$s</item>
+        <item quantity="other">%1$d de %2$d cançons · %3$s</item>
+    </plurals>
+    <string name="downloads_waiting_short">En espera</string>
+    <string name="downloads_kind_playlist">Llista</string>
+    <string name="downloads_kind_album">Àlbum</string>
+
+    <string name="home_offline_tv">No tens connexió. Seiðr es tornarà a connectar quan el servidor estigui disponible.</string>
+    <string name="home_offline">No tens connexió. La música baixada continua aquí: mira a Biblioteca amb el filtre Baixat.</string>
+    <string name="home_kid_empty">Encara no t\'han aprovat res. Demana a qui t\'ha iniciat la sessió que hi afegeixi algunes cançons.</string>
+    <string name="home_playlists">Llistes de reproducció</string>
+    <string name="home_sort_az">A–Z</string>
+    <string name="home_sort_recent">Recents</string>
+    <string name="home_by_owner">de %1$s</string>
+    <string name="home_recently_added">Afegits fa poc</string>
+    <string name="home_most_played">El més escoltat</string>
+    <string name="home_saved_albums">Àlbums desats</string>
+
+    <string name="artist_load_failed">No s\'han pogut carregar les cançons</string>
+    <string name="artist_label">Artista</string>
+    <string name="artist_popular">Populars</string>
+    <string name="artist_show_less">Mostra\'n menys</string>
+    <string name="artist_show_all">Mostra-ho tot</string>
+    <string name="artist_albums">Àlbums</string>
+    <string name="artist_singles">Senzills i EP</string>
+    <string name="artist_appears_on">Apareix a</string>
+
+    <string name="album_unreachable">No s\'ha pogut connectar amb el servidor</string>
+    <string name="album_remove_from_library">Treu de la biblioteca</string>
+    <string name="album_save_to_library">Desa a la biblioteca</string>
+    <string name="album_disc">Disc %1$s</string>
+
+    <string name="loved_title">Preferides</string>
+</resources>

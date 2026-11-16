@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">Enrere</string>
+    <string name="common_cancel">Cancel·la</string>
+    <string name="common_clear">Esborra</string>
+    <string name="common_close">Tanca</string>
+    <string name="common_done">Fet</string>
+    <string name="common_more">Més</string>
+    <string name="common_remove">Treu</string>
+    <string name="common_try_again">Torna-ho a provar</string>
+    <string name="common_offline">Sense connexió</string>
+    <string name="common_load_failed">No s\'ha pogut carregar</string>
+    <string name="common_drag_to_reorder">Arrossega per reordenar</string>
+    <string name="common_moving_hint">S\'està movent: amunt o avall, i selecciona per deixar anar</string>
+    <string name="common_shuffle_play">Reproducció aleatòria</string>
+    <string name="common_play_in_order">Reprodueix en ordre</string>
+    <string name="common_play">Reprodueix</string>
+
+    <string name="common_download">Baixa</string>
+    <string name="common_downloaded">Baixat</string>
+    <string name="common_queued">A la cua</string>
+    <string name="common_download_failed">La baixada ha fallat</string>
+    <string name="common_waiting_to_download">S\'està esperant per baixar…</string>
+    <string name="common_downloading_progress">S\'està baixant… %1$d de %2$d</string>
+    <string name="common_download_when_reachable">Es baixarà quan es pugui connectar amb el servidor</string>
+    <string name="common_downloads_removed">S\'han tret les baixades de %1$s</string>
+    <string name="common_not_approved_yet">Encara no aprovada</string>
+
+    <string name="common_read_only_kid">Només de lectura mentre ho veus com un infant</string>
+    <string name="common_cant_reach_server">No s\'ha pogut connectar amb el servidor</string>
+    <string name="common_loved">Afegida a Preferides</string>
+    <string name="common_unloved">Treta de Preferides</string>
+    <string name="common_edit_queued">Sense connexió: es desarà al servidor quan torni</string>
+    <string name="common_edit_conflict">La llista ha canviat en un altre lloc, i no s\'ha desat res. S\'ha tornat a carregar.</string>
+    <string name="common_edit_failed">No s\'ha pogut desar: %1$s</string>
+
+    <plurals name="common_songs">
+        <item quantity="one">%d cançó</item>
+        <item quantity="many">%d cançons</item>
+        <item quantity="other">%d cançons</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="one">%d àlbum</item>
+        <item quantity="many">%d àlbums</item>
+        <item quantity="other">%d àlbums</item>
+    </plurals>
+    <plurals name="common_approved_count">
+        <item quantity="one">%1$d aprovada</item>
+        <item quantity="many">%1$d aprovades</item>
+        <item quantity="other">%1$d aprovades</item>
+    </plurals>
+    <string name="common_by_owner">de %1$s</string>
+    <string name="common_duration_hr_min">%1$d h %2$d min</string>
+    <string name="common_duration_min">%1$d min</string>
+    <string name="common_size_gb">%1$.1f GB</string>
+    <string name="common_size_mb">%1$.0f MB</string>
+    <string name="common_size_kb">%1$.0f KB</string>
+
+    <string name="nav_home">Inici</string>
+    <string name="nav_search">Cerca</string>
+    <string name="nav_library">Biblioteca</string>
+    <string name="nav_now_playing">Ara sona</string>
+    <string name="nav_settings">Configuració</string>
+    <string name="nav_update_available">Actualització disponible</string>
+    <string name="nav_settings_update_available">Configuració, actualització disponible</string>
+
+    <string name="player_nothing_playing">No sona res</string>
+    <string name="player_playing_from">SONA DES DE</string>
+    <string name="player_queue">Cua</string>
+    <string name="player_disconnect">Desconnecta</string>
+    <string name="player_play_on_another_device">Reprodueix en un altre dispositiu</string>
+    <string name="player_lyrics">Lletra</string>
+    <string name="player_hide_lyrics">Amaga la lletra</string>
+    <string name="player_visualiser">Visualitzador</string>
+    <string name="player_immersive_visualiser">Visualitzador immersiu</string>
+    <string name="player_previous">Anterior</string>
+    <string name="player_next">Següent</string>
+    <string name="player_play">Reprodueix</string>
+    <string name="player_pause">Pausa</string>
+    <string name="player_playing_on">Sona a %1$s</string>
+    <string name="player_playing_for">Sona per a %1$s des de %2$s</string>
+    <string name="player_repeat_one">Repeteix-ne una</string>
+    <string name="player_repeat_all">Repeteix-ho tot</string>
+    <string name="player_repeat_off">Repetició desactivada</string>
+    <string name="player_shuffle">Aleatori</string>
+    <string name="player_on">Activat</string>
+    <string name="player_off">Desactivat</string>
+    <string name="player_toggle_shuffle">Activa o desactiva el mode aleatori</string>
+    <string name="player_reshuffle">Torna a barrejar</string>
+    <string name="player_reshuffled">S\'ha tornat a barrejar</string>
+    <string name="player_hold_to_reshuffle">Mantén premut per tornar a barrejar</string>
+
+    <string name="queue_title">Cua de reproducció</string>
+    <string name="queue_empty">La cua és buida</string>
+    <string name="queue_earlier">Abans</string>
+    <string name="queue_now_playing">Ara sona</string>
+    <string name="queue_next">A continuació</string>
+    <string name="queue_next_in_queue">A continuació a la cua</string>
+    <string name="queue_clear">Buida la cua</string>
+    <string name="queue_next_from">A continuació de: %1$s</string>
+    <string name="queue_fallback_context">la cua</string>
+    <string name="queue_remove">Treu de la cua</string>
+
+    <string name="lyrics_none">Aquesta cançó no té lletra</string>
+    <string name="lyrics_failed">No s\'ha pogut carregar la lletra</string>
+    <string name="lyrics_earlier">Lletra abans</string>
+    <string name="lyrics_later">Lletra després</string>
+    <string name="lyrics_original_timing">Temps original</string>
+    <string name="lyrics_reset">Restableix</string>
+
+    <string name="devices_title">Reprodueix a</string>
+    <string name="devices_this_device">Aquest dispositiu</string>
+    <string name="devices_not_signed_in">Sense sessió iniciada</string>
+    <string name="devices_connecting">S\'està connectant…</string>
+    <string name="devices_connected">Connectat</string>
+    <string name="devices_allow">Permet</string>
+    <string name="devices_permission_rationale">Seiðr necessita el permís de dispositius propers per trobar els teus altres dispositius.</string>
+    <string name="devices_looking">S\'estan cercant dispositius. Obre Seiðr en un altre dispositiu de la mateixa xarxa Wi-Fi: un amb la teva sessió iniciada o un sense sessió.</string>
+
+    <string name="menu_love">M\'agrada</string>
+    <string name="menu_unlove">Ja no m\'agrada</string>
+    <string name="menu_add_to_playlist">Afegeix a una llista</string>
+    <string name="menu_add_to_queue">Afegeix a la cua</string>
+    <string name="menu_go_to_album">Ves a l\'àlbum</string>
+    <string name="menu_go_to_artist">Ves a l\'artista</string>
+    <plurals name="menu_added_to_queue">
+        <item quantity="one">S\'ha afegit a la cua</item>
+        <item quantity="many">S\'han afegit %d cançons a la cua</item>
+        <item quantity="other">S\'han afegit %d cançons a la cua</item>
+    </plurals>
+    <string name="menu_new_playlist">Llista nova</string>
+    <string name="menu_playlist_name">Nom</string>
+    <string name="menu_create">Crea</string>
+    <string name="menu_create_failed">No s\'ha pogut crear la llista (cal el servidor)</string>
+    <string name="menu_created">S\'ha creat «%1$s»</string>
+    <string name="menu_added_to">S\'ha afegit a %1$s</string>
+
+    <string name="menu_report_a_problem">Informa d\'un problema</string>
+    <string name="menu_report_no_playlist">No hi ha cap llista %1$s</string>
+    <string name="menu_report_undo_song">Desfés l\'avís de cançó</string>
+    <string name="menu_report_undo_art">Desfés l\'avís de portada</string>
+    <string name="menu_report_undo_lyrics">Desfés l\'avís de lletra</string>
+    <string name="menu_report_bad_song">Cançó malmesa (salta-la)</string>
+    <string name="menu_report_bad_art">Portada incorrecta</string>
+    <string name="menu_report_bad_lyrics">Lletra incorrecta</string>
+
+    <string name="pair_title">Inicia la sessió en un dispositiu</string>
+    <string name="pair_signing_in">S\'està iniciant la sessió a %1$s… Permet-ho a %1$s.</string>
+    <string name="pair_signed_in_as">%1$s té la sessió iniciada com a %2$s</string>
+    <string name="pair_cancelled">S\'ha cancel·lat</string>
+    <string name="pair_intro">Obre Seiðr al dispositiu on vols iniciar la sessió, a la mateixa xarxa Wi-Fi que aquest. Apareix aquí mentre no tingui la sessió iniciada. Comprovaràs que totes dues pantalles mostren el mateix codi, i llavors inicia la sessió com a %1$s.</string>
+    <string name="pair_intro_kid">Obre Seiðr al dispositiu on vols iniciar la sessió, a la mateixa xarxa Wi-Fi que aquest. Apareix aquí mentre no tingui la sessió iniciada. Comprovaràs que totes dues pantalles mostren el mateix codi, i llavors inicia la sessió com a %1$s. També serà un dispositiu infantil, amb les mateixes cançons.</string>
+    <string name="pair_you">Tu</string>
+    <string name="pair_kid_approved_only">Infant: només cançons aprovades</string>
+    <string name="pair_permission_rationale">Seiðr necessita el permís de dispositius propers per trobar altres dispositius.</string>
+    <string name="pair_looking">S\'estan cercant dispositius sense sessió…</string>
+
+    <string name="theme_system">Sistema</string>
+    <string name="theme_neutral">Neutre</string>
+    <string name="theme_red">Vermell</string>
+    <string name="theme_orange">Taronja</string>
+    <string name="theme_amber">Ambre</string>
+    <string name="theme_yellow">Groc</string>
+    <string name="theme_lime">Llima</string>
+    <string name="theme_green">Verd</string>
+    <string name="theme_emerald">Maragda</string>
+    <string name="theme_teal">Verd blavós</string>
+    <string name="theme_cyan">Cian</string>
+    <string name="theme_sky">Blau cel</string>
+    <string name="theme_blue">Blau</string>
+    <string name="theme_indigo">Indi</string>
+    <string name="theme_violet">Violeta</string>
+    <string name="theme_purple">Porpra</string>
+    <string name="theme_magenta">Magenta</string>
+    <string name="theme_pink">Rosa</string>
+</resources>

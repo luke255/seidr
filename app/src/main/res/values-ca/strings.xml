@@ -1,0 +1,98 @@
+<resources>
+    <string name="channel_updates">Actualitzacions de l\'aplicació</string>
+    <string name="update_offer_title">Vols actualitzar %1$s?</string>
+    <string name="update_offer_text">La versió %1$s està a punt per instal·lar (tens la %2$s). L\'aplicació es tanca mentre s\'actualitza.</string>
+    <string name="update_install">Instal·la</string>
+    <string name="update_later">Més tard</string>
+    <string name="update_whats_new">Novetats</string>
+    <string name="update_whats_new_title">Novetats de la versió %1$s</string>
+    <string name="update_ready_title">Actualització a punt</string>
+    <string name="update_ready_text">Toca per instal·lar la versió %1$s</string>
+
+    <string name="notif_channel_downloads">Baixades</string>
+    <string name="notif_channel_storage">Avisos d\'emmagatzematge</string>
+    <plurals name="notif_downloading">
+        <item quantity="one">S\'està baixant %1$d cançó</item>
+        <item quantity="many">S\'estan baixant %1$d cançons</item>
+        <item quantity="other">S\'estan baixant %1$d cançons</item>
+    </plurals>
+    <string name="notif_preparing">S\'està preparant…</string>
+    <string name="notif_storage_title">Baixades en pausa: emmagatzematge ple</string>
+    <string name="notif_storage_text">Allibera uns %1$d MB per continuar. No s\'ha esborrat res del que ja s\'havia baixat.</string>
+
+    <string name="sync_server_error">Error del servidor</string>
+    <string name="sync_cant_reach">No es pot connectar amb el servidor</string>
+
+    <string name="car_recent">Recents</string>
+    <string name="car_playlists">Llistes</string>
+    <string name="car_playlist">Llista</string>
+    <plurals name="car_songs">
+        <item quantity="one">%1$d cançó</item>
+        <item quantity="many">%1$d cançons</item>
+        <item quantity="other">%1$d cançons</item>
+    </plurals>
+
+    <string name="playback_love">M\'agrada</string>
+    <string name="playback_unlove">Ja no m\'agrada</string>
+
+    <string name="connect_not_signed_in">Aquest dispositiu no té la sessió iniciada</string>
+    <string name="connect_update_for_kids">Primer actualitza Seiðr a %1$s: aquesta versió no pot protegir el compte d\'un infant</string>
+    <string name="connect_no_answer">%1$s no ha respost</string>
+    <string name="connect_lost_why">S\'ha perdut la connexió amb %1$s: %2$s</string>
+    <string name="connect_peer_other_account">A %1$s hi ha iniciat la sessió una altra persona</string>
+    <string name="connect_peer_changed">Algú ha iniciat o tancat la sessió a %1$s. Torna-ho a provar d\'aquí a un moment.</string>
+    <string name="connect_peer_unreachable">No s\'ha pogut connectar amb %1$s. Hi tens Seiðr obert?</string>
+    <string name="connect_playback_not_ready">La reproducció encara no està a punt</string>
+    <string name="connect_device_fallback">Dispositiu Seiðr</string>
+    <string name="connect_peer_disconnected">%1$s s\'ha desconnectat</string>
+    <string name="connect_peer_signed_in">%1$s ha iniciat la sessió</string>
+    <string name="connect_nobody_answered">Ningú no ha respost a %1$s</string>
+    <string name="connect_not_allowed">No s\'ha permès a %1$s</string>
+    <string name="connect_taken_over">Ara %1$s reprodueix a %2$s</string>
+    <string name="connect_update_first">Primer actualitza Seiðr a %1$s</string>
+    <string name="connect_lost_connection">S\'ha perdut la connexió amb %1$s</string>
+
+    <string name="account_connect_failed">No s\'ha pogut connectar amb %1$s: %2$s</string>
+    <string name="account_lan_permission">Seiðr necessita el permís de dispositius propers / xarxa local per arribar a un servidor de la teva xarxa domèstica.</string>
+    <string name="account_check_failed_why">No s\'ha pogut comprovar el compte de %1$s: %2$s</string>
+    <string name="account_check_failed">No s\'ha pogut comprovar el compte de %1$s</string>
+    <string name="account_kid_is_admin">%1$s és administrador del servidor. Un compte infantil no pot ser-ho.</string>
+    <string name="account_not_grownup">No has iniciat la sessió amb un compte d\'adult</string>
+    <string name="account_own_check_failed">No s\'ha pogut comprovar el teu compte al servidor</string>
+    <string name="account_admin_only">Només els administradors del servidor poden veure-ho com un infant</string>
+    <string name="account_view_failed">No s\'ha pogut obrir la vista de %1$s: %2$s</string>
+    <string name="account_someone_else">Mentrestant, una altra persona ha iniciat la sessió</string>
+
+    <string name="kids_signed_in_as_kid">Sessió iniciada amb un compte infantil</string>
+    <string name="kids_setup_failed">No s\'han pogut preparar les llistes dels infants: %1$s</string>
+
+    <string name="report_no_playlist">No hi ha cap llista «%1$s» al servidor</string>
+    <string name="report_removed">S\'ha tret de %1$s</string>
+    <string name="report_song_reported">Avís enviat. Aquesta cançó se saltarà.</string>
+    <string name="report_art_reported">Avís de portada enviat</string>
+    <string name="report_lyrics_reported">Avís de lletra enviat</string>
+    <string name="report_queued">Sense connexió: %1$s s\'actualitzarà quan torni el servidor</string>
+    <string name="report_conflict">No s\'ha pogut actualitzar %1$s</string>
+    <string name="report_failed">No s\'ha pogut actualitzar %1$s: %2$s</string>
+
+    <string name="main_battery_title">Que no pari la música</string>
+    <string name="main_battery_text">En alguns telèfons, el gestor de bateria atura la reproducció i les baixades en segon pla. Vols deixar que Seiðr funcioni sense restriccions? Ho pots canviar més tard a Configuració.</string>
+    <string name="main_battery_allow">Permet</string>
+
+    <string name="vis_close">Tanca el visualitzador</string>
+    <string name="vis_now_playing">Ara sona</string>
+    <string name="vis_next_in_queue">A continuació a la cua</string>
+    <string name="vis_next_from">A continuació de: %1$s</string>
+    <string name="vis_next_from_queue">A continuació de: la cua</string>
+    <string name="vis_hide_preset">Amaga el preset</string>
+    <string name="vis_love_preset">M\'agrada aquest preset</string>
+    <string name="vis_unlove_preset">Ja no m\'agrada aquest preset</string>
+    <string name="vis_preview">Previsualització</string>
+    <string name="vis_preset_hidden">Preset amagat. El pots recuperar a Configuració → Visualitzador.</string>
+    <string name="vis_xr_failed">No s\'ha pogut iniciar el visualitzador immersiu</string>
+    <string name="vis_warning_title">Llums intermitents</string>
+    <string name="vis_warning_headset">Alguns presets fan pampallugues, centellegen i giren molt de pressa, i al visor t\'omplen tot el camp de visió. Això pot provocar crisis en persones amb epilèpsia fotosensible, i causar mareig o desorientació. Queda\'t assegut i, si et trobes malament, treu-te el visor.</string>
+    <string name="vis_warning_flat">Alguns presets fan pampallugues, centellegen i giren molt de pressa. Això pot provocar crisis en persones amb epilèpsia fotosensible. Si et trobes malament, aparta la vista i tanca el visualitzador.</string>
+    <string name="vis_continue">Continua</string>
+    <string name="vis_not_now">Ara no</string>
+</resources>

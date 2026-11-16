@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Configuració</string>
+    <string name="settings_appearance">Aparença</string>
+    <string name="settings_visualiser">Visualitzador</string>
+    <string name="settings_vis_item">Dades de la cançó i presets</string>
+    <string name="settings_vis_item_hint">Què s\'hi mostra a sobre; presets preferits i amagats</string>
+    <string name="settings_playback_downloads">Reproducció i baixades</string>
+    <string name="settings_background_playback">Reproducció en segon pla</string>
+    <string name="settings_battery_off">Sense restriccions: l\'optimització de la bateria està desactivada</string>
+    <string name="settings_battery_tap">Toca perquè Seiðr funcioni sense restriccions. Si no, el gestor de bateria d\'alguns telèfons atura la música.</string>
+    <string name="settings_on">Activat</string>
+    <string name="settings_downloads_storage">Baixades i emmagatzematge</string>
+    <string name="settings_downloads_storage_hint">Cua, espai per llista, només Wi-Fi</string>
+    <string name="settings_library">Biblioteca</string>
+    <string name="settings_others_private">Llistes privades d\'altres persones</string>
+    <string name="settings_others_private_hint">Ets administrador, i per això el servidor et mostra les de tothom. Desactivat, queden fora de la teva biblioteca.</string>
+
+    <string name="settings_reporting">Avisos de problemes</string>
+    <string name="settings_report_problems">Informa de problemes</string>
+    <string name="settings_report_problems_hint">Afegeix Informa d\'un problema al menú ⋮ de cada cançó</string>
+    <string name="settings_report_info">Un fitxer malmès, una portada equivocada o una lletra incorrecta van a la llista %1$s, %2$s o %3$s del servidor, perquè qui el gestiona ho arregli. Les cançons de %1$s se salten fins que s\'hagin arreglat.</string>
+    <string name="settings_report_missing">No s\'han trobat al servidor: %1$s.</string>
+
+    <string name="settings_about">Quant a</string>
+    <string name="settings_auto_update">Cerca actualitzacions automàticament</string>
+    <string name="settings_auto_update_hint">Comprova si hi ha una versió nova a GitHub quan obres l\'aplicació</string>
+    <string name="settings_install_update">Instal·la l\'actualització</string>
+    <string name="settings_check_updates">Cerca actualitzacions</string>
+    <string name="settings_checking">S\'està cercant…</string>
+    <string name="settings_version_ready">La versió %1$s està a punt</string>
+    <string name="settings_installs_straight_away">Instal·la de seguida una versió més nova</string>
+    <string name="settings_latest_version">Tens l\'última versió (o no s\'ha pogut arribar a GitHub)</string>
+    <string name="settings_whats_new">Novetats</string>
+    <string name="settings_whats_new_hint">Canvis de cada versió</string>
+    <string name="settings_licences">Llicències de codi obert</string>
+    <string name="settings_licences_hint">Seiðr és programari lliure (GNU GPL 3.0)</string>
+    <string name="settings_build">Compilació %1$d</string>
+    <string name="settings_new_badge">NOU</string>
+
+    <string name="settings_sign_out_title">Vols tancar la sessió?</string>
+    <string name="settings_sign_out_message">La reproducció s\'atura i la sincronització queda en pausa fins que tornis a iniciar la sessió. Els fitxers baixats es conserven.</string>
+    <string name="settings_sign_out">Tanca la sessió</string>
+    <string name="settings_cancel">Cancel·la</string>
+
+    <string name="settings_not_signed_in">Sense sessió iniciada</string>
+    <string name="settings_not_connected">Sense connexió</string>
+    <string name="settings_server_kid">%1$s · Compte infantil</string>
+    <string name="settings_sign_in_device">Inicia la sessió en un dispositiu</string>
+
+    <string name="settings_colour">Color</string>
+    <string name="settings_theme_system">Sistema (fons de pantalla)</string>
+    <string name="settings_theme_neutral">Neutre</string>
+
+    <string name="kids_title">Infants</string>
+    <string name="kids_view_as_description">Mostra com a %1$s</string>
+    <string name="kids_remove_description">Treu %1$s</string>
+    <string name="kids_add">Afegeix un compte infantil</string>
+    <string name="kids_how">Com funcionen els comptes infantils</string>
+    <string name="kids_remove_title">Vols treure %1$s?</string>
+    <string name="kids_remove_message">Aquest dispositiu n\'oblida les credencials. Els dispositius que ja tenen iniciada la sessió de %1$s la mantenen.</string>
+    <string name="kids_remove">Treu</string>
+    <string name="kids_cancel">Cancel·la</string>
+    <string name="kids_help_title">Comptes infantils</string>
+    <string name="kids_help_step1">1. Crea per a cada infant un compte propi de Navidrome (que no sigui d\'administrador) i afegeix-lo aquí.</string>
+    <string name="kids_help_step2">2. Inicia la sessió al seu dispositiu des d\'Inicia la sessió en un dispositiu. Guarda\'t la seva contrasenya.</string>
+    <string name="kids_help_step3">3. Tria què rep amb tres llistes de reproducció del teu compte, que es creen quan afegeixes un infant:</string>
+    <string name="kids_help_approved">cançons que pot reproduir</string>
+    <string name="kids_help_safe_titles">es mostren en gris, només el nom</string>
+    <string name="kids_help_safe_art">es mostren en gris, amb la portada</string>
+    <string name="kids_help_hidden">Tota la resta li queda amagada. Aquestes llistes no surten a la teva biblioteca; edita-les al reproductor web de Navidrome o en una altra aplicació.</string>
+    <string name="kids_help_eye">El botó de l\'ull mostra Seiðr tal com el veu aquell infant, sense canviar res.</string>
+    <string name="kids_got_it">Entesos</string>
+    <string name="kids_view_as_title">Vols veure-ho com a %1$s?</string>
+    <string name="kids_view_as_message">Navega només amb el que mostren els dispositius de %1$s. És només de lectura: continues amb la teva sessió, i les cançons que posis aquí compten com a reproduccions teves, no de %1$s. Torna enrere des de l\'avís d\'Inici o de Configuració.</string>
+    <string name="kids_view_as_button">Mostra com a %1$s</string>
+    <string name="kids_viewing_as">Ho veus com a %1$s</string>
+    <string name="kids_back_to">Torna a %1$s</string>
+    <string name="kids_own_account">Aquest és el teu propi compte</string>
+    <string name="kids_add_message">Les seves credencials de Navidrome a %1$s.</string>
+    <string name="kids_username">Nom d\'usuari</string>
+    <string name="kids_password">Contrasenya</string>
+    <string name="kids_add_button">Afegeix</string>
+
+    <string name="login_unencrypted_title">Connexió sense xifrar</string>
+    <string name="login_unencrypted_message">Aquest servidor és a internet, però la seva adreça comença per http://, de manera que les teves credencials i la teva música viatgen sense xifrar. Qualsevol pel camí les podria llegir i reutilitzar les teves credencials. Fes servir una adreça https:// si el teu servidor en té.</string>
+    <string name="login_connect_anyway">Connecta igualment</string>
+    <string name="login_go_back">Torna enrere</string>
+    <string name="login_heading">Connecta\'t al teu servidor Navidrome</string>
+    <string name="login_server_url">URL del servidor</string>
+    <string name="login_username">Nom d\'usuari</string>
+    <string name="login_password">Contrasenya</string>
+    <string name="login_log_in">Inicia la sessió</string>
+    <string name="login_other_device_title">Ja tens la sessió iniciada en un altre dispositiu?</string>
+    <string name="login_other_device_steps">Obre-hi Seiðr i ves a Configuració → Inicia la sessió en un dispositiu; després tria %1$s. Tots dos han de ser a la mateixa xarxa Wi-Fi, amb Seiðr obert en aquest. Comprova que el codi coincideix a totes dues pantalles, i ja està.</string>
+    <string name="login_back">Enrere</string>
+    <string name="login_idle_ready">A punt per reproduir</string>
+    <string name="login_idle_hint">Obre Seiðr en un altre dispositiu, toca «Reprodueix a» i tria aquest.</string>
+    <string name="login_pairing_code">Codi d\'emparellament</string>
+    <string name="login_check_same_code">Comprova que %1$s mostra el mateix codi.</string>
+    <string name="login_sign_in_this_device">Vols iniciar la sessió en aquest dispositiu?</string>
+    <string name="login_sign_in_request">%1$s vol iniciar la sessió en aquest dispositiu com a %2$s a %3$s.</string>
+    <string name="login_sign_in_request_kid">%1$s vol iniciar la sessió en aquest dispositiu com a %2$s, un compte infantil, a %3$s.</string>
+    <string name="login_allow">Permet</string>
+    <string name="login_dont_allow">No ho permetis</string>
+    <string name="login_cancel">Cancel·la</string>
+    <string name="login_sign_in_peer">Vols iniciar la sessió a %1$s?</string>
+    <string name="login_play_on_peer">Vols reproduir a %1$s?</string>
+    <string name="login_check_this_code">Comprova que %1$s mostra aquest codi:</string>
+    <string name="login_will_sign_in_kid">Iniciarà la sessió com a %1$s, un compte infantil: només cançons aprovades.</string>
+    <string name="login_will_sign_in">Iniciarà la sessió com a %1$s, amb la teva contrasenya.</string>
+    <string name="login_will_play">Reprodueix amb el teu compte fins que es desconnecti. No se\'t tornarà a demanar per a aquest dispositiu.</string>
+    <string name="login_it_matches">Coincideix</string>
+
+    <string name="licences_title">Llicències de codi obert</string>
+    <string name="licences_includes">Seiðr inclou</string>
+    <string name="licences_shared_freely">Compartit lliurement; els autors en poden demanar la retirada</string>
+    <string name="licences_projectm_by">L\'equip de projectM. S\'inclou sense modificar; el codi font és al repositori de Seiðr</string>
+    <string name="licences_presets">Presets de MilkDrop (Cream of the Crop)</string>
+    <string name="licences_presets_by">Selecció de Jason Fletcher; cada preset és de l\'autor que figura al seu nom</string>
+    <string name="licences_textures">Paquet de textures de MilkDrop</string>
+    <string name="licences_textures_by">Recopilat per l\'equip de projectM</string>
+    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
+    <string name="licences_material_icons">Icones de Material</string>
+    <string name="licences_okhttp">OkHttp i Retrofit</string>
+    <string name="licences_coil_by">Col·laboradors de Coil</string>
+    <string name="licences_openxr">Carregador d\'OpenXR</string>
+
+    <string name="vissettings_title">Visualitzador</string>
+    <string name="vissettings_track_info">Mostra les dades de la cançó</string>
+    <string name="vissettings_track_info_hint">Portada, títol i temps en un racó. Desactivat, només es mostren amb els controls (mantén premut, o amunt/avall en un comandament).</string>
+    <string name="vissettings_performance">Mostra el rendiment</string>
+    <string name="vissettings_performance_hint">Fotogrames per segon, mida de renderització i nivell de qualitat en un racó, a mesura que el visualitzador s\'ajusta tot sol.</string>
+    <string name="vissettings_loved">Presets preferits</string>
+    <string name="vissettings_loved_hint">El cor dels controls del visualitzador. Els presets preferits surten més o menys una vegada de cada deu.</string>
+    <string name="vissettings_unlove">Ja no m\'agrada</string>
+    <string name="vissettings_hidden">Presets amagats</string>
+    <string name="vissettings_hidden_hint">La bandera dels controls del visualitzador amaga un preset. Els que pesen massa perquè aquest dispositiu els mostri amb fluïdesa s\'amaguen sols. Toca\'n un per previsualitzar-lo.</string>
+    <string name="vissettings_hidden_by_you">Amagat per tu</string>
+    <string name="vissettings_too_heavy">Massa pesat per a aquest dispositiu</string>
+    <string name="vissettings_unhide">Mostra</string>
+
+    <string name="whatsnew_title">Novetats</string>
+    <string name="whatsnew_this_version">%1$s (aquesta versió)</string>
+
+</resources>
