@@ -3,6 +3,7 @@
 # (projectM, OpenXR). LiveServerTest skips itself here. Release signing stays
 # off CI on purpose: self-update trusts whatever that key signs.
 # Actions are pinned to commit SHAs; Dependabot keeps them current.
+# Gradle caching is setup-java's (open source), not gradle/actions/setup-gradle.
 name: Check
 
 on:
@@ -23,7 +24,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - uses: gradle/actions/setup-gradle@748248ddd2a24f49513d8f472f81c3a07d4d50e1 # v4.4.4
+          cache: gradle
+      # Checks gradle-wrapper.jar is a genuine Gradle release. Not setup-gradle:
+      # from v6 its caching is closed source under Gradle's terms; setup-java
+      # caches instead. This action is MIT and doesn't load that component.
+      - uses: gradle/actions/wrapper-validation@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
       - name: Unit tests and lint
         run: ./gradlew --console=plain :app:testDebugUnitTest :app:lintDebug
       - name: Reports
@@ -44,7 +49,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - uses: gradle/actions/setup-gradle@748248ddd2a24f49513d8f472f81c3a07d4d50e1 # v4.4.4
+          cache: gradle
       - name: NDK and CMake
         # Keep in step with ndkVersion and cmake version in app/build.gradle.kts.
         run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "ndk;30.0.16248370" "cmake;4.1.2" > /dev/null
