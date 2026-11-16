@@ -11,6 +11,7 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -76,7 +77,6 @@ import eu.bradshaw.seidr.ui.overlayFocus
 import eu.bradshaw.seidr.ui.pair.deviceName
 import eu.bradshaw.seidr.ui.player.NowPlayingScreen
 import eu.bradshaw.seidr.ui.player.QueueScreen
-import eu.bradshaw.seidr.ui.primaryFocus
 
 /**
  * Signed out, the app is a Now Playing screen. Idle, it shows the device's
@@ -133,6 +133,12 @@ private fun Idle(onLogin: () -> Unit) {
     val context = LocalContext.current
     val name = remember { deviceName(context) }
     val cs = MaterialTheme.colorScheme
+    // With a remote, focus rests on the screen itself, not Log in: OK does
+    // nothing until an arrow moves focus onto the button. (Left alone, Compose
+    // would focus Log in, and a kid's first press would open it.)
+    val rest = remember { FocusRequester() }
+    val input = LocalInputModeManager.current
+    LaunchedEffect(Unit) { if (input.keys) rest.focusWhenReady() }
     val logo: @Composable (Modifier) -> Unit = { m ->
         Box(m.aspectRatio(1f, matchHeightConstraintsFirst = true).clip(RoundedCornerShape(8.dp)).background(colorResource(R.color.icon_bg)), contentAlignment = Alignment.Center) {
             Image(painterResource(R.drawable.wordmark), contentDescription = stringResource(R.string.login_logo_description),
@@ -149,13 +155,14 @@ private fun Idle(onLogin: () -> Unit) {
                 maxLines = 1, overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center)
             Text(stringResource(R.string.login_idle_hint), style = MaterialTheme.typography.bodyLarge, color = cs.onSurfaceVariant,
                 textAlign = TextAlign.Center)
-            OutlinedButton(onClick = onLogin, modifier = Modifier.padding(top = 40.dp).focusRing(CircleShape).primaryFocus()) {
+            OutlinedButton(onClick = onLogin, modifier = Modifier.padding(top = 40.dp).focusRing(CircleShape)) {
                 Text(stringResource(R.string.login_log_in))
             }
         }
     }
     BoxWithConstraints(
         Modifier.fillMaxSize()
+            .focusRequester(rest).focusable()
             .background(Brush.verticalGradient(listOf(cs.primaryContainer.copy(alpha = 0.55f), cs.background)))
             .safeDrawingPadding(),
         contentAlignment = Alignment.Center,
