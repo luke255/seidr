@@ -7,7 +7,12 @@ them, not how.
 ## 1.6.1
 
 - A signed-out device now says plainly that it's ready to play, and how to
-  play on it from Seiðr on your phone. Log in is still there, just quieter.
+  play on it from another device. Log in is still there, just quieter.
+- 19 more languages: Catalan, Chinese (Simplified and Traditional), Czech,
+  Danish, Finnish, Greek, Hungarian, Japanese, Korean, Norwegian, Polish,
+  Portuguese (Portugal), Romanian, Russian, Spanish (Latin America),
+  Swedish, Turkish and Ukrainian. Choose one under Android's per-app
+  language setting. They're machine-written: corrections are welcome.
 - Clearer wording in a few places.
 
 ## 1.6.0
