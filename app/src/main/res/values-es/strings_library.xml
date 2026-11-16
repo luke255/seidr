@@ -31,6 +31,7 @@
     <string name="library_sort_added">Añadidos recientemente</string>
     <string name="library_sort_year">Año</string>
     <string name="library_sort_most_played">Más escuchados</string>
+    <string name="library_sort_saved">Guardados recientemente</string>
     <string name="playlist_sort_title">Título</string>
     <string name="playlist_sort_album">Álbum</string>
     <string name="library_show_list">Ver como lista</string>
@@ -153,7 +154,9 @@
     <string name="home_by_owner">de %1$s</string>
     <string name="home_recently_added">Añadidos recientemente</string>
     <string name="home_most_played">Lo más escuchado</string>
+    <string name="home_most_played_artists">Artistas más escuchados</string>
     <string name="home_saved_albums">Álbumes guardados</string>
+    <string name="home_see_all">Ver todo</string>
 
     <string name="artist_load_failed">No se han podido cargar las canciones</string>
     <string name="artist_label">Artista</string>

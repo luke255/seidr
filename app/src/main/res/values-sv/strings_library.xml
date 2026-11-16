@@ -29,6 +29,7 @@
     <string name="library_sort_added">Senast tillagda</string>
     <string name="library_sort_year">År</string>
     <string name="library_sort_most_played">Mest spelade</string>
+    <string name="library_sort_saved">Senast sparade</string>
     <string name="playlist_sort_title">Titel</string>
     <string name="playlist_sort_album">Album</string>
     <string name="library_show_list">Visa som lista</string>
@@ -144,7 +145,9 @@
     <string name="home_by_owner">av %1$s</string>
     <string name="home_recently_added">Nyligen tillagt</string>
     <string name="home_most_played">Mest spelat</string>
+    <string name="home_most_played_artists">Mest spelade artister</string>
     <string name="home_saved_albums">Sparade album</string>
+    <string name="home_see_all">Visa alla</string>
 
     <string name="artist_load_failed">Kunde inte läsa in låtar</string>
     <string name="artist_label">Artist</string>

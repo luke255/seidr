@@ -29,6 +29,7 @@
     <string name="library_sort_added">Senest tilføjet</string>
     <string name="library_sort_year">År</string>
     <string name="library_sort_most_played">Mest afspillet</string>
+    <string name="library_sort_saved">Senest gemt</string>
     <string name="playlist_sort_title">Titel</string>
     <string name="playlist_sort_album">Album</string>
     <string name="library_show_list">Vis som liste</string>
@@ -144,7 +145,9 @@
     <string name="home_by_owner">af %1$s</string>
     <string name="home_recently_added">Senest tilføjet</string>
     <string name="home_most_played">Mest afspillet</string>
+    <string name="home_most_played_artists">Mest afspillede kunstnere</string>
     <string name="home_saved_albums">Gemte albummer</string>
+    <string name="home_see_all">Se alle</string>
 
     <string name="artist_load_failed">Kunne ikke indlæse sange</string>
     <string name="artist_label">Kunstner</string>

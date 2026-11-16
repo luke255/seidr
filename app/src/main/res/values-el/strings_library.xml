@@ -29,6 +29,7 @@
     <string name="library_sort_added">Πρόσφατες προσθήκες</string>
     <string name="library_sort_year">Έτος</string>
     <string name="library_sort_most_played">Πιο ακουσμένα</string>
+    <string name="library_sort_saved">Πρόσφατα αποθηκευμένα</string>
     <string name="playlist_sort_title">Τίτλος</string>
     <string name="playlist_sort_album">Άλμπουμ</string>
     <string name="library_show_list">Προβολή ως λίστα</string>
@@ -144,7 +145,9 @@
     <string name="home_by_owner">από %1$s</string>
     <string name="home_recently_added">Πρόσφατες προσθήκες</string>
     <string name="home_most_played">Τα πιο πολυπαιγμένα</string>
+    <string name="home_most_played_artists">Οι πιο πολυπαιγμένοι καλλιτέχνες</string>
     <string name="home_saved_albums">Αποθηκευμένα άλμπουμ</string>
+    <string name="home_see_all">Προβολή όλων</string>
 
     <string name="artist_load_failed">Τα τραγούδια δεν φορτώθηκαν</string>
     <string name="artist_label">Καλλιτέχνης</string>

@@ -8,6 +8,8 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
+import eu.bradshaw.seidr.ui.screens.LibTab
+import eu.bradshaw.seidr.ui.screens.LibraryView
 import java.util.UUID
 
 sealed interface Route {
@@ -28,6 +30,9 @@ sealed interface Route {
     data object DeletedPlaylists : Route
     data class LicenceText(val title: String, val file: String) : Route
 }
+
+/** Where focus goes on a tab switch the tab bar didn't make: the main action, or back where it was. */
+enum class TabFocus { OPENED, RETURNED }
 
 enum class Tab(val root: Route) { HOME(Route.Home), SEARCH(Route.Search), LIBRARY(Route.Library) }
 
@@ -66,7 +71,7 @@ class Navigator : ViewModel() {
             s.removeAt(s.lastIndex).viewModelStore.clear()
             return true
         }
-        if (tab != Tab.HOME) { tab = Tab.HOME; return true }
+        if (tab != Tab.HOME) { tab = Tab.HOME; focusIntoTab = TabFocus.RETURNED; return true }
         return false
     }
 
@@ -75,6 +80,23 @@ class Navigator : ViewModel() {
             val s = stacks.getValue(t)
             while (s.size > 1) s.removeAt(s.lastIndex).viewModelStore.clear()
         } else tab = t
+    }
+
+    /** Library's tab, filters and search (see [LibraryView]). */
+    val library = LibraryView()
+
+    /**
+     * Set when something other than the tab bar switched tabs, so remote focus
+     * goes into the new tab's screen rather than staying on the tab. Read once.
+     */
+    var focusIntoTab: TabFocus? = null
+
+    /** Tab [t] at its root, whatever it had open, from a screen's own link. */
+    fun showRoot(t: Tab) {
+        focusIntoTab = TabFocus.OPENED
+        tab = t
+        val s = stacks.getValue(t)
+        while (s.size > 1) s.removeAt(s.lastIndex).viewModelStore.clear()
     }
 
     /** Opens a route in the given tab (e.g. Downloads from a notification). */
@@ -93,6 +115,7 @@ class Navigator : ViewModel() {
             val root = Entry(s.first().route)
             s.clear(); s.add(root)
         }
+        library.show(LibTab.PLAYLISTS)
         tab = t
     }
 

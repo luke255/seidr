@@ -78,9 +78,10 @@ fun ListRow(
     trailing: (@Composable () -> Unit)? = null,
     artSize: androidx.compose.ui.unit.Dp = 56.dp,
     badge: (@Composable () -> Unit)? = null,
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        Modifier.fillMaxWidth().padding(horizontal = 8.dp).rememberedFocus().highlightClickable(onClick = onClick)
+        Modifier.fillMaxWidth().padding(horizontal = 8.dp).then(modifier).rememberedFocus().highlightClickable(onClick = onClick)
             .padding(eu.bradshaw.seidr.ui.RowPadding),
         verticalAlignment = Alignment.CenterVertically,
     ) {

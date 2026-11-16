@@ -33,6 +33,7 @@
     <string name="library_sort_added">Нещодавно додані</string>
     <string name="library_sort_year">Рік</string>
     <string name="library_sort_most_played">Найчастіше слухані</string>
+    <string name="library_sort_saved">Нещодавно збережені</string>
     <string name="playlist_sort_title">Назва</string>
     <string name="playlist_sort_album">Альбом</string>
     <string name="library_show_list">Показати списком</string>
@@ -162,7 +163,9 @@
     <string name="home_by_owner">автор: %1$s</string>
     <string name="home_recently_added">Нещодавно додані</string>
     <string name="home_most_played">Слухаєте найчастіше</string>
+    <string name="home_most_played_artists">Виконавці, яких слухаєте найчастіше</string>
     <string name="home_saved_albums">Збережені альбоми</string>
+    <string name="home_see_all">Показати все</string>
 
     <string name="artist_load_failed">Не вдалося завантажити пісні</string>
     <string name="artist_label">Виконавець</string>

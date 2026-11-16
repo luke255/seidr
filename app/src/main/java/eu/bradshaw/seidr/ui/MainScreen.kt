@@ -160,6 +160,18 @@ private suspend fun EntryFocus.Targets.focusOpened() {
     }
 }
 
+/**
+ * Back where focus was. A screen coming back with its tab is composed afresh
+ * and its lists lay out a moment later, so then [retry] for a little while.
+ */
+private suspend fun EntryFocus.Targets.restoreFocus(retry: Boolean): Boolean {
+    repeat(if (retry) 10 else 1) { i ->
+        if (memory.restore()) return true
+        if (i < 9) kotlinx.coroutines.delay(30)
+    }
+    return false
+}
+
 /** Renders one back-stack entry with its own ViewModels and saved UI state. */
 @Composable
 private fun EntryHost(entry: Entry, saveable: SaveableStateHolder, focus: EntryFocus) {
@@ -208,10 +220,14 @@ fun MainScreen(graph: Graph, nav: Navigator) {
     androidx.compose.runtime.LaunchedEffect(nav.top) {
         val before = shown
         shown = Shown(nav.tab, nav.stack.size)
-        if (overlay || !input.keys || (before != null && before.tab != nav.tab)) return@LaunchedEffect
+        val into = nav.focusIntoTab.also { nav.focusIntoTab = null }
+        if (overlay || !input.keys || (before != null && before.tab != nav.tab && into == null)) return@LaunchedEffect
         val targets = focus[nav.top]
-        if (before == null || nav.stack.size > before.size) targets.focusOpened()
-        else if (!targets.memory.restore()) targets.area.focusWhenReady()
+        // The focused control has just gone with its tab, and its focus is handed on (to the
+        // first tab) after this frame; take it into the screen once that's happened.
+        if (into != null) androidx.compose.runtime.withFrameNanos {}
+        if (before == null || into == TabFocus.OPENED || nav.stack.size > before.size) targets.focusOpened()
+        else if (!targets.restoreFocus(retry = into != null)) targets.area.focusWhenReady()
     }
     var hadOverlay by remember { mutableStateOf(false) }
     androidx.compose.runtime.LaunchedEffect(overlay) {

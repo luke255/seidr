@@ -12,6 +12,7 @@ import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.data.BadKind
 import eu.bradshaw.seidr.data.api.Song
 import eu.bradshaw.seidr.sync.EditResult
+import eu.bradshaw.seidr.ui.screens.LibTab
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -36,6 +37,14 @@ class AppActions(
         nowPlayingOpen = false
         queueOpen = false
         nav.push(route)
+    }
+
+    /** Library at its root, on [tab] with nothing filtered out (Home's "see all" arrows). */
+    fun openLibrary(tab: LibTab) {
+        nowPlayingOpen = false
+        queueOpen = false
+        nav.library.show(tab)
+        nav.showRoot(Tab.LIBRARY)
     }
 
     fun toast(message: String) {

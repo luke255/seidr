@@ -27,6 +27,7 @@
     <string name="library_sort_added">최근 추가</string>
     <string name="library_sort_year">연도</string>
     <string name="library_sort_most_played">많이 재생한 순</string>
+    <string name="library_sort_saved">최근 저장</string>
     <string name="playlist_sort_title">제목</string>
     <string name="playlist_sort_album">앨범</string>
     <string name="library_show_list">목록으로 보기</string>
@@ -135,7 +136,9 @@
     <string name="home_by_owner">만든 사람: %1$s</string>
     <string name="home_recently_added">최근 추가</string>
     <string name="home_most_played">많이 들은 음악</string>
+    <string name="home_most_played_artists">많이 들은 아티스트</string>
     <string name="home_saved_albums">저장한 앨범</string>
+    <string name="home_see_all">모두 보기</string>
 
     <string name="artist_load_failed">곡을 불러올 수 없어요</string>
     <string name="artist_label">아티스트</string>

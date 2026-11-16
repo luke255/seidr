@@ -4,6 +4,13 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.6.7
+
+- Home's shelves show 15 each and end in an arrow that opens the whole list in Library, in the same order.
+- Home has a Most played artists shelf.
+- Home's playlists are always most recent first.
+- Albums can be sorted by Recently saved.
+
 ## 1.6.6
 
 - Changing Library's order starts the list from the top.

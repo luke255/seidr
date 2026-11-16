@@ -29,6 +29,7 @@
     <string name="library_sort_added">Laatst toegevoegd</string>
     <string name="library_sort_year">Jaar</string>
     <string name="library_sort_most_played">Meest afgespeeld</string>
+    <string name="library_sort_saved">Laatst bewaard</string>
     <string name="playlist_sort_title">Titel</string>
     <string name="playlist_sort_album">Album</string>
     <string name="library_show_list">Als lijst tonen</string>
@@ -144,7 +145,9 @@
     <string name="home_by_owner">van %1$s</string>
     <string name="home_recently_added">Laatst toegevoegd</string>
     <string name="home_most_played">Meest gespeeld</string>
+    <string name="home_most_played_artists">Meest gespeelde artiesten</string>
     <string name="home_saved_albums">Bewaarde albums</string>
+    <string name="home_see_all">Alles tonen</string>
 
     <string name="artist_load_failed">Kan nummers niet laden</string>
     <string name="artist_label">Artiest</string>

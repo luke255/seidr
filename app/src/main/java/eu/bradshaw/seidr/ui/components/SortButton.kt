@@ -44,6 +44,7 @@ fun AlbumSort.label(): Int = when (this) {
     AlbumSort.ADDED -> R.string.library_sort_added
     AlbumSort.YEAR -> R.string.library_sort_year
     AlbumSort.PLAYS -> R.string.library_sort_most_played
+    AlbumSort.SAVED -> R.string.library_sort_saved
 }
 
 fun ArtistSort.label(): Int = when (this) {

@@ -1,16 +1,30 @@
 package eu.bradshaw.seidr.ui.screens
 
+import eu.bradshaw.seidr.data.AlbumSort
+import eu.bradshaw.seidr.data.ArtistSort
 import eu.bradshaw.seidr.data.LovedAt
 import eu.bradshaw.seidr.data.PlaylistSort
-import eu.bradshaw.seidr.ui.components.SortButton
-import eu.bradshaw.seidr.ui.components.label
+import eu.bradshaw.seidr.data.api.Artist
+import eu.bradshaw.seidr.ui.CardPadding
+import eu.bradshaw.seidr.ui.highlightClickable
+import eu.bradshaw.seidr.ui.rememberedFocus
+import eu.bradshaw.seidr.ui.components.ArtistImage
 import eu.bradshaw.seidr.ui.components.bottomContentPadding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material3.Icon
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,12 +32,8 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import eu.bradshaw.seidr.ui.components.RefreshBox
 import eu.bradshaw.seidr.ui.LocalIsTv
 import eu.bradshaw.seidr.ui.primaryFocus
@@ -35,15 +45,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import eu.bradshaw.seidr.Graph
-import eu.bradshaw.seidr.data.PlaylistPlays
 import eu.bradshaw.seidr.data.api.Album
 import eu.bradshaw.seidr.data.api.Playlist
 import eu.bradshaw.seidr.ui.LocalActions
@@ -55,7 +63,10 @@ import eu.bradshaw.seidr.R
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-data class HomeData(val newest: List<Album>, val frequent: List<Album>, val starred: List<Album>)
+data class HomeData(val newest: List<Album>, val frequent: List<Album>, val artists: List<Artist>, val starred: List<Album>)
+
+/** How many a Home shelf shows; its arrow opens the rest in Library. */
+private const val SHELF = 15
 
 /** Home is built only from server lists (getAlbumList2 types): no recommendations. */
 class HomeVm(private val graph: Graph) : ViewModel() {
@@ -69,16 +80,21 @@ class HomeVm(private val graph: Graph) : ViewModel() {
     fun load() {
         viewModelScope.launch {
             refreshing = true
-            fun list(type: String) = async { runCatching { graph.browse.albumList(type, 20) }.getOrDefault(emptyList()) }
-            val newest = list("newest"); val frequent = list("frequent"); val starred = list("starred")
+            fun list(type: String, size: Int = SHELF) = async { runCatching { graph.browse.albumList(type, size) }.getOrDefault(emptyList()) }
+            // Artists' plays are their albums' (as Library's Most played sorts them), so
+            // fetch well past the albums shelf: enough to rank everyone who's been played.
+            val newest = list("newest"); val frequent = list("frequent", 500); val starred = list("starred")
+            val artists = async { runCatching { graph.browse.artists() }.getOrDefault(emptyList()) }
             launch { runCatching { graph.browse.refreshPlaylists() } }
-            data = HomeData(newest.await(), frequent.await(), starred.await())
+            val played = frequent.await()
+            val plays = ArtistSort.plays(played)
+            val topArtists = ArtistSort.PLAYS.sort(artists.await()) { plays }.filter { (plays[it.id] ?: 0L) > 0 }.take(SHELF)
+            data = HomeData(newest.await(), played.take(SHELF), topArtists, starred.await())
             refreshing = false
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen() {
     val actions = LocalActions.current
@@ -87,7 +103,6 @@ fun HomeScreen() {
     val playlists by graph.browse.playlists.collectAsStateWithLifecycle()
     val online by graph.status.online.collectAsStateWithLifecycle()
     val lastPlayed by graph.playlistPlays.lastPlayed.collectAsStateWithLifecycle()
-    val sort by graph.settings.playlistsSort.collectAsStateWithLifecycle()
     val server by graph.browseLogin.collectAsStateWithLifecycle()
     val kid by graph.browseKids.rules.collectAsStateWithLifecycle()
     val starred by graph.browse.starredSongs.collectAsStateWithLifecycle()
@@ -95,6 +110,8 @@ fun HomeScreen() {
     val recentlyAdded = stringResource(R.string.home_recently_added)
     val mostPlayed = stringResource(R.string.home_most_played)
     val savedAlbums = stringResource(R.string.home_saved_albums)
+    val mostPlayedArtists = stringResource(R.string.home_most_played_artists)
+    val settings = graph.settings
     Column(Modifier.fillMaxSize()) {
         RefreshBox(vm.refreshing && vm.data != null, onRefresh = vm::load, modifier = Modifier.weight(1f)) {
             LazyColumn(Modifier.fillMaxSize(), contentPadding = bottomContentPadding()) {
@@ -123,18 +140,11 @@ fun HomeScreen() {
                 // The user's own, then (on a shelf of their own) everyone else's.
                 val (shared, pls) = playlists.orEmpty().partition(graph.browse::isOthers)
                 if (playlists != null) {
+                    // Home has no tab header, so the first shelf sits where the other tabs' titles do.
+                    item { SectionHeader(stringResource(R.string.home_playlists), top = 16.dp) }
                     item {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            // Home has no tab header, so the first shelf sits where the other tabs' titles do.
-                            SectionHeader(stringResource(R.string.home_playlists), Modifier.weight(1f), top = 16.dp)
-                            // The same order as Library's playlists, and changing either changes both.
-                            SortButton(PlaylistSort.entries, sort, PlaylistSort::label, graph.settings::setPlaylistsSort,
-                                Modifier.padding(top = 4.dp, end = 4.dp))
-                        }
-                    }
-                    item {
-                        // null is Loved.
-                        val shelf = sort.sort(pls, lastPlayed, LovedAt(lastPlayed[Loved.PLAYS_KEY], lastLoved))
+                        // Always most recent first. null is Loved.
+                        val shelf = PlaylistSort.RECENT.sort(pls, lastPlayed, LovedAt(lastPlayed[Loved.PLAYS_KEY], lastLoved)).take(SHELF)
                         val row = rememberLazyListState()
                         // A lazy row keeps its first visible item when items are put in front of it,
                         // so a playlist that arrives first (one just created, after the cached list
@@ -157,6 +167,7 @@ fun HomeScreen() {
                                 else CoverCard(p.name, playlistLine(p, server?.username), p.coverArt, onClick = { actions.open(Route.Playlist(p.id)) },
                                     modifier = focus)
                             }
+                            seeAll { settings.setPlaylistsSort(PlaylistSort.RECENT); settings.setLibraryShared(false); actions.openLibrary(LibTab.PLAYLISTS) }
                         }
                     }
                 }
@@ -164,32 +175,64 @@ fun HomeScreen() {
                     item(key = "h:shared") { SectionHeader(stringResource(R.string.home_shared_playlists)) }
                     item(key = "s:shared") {
                         LazyRow(contentPadding = PaddingValues(horizontal = 10.dp)) {
-                            items(sort.sort(shared, lastPlayed, loved = null).filterNotNull(), key = { it.id }) { p ->
+                            items(PlaylistSort.RECENT.sort(shared, lastPlayed, loved = null).filterNotNull().take(SHELF), key = { it.id }) { p ->
                                 CoverCard(p.name, playlistLine(p, server?.username), p.coverArt, onClick = { actions.open(Route.Playlist(p.id)) })
                             }
+                            seeAll { settings.setPlaylistsSort(PlaylistSort.RECENT); settings.setLibraryShared(true); actions.openLibrary(LibTab.PLAYLISTS) }
                         }
                     }
                 }
-                albumShelf(recentlyAdded, d?.newest.orEmpty()) { actions.open(Route.Album(it)) }
-                albumShelf(mostPlayed, d?.frequent.orEmpty()) { actions.open(Route.Album(it)) }
-                albumShelf(savedAlbums, d?.starred.orEmpty()) { actions.open(Route.Album(it)) }
+                // Each arrow opens Library in the shelf's own order.
+                fun albums(sort: AlbumSort) { settings.setAlbumSort(sort); actions.openLibrary(LibTab.ALBUMS) }
+                albumShelf(recentlyAdded, d?.newest.orEmpty(), { actions.open(Route.Album(it)) }) { albums(AlbumSort.ADDED) }
+                albumShelf(mostPlayed, d?.frequent.orEmpty(), { actions.open(Route.Album(it)) }) { albums(AlbumSort.PLAYS) }
+                val artists = d?.artists.orEmpty()
+                if (artists.isNotEmpty()) {
+                    item(key = "h:artists") { SectionHeader(mostPlayedArtists) }
+                    item(key = "s:artists") {
+                        LazyRow(contentPadding = PaddingValues(horizontal = 10.dp)) {
+                            items(artists, key = { it.id }) { a ->
+                                CoverCard(a.name, albumsText(a.albumCount), a.coverArt, onClick = { actions.open(Route.Artist(a.id)) },
+                                    round = true, art = { m -> ArtistImage(a.coverArt, m) })
+                            }
+                            seeAll { settings.setArtistSort(ArtistSort.PLAYS); actions.openLibrary(LibTab.ARTISTS) }
+                        }
+                    }
+                }
+                albumShelf(savedAlbums, d?.starred.orEmpty(), { actions.open(Route.Album(it)) }) { albums(AlbumSort.SAVED) }
             }
         }
     }
 }
 
-/**
- * A–Z, or most recent first: when it was last played on this phone
- * ([PlaylistPlays] is local: Subsonic keeps no playlist play history) or
- * created on the server, whichever is later, so a new playlist shows at the
- * front. Ties (none of either) go A–Z.
- */
-private fun androidx.compose.foundation.lazy.LazyListScope.albumShelf(title: String, albums: List<Album>, open: (String) -> Unit) {
+private fun androidx.compose.foundation.lazy.LazyListScope.albumShelf(
+    title: String, albums: List<Album>, open: (String) -> Unit, more: () -> Unit,
+) {
     if (albums.isEmpty()) return
     item(key = "h:$title") { SectionHeader(title) }
     item(key = "s:$title") {
         LazyRow(contentPadding = PaddingValues(horizontal = 10.dp)) {
             items(albums, key = { it.id }) { a -> CoverCard(a.name, a.artistLine, a.coverArt, onClick = { open(a.id) }) }
+            seeAll(more)
+        }
+    }
+}
+
+/** A shelf's last item: an arrow to the whole list in Library. As tall as a card's art. */
+private fun androidx.compose.foundation.lazy.LazyListScope.seeAll(onClick: () -> Unit) {
+    item(key = "see-all") {
+        val label = stringResource(R.string.home_see_all)
+        val focusManager = LocalFocusManager.current
+        Box(
+            Modifier.width(96.dp).rememberedFocus()
+                // Let go of focus before Home goes: a removed focused item hands it to the first tab.
+                .highlightClickable { focusManager.clearFocus(force = true); onClick() }.padding(CardPadding)
+                .height(128.dp).semantics { contentDescription = label },
+            contentAlignment = Alignment.Center,
+        ) {
+            Box(Modifier.size(52.dp).background(MaterialTheme.colorScheme.surfaceContainerHighest, CircleShape), contentAlignment = Alignment.Center) {
+                Icon(Icons.AutoMirrored.Filled.ArrowForward, null, tint = MaterialTheme.colorScheme.onSurface)
+            }
         }
     }
 }

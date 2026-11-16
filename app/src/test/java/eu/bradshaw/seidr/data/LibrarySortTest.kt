@@ -44,6 +44,19 @@ class LibrarySortTest {
         assertEquals(listOf("a1", "b1", "b2"), AlbumSort.ARTIST.sort(albums).map { it.id })
     }
 
+    @Test fun savedTrustsTheLiveSetOverTheCachedList() {
+        val list = listOf(
+            Album("old", name = "A", starred = "2024-01-01T00:00:00Z"),
+            Album("new", name = "B", starred = "2026-01-01T00:00:00Z"),
+            Album("unsaved", name = "C", starred = "2026-06-01T00:00:00Z"),
+            Album("just", name = "D"),
+            Album("never", name = "E"),
+        )
+        assertEquals(listOf("just", "new", "old", "unsaved", "never"),
+            AlbumSort.SAVED.sort(list, saved = setOf("old", "new", "just")).map { it.id })
+        assertEquals(listOf("unsaved", "new", "old", "just", "never"), AlbumSort.SAVED.sort(list).map { it.id })
+    }
+
     @Test fun artistPlaysAreTheirAlbums() {
         val artists = listOf(Artist("x", name = "X"), Artist("y", name = "Y"))
         val plays = ArtistSort.plays(listOf(Album("1", artistId = "y", playCount = 2), Album("2", artistId = "y", playCount = 2), Album("3", artistId = "x", playCount = 3)))

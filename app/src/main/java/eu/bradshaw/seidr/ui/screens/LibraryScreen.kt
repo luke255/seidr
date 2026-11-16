@@ -19,8 +19,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.itemsIndexed
+import eu.bradshaw.seidr.ui.primaryFocus
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -53,8 +54,9 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -139,10 +141,35 @@ class LibraryVm(private val graph: Graph) : ViewModel() {
     }
 }
 
-private enum class LibTab(@StringRes val label: Int, @StringRes val searchHint: Int) {
+enum class LibTab(@StringRes val label: Int, @StringRes val searchHint: Int) {
     PLAYLISTS(R.string.library_tab_playlists, R.string.library_search_playlists),
     ARTISTS(R.string.library_tab_artists, R.string.library_search_artists),
     ALBUMS(R.string.library_tab_albums, R.string.library_search_albums),
+}
+
+/**
+ * What Library is showing: its tab, filters and search. Held by the
+ * [eu.bradshaw.seidr.ui.Navigator] rather than the screen, so Home's shelves
+ * can open Library on a tab ([show]) before it's drawn.
+ */
+class LibraryView {
+    var tab by mutableStateOf(LibTab.PLAYLISTS)
+    var downloadedOnly by mutableStateOf(false)
+    var searching by mutableStateOf(false)
+    var query by mutableStateOf("")
+
+    /** Bumped by [show], so the lists start again from the top. */
+    var shown by mutableIntStateOf(0)
+        private set
+
+    /** [tab], everything in it, from the top: no search, no Downloaded filter. */
+    fun show(tab: LibTab) {
+        this.tab = tab
+        shown++
+        downloadedOnly = false
+        searching = false
+        query = ""
+    }
 }
 
 /** "1 song" / "N songs", from resources. */
@@ -173,16 +200,18 @@ fun LibraryScreen() {
     val actions = LocalActions.current
     val graph = actions.graph
     val vm = viewModel(key = "library") { LibraryVm(graph) }
-    var tab by rememberSaveable { mutableIntStateOf(0) }
-    var downloadedOnly by rememberSaveable { mutableStateOf(false) }
+    val view = actions.nav.library
+    val tab = view.tab
+    val downloadedOnly = view.downloadedOnly
+    val searching = view.searching
+    val query = view.query
     // Each tab's order is its own and remembered; playlists' is Home's too.
     val playlistSort by graph.settings.playlistsSort.collectAsStateWithLifecycle()
     val artistSort by graph.settings.artistSort.collectAsStateWithLifecycle()
     val albumSort by graph.settings.albumSort.collectAsStateWithLifecycle()
+    val savedAlbums by graph.browse.starredAlbums.collectAsStateWithLifecycle()
     val lastPlayed by graph.playlistPlays.lastPlayed.collectAsStateWithLifecycle()
     var creating by rememberSaveable { mutableStateOf(false) }
-    var searching by rememberSaveable { mutableStateOf(false) }
-    var query by rememberSaveable { mutableStateOf("") }
     val grid by graph.settings.libraryGrid.collectAsStateWithLifecycle()
     val withShared by graph.settings.libraryShared.collectAsStateWithLifecycle()
 
@@ -213,16 +242,16 @@ fun LibraryScreen() {
         if (searching) {
             val field = remember { FocusRequester() }
             Row(Modifier.fillMaxWidth().height(64.dp).padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = { searching = false; query = "" }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.library_close_search)) }
+                IconButton(onClick = { view.searching = false; view.query = "" }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.library_close_search)) }
                 SearchField(
-                    query, { query = it }, stringResource(LibTab.entries[tab].searchHint),
+                    query, { view.query = it }, stringResource(tab.searchHint),
                     modifier = Modifier.weight(1f).padding(end = 12.dp).focusRequester(field),
                 )
             }
             LaunchedEffect(Unit) { runCatching { field.requestFocus() } }
         } else {
             TabHeader(stringResource(R.string.library_title)) {
-                IconButton(onClick = { searching = true }) { Icon(Icons.Filled.Search, stringResource(R.string.library_search_library)) }
+                IconButton(onClick = { view.searching = true }) { Icon(Icons.Filled.Search, stringResource(R.string.library_search_library)) }
                 if (!graph.readOnly) IconButton(onClick = { creating = true }) { Icon(Icons.Filled.Add, stringResource(R.string.library_create_playlist)) }
                 if (!LocalWideShell.current) SettingsButton()
             }
@@ -235,15 +264,15 @@ fun LibraryScreen() {
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            LibTab.entries.forEachIndexed { i, t -> FilterPill(stringResource(t.label), tab == i, { tab = i }) }
+            LibTab.entries.forEach { t -> FilterPill(stringResource(t.label), tab == t, { view.tab = t }) }
             if (!tv) {
                 Box(Modifier.padding(horizontal = 2.dp).width(1.dp).height(20.dp).background(MaterialTheme.colorScheme.outlineVariant))
-                FilterPill(stringResource(R.string.library_downloaded), downloadedOnly, { downloadedOnly = !downloadedOnly }, icon = {
+                FilterPill(stringResource(R.string.library_downloaded), downloadedOnly, { view.downloadedOnly = !downloadedOnly }, icon = {
                     Icon(Icons.Filled.ArrowCircleDown, null, Modifier.size(16.dp),
                         tint = if (downloadedOnly) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.primary)
                 })
             }
-            if (LibTab.entries[tab] == LibTab.PLAYLISTS && playlists.orEmpty().any(graph.browse::isOthers)) {
+            if (tab == LibTab.PLAYLISTS && playlists.orEmpty().any(graph.browse::isOthers)) {
                 FilterPill(stringResource(R.string.library_shared), withShared, { graph.settings.setLibraryShared(!withShared) }, icon = {
                     Icon(Icons.Filled.Group, null, Modifier.size(16.dp),
                         tint = if (withShared) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.primary)
@@ -253,7 +282,7 @@ fun LibraryScreen() {
 
         Row(Modifier.fillMaxWidth().padding(start = 4.dp, end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
             val sortModifier = Modifier.weight(1f)
-            when (LibTab.entries[tab]) {
+            when (tab) {
                 LibTab.PLAYLISTS -> SortButton(PlaylistSort.entries, playlistSort, PlaylistSort::label, graph.settings::setPlaylistsSort, sortModifier)
                 LibTab.ARTISTS -> SortButton(ArtistSort.entries, artistSort, ArtistSort::label, graph.settings::setArtistSort, sortModifier)
                 LibTab.ALBUMS -> SortButton(AlbumSort.entries, albumSort, AlbumSort::label, graph.settings::setAlbumSort, sortModifier)
@@ -266,7 +295,7 @@ fun LibraryScreen() {
         if (!tv) DownloadStrip()
 
         RefreshBox(refreshing = vm.refreshing, onRefresh = { vm.load(true); graph.sync.request() }, modifier = Modifier.weight(1f)) {
-            when (LibTab.entries[tab]) {
+            key(view.shown) { when (tab) {
                 LibTab.PLAYLISTS -> {
                     val list = playlists
                     if (list == null) {
@@ -296,7 +325,10 @@ fun LibraryScreen() {
                         LibContent(items, grid, empty = emptyText(q, downloadedOnly), order = playlistSort.key)
                     }
                 }
-                LibTab.ARTISTS -> LoadContent(vm.artists, { vm.load(true) }) { all ->
+                // Most played needs every album's plays: wait for them rather than show A–Z and jump.
+                LibTab.ARTISTS -> LoadContent(
+                    if (artistSort == ArtistSort.PLAYS && vm.albums is Load.Loading) Load.Loading else vm.artists, { vm.load(true) },
+                ) { all ->
                     val withDownloads = if (downloadedOnly) downloads.values.mapNotNull { it.artistId }.toSet() else emptySet()
                     val items = all.filter { (!downloadedOnly || it.id in withDownloads) && matches(it.name) }
                         .let { l -> artistSort.sort(l) { ArtistSort.plays((vm.albums as? Load.Ready)?.value.orEmpty()) } }
@@ -309,7 +341,7 @@ fun LibraryScreen() {
                 LibTab.ALBUMS -> LoadContent(vm.albums, { vm.load(true) }) { all ->
                     val items = all
                         .filter { (!downloadedOnly || SourceType.sourceId(SourceType.ALBUM, it.id) in sources) && matches(it.name, it.artistLine) }
-                        .let(albumSort::sort)
+                        .let { albumSort.sort(it, savedAlbums) }
                         .map { a ->
                             LibItem(a.id, a.name, listOfNotNull(a.artistLine.takeIf { it.isNotBlank() }, a.year?.toString()).joinToString(" · "),
                                 gridSubtitle = a.artistLine,
@@ -318,7 +350,7 @@ fun LibraryScreen() {
                         }
                     LibContent(items, grid, empty = emptyText(q, downloadedOnly), order = albumSort.key)
                 }
-            }
+            } }
         }
     }
 
@@ -379,15 +411,17 @@ private fun LibContent(items: List<LibItem>, grid: Boolean, empty: String, order
             contentPadding = PaddingValues(start = 10.dp, end = 10.dp, top = 4.dp, bottom = bottomContentPadding().calculateBottomPadding()),
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
-            items(items, key = { it.key }) { GridCell(it) }
+            itemsIndexed(items, key = { _, it -> it.key }) { i, it -> GridCell(it, if (i == 0) Modifier.primaryFocus() else Modifier) }
         }
     } else {
         LazyColumn(Modifier.fillMaxSize(), listState, contentPadding = bottomContentPadding(8.dp)) {
-            items(items, key = { it.key }) { item ->
+            // The first is where a Home shelf's arrow lands.
+            itemsIndexed(items, key = { _, it -> it.key }) { i, item ->
                 ListRow(
                     item.title, item.subtitle, onClick = item.onClick, artSize = 64.dp,
                     art = item.art,
                     badge = item.badge?.let { b -> { BadgeIcon(b) } },
+                    modifier = if (i == 0) Modifier.primaryFocus() else Modifier,
                 )
             }
         }
@@ -395,9 +429,9 @@ private fun LibContent(items: List<LibItem>, grid: Boolean, empty: String, order
 }
 
 @Composable
-private fun GridCell(item: LibItem) {
+private fun GridCell(item: LibItem, modifier: Modifier = Modifier) {
     Column(
-        Modifier.rememberedFocus().highlightClickable(onClick = item.onClick).padding(CardPadding),
+        modifier.rememberedFocus().highlightClickable(onClick = item.onClick).padding(CardPadding),
         horizontalAlignment = if (item.round) Alignment.CenterHorizontally else Alignment.Start,
     ) {
         item.art(Modifier.fillMaxWidth().aspectRatio(1f).clip(if (item.round) CircleShape else CardArtShape))

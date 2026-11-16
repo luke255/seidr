@@ -32,6 +32,7 @@
     <string name="library_sort_added">Recently added</string>
     <string name="library_sort_year">Year</string>
     <string name="library_sort_most_played">Most played</string>
+    <string name="library_sort_saved">Recently saved</string>
     <string name="playlist_sort_title">Title</string>
     <string name="playlist_sort_album">Album</string>
     <string name="library_show_list">Show as list</string>
@@ -179,7 +180,11 @@
     <string name="home_recently_added">Recently added</string>
     <!-- Shelf of the albums played most often. -->
     <string name="home_most_played">Most played</string>
+    <!-- Shelf of the artists played most often. -->
+    <string name="home_most_played_artists">Most played artists</string>
     <string name="home_saved_albums">Saved albums</string>
+    <!-- Spoken label of the arrow ending each Home shelf, which opens the whole list in Library. -->
+    <string name="home_see_all">See all</string>
 
     <!-- Artist -->
     <string name="artist_load_failed">Couldn\'t load songs</string>

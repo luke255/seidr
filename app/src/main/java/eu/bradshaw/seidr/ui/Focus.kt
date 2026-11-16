@@ -24,6 +24,8 @@ import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -158,10 +160,21 @@ fun Modifier.selectToEdit(shape: Shape = RoundedCornerShape(4.dp)): Modifier {
 
 /** The last focused item on one screen, so Back can return to it however deep it was. */
 class FocusMemory {
-    var last: FocusRequester? = null
+    /**
+     * The last focused item's saved id. Ids outlive their requesters: a tab's screen
+     * leaves composition when another tab shows, and its items come back with new ones.
+     */
+    private var last: String? = null
+    private val requesters = mutableMapOf<String, FocusRequester>()
 
-    /** Focuses [last] if it's still on screen. */
-    fun restore(): Boolean = last?.let { runCatching { it.requestFocus() }.getOrDefault(false) } ?: false
+    fun focused(id: String) { last = id }
+
+    fun register(id: String, requester: FocusRequester) { requesters[id] = requester }
+
+    fun unregister(id: String, requester: FocusRequester) { if (requesters[id] === requester) requesters.remove(id) }
+
+    /** Focuses the last focused item if it's still on screen. */
+    fun restore(): Boolean = last?.let(requesters::get)?.let { runCatching { it.requestFocus() }.getOrDefault(false) } ?: false
 }
 
 val LocalFocusMemory = staticCompositionLocalOf<FocusMemory?> { null }
@@ -171,7 +184,13 @@ val LocalFocusMemory = staticCompositionLocalOf<FocusMemory?> { null }
 fun Modifier.rememberedFocus(): Modifier {
     val memory = LocalFocusMemory.current ?: return this
     val requester = remember { FocusRequester() }
-    return focusRequester(requester).onFocusChanged { if (it.isFocused) memory.last = requester }
+    // Saved, so the item has the same id when its screen is composed again.
+    val id = rememberSaveable { java.util.UUID.randomUUID().toString() }
+    DisposableEffect(memory, id) {
+        memory.register(id, requester)
+        onDispose { memory.unregister(id, requester) }
+    }
+    return focusRequester(requester).onFocusChanged { if (it.isFocused) memory.focused(id) }
 }
 
 /**
