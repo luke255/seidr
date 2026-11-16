@@ -13,8 +13,7 @@ them, not how.
 - Visualiser: the preset page can go back to the last preset or on to the
   next. Skipping tracks and play/pause work with a page up, covers slide on
   a skip like Now Playing's (on the track page, drag the cover to skip), and
-  the page dots fade away. The transport page
-  is gone: swipes do its job.
+  the page dots fade away. The transport page is gone: swipes do its job.
 - Download has moved into the ⋮ menu on playlists and albums.
 - Downloads show one steady progress bar for the whole batch, instead of
   flashing and sitting near empty for each song.
