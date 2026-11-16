@@ -47,9 +47,21 @@ class Settings(context: Context) {
     /** Colour theme key (see `ThemeChoice`): "system", "neutral" or a colour name. */
     val theme: StateFlow<String> = _theme.asStateFlow()
 
-    private val _homePlaylistsAlpha = MutableStateFlow(prefs.getBoolean("home_playlists_alpha", false))
-    /** Home's "Playlists" shelf: A–Z when set, otherwise most recently played first. */
-    val homePlaylistsAlpha: StateFlow<Boolean> = _homePlaylistsAlpha.asStateFlow()
+    private val _playlistsSort = MutableStateFlow(
+        // Before Home and Library shared one, Home's was a choice of A–Z or recent.
+        PlaylistSort.of(prefs.getString("playlists_sort", null),
+            if (prefs.getBoolean("home_playlists_alpha", false)) PlaylistSort.NAME else PlaylistSort.RECENT)
+    )
+    /** How playlists are ordered, on Home's shelves and in Library alike. */
+    val playlistsSort: StateFlow<PlaylistSort> = _playlistsSort.asStateFlow()
+
+    private val _albumSort = MutableStateFlow(AlbumSort.of(prefs.getString("album_sort", null)))
+    /** Library's Albums order. */
+    val albumSort: StateFlow<AlbumSort> = _albumSort.asStateFlow()
+
+    private val _artistSort = MutableStateFlow(ArtistSort.of(prefs.getString("artist_sort", null)))
+    /** Library's Artists order. */
+    val artistSort: StateFlow<ArtistSort> = _artistSort.asStateFlow()
 
     private val _libraryGrid = MutableStateFlow(prefs.getBoolean("library_grid", false))
     /** Library shows a grid of covers rather than a list. */
@@ -58,6 +70,13 @@ class Settings(context: Context) {
     private val _libraryShared = MutableStateFlow(prefs.getBoolean("library_shared", false))
     /** Library's playlists include other people's (shared with everyone, or an admin's view of private ones). */
     val libraryShared: StateFlow<Boolean> = _libraryShared.asStateFlow()
+
+    private val _playlistSorts = MutableStateFlow(
+        prefs.getString("playlist_sorts", null)
+            ?.let { runCatching { Json.decodeFromString<Map<String, String>>(it) }.getOrNull() }.orEmpty()
+    )
+    /** Each playlist's chosen track order (id → [TrackSort.key]); a playlist missing here shows its own order. */
+    val playlistSorts: StateFlow<Map<String, String>> = _playlistSorts.asStateFlow()
 
     private val _autoUpdate = MutableStateFlow(prefs.getBoolean("auto_update", true))
     /** Check GitHub for a newer release when the app comes to the front (`Updater`). */
@@ -141,9 +160,19 @@ class Settings(context: Context) {
         _theme.value = key
     }
 
-    fun setHomePlaylistsAlpha(value: Boolean) {
-        prefs.edit().putBoolean("home_playlists_alpha", value).apply()
-        _homePlaylistsAlpha.value = value
+    fun setPlaylistsSort(sort: PlaylistSort) {
+        prefs.edit().putString("playlists_sort", sort.key).remove("home_playlists_alpha").apply()
+        _playlistsSort.value = sort
+    }
+
+    fun setAlbumSort(sort: AlbumSort) {
+        prefs.edit().putString("album_sort", sort.key).apply()
+        _albumSort.value = sort
+    }
+
+    fun setArtistSort(sort: ArtistSort) {
+        prefs.edit().putString("artist_sort", sort.key).apply()
+        _artistSort.value = sort
     }
 
     fun setLibraryGrid(value: Boolean) {
@@ -154,6 +183,12 @@ class Settings(context: Context) {
     fun setLibraryShared(value: Boolean) {
         prefs.edit().putBoolean("library_shared", value).apply()
         _libraryShared.value = value
+    }
+
+    fun setPlaylistSort(id: String, sort: TrackSort) {
+        val next = if (sort == TrackSort.CUSTOM) _playlistSorts.value - id else _playlistSorts.value + (id to sort.key)
+        prefs.edit().putString("playlist_sorts", Json.encodeToString(next)).apply()
+        _playlistSorts.value = next
     }
 
     fun setAutoUpdate(value: Boolean) {

@@ -1,7 +1,6 @@
 package eu.bradshaw.seidr.ui.screens
 
 import androidx.compose.foundation.background
-import eu.bradshaw.seidr.data.nameOrder
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -28,11 +27,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.automirrored.filled.ViewList
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowCircleDown
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.GridView
@@ -40,8 +37,6 @@ import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
@@ -83,6 +78,12 @@ import eu.bradshaw.seidr.data.db.SourceType
 import eu.bradshaw.seidr.ui.LocalActions
 import eu.bradshaw.seidr.ui.LocalIsTv
 import eu.bradshaw.seidr.ui.Route
+import eu.bradshaw.seidr.ui.components.SortButton
+import eu.bradshaw.seidr.ui.components.label
+import eu.bradshaw.seidr.data.AlbumSort
+import eu.bradshaw.seidr.data.ArtistSort
+import eu.bradshaw.seidr.data.LovedAt
+import eu.bradshaw.seidr.data.PlaylistSort
 import eu.bradshaw.seidr.ui.components.ArtistImage
 import eu.bradshaw.seidr.ui.components.Cover
 import eu.bradshaw.seidr.ui.components.ListRow
@@ -172,8 +173,11 @@ fun LibraryScreen() {
     val vm = viewModel(key = "library") { LibraryVm(graph) }
     var tab by rememberSaveable { mutableIntStateOf(0) }
     var downloadedOnly by rememberSaveable { mutableStateOf(false) }
-    var sort by rememberSaveable { mutableIntStateOf(0) }
-    var sortMenu by rememberSaveable { mutableStateOf(false) }
+    // Each tab's order is its own and remembered; playlists' is Home's too.
+    val playlistSort by graph.settings.playlistsSort.collectAsStateWithLifecycle()
+    val artistSort by graph.settings.artistSort.collectAsStateWithLifecycle()
+    val albumSort by graph.settings.albumSort.collectAsStateWithLifecycle()
+    val lastPlayed by graph.playlistPlays.lastPlayed.collectAsStateWithLifecycle()
     var creating by rememberSaveable { mutableStateOf(false) }
     var searching by rememberSaveable { mutableStateOf(false) }
     var query by rememberSaveable { mutableStateOf("") }
@@ -199,18 +203,6 @@ fun LibraryScreen() {
             (starred.isNotEmpty() && starred.all { downloads[it]?.state == DownloadState.DONE })
     }
 
-    val sortOptions = when (LibTab.entries[tab]) {
-        LibTab.PLAYLISTS -> listOf(
-            stringResource(R.string.library_sort_custom), stringResource(R.string.library_sort_name),
-            stringResource(R.string.library_sort_updated),
-        )
-        LibTab.ARTISTS -> listOf(stringResource(R.string.library_sort_name), stringResource(R.string.library_sort_most_albums))
-        LibTab.ALBUMS -> listOf(
-            stringResource(R.string.library_sort_name), stringResource(R.string.library_sort_artist),
-            stringResource(R.string.library_sort_added), stringResource(R.string.library_sort_year),
-        )
-    }
-    if (sort >= sortOptions.size) sort = 0
     val q = query.trim()
     fun matches(vararg s: String?) = q.isEmpty() || s.any { it?.contains(q, ignoreCase = true) == true }
 
@@ -258,17 +250,11 @@ fun LibraryScreen() {
         }
 
         Row(Modifier.fillMaxWidth().padding(start = 4.dp, end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.weight(1f)) {
-                TextButton(onClick = { sortMenu = true }) {
-                    Icon(Icons.AutoMirrored.Filled.Sort, null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.onSurface)
-                    Text(" " + sortOptions[sort], color = MaterialTheme.colorScheme.onSurface)
-                }
-                DropdownMenu(sortMenu, { sortMenu = false }) {
-                    sortOptions.forEachIndexed { i, s ->
-                        DropdownMenuItem({ Text(s) }, onClick = { sort = i; sortMenu = false },
-                            trailingIcon = if (i == sort) { { Icon(Icons.Filled.Check, null) } } else null)
-                    }
-                }
+            val sortModifier = Modifier.weight(1f)
+            when (LibTab.entries[tab]) {
+                LibTab.PLAYLISTS -> SortButton(PlaylistSort.entries, playlistSort, PlaylistSort::label, graph.settings::setPlaylistsSort, sortModifier)
+                LibTab.ARTISTS -> SortButton(ArtistSort.entries, artistSort, ArtistSort::label, graph.settings::setArtistSort, sortModifier)
+                LibTab.ALBUMS -> SortButton(AlbumSort.entries, albumSort, AlbumSort::label, graph.settings::setAlbumSort, sortModifier)
             }
             IconButton(onClick = { graph.settings.setLibraryGrid(!grid) }) {
                 if (grid) Icon(Icons.AutoMirrored.Filled.ViewList, stringResource(R.string.library_show_list)) else Icon(Icons.Filled.GridView, stringResource(R.string.library_show_grid))
@@ -288,14 +274,15 @@ fun LibraryScreen() {
                         val shown = list.filter {
                             (withShared || !graph.browse.isOthers(it)) && (!downloadedOnly || it.id in offlinePlaylists) && matches(it.name)
                         }
-                            .let { l ->
-                                when (sort) {
-                                    1 -> l.sortedWith(nameOrder { it.name })
-                                    2 -> l.sortedByDescending { it.changed ?: "" }
-                                    else -> l
-                                }
-                            }
-                        val items = shown.mapTo(mutableListOf()) { p ->
+                        val withLoved = (!downloadedOnly || lovedOffline) && matches(Loved.title)
+                        // Loved (null) where the order places it, as on Home.
+                        val sorted = playlistSort.sort(shown, lastPlayed, if (withLoved) LovedAt(lastPlayed[Loved.PLAYS_KEY], lastLoved) else null)
+                        val items = sorted.map { p ->
+                            if (p == null) return@map LibItem(
+                                "loved", Loved.title, Loved.subtitle(starred) ?: stringResource(R.string.library_playlist),
+                                badge = if (lovedOffline) Badge.DOWNLOADED else null,
+                                art = { m -> LovedArt(m) }, onClick = { actions.open(Route.Loved) },
+                            )
                             val owner = p.owner?.takeIf { it != server?.username }?.let { stringResource(R.string.library_by_owner, it) }
                             LibItem(
                                 p.id, p.name, listOfNotNull(owner, songsText(p.songCount)).joinToString(" · "),
@@ -304,24 +291,13 @@ fun LibraryScreen() {
                                 art = { m -> Cover(p.coverArt, m, size = 300) }, onClick = { actions.open(Route.Playlist(p.id)) },
                             )
                         }
-                        // Loved heads the list, except by "Recently updated", where its newest love places it.
-                        if ((!downloadedOnly || lovedOffline) && matches(Loved.title)) {
-                            val at = if (sort != 2) 0 else shown.indexOfFirst { (it.changed ?: "") < (lastLoved ?: "") }
-                                .let { if (it < 0) shown.size else it }
-                            val count = Loved.subtitle(starred)
-                            items.add(at, LibItem(
-                                "loved", Loved.title, count ?: stringResource(R.string.library_playlist),
-                                badge = if (lovedOffline) Badge.DOWNLOADED else null,
-                                art = { m -> LovedArt(m) }, onClick = { actions.open(Route.Loved) },
-                            ))
-                        }
                         LibContent(items, grid, empty = emptyText(q, downloadedOnly))
                     }
                 }
                 LibTab.ARTISTS -> LoadContent(vm.artists, { vm.load(true) }) { all ->
                     val withDownloads = if (downloadedOnly) downloads.values.mapNotNull { it.artistId }.toSet() else emptySet()
                     val items = all.filter { (!downloadedOnly || it.id in withDownloads) && matches(it.name) }
-                        .let { l -> if (sort == 1) l.sortedByDescending { it.albumCount } else l.sortedWith(nameOrder { it.name }) }
+                        .let { l -> artistSort.sort(l) { ArtistSort.plays((vm.albums as? Load.Ready)?.value.orEmpty()) } }
                         .map { a ->
                             LibItem(a.id, a.name, albumsText(a.albumCount),
                                 round = true, art = { m -> ArtistImage(a.coverArt, m) }, onClick = { actions.open(Route.Artist(a.id)) })
@@ -331,14 +307,7 @@ fun LibraryScreen() {
                 LibTab.ALBUMS -> LoadContent(vm.albums, { vm.load(true) }) { all ->
                     val items = all
                         .filter { (!downloadedOnly || SourceType.sourceId(SourceType.ALBUM, it.id) in sources) && matches(it.name, it.artistLine) }
-                        .let { l ->
-                            when (sort) {
-                                1 -> l.sortedWith(nameOrder<Album> { it.artistLine }.thenBy { it.year ?: 0 })
-                                2 -> l.sortedByDescending { it.created ?: "" }
-                                3 -> l.sortedByDescending { it.year ?: 0 }
-                                else -> l
-                            }
-                        }
+                        .let(albumSort::sort)
                         .map { a ->
                             LibItem(a.id, a.name, listOfNotNull(a.artistLine.takeIf { it.isNotBlank() }, a.year?.toString()).joinToString(" · "),
                                 gridSubtitle = a.artistLine,

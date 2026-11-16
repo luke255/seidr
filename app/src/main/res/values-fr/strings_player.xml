@@ -33,6 +33,7 @@
     <string name="common_edit_queued">Hors ligne : ce sera enregistré sur le serveur à son retour</string>
     <string name="common_edit_conflict">La playlist a changé ailleurs, donc rien n\'a été enregistré. Elle a été rechargée.</string>
     <string name="common_edit_failed">Enregistrement impossible : %1$s</string>
+    <string name="common_undo">Annuler</string>
 
     <plurals name="common_songs">
         <item quantity="one">%d titre</item>

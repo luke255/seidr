@@ -79,7 +79,7 @@ fun rememberArtColours(id: String?): ArtColours? {
  * slide both finish this long after the last change, eased out so a change
  * mid-way carries on without a stall.
  */
-internal const val ART_CHANGE_MS = 2000
+internal const val ART_CHANGE_MS = 1320
 
 /**
  * True for a moment after the screen comes back into view (app resumed, screen

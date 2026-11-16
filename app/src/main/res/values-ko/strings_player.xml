@@ -33,6 +33,7 @@
     <string name="common_edit_queued">오프라인: 서버에 다시 연결되면 저장할게요</string>
     <string name="common_edit_conflict">플레이리스트가 다른 곳에서 변경되어 저장하지 않았어요. 새로 불러왔어요.</string>
     <string name="common_edit_failed">저장할 수 없어요: %1$s</string>
+    <string name="common_undo">실행 취소</string>
 
     <plurals name="common_songs">
         <item quantity="other">%d곡</item>

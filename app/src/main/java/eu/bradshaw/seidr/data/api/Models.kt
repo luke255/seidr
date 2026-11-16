@@ -87,6 +87,8 @@ data class Album(
     val starred: String? = null,
     val releaseTypes: List<String> = emptyList(),
     val isCompilation: Boolean = false,
+    /** This user's plays (Navidrome's annotation). */
+    val playCount: Long? = null,
     val song: List<Song> = emptyList(),
 ) {
     val artistLine: String get() = displayArtist?.takeIf { it.isNotBlank() } ?: artist ?: ""

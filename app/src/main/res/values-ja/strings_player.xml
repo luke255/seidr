@@ -33,6 +33,7 @@
     <string name="common_edit_queued">オフライン：サーバーに接続できたら保存します</string>
     <string name="common_edit_conflict">プレイリストがほかの場所で変更されたため、保存しませんでした。再読み込みしました。</string>
     <string name="common_edit_failed">保存できませんでした：%1$s</string>
+    <string name="common_undo">元に戻す</string>
 
     <plurals name="common_songs">
         <item quantity="other">%d曲</item>

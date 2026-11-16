@@ -30,6 +30,9 @@
     <string name="library_sort_artist">Artista</string>
     <string name="library_sort_added">Afegits fa poc</string>
     <string name="library_sort_year">Any</string>
+    <string name="library_sort_most_played">Més escoltats</string>
+    <string name="playlist_sort_title">Títol</string>
+    <string name="playlist_sort_album">Àlbum</string>
     <string name="library_show_list">Mostra com a llista</string>
     <string name="library_show_grid">Mostra com a quadrícula</string>
     <string name="library_by_owner">de %1$s</string>
@@ -146,7 +149,6 @@
     <string name="home_kid_empty">Encara no t\'han aprovat res. Demana a qui t\'ha iniciat la sessió que hi afegeixi algunes cançons.</string>
     <string name="home_playlists">Llistes de reproducció</string>
     <string name="home_shared_playlists">Llistes compartides</string>
-    <string name="home_sort_az">A–Z</string>
     <string name="home_sort_recent">Recents</string>
     <string name="home_by_owner">de %1$s</string>
     <string name="home_recently_added">Afegits fa poc</string>
@@ -168,4 +170,26 @@
     <string name="album_disc">Disc %1$s</string>
 
     <string name="loved_title">Preferides</string>
+    <string name="playlist_put_back">S\'ha tornat a afegir a %1$s</string>
+    <string name="playlist_restored">S\'ha restaurat %1$s</string>
+    <string name="playlist_restore_failed">No s\'ha pogut restaurar. Comprova la connexió i torna-ho a provar.</string>
+    <string name="playlist_history">Versions anteriors</string>
+    <string name="playlist_history_hint">Cada vegada que aquest dispositiu veu que aquesta llista canvia, des de qualsevol app, la versió anterior es desa aquí durant 90 dies. Desa\'n una còpia per recuperar-la.</string>
+    <string name="playlist_history_none">Encara no hi ha versions anteriors. Cada vegada que aquest dispositiu veu que aquesta llista canvia, des de qualsevol app, la versió anterior es desa aquí durant 90 dies.</string>
+    <plurals name="history_removed_since">
+        <item quantity="one">Tretes des de llavors: %d</item>
+        <item quantity="many">Tretes des de llavors: %d</item>
+        <item quantity="other">Tretes des de llavors: %d</item>
+    </plurals>
+    <plurals name="history_added_since">
+        <item quantity="one">Afegides des de llavors: %d</item>
+        <item quantity="many">Afegides des de llavors: %d</item>
+        <item quantity="other">Afegides des de llavors: %d</item>
+    </plurals>
+    <string name="history_copy_name">%1$s (restaurada)</string>
+    <string name="deleted_playlists">Llistes suprimides recentment</string>
+    <string name="deleted_playlists_summary">Recupera una llista suprimida els últims 90 dies</string>
+    <string name="deleted_playlists_hint">Llistes que aquest dispositiu havia vist i que s\'han suprimit els últims 90 dies, des de qualsevol app. Desa\'n una còpia per recuperar-la.</string>
+    <string name="deleted_playlists_none">No s\'ha suprimit cap llista últimament. Les que aquest dispositiu havia vist surten aquí durant 90 dies després de suprimir-se, des de qualsevol app.</string>
+    <string name="deleted_playlists_on">Suprimida el %1$s</string>
 </resources>

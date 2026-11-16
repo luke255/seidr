@@ -38,6 +38,7 @@ import androidx.compose.material.icons.filled.Devices
 import androidx.compose.material.icons.outlined.BatteryChargingFull
 import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.RestoreFromTrash
 import androidx.compose.material.icons.outlined.Autorenew
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Flag
@@ -151,12 +152,17 @@ fun SettingsScreen() {
             // Only admins get other people's private playlists, so only they see this.
             val othersOn by graph.settings.othersPrivatePlaylists.collectAsStateWithLifecycle()
             val anyOthers = graph.library.allPlaylists.collectAsStateWithLifecycle().value.orEmpty().any(graph.library::isOthersPrivate)
-            if (!kid && (othersOn || anyOthers)) {
+            if (!kid) {
                 CardLabel(stringResource(R.string.settings_library))
                 CardGroup {
-                    ToggleItem(Icons.Outlined.Lock, stringResource(R.string.settings_others_private),
-                        stringResource(R.string.settings_others_private_hint), othersOn) {
-                        graph.settings.setOthersPrivatePlaylists(it)
+                    CardItem(Icons.Outlined.RestoreFromTrash, stringResource(R.string.deleted_playlists), stringResource(R.string.deleted_playlists_summary),
+                        trailing = { Chevron() }) { actions.open(Route.DeletedPlaylists) }
+                    if (othersOn || anyOthers) {
+                        CardDivider()
+                        ToggleItem(Icons.Outlined.Lock, stringResource(R.string.settings_others_private),
+                            stringResource(R.string.settings_others_private_hint), othersOn) {
+                            graph.settings.setOthersPrivatePlaylists(it)
+                        }
                     }
                 }
             }

@@ -33,6 +33,7 @@
     <string name="common_edit_queued">Офлайн: збережеться на сервері, щойно він повернеться</string>
     <string name="common_edit_conflict">Плейлист змінили деінде, тож нічого не збережено. Його завантажено наново.</string>
     <string name="common_edit_failed">Не вдалося зберегти: %1$s</string>
+    <string name="common_undo">Скасувати</string>
 
     <plurals name="common_songs">
         <item quantity="one">%d пісня</item>

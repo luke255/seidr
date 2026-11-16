@@ -33,6 +33,7 @@
     <string name="common_edit_queued">Offline: wird auf dem Server gespeichert, sobald er wieder da ist</string>
     <string name="common_edit_conflict">Die Playlist wurde woanders geändert, daher wurde nichts gespeichert. Neu geladen.</string>
     <string name="common_edit_failed">Speichern fehlgeschlagen: %1$s</string>
+    <string name="common_undo">Rückgängig</string>
 
     <plurals name="common_songs">
         <item quantity="one">%d Song</item>

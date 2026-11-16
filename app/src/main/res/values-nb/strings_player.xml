@@ -33,6 +33,7 @@
     <string name="common_edit_queued">Frakoblet: lagres på serveren når den er tilbake</string>
     <string name="common_edit_conflict">Spillelisten ble endret et annet sted, så ingenting ble lagret. Den er lastet inn på nytt.</string>
     <string name="common_edit_failed">Kunne ikke lagre: %1$s</string>
+    <string name="common_undo">Angre</string>
 
     <plurals name="common_songs">
         <item quantity="one">%d låt</item>

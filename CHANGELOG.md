@@ -4,6 +4,26 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.6.5
+
+- Now Playing follows your finger as you swipe it down, and springs back if
+  you change your mind.
+- Covers slide and colours change faster when the track changes.
+- Sort a playlist's songs by title, artist, album, year or most played. Each
+  playlist remembers its own; the playlist itself keeps its order.
+- Library can sort albums and artists by most played, and remembers each
+  tab's order. Ties go by artist, then album, then track.
+- Home and Library share one order for playlists, now with Recent there too.
+- The visualiser's track page on a TV no longer shows a faint box around the
+  cover.
+- A playlist's ⋮ menu is in a tidier order, with Delete last.
+- Undo, straight after removing a song from a playlist (it goes back in its
+  place) or deleting a playlist.
+- Earlier versions, in a playlist's ⋮ menu: what it was before each change,
+  from any app, for 90 days. Save one as a copy to get it back.
+- Recently deleted playlists, in Settings → Library: save a copy of one
+  deleted in the last 90 days, from any app.
+
 ## 1.6.4
 
 - Shared playlists: share one of yours with everyone on the server from its

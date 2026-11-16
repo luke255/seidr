@@ -32,6 +32,9 @@
     <string name="library_sort_artist">Исполнитель</string>
     <string name="library_sort_added">Недавно добавленные</string>
     <string name="library_sort_year">Год</string>
+    <string name="library_sort_most_played">Часто слушаемые</string>
+    <string name="playlist_sort_title">Название</string>
+    <string name="playlist_sort_album">Альбом</string>
     <string name="library_show_list">Показать списком</string>
     <string name="library_show_grid">Показать сеткой</string>
     <string name="library_by_owner">автор: %1$s</string>
@@ -155,7 +158,6 @@
     <string name="home_kid_empty">Для тебя пока ничего не одобрили. Попроси того, кто настроил тебе вход, добавить несколько треков.</string>
     <string name="home_playlists">Плейлисты</string>
     <string name="home_shared_playlists">Общие плейлисты</string>
-    <string name="home_sort_az">А–Я</string>
     <string name="home_sort_recent">Недавние</string>
     <string name="home_by_owner">автор: %1$s</string>
     <string name="home_recently_added">Недавно добавленные</string>
@@ -177,4 +179,28 @@
     <string name="album_disc">Диск %1$s</string>
 
     <string name="loved_title">Любимое</string>
+    <string name="playlist_put_back">Возвращено в плейлист %1$s</string>
+    <string name="playlist_restored">Плейлист %1$s восстановлен</string>
+    <string name="playlist_restore_failed">Не удалось восстановить. Проверьте подключение и попробуйте ещё раз.</string>
+    <string name="playlist_history">Предыдущие версии</string>
+    <string name="playlist_history_hint">Каждый раз, когда это устройство замечает изменение плейлиста (в любом приложении), предыдущая версия хранится здесь 90 дней. Сохраните копию, чтобы вернуть её.</string>
+    <string name="playlist_history_none">Предыдущих версий пока нет. Каждый раз, когда это устройство замечает изменение плейлиста (в любом приложении), предыдущая версия хранится здесь 90 дней.</string>
+    <plurals name="history_removed_since">
+        <item quantity="one">С тех пор убрано: %d</item>
+        <item quantity="few">С тех пор убрано: %d</item>
+        <item quantity="many">С тех пор убрано: %d</item>
+        <item quantity="other">С тех пор убрано: %d</item>
+    </plurals>
+    <plurals name="history_added_since">
+        <item quantity="one">С тех пор добавлено: %d</item>
+        <item quantity="few">С тех пор добавлено: %d</item>
+        <item quantity="many">С тех пор добавлено: %d</item>
+        <item quantity="other">С тех пор добавлено: %d</item>
+    </plurals>
+    <string name="history_copy_name">%1$s (восстановлен)</string>
+    <string name="deleted_playlists">Недавно удалённые плейлисты</string>
+    <string name="deleted_playlists_summary">Верните плейлист, удалённый за последние 90 дней</string>
+    <string name="deleted_playlists_hint">Плейлисты, которые видело это устройство и которые были удалены за последние 90 дней (в любом приложении). Сохраните копию, чтобы вернуть плейлист.</string>
+    <string name="deleted_playlists_none">Недавно удалённых плейлистов нет. Плейлисты, которые видело это устройство, показываются здесь 90 дней после удаления (в любом приложении).</string>
+    <string name="deleted_playlists_on">Удалён %1$s</string>
 </resources>

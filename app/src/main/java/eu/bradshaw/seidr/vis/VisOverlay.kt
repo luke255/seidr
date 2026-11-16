@@ -339,13 +339,15 @@ private fun TrackPage(player: PlayerConnection, tv: Boolean, modifier: Modifier)
     val cur = ui.current ?: return
     BoxWithConstraints(modifier, contentAlignment = Alignment.Center) {
         val wide = maxWidth > maxHeight * 1.25f
-        val art = if (wide) minOf(maxHeight * 0.8f, maxWidth * 0.4f, 480.dp) else minOf(maxWidth * 0.8f, maxHeight * 0.55f, 480.dp)
+        // Room round the cover for its shadow: the pager clips to its bounds, and a 24dp
+        // shadow cut off any closer draws the pager's edges as a faint box round the cover.
+        val room = 48.dp
+        val art = if (wide) minOf(maxHeight * 0.8f, maxHeight - room * 2, maxWidth * 0.4f, 480.dp) else minOf(maxWidth * 0.8f, maxHeight * 0.55f, 480.dp)
         // Now Playing's artwork pager: the cover follows a finger and skips where it's let go,
         // and slides itself when the track changes. Upright, it slides the full width; beside
-        // the words, within its own square. Room round the cover for its shadow.
+        // the words, within its own square.
         val justBack = rememberJustBack()
         val cover: @Composable () -> Unit = {
-            val room = 24.dp
             // Upright, out past the page's side margins to the screen's edges, so covers aren't cut off short of them.
             val edge = if (tv) 48.dp else 24.dp
             ArtworkPager(justBack, if (wide) Modifier.size(art + room * 2) else Modifier.requiredWidth(maxWidth + edge * 2).height(art + room * 2)) { c ->
@@ -369,8 +371,8 @@ private fun TrackPage(player: PlayerConnection, tv: Boolean, modifier: Modifier)
         }
         if (wide) {
             Row(verticalAlignment = Alignment.CenterVertically) {
+                // The cover's room is the gap: the words sit that far from it.
                 cover()
-                Spacer(Modifier.width(8.dp))
                 Box(Modifier.widthIn(max = 480.dp)) { words(Alignment.Start, TextAlign.Start) }
             }
         } else {

@@ -37,4 +37,13 @@ object EditResolver {
         if (desired.sorted() != seen.sorted()) return null
         return desired
     }
+
+    /**
+     * Undoing a remove: the song is added back (on the end), then [before] (the
+     * list as it was) is the order to restore, but only while the playlist holds
+     * exactly the same songs again. Null when it's already in place, or when
+     * something else changed meanwhile (the song then stays on the end).
+     */
+    fun undoRemove(fresh: List<String>, before: List<String>): List<String>? =
+        before.takeIf { fresh != before && fresh.sorted() == before.sorted() }
 }

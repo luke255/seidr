@@ -26,6 +26,9 @@
     <string name="library_sort_artist">藝人</string>
     <string name="library_sort_added">最近加入</string>
     <string name="library_sort_year">年份</string>
+    <string name="library_sort_most_played">最常播放</string>
+    <string name="playlist_sort_title">標題</string>
+    <string name="playlist_sort_album">專輯</string>
     <string name="library_show_list">以清單顯示</string>
     <string name="library_show_grid">以格狀顯示</string>
     <string name="library_by_owner">建立者：%1$s</string>
@@ -128,7 +131,6 @@
     <string name="home_kid_empty">還沒有為你核准的歌曲。請幫你登入的人加入一些歌曲吧。</string>
     <string name="home_playlists">播放清單</string>
     <string name="home_shared_playlists">分享的播放清單</string>
-    <string name="home_sort_az">依名稱</string>
     <string name="home_sort_recent">最近</string>
     <string name="home_by_owner">建立者：%1$s</string>
     <string name="home_recently_added">最近加入</string>
@@ -150,4 +152,22 @@
     <string name="album_disc">光碟 %1$s</string>
 
     <string name="loved_title">我的最愛</string>
+    <string name="playlist_put_back">已放回 %1$s</string>
+    <string name="playlist_restored">已還原 %1$s</string>
+    <string name="playlist_restore_failed">無法還原。請檢查網路連線後再試一次。</string>
+    <string name="playlist_history">較早的版本</string>
+    <string name="playlist_history_hint">每當這部裝置發現這個播放清單有變更（不論來自哪個應用程式），先前的版本都會在這裡保留 90 天。儲存副本即可找回。</string>
+    <string name="playlist_history_none">目前沒有較早的版本。每當這部裝置發現這個播放清單有變更（不論來自哪個應用程式），先前的版本都會在這裡保留 90 天。</string>
+    <plurals name="history_removed_since">
+        <item quantity="other">之後移除 %d 首</item>
+    </plurals>
+    <plurals name="history_added_since">
+        <item quantity="other">之後新增 %d 首</item>
+    </plurals>
+    <string name="history_copy_name">%1$s（已還原）</string>
+    <string name="deleted_playlists">最近刪除的播放清單</string>
+    <string name="deleted_playlists_summary">找回過去 90 天內刪除的播放清單</string>
+    <string name="deleted_playlists_hint">這部裝置看過、並在過去 90 天內被刪除的播放清單（不論來自哪個應用程式）。儲存副本即可找回。</string>
+    <string name="deleted_playlists_none">最近沒有刪除播放清單。這部裝置看過的播放清單被刪除後（不論來自哪個應用程式），會在這裡顯示 90 天。</string>
+    <string name="deleted_playlists_on">刪除於 %1$s</string>
 </resources>

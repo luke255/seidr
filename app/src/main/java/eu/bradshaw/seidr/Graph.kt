@@ -96,6 +96,8 @@ class Graph(val app: Application) {
 
     fun stopKidView() { kidView.getAndUpdate { null }?.close() }
     val db = AppDatabase.build(app)
+    /** Earlier versions of the user's playlists, and deleted ones (see `PlaylistHistory`). */
+    val history = eu.bradshaw.seidr.data.PlaylistHistory(db.history()).also { library.history = it }
     val files = MusicFiles(app)
     val downloads = DownloadIndex(db.offline(), scope)
 
@@ -141,6 +143,17 @@ class Graph(val app: Application) {
     init {
         // Signed out or in as someone else: whatever kid view was open was theirs.
         scope.launch { settings.server.drop(1).collect { stopKidView() } }
+        // The history is one login's: someone else signing in starts it afresh.
+        scope.launch {
+            val prefs = app.getSharedPreferences("device", android.content.Context.MODE_PRIVATE)
+            settings.server.collect { s ->
+                val who = s?.let { "${it.url.trimEnd('/')}|${it.username.lowercase()}" } ?: return@collect
+                if (prefs.getString("history_login", null) != who) {
+                    history.clear()
+                    prefs.edit().putString("history_login", who).apply()
+                }
+            }
+        }
         sync = SyncCoordinator(app, engine, db.offline(), settings, scope, beforeSync = {
             editor.replayPending()
             NowPlaying.flushScrobbles(this)

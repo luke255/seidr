@@ -28,6 +28,9 @@
     <string name="library_sort_artist">Artiest</string>
     <string name="library_sort_added">Laatst toegevoegd</string>
     <string name="library_sort_year">Jaar</string>
+    <string name="library_sort_most_played">Meest afgespeeld</string>
+    <string name="playlist_sort_title">Titel</string>
+    <string name="playlist_sort_album">Album</string>
     <string name="library_show_list">Als lijst tonen</string>
     <string name="library_show_grid">Als raster tonen</string>
     <string name="library_by_owner">van %1$s</string>
@@ -137,7 +140,6 @@
     <string name="home_kid_empty">Er is nog niets voor je goedgekeurd. Vraag degene die je heeft aangemeld om nummers toe te voegen.</string>
     <string name="home_playlists">Playlists</string>
     <string name="home_shared_playlists">Gedeelde playlists</string>
-    <string name="home_sort_az">A–Z</string>
     <string name="home_sort_recent">Recent</string>
     <string name="home_by_owner">van %1$s</string>
     <string name="home_recently_added">Laatst toegevoegd</string>
@@ -159,4 +161,24 @@
     <string name="album_disc">Schijf %1$s</string>
 
     <string name="loved_title">Favorieten</string>
+    <string name="playlist_put_back">Teruggezet in %1$s</string>
+    <string name="playlist_restored">%1$s hersteld</string>
+    <string name="playlist_restore_failed">Kan niet herstellen. Controleer je verbinding en probeer het opnieuw.</string>
+    <string name="playlist_history">Eerdere versies</string>
+    <string name="playlist_history_hint">Elke keer dat dit apparaat ziet dat deze playlist verandert, vanuit welke app ook, wordt de vorige versie hier 90 dagen bewaard. Sla een kopie op om hem terug te krijgen.</string>
+    <string name="playlist_history_none">Nog geen eerdere versies. Elke keer dat dit apparaat ziet dat deze playlist verandert, vanuit welke app ook, wordt de vorige versie hier 90 dagen bewaard.</string>
+    <plurals name="history_removed_since">
+        <item quantity="one">Sindsdien verwijderd: %d</item>
+        <item quantity="other">Sindsdien verwijderd: %d</item>
+    </plurals>
+    <plurals name="history_added_since">
+        <item quantity="one">Sindsdien toegevoegd: %d</item>
+        <item quantity="other">Sindsdien toegevoegd: %d</item>
+    </plurals>
+    <string name="history_copy_name">%1$s (hersteld)</string>
+    <string name="deleted_playlists">Onlangs verwijderde playlists</string>
+    <string name="deleted_playlists_summary">Krijg een playlist terug die de afgelopen 90 dagen is verwijderd</string>
+    <string name="deleted_playlists_hint">Playlists die dit apparaat had gezien en die de afgelopen 90 dagen zijn verwijderd, vanuit welke app ook. Sla een kopie op om er een terug te krijgen.</string>
+    <string name="deleted_playlists_none">Onlangs geen playlists verwijderd. Playlists die dit apparaat had gezien, staan hier tot 90 dagen nadat ze zijn verwijderd, vanuit welke app ook.</string>
+    <string name="deleted_playlists_on">Verwijderd op %1$s</string>
 </resources>

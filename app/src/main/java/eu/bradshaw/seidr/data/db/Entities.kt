@@ -100,3 +100,22 @@ data class PendingScrobble(
     val songId: String,
     val time: Long,
 )
+
+/**
+ * One state of one of the user's playlists, kept so an earlier one (or a
+ * deleted playlist) can be saved as a copy. See `PlaylistHistory`.
+ */
+@Entity(tableName = "playlist_version", indices = [Index("playlistId")])
+data class PlaylistVersion(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val playlistId: String,
+    val name: String,
+    /** Song ids in order, one per line. */
+    val songIds: String,
+    /** Wall-clock millis when this state was first seen. */
+    val savedAt: Long,
+    /** Set on the newest version only, once the playlist is gone from the server. */
+    val deletedAt: Long? = null,
+) {
+    val songs: List<String> get() = if (songIds.isEmpty()) emptyList() else songIds.split('\n')
+}

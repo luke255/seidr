@@ -43,6 +43,7 @@
     <string name="common_edit_conflict">The playlist changed elsewhere, so nothing was saved. Reloaded.</string>
     <!-- %1$s = the error message. -->
     <string name="common_edit_failed">Couldn\'t save: %1$s</string>
+    <string name="common_undo">Undo</string>
 
     <!-- Counts in subtitles. -->
     <plurals name="common_songs">

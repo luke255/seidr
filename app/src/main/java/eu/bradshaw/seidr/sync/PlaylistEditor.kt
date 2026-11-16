@@ -91,6 +91,21 @@ class PlaylistEditor(
             if (index != null) api().updatePlaylist(playlistId, songIndexesToRemove = listOf(index)).ok()
         }
 
+    /**
+     * Undo for [remove]: the song goes back, in its place if the playlist is
+     * otherwise as it was ([before], its songs before the remove), else on the end.
+     * Restoring the place rewrites the list, like a reorder and under the same
+     * guard: a fresh fetch must hold exactly [before]'s songs.
+     */
+    suspend fun undoRemove(playlistId: String, songId: String, before: List<String>): EditResult = attempt(playlistId, null) {
+        api().updatePlaylist(playlistId, songIdsToAdd = listOf(songId)).ok()
+        EditResolver.undoRemove(fresh(playlistId), before)?.let { api().replacePlaylistSongs(playlistId, it).ok() }
+    }
+
+    /** Undo for [delete]: the playlist again, as a new one (same name, songs and sharing). Its new id, or null. */
+    suspend fun undoDelete(name: String, songIds: List<String>, shared: Boolean): String? =
+        create(name, songIds)?.also { id -> if (shared) runCatching { api().updatePlaylist(id, public = true).ok() } }
+
     suspend fun rename(playlistId: String, name: String): EditResult =
         attempt(playlistId, PendingEdit(playlistId = playlistId, type = EditType.RENAME, name = name)) {
             api().updatePlaylist(playlistId, name = name).ok()

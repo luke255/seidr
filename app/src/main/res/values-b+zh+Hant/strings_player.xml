@@ -33,6 +33,7 @@
     <string name="common_edit_queued">離線：伺服器恢復連線後將儲存</string>
     <string name="common_edit_conflict">播放清單已在別處變更，因此未儲存任何內容。已重新載入。</string>
     <string name="common_edit_failed">無法儲存：%1$s</string>
+    <string name="common_undo">復原</string>
 
     <plurals name="common_songs">
         <item quantity="other">%d 首歌曲</item>

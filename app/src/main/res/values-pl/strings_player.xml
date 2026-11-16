@@ -33,6 +33,7 @@
     <string name="common_edit_queued">Offline: zapisze się na serwerze, gdy ten wróci</string>
     <string name="common_edit_conflict">Playlista zmieniła się gdzie indziej, więc nic nie zapisano. Wczytano ją ponownie.</string>
     <string name="common_edit_failed">Nie udało się zapisać: %1$s</string>
+    <string name="common_undo">Cofnij</string>
 
     <plurals name="common_songs">
         <item quantity="one">%d utwór</item>

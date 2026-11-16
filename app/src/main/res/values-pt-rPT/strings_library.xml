@@ -30,6 +30,9 @@
     <string name="library_sort_artist">Artista</string>
     <string name="library_sort_added">Adicionados recentemente</string>
     <string name="library_sort_year">Ano</string>
+    <string name="library_sort_most_played">Mais ouvidos</string>
+    <string name="playlist_sort_title">Título</string>
+    <string name="playlist_sort_album">Álbum</string>
     <string name="library_show_list">Ver em lista</string>
     <string name="library_show_grid">Ver em grelha</string>
     <string name="library_by_owner">de %1$s</string>
@@ -146,7 +149,6 @@
     <string name="home_kid_empty">Ainda não te aprovaram nada. Pede a quem iniciou a tua sessão que adicione algumas músicas.</string>
     <string name="home_playlists">Playlists</string>
     <string name="home_shared_playlists">Playlists partilhadas</string>
-    <string name="home_sort_az">A–Z</string>
     <string name="home_sort_recent">Recentes</string>
     <string name="home_by_owner">de %1$s</string>
     <string name="home_recently_added">Adicionados recentemente</string>
@@ -168,4 +170,26 @@
     <string name="album_disc">Disco %1$s</string>
 
     <string name="loved_title">Favoritas</string>
+    <string name="playlist_put_back">Devolvida a %1$s</string>
+    <string name="playlist_restored">%1$s restaurada</string>
+    <string name="playlist_restore_failed">Não foi possível restaurar. Verifique a ligação e tente novamente.</string>
+    <string name="playlist_history">Versões anteriores</string>
+    <string name="playlist_history_hint">Sempre que este dispositivo vê esta playlist mudar, em qualquer app, a versão anterior fica guardada aqui durante 90 dias. Guarde uma cópia para a recuperar.</string>
+    <string name="playlist_history_none">Ainda não há versões anteriores. Sempre que este dispositivo vê esta playlist mudar, em qualquer app, a versão anterior fica guardada aqui durante 90 dias.</string>
+    <plurals name="history_removed_since">
+        <item quantity="one">Removidas desde então: %d</item>
+        <item quantity="many">Removidas desde então: %d</item>
+        <item quantity="other">Removidas desde então: %d</item>
+    </plurals>
+    <plurals name="history_added_since">
+        <item quantity="one">Adicionadas desde então: %d</item>
+        <item quantity="many">Adicionadas desde então: %d</item>
+        <item quantity="other">Adicionadas desde então: %d</item>
+    </plurals>
+    <string name="history_copy_name">%1$s (restaurada)</string>
+    <string name="deleted_playlists">Playlists eliminadas recentemente</string>
+    <string name="deleted_playlists_summary">Recupere uma playlist eliminada nos últimos 90 dias</string>
+    <string name="deleted_playlists_hint">Playlists que este dispositivo já tinha visto e que foram eliminadas nos últimos 90 dias, em qualquer app. Guarde uma cópia para recuperar uma.</string>
+    <string name="deleted_playlists_none">Nenhuma playlist foi eliminada recentemente. As que este dispositivo já tinha visto aparecem aqui durante 90 dias depois de eliminadas, em qualquer app.</string>
+    <string name="deleted_playlists_on">Eliminada a %1$s</string>
 </resources>

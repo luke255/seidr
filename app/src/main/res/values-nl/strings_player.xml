@@ -33,6 +33,7 @@
     <string name="common_edit_queued">Offline: wordt op de server opgeslagen zodra die terug is</string>
     <string name="common_edit_conflict">De playlist is ergens anders gewijzigd, dus er is niets opgeslagen. Opnieuw geladen.</string>
     <string name="common_edit_failed">Kan niet opslaan: %1$s</string>
+    <string name="common_undo">Ongedaan maken</string>
 
     <plurals name="common_songs">
         <item quantity="one">%d nummer</item>

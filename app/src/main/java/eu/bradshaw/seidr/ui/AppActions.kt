@@ -1,6 +1,8 @@
 package eu.bradshaw.seidr.ui
 
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -73,6 +75,19 @@ class AppActions(
             EditResult.Conflict -> graph.app.getString(R.string.common_edit_conflict)
             is EditResult.Failed -> graph.app.getString(R.string.common_edit_failed, result.message)
         })
+    }
+
+    /**
+     * As [report], and when the edit went through, the snackbar offers Undo, which
+     * runs [undo] (reporting its own result) if tapped.
+     */
+    fun report(result: EditResult, applied: String, undo: suspend () -> Unit) {
+        if (result != EditResult.Applied) return report(result, applied)
+        scope.launch {
+            snackbar.currentSnackbarData?.dismiss()
+            val r = snackbar.showSnackbar(applied, graph.app.getString(R.string.common_undo), duration = SnackbarDuration.Long)
+            if (r == SnackbarResult.ActionPerformed) undo()
+        }
     }
 
     fun launch(block: suspend CoroutineScope.() -> Unit) = scope.launch(block = block)

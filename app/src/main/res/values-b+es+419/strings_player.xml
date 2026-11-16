@@ -33,6 +33,7 @@
     <string name="common_edit_queued">Sin conexión: se guardará en el servidor cuando vuelva</string>
     <string name="common_edit_conflict">La playlist cambió en otro lado, así que no se guardó nada. Se volvió a cargar.</string>
     <string name="common_edit_failed">No se pudo guardar: %1$s</string>
+    <string name="common_undo">Deshacer</string>
 
     <plurals name="common_songs">
         <item quantity="one">%d canción</item>

@@ -4,6 +4,11 @@ import androidx.compose.ui.res.stringResource
 import eu.bradshaw.seidr.R
 import androidx.activity.compose.PredictiveBackHandler
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationVector1D
+import androidx.compose.foundation.gestures.detectVerticalDragGestures
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.input.pointer.util.VelocityTracker
+import kotlinx.coroutines.coroutineScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.key
 import androidx.compose.ui.draw.drawWithContent
@@ -119,6 +124,8 @@ private fun RouteContent(route: Route) {
         Route.SignInDevice -> eu.bradshaw.seidr.ui.pair.SignInDeviceScreen()
         Route.Licences -> eu.bradshaw.seidr.ui.screens.LicencesScreen()
         Route.WhatsNew -> eu.bradshaw.seidr.ui.screens.WhatsNewScreen()
+        is Route.PlaylistHistory -> eu.bradshaw.seidr.ui.screens.PlaylistHistoryScreen(route.id)
+        Route.DeletedPlaylists -> eu.bradshaw.seidr.ui.screens.DeletedPlaylistsScreen()
         is Route.LicenceText -> eu.bradshaw.seidr.ui.screens.LicenceTextScreen(route.title, route.file)
     }
 }
@@ -286,7 +293,9 @@ fun MainScreen(graph: Graph, nav: Navigator) {
             else NarrowLayout(nav, saveable, focus, actions, snackbar, if (swiping) swipe.value else null)
         }
         // Now Playing and the queue cover the whole window on both screens.
-        val npPull = Modifier.graphicsLayer { translationY = npSwipe.value * size.height }
+        // A drag down pulls Now Playing with it too; outside its layer, so the finger isn't measured from a moving sheet.
+        val npPull = Modifier.pullDownToClose(npSwipe) { actions.nowPlayingOpen = false }
+            .graphicsLayer { translationY = npSwipe.value * size.height }
         val queuePull = Modifier.graphicsLayer { translationY = queueSwipe.value * size.height }
         AnimatedVisibility(npShown, npPull, enter = slideInVertically { it }, exit = slideOutVertically { it }) {
             CompositionLocalProvider(LocalPrimaryFocus provides nowPlayingPrimary) {
@@ -301,6 +310,38 @@ fun MainScreen(graph: Graph, nav: Navigator) {
         }
         AddToPlaylistDialog()
         eu.bradshaw.seidr.ui.screens.CheckCode(graph.connect, graph.settings.server.collectAsStateWithLifecycle().value?.username)
+    }
+}
+
+/**
+ * Drag down to pull a full-screen sheet with the finger ([pull]: how far, 0..1 of its height),
+ * and let go far enough down, or flung down, to close it; otherwise it springs back. Children
+ * see the drag first, so sideways pagers, the scrubber and scrolling lyrics keep theirs.
+ */
+private fun Modifier.pullDownToClose(pull: Animatable<Float, AnimationVector1D>, onClose: () -> Unit) = pointerInput(pull) {
+    coroutineScope {
+        val tracker = VelocityTracker()
+        var total = 0f
+        fun settle(close: Boolean) = launch {
+            if (close) {
+                pull.animateTo(1f, tween(160))
+                onClose()
+            } else pull.animateTo(0f, tween(200))
+        }
+        detectVerticalDragGestures(
+            onDragStart = { total = 0f; tracker.resetTracking() },
+            onDragEnd = {
+                val v = tracker.calculateVelocity().y
+                val fling = 1_000.dp.toPx()
+                settle(v > fling || (total > 120.dp.toPx() && v > -fling / 2))
+            },
+            onDragCancel = { settle(false) },
+        ) { change, dy ->
+            change.consume()
+            tracker.addPosition(change.uptimeMillis, change.position)
+            total = (total + dy).coerceAtLeast(0f)
+            launch { pull.snapTo(total / size.height) }
+        }
     }
 }
 

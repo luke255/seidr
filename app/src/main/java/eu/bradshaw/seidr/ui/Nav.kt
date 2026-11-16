@@ -24,6 +24,8 @@ sealed interface Route {
     data object SignInDevice : Route
     data object Licences : Route
     data object WhatsNew : Route
+    data class PlaylistHistory(val id: String) : Route
+    data object DeletedPlaylists : Route
     data class LicenceText(val title: String, val file: String) : Route
 }
 

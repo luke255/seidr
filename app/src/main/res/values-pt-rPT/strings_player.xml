@@ -33,6 +33,7 @@
     <string name="common_edit_queued">Offline: será guardado no servidor quando ele voltar</string>
     <string name="common_edit_conflict">A playlist foi alterada noutro lado, por isso nada foi guardado. Foi recarregada.</string>
     <string name="common_edit_failed">Não foi possível guardar: %1$s</string>
+    <string name="common_undo">Anular</string>
 
     <plurals name="common_songs">
         <item quantity="one">%d música</item>

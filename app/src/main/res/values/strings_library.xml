@@ -31,6 +31,9 @@
     <string name="library_sort_artist">Artist</string>
     <string name="library_sort_added">Recently added</string>
     <string name="library_sort_year">Year</string>
+    <string name="library_sort_most_played">Most played</string>
+    <string name="playlist_sort_title">Title</string>
+    <string name="playlist_sort_album">Album</string>
     <string name="library_show_list">Show as list</string>
     <string name="library_show_grid">Show as grid</string>
     <!-- Playlist owner shown in a subtitle. %1$s is the owner\'s username. -->
@@ -170,7 +173,6 @@
     <string name="home_playlists">Playlists</string>
     <string name="home_shared_playlists">Shared playlists</string>
     <!-- Playlist shelf sort buttons: alphabetical / most recent first. For alphabetical, use the language\'s natural short label (e.g. "by name" where A–Z means nothing). -->
-    <string name="home_sort_az">A–Z</string>
     <string name="home_sort_recent">Recent</string>
     <!-- %1$s is the playlist owner\'s username -->
     <string name="home_by_owner">by %1$s</string>
@@ -198,4 +200,24 @@
 
     <!-- The built-in playlist of the songs you've loved (starred). -->
     <string name="loved_title">Loved</string>
+    <string name="playlist_put_back">Put back in %1$s</string>
+    <string name="playlist_restored">Restored %1$s</string>
+    <string name="playlist_restore_failed">Couldn\'t restore it. Check your connection and try again.</string>
+    <string name="playlist_history">Earlier versions</string>
+    <string name="playlist_history_hint">Each time this device sees this playlist change, from any app, the version before is kept here for 90 days. Save a copy to get one back.</string>
+    <string name="playlist_history_none">No earlier versions yet. Each time this device sees this playlist change, from any app, the version before is kept here for 90 days.</string>
+    <plurals name="history_removed_since">
+        <item quantity="one">%d removed since</item>
+        <item quantity="other">%d removed since</item>
+    </plurals>
+    <plurals name="history_added_since">
+        <item quantity="one">%d added since</item>
+        <item quantity="other">%d added since</item>
+    </plurals>
+    <string name="history_copy_name">%1$s (restored)</string>
+    <string name="deleted_playlists">Recently deleted playlists</string>
+    <string name="deleted_playlists_summary">Get back a playlist deleted in the last 90 days</string>
+    <string name="deleted_playlists_hint">Playlists this device had seen that were deleted in the last 90 days, from any app. Save a copy to get one back.</string>
+    <string name="deleted_playlists_none">No playlists deleted lately. Ones this device had seen show here for 90 days after they\'re deleted, from any app.</string>
+    <string name="deleted_playlists_on">Deleted %1$s</string>
 </resources>

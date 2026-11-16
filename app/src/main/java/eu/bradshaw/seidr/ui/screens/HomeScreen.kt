@@ -1,14 +1,16 @@
 package eu.bradshaw.seidr.ui.screens
 
+import eu.bradshaw.seidr.data.LovedAt
+import eu.bradshaw.seidr.data.PlaylistSort
+import eu.bradshaw.seidr.ui.components.SortButton
+import eu.bradshaw.seidr.ui.components.label
 import eu.bradshaw.seidr.ui.components.bottomContentPadding
-import eu.bradshaw.seidr.data.nameOrder
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,14 +18,10 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import eu.bradshaw.seidr.ui.components.RefreshBox
@@ -89,7 +87,7 @@ fun HomeScreen() {
     val playlists by graph.browse.playlists.collectAsStateWithLifecycle()
     val online by graph.status.online.collectAsStateWithLifecycle()
     val lastPlayed by graph.playlistPlays.lastPlayed.collectAsStateWithLifecycle()
-    val alpha by graph.settings.homePlaylistsAlpha.collectAsStateWithLifecycle()
+    val sort by graph.settings.playlistsSort.collectAsStateWithLifecycle()
     val server by graph.browseLogin.collectAsStateWithLifecycle()
     val kid by graph.browseKids.rules.collectAsStateWithLifecycle()
     val starred by graph.browse.starredSongs.collectAsStateWithLifecycle()
@@ -129,15 +127,14 @@ fun HomeScreen() {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             // Home has no tab header, so the first shelf sits where the other tabs' titles do.
                             SectionHeader(stringResource(R.string.home_playlists), Modifier.weight(1f), top = 16.dp)
-                            TextButton(onClick = { graph.settings.setHomePlaylistsAlpha(!alpha) }, Modifier.padding(top = 4.dp, end = 4.dp)) {
-                                Icon(Icons.AutoMirrored.Filled.Sort, null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.onSurface)
-                                Text(" " + stringResource(if (alpha) R.string.home_sort_az else R.string.home_sort_recent), color = MaterialTheme.colorScheme.onSurface)
-                            }
+                            // The same order as Library's playlists, and changing either changes both.
+                            SortButton(PlaylistSort.entries, sort, PlaylistSort::label, graph.settings::setPlaylistsSort,
+                                Modifier.padding(top = 4.dp, end = 4.dp))
                         }
                     }
                     item {
                         // null is Loved.
-                        val shelf = withLoved(sortPlaylists(pls, alpha, lastPlayed), alpha, lastPlayed, lastLoved)
+                        val shelf = sort.sort(pls, lastPlayed, LovedAt(lastPlayed[Loved.PLAYS_KEY], lastLoved))
                         val row = rememberLazyListState()
                         // A lazy row keeps its first visible item when items are put in front of it,
                         // so a playlist that arrives first (one just created, after the cached list
@@ -167,7 +164,7 @@ fun HomeScreen() {
                     item(key = "h:shared") { SectionHeader(stringResource(R.string.home_shared_playlists)) }
                     item(key = "s:shared") {
                         LazyRow(contentPadding = PaddingValues(horizontal = 10.dp)) {
-                            items(sortPlaylists(shared, alpha, lastPlayed), key = { it.id }) { p ->
+                            items(sort.sort(shared, lastPlayed, loved = null).filterNotNull(), key = { it.id }) { p ->
                                 CoverCard(p.name, playlistLine(p, server?.username), p.coverArt, onClick = { actions.open(Route.Playlist(p.id)) })
                             }
                         }
@@ -187,26 +184,6 @@ fun HomeScreen() {
  * created on the server, whichever is later, so a new playlist shows at the
  * front. Ties (none of either) go A–Z.
  */
-private fun sortPlaylists(pls: List<Playlist>, alpha: Boolean, lastPlayed: Map<String, Long>): List<Playlist> {
-    val byName = nameOrder<Playlist> { it.name }
-    return if (alpha) pls.sortedWith(byName)
-    else pls.sortedWith(compareByDescending<Playlist> { recency(it, lastPlayed) }.then(byName))
-}
-
-private fun recency(p: Playlist, lastPlayed: Map<String, Long>): Long = maxOf(lastPlayed[p.id] ?: 0L, epochMs(p.created))
-
-private fun epochMs(iso: String?): Long = iso?.let { runCatching { java.time.Instant.parse(it).toEpochMilli() }.getOrNull() } ?: 0L
-
-/**
- * [sorted] with Loved (null) put in: first A–Z, else by its recency, which is
- * when it was last played here or a song was last loved, whichever is later.
- */
-private fun withLoved(sorted: List<Playlist>, alpha: Boolean, lastPlayed: Map<String, Long>, lastLoved: String?): List<Playlist?> {
-    val loved = maxOf(lastPlayed[Loved.PLAYS_KEY] ?: 0L, epochMs(lastLoved))
-    val at = if (alpha) 0 else sorted.indexOfFirst { recency(it, lastPlayed) <= loved }.let { if (it < 0) sorted.size else it }
-    return sorted.toMutableList<Playlist?>().apply { add(at, null) }
-}
-
 private fun androidx.compose.foundation.lazy.LazyListScope.albumShelf(title: String, albums: List<Album>, open: (String) -> Unit) {
     if (albums.isEmpty()) return
     item(key = "h:$title") { SectionHeader(title) }

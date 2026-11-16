@@ -28,6 +28,9 @@
     <string name="library_sort_artist">Artist</string>
     <string name="library_sort_added">Nylig lagt til</string>
     <string name="library_sort_year">År</string>
+    <string name="library_sort_most_played">Mest spilt</string>
+    <string name="playlist_sort_title">Tittel</string>
+    <string name="playlist_sort_album">Album</string>
     <string name="library_show_list">Vis som liste</string>
     <string name="library_show_grid">Vis som rutenett</string>
     <string name="library_by_owner">av %1$s</string>
@@ -137,7 +140,6 @@
     <string name="home_kid_empty">Ingenting er godkjent for deg ennå. Be den som logget deg inn, om å legge til noen låter.</string>
     <string name="home_playlists">Spillelister</string>
     <string name="home_shared_playlists">Delte spillelister</string>
-    <string name="home_sort_az">A–Å</string>
     <string name="home_sort_recent">Nylige</string>
     <string name="home_by_owner">av %1$s</string>
     <string name="home_recently_added">Nylig lagt til</string>
@@ -159,4 +161,24 @@
     <string name="album_disc">Plate %1$s</string>
 
     <string name="loved_title">Favoritter</string>
+    <string name="playlist_put_back">Lagt tilbake i %1$s</string>
+    <string name="playlist_restored">%1$s er gjenopprettet</string>
+    <string name="playlist_restore_failed">Kunne ikke gjenopprette. Sjekk tilkoblingen og prøv igjen.</string>
+    <string name="playlist_history">Tidligere versjoner</string>
+    <string name="playlist_history_hint">Hver gang denne enheten ser at spillelisten endres, fra hvilken som helst app, lagres den forrige versjonen her i 90 dager. Lagre en kopi for å få den tilbake.</string>
+    <string name="playlist_history_none">Ingen tidligere versjoner ennå. Hver gang denne enheten ser at spillelisten endres, fra hvilken som helst app, lagres den forrige versjonen her i 90 dager.</string>
+    <plurals name="history_removed_since">
+        <item quantity="one">%d fjernet siden</item>
+        <item quantity="other">%d fjernet siden</item>
+    </plurals>
+    <plurals name="history_added_since">
+        <item quantity="one">%d lagt til siden</item>
+        <item quantity="other">%d lagt til siden</item>
+    </plurals>
+    <string name="history_copy_name">%1$s (gjenopprettet)</string>
+    <string name="deleted_playlists">Nylig slettede spillelister</string>
+    <string name="deleted_playlists_summary">Få tilbake en spilleliste som er slettet de siste 90 dagene</string>
+    <string name="deleted_playlists_hint">Spillelister denne enheten hadde sett, som er slettet de siste 90 dagene, fra hvilken som helst app. Lagre en kopi for å få en tilbake.</string>
+    <string name="deleted_playlists_none">Ingen spillelister er slettet nylig. De denne enheten hadde sett, vises her i 90 dager etter at de er slettet, fra hvilken som helst app.</string>
+    <string name="deleted_playlists_on">Slettet %1$s</string>
 </resources>

@@ -33,6 +33,7 @@
     <string name="common_edit_queued">Εκτός σύνδεσης: θα αποθηκευτεί στον διακομιστή όταν επανέλθει</string>
     <string name="common_edit_conflict">Η playlist άλλαξε από αλλού, οπότε δεν αποθηκεύτηκε τίποτα. Φορτώθηκε ξανά.</string>
     <string name="common_edit_failed">Δεν αποθηκεύτηκε: %1$s</string>
+    <string name="common_undo">Αναίρεση</string>
 
     <plurals name="common_songs">
         <item quantity="one">%d τραγούδι</item>

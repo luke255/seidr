@@ -33,6 +33,7 @@
     <string name="common_edit_queued">Offline: akkor mentjük a szerverre, ha újra elérhető</string>
     <string name="common_edit_conflict">A lejátszási lista közben máshol megváltozott, ezért semmit sem mentettünk. Újratöltve.</string>
     <string name="common_edit_failed">Nem sikerült menteni: %1$s</string>
+    <string name="common_undo">Visszavonás</string>
 
     <plurals name="common_songs">
         <item quantity="one">%d dal</item>

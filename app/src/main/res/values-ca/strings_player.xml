@@ -33,6 +33,7 @@
     <string name="common_edit_queued">Sense connexió: es desarà al servidor quan torni</string>
     <string name="common_edit_conflict">La llista ha canviat en un altre lloc, i no s\'ha desat res. S\'ha tornat a carregar.</string>
     <string name="common_edit_failed">No s\'ha pogut desar: %1$s</string>
+    <string name="common_undo">Desfés</string>
 
     <plurals name="common_songs">
         <item quantity="one">%d cançó</item>

@@ -33,4 +33,13 @@ class EditResolverTest {
         assertNull(EditResolver.reorder(listOf("a", "b"), seen, listOf("c", "a", "b")))
         assertNull(EditResolver.reorder(seen, seen, listOf("a", "a", "b")))
     }
+
+    @Test fun undoRemovePutsTheSongBackInPlace() {
+        assertEquals(listOf("a", "b", "c"), EditResolver.undoRemove(listOf("a", "c", "b"), listOf("a", "b", "c")))
+    }
+
+    @Test fun undoRemoveLeavesItOnTheEndIfSomethingElseChanged() {
+        assertEquals(null, EditResolver.undoRemove(listOf("a", "c", "d", "b"), listOf("a", "b", "c")))
+        assertEquals(null, EditResolver.undoRemove(listOf("a", "b", "c"), listOf("a", "b", "c")))
+    }
 }

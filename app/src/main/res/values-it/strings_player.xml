@@ -33,6 +33,7 @@
     <string name="common_edit_queued">Offline: verrà salvato sul server quando tornerà disponibile</string>
     <string name="common_edit_conflict">La playlist è cambiata altrove, quindi non è stato salvato nulla. È stata ricaricata.</string>
     <string name="common_edit_failed">Impossibile salvare: %1$s</string>
+    <string name="common_undo">Annulla</string>
 
     <plurals name="common_songs">
         <item quantity="one">%d brano</item>

@@ -72,3 +72,31 @@ interface OfflineDao {
     @Query("SELECT * FROM pending_scrobble ORDER BY time") suspend fun scrobbles(): List<PendingScrobble>
     @Query("DELETE FROM pending_scrobble WHERE id = :id") suspend fun deleteScrobble(id: Long)
 }
+
+/** Playlist history: newest first is highest id first. */
+@Dao
+interface HistoryDao {
+    @Insert suspend fun insert(version: PlaylistVersion): Long
+    @Query("SELECT * FROM playlist_version WHERE playlistId = :playlistId ORDER BY id DESC LIMIT 1")
+    suspend fun newest(playlistId: String): PlaylistVersion?
+    @Query("SELECT * FROM playlist_version WHERE playlistId = :playlistId ORDER BY id DESC")
+    fun versions(playlistId: String): Flow<List<PlaylistVersion>>
+    @Query("SELECT DISTINCT playlistId FROM playlist_version") suspend fun playlistIds(): List<String>
+    @Query("SELECT * FROM playlist_version WHERE deletedAt IS NOT NULL ORDER BY deletedAt DESC")
+    fun deleted(): Flow<List<PlaylistVersion>>
+    @Query("UPDATE playlist_version SET deletedAt = :at WHERE id = :versionId") suspend fun setDeleted(versionId: Long, at: Long?)
+    @Query(
+        "DELETE FROM playlist_version WHERE playlistId = :playlistId AND id NOT IN " +
+            "(SELECT id FROM playlist_version WHERE playlistId = :playlistId ORDER BY id DESC LIMIT :keep)"
+    )
+    suspend fun keepNewest(playlistId: String, keep: Int)
+    /** Versions older than [before], except each playlist's newest (what it's compared against). */
+    @Query("DELETE FROM playlist_version WHERE savedAt < :before AND id NOT IN (SELECT MAX(id) FROM playlist_version GROUP BY playlistId)")
+    suspend fun dropOlderThan(before: Long)
+    @Query("DELETE FROM playlist_version WHERE playlistId IN (SELECT playlistId FROM playlist_version WHERE deletedAt < :before)")
+    suspend fun dropDeletedBefore(before: Long)
+    @Query("DELETE FROM playlist_version") suspend fun clear()
+    /** A deleted playlist came back as [to]: its history goes with it. */
+    @Query("UPDATE playlist_version SET playlistId = :to, deletedAt = NULL WHERE playlistId = :from")
+    suspend fun move(from: String, to: String)
+}

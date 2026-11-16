@@ -28,6 +28,9 @@
     <string name="library_sort_artist">Kunstner</string>
     <string name="library_sort_added">Senest tilføjet</string>
     <string name="library_sort_year">År</string>
+    <string name="library_sort_most_played">Mest afspillet</string>
+    <string name="playlist_sort_title">Titel</string>
+    <string name="playlist_sort_album">Album</string>
     <string name="library_show_list">Vis som liste</string>
     <string name="library_show_grid">Vis som gitter</string>
     <string name="library_by_owner">af %1$s</string>
@@ -137,7 +140,6 @@
     <string name="home_kid_empty">Der er ikke godkendt noget til dig endnu. Bed den, der loggede dig ind, om at tilføje nogle sange.</string>
     <string name="home_playlists">Playlister</string>
     <string name="home_shared_playlists">Delte playlister</string>
-    <string name="home_sort_az">A–Å</string>
     <string name="home_sort_recent">Seneste</string>
     <string name="home_by_owner">af %1$s</string>
     <string name="home_recently_added">Senest tilføjet</string>
@@ -159,4 +161,24 @@
     <string name="album_disc">Disk %1$s</string>
 
     <string name="loved_title">Favoritter</string>
+    <string name="playlist_put_back">Lagt tilbage i %1$s</string>
+    <string name="playlist_restored">%1$s er gendannet</string>
+    <string name="playlist_restore_failed">Kunne ikke gendanne den. Tjek din forbindelse, og prøv igen.</string>
+    <string name="playlist_history">Tidligere versioner</string>
+    <string name="playlist_history_hint">Hver gang denne enhed ser denne playliste ændre sig, fra en hvilken som helst app, gemmes den forrige version her i 90 dage. Gem en kopi for at få den tilbage.</string>
+    <string name="playlist_history_none">Ingen tidligere versioner endnu. Hver gang denne enhed ser denne playliste ændre sig, fra en hvilken som helst app, gemmes den forrige version her i 90 dage.</string>
+    <plurals name="history_removed_since">
+        <item quantity="one">%d fjernet siden</item>
+        <item quantity="other">%d fjernet siden</item>
+    </plurals>
+    <plurals name="history_added_since">
+        <item quantity="one">%d tilføjet siden</item>
+        <item quantity="other">%d tilføjet siden</item>
+    </plurals>
+    <string name="history_copy_name">%1$s (gendannet)</string>
+    <string name="deleted_playlists">Nyligt slettede playlister</string>
+    <string name="deleted_playlists_summary">Få en playliste tilbage, der er slettet inden for 90 dage</string>
+    <string name="deleted_playlists_hint">Playlister, som denne enhed havde set, og som er slettet inden for de sidste 90 dage, fra en hvilken som helst app. Gem en kopi for at få en tilbage.</string>
+    <string name="deleted_playlists_none">Ingen playlister er slettet for nylig. Dem, denne enhed havde set, vises her i 90 dage efter, de er slettet, fra en hvilken som helst app.</string>
+    <string name="deleted_playlists_on">Slettet %1$s</string>
 </resources>

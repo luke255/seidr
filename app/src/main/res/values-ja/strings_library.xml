@@ -26,6 +26,9 @@
     <string name="library_sort_artist">アーティスト</string>
     <string name="library_sort_added">最近追加</string>
     <string name="library_sort_year">年</string>
+    <string name="library_sort_most_played">再生回数順</string>
+    <string name="playlist_sort_title">タイトル</string>
+    <string name="playlist_sort_album">アルバム</string>
     <string name="library_show_list">リストで表示</string>
     <string name="library_show_grid">グリッドで表示</string>
     <string name="library_by_owner">作成者：%1$s</string>
@@ -128,7 +131,6 @@
     <string name="home_kid_empty">まだ許可された曲がありません。サインインしてくれた人に、曲を追加してもらいましょう。</string>
     <string name="home_playlists">プレイリスト</string>
     <string name="home_shared_playlists">共有プレイリスト</string>
-    <string name="home_sort_az">名前順</string>
     <string name="home_sort_recent">最近</string>
     <string name="home_by_owner">作成者：%1$s</string>
     <string name="home_recently_added">最近追加</string>
@@ -150,4 +152,22 @@
     <string name="album_disc">ディスク%1$s</string>
 
     <string name="loved_title">お気に入りの曲</string>
+    <string name="playlist_put_back">%1$sに戻しました</string>
+    <string name="playlist_restored">%1$sを復元しました</string>
+    <string name="playlist_restore_failed">復元できませんでした。接続を確認して、もう一度お試しください。</string>
+    <string name="playlist_history">以前のバージョン</string>
+    <string name="playlist_history_hint">このデバイスがこのプレイリストの変更を確認するたびに（どのアプリでの変更でも）、変更前のバージョンをここに90日間保存します。コピーを保存すると元に戻せます。</string>
+    <string name="playlist_history_none">以前のバージョンはまだありません。このデバイスがこのプレイリストの変更を確認するたびに（どのアプリでの変更でも）、変更前のバージョンをここに90日間保存します。</string>
+    <plurals name="history_removed_since">
+        <item quantity="other">その後の削除: %d曲</item>
+    </plurals>
+    <plurals name="history_added_since">
+        <item quantity="other">その後の追加: %d曲</item>
+    </plurals>
+    <string name="history_copy_name">%1$s（復元）</string>
+    <string name="deleted_playlists">最近削除したプレイリスト</string>
+    <string name="deleted_playlists_summary">過去90日以内に削除したプレイリストを元に戻す</string>
+    <string name="deleted_playlists_hint">このデバイスが確認したことがあり、過去90日以内に削除されたプレイリスト（どのアプリで削除されたものでも）。コピーを保存すると元に戻せます。</string>
+    <string name="deleted_playlists_none">最近削除されたプレイリストはありません。このデバイスが確認したことのあるプレイリストは、削除後90日間ここに表示されます（どのアプリで削除されたものでも）。</string>
+    <string name="deleted_playlists_on">%1$sに削除</string>
 </resources>

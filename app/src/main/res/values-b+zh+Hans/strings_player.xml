@@ -33,6 +33,7 @@
     <string name="common_edit_queued">离线：服务器恢复后将保存到服务器</string>
     <string name="common_edit_conflict">歌单已在别处被修改，因此未保存任何更改。已重新加载。</string>
     <string name="common_edit_failed">无法保存：%1$s</string>
+    <string name="common_undo">撤消</string>
 
     <plurals name="common_songs">
         <item quantity="other">%d 首歌曲</item>

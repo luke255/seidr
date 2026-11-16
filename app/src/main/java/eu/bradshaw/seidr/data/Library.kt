@@ -34,8 +34,11 @@ class Library(
     private val user: StateFlow<String?>,
     private val showOthersPrivate: StateFlow<Boolean>,
     private val kids: Kids,
-    scope: CoroutineScope,
+    private val scope: CoroutineScope,
 ) {
+    /** The main library's safety net, told of every full fetch and listing; null for a kid view's. */
+    var history: PlaylistHistory? = null
+
     private val api get() = client.api
     private val kid: KidRules? get() = kids.current
 
@@ -107,9 +110,12 @@ class Library(
 
     suspend fun fetchAllPlaylists(): List<Playlist> =
         api.getPlaylists().ok().playlists?.playlist.orEmpty().also(::setAll)
+            .also { l -> history?.let { h -> scope.launch { h.listed(l) } } }
 
     suspend fun playlist(id: String): Playlist =
-        (api.getPlaylist(id).ok().playlist ?: error("No playlist")).also(::rememberSongs).let(::forKid)
+        (api.getPlaylist(id).ok().playlist ?: error("No playlist")).also(::rememberSongs)
+            .also { p -> history?.takeUnless { isOthers(p) }?.let { h -> scope.launch { h.seen(p) } } }
+            .let(::forKid)
 
     private fun forKid(p: Playlist): Playlist = kid?.let { it.playlist(p) ?: error("No playlist") } ?: p
     private fun forKid(a: Album): Album = kid?.let { it.album(a) ?: error("No album") } ?: a

@@ -32,6 +32,9 @@
     <string name="library_sort_artist">Wykonawca</string>
     <string name="library_sort_added">Ostatnio dodane</string>
     <string name="library_sort_year">Rok</string>
+    <string name="library_sort_most_played">Najczęściej odtwarzane</string>
+    <string name="playlist_sort_title">Tytuł</string>
+    <string name="playlist_sort_album">Album</string>
     <string name="library_show_list">Pokaż jako listę</string>
     <string name="library_show_grid">Pokaż jako siatkę</string>
     <string name="library_by_owner">autor: %1$s</string>
@@ -155,7 +158,6 @@
     <string name="home_kid_empty">Nic nie zostało jeszcze dla Ciebie zatwierdzone. Poproś osobę, która Cię zalogowała, o dodanie kilku utworów.</string>
     <string name="home_playlists">Playlisty</string>
     <string name="home_shared_playlists">Udostępnione playlisty</string>
-    <string name="home_sort_az">A–Z</string>
     <string name="home_sort_recent">Ostatnie</string>
     <string name="home_by_owner">autor: %1$s</string>
     <string name="home_recently_added">Ostatnio dodane</string>
@@ -177,4 +179,28 @@
     <string name="album_disc">Płyta %1$s</string>
 
     <string name="loved_title">Ulubione</string>
+    <string name="playlist_put_back">Przywrócono do playlisty %1$s</string>
+    <string name="playlist_restored">Przywrócono %1$s</string>
+    <string name="playlist_restore_failed">Nie udało się przywrócić. Sprawdź połączenie i spróbuj ponownie.</string>
+    <string name="playlist_history">Wcześniejsze wersje</string>
+    <string name="playlist_history_hint">Za każdym razem, gdy to urządzenie zobaczy zmianę tej playlisty (w dowolnej aplikacji), poprzednia wersja jest tu przechowywana przez 90 dni. Zapisz kopię, aby ją odzyskać.</string>
+    <string name="playlist_history_none">Nie ma jeszcze wcześniejszych wersji. Za każdym razem, gdy to urządzenie zobaczy zmianę tej playlisty (w dowolnej aplikacji), poprzednia wersja jest tu przechowywana przez 90 dni.</string>
+    <plurals name="history_removed_since">
+        <item quantity="one">Usunięte od tego czasu: %d</item>
+        <item quantity="few">Usunięte od tego czasu: %d</item>
+        <item quantity="many">Usunięte od tego czasu: %d</item>
+        <item quantity="other">Usunięte od tego czasu: %d</item>
+    </plurals>
+    <plurals name="history_added_since">
+        <item quantity="one">Dodane od tego czasu: %d</item>
+        <item quantity="few">Dodane od tego czasu: %d</item>
+        <item quantity="many">Dodane od tego czasu: %d</item>
+        <item quantity="other">Dodane od tego czasu: %d</item>
+    </plurals>
+    <string name="history_copy_name">%1$s (przywrócona)</string>
+    <string name="deleted_playlists">Ostatnio usunięte playlisty</string>
+    <string name="deleted_playlists_summary">Odzyskaj playlistę usuniętą w ciągu ostatnich 90 dni</string>
+    <string name="deleted_playlists_hint">Playlisty, które to urządzenie znało, usunięte w ciągu ostatnich 90 dni (w dowolnej aplikacji). Zapisz kopię, aby ją odzyskać.</string>
+    <string name="deleted_playlists_none">Ostatnio nie usunięto żadnej playlisty. Te, które to urządzenie znało, są tu widoczne przez 90 dni po usunięciu (w dowolnej aplikacji).</string>
+    <string name="deleted_playlists_on">Usunięto %1$s</string>
 </resources>

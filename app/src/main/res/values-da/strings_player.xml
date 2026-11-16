@@ -33,6 +33,7 @@
     <string name="common_edit_queued">Offline: gemmes på serveren, når den er tilbage</string>
     <string name="common_edit_conflict">Playlisten blev ændret et andet sted, så intet blev gemt. Den er indlæst igen.</string>
     <string name="common_edit_failed">Kunne ikke gemme: %1$s</string>
+    <string name="common_undo">Fortryd</string>
 
     <plurals name="common_songs">
         <item quantity="one">%d sang</item>

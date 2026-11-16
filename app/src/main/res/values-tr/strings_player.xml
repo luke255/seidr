@@ -33,6 +33,7 @@
     <string name="common_edit_queued">Çevrimdışı: sunucu geri gelince kaydedilecek</string>
     <string name="common_edit_conflict">Çalma listesi başka bir yerde değişti, bu yüzden hiçbir şey kaydedilmedi. Yeniden yüklendi.</string>
     <string name="common_edit_failed">Kaydedilemedi: %1$s</string>
+    <string name="common_undo">Geri al</string>
 
     <plurals name="common_songs">
         <item quantity="one">%d şarkı</item>

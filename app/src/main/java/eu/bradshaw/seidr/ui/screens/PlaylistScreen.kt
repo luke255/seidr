@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.DragHandle
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.LibraryAdd
 import androidx.compose.material.icons.filled.Share
@@ -49,6 +50,9 @@ import eu.bradshaw.seidr.data.db.OfflineSource
 import eu.bradshaw.seidr.data.db.SourceType
 import eu.bradshaw.seidr.ui.LocalActions
 import eu.bradshaw.seidr.ui.components.CollectionLayout
+import eu.bradshaw.seidr.ui.components.SortButton
+import eu.bradshaw.seidr.data.TrackSort
+import eu.bradshaw.seidr.ui.components.label
 import eu.bradshaw.seidr.ui.components.HeaderFacts
 import eu.bradshaw.seidr.ui.components.approvedCount
 import eu.bradshaw.seidr.ui.components.rememberAllDownloaded
@@ -111,6 +115,11 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
     val canShare = !graph.readOnly && mine
     val canCopy = !graph.readOnly && !mine
     val songs = playlist.entry
+    // A view-only order (the server's stays as it is), remembered per playlist.
+    val sorts by graph.settings.playlistSorts.collectAsStateWithLifecycle()
+    val sort = TrackSort.of(sorts[playlist.id])
+    val shown = remember(songs, sort) { sort.sort(songs) }
+    val shownSongs = remember(shown) { shown.map { it.value } }
 
     var editing by remember { mutableStateOf(false) }
     var renaming by remember { mutableStateOf(false) }
@@ -137,6 +146,11 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
     val sharedNow = stringResource(R.string.playlist_shared_now)
     val unsharedNow = stringResource(R.string.playlist_unshared_now)
     val copied = stringResource(R.string.playlist_copied, playlist.name)
+    val putBack = stringResource(R.string.playlist_put_back, playlist.name)
+    val restored = stringResource(R.string.playlist_restored, playlist.name)
+    val restoreFailed = stringResource(R.string.playlist_restore_failed)
+    // The songs as the server has them (a kid's login sees fewer), for undoing a remove or delete.
+    val serverSongs = { graph.library.playlistSongs.value[playlist.id] ?: songs.map { it.id } }
     val copyFailed = stringResource(R.string.playlist_copy_failed)
 
     val source = OfflineSource(
@@ -162,7 +176,7 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
         },
         onShuffle = { graph.playlistPlays.record(playlist.id); actions.player.shufflePlay(songs, playlist.name) },
         shuffleEnabled = songs.any { !it.locked } && !editing,
-        onPlay = { graph.playlistPlays.record(playlist.id); actions.player.playContext(songs, 0, playlist.name, shuffle = false) },
+        onPlay = { graph.playlistPlays.record(playlist.id); actions.player.playContext(shownSongs, 0, playlist.name, shuffle = false) },
         shufflePrimary = true,
         offline = source,
         trackCount = songs.size,
@@ -181,13 +195,8 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
             }
         },
         showMenu = !editing,
+        // After Download (the layout's): the switches, then the edits, then Delete.
         menu = if (!(editable || canShare || canCopy)) null else { close ->
-            if (editable) {
-                DropdownMenuItem({ Text(stringResource(R.string.playlist_reorder)) }, leadingIcon = { Icon(Icons.Filled.DragHandle, null) },
-                    onClick = { close(); editing = true })
-                DropdownMenuItem({ Text(stringResource(R.string.playlist_rename)) }, leadingIcon = { Icon(Icons.Filled.Edit, null) },
-                    onClick = { close(); renaming = true })
-            }
             if (canShare) {
                 DropdownMenuItem({ Text(stringResource(R.string.playlist_share)) }, leadingIcon = { Icon(Icons.Filled.Share, null) },
                     trailingIcon = { Switch(playlist.public, null, Modifier.scale(0.8f)) },
@@ -200,6 +209,13 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                             runCatching { graph.browse.refreshPlaylists() }
                         }
                     })
+            }
+            if (editable) {
+                DropdownMenuItem({ Text(stringResource(R.string.playlist_rename)) }, leadingIcon = { Icon(Icons.Filled.Edit, null) },
+                    onClick = { close(); renaming = true })
+                DropdownMenuItem({ Text(stringResource(R.string.playlist_reorder)) }, leadingIcon = { Icon(Icons.Filled.DragHandle, null) },
+                    // Reordering is of the playlist's own order, so the view goes back to it.
+                    onClick = { close(); graph.settings.setPlaylistSort(playlist.id, TrackSort.CUSTOM); editing = true })
             }
             if (canCopy) {
                 DropdownMenuItem({ Text(stringResource(R.string.playlist_save_copy)) }, leadingIcon = { Icon(Icons.Filled.LibraryAdd, null) },
@@ -217,6 +233,8 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                     })
             }
             if (editable) {
+                DropdownMenuItem({ Text(stringResource(R.string.playlist_history)) }, leadingIcon = { Icon(Icons.Filled.History, null) },
+                    onClick = { close(); actions.open(Route.PlaylistHistory(playlist.id)) })
                 DropdownMenuItem({ Text(stringResource(R.string.playlist_delete)) }, leadingIcon = { Icon(Icons.Filled.Delete, null) },
                     onClick = { close(); confirmDelete = true })
             }
@@ -234,14 +252,23 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                 }
             }
         } else {
-            itemsIndexed(songs, key = { i, s -> "$i:${s.id}" }) { i, song ->
+            if (songs.size > 1) item(key = "sort") {
+                SortButton(TrackSort.entries, sort, TrackSort::label, { graph.settings.setPlaylistSort(playlist.id, it) },
+                    Modifier.padding(horizontal = 4.dp))
+            }
+            // Keyed by the playlist position, which a remove goes by too (whatever the view's order).
+            itemsIndexed(shown, key = { _, (at, s) -> "$at:${s.id}" }) { i, (at, song) ->
                 TrackRow(
                     song,
-                    onClick = { graph.playlistPlays.record(playlist.id); actions.player.playContext(songs, i, playlist.name) },
+                    onClick = { graph.playlistPlays.record(playlist.id); actions.player.playContext(shownSongs, i, playlist.name) },
                     playing = ui.current?.songId == song.id,
                     extraMenu = if (editable) listOf(MenuAction(removeLabel, Icons.Filled.RemoveCircleOutline) {
                         actions.launch {
-                            actions.report(graph.editor.remove(playlist.id, song.id, i), removedFrom)
+                            val before = serverSongs()
+                            actions.report(graph.editor.remove(playlist.id, song.id, at), removedFrom) {
+                                actions.report(graph.editor.undoRemove(playlist.id, song.id, before), putBack)
+                                vm.load()
+                            }
                             vm.load()
                         }
                     }) else emptyList(),
@@ -278,9 +305,22 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                 TextButton(onClick = {
                     confirmDelete = false
                     actions.launch {
+                        val name = playlist.name
+                        val ids = serverSongs()
+                        val shared = playlist.public
                         val r = graph.editor.delete(playlist.id)
-                        actions.report(r, deleted)
+                        actions.report(r, deleted) {
+                            val id = graph.editor.undoDelete(name, ids, shared)
+                            if (id == null) actions.toast(restoreFailed)
+                            else {
+                                graph.history.restored(playlist.id, id)
+                                runCatching { graph.browse.refreshPlaylists() }
+                                actions.toast(restored)
+                                actions.open(Route.Playlist(id))
+                            }
+                        }
                         if (r == eu.bradshaw.seidr.sync.EditResult.Applied) {
+                            graph.history.deleted(playlist.id)
                             runCatching { graph.browse.refreshPlaylists() }
                             actions.nav.pop()
                         }
@@ -291,3 +331,4 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
         )
     }
 }
+

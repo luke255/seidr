@@ -35,7 +35,7 @@ before changing sync or playback.
   base URL is a placeholder. Writes are POST forms (OpenSubsonic `formPost`).
   Cover-art URLs use a fixed per-install salt, so image caches can key on them.
 - **`data/db`**: Room. `offline_source` → `claim` → `download` (the claims
-  model), plus `pending_edit` and `pending_scrobble`. Sources are playlists,
+  model), plus `pending_edit`, `pending_scrobble` and `playlist_version`. Sources are playlists,
   albums and Loved (the starred songs, `SourceType.STARRED_ID`), which also
   shows as a built-in playlist (`ui/screens/LovedScreen`), first A–Z.
 - **`sync/`**:
@@ -76,6 +76,12 @@ before changing sync or playback.
   (per-device), the DB or music; a restore comes back signed out with the
   server and username filled in. New prefs files are backed up by default,
   so put anything secret in `Secrets` and anything per-device in `device`.
+- **`data/PlaylistHistory`**: the safety net. `Library` reports every full
+  fetch of the user's own playlists (not smart, Bad: or kids' lists) and every
+  listing. A changed state is kept for 90 days (30 per playlist), and one
+  missing from a listing counts as deleted. Earlier versions (playlist ⋮) and
+  Recently deleted (Settings → Library) only ever Save a copy. It never writes
+  to the original. Cleared when a different login signs in.
 - **`data/LyricsOffsets`**: per-song lyrics timing nudges. Subsonic has no
   app-data storage, so each is a bookmark on the song (position 0, comment
   `Seidr lyrics offset: +650ms`), synced every pass. Comment-less bookmarks
@@ -235,7 +241,9 @@ before changing sync or playback.
 - Subsonic has no reorder call. Reorder sends the whole list, and only when
   a fresh fetch equals what the user saw (`EditResolver.reorder`); otherwise
   it's a `Conflict`. Removes resolve the index by song id against a fresh
-  fetch. Never rewrite a whole playlist for any other edit.
+  fetch. Undoing a remove may put the old order back under the same guard (a
+  fresh fetch holding exactly the same songs, `EditResolver.undoRemove`).
+  Never rewrite a whole playlist for any other edit.
 - A playlist whose tracks are all downloaded by other sources shows as
   downloaded (badge, Downloaded filter) but its Download toggle stays off:
   the toggle means "I asked for this". `Library.warmPlaylists` keeps every

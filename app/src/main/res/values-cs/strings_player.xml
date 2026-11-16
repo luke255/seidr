@@ -33,6 +33,7 @@
     <string name="common_edit_queued">Offline: na server se to uloží, až bude zpátky</string>
     <string name="common_edit_conflict">Playlist se mezitím změnil jinde, takže se nic neuložilo. Načetl se znovu.</string>
     <string name="common_edit_failed">Nepodařilo se uložit: %1$s</string>
+    <string name="common_undo">Zpět</string>
 
     <plurals name="common_songs">
         <item quantity="one">%d skladba</item>
