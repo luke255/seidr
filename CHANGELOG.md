@@ -4,6 +4,10 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.6.6
+
+- Changing Library's order starts the list from the top.
+
 ## 1.6.5
 
 - Now Playing follows your finger as you swipe it down, and springs back if

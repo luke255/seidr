@@ -49,6 +49,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -291,7 +293,7 @@ fun LibraryScreen() {
                                 art = { m -> Cover(p.coverArt, m, size = 300) }, onClick = { actions.open(Route.Playlist(p.id)) },
                             )
                         }
-                        LibContent(items, grid, empty = emptyText(q, downloadedOnly))
+                        LibContent(items, grid, empty = emptyText(q, downloadedOnly), order = playlistSort.key)
                     }
                 }
                 LibTab.ARTISTS -> LoadContent(vm.artists, { vm.load(true) }) { all ->
@@ -302,7 +304,7 @@ fun LibraryScreen() {
                             LibItem(a.id, a.name, albumsText(a.albumCount),
                                 round = true, art = { m -> ArtistImage(a.coverArt, m) }, onClick = { actions.open(Route.Artist(a.id)) })
                         }
-                    LibContent(items, grid, empty = emptyText(q, downloadedOnly))
+                    LibContent(items, grid, empty = emptyText(q, downloadedOnly), order = artistSort.key)
                 }
                 LibTab.ALBUMS -> LoadContent(vm.albums, { vm.load(true) }) { all ->
                     val items = all
@@ -314,7 +316,7 @@ fun LibraryScreen() {
                                 badge = if (SourceType.sourceId(SourceType.ALBUM, a.id) in sources) Badge.DOWNLOADED else null,
                                 art = { m -> Cover(a.coverArt, m, size = 300) }, onClick = { actions.open(Route.Album(a.id)) })
                         }
-                    LibContent(items, grid, empty = emptyText(q, downloadedOnly))
+                    LibContent(items, grid, empty = emptyText(q, downloadedOnly), order = albumSort.key)
                 }
             }
         }
@@ -353,7 +355,19 @@ private fun emptyText(query: String, downloadedOnly: Boolean) = when {
 }
 
 @Composable
-private fun LibContent(items: List<LibItem>, grid: Boolean, empty: String) {
+private fun LibContent(items: List<LibItem>, grid: Boolean, empty: String, order: String) {
+    val listState = rememberLazyListState()
+    val gridState = rememberLazyGridState()
+    // Rows are keyed, so a new order would keep whichever row was on screen, now somewhere
+    // else in the list. A new order starts at the top; coming back keeps the place.
+    var shownOrder by rememberSaveable { mutableStateOf(order) }
+    LaunchedEffect(order) {
+        if (order != shownOrder) {
+            shownOrder = order
+            listState.scrollToItem(0)
+            gridState.scrollToItem(0)
+        }
+    }
     if (items.isEmpty()) {
         Text(empty, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth().padding(32.dp))
@@ -361,14 +375,14 @@ private fun LibContent(items: List<LibItem>, grid: Boolean, empty: String) {
     }
     if (grid) {
         LazyVerticalGrid(
-            GridCells.Adaptive(128.dp), Modifier.fillMaxSize(),
+            GridCells.Adaptive(128.dp), Modifier.fillMaxSize(), gridState,
             contentPadding = PaddingValues(start = 10.dp, end = 10.dp, top = 4.dp, bottom = bottomContentPadding().calculateBottomPadding()),
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             items(items, key = { it.key }) { GridCell(it) }
         }
     } else {
-        LazyColumn(Modifier.fillMaxSize(), contentPadding = bottomContentPadding(8.dp)) {
+        LazyColumn(Modifier.fillMaxSize(), listState, contentPadding = bottomContentPadding(8.dp)) {
             items(items, key = { it.key }) { item ->
                 ListRow(
                     item.title, item.subtitle, onClick = item.onClick, artSize = 64.dp,
