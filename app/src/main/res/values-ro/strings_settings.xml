@@ -120,7 +120,6 @@
     <string name="licences_presets_by">Selecție de Jason Fletcher; fiecare preset aparține autorului din numele lui</string>
     <string name="licences_textures">Pachet de texturi MilkDrop</string>
     <string name="licences_textures_by">Adunate de echipa projectM</string>
-    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
     <string name="licences_material_icons">Pictograme Material</string>
     <string name="licences_okhttp">OkHttp și Retrofit</string>
     <string name="licences_coil_by">Contribuitorii Coil</string>

@@ -120,7 +120,6 @@
     <string name="licences_presets_by">Επιμέλεια: Jason Fletcher· κάθε preset ανήκει στον δημιουργό που αναφέρει το όνομά του</string>
     <string name="licences_textures">Πακέτο υφών MilkDrop</string>
     <string name="licences_textures_by">Συλλογή της ομάδας του projectM</string>
-    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
     <string name="licences_material_icons">Εικονίδια Material</string>
     <string name="licences_okhttp">OkHttp και Retrofit</string>
     <string name="licences_coil_by">Οι συντελεστές του Coil</string>

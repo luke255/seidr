@@ -47,7 +47,7 @@
     <string name="settings_app_version" translatable="false">Seiðr %1$s</string>
     <!-- %1$d is the build number -->
     <string name="settings_build">Build %1$d</string>
-    <!-- Small badge beside an available update -->
+    <!-- Small badge beside an available update. Keep short. -->
     <string name="settings_new_badge">NEW</string>
 
     <!-- Settings: sign out dialog -->
@@ -79,7 +79,7 @@
     <!-- %1$s is the kid\'s username -->
     <string name="kids_remove_title">Remove %1$s?</string>
     <!-- %1$s is the kid\'s username -->
-    <string name="kids_remove_message">This device forgets their login. Devices already signed in as %1$s stay signed in.</string>
+    <string name="kids_remove_message">This device forgets the login. Devices already signed in as %1$s stay signed in.</string>
     <string name="kids_remove">Remove</string>
     <string name="kids_cancel">Cancel</string>
     <string name="kids_help_title">Kids\' accounts</string>
@@ -172,7 +172,7 @@
     <string name="licences_presets_by">Curated by Jason Fletcher; each preset by the author in its name</string>
     <string name="licences_textures">MilkDrop texture pack</string>
     <string name="licences_textures_by">Collected by the projectM team</string>
-    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
+    <string name="licences_androidx" translatable="false">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
     <string name="licences_google" translatable="false">Google</string>
     <string name="licences_material_icons">Material icons</string>
     <string name="licences_kotlin" translatable="false">Kotlin, kotlinx.coroutines, kotlinx.serialization</string>

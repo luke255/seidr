@@ -96,8 +96,8 @@
     <string name="player_pause">Pause</string>
     <!-- Pill under the controls. %1$s = name of the other device that is playing. -->
     <string name="player_playing_on">Playing on %1$s</string>
-    <!-- Shown on a signed-out device. %1$s = username playing, %2$s = name of the device they play from. -->
-    <string name="player_playing_for">Playing for %1$s from %2$s</string>
+    <!-- Shown on a signed-out device that someone else is playing on. %1$s = their username, %2$s = the name of the device they control it from. -->
+    <string name="player_playing_for">%1$s is playing from %2$s</string>
     <!-- Repeat and shuffle buttons. -->
     <string name="player_repeat_one">Repeat one</string>
     <string name="player_repeat_all">Repeat all</string>
@@ -115,9 +115,11 @@
     <!-- ===== Queue ===== -->
     <string name="queue_title">Play queue</string>
     <string name="queue_empty">The queue is empty</string>
+    <!-- Queue heading: songs already played (history). -->
     <string name="queue_earlier">Earlier</string>
     <string name="queue_now_playing">Now playing</string>
     <string name="queue_next">Next</string>
+    <!-- Queue heading: songs the user added with Add to queue. They play before the rest of the playlist or album. -->
     <string name="queue_next_in_queue">Next in queue</string>
     <string name="queue_clear">Clear queue</string>
     <!-- Section heading. %1$s = name of the playlist or album the rest of the queue comes from. -->
@@ -129,7 +131,7 @@
     <!-- ===== Lyrics ===== -->
     <string name="lyrics_none">No lyrics for this song</string>
     <string name="lyrics_failed">Couldn\'t load lyrics</string>
-    <!-- Timing nudge ruler: the label under the current offset, and its reset button. -->
+    <!-- Timing nudge ruler: a state label under the current offset, meaning the lyrics now show earlier (or later) than their original timing; then the reset button. -->
     <string name="lyrics_earlier">Lyrics earlier</string>
     <string name="lyrics_later">Lyrics later</string>
     <string name="lyrics_original_timing">Original timing</string>

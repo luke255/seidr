@@ -3,6 +3,7 @@
 
     <!-- Self-update (Updater). -->
     <string name="channel_updates">App updates</string>
+    <!-- %1$s is the app\'s name. -->
     <string name="update_offer_title">Update %1$s?</string>
     <string name="update_offer_text">Version %1$s is ready to install (you have %2$s). The app closes while it updates.</string>
     <string name="update_install">Install</string>
@@ -55,16 +56,18 @@
     <string name="connect_playback_not_ready">Playback isn\'t ready yet</string>
     <!-- Name shown for a nearby device that didn\'t announce one. -->
     <string name="connect_device_fallback">Seiðr device</string>
+    <!-- In the messages from here to connect_not_allowed, %1$s is a device\'s name (the one being played on), never a person. -->
     <string name="connect_peer_disconnected">%1$s disconnected</string>
     <string name="connect_peer_signed_in">%1$s signed in</string>
     <string name="connect_nobody_answered">No one answered on %1$s</string>
     <string name="connect_not_allowed">Not allowed on %1$s</string>
-    <!-- %1$s is a person\'s or device\'s name, %2$s the device that now plays. -->
+    <!-- %1$s is the name of the device that took over (not a person); %2$s is this device\'s name. E.g. "Luke\'s phone is playing on Living Room TV now". -->
     <string name="connect_taken_over">%1$s is playing on %2$s now</string>
     <string name="connect_update_first">Update Seiðr on %1$s first</string>
     <string name="connect_lost_connection">Lost connection to %1$s</string>
 
     <!-- Sign-in checks (Account). %1$s is a server address or a username; %2$s a technical error. -->
+    <!-- %1$s is the server\'s address; %2$s a technical error. -->
     <string name="account_connect_failed">Couldn\'t connect to %1$s: %2$s</string>
     <string name="account_lan_permission">Seiðr needs the Nearby devices / local network permission to reach a server on your home network.</string>
     <string name="account_check_failed_why">Couldn\'t check %1$s\'s account: %2$s</string>
@@ -74,7 +77,8 @@
     <string name="account_own_check_failed">Couldn\'t check your account on the server</string>
     <string name="account_admin_only">Only server admins can view as a kid</string>
     <string name="account_view_failed">Couldn\'t open %1$s\'s view: %2$s</string>
-    <string name="account_someone_else">Signed in as someone else meanwhile</string>
+    <!-- While an action was running, this device switched to another account, so the action stopped. -->
+    <string name="account_someone_else">This device was signed in as someone else in the meantime</string>
 
     <!-- Kids (non-UI text). -->
     <string name="kids_signed_in_as_kid">Signed in as a kid</string>
@@ -98,6 +102,7 @@
     <!-- Visualiser (overlay, warning, activities). -->
     <string name="vis_close">Close visualiser</string>
     <string name="vis_now_playing">Now playing</string>
+    <!-- As queue_next_in_queue: songs the user added with Add to queue. -->
     <string name="vis_next_in_queue">Next in queue</string>
     <!-- %1$s is the name of the playlist or album being played. -->
     <string name="vis_next_from">Next from: %1$s</string>

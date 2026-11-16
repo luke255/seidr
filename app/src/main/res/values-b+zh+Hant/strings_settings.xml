@@ -120,7 +120,6 @@
     <string name="licences_presets_by">由 Jason Fletcher 精選；各預設集的作者見其名稱</string>
     <string name="licences_textures">MilkDrop 材質包</string>
     <string name="licences_textures_by">由 projectM 團隊收集</string>
-    <string name="licences_androidx">AndroidX：Compose、Material 3、Media3、Room、WorkManager</string>
     <string name="licences_material_icons">Material 圖示</string>
     <string name="licences_okhttp">OkHttp 和 Retrofit</string>
     <string name="licences_coil_by">Coil 貢獻者</string>

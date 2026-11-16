@@ -120,7 +120,6 @@
     <string name="licences_presets_by">Jason Fletcher選。各プリセットの作者は名前に記載</string>
     <string name="licences_textures">MilkDropテクスチャパック</string>
     <string name="licences_textures_by">projectMチームが収集</string>
-    <string name="licences_androidx">AndroidX：Compose、Material 3、Media3、Room、WorkManager</string>
     <string name="licences_material_icons">Materialアイコン</string>
     <string name="licences_okhttp">OkHttpとRetrofit</string>
     <string name="licences_coil_by">Coilのコントリビューター</string>

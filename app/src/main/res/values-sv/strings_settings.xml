@@ -120,7 +120,6 @@
     <string name="licences_presets_by">Urval av Jason Fletcher; varje förinställning är gjord av den som står i dess namn</string>
     <string name="licences_textures">Texturpaket för MilkDrop</string>
     <string name="licences_textures_by">Insamlat av projectM-teamet</string>
-    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
     <string name="licences_material_icons">Material-ikoner</string>
     <string name="licences_okhttp">OkHttp och Retrofit</string>
     <string name="licences_coil_by">Bidragsgivare till Coil</string>

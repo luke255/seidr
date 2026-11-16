@@ -120,7 +120,6 @@
     <string name="licences_presets_by">Derleyen: Jason Fletcher; her ön ayar, adında geçen yazara aittir</string>
     <string name="licences_textures">MilkDrop doku paketi</string>
     <string name="licences_textures_by">projectM ekibi tarafından derlendi</string>
-    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
     <string name="licences_material_icons">Material simgeleri</string>
     <string name="licences_okhttp">OkHttp ve Retrofit</string>
     <string name="licences_coil_by">Coil’e katkıda bulunanlar</string>

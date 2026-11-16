@@ -120,7 +120,6 @@
     <string name="licences_presets_by">Добірку уклав Jason Fletcher; автора кожного пресета зазначено в його назві</string>
     <string name="licences_textures">Набір текстур MilkDrop</string>
     <string name="licences_textures_by">Зібрала команда projectM</string>
-    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
     <string name="licences_material_icons">Значки Material</string>
     <string name="licences_okhttp">OkHttp і Retrofit</string>
     <string name="licences_coil_by">Учасники проєкту Coil</string>

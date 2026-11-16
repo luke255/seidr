@@ -120,7 +120,6 @@
     <string name="licences_presets_by">Jason Fletcher 선별. 각 프리셋의 제작자는 이름에 표시됨</string>
     <string name="licences_textures">MilkDrop 텍스처 팩</string>
     <string name="licences_textures_by">projectM 팀 수집</string>
-    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
     <string name="licences_material_icons">Material 아이콘</string>
     <string name="licences_okhttp">OkHttp 및 Retrofit</string>
     <string name="licences_coil_by">Coil 기여자</string>

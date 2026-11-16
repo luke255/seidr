@@ -108,6 +108,7 @@
     <string name="downloads_summary" translatable="false">%1$s · %2$s</string>
     <!-- %1$s is a size (e.g. "3.4 GB") -->
     <string name="downloads_free">%1$s free on this phone</string>
+    <!-- Heading for the download queue (songs waiting to download), not the play queue. -->
     <string name="downloads_queue">Queue</string>
     <string name="downloads_all_done">Everything is downloaded</string>
     <!-- %d is the number of queued songs -->
@@ -116,7 +117,7 @@
         <item quantity="other">%d songs waiting</item>
     </plurals>
     <string name="downloads_wifi_only_note">Downloads on Wi-Fi only</string>
-    <!-- %d is the number of failed downloads -->
+    <!-- %d is the number of songs that failed to download -->
     <plurals name="downloads_failed">
         <item quantity="one">%d failed</item>
         <item quantity="other">%d failed</item>
@@ -137,14 +138,14 @@
     <string name="downloads_last_synced">Last synced %1$s</string>
     <!-- %d is how many playlists or albums could not be checked during sync -->
     <plurals name="downloads_unchecked">
-        <item quantity="one">%d couldn\'t be checked; nothing was removed</item>
-        <item quantity="other">%d couldn\'t be checked; nothing was removed</item>
+        <item quantity="one">%d playlist or album couldn\'t be checked; nothing was removed</item>
+        <item quantity="other">%d playlists or albums couldn\'t be checked; nothing was removed</item>
     </plurals>
     <string name="downloads_sync_now">Sync now</string>
     <string name="downloads_downloaded">Downloaded</string>
     <string name="downloads_nothing">Nothing yet</string>
     <string name="downloads_nothing_hint">Switch on Download for a playlist or album to keep it on the phone.</string>
-    <!-- Per-source progress. %1$d songs done, %2$d total songs, %3$s size (e.g. "120 MB"). -->
+    <!-- Per-source progress. %1$d songs done, %2$d total songs, %3$s size (e.g. "120 MB"). The plural form follows %2$d, the total. -->
     <plurals name="downloads_progress">
         <item quantity="one">%1$d of %2$d song · %3$s</item>
         <item quantity="other">%1$d of %2$d songs · %3$s</item>
@@ -160,12 +161,13 @@
     <string name="home_offline">You\'re offline. Downloaded music is still here: look in Library with the Downloaded filter.</string>
     <string name="home_kid_empty">Nothing\'s been approved for you yet. Ask whoever signed you in to add some songs.</string>
     <string name="home_playlists">Playlists</string>
-    <!-- Playlist shelf sort button: alphabetical / most recent first -->
+    <!-- Playlist shelf sort buttons: alphabetical / most recent first. For alphabetical, use the language\'s natural short label (e.g. "by name" where A–Z means nothing). -->
     <string name="home_sort_az">A–Z</string>
     <string name="home_sort_recent">Recent</string>
     <!-- %1$s is the playlist owner\'s username -->
     <string name="home_by_owner">by %1$s</string>
     <string name="home_recently_added">Recently added</string>
+    <!-- Shelf of the albums played most often. -->
     <string name="home_most_played">Most played</string>
     <string name="home_saved_albums">Saved albums</string>
 

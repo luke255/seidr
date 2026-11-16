@@ -120,7 +120,6 @@
     <string name="licences_presets_by">Seleção de Jason Fletcher; cada preset é do autor indicado no nome</string>
     <string name="licences_textures">Pacote de texturas do MilkDrop</string>
     <string name="licences_textures_by">Reunido pela equipa do projectM</string>
-    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
     <string name="licences_material_icons">Ícones do Material</string>
     <string name="licences_okhttp">OkHttp e Retrofit</string>
     <string name="licences_coil_by">Colaboradores do Coil</string>
