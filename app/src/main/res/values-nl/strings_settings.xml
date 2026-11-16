@@ -95,7 +95,7 @@
     <string name="login_other_device_steps">Open Seiðr daar, ga naar Instellingen → Apparaat aanmelden en kies %1$s. Beide moeten op dezelfde wifi zitten, met Seiðr open op dit apparaat. Controleer of de code op beide schermen gelijk is, en je bent binnen.</string>
     <string name="login_back">Terug</string>
     <string name="login_idle_ready">Klaar om af te spelen</string>
-    <string name="login_idle_hint">Open Seiðr op je telefoon, tik op ‘Afspelen op’ en kies dit apparaat.</string>
+    <string name="login_idle_hint">Open Seiðr op een ander apparaat, tik op ‘Afspelen op’ en kies dit apparaat.</string>
     <string name="login_pairing_code">Koppelcode</string>
     <string name="login_check_same_code">Controleer of %1$s dezelfde code toont.</string>
     <string name="login_sign_in_this_device">Dit apparaat aanmelden?</string>

@@ -95,7 +95,7 @@
     <string name="login_other_device_steps">Apri Seiðr lì e vai in Impostazioni → Accedi su un dispositivo, poi scegli %1$s. Devono essere entrambi sulla stessa rete Wi-Fi, con Seiðr aperto su questo. Controlla che il codice sia lo stesso sui due schermi, ed è fatta.</string>
     <string name="login_back">Indietro</string>
     <string name="login_idle_ready">Pronto per la riproduzione</string>
-    <string name="login_idle_hint">Apri Seiðr sul telefono, tocca «Riproduci su» e scegli questo dispositivo.</string>
+    <string name="login_idle_hint">Apri Seiðr su un altro dispositivo, tocca «Riproduci su» e scegli questo.</string>
     <string name="login_pairing_code">Codice di abbinamento</string>
     <string name="login_check_same_code">Controlla che %1$s mostri lo stesso codice.</string>
     <string name="login_sign_in_this_device">Eseguire l\'accesso su questo dispositivo?</string>

@@ -95,7 +95,7 @@
     <string name="login_other_device_steps">Abra o Seiðr nele e vá em Ajustes → Fazer login em um dispositivo, depois escolha %1$s. Os dois precisam estar no mesmo Wi-Fi, com o Seiðr aberto neste aqui. Confira se o código é igual nas duas telas, e pronto.</string>
     <string name="login_back">Voltar</string>
     <string name="login_idle_ready">Pronto para tocar</string>
-    <string name="login_idle_hint">Abra o Seiðr no seu celular, toque em “Tocar em” e escolha este dispositivo.</string>
+    <string name="login_idle_hint">Abra o Seiðr em outro dispositivo, toque em “Tocar em” e escolha este.</string>
     <string name="login_pairing_code">Código de pareamento</string>
     <string name="login_check_same_code">Confira se %1$s mostra o mesmo código.</string>
     <string name="login_sign_in_this_device">Fazer login neste dispositivo?</string>

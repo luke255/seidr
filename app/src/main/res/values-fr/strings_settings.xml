@@ -95,7 +95,7 @@
     <string name="login_other_device_steps">Ouvrez-y Seiðr et allez dans Paramètres → Connecter un appareil, puis choisissez %1$s. Les deux doivent être sur le même Wi-Fi, avec Seiðr ouvert sur celui-ci. Vérifiez que le code est le même sur les deux écrans, et c\'est fait.</string>
     <string name="login_back">Retour</string>
     <string name="login_idle_ready">Prêt pour la lecture</string>
-    <string name="login_idle_hint">Ouvrez Seiðr sur votre téléphone, touchez « Écouter sur », puis choisissez cet appareil.</string>
+    <string name="login_idle_hint">Ouvrez Seiðr sur un autre appareil, touchez « Écouter sur », puis choisissez celui-ci.</string>
     <string name="login_pairing_code">Code d\'association</string>
     <string name="login_check_same_code">Vérifiez que %1$s affiche le même code.</string>
     <string name="login_sign_in_this_device">Connecter cet appareil ?</string>

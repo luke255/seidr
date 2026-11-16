@@ -95,7 +95,7 @@
     <string name="login_other_device_steps">Abre Seiðr allí y ve a Ajustes → Iniciar sesión en un dispositivo; luego elige %1$s. Los dos tienen que estar en la misma Wi-Fi, con Seiðr abierto en este. Comprueba que el código coincide en las dos pantallas, y listo.</string>
     <string name="login_back">Atrás</string>
     <string name="login_idle_ready">Listo para reproducir</string>
-    <string name="login_idle_hint">Abre Seiðr en tu móvil, toca «Reproducir en» y elige este dispositivo.</string>
+    <string name="login_idle_hint">Abre Seiðr en otro dispositivo, toca «Reproducir en» y elige este.</string>
     <string name="login_pairing_code">Código de emparejamiento</string>
     <string name="login_check_same_code">Comprueba que %1$s muestra el mismo código.</string>
     <string name="login_sign_in_this_device">¿Iniciar sesión en este dispositivo?</string>

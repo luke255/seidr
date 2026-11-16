@@ -51,6 +51,8 @@ import eu.bradshaw.seidr.ui.focusWhenReady
 import androidx.compose.ui.platform.LocalInputModeManager
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -123,8 +125,8 @@ private fun GuestPlayer(actions: AppActions) {
 }
 
 /**
- * Nothing playing and no one signed in: Now Playing's layout with the app's
- * logo for art, the device's name for a title, how to play here, and Log in.
+ * Nothing playing and no one signed in: Now Playing's layout with the
+ * wordmark on brand red for art, the device's name for a title, how to play here, and Log in.
  */
 @Composable
 private fun Idle(onLogin: () -> Unit) {
@@ -132,8 +134,10 @@ private fun Idle(onLogin: () -> Unit) {
     val name = remember { deviceName(context) }
     val cs = MaterialTheme.colorScheme
     val logo: @Composable (Modifier) -> Unit = { m ->
-        Box(m.aspectRatio(1f).clip(RoundedCornerShape(8.dp)).background(colorResource(R.color.icon_bg)), contentAlignment = Alignment.Center) {
-            Image(painterResource(R.drawable.ic_launcher_foreground), contentDescription = stringResource(R.string.login_logo_description), modifier = Modifier.fillMaxSize())
+        Box(m.aspectRatio(1f, matchHeightConstraintsFirst = true).clip(RoundedCornerShape(8.dp)).background(colorResource(R.color.icon_bg)), contentAlignment = Alignment.Center) {
+            Image(painterResource(R.drawable.wordmark), contentDescription = stringResource(R.string.login_logo_description),
+                colorFilter = ColorFilter.tint(colorResource(R.color.brand_yellow)), contentScale = ContentScale.Fit,
+                modifier = Modifier.fillMaxWidth(0.72f))
         }
     }
     // Ready to play is the headline; Log in is there but quiet (outlined, set
@@ -166,7 +170,8 @@ private fun Idle(onLogin: () -> Unit) {
         } else {
             Column(Modifier.fillMaxHeight().widthIn(max = 520.dp).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center) {
-                logo(Modifier.fillMaxWidth().padding(8.dp))
+                // Measured after the words, so on a short screen the art shrinks, not Log in.
+                logo(Modifier.weight(1f, fill = false).padding(8.dp))
                 Box(Modifier.padding(top = 24.dp)) { words() }
             }
         }

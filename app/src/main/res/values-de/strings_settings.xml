@@ -95,7 +95,7 @@
     <string name="login_other_device_steps">Öffne Seiðr dort, geh zu Einstellungen → Gerät anmelden und wähle %1$s. Beide Geräte müssen im selben WLAN sein, und Seiðr muss auf diesem hier geöffnet sein. Prüfe, ob der Code auf beiden Bildschirmen übereinstimmt, und schon bist du drin.</string>
     <string name="login_back">Zurück</string>
     <string name="login_idle_ready">Bereit zum Abspielen</string>
-    <string name="login_idle_hint">Öffne Seiðr auf deinem Handy, tippe auf „Wiedergeben auf“ und wähle dieses Gerät.</string>
+    <string name="login_idle_hint">Öffne Seiðr auf einem anderen Gerät, tippe auf „Wiedergeben auf“ und wähle dieses hier.</string>
     <string name="login_pairing_code">Kopplungscode</string>
     <string name="login_check_same_code">Prüfe, ob %1$s denselben Code anzeigt.</string>
     <string name="login_sign_in_this_device">Dieses Gerät anmelden?</string>

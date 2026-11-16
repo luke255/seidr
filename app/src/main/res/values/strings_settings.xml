@@ -130,7 +130,7 @@
     <string name="login_logo_description" translatable="false">Seiðr</string>
     <!-- Status shown on a signed-out device, waiting for someone to play on it. Keep short. -->
     <string name="login_idle_ready">Ready to play</string>
-    <string name="login_idle_hint">Open Seiðr on your phone, tap Play on, then pick this device.</string>
+    <string name="login_idle_hint">Open Seiðr on another device, tap Play on, then pick this one.</string>
     <string name="login_pairing_code">Pairing code</string>
     <!-- %1$s is the name of the other device -->
     <string name="login_check_same_code">Check that %1$s shows the same code.</string>
