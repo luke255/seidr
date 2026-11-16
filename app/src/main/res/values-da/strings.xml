@@ -1,0 +1,96 @@
+<resources>
+    <string name="channel_updates">Appopdateringer</string>
+    <string name="update_offer_title">Opdater %1$s?</string>
+    <string name="update_offer_text">Version %1$s er klar til at blive installeret (du har %2$s). Appen lukker, mens den opdateres.</string>
+    <string name="update_install">Installer</string>
+    <string name="update_later">Senere</string>
+    <string name="update_whats_new">Nyheder</string>
+    <string name="update_whats_new_title">Nyheder i %1$s</string>
+    <string name="update_ready_title">Opdatering klar</string>
+    <string name="update_ready_text">Tryk for at installere version %1$s</string>
+
+    <string name="notif_channel_downloads">Downloads</string>
+    <string name="notif_channel_storage">Advarsler om lagerplads</string>
+    <plurals name="notif_downloading">
+        <item quantity="one">Downloader %1$d sang</item>
+        <item quantity="other">Downloader %1$d sange</item>
+    </plurals>
+    <string name="notif_preparing">Forbereder…</string>
+    <string name="notif_storage_title">Downloads sat på pause: lageret er fuldt</string>
+    <string name="notif_storage_text">Frigør cirka %1$d MB for at fortsætte. Intet af det, der allerede er downloadet, er blevet fjernet.</string>
+
+    <string name="sync_server_error">Serverfejl</string>
+    <string name="sync_cant_reach">Kan ikke få forbindelse til serveren</string>
+
+    <string name="car_recent">Seneste</string>
+    <string name="car_playlists">Playlister</string>
+    <string name="car_playlist">Playliste</string>
+    <plurals name="car_songs">
+        <item quantity="one">%1$d sang</item>
+        <item quantity="other">%1$d sange</item>
+    </plurals>
+
+    <string name="playback_love">Gør til favorit</string>
+    <string name="playback_unlove">Fjern favorit</string>
+
+    <string name="connect_not_signed_in">Denne enhed er ikke logget ind</string>
+    <string name="connect_update_for_kids">Opdater først Seiðr på %1$s: denne version kan ikke beskytte et barns login</string>
+    <string name="connect_no_answer">%1$s svarede ikke</string>
+    <string name="connect_lost_why">Mistede forbindelsen til %1$s: %2$s</string>
+    <string name="connect_peer_other_account">%1$s er logget ind som en anden</string>
+    <string name="connect_peer_changed">%1$s har logget ind eller ud. Prøv igen om lidt.</string>
+    <string name="connect_peer_unreachable">Kunne ikke få fat i %1$s. Er Seiðr åben der?</string>
+    <string name="connect_playback_not_ready">Afspilningen er ikke klar endnu</string>
+    <string name="connect_device_fallback">Seiðr-enhed</string>
+    <string name="connect_peer_disconnected">%1$s afbrød forbindelsen</string>
+    <string name="connect_peer_signed_in">%1$s loggede ind</string>
+    <string name="connect_nobody_answered">Ingen svarede på %1$s</string>
+    <string name="connect_not_allowed">Ikke tilladt på %1$s</string>
+    <string name="connect_taken_over">%1$s afspiller på %2$s nu</string>
+    <string name="connect_update_first">Opdater først Seiðr på %1$s</string>
+    <string name="connect_lost_connection">Mistede forbindelsen til %1$s</string>
+
+    <string name="account_connect_failed">Kunne ikke oprette forbindelse til %1$s: %2$s</string>
+    <string name="account_lan_permission">Seiðr skal have tilladelsen Enheder i nærheden / lokalt netværk for at nå en server på dit hjemmenetværk.</string>
+    <string name="account_check_failed_why">Kunne ikke tjekke kontoen %1$s: %2$s</string>
+    <string name="account_check_failed">Kunne ikke tjekke kontoen %1$s</string>
+    <string name="account_kid_is_admin">%1$s er administrator på serveren. En børnekonto må ikke være administrator.</string>
+    <string name="account_not_grownup">Ikke logget ind som voksen</string>
+    <string name="account_own_check_failed">Kunne ikke tjekke din konto på serveren</string>
+    <string name="account_admin_only">Kun serverens administratorer kan se som et barn</string>
+    <string name="account_view_failed">Kunne ikke åbne visningen for %1$s: %2$s</string>
+    <string name="account_someone_else">En anden har logget ind i mellemtiden</string>
+
+    <string name="kids_signed_in_as_kid">Logget ind som barn</string>
+    <string name="kids_setup_failed">Kunne ikke oprette børnenes playlister: %1$s</string>
+
+    <string name="report_no_playlist">Ingen playliste ved navn »%1$s« på serveren</string>
+    <string name="report_removed">Fjernet fra %1$s</string>
+    <string name="report_song_reported">Rapporteret. Sangen bliver sprunget over.</string>
+    <string name="report_art_reported">Coveret er rapporteret</string>
+    <string name="report_lyrics_reported">Sangteksten er rapporteret</string>
+    <string name="report_queued">Offline: %1$s opdateres, når serveren er tilbage</string>
+    <string name="report_conflict">Kunne ikke opdatere %1$s</string>
+    <string name="report_failed">Kunne ikke opdatere %1$s: %2$s</string>
+
+    <string name="main_battery_title">Hold musikken i gang</string>
+    <string name="main_battery_text">Nogle telefoners batteristyring stopper afspilning og downloads i baggrunden. Vil du lade Seiðr køre uden begrænsninger? Du kan ændre det senere i Indstillinger.</string>
+    <string name="main_battery_allow">Tillad</string>
+
+    <string name="vis_close">Luk visualisering</string>
+    <string name="vis_now_playing">Spiller nu</string>
+    <string name="vis_next_in_queue">Næste i køen</string>
+    <string name="vis_next_from">Næste fra: %1$s</string>
+    <string name="vis_next_from_queue">Næste fra: køen</string>
+    <string name="vis_hide_preset">Skjul preset</string>
+    <string name="vis_love_preset">Gør preset til favorit</string>
+    <string name="vis_unlove_preset">Fjern preset fra favoritter</string>
+    <string name="vis_preview">Forhåndsvisning</string>
+    <string name="vis_preset_hidden">Presettet er skjult. Du får det tilbage under Indstillinger → Visualisering.</string>
+    <string name="vis_xr_failed">Den immersive visualisering kunne ikke starte</string>
+    <string name="vis_warning_title">Blinkende lys</string>
+    <string name="vis_warning_headset">Nogle presets blinker, blitzer og hvirvler hurtigt, og i headsettet fylder de hele dit synsfelt. Det kan udløse anfald hos personer med fotosensitiv epilepsi og kan give køresyge eller desorientering. Bliv siddende, og tag headsettet af, hvis du får det dårligt.</string>
+    <string name="vis_warning_flat">Nogle presets blinker, blitzer og hvirvler hurtigt. Det kan udløse anfald hos personer med fotosensitiv epilepsi. Kig væk, og luk visualiseringen, hvis du får det dårligt.</string>
+    <string name="vis_continue">Fortsæt</string>
+    <string name="vis_not_now">Ikke nu</string>
+</resources>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Inställningar</string>
+    <string name="settings_appearance">Utseende</string>
+    <string name="settings_visualiser">Visualisering</string>
+    <string name="settings_vis_item">Låtinfo och förinställningar</string>
+    <string name="settings_vis_item_hint">Vad som visas ovanpå; gillade och dolda förinställningar</string>
+    <string name="settings_playback_downloads">Uppspelning och nedladdningar</string>
+    <string name="settings_background_playback">Uppspelning i bakgrunden</string>
+    <string name="settings_battery_off">Obegränsad: batterioptimering är av</string>
+    <string name="settings_battery_tap">Tryck för att låta Seiðr köras utan begränsningar. Annars stoppar batterihanteringen i vissa telefoner musiken.</string>
+    <string name="settings_on">På</string>
+    <string name="settings_downloads_storage">Nedladdningar och lagring</string>
+    <string name="settings_downloads_storage_hint">Kö, lagring per spellista, endast wifi</string>
+    <string name="settings_library">Bibliotek</string>
+    <string name="settings_others_private">Andras privata spellistor</string>
+    <string name="settings_others_private_hint">Du är administratör, så servern visar dig allas. Av håller dem borta från ditt bibliotek.</string>
+
+    <string name="settings_reporting">Rapportering</string>
+    <string name="settings_report_problems">Rapportera problem</string>
+    <string name="settings_report_problems_hint">Lägger till Rapportera ett problem i varje låts ⋮-meny</string>
+    <string name="settings_report_info">En trasig fil, fel omslag eller trasig låttext hamnar på serverns spellista %1$s, %2$s eller %3$s, så att den som sköter servern kan åtgärda det. Låtar i %1$s hoppas över tills de är åtgärdade.</string>
+    <string name="settings_report_missing">Hittades inte på servern: %1$s.</string>
+
+    <string name="settings_about">Om</string>
+    <string name="settings_auto_update">Sök efter uppdateringar automatiskt</string>
+    <string name="settings_auto_update_hint">Letar efter en ny version på GitHub när du öppnar appen</string>
+    <string name="settings_install_update">Installera uppdatering</string>
+    <string name="settings_check_updates">Sök efter uppdateringar</string>
+    <string name="settings_checking">Söker…</string>
+    <string name="settings_version_ready">Version %1$s är redo</string>
+    <string name="settings_installs_straight_away">Installerar en nyare version direkt</string>
+    <string name="settings_latest_version">Du har den senaste versionen (eller så går GitHub inte att nå)</string>
+    <string name="settings_whats_new">Nyheter</string>
+    <string name="settings_whats_new_hint">Ändringar i varje version</string>
+    <string name="settings_licences">Licenser för öppen källkod</string>
+    <string name="settings_licences_hint">Seiðr är fri programvara (GNU GPL 3.0)</string>
+    <string name="settings_build">Bygge %1$d</string>
+    <string name="settings_new_badge">NY</string>
+
+    <string name="settings_sign_out_title">Logga ut?</string>
+    <string name="settings_sign_out_message">Uppspelningen stoppas och synkningen pausas tills du loggar in igen. Nedladdade filer finns kvar.</string>
+    <string name="settings_sign_out">Logga ut</string>
+    <string name="settings_cancel">Avbryt</string>
+
+    <string name="settings_not_signed_in">Inte inloggad</string>
+    <string name="settings_not_connected">Inte ansluten</string>
+    <string name="settings_server_kid">%1$s · Barnkonto</string>
+    <string name="settings_sign_in_device">Logga in en enhet</string>
+
+    <string name="settings_colour">Färg</string>
+    <string name="settings_theme_system">System (bakgrundsbild)</string>
+    <string name="settings_theme_neutral">Neutral</string>
+
+    <string name="kids_title">Barn</string>
+    <string name="kids_view_as_description">Visa som %1$s</string>
+    <string name="kids_remove_description">Ta bort %1$s</string>
+    <string name="kids_add">Lägg till ett barnkonto</string>
+    <string name="kids_how">Så fungerar barnkonton</string>
+    <string name="kids_remove_title">Ta bort %1$s?</string>
+    <string name="kids_remove_message">Den här enheten glömmer barnets inloggning. Enheter som redan är inloggade som %1$s förblir inloggade.</string>
+    <string name="kids_remove">Ta bort</string>
+    <string name="kids_cancel">Avbryt</string>
+    <string name="kids_help_title">Barnkonton</string>
+    <string name="kids_help_step1">1. Skapa ett eget Navidrome-konto åt varje barn (inte administratör) och lägg till det här.</string>
+    <string name="kids_help_step2">2. Logga in barnets enhet via Logga in en enhet. Behåll lösenordet för dig själv.</string>
+    <string name="kids_help_step3">3. Välj vad barnet får med tre spellistor på ditt konto, som skapas när du lägger till ett barn:</string>
+    <string name="kids_help_approved">låtar som barnet får spela</string>
+    <string name="kids_help_safe_titles">visas nedtonade, bara namnet</string>
+    <string name="kids_help_safe_art">visas nedtonade, med omslaget</string>
+    <string name="kids_help_hidden">Allt annat är dolt för barnet. De här spellistorna visas inte i ditt bibliotek, så redigera dem i Navidromes webbspelare eller i en annan app.</string>
+    <string name="kids_help_eye">Ögonknappen visar Seiðr så som barnet ser det, utan att ändra något.</string>
+    <string name="kids_got_it">Jag förstår</string>
+    <string name="kids_view_as_title">Visa som %1$s?</string>
+    <string name="kids_view_as_message">Bläddra och se bara det som visas på enheter inloggade som %1$s. Läget är skrivskyddat: du förblir inloggad, och låtar du spelar här räknas som dina spelningar, inte som spelningar av %1$s. Gå tillbaka via banderollen på Hem eller i Inställningar.</string>
+    <string name="kids_view_as_button">Visa som %1$s</string>
+    <string name="kids_viewing_as">Visar som %1$s</string>
+    <string name="kids_back_to">Tillbaka till %1$s</string>
+    <string name="kids_own_account">Det där är ditt eget konto</string>
+    <string name="kids_add_message">Barnets Navidrome-inloggning på %1$s.</string>
+    <string name="kids_username">Användarnamn</string>
+    <string name="kids_password">Lösenord</string>
+    <string name="kids_add_button">Lägg till</string>
+
+    <string name="login_unencrypted_title">Okrypterad anslutning</string>
+    <string name="login_unencrypted_message">Den här servern ligger på internet, men adressen börjar med http://, så din inloggning och din musik skickas okrypterat. Vem som helst längs vägen kan läsa dem och återanvända din inloggning. Använd en https://-adress om servern har en.</string>
+    <string name="login_connect_anyway">Anslut ändå</string>
+    <string name="login_go_back">Gå tillbaka</string>
+    <string name="login_heading">Anslut till din Navidrome-server</string>
+    <string name="login_server_url">Server-URL</string>
+    <string name="login_username">Användarnamn</string>
+    <string name="login_password">Lösenord</string>
+    <string name="login_log_in">Logga in</string>
+    <string name="login_other_device_title">Inloggad på en annan enhet?</string>
+    <string name="login_other_device_steps">Öppna Seiðr där, gå till Inställningar → Logga in en enhet och välj %1$s. Båda måste vara på samma wifi, med Seiðr öppet på den här. Kontrollera att koden är densamma på båda skärmarna, så är du inne.</string>
+    <string name="login_back">Tillbaka</string>
+    <string name="login_idle_ready">Redo att spela</string>
+    <string name="login_idle_hint">Öppna Seiðr på en annan enhet, tryck på ”Spela på” och välj sedan den här.</string>
+    <string name="login_pairing_code">Parkopplingskod</string>
+    <string name="login_check_same_code">Kontrollera att %1$s visar samma kod.</string>
+    <string name="login_sign_in_this_device">Logga in den här enheten?</string>
+    <string name="login_sign_in_request">%1$s vill logga in den här enheten som %2$s på %3$s.</string>
+    <string name="login_sign_in_request_kid">%1$s vill logga in den här enheten som %2$s, ett barnkonto, på %3$s.</string>
+    <string name="login_allow">Tillåt</string>
+    <string name="login_dont_allow">Tillåt inte</string>
+    <string name="login_cancel">Avbryt</string>
+    <string name="login_sign_in_peer">Logga in %1$s?</string>
+    <string name="login_play_on_peer">Spela på %1$s?</string>
+    <string name="login_check_this_code">Kontrollera att %1$s visar den här koden:</string>
+    <string name="login_will_sign_in_kid">Den loggas in som %1$s, ett barnkonto: bara godkända låtar.</string>
+    <string name="login_will_sign_in">Den loggas in som %1$s, med ditt lösenord.</string>
+    <string name="login_will_play">Den spelar med din inloggning tills den kopplas från. Du får inte frågan igen för den här enheten.</string>
+    <string name="login_it_matches">Den stämmer</string>
+
+    <string name="licences_title">Licenser för öppen källkod</string>
+    <string name="licences_includes">Seiðr innehåller</string>
+    <string name="licences_shared_freely">Delas fritt; upphovspersonerna kan begära borttagning</string>
+    <string name="licences_projectm_by">projectM-teamet. Levereras oförändrat; källkoden finns i Seiðrs kodförråd</string>
+    <string name="licences_presets">MilkDrop-förinställningar (Cream of the Crop)</string>
+    <string name="licences_presets_by">Urval av Jason Fletcher; varje förinställning är gjord av den som står i dess namn</string>
+    <string name="licences_textures">Texturpaket för MilkDrop</string>
+    <string name="licences_textures_by">Insamlat av projectM-teamet</string>
+    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
+    <string name="licences_material_icons">Material-ikoner</string>
+    <string name="licences_okhttp">OkHttp och Retrofit</string>
+    <string name="licences_coil_by">Bidragsgivare till Coil</string>
+    <string name="licences_openxr">OpenXR-loader</string>
+
+    <string name="vissettings_title">Visualisering</string>
+    <string name="vissettings_track_info">Visa låtinfo</string>
+    <string name="vissettings_track_info_hint">Omslag, titel och tid i ett hörn. Av visas de bara tillsammans med kontrollerna (håll in, eller upp/ned på en fjärrkontroll).</string>
+    <string name="vissettings_performance">Visa prestanda</string>
+    <string name="vissettings_performance_hint">Bildfrekvens, renderingsstorlek och kvalitetsnivå i ett hörn, medan visualiseringen anpassar sig.</string>
+    <string name="vissettings_loved">Gillade förinställningar</string>
+    <string name="vissettings_loved_hint">Hjärtat bland visualiseringens kontroller. Gillade förinställningar dyker upp ungefär en gång av tio.</string>
+    <string name="vissettings_unlove">Sluta gilla</string>
+    <string name="vissettings_hidden">Dolda förinställningar</string>
+    <string name="vissettings_hidden_hint">Flaggan bland visualiseringens kontroller döljer en förinställning. Förinställningar som är för tunga för att visas mjukt på den här enheten döljs åt dig. Tryck på en för att förhandsvisa den.</string>
+    <string name="vissettings_hidden_by_you">Dold av dig</string>
+    <string name="vissettings_too_heavy">För tung för den här enheten</string>
+    <string name="vissettings_unhide">Visa igen</string>
+
+    <string name="whatsnew_title">Nyheter</string>
+    <string name="whatsnew_this_version">%1$s (den här versionen)</string>
+
+</resources>

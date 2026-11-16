@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="library_songs">
+        <item quantity="one">%d låt</item>
+        <item quantity="other">%d låtar</item>
+    </plurals>
+    <plurals name="library_albums">
+        <item quantity="one">%d album</item>
+        <item quantity="other">%d album</item>
+    </plurals>
+
+    <string name="library_title">Bibliotek</string>
+    <string name="library_tab_playlists">Spellistor</string>
+    <string name="library_tab_artists">Artister</string>
+    <string name="library_tab_albums">Album</string>
+    <string name="library_search_playlists">Sök bland spellistor</string>
+    <string name="library_search_artists">Sök bland artister</string>
+    <string name="library_search_albums">Sök bland album</string>
+    <string name="library_close_search">Stäng sökningen</string>
+    <string name="library_search_library">Sök i ditt bibliotek</string>
+    <string name="library_create_playlist">Skapa spellista</string>
+    <string name="library_downloaded">Nedladdat</string>
+    <string name="library_sort_custom">Egen ordning</string>
+    <string name="library_sort_name">Namn</string>
+    <string name="library_sort_updated">Senast uppdaterade</string>
+    <string name="library_sort_most_albums">Flest album</string>
+    <string name="library_sort_artist">Artist</string>
+    <string name="library_sort_added">Senast tillagda</string>
+    <string name="library_sort_year">År</string>
+    <string name="library_show_list">Visa som lista</string>
+    <string name="library_show_grid">Visa som rutnät</string>
+    <string name="library_by_owner">av %1$s</string>
+    <string name="library_playlist">Spellista</string>
+    <string name="library_name">Namn</string>
+    <string name="library_create">Skapa</string>
+    <string name="library_cancel">Avbryt</string>
+    <string name="library_create_failed">Kunde inte skapa spellistan (kräver servern)</string>
+    <string name="library_no_match">Inget matchar ”%1$s”</string>
+    <string name="library_none_downloaded">Inget nedladdat här än</string>
+    <string name="library_empty">Inget här än</string>
+    <plurals name="library_downloading_left">
+        <item quantity="one">Laddar ned: %d låt kvar</item>
+        <item quantity="other">Laddar ned: %d låtar kvar</item>
+    </plurals>
+
+    <string name="search_title">Sök</string>
+    <string name="search_hint">Artister, låtar, album eller spellistor</string>
+    <string name="search_recent">Senaste sökningar</string>
+    <string name="search_clear">Rensa</string>
+    <string name="search_filter_all">Allt</string>
+    <string name="search_filter_songs">Låtar</string>
+    <string name="search_filter_artists">Artister</string>
+    <string name="search_filter_albums">Album</string>
+    <string name="search_filter_playlists">Spellistor</string>
+    <string name="search_failed">Sökningen misslyckades</string>
+    <string name="search_no_results">Inga resultat för ”%1$s”</string>
+    <string name="search_context">Sökning: %1$s</string>
+    <string name="search_top_result">Bästa träff</string>
+    <string name="search_kind_artist">Artist</string>
+    <string name="search_kind_album">Album</string>
+    <string name="search_kind_song">Låt</string>
+    <string name="search_kind_album_by">Album · %1$s</string>
+    <string name="search_kind_song_by">Låt · %1$s</string>
+    <plurals name="search_kind_playlist">
+        <item quantity="one">Spellista · %d låt</item>
+        <item quantity="other">Spellista · %d låtar</item>
+    </plurals>
+
+    <string name="playlist_by_owner">av %1$s</string>
+    <string name="playlist_done">Klar</string>
+    <string name="playlist_options">Alternativ för spellistan</string>
+    <string name="playlist_reorder">Ändra låtordning</string>
+    <string name="playlist_rename">Byt namn</string>
+    <string name="playlist_delete">Radera spellista</string>
+    <string name="playlist_remove_from_this">Ta bort från den här spellistan</string>
+    <string name="playlist_order_saved">Spellistans ordning har sparats</string>
+    <string name="playlist_removed_from">Borttagen från %1$s</string>
+    <string name="playlist_rename_title">Byt namn på spellistan</string>
+    <string name="playlist_renamed">Namnet har ändrats</string>
+    <string name="playlist_save">Spara</string>
+    <string name="playlist_cancel">Avbryt</string>
+    <string name="playlist_delete_title">Radera ”%1$s”?</string>
+    <string name="playlist_delete_body">Den raderas på servern. Nedladdningar som bara den höll kvar tas bort från telefonen.</string>
+    <string name="playlist_deleted">%1$s har raderats</string>
+    <string name="playlist_delete_confirm">Radera</string>
+
+    <string name="downloads_title">Nedladdningar</string>
+    <string name="downloads_free">%1$s ledigt på telefonen</string>
+    <string name="downloads_queue">Kö</string>
+    <string name="downloads_all_done">Allt är nedladdat</string>
+    <plurals name="downloads_waiting">
+        <item quantity="one">%d låt väntar</item>
+        <item quantity="other">%d låtar väntar</item>
+    </plurals>
+    <string name="downloads_wifi_only_note">Laddar bara ned via wifi</string>
+    <plurals name="downloads_failed">
+        <item quantity="one">%d misslyckades</item>
+        <item quantity="other">%d misslyckades</item>
+    </plurals>
+    <string name="downloads_retry">Försök igen</string>
+    <plurals name="downloads_edits_waiting">
+        <item quantity="one">%d spellisteändring väntar</item>
+        <item quantity="other">%d spellisteändringar väntar</item>
+    </plurals>
+    <string name="downloads_edits_note">Skickas när servern går att nå</string>
+    <string name="downloads_settings">Inställningar</string>
+    <string name="downloads_wifi_only">Ladda bara ned via wifi</string>
+    <string name="downloads_wifi_only_hint">Stäng av för att även ladda ned via mobildata</string>
+    <string name="downloads_syncing">Synkar…</string>
+    <string name="downloads_not_synced">Inte synkat än</string>
+    <string name="downloads_last_synced">Senast synkat %1$s</string>
+    <plurals name="downloads_unchecked">
+        <item quantity="one">%d kunde inte kontrolleras; inget togs bort</item>
+        <item quantity="other">%d kunde inte kontrolleras; inget togs bort</item>
+    </plurals>
+    <string name="downloads_sync_now">Synka nu</string>
+    <string name="downloads_downloaded">Nedladdat</string>
+    <string name="downloads_nothing">Inget än</string>
+    <string name="downloads_nothing_hint">Slå på Ladda ned för en spellista eller ett album för att behålla det på telefonen.</string>
+    <plurals name="downloads_progress">
+        <item quantity="one">%1$d av %2$d låt · %3$s</item>
+        <item quantity="other">%1$d av %2$d låtar · %3$s</item>
+    </plurals>
+    <string name="downloads_waiting_short">Väntar</string>
+    <string name="downloads_kind_playlist">Spellista</string>
+    <string name="downloads_kind_album">Album</string>
+
+    <string name="home_offline_tv">Du är offline. Seiðr ansluter igen när servern går att nå.</string>
+    <string name="home_offline">Du är offline. Nedladdad musik finns kvar: titta i Bibliotek med filtret Nedladdat.</string>
+    <string name="home_kid_empty">Inget har godkänts för dig än. Be den som loggade in dig att lägga till några låtar.</string>
+    <string name="home_playlists">Spellistor</string>
+    <string name="home_sort_az">A–Ö</string>
+    <string name="home_sort_recent">Senaste</string>
+    <string name="home_by_owner">av %1$s</string>
+    <string name="home_recently_added">Nyligen tillagt</string>
+    <string name="home_most_played">Mest spelat</string>
+    <string name="home_saved_albums">Sparade album</string>
+
+    <string name="artist_load_failed">Kunde inte läsa in låtar</string>
+    <string name="artist_label">Artist</string>
+    <string name="artist_popular">Populärt</string>
+    <string name="artist_show_less">Visa färre</string>
+    <string name="artist_show_all">Visa alla</string>
+    <string name="artist_albums">Album</string>
+    <string name="artist_singles">Singlar och EP</string>
+    <string name="artist_appears_on">Medverkar på</string>
+
+    <string name="album_unreachable">Kunde inte nå servern</string>
+    <string name="album_remove_from_library">Ta bort från biblioteket</string>
+    <string name="album_save_to_library">Spara i biblioteket</string>
+    <string name="album_disc">Skiva %1$s</string>
+
+    <string name="loved_title">Gillade</string>
+</resources>

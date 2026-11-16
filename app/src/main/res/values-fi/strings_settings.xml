@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Asetukset</string>
+    <string name="settings_appearance">Ulkoasu</string>
+    <string name="settings_visualiser">Visualisointi</string>
+    <string name="settings_vis_item">Kappaleen tiedot ja esiasetukset</string>
+    <string name="settings_vis_item_hint">Mitä sen päällä näkyy; tykätyt ja piilotetut esiasetukset</string>
+    <string name="settings_playback_downloads">Toisto ja lataukset</string>
+    <string name="settings_background_playback">Taustatoisto</string>
+    <string name="settings_battery_off">Rajoittamaton: akun optimointi on pois päältä</string>
+    <string name="settings_battery_tap">Napauta, jos haluat Seiðrin toimivan ilman rajoituksia. Muuten joidenkin puhelinten akunhallinta pysäyttää musiikin.</string>
+    <string name="settings_on">Päällä</string>
+    <string name="settings_downloads_storage">Lataukset ja tallennustila</string>
+    <string name="settings_downloads_storage_hint">Jono, tila soittolistoittain, vain Wi-Fi</string>
+    <string name="settings_library">Kirjasto</string>
+    <string name="settings_others_private">Muiden yksityiset soittolistat</string>
+    <string name="settings_others_private_hint">Olet ylläpitäjä, joten palvelin näyttää sinulle kaikkien listat. Kun tämä on pois päältä, ne pysyvät poissa kirjastostasi.</string>
+
+    <string name="settings_reporting">Ongelmailmoitukset</string>
+    <string name="settings_report_problems">Ilmoita ongelmista</string>
+    <string name="settings_report_problems_hint">Lisää jokaisen kappaleen ⋮-valikkoon kohdan Ilmoita ongelmasta</string>
+    <string name="settings_report_info">Viallinen tiedosto, väärä kansikuva tai virheelliset sanoitukset lisätään palvelimen soittolistalle %1$s, %2$s tai %3$s, jotta palvelimen ylläpitäjä voi korjata ne. Soittolistan %1$s kappaleet ohitetaan, kunnes ne on korjattu.</string>
+    <string name="settings_report_missing">Palvelimelta ei löytynyt: %1$s.</string>
+
+    <string name="settings_about">Tietoja</string>
+    <string name="settings_auto_update">Tarkista päivitykset automaattisesti</string>
+    <string name="settings_auto_update_hint">Etsii uutta julkaisua GitHubista, kun avaat sovelluksen</string>
+    <string name="settings_install_update">Asenna päivitys</string>
+    <string name="settings_check_updates">Tarkista päivitykset</string>
+    <string name="settings_checking">Tarkistetaan…</string>
+    <string name="settings_version_ready">Versio %1$s on valmiina</string>
+    <string name="settings_installs_straight_away">Asentaa uudemman version saman tien</string>
+    <string name="settings_latest_version">Sinulla on uusin versio (tai GitHubiin ei saada yhteyttä)</string>
+    <string name="settings_whats_new">Uutta</string>
+    <string name="settings_whats_new_hint">Kunkin version muutokset</string>
+    <string name="settings_licences">Avoimen lähdekoodin lisenssit</string>
+    <string name="settings_licences_hint">Seiðr on vapaa ohjelmisto (GNU GPL 3.0)</string>
+    <string name="settings_build">Koontiversio %1$d</string>
+    <string name="settings_new_badge">UUSI</string>
+
+    <string name="settings_sign_out_title">Kirjaudutaanko ulos?</string>
+    <string name="settings_sign_out_message">Toisto pysähtyy ja synkronointi keskeytyy, kunnes kirjaudut uudelleen sisään. Ladatut tiedostot säilyvät.</string>
+    <string name="settings_sign_out">Kirjaudu ulos</string>
+    <string name="settings_cancel">Peruuta</string>
+
+    <string name="settings_not_signed_in">Ei kirjauduttu sisään</string>
+    <string name="settings_not_connected">Ei yhteyttä</string>
+    <string name="settings_server_kid">%1$s · Lapsen tili</string>
+    <string name="settings_sign_in_device">Kirjaa laite sisään</string>
+
+    <string name="settings_colour">Väri</string>
+    <string name="settings_theme_system">Järjestelmä (taustakuva)</string>
+    <string name="settings_theme_neutral">Neutraali</string>
+
+    <string name="kids_title">Lapset</string>
+    <string name="kids_view_as_description">Katso käyttäjänä %1$s</string>
+    <string name="kids_remove_description">Poista %1$s</string>
+    <string name="kids_add">Lisää lapsen tili</string>
+    <string name="kids_how">Näin lasten tilit toimivat</string>
+    <string name="kids_remove_title">Poistetaanko %1$s?</string>
+    <string name="kids_remove_message">Tämä laite unohtaa lapsen kirjautumistiedot. Laitteet, joilla on jo kirjauduttu käyttäjänä %1$s, pysyvät kirjautuneina.</string>
+    <string name="kids_remove">Poista</string>
+    <string name="kids_cancel">Peruuta</string>
+    <string name="kids_help_title">Lasten tilit</string>
+    <string name="kids_help_step1">1. Luo jokaiselle lapselle oma Navidrome-tili (ei ylläpitäjä) ja lisää se tähän.</string>
+    <string name="kids_help_step2">2. Kirjaa lapsen laite sisään kohdasta Kirjaa laite sisään. Pidä salasana omana tietonasi.</string>
+    <string name="kids_help_step3">3. Valitse, mitä lapsi saa, kolmella tililläsi olevalla soittolistalla. Ne luodaan, kun lisäät lapsen:</string>
+    <string name="kids_help_approved">kappaleet, joita lapsi saa toistaa</string>
+    <string name="kids_help_safe_titles">näytetään harmaana, vain nimi</string>
+    <string name="kids_help_safe_art">näytetään harmaana, kansikuvan kanssa</string>
+    <string name="kids_help_hidden">Kaikki muu on lapselta piilossa. Nämä soittolistat eivät näy kirjastossasi, joten muokkaa niitä Navidromen verkkosoittimessa tai toisessa sovelluksessa.</string>
+    <string name="kids_help_eye">Silmäpainike näyttää Seiðrin sellaisena kuin lapsi sen näkee, muuttamatta mitään.</string>
+    <string name="kids_got_it">Selvä</string>
+    <string name="kids_view_as_title">Katsotaanko käyttäjänä %1$s?</string>
+    <string name="kids_view_as_message">Selaa vain sitä, mikä näkyy laitteilla, joilla on kirjauduttu käyttäjänä %1$s. Mitään ei voi muokata: pysyt itse kirjautuneena, ja täällä toistamasi kappaleet lasketaan sinun kuunteluiksesi, ei käyttäjän %1$s kuunteluiksi. Pääset takaisin Koti- tai Asetukset-näkymän palkista.</string>
+    <string name="kids_view_as_button">Katso käyttäjänä %1$s</string>
+    <string name="kids_viewing_as">Katsot käyttäjänä %1$s</string>
+    <string name="kids_back_to">Palaa käyttäjäksi %1$s</string>
+    <string name="kids_own_account">Tämä on oma tilisi</string>
+    <string name="kids_add_message">Lapsen Navidrome-tunnukset palvelimella %1$s.</string>
+    <string name="kids_username">Käyttäjätunnus</string>
+    <string name="kids_password">Salasana</string>
+    <string name="kids_add_button">Lisää</string>
+
+    <string name="login_unencrypted_title">Salaamaton yhteys</string>
+    <string name="login_unencrypted_message">Tämä palvelin on internetissä, mutta sen osoitteen alussa on http://, joten kirjautumistietosi ja musiikkisi kulkevat salaamattomina. Kuka tahansa matkan varrella voi lukea ne ja käyttää kirjautumistietojasi. Käytä https://-osoitetta, jos palvelimellasi on sellainen.</string>
+    <string name="login_connect_anyway">Yhdistä silti</string>
+    <string name="login_go_back">Palaa takaisin</string>
+    <string name="login_heading">Yhdistä Navidrome-palvelimeesi</string>
+    <string name="login_server_url">Palvelimen osoite</string>
+    <string name="login_username">Käyttäjätunnus</string>
+    <string name="login_password">Salasana</string>
+    <string name="login_log_in">Kirjaudu sisään</string>
+    <string name="login_other_device_title">Oletko kirjautunut toisella laitteella?</string>
+    <string name="login_other_device_steps">Avaa Seiðr siellä, siirry kohtaan Asetukset → Kirjaa laite sisään ja valitse %1$s. Molempien laitteiden on oltava samassa Wi-Fi-verkossa ja Seiðrin auki tällä laitteella. Tarkista, että koodi on sama molemmilla näytöillä, niin olet sisällä.</string>
+    <string name="login_back">Takaisin</string>
+    <string name="login_idle_ready">Valmiina toistoon</string>
+    <string name="login_idle_hint">Avaa Seiðr toisella laitteella, napauta ”Toista laitteella” ja valitse tämä laite.</string>
+    <string name="login_pairing_code">Laiteparikoodi</string>
+    <string name="login_check_same_code">Tarkista, että %1$s näyttää saman koodin.</string>
+    <string name="login_sign_in_this_device">Kirjataanko tämä laite sisään?</string>
+    <string name="login_sign_in_request">%1$s haluaa kirjata tämän laitteen sisään käyttäjänä %2$s palvelimelle %3$s.</string>
+    <string name="login_sign_in_request_kid">%1$s haluaa kirjata tämän laitteen sisään käyttäjänä %2$s (lapsen tili) palvelimelle %3$s.</string>
+    <string name="login_allow">Salli</string>
+    <string name="login_dont_allow">Älä salli</string>
+    <string name="login_cancel">Peruuta</string>
+    <string name="login_sign_in_peer">Kirjataanko %1$s sisään?</string>
+    <string name="login_play_on_peer">Toistetaanko laitteella %1$s?</string>
+    <string name="login_check_this_code">Tarkista, että %1$s näyttää tämän koodin:</string>
+    <string name="login_will_sign_in_kid">Laite kirjautuu käyttäjänä %1$s, joka on lapsen tili: vain hyväksytyt kappaleet.</string>
+    <string name="login_will_sign_in">Laite kirjautuu käyttäjänä %1$s sinun salasanallasi.</string>
+    <string name="login_will_play">Laite toistaa sinun tunnuksillasi, kunnes yhteys katkaistaan. Tästä laitteesta ei kysytä uudelleen.</string>
+    <string name="login_it_matches">Koodi täsmää</string>
+
+    <string name="licences_title">Avoimen lähdekoodin lisenssit</string>
+    <string name="licences_includes">Seiðr sisältää</string>
+    <string name="licences_shared_freely">Jaettu vapaasti; tekijät voivat pyytää poistamista</string>
+    <string name="licences_projectm_by">projectM-tiimi. Mukana muuttamattomana; lähdekoodi on Seiðrin koodivarastossa</string>
+    <string name="licences_presets">MilkDrop-esiasetukset (Cream of the Crop)</string>
+    <string name="licences_presets_by">Koonnut Jason Fletcher; kunkin esiasetuksen tekijä näkyy sen nimessä</string>
+    <string name="licences_textures">MilkDrop-tekstuuripaketti</string>
+    <string name="licences_textures_by">Koonnut projectM-tiimi</string>
+    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
+    <string name="licences_material_icons">Material-kuvakkeet</string>
+    <string name="licences_okhttp">OkHttp ja Retrofit</string>
+    <string name="licences_coil_by">Coilin tekijät</string>
+    <string name="licences_openxr">OpenXR-loader</string>
+
+    <string name="vissettings_title">Visualisointi</string>
+    <string name="vissettings_track_info">Näytä kappaleen tiedot</string>
+    <string name="vissettings_track_info_hint">Kansikuva, nimi ja aika näytön kulmassa. Kun tämä on pois päältä, ne näkyvät vain säätimien kanssa (paina pitkään tai käytä kaukosäätimen ylös- ja alas-painikkeita).</string>
+    <string name="vissettings_performance">Näytä suorituskyky</string>
+    <string name="vissettings_performance_hint">Kuvataajuus, renderöintikoko ja laatutaso näytön kulmassa, kun visualisointi säätää itseään.</string>
+    <string name="vissettings_loved">Tykätyt esiasetukset</string>
+    <string name="vissettings_loved_hint">Sydän visualisoinnin säätimissä. Tykätyt esiasetukset tulevat vuoroon noin joka kymmenennellä kerralla.</string>
+    <string name="vissettings_unlove">Poista tykkäys</string>
+    <string name="vissettings_hidden">Piilotetut esiasetukset</string>
+    <string name="vissettings_hidden_hint">Visualisoinnin säätimissä oleva lippu piilottaa esiasetuksen. Esiasetukset, jotka ovat liian raskaita näkyäkseen sulavasti tällä laitteella, piilotetaan puolestasi. Esikatsele napauttamalla.</string>
+    <string name="vissettings_hidden_by_you">Itse piilottamasi</string>
+    <string name="vissettings_too_heavy">Liian raskas tälle laitteelle</string>
+    <string name="vissettings_unhide">Näytä taas</string>
+
+    <string name="whatsnew_title">Uutta</string>
+    <string name="whatsnew_this_version">%1$s (tämä versio)</string>
+
+</resources>

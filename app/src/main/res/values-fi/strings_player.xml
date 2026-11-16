@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">Takaisin</string>
+    <string name="common_cancel">Peruuta</string>
+    <string name="common_clear">Tyhjennä</string>
+    <string name="common_close">Sulje</string>
+    <string name="common_done">Valmis</string>
+    <string name="common_more">Lisää</string>
+    <string name="common_remove">Poista</string>
+    <string name="common_try_again">Yritä uudelleen</string>
+    <string name="common_offline">Offline</string>
+    <string name="common_load_failed">Sisältöä ei voitu hakea</string>
+    <string name="common_drag_to_reorder">Järjestä vetämällä</string>
+    <string name="common_moving_hint">Siirretään: ylös tai alas, pudota valitsemalla</string>
+    <string name="common_shuffle_play">Toista satunnaisessa järjestyksessä</string>
+    <string name="common_play_in_order">Toista järjestyksessä</string>
+    <string name="common_play">Toista</string>
+
+    <string name="common_download">Lataa</string>
+    <string name="common_downloaded">Ladattu</string>
+    <string name="common_queued">Jonossa</string>
+    <string name="common_download_failed">Lataus epäonnistui</string>
+    <string name="common_waiting_to_download">Odottaa latausta…</string>
+    <string name="common_downloading_progress">Ladataan… %1$d/%2$d</string>
+    <string name="common_download_when_reachable">Ladataan, kun palvelimeen saadaan yhteys</string>
+    <string name="common_downloads_removed">Lataukset poistettu: %1$s</string>
+    <string name="common_not_approved_yet">Ei vielä hyväksytty</string>
+
+    <string name="common_read_only_kid">Lapsen näkymässä ei voi muokata</string>
+    <string name="common_cant_reach_server">Palvelimeen ei saatu yhteyttä</string>
+    <string name="common_loved">Tykätty</string>
+    <string name="common_unloved">Tykkäys poistettu</string>
+    <string name="common_edit_queued">Offline: tallennetaan palvelimelle, kun yhteys palaa</string>
+    <string name="common_edit_conflict">Soittolistaa muutettiin muualla, joten mitään ei tallennettu. Lista haettiin uudelleen.</string>
+    <string name="common_edit_failed">Tallennus epäonnistui: %1$s</string>
+
+    <plurals name="common_songs">
+        <item quantity="one">%d kappale</item>
+        <item quantity="other">%d kappaletta</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="one">%d albumi</item>
+        <item quantity="other">%d albumia</item>
+    </plurals>
+    <plurals name="common_approved_count">
+        <item quantity="one">%1$d hyväksytty</item>
+        <item quantity="other">%1$d hyväksyttyä</item>
+    </plurals>
+    <string name="common_by_owner">käyttäjältä %1$s</string>
+    <string name="common_duration_hr_min">%1$d t %2$d min</string>
+    <string name="common_duration_min">%1$d min</string>
+    <string name="common_size_gb">%1$.1f Gt</string>
+    <string name="common_size_mb">%1$.0f Mt</string>
+    <string name="common_size_kb">%1$.0f kt</string>
+
+    <string name="nav_home">Koti</string>
+    <string name="nav_search">Haku</string>
+    <string name="nav_library">Kirjasto</string>
+    <string name="nav_now_playing">Nyt soi</string>
+    <string name="nav_settings">Asetukset</string>
+    <string name="nav_update_available">Päivitys saatavilla</string>
+    <string name="nav_settings_update_available">Asetukset, päivitys saatavilla</string>
+
+    <string name="player_nothing_playing">Mikään ei soi</string>
+    <string name="player_playing_from">TOISTON LÄHDE</string>
+    <string name="player_queue">Jono</string>
+    <string name="player_disconnect">Katkaise yhteys</string>
+    <string name="player_play_on_another_device">Toista toisella laitteella</string>
+    <string name="player_lyrics">Sanoitukset</string>
+    <string name="player_hide_lyrics">Piilota sanoitukset</string>
+    <string name="player_visualiser">Visualisointi</string>
+    <string name="player_immersive_visualiser">Immersiivinen visualisointi</string>
+    <string name="player_previous">Edellinen</string>
+    <string name="player_next">Seuraava</string>
+    <string name="player_play">Toista</string>
+    <string name="player_pause">Keskeytä</string>
+    <string name="player_playing_on">Toistetaan laitteella %1$s</string>
+    <string name="player_playing_for">Toistetaan käyttäjälle %1$s laitteesta %2$s</string>
+    <string name="player_repeat_one">Jatkuva toisto: yksi kappale</string>
+    <string name="player_repeat_all">Jatkuva toisto: kaikki</string>
+    <string name="player_repeat_off">Jatkuva toisto pois</string>
+    <string name="player_shuffle">Satunnaistoisto</string>
+    <string name="player_on">Päällä</string>
+    <string name="player_off">Pois</string>
+    <string name="player_toggle_shuffle">Satunnaistoisto päälle tai pois</string>
+    <string name="player_reshuffle">Sekoita uudelleen</string>
+    <string name="player_reshuffled">Sekoitettu uudelleen</string>
+    <string name="player_hold_to_reshuffle">Sekoita uudelleen painamalla pitkään</string>
+
+    <string name="queue_title">Toistojono</string>
+    <string name="queue_empty">Jono on tyhjä</string>
+    <string name="queue_earlier">Aiemmat</string>
+    <string name="queue_now_playing">Nyt soi</string>
+    <string name="queue_next">Seuraavaksi</string>
+    <string name="queue_next_in_queue">Seuraavaksi jonossa</string>
+    <string name="queue_clear">Tyhjennä jono</string>
+    <string name="queue_next_from">Seuraavaksi kohteesta: %1$s</string>
+    <string name="queue_fallback_context">jono</string>
+    <string name="queue_remove">Poista jonosta</string>
+
+    <string name="lyrics_none">Tälle kappaleelle ei ole sanoituksia</string>
+    <string name="lyrics_failed">Sanoituksia ei voitu hakea</string>
+    <string name="lyrics_earlier">Sanoitukset aiemmin</string>
+    <string name="lyrics_later">Sanoitukset myöhemmin</string>
+    <string name="lyrics_original_timing">Alkuperäinen ajoitus</string>
+    <string name="lyrics_reset">Nollaa</string>
+
+    <string name="devices_title">Toista laitteella</string>
+    <string name="devices_this_device">Tämä laite</string>
+    <string name="devices_not_signed_in">Ei kirjauduttu sisään</string>
+    <string name="devices_connecting">Yhdistetään…</string>
+    <string name="devices_connected">Yhdistetty</string>
+    <string name="devices_allow">Salli</string>
+    <string name="devices_permission_rationale">Seiðr tarvitsee luvan ”Lähellä olevat laitteet” löytääkseen muut laitteesi.</string>
+    <string name="devices_looking">Etsitään laitteita. Avaa Seiðr toisella laitteella samassa Wi-Fi-verkossa: sellaisella, jolla olet kirjautuneena, tai sellaisella, jolla ei ole kirjauduttu sisään.</string>
+
+    <string name="menu_love">Tykkää</string>
+    <string name="menu_unlove">Poista tykkäys</string>
+    <string name="menu_add_to_playlist">Lisää soittolistalle</string>
+    <string name="menu_add_to_queue">Lisää jonoon</string>
+    <string name="menu_go_to_album">Siirry albumiin</string>
+    <string name="menu_go_to_artist">Siirry artistiin</string>
+    <plurals name="menu_added_to_queue">
+        <item quantity="one">Lisätty jonoon</item>
+        <item quantity="other">%d kappaletta lisätty jonoon</item>
+    </plurals>
+    <string name="menu_new_playlist">Uusi soittolista</string>
+    <string name="menu_playlist_name">Nimi</string>
+    <string name="menu_create">Luo</string>
+    <string name="menu_create_failed">Soittolistan luominen epäonnistui (vaatii yhteyden palvelimeen)</string>
+    <string name="menu_created">”%1$s” luotu</string>
+    <string name="menu_added_to">Lisätty soittolistalle %1$s</string>
+
+    <string name="menu_report_a_problem">Ilmoita ongelmasta</string>
+    <string name="menu_report_no_playlist">Soittolistaa %1$s ei ole</string>
+    <string name="menu_report_undo_song">Kumoa kappaleilmoitus</string>
+    <string name="menu_report_undo_art">Kumoa kansikuvailmoitus</string>
+    <string name="menu_report_undo_lyrics">Kumoa sanoitusilmoitus</string>
+    <string name="menu_report_bad_song">Viallinen kappale (ohita)</string>
+    <string name="menu_report_bad_art">Huono kansikuva</string>
+    <string name="menu_report_bad_lyrics">Huonot sanoitukset</string>
+
+    <string name="pair_title">Kirjaa laite sisään</string>
+    <string name="pair_signing_in">Kirjataan sisään: %1$s… Salli se laitteella %1$s.</string>
+    <string name="pair_signed_in_as">%1$s on kirjattu sisään käyttäjänä %2$s</string>
+    <string name="pair_cancelled">Peruutettu</string>
+    <string name="pair_intro">Avaa Seiðr laitteella, jonka haluat kirjata sisään, samassa Wi-Fi-verkossa kuin tämä laite. Se näkyy tässä niin kauan kuin sillä ei ole kirjauduttu sisään. Tarkistat, että molemmilla näytöillä on sama koodi, ja sitten laite kirjautuu käyttäjänä %1$s.</string>
+    <string name="pair_intro_kid">Avaa Seiðr laitteella, jonka haluat kirjata sisään, samassa Wi-Fi-verkossa kuin tämä laite. Se näkyy tässä niin kauan kuin sillä ei ole kirjauduttu sisään. Tarkistat, että molemmilla näytöillä on sama koodi, ja sitten laite kirjautuu käyttäjänä %1$s. Siitäkin tulee lapsen laite, jossa on samat kappaleet.</string>
+    <string name="pair_you">Sinä</string>
+    <string name="pair_kid_approved_only">Lapsi: vain hyväksytyt kappaleet</string>
+    <string name="pair_permission_rationale">Seiðr tarvitsee luvan ”Lähellä olevat laitteet” löytääkseen muita laitteita.</string>
+    <string name="pair_looking">Etsitään laitteita, joilla ei ole kirjauduttu sisään…</string>
+
+    <string name="theme_system">Järjestelmä</string>
+    <string name="theme_neutral">Neutraali</string>
+    <string name="theme_red">Punainen</string>
+    <string name="theme_orange">Oranssi</string>
+    <string name="theme_amber">Meripihka</string>
+    <string name="theme_yellow">Keltainen</string>
+    <string name="theme_lime">Limetti</string>
+    <string name="theme_green">Vihreä</string>
+    <string name="theme_emerald">Smaragdi</string>
+    <string name="theme_teal">Sinivihreä</string>
+    <string name="theme_cyan">Syaani</string>
+    <string name="theme_sky">Taivaansininen</string>
+    <string name="theme_blue">Sininen</string>
+    <string name="theme_indigo">Indigo</string>
+    <string name="theme_violet">Violetti</string>
+    <string name="theme_purple">Purppura</string>
+    <string name="theme_magenta">Magenta</string>
+    <string name="theme_pink">Pinkki</string>
+</resources>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">Tilbake</string>
+    <string name="common_cancel">Avbryt</string>
+    <string name="common_clear">Tøm</string>
+    <string name="common_close">Lukk</string>
+    <string name="common_done">Ferdig</string>
+    <string name="common_more">Mer</string>
+    <string name="common_remove">Fjern</string>
+    <string name="common_try_again">Prøv igjen</string>
+    <string name="common_offline">Frakoblet</string>
+    <string name="common_load_failed">Kunne ikke laste inn dette</string>
+    <string name="common_drag_to_reorder">Dra for å endre rekkefølge</string>
+    <string name="common_moving_hint">Flytter: opp eller ned, og velg for å slippe</string>
+    <string name="common_shuffle_play">Spill av i tilfeldig rekkefølge</string>
+    <string name="common_play_in_order">Spill av i rekkefølge</string>
+    <string name="common_play">Spill av</string>
+
+    <string name="common_download">Last ned</string>
+    <string name="common_downloaded">Nedlastet</string>
+    <string name="common_queued">I kø</string>
+    <string name="common_download_failed">Nedlastingen mislyktes</string>
+    <string name="common_waiting_to_download">Venter på nedlasting…</string>
+    <string name="common_downloading_progress">Laster ned… %1$d av %2$d</string>
+    <string name="common_download_when_reachable">Lastes ned når serveren kan nås</string>
+    <string name="common_downloads_removed">Fjernet nedlastinger for %1$s</string>
+    <string name="common_not_approved_yet">Ikke godkjent ennå</string>
+
+    <string name="common_read_only_kid">Skrivebeskyttet mens du viser som et barn</string>
+    <string name="common_cant_reach_server">Fikk ikke kontakt med serveren</string>
+    <string name="common_loved">Lagt til i favoritter</string>
+    <string name="common_unloved">Fjernet fra favoritter</string>
+    <string name="common_edit_queued">Frakoblet: lagres på serveren når den er tilbake</string>
+    <string name="common_edit_conflict">Spillelisten ble endret et annet sted, så ingenting ble lagret. Den er lastet inn på nytt.</string>
+    <string name="common_edit_failed">Kunne ikke lagre: %1$s</string>
+
+    <plurals name="common_songs">
+        <item quantity="one">%d låt</item>
+        <item quantity="other">%d låter</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="one">%d album</item>
+        <item quantity="other">%d album</item>
+    </plurals>
+    <plurals name="common_approved_count">
+        <item quantity="one">%1$d godkjent</item>
+        <item quantity="other">%1$d godkjente</item>
+    </plurals>
+    <string name="common_by_owner">av %1$s</string>
+    <string name="common_duration_hr_min">%1$d t %2$d min</string>
+    <string name="common_duration_min">%1$d min</string>
+    <string name="common_size_gb">%1$.1f GB</string>
+    <string name="common_size_mb">%1$.0f MB</string>
+    <string name="common_size_kb">%1$.0f kB</string>
+
+    <string name="nav_home">Hjem</string>
+    <string name="nav_search">Søk</string>
+    <string name="nav_library">Bibliotek</string>
+    <string name="nav_now_playing">Spilles nå</string>
+    <string name="nav_settings">Innstillinger</string>
+    <string name="nav_update_available">Oppdatering tilgjengelig</string>
+    <string name="nav_settings_update_available">Innstillinger, oppdatering tilgjengelig</string>
+
+    <string name="player_nothing_playing">Ingenting spilles</string>
+    <string name="player_playing_from">SPILLER FRA</string>
+    <string name="player_queue">Kø</string>
+    <string name="player_disconnect">Koble fra</string>
+    <string name="player_play_on_another_device">Spill av på en annen enhet</string>
+    <string name="player_lyrics">Sangtekst</string>
+    <string name="player_hide_lyrics">Skjul sangtekst</string>
+    <string name="player_visualiser">Visualisering</string>
+    <string name="player_immersive_visualiser">Oppslukende visualisering</string>
+    <string name="player_previous">Forrige</string>
+    <string name="player_next">Neste</string>
+    <string name="player_play">Spill av</string>
+    <string name="player_pause">Pause</string>
+    <string name="player_playing_on">Spiller på %1$s</string>
+    <string name="player_playing_for">Spiller for %1$s fra %2$s</string>
+    <string name="player_repeat_one">Gjenta én</string>
+    <string name="player_repeat_all">Gjenta alle</string>
+    <string name="player_repeat_off">Gjentakelse av</string>
+    <string name="player_shuffle">Tilfeldig rekkefølge</string>
+    <string name="player_on">På</string>
+    <string name="player_off">Av</string>
+    <string name="player_toggle_shuffle">Slå tilfeldig rekkefølge av eller på</string>
+    <string name="player_reshuffle">Stokk om</string>
+    <string name="player_reshuffled">Stokket om</string>
+    <string name="player_hold_to_reshuffle">Hold inne for å stokke om</string>
+
+    <string name="queue_title">Avspillingskø</string>
+    <string name="queue_empty">Køen er tom</string>
+    <string name="queue_earlier">Tidligere</string>
+    <string name="queue_now_playing">Spilles nå</string>
+    <string name="queue_next">Neste</string>
+    <string name="queue_next_in_queue">Neste i køen</string>
+    <string name="queue_clear">Tøm køen</string>
+    <string name="queue_next_from">Neste fra: %1$s</string>
+    <string name="queue_fallback_context">køen</string>
+    <string name="queue_remove">Fjern fra køen</string>
+
+    <string name="lyrics_none">Ingen sangtekst for denne låten</string>
+    <string name="lyrics_failed">Kunne ikke laste inn sangteksten</string>
+    <string name="lyrics_earlier">Sangtekst tidligere</string>
+    <string name="lyrics_later">Sangtekst senere</string>
+    <string name="lyrics_original_timing">Opprinnelig timing</string>
+    <string name="lyrics_reset">Tilbakestill</string>
+
+    <string name="devices_title">Spill av på</string>
+    <string name="devices_this_device">Denne enheten</string>
+    <string name="devices_not_signed_in">Ikke logget inn</string>
+    <string name="devices_connecting">Kobler til…</string>
+    <string name="devices_connected">Tilkoblet</string>
+    <string name="devices_allow">Tillat</string>
+    <string name="devices_permission_rationale">Seiðr trenger tillatelsen Enheter i nærheten for å finne de andre enhetene dine.</string>
+    <string name="devices_looking">Ser etter enheter. Åpne Seiðr på en annen enhet på samme Wi-Fi: en som er logget inn som deg, eller en som ikke er logget inn.</string>
+
+    <string name="menu_love">Legg til favoritt</string>
+    <string name="menu_unlove">Fjern favoritt</string>
+    <string name="menu_add_to_playlist">Legg til i spilleliste</string>
+    <string name="menu_add_to_queue">Legg til i kø</string>
+    <string name="menu_go_to_album">Gå til album</string>
+    <string name="menu_go_to_artist">Gå til artist</string>
+    <plurals name="menu_added_to_queue">
+        <item quantity="one">Lagt til i køen</item>
+        <item quantity="other">%d låter lagt til i køen</item>
+    </plurals>
+    <string name="menu_new_playlist">Ny spilleliste</string>
+    <string name="menu_playlist_name">Navn</string>
+    <string name="menu_create">Opprett</string>
+    <string name="menu_create_failed">Kunne ikke opprette spillelisten (krever serveren)</string>
+    <string name="menu_created">Opprettet «%1$s»</string>
+    <string name="menu_added_to">Lagt til i %1$s</string>
+
+    <string name="menu_report_a_problem">Rapporter et problem</string>
+    <string name="menu_report_no_playlist">Spillelisten %1$s mangler</string>
+    <string name="menu_report_undo_song">Angre låtrapport</string>
+    <string name="menu_report_undo_art">Angre omslagsrapport</string>
+    <string name="menu_report_undo_lyrics">Angre tekstrapport</string>
+    <string name="menu_report_bad_song">Dårlig låt (hopp over)</string>
+    <string name="menu_report_bad_art">Dårlig omslag</string>
+    <string name="menu_report_bad_lyrics">Dårlig sangtekst</string>
+
+    <string name="pair_title">Logg inn en enhet</string>
+    <string name="pair_signing_in">Logger inn %1$s… Tillat det på %1$s.</string>
+    <string name="pair_signed_in_as">%1$s er logget inn som %2$s</string>
+    <string name="pair_cancelled">Avbrutt</string>
+    <string name="pair_intro">Åpne Seiðr på enheten du vil logge inn, på samme Wi-Fi som denne. Den dukker opp her mens den er logget ut. Du sjekker at begge skjermene viser samme kode, og så logges den inn som %1$s.</string>
+    <string name="pair_intro_kid">Åpne Seiðr på enheten du vil logge inn, på samme Wi-Fi som denne. Den dukker opp her mens den er logget ut. Du sjekker at begge skjermene viser samme kode, og så logges den inn som %1$s. Den blir også en barneenhet, med de samme låtene.</string>
+    <string name="pair_you">Deg</string>
+    <string name="pair_kid_approved_only">Barn: bare godkjente låter</string>
+    <string name="pair_permission_rationale">Seiðr trenger tillatelsen Enheter i nærheten for å finne andre enheter.</string>
+    <string name="pair_looking">Ser etter utloggede enheter…</string>
+
+    <string name="theme_system">System</string>
+    <string name="theme_neutral">Nøytral</string>
+    <string name="theme_red">Rød</string>
+    <string name="theme_orange">Oransje</string>
+    <string name="theme_amber">Rav</string>
+    <string name="theme_yellow">Gul</string>
+    <string name="theme_lime">Lime</string>
+    <string name="theme_green">Grønn</string>
+    <string name="theme_emerald">Smaragd</string>
+    <string name="theme_teal">Blågrønn</string>
+    <string name="theme_cyan">Cyan</string>
+    <string name="theme_sky">Himmelblå</string>
+    <string name="theme_blue">Blå</string>
+    <string name="theme_indigo">Indigo</string>
+    <string name="theme_violet">Fiolett</string>
+    <string name="theme_purple">Lilla</string>
+    <string name="theme_magenta">Magenta</string>
+    <string name="theme_pink">Rosa</string>
+</resources>

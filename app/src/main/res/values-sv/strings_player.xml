@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">Tillbaka</string>
+    <string name="common_cancel">Avbryt</string>
+    <string name="common_clear">Rensa</string>
+    <string name="common_close">Stäng</string>
+    <string name="common_done">Klar</string>
+    <string name="common_more">Mer</string>
+    <string name="common_remove">Ta bort</string>
+    <string name="common_try_again">Försök igen</string>
+    <string name="common_offline">Offline</string>
+    <string name="common_load_failed">Kunde inte läsa in det här</string>
+    <string name="common_drag_to_reorder">Dra för att ändra ordning</string>
+    <string name="common_moving_hint">Flyttar: upp eller ned, välj sedan för att släppa</string>
+    <string name="common_shuffle_play">Spela blandat</string>
+    <string name="common_play_in_order">Spela i ordning</string>
+    <string name="common_play">Spela</string>
+
+    <string name="common_download">Ladda ned</string>
+    <string name="common_downloaded">Nedladdat</string>
+    <string name="common_queued">I kö</string>
+    <string name="common_download_failed">Nedladdningen misslyckades</string>
+    <string name="common_waiting_to_download">Väntar på nedladdning…</string>
+    <string name="common_downloading_progress">Laddar ned… %1$d av %2$d</string>
+    <string name="common_download_when_reachable">Laddas ned när servern går att nå</string>
+    <string name="common_downloads_removed">Nedladdningarna för %1$s har tagits bort</string>
+    <string name="common_not_approved_yet">Inte godkänd än</string>
+
+    <string name="common_read_only_kid">Skrivskyddat när du visar som ett barn</string>
+    <string name="common_cant_reach_server">Kunde inte nå servern</string>
+    <string name="common_loved">Gillad</string>
+    <string name="common_unloved">Gillas inte längre</string>
+    <string name="common_edit_queued">Offline: sparas på servern när den är tillbaka</string>
+    <string name="common_edit_conflict">Spellistan har ändrats någon annanstans, så inget sparades. Den har lästs in på nytt.</string>
+    <string name="common_edit_failed">Kunde inte spara: %1$s</string>
+
+    <plurals name="common_songs">
+        <item quantity="one">%d låt</item>
+        <item quantity="other">%d låtar</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="one">%d album</item>
+        <item quantity="other">%d album</item>
+    </plurals>
+    <plurals name="common_approved_count">
+        <item quantity="one">%1$d godkänd</item>
+        <item quantity="other">%1$d godkända</item>
+    </plurals>
+    <string name="common_by_owner">av %1$s</string>
+    <string name="common_duration_hr_min">%1$d tim %2$d min</string>
+    <string name="common_duration_min">%1$d min</string>
+    <string name="common_size_gb">%1$.1f GB</string>
+    <string name="common_size_mb">%1$.0f MB</string>
+    <string name="common_size_kb">%1$.0f kB</string>
+
+    <string name="nav_home">Hem</string>
+    <string name="nav_search">Sök</string>
+    <string name="nav_library">Bibliotek</string>
+    <string name="nav_now_playing">Spelas nu</string>
+    <string name="nav_settings">Inställningar</string>
+    <string name="nav_update_available">Uppdatering tillgänglig</string>
+    <string name="nav_settings_update_available">Inställningar, uppdatering tillgänglig</string>
+
+    <string name="player_nothing_playing">Inget spelas</string>
+    <string name="player_playing_from">SPELAR FRÅN</string>
+    <string name="player_queue">Kö</string>
+    <string name="player_disconnect">Koppla från</string>
+    <string name="player_play_on_another_device">Spela på en annan enhet</string>
+    <string name="player_lyrics">Låttext</string>
+    <string name="player_hide_lyrics">Dölj låttext</string>
+    <string name="player_visualiser">Visualisering</string>
+    <string name="player_immersive_visualiser">Uppslukande visualisering</string>
+    <string name="player_previous">Föregående</string>
+    <string name="player_next">Nästa</string>
+    <string name="player_play">Spela</string>
+    <string name="player_pause">Pausa</string>
+    <string name="player_playing_on">Spelar på %1$s</string>
+    <string name="player_playing_for">Spelar åt %1$s från %2$s</string>
+    <string name="player_repeat_one">Upprepa en</string>
+    <string name="player_repeat_all">Upprepa alla</string>
+    <string name="player_repeat_off">Upprepning av</string>
+    <string name="player_shuffle">Blanda</string>
+    <string name="player_on">På</string>
+    <string name="player_off">Av</string>
+    <string name="player_toggle_shuffle">Slå på eller av blandning</string>
+    <string name="player_reshuffle">Blanda om</string>
+    <string name="player_reshuffled">Omblandat</string>
+    <string name="player_hold_to_reshuffle">Håll in för att blanda om</string>
+
+    <string name="queue_title">Spelkö</string>
+    <string name="queue_empty">Kön är tom</string>
+    <string name="queue_earlier">Tidigare</string>
+    <string name="queue_now_playing">Spelas nu</string>
+    <string name="queue_next">Nästa</string>
+    <string name="queue_next_in_queue">Nästa i kön</string>
+    <string name="queue_clear">Rensa kön</string>
+    <string name="queue_next_from">Nästa från: %1$s</string>
+    <string name="queue_fallback_context">kön</string>
+    <string name="queue_remove">Ta bort från kön</string>
+
+    <string name="lyrics_none">Ingen låttext för den här låten</string>
+    <string name="lyrics_failed">Kunde inte läsa in låttexten</string>
+    <string name="lyrics_earlier">Låttext tidigare</string>
+    <string name="lyrics_later">Låttext senare</string>
+    <string name="lyrics_original_timing">Ursprunglig timing</string>
+    <string name="lyrics_reset">Återställ</string>
+
+    <string name="devices_title">Spela på</string>
+    <string name="devices_this_device">Den här enheten</string>
+    <string name="devices_not_signed_in">Inte inloggad</string>
+    <string name="devices_connecting">Ansluter…</string>
+    <string name="devices_connected">Ansluten</string>
+    <string name="devices_allow">Tillåt</string>
+    <string name="devices_permission_rationale">Seiðr behöver behörigheten Enheter i närheten för att hitta dina andra enheter.</string>
+    <string name="devices_looking">Söker efter enheter. Öppna Seiðr på en annan enhet på samma wifi: en som är inloggad som du, eller en som inte är inloggad.</string>
+
+    <string name="menu_love">Gilla</string>
+    <string name="menu_unlove">Sluta gilla</string>
+    <string name="menu_add_to_playlist">Lägg till i spellista</string>
+    <string name="menu_add_to_queue">Lägg till i kön</string>
+    <string name="menu_go_to_album">Gå till album</string>
+    <string name="menu_go_to_artist">Gå till artist</string>
+    <plurals name="menu_added_to_queue">
+        <item quantity="one">Tillagd i kön</item>
+        <item quantity="other">%d låtar tillagda i kön</item>
+    </plurals>
+    <string name="menu_new_playlist">Ny spellista</string>
+    <string name="menu_playlist_name">Namn</string>
+    <string name="menu_create">Skapa</string>
+    <string name="menu_create_failed">Kunde inte skapa spellistan (kräver servern)</string>
+    <string name="menu_created">”%1$s” har skapats</string>
+    <string name="menu_added_to">Tillagd i %1$s</string>
+
+    <string name="menu_report_a_problem">Rapportera ett problem</string>
+    <string name="menu_report_no_playlist">Spellistan %1$s saknas</string>
+    <string name="menu_report_undo_song">Ångra låtrapport</string>
+    <string name="menu_report_undo_art">Ångra omslagsrapport</string>
+    <string name="menu_report_undo_lyrics">Ångra låttextrapport</string>
+    <string name="menu_report_bad_song">Dålig låt (hoppa över)</string>
+    <string name="menu_report_bad_art">Dåligt omslag</string>
+    <string name="menu_report_bad_lyrics">Dålig låttext</string>
+
+    <string name="pair_title">Logga in en enhet</string>
+    <string name="pair_signing_in">Loggar in %1$s… Tillåt det på %1$s.</string>
+    <string name="pair_signed_in_as">%1$s är inloggad som %2$s</string>
+    <string name="pair_cancelled">Avbrutet</string>
+    <string name="pair_intro">Öppna Seiðr på enheten du vill logga in, på samma wifi som den här. Den dyker upp här så länge den är utloggad. Du kontrollerar att båda skärmarna visar samma kod, och sedan loggas den in som %1$s.</string>
+    <string name="pair_intro_kid">Öppna Seiðr på enheten du vill logga in, på samma wifi som den här. Den dyker upp här så länge den är utloggad. Du kontrollerar att båda skärmarna visar samma kod, och sedan loggas den in som %1$s. Den blir också en barnenhet, med samma låtar.</string>
+    <string name="pair_you">Du</string>
+    <string name="pair_kid_approved_only">Barn: bara godkända låtar</string>
+    <string name="pair_permission_rationale">Seiðr behöver behörigheten Enheter i närheten för att hitta andra enheter.</string>
+    <string name="pair_looking">Söker efter utloggade enheter…</string>
+
+    <string name="theme_system">System</string>
+    <string name="theme_neutral">Neutral</string>
+    <string name="theme_red">Röd</string>
+    <string name="theme_orange">Orange</string>
+    <string name="theme_amber">Bärnsten</string>
+    <string name="theme_yellow">Gul</string>
+    <string name="theme_lime">Lime</string>
+    <string name="theme_green">Grön</string>
+    <string name="theme_emerald">Smaragd</string>
+    <string name="theme_teal">Blågrön</string>
+    <string name="theme_cyan">Cyan</string>
+    <string name="theme_sky">Himmelsblå</string>
+    <string name="theme_blue">Blå</string>
+    <string name="theme_indigo">Indigo</string>
+    <string name="theme_violet">Violett</string>
+    <string name="theme_purple">Lila</string>
+    <string name="theme_magenta">Magenta</string>
+    <string name="theme_pink">Rosa</string>
+</resources>

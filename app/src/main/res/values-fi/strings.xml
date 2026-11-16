@@ -1,0 +1,96 @@
+<resources>
+    <string name="channel_updates">Sovelluspäivitykset</string>
+    <string name="update_offer_title">Päivitetäänkö %1$s?</string>
+    <string name="update_offer_text">Versio %1$s on valmis asennettavaksi (sinulla on %2$s). Sovellus sulkeutuu päivityksen ajaksi.</string>
+    <string name="update_install">Asenna</string>
+    <string name="update_later">Myöhemmin</string>
+    <string name="update_whats_new">Uutta</string>
+    <string name="update_whats_new_title">Uutta versiossa %1$s</string>
+    <string name="update_ready_title">Päivitys valmiina</string>
+    <string name="update_ready_text">Asenna versio %1$s napauttamalla</string>
+
+    <string name="notif_channel_downloads">Lataukset</string>
+    <string name="notif_channel_storage">Tallennustilan varoitukset</string>
+    <plurals name="notif_downloading">
+        <item quantity="one">Ladataan %1$d kappale</item>
+        <item quantity="other">Ladataan %1$d kappaletta</item>
+    </plurals>
+    <string name="notif_preparing">Valmistellaan…</string>
+    <string name="notif_storage_title">Lataukset keskeytetty: tallennustila on täynnä</string>
+    <string name="notif_storage_text">Vapauta noin %1$d Mt tilaa, niin lataukset jatkuvat. Mitään jo ladattua ei poistettu.</string>
+
+    <string name="sync_server_error">Palvelinvirhe</string>
+    <string name="sync_cant_reach">Palvelimeen ei saada yhteyttä</string>
+
+    <string name="car_recent">Viimeisimmät</string>
+    <string name="car_playlists">Soittolistat</string>
+    <string name="car_playlist">Soittolista</string>
+    <plurals name="car_songs">
+        <item quantity="one">%1$d kappale</item>
+        <item quantity="other">%1$d kappaletta</item>
+    </plurals>
+
+    <string name="playback_love">Tykkää</string>
+    <string name="playback_unlove">Poista tykkäys</string>
+
+    <string name="connect_not_signed_in">Tällä laitteella ei ole kirjauduttu sisään</string>
+    <string name="connect_update_for_kids">Päivitä ensin Seiðr laitteella %1$s: tämä versio ei pysty suojaamaan lapsen kirjautumistietoja</string>
+    <string name="connect_no_answer">%1$s ei vastannut</string>
+    <string name="connect_lost_why">Yhteys laitteeseen %1$s katkesi: %2$s</string>
+    <string name="connect_peer_other_account">%1$s on kirjautunut toisena käyttäjänä</string>
+    <string name="connect_peer_changed">%1$s on kirjautunut sisään tai ulos. Yritä hetken kuluttua uudelleen.</string>
+    <string name="connect_peer_unreachable">Laitteeseen %1$s ei saatu yhteyttä. Onko Seiðr auki siinä?</string>
+    <string name="connect_playback_not_ready">Toisto ei ole vielä valmis</string>
+    <string name="connect_device_fallback">Seiðr-laite</string>
+    <string name="connect_peer_disconnected">%1$s katkaisi yhteyden</string>
+    <string name="connect_peer_signed_in">%1$s kirjautui sisään</string>
+    <string name="connect_nobody_answered">Kukaan ei vastannut laitteella %1$s</string>
+    <string name="connect_not_allowed">Ei sallittu laitteella %1$s</string>
+    <string name="connect_taken_over">%1$s toistaa nyt laitteella %2$s</string>
+    <string name="connect_update_first">Päivitä ensin Seiðr laitteella %1$s</string>
+    <string name="connect_lost_connection">Yhteys laitteeseen %1$s katkesi</string>
+
+    <string name="account_connect_failed">Yhteys palvelimeen %1$s epäonnistui: %2$s</string>
+    <string name="account_lan_permission">Seiðr tarvitsee luvan ”Lähellä olevat laitteet” / ”Paikallinen verkko”, jotta se saa yhteyden kotiverkossasi olevaan palvelimeen.</string>
+    <string name="account_check_failed_why">Käyttäjän %1$s tiliä ei voitu tarkistaa: %2$s</string>
+    <string name="account_check_failed">Käyttäjän %1$s tiliä ei voitu tarkistaa</string>
+    <string name="account_kid_is_admin">%1$s on palvelimen ylläpitäjä. Lapsen tili ei voi olla ylläpitäjä.</string>
+    <string name="account_not_grownup">Et ole kirjautunut aikuisena</string>
+    <string name="account_own_check_failed">Tiliäsi ei voitu tarkistaa palvelimelta</string>
+    <string name="account_admin_only">Vain palvelimen ylläpitäjät voivat katsoa lapsen näkymää</string>
+    <string name="account_view_failed">Käyttäjän %1$s näkymää ei voitu avata: %2$s</string>
+    <string name="account_someone_else">Joku muu ehti kirjautua sisään sillä välin</string>
+
+    <string name="kids_signed_in_as_kid">Kirjauduttu lapsena</string>
+    <string name="kids_setup_failed">Lasten soittolistojen luominen epäonnistui: %1$s</string>
+
+    <string name="report_no_playlist">Palvelimella ei ole soittolistaa ”%1$s”</string>
+    <string name="report_removed">Poistettu soittolistalta %1$s</string>
+    <string name="report_song_reported">Ilmoitettu. Tämä kappale ohitetaan.</string>
+    <string name="report_art_reported">Kansikuvasta ilmoitettu</string>
+    <string name="report_lyrics_reported">Sanoituksista ilmoitettu</string>
+    <string name="report_queued">Offline: %1$s päivitetään, kun palvelin on taas tavoitettavissa</string>
+    <string name="report_conflict">Soittolistaa %1$s ei voitu päivittää</string>
+    <string name="report_failed">Soittolistaa %1$s ei voitu päivittää: %2$s</string>
+
+    <string name="main_battery_title">Pidä musiikki soimassa</string>
+    <string name="main_battery_text">Joidenkin puhelinten akunhallinta pysäyttää taustatoiston ja lataukset. Saako Seiðr toimia ilman rajoituksia? Voit muuttaa tätä myöhemmin asetuksista.</string>
+    <string name="main_battery_allow">Salli</string>
+
+    <string name="vis_close">Sulje visualisointi</string>
+    <string name="vis_now_playing">Nyt soi</string>
+    <string name="vis_next_in_queue">Seuraavaksi jonossa</string>
+    <string name="vis_next_from">Seuraavaksi kohteesta: %1$s</string>
+    <string name="vis_next_from_queue">Seuraavaksi kohteesta: jono</string>
+    <string name="vis_hide_preset">Piilota esiasetus</string>
+    <string name="vis_love_preset">Tykkää esiasetuksesta</string>
+    <string name="vis_unlove_preset">Poista esiasetuksen tykkäys</string>
+    <string name="vis_preview">Esikatselu</string>
+    <string name="vis_preset_hidden">Esiasetus piilotettu. Saat sen takaisin kohdasta Asetukset → Visualisointi.</string>
+    <string name="vis_xr_failed">Immersiivinen visualisointi ei käynnistynyt</string>
+    <string name="vis_warning_title">Välkkyviä valoja</string>
+    <string name="vis_warning_headset">Jotkin esiasetukset välkkyvät, vilkkuvat ja pyörivät nopeasti, ja VR-laseissa ne täyttävät koko näkökenttäsi. Se voi laukaista kohtauksen valoherkkää epilepsiaa sairastavilla ja aiheuttaa matkapahoinvointia tai huimausta. Pysy istumassa, ja jos alat voida huonosti, ota lasit pois.</string>
+    <string name="vis_warning_flat">Jotkin esiasetukset välkkyvät, vilkkuvat ja pyörivät nopeasti. Se voi laukaista kohtauksen valoherkkää epilepsiaa sairastavilla. Jos alat voida huonosti, katso muualle ja sulje visualisointi.</string>
+    <string name="vis_continue">Jatka</string>
+    <string name="vis_not_now">Ei nyt</string>
+</resources>

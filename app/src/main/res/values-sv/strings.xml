@@ -1,0 +1,96 @@
+<resources>
+    <string name="channel_updates">Appuppdateringar</string>
+    <string name="update_offer_title">Uppdatera %1$s?</string>
+    <string name="update_offer_text">Version %1$s är klar att installera (du har %2$s). Appen stängs medan den uppdateras.</string>
+    <string name="update_install">Installera</string>
+    <string name="update_later">Senare</string>
+    <string name="update_whats_new">Nyheter</string>
+    <string name="update_whats_new_title">Nyheter i %1$s</string>
+    <string name="update_ready_title">Uppdatering redo</string>
+    <string name="update_ready_text">Tryck för att installera version %1$s</string>
+
+    <string name="notif_channel_downloads">Nedladdningar</string>
+    <string name="notif_channel_storage">Lagringsvarningar</string>
+    <plurals name="notif_downloading">
+        <item quantity="one">Laddar ned %1$d låt</item>
+        <item quantity="other">Laddar ned %1$d låtar</item>
+    </plurals>
+    <string name="notif_preparing">Förbereder…</string>
+    <string name="notif_storage_title">Nedladdningar pausade: lagringen är full</string>
+    <string name="notif_storage_text">Frigör ungefär %1$d MB för att fortsätta. Inget som redan laddats ned har tagits bort.</string>
+
+    <string name="sync_server_error">Serverfel</string>
+    <string name="sync_cant_reach">Kan inte nå servern</string>
+
+    <string name="car_recent">Senaste</string>
+    <string name="car_playlists">Spellistor</string>
+    <string name="car_playlist">Spellista</string>
+    <plurals name="car_songs">
+        <item quantity="one">%1$d låt</item>
+        <item quantity="other">%1$d låtar</item>
+    </plurals>
+
+    <string name="playback_love">Gilla</string>
+    <string name="playback_unlove">Sluta gilla</string>
+
+    <string name="connect_not_signed_in">Den här enheten är inte inloggad</string>
+    <string name="connect_update_for_kids">Uppdatera Seiðr på %1$s först: den här versionen kan inte skydda ett barns inloggning</string>
+    <string name="connect_no_answer">%1$s svarade inte</string>
+    <string name="connect_lost_why">Tappade kontakten med %1$s: %2$s</string>
+    <string name="connect_peer_other_account">%1$s är inloggad som någon annan</string>
+    <string name="connect_peer_changed">%1$s har loggat in eller ut. Försök igen om en stund.</string>
+    <string name="connect_peer_unreachable">Kunde inte nå %1$s. Är Seiðr öppet där?</string>
+    <string name="connect_playback_not_ready">Uppspelningen är inte redo än</string>
+    <string name="connect_device_fallback">Seiðr-enhet</string>
+    <string name="connect_peer_disconnected">%1$s kopplade från</string>
+    <string name="connect_peer_signed_in">%1$s loggade in</string>
+    <string name="connect_nobody_answered">Ingen svarade på %1$s</string>
+    <string name="connect_not_allowed">Tilläts inte på %1$s</string>
+    <string name="connect_taken_over">%1$s spelar på %2$s nu</string>
+    <string name="connect_update_first">Uppdatera Seiðr på %1$s först</string>
+    <string name="connect_lost_connection">Tappade anslutningen till %1$s</string>
+
+    <string name="account_connect_failed">Kunde inte ansluta till %1$s: %2$s</string>
+    <string name="account_lan_permission">Seiðr behöver behörigheten Enheter i närheten / lokalt nätverk för att nå en server i ditt hemnätverk.</string>
+    <string name="account_check_failed_why">Kunde inte kontrollera kontot %1$s: %2$s</string>
+    <string name="account_check_failed">Kunde inte kontrollera kontot %1$s</string>
+    <string name="account_kid_is_admin">%1$s är administratör på servern. Ett barnkonto får inte vara administratör.</string>
+    <string name="account_not_grownup">Inte inloggad som vuxen</string>
+    <string name="account_own_check_failed">Kunde inte kontrollera ditt konto på servern</string>
+    <string name="account_admin_only">Bara administratörer på servern kan visa som ett barn</string>
+    <string name="account_view_failed">Kunde inte öppna vyn för %1$s: %2$s</string>
+    <string name="account_someone_else">Någon annan har loggat in under tiden</string>
+
+    <string name="kids_signed_in_as_kid">Inloggad som barn</string>
+    <string name="kids_setup_failed">Kunde inte skapa barnens spellistor: %1$s</string>
+
+    <string name="report_no_playlist">Ingen spellista med namnet ”%1$s” på servern</string>
+    <string name="report_removed">Borttagen från %1$s</string>
+    <string name="report_song_reported">Rapporterad. Låten hoppas över.</string>
+    <string name="report_art_reported">Omslaget har rapporterats</string>
+    <string name="report_lyrics_reported">Låttexten har rapporterats</string>
+    <string name="report_queued">Offline: %1$s uppdateras när servern är tillbaka</string>
+    <string name="report_conflict">Kunde inte uppdatera %1$s</string>
+    <string name="report_failed">Kunde inte uppdatera %1$s: %2$s</string>
+
+    <string name="main_battery_title">Låt musiken spela vidare</string>
+    <string name="main_battery_text">Batterihanteringen i vissa telefoner stoppar uppspelning och nedladdningar i bakgrunden. Vill du låta Seiðr köras utan begränsningar? Du kan ändra det senare i Inställningar.</string>
+    <string name="main_battery_allow">Tillåt</string>
+
+    <string name="vis_close">Stäng visualiseringen</string>
+    <string name="vis_now_playing">Spelas nu</string>
+    <string name="vis_next_in_queue">Nästa i kön</string>
+    <string name="vis_next_from">Nästa från: %1$s</string>
+    <string name="vis_next_from_queue">Nästa från: kön</string>
+    <string name="vis_hide_preset">Dölj förinställning</string>
+    <string name="vis_love_preset">Gilla förinställning</string>
+    <string name="vis_unlove_preset">Sluta gilla förinställning</string>
+    <string name="vis_preview">Förhandsvisning</string>
+    <string name="vis_preset_hidden">Förinställningen är dold. Du får tillbaka den i Inställningar → Visualisering.</string>
+    <string name="vis_xr_failed">Den uppslukande visualiseringen kunde inte starta</string>
+    <string name="vis_warning_title">Blinkande ljus</string>
+    <string name="vis_warning_headset">Vissa förinställningar blinkar, blixtrar och virvlar snabbt, och i headsetet fyller de hela synfältet. Det kan utlösa anfall hos personer med ljuskänslig epilepsi och kan ge åksjuka eller desorientering. Sitt kvar, och ta av dig headsetet om du mår dåligt.</string>
+    <string name="vis_warning_flat">Vissa förinställningar blinkar, blixtrar och virvlar snabbt. Det kan utlösa anfall hos personer med ljuskänslig epilepsi. Titta bort och stäng visualiseringen om du mår dåligt.</string>
+    <string name="vis_continue">Fortsätt</string>
+    <string name="vis_not_now">Inte nu</string>
+</resources>
