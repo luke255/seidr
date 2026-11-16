@@ -1,0 +1,94 @@
+<resources>
+    <string name="channel_updates">應用程式更新</string>
+    <string name="update_offer_title">要更新 %1$s 嗎？</string>
+    <string name="update_offer_text">版本 %1$s 已可安裝（目前版本為 %2$s）。更新期間應用程式會關閉。</string>
+    <string name="update_install">安裝</string>
+    <string name="update_later">稍後</string>
+    <string name="update_whats_new">更新內容</string>
+    <string name="update_whats_new_title">%1$s 的更新內容</string>
+    <string name="update_ready_title">更新已就緒</string>
+    <string name="update_ready_text">輕觸即可安裝版本 %1$s</string>
+
+    <string name="notif_channel_downloads">下載</string>
+    <string name="notif_channel_storage">儲存空間警告</string>
+    <plurals name="notif_downloading">
+        <item quantity="other">正在下載 %1$d 首歌曲</item>
+    </plurals>
+    <string name="notif_preparing">準備中…</string>
+    <string name="notif_storage_title">下載已暫停：儲存空間已滿</string>
+    <string name="notif_storage_text">請清出約 %1$d MB 的空間以繼續下載。已下載的內容並未移除。</string>
+
+    <string name="sync_server_error">伺服器錯誤</string>
+    <string name="sync_cant_reach">無法連線到伺服器</string>
+
+    <string name="car_recent">最近</string>
+    <string name="car_playlists">播放清單</string>
+    <string name="car_playlist">播放清單</string>
+    <plurals name="car_songs">
+        <item quantity="other">%1$d 首歌曲</item>
+    </plurals>
+
+    <string name="playback_love">加入最愛</string>
+    <string name="playback_unlove">移出最愛</string>
+
+    <string name="connect_not_signed_in">此裝置尚未登入</string>
+    <string name="connect_update_for_kids">請先在 %1$s 上更新 Seiðr：目前版本無法確保兒童登入資訊的安全</string>
+    <string name="connect_no_answer">%1$s 沒有回應</string>
+    <string name="connect_lost_why">與 %1$s 的連線已中斷：%2$s</string>
+    <string name="connect_peer_other_account">%1$s 登入的是其他帳號</string>
+    <string name="connect_peer_changed">%1$s 剛登入或登出，請稍後再試。</string>
+    <string name="connect_peer_unreachable">無法連線到 %1$s。它上面的 Seiðr 有開啟嗎？</string>
+    <string name="connect_playback_not_ready">播放尚未就緒</string>
+    <string name="connect_device_fallback">Seiðr 裝置</string>
+    <string name="connect_peer_disconnected">%1$s 已中斷連線</string>
+    <string name="connect_peer_signed_in">%1$s 已登入</string>
+    <string name="connect_nobody_answered">%1$s 上無人回應</string>
+    <string name="connect_not_allowed">%1$s 未允許</string>
+    <string name="connect_taken_over">%1$s 現在正在 %2$s 上播放</string>
+    <string name="connect_update_first">請先在 %1$s 上更新 Seiðr</string>
+    <string name="connect_lost_connection">與 %1$s 的連線已中斷</string>
+
+    <string name="account_connect_failed">無法連線到 %1$s：%2$s</string>
+    <string name="account_lan_permission">Seiðr 需要「鄰近裝置」／區域網路權限，才能連線到家用網路中的伺服器。</string>
+    <string name="account_check_failed_why">無法檢查 %1$s 的帳號：%2$s</string>
+    <string name="account_check_failed">無法檢查 %1$s 的帳號</string>
+    <string name="account_kid_is_admin">%1$s 是伺服器管理員。兒童帳號不能是管理員。</string>
+    <string name="account_not_grownup">目前不是以家長身分登入</string>
+    <string name="account_own_check_failed">無法在伺服器上檢查你的帳號</string>
+    <string name="account_admin_only">只有伺服器管理員才能以兒童的視角瀏覽</string>
+    <string name="account_view_failed">無法開啟 %1$s 的視角：%2$s</string>
+    <string name="account_someone_else">在此期間已登入其他帳號</string>
+
+    <string name="kids_signed_in_as_kid">已以兒童身分登入</string>
+    <string name="kids_setup_failed">無法設定兒童播放清單：%1$s</string>
+
+    <string name="report_no_playlist">伺服器上沒有「%1$s」播放清單</string>
+    <string name="report_removed">已從 %1$s 移除</string>
+    <string name="report_song_reported">已回報。這首歌將會被略過。</string>
+    <string name="report_art_reported">已回報封面問題</string>
+    <string name="report_lyrics_reported">已回報歌詞問題</string>
+    <string name="report_queued">離線：伺服器恢復連線後將更新 %1$s</string>
+    <string name="report_conflict">無法更新 %1$s</string>
+    <string name="report_failed">無法更新 %1$s：%2$s</string>
+
+    <string name="main_battery_title">讓音樂不中斷</string>
+    <string name="main_battery_text">部分手機的電池管理功能會中止背景播放和下載。要允許 Seiðr 不受限制地執行嗎？之後可以在設定中變更。</string>
+    <string name="main_battery_allow">允許</string>
+
+    <string name="vis_close">關閉視覺化效果</string>
+    <string name="vis_now_playing">正在播放</string>
+    <string name="vis_next_in_queue">待播清單中的下一首</string>
+    <string name="vis_next_from">接著播放：%1$s</string>
+    <string name="vis_next_from_queue">接著播放：待播清單</string>
+    <string name="vis_hide_preset">隱藏預設集</string>
+    <string name="vis_love_preset">將預設集加入最愛</string>
+    <string name="vis_unlove_preset">將預設集移出最愛</string>
+    <string name="vis_preview">預覽</string>
+    <string name="vis_preset_hidden">已隱藏預設集。可在設定 → 視覺化效果中復原。</string>
+    <string name="vis_xr_failed">無法啟動沉浸式視覺化效果</string>
+    <string name="vis_warning_title">閃光警告</string>
+    <string name="vis_warning_headset">部分預設集會快速閃爍、頻閃和旋轉，在頭戴式裝置中還會佔滿整個視野。這可能誘發光敏感性癲癇患者發作，也可能引起動暈症或方向感混亂。請保持坐姿；如感不適，請取下頭戴式裝置。</string>
+    <string name="vis_warning_flat">部分預設集會快速閃爍、頻閃和旋轉，可能誘發光敏感性癲癇患者發作。如感不適，請移開視線並關閉視覺化效果。</string>
+    <string name="vis_continue">繼續</string>
+    <string name="vis_not_now">暫時不要</string>
+</resources>

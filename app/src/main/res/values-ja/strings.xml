@@ -1,0 +1,94 @@
+<resources>
+    <string name="channel_updates">アプリのアップデート</string>
+    <string name="update_offer_title">%1$sをアップデートしますか？</string>
+    <string name="update_offer_text">バージョン%1$sをインストールできます（現在は%2$s）。アップデート中はアプリが閉じます。</string>
+    <string name="update_install">インストール</string>
+    <string name="update_later">あとで</string>
+    <string name="update_whats_new">新機能</string>
+    <string name="update_whats_new_title">%1$sの新機能</string>
+    <string name="update_ready_title">アップデートの準備ができました</string>
+    <string name="update_ready_text">タップしてバージョン%1$sをインストール</string>
+
+    <string name="notif_channel_downloads">ダウンロード</string>
+    <string name="notif_channel_storage">ストレージの警告</string>
+    <plurals name="notif_downloading">
+        <item quantity="other">%1$d曲をダウンロード中</item>
+    </plurals>
+    <string name="notif_preparing">準備中…</string>
+    <string name="notif_storage_title">ダウンロードを一時停止：ストレージがいっぱいです</string>
+    <string name="notif_storage_text">続けるには約%1$d MBの空きが必要です。ダウンロード済みの曲は削除されていません。</string>
+
+    <string name="sync_server_error">サーバーエラー</string>
+    <string name="sync_cant_reach">サーバーに接続できません</string>
+
+    <string name="car_recent">最近</string>
+    <string name="car_playlists">プレイリスト</string>
+    <string name="car_playlist">プレイリスト</string>
+    <plurals name="car_songs">
+        <item quantity="other">%1$d曲</item>
+    </plurals>
+
+    <string name="playback_love">お気に入りに追加</string>
+    <string name="playback_unlove">お気に入りから削除</string>
+
+    <string name="connect_not_signed_in">このデバイスはサインインしていません</string>
+    <string name="connect_update_for_kids">先に%1$sのSeiðrをアップデートしてください。このバージョンでは子どものログイン情報を安全に保てません</string>
+    <string name="connect_no_answer">%1$sから応答がありません</string>
+    <string name="connect_lost_why">%1$sとの接続が切れました：%2$s</string>
+    <string name="connect_peer_other_account">%1$sは別のアカウントでサインインしています</string>
+    <string name="connect_peer_changed">%1$sでサインインまたはサインアウトが行われました。少し待ってからもう一度お試しください。</string>
+    <string name="connect_peer_unreachable">%1$sに接続できませんでした。そちらでSeiðrを開いていますか？</string>
+    <string name="connect_playback_not_ready">再生の準備がまだできていません</string>
+    <string name="connect_device_fallback">Seiðrデバイス</string>
+    <string name="connect_peer_disconnected">%1$sが切断しました</string>
+    <string name="connect_peer_signed_in">%1$sがサインインしました</string>
+    <string name="connect_nobody_answered">%1$sで誰も応答しませんでした</string>
+    <string name="connect_not_allowed">%1$sで許可されませんでした</string>
+    <string name="connect_taken_over">%1$sが%2$sで再生を始めました</string>
+    <string name="connect_update_first">先に%1$sのSeiðrをアップデートしてください</string>
+    <string name="connect_lost_connection">%1$sとの接続が切れました</string>
+
+    <string name="account_connect_failed">%1$sに接続できませんでした：%2$s</string>
+    <string name="account_lan_permission">ホームネットワーク上のサーバーに接続するには、Seiðrに「付近のデバイス」（ローカルネットワーク）の権限が必要です。</string>
+    <string name="account_check_failed_why">%1$sのアカウントを確認できませんでした：%2$s</string>
+    <string name="account_check_failed">%1$sのアカウントを確認できませんでした</string>
+    <string name="account_kid_is_admin">%1$sはサーバーの管理者です。管理者を子ども用アカウントにすることはできません。</string>
+    <string name="account_not_grownup">保護者としてサインインしていません</string>
+    <string name="account_own_check_failed">サーバーであなたのアカウントを確認できませんでした</string>
+    <string name="account_admin_only">子どもの画面を表示できるのはサーバーの管理者だけです</string>
+    <string name="account_view_failed">%1$sの画面を開けませんでした：%2$s</string>
+    <string name="account_someone_else">その間に別のアカウントでサインインされました</string>
+
+    <string name="kids_signed_in_as_kid">子どもとしてサインインしました</string>
+    <string name="kids_setup_failed">子ども用プレイリストを設定できませんでした：%1$s</string>
+
+    <string name="report_no_playlist">サーバーに「%1$s」プレイリストがありません</string>
+    <string name="report_removed">%1$sから削除しました</string>
+    <string name="report_song_reported">報告しました。この曲はスキップされます。</string>
+    <string name="report_art_reported">アートワークを報告しました</string>
+    <string name="report_lyrics_reported">歌詞を報告しました</string>
+    <string name="report_queued">オフライン：サーバーに接続できたら%1$sを更新します</string>
+    <string name="report_conflict">%1$sを更新できませんでした</string>
+    <string name="report_failed">%1$sを更新できませんでした：%2$s</string>
+
+    <string name="main_battery_title">音楽を止めないために</string>
+    <string name="main_battery_text">機種によっては、バッテリー管理機能がバックグラウンドでの再生やダウンロードを止めてしまいます。Seiðrを制限なしで実行できるようにしますか？あとで設定から変更できます。</string>
+    <string name="main_battery_allow">許可</string>
+
+    <string name="vis_close">ビジュアライザーを閉じる</string>
+    <string name="vis_now_playing">再生中</string>
+    <string name="vis_next_in_queue">キューの次の曲</string>
+    <string name="vis_next_from">次に再生：%1$s</string>
+    <string name="vis_next_from_queue">次に再生：キュー</string>
+    <string name="vis_hide_preset">プリセットを非表示</string>
+    <string name="vis_love_preset">プリセットをお気に入りに追加</string>
+    <string name="vis_unlove_preset">プリセットをお気に入りから削除</string>
+    <string name="vis_preview">プレビュー</string>
+    <string name="vis_preset_hidden">プリセットを非表示にしました。設定 → ビジュアライザーで元に戻せます。</string>
+    <string name="vis_xr_failed">没入型ビジュアライザーを開始できませんでした</string>
+    <string name="vis_warning_title">光の点滅について</string>
+    <string name="vis_warning_headset">一部のプリセットは、激しく点滅したり、すばやく渦を巻いたりします。ヘッドセットではそれが視界いっぱいに広がります。光過敏性てんかんのある方は発作を起こすおそれがあり、映像酔いやめまいを感じることもあります。座ったままご利用になり、気分が悪くなったらヘッドセットを外してください。</string>
+    <string name="vis_warning_flat">一部のプリセットは、激しく点滅したり、すばやく渦を巻いたりします。光過敏性てんかんのある方は発作を起こすおそれがあります。気分が悪くなったら、画面から目を離してビジュアライザーを閉じてください。</string>
+    <string name="vis_continue">続ける</string>
+    <string name="vis_not_now">今はしない</string>
+</resources>

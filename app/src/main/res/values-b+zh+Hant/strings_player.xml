@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">返回</string>
+    <string name="common_cancel">取消</string>
+    <string name="common_clear">清除</string>
+    <string name="common_close">關閉</string>
+    <string name="common_done">完成</string>
+    <string name="common_more">更多</string>
+    <string name="common_remove">移除</string>
+    <string name="common_try_again">重試</string>
+    <string name="common_offline">離線</string>
+    <string name="common_load_failed">無法載入</string>
+    <string name="common_drag_to_reorder">拖曳以重新排序</string>
+    <string name="common_moving_hint">移動中：按上下鍵移動，再按確認鍵放下</string>
+    <string name="common_shuffle_play">隨機播放</string>
+    <string name="common_play_in_order">依序播放</string>
+    <string name="common_play">播放</string>
+
+    <string name="common_download">下載</string>
+    <string name="common_downloaded">已下載</string>
+    <string name="common_queued">等待下載</string>
+    <string name="common_download_failed">下載失敗</string>
+    <string name="common_waiting_to_download">等待下載…</string>
+    <string name="common_downloading_progress">下載中… %1$d/%2$d</string>
+    <string name="common_download_when_reachable">可連線到伺服器時將開始下載</string>
+    <string name="common_downloads_removed">已移除 %1$s 的下載內容</string>
+    <string name="common_not_approved_yet">尚未核准</string>
+
+    <string name="common_read_only_kid">以兒童的視角瀏覽時為唯讀</string>
+    <string name="common_cant_reach_server">無法連線到伺服器</string>
+    <string name="common_loved">已加入最愛</string>
+    <string name="common_unloved">已移出最愛</string>
+    <string name="common_edit_queued">離線：伺服器恢復連線後將儲存</string>
+    <string name="common_edit_conflict">播放清單已在別處變更，因此未儲存任何內容。已重新載入。</string>
+    <string name="common_edit_failed">無法儲存：%1$s</string>
+
+    <plurals name="common_songs">
+        <item quantity="other">%d 首歌曲</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="other">%d 張專輯</item>
+    </plurals>
+    <plurals name="common_approved_count">
+        <item quantity="other">已核准 %1$d 首</item>
+    </plurals>
+    <string name="common_by_owner">建立者：%1$s</string>
+    <string name="common_duration_hr_min">%1$d 小時 %2$d 分鐘</string>
+    <string name="common_duration_min">%1$d 分鐘</string>
+    <string name="common_size_gb">%1$.1f GB</string>
+    <string name="common_size_mb">%1$.0f MB</string>
+    <string name="common_size_kb">%1$.0f KB</string>
+
+    <string name="nav_home">首頁</string>
+    <string name="nav_search">搜尋</string>
+    <string name="nav_library">音樂庫</string>
+    <string name="nav_now_playing">正在播放</string>
+    <string name="nav_settings">設定</string>
+    <string name="nav_update_available">有可用的更新</string>
+    <string name="nav_settings_update_available">設定，有可用的更新</string>
+
+    <string name="player_nothing_playing">目前沒有播放內容</string>
+    <string name="player_playing_from">播放來源</string>
+    <string name="player_queue">待播清單</string>
+    <string name="player_disconnect">中斷連線</string>
+    <string name="player_play_on_another_device">在其他裝置上播放</string>
+    <string name="player_lyrics">歌詞</string>
+    <string name="player_hide_lyrics">隱藏歌詞</string>
+    <string name="player_visualiser">視覺化效果</string>
+    <string name="player_immersive_visualiser">沉浸式視覺化效果</string>
+    <string name="player_previous">上一首</string>
+    <string name="player_next">下一首</string>
+    <string name="player_play">播放</string>
+    <string name="player_pause">暫停</string>
+    <string name="player_playing_on">正在 %1$s 上播放</string>
+    <string name="player_playing_for">正在為 %1$s 播放，來自 %2$s</string>
+    <string name="player_repeat_one">單曲重複</string>
+    <string name="player_repeat_all">全部重複</string>
+    <string name="player_repeat_off">不重複</string>
+    <string name="player_shuffle">隨機播放</string>
+    <string name="player_on">開啟</string>
+    <string name="player_off">關閉</string>
+    <string name="player_toggle_shuffle">切換隨機播放</string>
+    <string name="player_reshuffle">重新隨機排序</string>
+    <string name="player_reshuffled">已重新隨機排序</string>
+    <string name="player_hold_to_reshuffle">長按可重新隨機排序</string>
+
+    <string name="queue_title">待播清單</string>
+    <string name="queue_empty">待播清單是空的</string>
+    <string name="queue_earlier">先前播放</string>
+    <string name="queue_now_playing">正在播放</string>
+    <string name="queue_next">下一首</string>
+    <string name="queue_next_in_queue">待播清單中的下一首</string>
+    <string name="queue_clear">清空待播清單</string>
+    <string name="queue_next_from">接著播放：%1$s</string>
+    <string name="queue_fallback_context">待播清單</string>
+    <string name="queue_remove">從待播清單移除</string>
+
+    <string name="lyrics_none">這首歌沒有歌詞</string>
+    <string name="lyrics_failed">無法載入歌詞</string>
+    <string name="lyrics_earlier">歌詞提前</string>
+    <string name="lyrics_later">歌詞延後</string>
+    <string name="lyrics_original_timing">原始時間</string>
+    <string name="lyrics_reset">重設</string>
+
+    <string name="devices_title">播放裝置</string>
+    <string name="devices_this_device">此裝置</string>
+    <string name="devices_not_signed_in">未登入</string>
+    <string name="devices_connecting">連線中…</string>
+    <string name="devices_connected">已連線</string>
+    <string name="devices_allow">允許</string>
+    <string name="devices_permission_rationale">Seiðr 需要「鄰近裝置」權限，才能找到你的其他裝置。</string>
+    <string name="devices_looking">正在尋找裝置。請在連上同一個 Wi-Fi 的其他裝置上開啟 Seiðr：該裝置需已登入你的帳號，或尚未登入。</string>
+
+    <string name="menu_love">加入最愛</string>
+    <string name="menu_unlove">移出最愛</string>
+    <string name="menu_add_to_playlist">加入播放清單</string>
+    <string name="menu_add_to_queue">加入待播清單</string>
+    <string name="menu_go_to_album">前往專輯</string>
+    <string name="menu_go_to_artist">前往藝人</string>
+    <plurals name="menu_added_to_queue">
+        <item quantity="other">已將 %d 首歌曲加入待播清單</item>
+    </plurals>
+    <string name="menu_new_playlist">新增播放清單</string>
+    <string name="menu_playlist_name">名稱</string>
+    <string name="menu_create">建立</string>
+    <string name="menu_create_failed">無法建立播放清單（需要連線到伺服器）</string>
+    <string name="menu_created">已建立「%1$s」</string>
+    <string name="menu_added_to">已加入 %1$s</string>
+
+    <string name="menu_report_a_problem">回報問題</string>
+    <string name="menu_report_no_playlist">沒有 %1$s 播放清單</string>
+    <string name="menu_report_undo_song">取消歌曲回報</string>
+    <string name="menu_report_undo_art">取消封面回報</string>
+    <string name="menu_report_undo_lyrics">取消歌詞回報</string>
+    <string name="menu_report_bad_song">歌曲有問題（略過）</string>
+    <string name="menu_report_bad_art">封面有問題</string>
+    <string name="menu_report_bad_lyrics">歌詞有問題</string>
+
+    <string name="pair_title">登入其他裝置</string>
+    <string name="pair_signing_in">正在登入 %1$s… 請在 %1$s 上允許。</string>
+    <string name="pair_signed_in_as">%1$s 已以 %2$s 的身分登入</string>
+    <string name="pair_cancelled">已取消</string>
+    <string name="pair_intro">在要登入的裝置上開啟 Seiðr，並確認它與此裝置連上同一個 Wi-Fi。它處於未登入狀態時會顯示在這裡。確認兩個螢幕上顯示的代碼相同後，它就會以 %1$s 的身分登入。</string>
+    <string name="pair_intro_kid">在要登入的裝置上開啟 Seiðr，並確認它與此裝置連上同一個 Wi-Fi。它處於未登入狀態時會顯示在這裡。確認兩個螢幕上顯示的代碼相同後，它就會以 %1$s 的身分登入。它也會成為兒童裝置，可聽的歌曲相同。</string>
+    <string name="pair_you">你</string>
+    <string name="pair_kid_approved_only">兒童：僅限已核准的歌曲</string>
+    <string name="pair_permission_rationale">Seiðr 需要「鄰近裝置」權限，才能找到其他裝置。</string>
+    <string name="pair_looking">正在尋找未登入的裝置…</string>
+
+    <string name="theme_system">系統</string>
+    <string name="theme_neutral">中性</string>
+    <string name="theme_red">紅色</string>
+    <string name="theme_orange">橘色</string>
+    <string name="theme_amber">琥珀色</string>
+    <string name="theme_yellow">黃色</string>
+    <string name="theme_lime">萊姆綠</string>
+    <string name="theme_green">綠色</string>
+    <string name="theme_emerald">翡翠綠</string>
+    <string name="theme_teal">藍綠色</string>
+    <string name="theme_cyan">青色</string>
+    <string name="theme_sky">天藍色</string>
+    <string name="theme_blue">藍色</string>
+    <string name="theme_indigo">靛藍色</string>
+    <string name="theme_violet">紫羅蘭色</string>
+    <string name="theme_purple">紫色</string>
+    <string name="theme_magenta">洋紅色</string>
+    <string name="theme_pink">粉紅色</string>
+</resources>

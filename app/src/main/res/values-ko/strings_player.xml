@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">뒤로</string>
+    <string name="common_cancel">취소</string>
+    <string name="common_clear">지우기</string>
+    <string name="common_close">닫기</string>
+    <string name="common_done">완료</string>
+    <string name="common_more">더보기</string>
+    <string name="common_remove">삭제</string>
+    <string name="common_try_again">다시 시도</string>
+    <string name="common_offline">오프라인</string>
+    <string name="common_load_failed">불러올 수 없어요</string>
+    <string name="common_drag_to_reorder">드래그해서 순서 변경</string>
+    <string name="common_moving_hint">이동 중: 위아래로 옮긴 뒤 선택 버튼으로 놓기</string>
+    <string name="common_shuffle_play">셔플 재생</string>
+    <string name="common_play_in_order">순서대로 재생</string>
+    <string name="common_play">재생</string>
+
+    <string name="common_download">다운로드</string>
+    <string name="common_downloaded">다운로드됨</string>
+    <string name="common_queued">대기 중</string>
+    <string name="common_download_failed">다운로드 실패</string>
+    <string name="common_waiting_to_download">다운로드 대기 중…</string>
+    <string name="common_downloading_progress">다운로드 중… %1$d/%2$d</string>
+    <string name="common_download_when_reachable">서버에 연결되면 다운로드할게요</string>
+    <string name="common_downloads_removed">%1$s의 다운로드를 삭제했어요</string>
+    <string name="common_not_approved_yet">아직 허용되지 않음</string>
+
+    <string name="common_read_only_kid">어린이 화면으로 보는 중에는 읽기 전용이에요</string>
+    <string name="common_cant_reach_server">서버에 연결할 수 없어요</string>
+    <string name="common_loved">좋아요 표시했어요</string>
+    <string name="common_unloved">좋아요를 취소했어요</string>
+    <string name="common_edit_queued">오프라인: 서버에 다시 연결되면 저장할게요</string>
+    <string name="common_edit_conflict">플레이리스트가 다른 곳에서 변경되어 저장하지 않았어요. 새로 불러왔어요.</string>
+    <string name="common_edit_failed">저장할 수 없어요: %1$s</string>
+
+    <plurals name="common_songs">
+        <item quantity="other">%d곡</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="other">앨범 %d개</item>
+    </plurals>
+    <plurals name="common_approved_count">
+        <item quantity="other">%1$d곡 허용됨</item>
+    </plurals>
+    <string name="common_by_owner">만든 사람: %1$s</string>
+    <string name="common_duration_hr_min">%1$d시간 %2$d분</string>
+    <string name="common_duration_min">%1$d분</string>
+    <string name="common_size_gb">%1$.1fGB</string>
+    <string name="common_size_mb">%1$.0fMB</string>
+    <string name="common_size_kb">%1$.0fKB</string>
+
+    <string name="nav_home">홈</string>
+    <string name="nav_search">검색</string>
+    <string name="nav_library">보관함</string>
+    <string name="nav_now_playing">재생 중</string>
+    <string name="nav_settings">설정</string>
+    <string name="nav_update_available">업데이트 있음</string>
+    <string name="nav_settings_update_available">설정, 업데이트 있음</string>
+
+    <string name="player_nothing_playing">재생 중인 곡 없음</string>
+    <string name="player_playing_from">다음에서 재생 중</string>
+    <string name="player_queue">대기열</string>
+    <string name="player_disconnect">연결 해제</string>
+    <string name="player_play_on_another_device">다른 기기에서 재생</string>
+    <string name="player_lyrics">가사</string>
+    <string name="player_hide_lyrics">가사 숨기기</string>
+    <string name="player_visualiser">비주얼라이저</string>
+    <string name="player_immersive_visualiser">몰입형 비주얼라이저</string>
+    <string name="player_previous">이전</string>
+    <string name="player_next">다음</string>
+    <string name="player_play">재생</string>
+    <string name="player_pause">일시 정지</string>
+    <string name="player_playing_on">%1$s에서 재생 중</string>
+    <string name="player_playing_for">%2$s에서 보낸 %1$s 님의 음악 재생 중</string>
+    <string name="player_repeat_one">한 곡 반복</string>
+    <string name="player_repeat_all">전체 반복</string>
+    <string name="player_repeat_off">반복 꺼짐</string>
+    <string name="player_shuffle">셔플</string>
+    <string name="player_on">켜짐</string>
+    <string name="player_off">꺼짐</string>
+    <string name="player_toggle_shuffle">셔플 켜기/끄기</string>
+    <string name="player_reshuffle">다시 섞기</string>
+    <string name="player_reshuffled">다시 섞었어요</string>
+    <string name="player_hold_to_reshuffle">길게 눌러 다시 섞기</string>
+
+    <string name="queue_title">재생 대기열</string>
+    <string name="queue_empty">대기열이 비어 있어요</string>
+    <string name="queue_earlier">이전에 재생한 곡</string>
+    <string name="queue_now_playing">지금 재생 중</string>
+    <string name="queue_next">다음 곡</string>
+    <string name="queue_next_in_queue">대기열의 다음 곡</string>
+    <string name="queue_clear">대기열 비우기</string>
+    <string name="queue_next_from">다음 재생: %1$s</string>
+    <string name="queue_fallback_context">대기열</string>
+    <string name="queue_remove">대기열에서 삭제</string>
+
+    <string name="lyrics_none">이 곡에는 가사가 없어요</string>
+    <string name="lyrics_failed">가사를 불러올 수 없어요</string>
+    <string name="lyrics_earlier">가사 더 일찍</string>
+    <string name="lyrics_later">가사 더 늦게</string>
+    <string name="lyrics_original_timing">원래 타이밍</string>
+    <string name="lyrics_reset">초기화</string>
+
+    <string name="devices_title">재생할 기기</string>
+    <string name="devices_this_device">이 기기</string>
+    <string name="devices_not_signed_in">로그인 안 됨</string>
+    <string name="devices_connecting">연결 중…</string>
+    <string name="devices_connected">연결됨</string>
+    <string name="devices_allow">허용</string>
+    <string name="devices_permission_rationale">다른 기기를 찾으려면 Seiðr에 근처 기기 권한이 필요해요.</string>
+    <string name="devices_looking">기기를 찾고 있어요. 같은 Wi-Fi에 연결된 다른 기기에서 Seiðr를 열어 주세요. 내 계정으로 로그인된 기기나 로그인되지 않은 기기여야 해요.</string>
+
+    <string name="menu_love">좋아요</string>
+    <string name="menu_unlove">좋아요 취소</string>
+    <string name="menu_add_to_playlist">플레이리스트에 추가</string>
+    <string name="menu_add_to_queue">대기열에 추가</string>
+    <string name="menu_go_to_album">앨범으로 이동</string>
+    <string name="menu_go_to_artist">아티스트로 이동</string>
+    <plurals name="menu_added_to_queue">
+        <item quantity="other">%d곡을 대기열에 추가했어요</item>
+    </plurals>
+    <string name="menu_new_playlist">새 플레이리스트</string>
+    <string name="menu_playlist_name">이름</string>
+    <string name="menu_create">만들기</string>
+    <string name="menu_create_failed">플레이리스트를 만들 수 없어요(서버 연결 필요)</string>
+    <string name="menu_created">“%1$s” 플레이리스트를 만들었어요</string>
+    <string name="menu_added_to">%1$s에 추가했어요</string>
+
+    <string name="menu_report_a_problem">문제 신고</string>
+    <string name="menu_report_no_playlist">%1$s 플레이리스트 없음</string>
+    <string name="menu_report_undo_song">곡 신고 취소</string>
+    <string name="menu_report_undo_art">앨범 아트 신고 취소</string>
+    <string name="menu_report_undo_lyrics">가사 신고 취소</string>
+    <string name="menu_report_bad_song">곡에 문제 있음(건너뛰기)</string>
+    <string name="menu_report_bad_art">앨범 아트에 문제 있음</string>
+    <string name="menu_report_bad_lyrics">가사에 문제 있음</string>
+
+    <string name="pair_title">다른 기기 로그인</string>
+    <string name="pair_signing_in">%1$s 로그인 중… %1$s에서 허용해 주세요.</string>
+    <string name="pair_signed_in_as">%1$s에 %2$s 계정으로 로그인됐어요</string>
+    <string name="pair_cancelled">취소했어요</string>
+    <string name="pair_intro">로그인할 기기를 이 기기와 같은 Wi-Fi에 연결하고 Seiðr를 열어 주세요. 로그아웃 상태인 기기가 여기에 표시돼요. 두 화면에 같은 코드가 보이는지 확인하면 %1$s 계정으로 로그인돼요.</string>
+    <string name="pair_intro_kid">로그인할 기기를 이 기기와 같은 Wi-Fi에 연결하고 Seiðr를 열어 주세요. 로그아웃 상태인 기기가 여기에 표시돼요. 두 화면에 같은 코드가 보이는지 확인하면 %1$s 계정으로 로그인돼요. 그 기기도 어린이용 기기가 되어 같은 곡을 들을 수 있어요.</string>
+    <string name="pair_you">나</string>
+    <string name="pair_kid_approved_only">어린이: 허용된 곡만</string>
+    <string name="pair_permission_rationale">다른 기기를 찾으려면 Seiðr에 근처 기기 권한이 필요해요.</string>
+    <string name="pair_looking">로그아웃 상태인 기기를 찾는 중…</string>
+
+    <string name="theme_system">시스템</string>
+    <string name="theme_neutral">뉴트럴</string>
+    <string name="theme_red">빨강</string>
+    <string name="theme_orange">주황</string>
+    <string name="theme_amber">호박색</string>
+    <string name="theme_yellow">노랑</string>
+    <string name="theme_lime">라임</string>
+    <string name="theme_green">초록</string>
+    <string name="theme_emerald">에메랄드</string>
+    <string name="theme_teal">청록</string>
+    <string name="theme_cyan">시안</string>
+    <string name="theme_sky">하늘색</string>
+    <string name="theme_blue">파랑</string>
+    <string name="theme_indigo">남색</string>
+    <string name="theme_violet">바이올렛</string>
+    <string name="theme_purple">보라</string>
+    <string name="theme_magenta">마젠타</string>
+    <string name="theme_pink">분홍</string>
+</resources>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="library_songs">
+        <item quantity="other">%d 首歌曲</item>
+    </plurals>
+    <plurals name="library_albums">
+        <item quantity="other">%d 张专辑</item>
+    </plurals>
+
+    <string name="library_title">音乐库</string>
+    <string name="library_tab_playlists">歌单</string>
+    <string name="library_tab_artists">歌手</string>
+    <string name="library_tab_albums">专辑</string>
+    <string name="library_search_playlists">搜索歌单</string>
+    <string name="library_search_artists">搜索歌手</string>
+    <string name="library_search_albums">搜索专辑</string>
+    <string name="library_close_search">关闭搜索</string>
+    <string name="library_search_library">搜索音乐库</string>
+    <string name="library_create_playlist">新建歌单</string>
+    <string name="library_downloaded">已下载</string>
+    <string name="library_sort_custom">自定义顺序</string>
+    <string name="library_sort_name">名称</string>
+    <string name="library_sort_updated">最近更新</string>
+    <string name="library_sort_most_albums">专辑最多</string>
+    <string name="library_sort_artist">歌手</string>
+    <string name="library_sort_added">最近添加</string>
+    <string name="library_sort_year">年份</string>
+    <string name="library_show_list">显示为列表</string>
+    <string name="library_show_grid">显示为网格</string>
+    <string name="library_by_owner">创建者：%1$s</string>
+    <string name="library_playlist">歌单</string>
+    <string name="library_name">名称</string>
+    <string name="library_create">创建</string>
+    <string name="library_cancel">取消</string>
+    <string name="library_create_failed">无法创建歌单（需要连接服务器）</string>
+    <string name="library_no_match">没有与“%1$s”匹配的内容</string>
+    <string name="library_none_downloaded">这里还没有已下载的内容</string>
+    <string name="library_empty">这里还没有内容</string>
+    <plurals name="library_downloading_left">
+        <item quantity="other">正在下载：还剩 %d 首</item>
+    </plurals>
+
+    <string name="search_title">搜索</string>
+    <string name="search_hint">歌手、歌曲、专辑或歌单</string>
+    <string name="search_recent">最近搜索</string>
+    <string name="search_clear">清除</string>
+    <string name="search_filter_all">全部</string>
+    <string name="search_filter_songs">歌曲</string>
+    <string name="search_filter_artists">歌手</string>
+    <string name="search_filter_albums">专辑</string>
+    <string name="search_filter_playlists">歌单</string>
+    <string name="search_failed">搜索失败</string>
+    <string name="search_no_results">没有找到“%1$s”的相关结果</string>
+    <string name="search_context">搜索：%1$s</string>
+    <string name="search_top_result">最佳结果</string>
+    <string name="search_kind_artist">歌手</string>
+    <string name="search_kind_album">专辑</string>
+    <string name="search_kind_song">歌曲</string>
+    <string name="search_kind_album_by">专辑 · %1$s</string>
+    <string name="search_kind_song_by">歌曲 · %1$s</string>
+    <plurals name="search_kind_playlist">
+        <item quantity="other">歌单 · %d 首歌曲</item>
+    </plurals>
+
+    <string name="playlist_by_owner">创建者：%1$s</string>
+    <string name="playlist_done">完成</string>
+    <string name="playlist_options">歌单选项</string>
+    <string name="playlist_reorder">调整歌曲顺序</string>
+    <string name="playlist_rename">重命名</string>
+    <string name="playlist_delete">删除歌单</string>
+    <string name="playlist_remove_from_this">从此歌单中移除</string>
+    <string name="playlist_order_saved">已保存歌单顺序</string>
+    <string name="playlist_removed_from">已从 %1$s 中移除</string>
+    <string name="playlist_rename_title">重命名歌单</string>
+    <string name="playlist_renamed">已重命名</string>
+    <string name="playlist_save">保存</string>
+    <string name="playlist_cancel">取消</string>
+    <string name="playlist_delete_title">删除“%1$s”？</string>
+    <string name="playlist_delete_body">这会将它从服务器上删除。仅因它而保留的下载内容也会从手机中移除。</string>
+    <string name="playlist_deleted">已删除 %1$s</string>
+    <string name="playlist_delete_confirm">删除</string>
+
+    <string name="downloads_title">下载</string>
+    <string name="downloads_free">此手机可用空间：%1$s</string>
+    <string name="downloads_queue">下载队列</string>
+    <string name="downloads_all_done">已全部下载</string>
+    <plurals name="downloads_waiting">
+        <item quantity="other">%d 首歌曲等待中</item>
+    </plurals>
+    <string name="downloads_wifi_only_note">仅通过 Wi-Fi 下载</string>
+    <plurals name="downloads_failed">
+        <item quantity="other">%d 项失败</item>
+    </plurals>
+    <string name="downloads_retry">重试</string>
+    <plurals name="downloads_edits_waiting">
+        <item quantity="other">%d 项歌单修改等待中</item>
+    </plurals>
+    <string name="downloads_edits_note">服务器可连接时发送</string>
+    <string name="downloads_settings">设置</string>
+    <string name="downloads_wifi_only">仅使用 Wi-Fi 下载</string>
+    <string name="downloads_wifi_only_hint">关闭后也会使用移动数据下载</string>
+    <string name="downloads_syncing">正在同步…</string>
+    <string name="downloads_not_synced">尚未同步</string>
+    <string name="downloads_last_synced">上次同步：%1$s</string>
+    <plurals name="downloads_unchecked">
+        <item quantity="other">%d 项无法检查，未移除任何内容</item>
+    </plurals>
+    <string name="downloads_sync_now">立即同步</string>
+    <string name="downloads_downloaded">已下载</string>
+    <string name="downloads_nothing">暂无内容</string>
+    <string name="downloads_nothing_hint">打开歌单或专辑的“下载”开关，即可将其保存在手机上。</string>
+    <plurals name="downloads_progress">
+        <item quantity="other">%1$d/%2$d 首歌曲 · %3$s</item>
+    </plurals>
+    <string name="downloads_waiting_short">等待中</string>
+    <string name="downloads_kind_playlist">歌单</string>
+    <string name="downloads_kind_album">专辑</string>
+
+    <string name="home_offline_tv">你已离线。服务器可连接时，Seiðr 会自动重新连接。</string>
+    <string name="home_offline">你已离线。已下载的音乐仍然可以听：请在音乐库中使用“已下载”筛选。</string>
+    <string name="home_kid_empty">还没有为你批准的歌曲。请让帮你登录的人添加一些歌曲。</string>
+    <string name="home_playlists">歌单</string>
+    <string name="home_sort_az">按名称</string>
+    <string name="home_sort_recent">最近</string>
+    <string name="home_by_owner">创建者：%1$s</string>
+    <string name="home_recently_added">最近添加</string>
+    <string name="home_most_played">最常播放</string>
+    <string name="home_saved_albums">收藏的专辑</string>
+
+    <string name="artist_load_failed">无法加载歌曲</string>
+    <string name="artist_label">歌手</string>
+    <string name="artist_popular">热门</string>
+    <string name="artist_show_less">收起</string>
+    <string name="artist_show_all">显示全部</string>
+    <string name="artist_albums">专辑</string>
+    <string name="artist_singles">单曲和 EP</string>
+    <string name="artist_appears_on">参与作品</string>
+
+    <string name="album_unreachable">无法连接服务器</string>
+    <string name="album_remove_from_library">从音乐库中移除</string>
+    <string name="album_save_to_library">收藏到音乐库</string>
+    <string name="album_disc">碟片 %1$s</string>
+
+    <string name="loved_title">我喜欢</string>
+</resources>

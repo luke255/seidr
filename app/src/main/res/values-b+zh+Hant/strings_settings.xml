@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">設定</string>
+    <string name="settings_appearance">外觀</string>
+    <string name="settings_visualiser">視覺化效果</string>
+    <string name="settings_vis_item">曲目資訊和預設集</string>
+    <string name="settings_vis_item_hint">疊加顯示的內容；最愛和已隱藏的預設集</string>
+    <string name="settings_playback_downloads">播放和下載</string>
+    <string name="settings_background_playback">背景播放</string>
+    <string name="settings_battery_off">不受限制：電池效能最佳化已關閉</string>
+    <string name="settings_battery_tap">輕觸即可允許 Seiðr 不受限制地執行。否則部分手機的電池管理功能會讓音樂停止。</string>
+    <string name="settings_on">已開啟</string>
+    <string name="settings_downloads_storage">下載和儲存空間</string>
+    <string name="settings_downloads_storage_hint">下載佇列、各播放清單佔用空間、僅限 Wi-Fi</string>
+    <string name="settings_library">音樂庫</string>
+    <string name="settings_others_private">其他人的私人播放清單</string>
+    <string name="settings_others_private_hint">你是管理員，所以伺服器會向你顯示所有人的播放清單。關閉後，它們不會出現在你的音樂庫中。</string>
+
+    <string name="settings_reporting">回報</string>
+    <string name="settings_report_problems">回報問題</string>
+    <string name="settings_report_problems_hint">在每首歌曲的 ⋮ 選單中加入「回報問題」</string>
+    <string name="settings_report_info">檔案損壞、封面錯誤或歌詞有問題的歌曲會加入伺服器上的 %1$s、%2$s 或 %3$s 播放清單，由伺服器的管理者修正。%1$s 中的歌曲在修正前會被略過。</string>
+    <string name="settings_report_missing">伺服器上找不到：%1$s。</string>
+
+    <string name="settings_about">關於</string>
+    <string name="settings_auto_update">自動檢查更新</string>
+    <string name="settings_auto_update_hint">開啟應用程式時在 GitHub 上尋找新版本</string>
+    <string name="settings_install_update">安裝更新</string>
+    <string name="settings_check_updates">檢查更新</string>
+    <string name="settings_checking">檢查中…</string>
+    <string name="settings_version_ready">版本 %1$s 已就緒</string>
+    <string name="settings_installs_straight_away">有新版本時立即安裝</string>
+    <string name="settings_latest_version">已是最新版本（或無法連線到 GitHub）</string>
+    <string name="settings_whats_new">更新內容</string>
+    <string name="settings_whats_new_hint">各版本的變更</string>
+    <string name="settings_licences">開放原始碼授權</string>
+    <string name="settings_licences_hint">Seiðr 是自由軟體（GNU GPL 3.0）</string>
+    <string name="settings_build">版本號碼 %1$d</string>
+    <string name="settings_new_badge">新</string>
+
+    <string name="settings_sign_out_title">要登出嗎？</string>
+    <string name="settings_sign_out_message">播放會停止，同步會暫停，直到你再次登入。已下載的檔案會保留。</string>
+    <string name="settings_sign_out">登出</string>
+    <string name="settings_cancel">取消</string>
+
+    <string name="settings_not_signed_in">未登入</string>
+    <string name="settings_not_connected">未連線</string>
+    <string name="settings_server_kid">%1$s · 兒童帳號</string>
+    <string name="settings_sign_in_device">登入其他裝置</string>
+
+    <string name="settings_colour">顏色</string>
+    <string name="settings_theme_system">系統（桌布）</string>
+    <string name="settings_theme_neutral">中性</string>
+
+    <string name="kids_title">兒童</string>
+    <string name="kids_view_as_description">以 %1$s 的視角瀏覽</string>
+    <string name="kids_remove_description">移除 %1$s</string>
+    <string name="kids_add">新增兒童帳號</string>
+    <string name="kids_how">兒童帳號如何運作</string>
+    <string name="kids_remove_title">要移除 %1$s 嗎？</string>
+    <string name="kids_remove_message">此裝置會忘記其登入資訊。已以 %1$s 的身分登入的裝置會保持登入。</string>
+    <string name="kids_remove">移除</string>
+    <string name="kids_cancel">取消</string>
+    <string name="kids_help_title">兒童帳號</string>
+    <string name="kids_help_step1">1. 為每個孩子各建立一個 Navidrome 帳號（非管理員），並加到這裡。</string>
+    <string name="kids_help_step2">2. 透過「登入其他裝置」為孩子的裝置登入。密碼請自己保管，不要告訴孩子。</string>
+    <string name="kids_help_step3">3. 透過你帳號下的三個播放清單決定孩子能聽什麼，這些播放清單會在新增兒童時建立：</string>
+    <string name="kids_help_approved">可以播放的歌曲</string>
+    <string name="kids_help_safe_titles">顯示為灰色，僅顯示歌名</string>
+    <string name="kids_help_safe_art">顯示為灰色，並顯示封面</string>
+    <string name="kids_help_hidden">其他內容對孩子全部隱藏。這些播放清單不會出現在你的音樂庫中，請在 Navidrome 的網頁播放器或其他應用程式中編輯。</string>
+    <string name="kids_help_eye">輕觸眼睛按鈕，可以查看這個孩子看到的 Seiðr，不會變更任何內容。</string>
+    <string name="kids_got_it">知道了</string>
+    <string name="kids_view_as_title">要以 %1$s 的視角瀏覽嗎？</string>
+    <string name="kids_view_as_message">只瀏覽 %1$s 的裝置上顯示的內容。此模式為唯讀：你仍保持登入，在這裡播放的歌曲會計入你的播放紀錄，而不是 %1$s 的。可透過首頁或設定中的橫幅返回。</string>
+    <string name="kids_view_as_button">以 %1$s 的視角瀏覽</string>
+    <string name="kids_viewing_as">正在以 %1$s 的視角瀏覽</string>
+    <string name="kids_back_to">返回 %1$s</string>
+    <string name="kids_own_account">這是你自己的帳號</string>
+    <string name="kids_add_message">孩子在 %1$s 上的 Navidrome 登入資訊。</string>
+    <string name="kids_username">使用者名稱</string>
+    <string name="kids_password">密碼</string>
+    <string name="kids_add_button">新增</string>
+
+    <string name="login_unencrypted_title">連線未加密</string>
+    <string name="login_unencrypted_message">此伺服器位於網際網路上，但位址以 http:// 開頭，因此你的登入資訊和音樂會以未加密的方式傳輸。途中的任何人都可能讀取這些內容並盜用你的登入資訊。如果伺服器有 https:// 位址，請改用該位址。</string>
+    <string name="login_connect_anyway">仍要連線</string>
+    <string name="login_go_back">返回</string>
+    <string name="login_heading">連線到你的 Navidrome 伺服器</string>
+    <string name="login_server_url">伺服器網址</string>
+    <string name="login_username">使用者名稱</string>
+    <string name="login_password">密碼</string>
+    <string name="login_log_in">登入</string>
+    <string name="login_other_device_title">已在其他裝置上登入？</string>
+    <string name="login_other_device_steps">在那台裝置上開啟 Seiðr，前往設定 → 登入其他裝置，然後選擇 %1$s。兩台裝置需連上同一個 Wi-Fi，而且此裝置上的 Seiðr 需保持開啟。確認兩個螢幕上的代碼一致，即可完成登入。</string>
+    <string name="login_back">返回</string>
+    <string name="login_idle_ready">可以播放了</string>
+    <string name="login_idle_hint">在其他裝置上開啟 Seiðr，輕觸「播放裝置」，然後選擇此裝置。</string>
+    <string name="login_pairing_code">配對碼</string>
+    <string name="login_check_same_code">請確認 %1$s 上顯示的代碼相同。</string>
+    <string name="login_sign_in_this_device">要登入此裝置嗎？</string>
+    <string name="login_sign_in_request">%1$s 想讓此裝置以 %2$s 的身分登入 %3$s。</string>
+    <string name="login_sign_in_request_kid">%1$s 想讓此裝置以 %2$s（兒童帳號）的身分登入 %3$s。</string>
+    <string name="login_allow">允許</string>
+    <string name="login_dont_allow">不允許</string>
+    <string name="login_cancel">取消</string>
+    <string name="login_sign_in_peer">要登入 %1$s 嗎？</string>
+    <string name="login_play_on_peer">要在 %1$s 上播放嗎？</string>
+    <string name="login_check_this_code">請確認 %1$s 上顯示的是以下代碼：</string>
+    <string name="login_will_sign_in_kid">它將以 %1$s（兒童帳號）的身分登入：僅限已核准的歌曲。</string>
+    <string name="login_will_sign_in">它將使用你的密碼，以 %1$s 的身分登入。</string>
+    <string name="login_will_play">它會使用你的登入資訊播放，直到中斷連線。之後此裝置不會再次詢問。</string>
+    <string name="login_it_matches">代碼一致</string>
+
+    <string name="licences_title">開放原始碼授權</string>
+    <string name="licences_includes">Seiðr 包含</string>
+    <string name="licences_shared_freely">自由分享；作者可要求移除</string>
+    <string name="licences_projectm_by">projectM 團隊。未經修改隨附，原始碼位於 Seiðr 的存放庫中</string>
+    <string name="licences_presets">MilkDrop 預設集（Cream of the Crop）</string>
+    <string name="licences_presets_by">由 Jason Fletcher 精選；各預設集的作者見其名稱</string>
+    <string name="licences_textures">MilkDrop 材質包</string>
+    <string name="licences_textures_by">由 projectM 團隊收集</string>
+    <string name="licences_androidx">AndroidX：Compose、Material 3、Media3、Room、WorkManager</string>
+    <string name="licences_material_icons">Material 圖示</string>
+    <string name="licences_okhttp">OkHttp 和 Retrofit</string>
+    <string name="licences_coil_by">Coil 貢獻者</string>
+    <string name="licences_openxr">OpenXR 載入器</string>
+
+    <string name="vissettings_title">視覺化效果</string>
+    <string name="vissettings_track_info">顯示曲目資訊</string>
+    <string name="vissettings_track_info_hint">在角落顯示封面、標題和時間。關閉後，它們只會隨控制項一起顯示（長按，或按遙控器的上／下鍵）。</string>
+    <string name="vissettings_performance">顯示效能資訊</string>
+    <string name="vissettings_performance_hint">在角落顯示影格率、算繪尺寸和畫質等級，它們會隨視覺化效果的自動調整而變化。</string>
+    <string name="vissettings_loved">最愛的預設集</string>
+    <string name="vissettings_loved_hint">輕觸視覺化效果控制項中的愛心即可加入。最愛的預設集大約每十次出現一次。</string>
+    <string name="vissettings_unlove">移出最愛</string>
+    <string name="vissettings_hidden">已隱藏的預設集</string>
+    <string name="vissettings_hidden_hint">輕觸視覺化效果控制項中的旗標可隱藏預設集。此裝置無法流暢顯示的預設集會自動隱藏。輕觸預設集即可預覽。</string>
+    <string name="vissettings_hidden_by_you">由你隱藏</string>
+    <string name="vissettings_too_heavy">對此裝置負擔過重</string>
+    <string name="vissettings_unhide">取消隱藏</string>
+
+    <string name="whatsnew_title">更新內容</string>
+    <string name="whatsnew_this_version">%1$s（目前版本）</string>
+
+</resources>

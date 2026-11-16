@@ -1,0 +1,94 @@
+<resources>
+    <string name="channel_updates">应用更新</string>
+    <string name="update_offer_title">更新 %1$s？</string>
+    <string name="update_offer_text">版本 %1$s 已可安装（当前版本为 %2$s）。更新期间应用会关闭。</string>
+    <string name="update_install">安装</string>
+    <string name="update_later">稍后</string>
+    <string name="update_whats_new">更新内容</string>
+    <string name="update_whats_new_title">%1$s 的更新内容</string>
+    <string name="update_ready_title">更新已就绪</string>
+    <string name="update_ready_text">点按安装版本 %1$s</string>
+
+    <string name="notif_channel_downloads">下载</string>
+    <string name="notif_channel_storage">存储空间警告</string>
+    <plurals name="notif_downloading">
+        <item quantity="other">正在下载 %1$d 首歌曲</item>
+    </plurals>
+    <string name="notif_preparing">正在准备…</string>
+    <string name="notif_storage_title">下载已暂停：存储空间已满</string>
+    <string name="notif_storage_text">请腾出约 %1$d MB 空间以继续下载。已下载的内容没有被移除。</string>
+
+    <string name="sync_server_error">服务器错误</string>
+    <string name="sync_cant_reach">无法连接服务器</string>
+
+    <string name="car_recent">最近</string>
+    <string name="car_playlists">歌单</string>
+    <string name="car_playlist">歌单</string>
+    <plurals name="car_songs">
+        <item quantity="other">%1$d 首歌曲</item>
+    </plurals>
+
+    <string name="playback_love">喜欢</string>
+    <string name="playback_unlove">取消喜欢</string>
+
+    <string name="connect_not_signed_in">此设备尚未登录</string>
+    <string name="connect_update_for_kids">请先在 %1$s 上更新 Seiðr：当前版本无法保障儿童登录信息的安全</string>
+    <string name="connect_no_answer">%1$s 没有响应</string>
+    <string name="connect_lost_why">与 %1$s 的连接已断开：%2$s</string>
+    <string name="connect_peer_other_account">%1$s 登录的是其他账号</string>
+    <string name="connect_peer_changed">%1$s 刚刚登录或退出了登录，请稍后再试。</string>
+    <string name="connect_peer_unreachable">无法连接 %1$s。它上面的 Seiðr 打开了吗？</string>
+    <string name="connect_playback_not_ready">播放尚未准备好</string>
+    <string name="connect_device_fallback">Seiðr 设备</string>
+    <string name="connect_peer_disconnected">%1$s 已断开连接</string>
+    <string name="connect_peer_signed_in">%1$s 已登录</string>
+    <string name="connect_nobody_answered">%1$s 上无人响应</string>
+    <string name="connect_not_allowed">%1$s 未允许</string>
+    <string name="connect_taken_over">%1$s 现在正在 %2$s 上播放</string>
+    <string name="connect_update_first">请先在 %1$s 上更新 Seiðr</string>
+    <string name="connect_lost_connection">与 %1$s 的连接已断开</string>
+
+    <string name="account_connect_failed">无法连接 %1$s：%2$s</string>
+    <string name="account_lan_permission">Seiðr 需要“附近设备”/本地网络权限，才能连接家庭网络中的服务器。</string>
+    <string name="account_check_failed_why">无法检查 %1$s 的账号：%2$s</string>
+    <string name="account_check_failed">无法检查 %1$s 的账号</string>
+    <string name="account_kid_is_admin">%1$s 是服务器管理员。儿童账号不能是管理员。</string>
+    <string name="account_not_grownup">当前不是以家长身份登录</string>
+    <string name="account_own_check_failed">无法在服务器上检查你的账号</string>
+    <string name="account_admin_only">只有服务器管理员才能以儿童的视角浏览</string>
+    <string name="account_view_failed">无法打开 %1$s 的视角：%2$s</string>
+    <string name="account_someone_else">在此期间已登录了其他账号</string>
+
+    <string name="kids_signed_in_as_kid">已以儿童身份登录</string>
+    <string name="kids_setup_failed">无法设置儿童歌单：%1$s</string>
+
+    <string name="report_no_playlist">服务器上没有“%1$s”歌单</string>
+    <string name="report_removed">已从 %1$s 中移除</string>
+    <string name="report_song_reported">已报告。这首歌将被跳过。</string>
+    <string name="report_art_reported">已报告封面问题</string>
+    <string name="report_lyrics_reported">已报告歌词问题</string>
+    <string name="report_queued">离线：服务器恢复后将更新 %1$s</string>
+    <string name="report_conflict">无法更新 %1$s</string>
+    <string name="report_failed">无法更新 %1$s：%2$s</string>
+
+    <string name="main_battery_title">让音乐不中断</string>
+    <string name="main_battery_text">部分手机的电池管理会中止后台播放和下载。允许 Seiðr 不受限制地运行吗？之后可以在设置中更改。</string>
+    <string name="main_battery_allow">允许</string>
+
+    <string name="vis_close">关闭可视化效果</string>
+    <string name="vis_now_playing">正在播放</string>
+    <string name="vis_next_in_queue">队列中的下一首</string>
+    <string name="vis_next_from">接下来播放：%1$s</string>
+    <string name="vis_next_from_queue">接下来播放：播放队列</string>
+    <string name="vis_hide_preset">隐藏预设</string>
+    <string name="vis_love_preset">喜欢预设</string>
+    <string name="vis_unlove_preset">取消喜欢预设</string>
+    <string name="vis_preview">预览</string>
+    <string name="vis_preset_hidden">已隐藏预设。可在设置 → 可视化效果中恢复。</string>
+    <string name="vis_xr_failed">无法启动沉浸式可视化效果</string>
+    <string name="vis_warning_title">闪光警告</string>
+    <string name="vis_warning_headset">部分预设会快速闪烁、频闪和旋转，在头显中还会占满整个视野。这可能诱发光敏性癫痫患者发作，也可能引起晕动症或方向感错乱。请保持坐姿；如感不适，请摘下头显。</string>
+    <string name="vis_warning_flat">部分预设会快速闪烁、频闪和旋转，可能诱发光敏性癫痫患者发作。如感不适，请移开视线并关闭可视化效果。</string>
+    <string name="vis_continue">继续</string>
+    <string name="vis_not_now">暂不</string>
+</resources>

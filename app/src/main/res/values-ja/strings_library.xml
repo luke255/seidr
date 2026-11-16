@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="library_songs">
+        <item quantity="other">%d曲</item>
+    </plurals>
+    <plurals name="library_albums">
+        <item quantity="other">アルバム%d枚</item>
+    </plurals>
+
+    <string name="library_title">ライブラリ</string>
+    <string name="library_tab_playlists">プレイリスト</string>
+    <string name="library_tab_artists">アーティスト</string>
+    <string name="library_tab_albums">アルバム</string>
+    <string name="library_search_playlists">プレイリストを検索</string>
+    <string name="library_search_artists">アーティストを検索</string>
+    <string name="library_search_albums">アルバムを検索</string>
+    <string name="library_close_search">検索を閉じる</string>
+    <string name="library_search_library">ライブラリを検索</string>
+    <string name="library_create_playlist">プレイリストを作成</string>
+    <string name="library_downloaded">ダウンロード済み</string>
+    <string name="library_sort_custom">カスタム順</string>
+    <string name="library_sort_name">名前</string>
+    <string name="library_sort_updated">最近更新</string>
+    <string name="library_sort_most_albums">アルバム数</string>
+    <string name="library_sort_artist">アーティスト</string>
+    <string name="library_sort_added">最近追加</string>
+    <string name="library_sort_year">年</string>
+    <string name="library_show_list">リストで表示</string>
+    <string name="library_show_grid">グリッドで表示</string>
+    <string name="library_by_owner">作成者：%1$s</string>
+    <string name="library_playlist">プレイリスト</string>
+    <string name="library_name">名前</string>
+    <string name="library_create">作成</string>
+    <string name="library_cancel">キャンセル</string>
+    <string name="library_create_failed">プレイリストを作成できませんでした（サーバーへの接続が必要です）</string>
+    <string name="library_no_match">「%1$s」に一致するものはありません</string>
+    <string name="library_none_downloaded">ダウンロード済みのものはまだありません</string>
+    <string name="library_empty">まだ何もありません</string>
+    <plurals name="library_downloading_left">
+        <item quantity="other">ダウンロード中：残り%d曲</item>
+    </plurals>
+
+    <string name="search_title">検索</string>
+    <string name="search_hint">アーティスト、曲、アルバム、プレイリスト</string>
+    <string name="search_recent">最近の検索</string>
+    <string name="search_clear">消去</string>
+    <string name="search_filter_all">すべて</string>
+    <string name="search_filter_songs">曲</string>
+    <string name="search_filter_artists">アーティスト</string>
+    <string name="search_filter_albums">アルバム</string>
+    <string name="search_filter_playlists">プレイリスト</string>
+    <string name="search_failed">検索できませんでした</string>
+    <string name="search_no_results">「%1$s」の検索結果はありません</string>
+    <string name="search_context">検索：%1$s</string>
+    <string name="search_top_result">上位の検索結果</string>
+    <string name="search_kind_artist">アーティスト</string>
+    <string name="search_kind_album">アルバム</string>
+    <string name="search_kind_song">曲</string>
+    <string name="search_kind_album_by">アルバム · %1$s</string>
+    <string name="search_kind_song_by">曲 · %1$s</string>
+    <plurals name="search_kind_playlist">
+        <item quantity="other">プレイリスト · %d曲</item>
+    </plurals>
+
+    <string name="playlist_by_owner">作成者：%1$s</string>
+    <string name="playlist_done">完了</string>
+    <string name="playlist_options">プレイリストのオプション</string>
+    <string name="playlist_reorder">曲を並べ替え</string>
+    <string name="playlist_rename">名前を変更</string>
+    <string name="playlist_delete">プレイリストを削除</string>
+    <string name="playlist_remove_from_this">このプレイリストから削除</string>
+    <string name="playlist_order_saved">プレイリストの曲順を保存しました</string>
+    <string name="playlist_removed_from">%1$sから削除しました</string>
+    <string name="playlist_rename_title">プレイリストの名前を変更</string>
+    <string name="playlist_renamed">名前を変更しました</string>
+    <string name="playlist_save">保存</string>
+    <string name="playlist_cancel">キャンセル</string>
+    <string name="playlist_delete_title">「%1$s」を削除しますか？</string>
+    <string name="playlist_delete_body">サーバーから削除されます。このプレイリストのためだけに残していたダウンロードは、スマートフォンからも削除されます。</string>
+    <string name="playlist_deleted">%1$sを削除しました</string>
+    <string name="playlist_delete_confirm">削除</string>
+
+    <string name="downloads_title">ダウンロード</string>
+    <string name="downloads_free">このスマートフォンの空き容量：%1$s</string>
+    <string name="downloads_queue">ダウンロード待ち</string>
+    <string name="downloads_all_done">すべてダウンロード済みです</string>
+    <plurals name="downloads_waiting">
+        <item quantity="other">%d曲が待機中</item>
+    </plurals>
+    <string name="downloads_wifi_only_note">Wi-Fi接続時のみダウンロードします</string>
+    <plurals name="downloads_failed">
+        <item quantity="other">%d件失敗</item>
+    </plurals>
+    <string name="downloads_retry">再試行</string>
+    <plurals name="downloads_edits_waiting">
+        <item quantity="other">プレイリストの編集%d件が待機中</item>
+    </plurals>
+    <string name="downloads_edits_note">サーバーに接続できたら送信されます</string>
+    <string name="downloads_settings">設定</string>
+    <string name="downloads_wifi_only">Wi-Fiのみでダウンロード</string>
+    <string name="downloads_wifi_only_hint">オフにするとモバイルデータでもダウンロードします</string>
+    <string name="downloads_syncing">同期中…</string>
+    <string name="downloads_not_synced">まだ同期していません</string>
+    <string name="downloads_last_synced">最終同期：%1$s</string>
+    <plurals name="downloads_unchecked">
+        <item quantity="other">%d件を確認できませんでした。何も削除していません</item>
+    </plurals>
+    <string name="downloads_sync_now">今すぐ同期</string>
+    <string name="downloads_downloaded">ダウンロード済み</string>
+    <string name="downloads_nothing">まだ何もありません</string>
+    <string name="downloads_nothing_hint">プレイリストやアルバムの「ダウンロード」をオンにすると、スマートフォンに保存されます。</string>
+    <plurals name="downloads_progress">
+        <item quantity="other">%2$d曲中%1$d曲 · %3$s</item>
+    </plurals>
+    <string name="downloads_waiting_short">待機中</string>
+    <string name="downloads_kind_playlist">プレイリスト</string>
+    <string name="downloads_kind_album">アルバム</string>
+
+    <string name="home_offline_tv">オフラインです。サーバーに接続できるようになると、Seiðrが自動的に再接続します。</string>
+    <string name="home_offline">オフラインです。ダウンロード済みの音楽はそのまま聴けます。ライブラリの「ダウンロード済み」フィルターで探してください。</string>
+    <string name="home_kid_empty">まだ許可された曲がありません。サインインしてくれた人に、曲を追加してもらいましょう。</string>
+    <string name="home_playlists">プレイリスト</string>
+    <string name="home_sort_az">名前順</string>
+    <string name="home_sort_recent">最近</string>
+    <string name="home_by_owner">作成者：%1$s</string>
+    <string name="home_recently_added">最近追加</string>
+    <string name="home_most_played">よく聴く音楽</string>
+    <string name="home_saved_albums">保存したアルバム</string>
+
+    <string name="artist_load_failed">曲を読み込めませんでした</string>
+    <string name="artist_label">アーティスト</string>
+    <string name="artist_popular">人気曲</string>
+    <string name="artist_show_less">表示を減らす</string>
+    <string name="artist_show_all">すべて表示</string>
+    <string name="artist_albums">アルバム</string>
+    <string name="artist_singles">シングルとEP</string>
+    <string name="artist_appears_on">参加作品</string>
+
+    <string name="album_unreachable">サーバーに接続できませんでした</string>
+    <string name="album_remove_from_library">ライブラリから削除</string>
+    <string name="album_save_to_library">ライブラリに保存</string>
+    <string name="album_disc">ディスク%1$s</string>
+
+    <string name="loved_title">お気に入りの曲</string>
+</resources>

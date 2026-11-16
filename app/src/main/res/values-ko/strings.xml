@@ -1,0 +1,94 @@
+<resources>
+    <string name="channel_updates">앱 업데이트</string>
+    <string name="update_offer_title">%1$s 업데이트할까요?</string>
+    <string name="update_offer_text">%1$s 버전을 설치할 수 있어요(현재 %2$s). 업데이트하는 동안 앱이 닫혀요.</string>
+    <string name="update_install">설치</string>
+    <string name="update_later">나중에</string>
+    <string name="update_whats_new">새로운 기능</string>
+    <string name="update_whats_new_title">%1$s의 새로운 기능</string>
+    <string name="update_ready_title">업데이트 준비 완료</string>
+    <string name="update_ready_text">탭해서 %1$s 버전 설치</string>
+
+    <string name="notif_channel_downloads">다운로드</string>
+    <string name="notif_channel_storage">저장 공간 경고</string>
+    <plurals name="notif_downloading">
+        <item quantity="other">%1$d곡 다운로드 중</item>
+    </plurals>
+    <string name="notif_preparing">준비 중…</string>
+    <string name="notif_storage_title">다운로드 일시 중지: 저장 공간 부족</string>
+    <string name="notif_storage_text">계속하려면 약 %1$dMB를 비워 주세요. 이미 다운로드한 곡은 삭제되지 않았어요.</string>
+
+    <string name="sync_server_error">서버 오류</string>
+    <string name="sync_cant_reach">서버에 연결할 수 없어요</string>
+
+    <string name="car_recent">최근</string>
+    <string name="car_playlists">플레이리스트</string>
+    <string name="car_playlist">플레이리스트</string>
+    <plurals name="car_songs">
+        <item quantity="other">%1$d곡</item>
+    </plurals>
+
+    <string name="playback_love">좋아요</string>
+    <string name="playback_unlove">좋아요 취소</string>
+
+    <string name="connect_not_signed_in">이 기기는 로그인되어 있지 않아요</string>
+    <string name="connect_update_for_kids">먼저 %1$s의 Seiðr를 업데이트해 주세요. 이 버전은 어린이의 로그인 정보를 안전하게 지킬 수 없어요</string>
+    <string name="connect_no_answer">%1$s에서 응답이 없어요</string>
+    <string name="connect_lost_why">%1$s 연결이 끊겼어요: %2$s</string>
+    <string name="connect_peer_other_account">%1$s에는 다른 계정이 로그인되어 있어요</string>
+    <string name="connect_peer_changed">%1$s에서 로그인하거나 로그아웃했어요. 잠시 후 다시 시도해 주세요.</string>
+    <string name="connect_peer_unreachable">%1$s에 연결할 수 없어요. 그 기기에서 Seiðr가 열려 있나요?</string>
+    <string name="connect_playback_not_ready">아직 재생할 준비가 안 됐어요</string>
+    <string name="connect_device_fallback">Seiðr 기기</string>
+    <string name="connect_peer_disconnected">%1$s 연결이 해제됐어요</string>
+    <string name="connect_peer_signed_in">%1$s 로그인이 완료됐어요</string>
+    <string name="connect_nobody_answered">%1$s에서 아무도 응답하지 않았어요</string>
+    <string name="connect_not_allowed">%1$s에서 허용되지 않았어요</string>
+    <string name="connect_taken_over">이제 %1$s이(가) %2$s에서 재생 중이에요</string>
+    <string name="connect_update_first">먼저 %1$s의 Seiðr를 업데이트해 주세요</string>
+    <string name="connect_lost_connection">%1$s 연결이 끊겼어요</string>
+
+    <string name="account_connect_failed">%1$s에 연결할 수 없어요: %2$s</string>
+    <string name="account_lan_permission">홈 네트워크에 있는 서버에 연결하려면 Seiðr에 근처 기기/로컬 네트워크 권한이 필요해요.</string>
+    <string name="account_check_failed_why">%1$s 계정을 확인할 수 없어요: %2$s</string>
+    <string name="account_check_failed">%1$s 계정을 확인할 수 없어요</string>
+    <string name="account_kid_is_admin">%1$s 계정은 서버 관리자예요. 어린이 계정은 관리자일 수 없어요.</string>
+    <string name="account_not_grownup">보호자로 로그인되어 있지 않아요</string>
+    <string name="account_own_check_failed">서버에서 내 계정을 확인할 수 없어요</string>
+    <string name="account_admin_only">서버 관리자만 어린이 화면으로 볼 수 있어요</string>
+    <string name="account_view_failed">%1$s 화면을 열 수 없어요: %2$s</string>
+    <string name="account_someone_else">그사이 다른 계정으로 로그인됐어요</string>
+
+    <string name="kids_signed_in_as_kid">어린이로 로그인했어요</string>
+    <string name="kids_setup_failed">어린이용 플레이리스트를 설정할 수 없어요: %1$s</string>
+
+    <string name="report_no_playlist">서버에 “%1$s” 플레이리스트가 없어요</string>
+    <string name="report_removed">%1$s에서 삭제했어요</string>
+    <string name="report_song_reported">신고했어요. 이 곡은 건너뛸게요.</string>
+    <string name="report_art_reported">앨범 아트를 신고했어요</string>
+    <string name="report_lyrics_reported">가사를 신고했어요</string>
+    <string name="report_queued">오프라인: 서버에 다시 연결되면 %1$s에 반영할게요</string>
+    <string name="report_conflict">%1$s 업데이트에 실패했어요</string>
+    <string name="report_failed">%1$s 업데이트에 실패했어요: %2$s</string>
+
+    <string name="main_battery_title">음악이 끊기지 않게</string>
+    <string name="main_battery_text">일부 휴대전화의 배터리 관리 기능은 백그라운드 재생과 다운로드를 중단시켜요. Seiðr를 제한 없이 실행하도록 허용할까요? 나중에 설정에서 바꿀 수 있어요.</string>
+    <string name="main_battery_allow">허용</string>
+
+    <string name="vis_close">비주얼라이저 닫기</string>
+    <string name="vis_now_playing">지금 재생 중</string>
+    <string name="vis_next_in_queue">대기열의 다음 곡</string>
+    <string name="vis_next_from">다음 재생: %1$s</string>
+    <string name="vis_next_from_queue">다음 재생: 대기열</string>
+    <string name="vis_hide_preset">프리셋 숨기기</string>
+    <string name="vis_love_preset">프리셋 좋아요</string>
+    <string name="vis_unlove_preset">프리셋 좋아요 취소</string>
+    <string name="vis_preview">미리보기</string>
+    <string name="vis_preset_hidden">프리셋을 숨겼어요. 설정 → 비주얼라이저에서 되돌릴 수 있어요.</string>
+    <string name="vis_xr_failed">몰입형 비주얼라이저를 시작할 수 없어요</string>
+    <string name="vis_warning_title">번쩍이는 빛 주의</string>
+    <string name="vis_warning_headset">일부 프리셋은 빠르게 번쩍이고 깜빡이며 소용돌이쳐요. 헤드셋에서는 시야 전체를 가득 채워요. 광과민성 뇌전증이 있는 분은 발작을 일으킬 수 있고, 멀미나 어지럼증이 생길 수도 있어요. 앉아서 이용하고, 몸이 불편하면 헤드셋을 벗어 주세요.</string>
+    <string name="vis_warning_flat">일부 프리셋은 빠르게 번쩍이고 깜빡이며 소용돌이쳐요. 광과민성 뇌전증이 있는 분은 발작을 일으킬 수 있어요. 몸이 불편하면 화면에서 눈을 떼고 비주얼라이저를 닫아 주세요.</string>
+    <string name="vis_continue">계속</string>
+    <string name="vis_not_now">나중에</string>
+</resources>

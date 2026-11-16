@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">返回</string>
+    <string name="common_cancel">取消</string>
+    <string name="common_clear">清除</string>
+    <string name="common_close">关闭</string>
+    <string name="common_done">完成</string>
+    <string name="common_more">更多</string>
+    <string name="common_remove">移除</string>
+    <string name="common_try_again">重试</string>
+    <string name="common_offline">离线</string>
+    <string name="common_load_failed">无法加载</string>
+    <string name="common_drag_to_reorder">拖动以调整顺序</string>
+    <string name="common_moving_hint">正在移动：按上下键移动，再按确认键放下</string>
+    <string name="common_shuffle_play">随机播放</string>
+    <string name="common_play_in_order">顺序播放</string>
+    <string name="common_play">播放</string>
+
+    <string name="common_download">下载</string>
+    <string name="common_downloaded">已下载</string>
+    <string name="common_queued">等待下载</string>
+    <string name="common_download_failed">下载失败</string>
+    <string name="common_waiting_to_download">等待下载…</string>
+    <string name="common_downloading_progress">正在下载… %1$d/%2$d</string>
+    <string name="common_download_when_reachable">服务器可连接时将开始下载</string>
+    <string name="common_downloads_removed">已移除 %1$s 的下载内容</string>
+    <string name="common_not_approved_yet">尚未批准</string>
+
+    <string name="common_read_only_kid">以儿童的视角浏览时为只读</string>
+    <string name="common_cant_reach_server">无法连接服务器</string>
+    <string name="common_loved">已喜欢</string>
+    <string name="common_unloved">已取消喜欢</string>
+    <string name="common_edit_queued">离线：服务器恢复后将保存到服务器</string>
+    <string name="common_edit_conflict">歌单已在别处被修改，因此未保存任何更改。已重新加载。</string>
+    <string name="common_edit_failed">无法保存：%1$s</string>
+
+    <plurals name="common_songs">
+        <item quantity="other">%d 首歌曲</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="other">%d 张专辑</item>
+    </plurals>
+    <plurals name="common_approved_count">
+        <item quantity="other">已批准 %1$d 首</item>
+    </plurals>
+    <string name="common_by_owner">创建者：%1$s</string>
+    <string name="common_duration_hr_min">%1$d 小时 %2$d 分钟</string>
+    <string name="common_duration_min">%1$d 分钟</string>
+    <string name="common_size_gb">%1$.1f GB</string>
+    <string name="common_size_mb">%1$.0f MB</string>
+    <string name="common_size_kb">%1$.0f KB</string>
+
+    <string name="nav_home">首页</string>
+    <string name="nav_search">搜索</string>
+    <string name="nav_library">音乐库</string>
+    <string name="nav_now_playing">正在播放</string>
+    <string name="nav_settings">设置</string>
+    <string name="nav_update_available">有可用更新</string>
+    <string name="nav_settings_update_available">设置，有可用更新</string>
+
+    <string name="player_nothing_playing">当前没有播放内容</string>
+    <string name="player_playing_from">播放来源</string>
+    <string name="player_queue">播放队列</string>
+    <string name="player_disconnect">断开连接</string>
+    <string name="player_play_on_another_device">在其他设备上播放</string>
+    <string name="player_lyrics">歌词</string>
+    <string name="player_hide_lyrics">隐藏歌词</string>
+    <string name="player_visualiser">可视化效果</string>
+    <string name="player_immersive_visualiser">沉浸式可视化效果</string>
+    <string name="player_previous">上一首</string>
+    <string name="player_next">下一首</string>
+    <string name="player_play">播放</string>
+    <string name="player_pause">暂停</string>
+    <string name="player_playing_on">正在 %1$s 上播放</string>
+    <string name="player_playing_for">正在为 %1$s 播放，来自 %2$s</string>
+    <string name="player_repeat_one">单曲循环</string>
+    <string name="player_repeat_all">列表循环</string>
+    <string name="player_repeat_off">不循环</string>
+    <string name="player_shuffle">随机播放</string>
+    <string name="player_on">开</string>
+    <string name="player_off">关</string>
+    <string name="player_toggle_shuffle">切换随机播放</string>
+    <string name="player_reshuffle">重新打乱</string>
+    <string name="player_reshuffled">已重新打乱</string>
+    <string name="player_hold_to_reshuffle">长按可重新打乱</string>
+
+    <string name="queue_title">播放队列</string>
+    <string name="queue_empty">播放队列为空</string>
+    <string name="queue_earlier">之前播放</string>
+    <string name="queue_now_playing">正在播放</string>
+    <string name="queue_next">下一首</string>
+    <string name="queue_next_in_queue">队列中的下一首</string>
+    <string name="queue_clear">清空队列</string>
+    <string name="queue_next_from">接下来播放：%1$s</string>
+    <string name="queue_fallback_context">播放队列</string>
+    <string name="queue_remove">从队列中移除</string>
+
+    <string name="lyrics_none">这首歌没有歌词</string>
+    <string name="lyrics_failed">无法加载歌词</string>
+    <string name="lyrics_earlier">歌词提前</string>
+    <string name="lyrics_later">歌词延后</string>
+    <string name="lyrics_original_timing">原始时间</string>
+    <string name="lyrics_reset">重置</string>
+
+    <string name="devices_title">播放设备</string>
+    <string name="devices_this_device">此设备</string>
+    <string name="devices_not_signed_in">未登录</string>
+    <string name="devices_connecting">正在连接…</string>
+    <string name="devices_connected">已连接</string>
+    <string name="devices_allow">允许</string>
+    <string name="devices_permission_rationale">Seiðr 需要“附近设备”权限才能找到你的其他设备。</string>
+    <string name="devices_looking">正在查找设备。请在连接同一 Wi-Fi 的其他设备上打开 Seiðr：该设备需已登录你的账号，或尚未登录。</string>
+
+    <string name="menu_love">喜欢</string>
+    <string name="menu_unlove">取消喜欢</string>
+    <string name="menu_add_to_playlist">添加到歌单</string>
+    <string name="menu_add_to_queue">添加到播放队列</string>
+    <string name="menu_go_to_album">查看专辑</string>
+    <string name="menu_go_to_artist">查看歌手</string>
+    <plurals name="menu_added_to_queue">
+        <item quantity="other">已将 %d 首歌曲添加到播放队列</item>
+    </plurals>
+    <string name="menu_new_playlist">新建歌单</string>
+    <string name="menu_playlist_name">名称</string>
+    <string name="menu_create">创建</string>
+    <string name="menu_create_failed">无法创建歌单（需要连接服务器）</string>
+    <string name="menu_created">已创建“%1$s”</string>
+    <string name="menu_added_to">已添加到 %1$s</string>
+
+    <string name="menu_report_a_problem">报告问题</string>
+    <string name="menu_report_no_playlist">没有 %1$s 歌单</string>
+    <string name="menu_report_undo_song">撤销歌曲报告</string>
+    <string name="menu_report_undo_art">撤销封面报告</string>
+    <string name="menu_report_undo_lyrics">撤销歌词报告</string>
+    <string name="menu_report_bad_song">歌曲有问题（跳过）</string>
+    <string name="menu_report_bad_art">封面有问题</string>
+    <string name="menu_report_bad_lyrics">歌词有问题</string>
+
+    <string name="pair_title">登录其他设备</string>
+    <string name="pair_signing_in">正在登录 %1$s… 请在 %1$s 上允许。</string>
+    <string name="pair_signed_in_as">%1$s 已以 %2$s 的身份登录</string>
+    <string name="pair_cancelled">已取消</string>
+    <string name="pair_intro">在要登录的设备上打开 Seiðr，并确保它与此设备连接同一 Wi-Fi。它处于未登录状态时会显示在这里。确认两个屏幕上显示的代码相同后，它就会以 %1$s 的身份登录。</string>
+    <string name="pair_intro_kid">在要登录的设备上打开 Seiðr，并确保它与此设备连接同一 Wi-Fi。它处于未登录状态时会显示在这里。确认两个屏幕上显示的代码相同后，它就会以 %1$s 的身份登录。它也会成为儿童设备，可听的歌曲相同。</string>
+    <string name="pair_you">你</string>
+    <string name="pair_kid_approved_only">儿童：仅限已批准的歌曲</string>
+    <string name="pair_permission_rationale">Seiðr 需要“附近设备”权限才能找到其他设备。</string>
+    <string name="pair_looking">正在查找未登录的设备…</string>
+
+    <string name="theme_system">系统</string>
+    <string name="theme_neutral">中性</string>
+    <string name="theme_red">红色</string>
+    <string name="theme_orange">橙色</string>
+    <string name="theme_amber">琥珀色</string>
+    <string name="theme_yellow">黄色</string>
+    <string name="theme_lime">青柠色</string>
+    <string name="theme_green">绿色</string>
+    <string name="theme_emerald">翡翠绿</string>
+    <string name="theme_teal">蓝绿色</string>
+    <string name="theme_cyan">青色</string>
+    <string name="theme_sky">天蓝色</string>
+    <string name="theme_blue">蓝色</string>
+    <string name="theme_indigo">靛蓝色</string>
+    <string name="theme_violet">紫罗兰色</string>
+    <string name="theme_purple">紫色</string>
+    <string name="theme_magenta">洋红色</string>
+    <string name="theme_pink">粉色</string>
+</resources>

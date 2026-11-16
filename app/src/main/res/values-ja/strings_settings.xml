@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">設定</string>
+    <string name="settings_appearance">外観</string>
+    <string name="settings_visualiser">ビジュアライザー</string>
+    <string name="settings_vis_item">曲情報とプリセット</string>
+    <string name="settings_vis_item_hint">重ねて表示する情報、お気に入りと非表示のプリセット</string>
+    <string name="settings_playback_downloads">再生とダウンロード</string>
+    <string name="settings_background_playback">バックグラウンド再生</string>
+    <string name="settings_battery_off">制限なし：バッテリーの最適化はオフです</string>
+    <string name="settings_battery_tap">タップすると、Seiðrを制限なしで実行できるようにします。そうしないと、機種によってはバッテリー管理機能が音楽を止めてしまいます。</string>
+    <string name="settings_on">オン</string>
+    <string name="settings_downloads_storage">ダウンロードとストレージ</string>
+    <string name="settings_downloads_storage_hint">ダウンロード待ち、プレイリストごとの容量、Wi-Fiのみ</string>
+    <string name="settings_library">ライブラリ</string>
+    <string name="settings_others_private">ほかの人の非公開プレイリスト</string>
+    <string name="settings_others_private_hint">あなたは管理者なので、サーバーから全員のプレイリストが届きます。オフにするとライブラリに表示されません。</string>
+
+    <string name="settings_reporting">報告</string>
+    <string name="settings_report_problems">問題を報告する</string>
+    <string name="settings_report_problems_hint">各曲の ⋮ メニューに「問題を報告」を追加します</string>
+    <string name="settings_report_info">ファイルの不具合、間違ったアートワーク、崩れた歌詞は、サーバーの%1$s、%2$s、%3$sのいずれかのプレイリストに追加され、サーバーの管理者が修正できるようになります。%1$sにある曲は、修正されるまでスキップされます。</string>
+    <string name="settings_report_missing">サーバーに見つかりません：%1$s</string>
+
+    <string name="settings_about">このアプリについて</string>
+    <string name="settings_auto_update">アップデートを自動で確認</string>
+    <string name="settings_auto_update_hint">アプリを開いたときに、GitHubで新しいリリースを確認します</string>
+    <string name="settings_install_update">アップデートをインストール</string>
+    <string name="settings_check_updates">アップデートを確認</string>
+    <string name="settings_checking">確認中…</string>
+    <string name="settings_version_ready">バージョン%1$sをインストールできます</string>
+    <string name="settings_installs_straight_away">新しいバージョンがあれば、すぐにインストールします</string>
+    <string name="settings_latest_version">最新バージョンです（またはGitHubに接続できません）</string>
+    <string name="settings_whats_new">新機能</string>
+    <string name="settings_whats_new_hint">各バージョンの変更点</string>
+    <string name="settings_licences">オープンソースライセンス</string>
+    <string name="settings_licences_hint">Seiðrは自由ソフトウェアです（GNU GPL 3.0）</string>
+    <string name="settings_build">ビルド%1$d</string>
+    <string name="settings_new_badge">NEW</string>
+
+    <string name="settings_sign_out_title">サインアウトしますか？</string>
+    <string name="settings_sign_out_message">もう一度サインインするまで、再生は止まり、同期は一時停止します。ダウンロード済みのファイルは残ります。</string>
+    <string name="settings_sign_out">サインアウト</string>
+    <string name="settings_cancel">キャンセル</string>
+
+    <string name="settings_not_signed_in">サインインしていません</string>
+    <string name="settings_not_connected">未接続</string>
+    <string name="settings_server_kid">%1$s · 子ども用アカウント</string>
+    <string name="settings_sign_in_device">デバイスをサインインさせる</string>
+
+    <string name="settings_colour">カラー</string>
+    <string name="settings_theme_system">システム（壁紙）</string>
+    <string name="settings_theme_neutral">ニュートラル</string>
+
+    <string name="kids_title">子ども</string>
+    <string name="kids_view_as_description">%1$sの画面を表示</string>
+    <string name="kids_remove_description">%1$sを削除</string>
+    <string name="kids_add">子ども用アカウントを追加</string>
+    <string name="kids_how">子ども用アカウントのしくみ</string>
+    <string name="kids_remove_title">%1$sを削除しますか？</string>
+    <string name="kids_remove_message">このデバイスからログイン情報が消去されます。すでに%1$sとしてサインインしているデバイスは、サインインしたままです。</string>
+    <string name="kids_remove">削除</string>
+    <string name="kids_cancel">キャンセル</string>
+    <string name="kids_help_title">子ども用アカウント</string>
+    <string name="kids_help_step1">1. お子さまごとにNavidromeのアカウント（管理者以外）を作り、ここに追加します。</string>
+    <string name="kids_help_step2">2. 「デバイスをサインインさせる」から、お子さまのデバイスをサインインさせます。パスワードはお子さまに教えないでください。</string>
+    <string name="kids_help_step3">3. お子さまが聴けるものは、あなたのアカウントにある3つのプレイリストで決めます。これらは子どもを追加したときに作られます。</string>
+    <string name="kids_help_approved">再生できる曲</string>
+    <string name="kids_help_safe_titles">グレーで表示（曲名のみ）</string>
+    <string name="kids_help_safe_art">グレーで表示（アートワーク付き）</string>
+    <string name="kids_help_hidden">それ以外はすべて、お子さまには表示されません。これらのプレイリストはあなたのライブラリには出てこないので、NavidromeのWebプレーヤーやほかのアプリで編集してください。</string>
+    <string name="kids_help_eye">目のボタンを押すと、何も変更せずに、そのお子さまから見たSeiðrを確認できます。</string>
+    <string name="kids_got_it">OK</string>
+    <string name="kids_view_as_title">%1$sの画面を表示しますか？</string>
+    <string name="kids_view_as_message">%1$sのデバイスに表示されるものだけを見て回れます。読み取り専用で、あなたはサインインしたままです。ここで再生した曲は、%1$sではなくあなたの再生として記録されます。元に戻るには、ホームまたは設定のバナーを使います。</string>
+    <string name="kids_view_as_button">%1$sの画面を表示</string>
+    <string name="kids_viewing_as">%1$sの画面を表示中</string>
+    <string name="kids_back_to">%1$sに戻る</string>
+    <string name="kids_own_account">それはあなた自身のアカウントです</string>
+    <string name="kids_add_message">%1$sでのお子さまのNavidromeログイン情報です。</string>
+    <string name="kids_username">ユーザー名</string>
+    <string name="kids_password">パスワード</string>
+    <string name="kids_add_button">追加</string>
+
+    <string name="login_unencrypted_title">暗号化されていない接続</string>
+    <string name="login_unencrypted_message">このサーバーはインターネット上にありますが、アドレスがhttp://で始まっているため、ログイン情報と音楽は暗号化されずに送られます。途中で誰かに読み取られ、ログイン情報を悪用されるおそれがあります。サーバーにhttps://のアドレスがあれば、そちらを使ってください。</string>
+    <string name="login_connect_anyway">このまま接続</string>
+    <string name="login_go_back">戻る</string>
+    <string name="login_heading">Navidromeサーバーに接続</string>
+    <string name="login_server_url">サーバーのURL</string>
+    <string name="login_username">ユーザー名</string>
+    <string name="login_password">パスワード</string>
+    <string name="login_log_in">ログイン</string>
+    <string name="login_other_device_title">別のデバイスでサインイン済みですか？</string>
+    <string name="login_other_device_steps">そのデバイスでSeiðrを開き、設定 → デバイスをサインインさせる に進んで、%1$sを選んでください。両方が同じWi-Fiにつながっていて、このデバイスでもSeiðrを開いている必要があります。両方の画面でコードが一致していることを確認すれば完了です。</string>
+    <string name="login_back">戻る</string>
+    <string name="login_idle_ready">再生できます</string>
+    <string name="login_idle_hint">別のデバイスでSeiðrを開き、「再生先」をタップして、このデバイスを選んでください。</string>
+    <string name="login_pairing_code">ペアリングコード</string>
+    <string name="login_check_same_code">%1$sに同じコードが表示されていることを確認してください。</string>
+    <string name="login_sign_in_this_device">このデバイスをサインインさせますか？</string>
+    <string name="login_sign_in_request">%1$sが、このデバイスを%3$sに%2$sとしてサインインさせようとしています。</string>
+    <string name="login_sign_in_request_kid">%1$sが、このデバイスを%3$sに%2$s（子ども用アカウント）としてサインインさせようとしています。</string>
+    <string name="login_allow">許可</string>
+    <string name="login_dont_allow">許可しない</string>
+    <string name="login_cancel">キャンセル</string>
+    <string name="login_sign_in_peer">%1$sをサインインさせますか？</string>
+    <string name="login_play_on_peer">%1$sで再生しますか？</string>
+    <string name="login_check_this_code">%1$sに次のコードが表示されていることを確認してください：</string>
+    <string name="login_will_sign_in_kid">%1$s（子ども用アカウント）としてサインインします。再生できるのは許可された曲のみです。</string>
+    <string name="login_will_sign_in">あなたのパスワードを使って、%1$sとしてサインインします。</string>
+    <string name="login_will_play">切断するまで、あなたのログイン情報で再生します。このデバイスについては、次回から確認されません。</string>
+    <string name="login_it_matches">一致している</string>
+
+    <string name="licences_title">オープンソースライセンス</string>
+    <string name="licences_includes">Seiðrに含まれるもの</string>
+    <string name="licences_shared_freely">自由に共有。作者は削除を求めることができます</string>
+    <string name="licences_projectm_by">projectMチーム。改変せずに同梱。ソースはSeiðrのリポジトリにあります</string>
+    <string name="licences_presets">MilkDropプリセット（Cream of the Crop）</string>
+    <string name="licences_presets_by">Jason Fletcher選。各プリセットの作者は名前に記載</string>
+    <string name="licences_textures">MilkDropテクスチャパック</string>
+    <string name="licences_textures_by">projectMチームが収集</string>
+    <string name="licences_androidx">AndroidX：Compose、Material 3、Media3、Room、WorkManager</string>
+    <string name="licences_material_icons">Materialアイコン</string>
+    <string name="licences_okhttp">OkHttpとRetrofit</string>
+    <string name="licences_coil_by">Coilのコントリビューター</string>
+    <string name="licences_openxr">OpenXRローダー</string>
+
+    <string name="vissettings_title">ビジュアライザー</string>
+    <string name="vissettings_track_info">曲情報を表示</string>
+    <string name="vissettings_track_info_hint">アートワーク、曲名、時間を画面の隅に表示します。オフにすると、コントロールを出したときだけ表示されます（長押し、またはリモコンの上下）。</string>
+    <string name="vissettings_performance">パフォーマンスを表示</string>
+    <string name="vissettings_performance_hint">ビジュアライザーが自動で調整するフレームレート、描画サイズ、品質レベルを画面の隅に表示します。</string>
+    <string name="vissettings_loved">お気に入りのプリセット</string>
+    <string name="vissettings_loved_hint">ビジュアライザーのコントロールにあるハートで追加します。お気に入りのプリセットは、10回に1回ほどの割合で登場します。</string>
+    <string name="vissettings_unlove">お気に入りから削除</string>
+    <string name="vissettings_hidden">非表示のプリセット</string>
+    <string name="vissettings_hidden_hint">ビジュアライザーのコントロールにある旗で、プリセットを非表示にできます。このデバイスではなめらかに表示できない重いプリセットは、自動的に非表示になります。タップするとプレビューできます。</string>
+    <string name="vissettings_hidden_by_you">自分で非表示にした</string>
+    <string name="vissettings_too_heavy">このデバイスには重すぎる</string>
+    <string name="vissettings_unhide">再表示</string>
+
+    <string name="whatsnew_title">新機能</string>
+    <string name="whatsnew_this_version">%1$s（このバージョン）</string>
+
+</resources>

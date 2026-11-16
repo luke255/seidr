@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">设置</string>
+    <string name="settings_appearance">外观</string>
+    <string name="settings_visualiser">可视化效果</string>
+    <string name="settings_vis_item">曲目信息和预设</string>
+    <string name="settings_vis_item_hint">叠加显示的内容；喜欢和隐藏的预设</string>
+    <string name="settings_playback_downloads">播放和下载</string>
+    <string name="settings_background_playback">后台播放</string>
+    <string name="settings_battery_off">不受限制：电池优化已关闭</string>
+    <string name="settings_battery_tap">点按以允许 Seiðr 不受限制地运行。否则部分手机的电池管理会让音乐停止。</string>
+    <string name="settings_on">已开启</string>
+    <string name="settings_downloads_storage">下载和存储空间</string>
+    <string name="settings_downloads_storage_hint">下载队列、各歌单占用空间、仅 Wi-Fi</string>
+    <string name="settings_library">音乐库</string>
+    <string name="settings_others_private">其他人的私密歌单</string>
+    <string name="settings_others_private_hint">你是管理员，所以服务器会向你显示所有人的歌单。关闭后，它们不会出现在你的音乐库中。</string>
+
+    <string name="settings_reporting">报告</string>
+    <string name="settings_report_problems">报告问题</string>
+    <string name="settings_report_problems_hint">在每首歌曲的 ⋮ 菜单中添加“报告问题”</string>
+    <string name="settings_report_info">文件损坏、封面错误或歌词有问题的歌曲会被加入服务器上的 %1$s、%2$s 或 %3$s 歌单，由服务器的管理者修复。%1$s 中的歌曲在修复前会被跳过。</string>
+    <string name="settings_report_missing">服务器上未找到：%1$s。</string>
+
+    <string name="settings_about">关于</string>
+    <string name="settings_auto_update">自动检查更新</string>
+    <string name="settings_auto_update_hint">打开应用时在 GitHub 上查找新版本</string>
+    <string name="settings_install_update">安装更新</string>
+    <string name="settings_check_updates">检查更新</string>
+    <string name="settings_checking">正在检查…</string>
+    <string name="settings_version_ready">版本 %1$s 已就绪</string>
+    <string name="settings_installs_straight_away">有新版本时立即安装</string>
+    <string name="settings_latest_version">已是最新版本（或无法连接 GitHub）</string>
+    <string name="settings_whats_new">更新内容</string>
+    <string name="settings_whats_new_hint">各版本的变更</string>
+    <string name="settings_licences">开源许可</string>
+    <string name="settings_licences_hint">Seiðr 是自由软件（GNU GPL 3.0）</string>
+    <string name="settings_build">构建 %1$d</string>
+    <string name="settings_new_badge">新</string>
+
+    <string name="settings_sign_out_title">退出登录？</string>
+    <string name="settings_sign_out_message">播放会停止，同步会暂停，直到你再次登录。已下载的文件会保留。</string>
+    <string name="settings_sign_out">退出登录</string>
+    <string name="settings_cancel">取消</string>
+
+    <string name="settings_not_signed_in">未登录</string>
+    <string name="settings_not_connected">未连接</string>
+    <string name="settings_server_kid">%1$s · 儿童账号</string>
+    <string name="settings_sign_in_device">登录其他设备</string>
+
+    <string name="settings_colour">颜色</string>
+    <string name="settings_theme_system">系统（壁纸）</string>
+    <string name="settings_theme_neutral">中性</string>
+
+    <string name="kids_title">儿童</string>
+    <string name="kids_view_as_description">以 %1$s 的视角浏览</string>
+    <string name="kids_remove_description">移除 %1$s</string>
+    <string name="kids_add">添加儿童账号</string>
+    <string name="kids_how">儿童账号如何使用</string>
+    <string name="kids_remove_title">移除 %1$s？</string>
+    <string name="kids_remove_message">此设备会忘记其登录信息。已以 %1$s 的身份登录的设备会保持登录。</string>
+    <string name="kids_remove">移除</string>
+    <string name="kids_cancel">取消</string>
+    <string name="kids_help_title">儿童账号</string>
+    <string name="kids_help_step1">1. 为每个孩子单独创建一个 Navidrome 账号（非管理员），并添加到这里。</string>
+    <string name="kids_help_step2">2. 通过“登录其他设备”为孩子的设备登录。密码请自己保管，不要告诉孩子。</string>
+    <string name="kids_help_step3">3. 通过你账号下的三个歌单决定孩子能听什么，这些歌单会在添加儿童时创建：</string>
+    <string name="kids_help_approved">可以播放的歌曲</string>
+    <string name="kids_help_safe_titles">显示为灰色，仅显示歌名</string>
+    <string name="kids_help_safe_art">显示为灰色，并显示封面</string>
+    <string name="kids_help_hidden">其他内容对孩子全部隐藏。这些歌单不会出现在你的音乐库中，请在 Navidrome 的网页播放器或其他应用中编辑。</string>
+    <string name="kids_help_eye">点按眼睛按钮，可以查看这个孩子看到的 Seiðr，不会更改任何内容。</string>
+    <string name="kids_got_it">知道了</string>
+    <string name="kids_view_as_title">以 %1$s 的视角浏览？</string>
+    <string name="kids_view_as_message">只浏览 %1$s 的设备上显示的内容。此模式为只读：你仍保持登录，在这里播放的歌曲会计入你的播放记录，而不是 %1$s 的。可通过首页或设置中的横幅返回。</string>
+    <string name="kids_view_as_button">以 %1$s 的视角浏览</string>
+    <string name="kids_viewing_as">正在以 %1$s 的视角浏览</string>
+    <string name="kids_back_to">返回 %1$s</string>
+    <string name="kids_own_account">这是你自己的账号</string>
+    <string name="kids_add_message">孩子在 %1$s 上的 Navidrome 登录信息。</string>
+    <string name="kids_username">用户名</string>
+    <string name="kids_password">密码</string>
+    <string name="kids_add_button">添加</string>
+
+    <string name="login_unencrypted_title">连接未加密</string>
+    <string name="login_unencrypted_message">此服务器位于互联网上，但地址以 http:// 开头，因此你的登录信息和音乐会以未加密的方式传输。途中的任何人都可能读取这些内容并盗用你的登录信息。如果服务器有 https:// 地址，请使用该地址。</string>
+    <string name="login_connect_anyway">仍然连接</string>
+    <string name="login_go_back">返回</string>
+    <string name="login_heading">连接到你的 Navidrome 服务器</string>
+    <string name="login_server_url">服务器网址</string>
+    <string name="login_username">用户名</string>
+    <string name="login_password">密码</string>
+    <string name="login_log_in">登录</string>
+    <string name="login_other_device_title">已在其他设备上登录？</string>
+    <string name="login_other_device_steps">在那台设备上打开 Seiðr，前往设置 → 登录其他设备，然后选择 %1$s。两台设备需连接同一 Wi-Fi，并且此设备上的 Seiðr 需保持打开。确认两个屏幕上的代码一致，即可完成登录。</string>
+    <string name="login_back">返回</string>
+    <string name="login_idle_ready">可以播放了</string>
+    <string name="login_idle_hint">在其他设备上打开 Seiðr，点按“播放设备”，然后选择此设备。</string>
+    <string name="login_pairing_code">配对码</string>
+    <string name="login_check_same_code">请确认 %1$s 上显示的代码相同。</string>
+    <string name="login_sign_in_this_device">要登录此设备吗？</string>
+    <string name="login_sign_in_request">%1$s 想让此设备以 %2$s 的身份登录 %3$s。</string>
+    <string name="login_sign_in_request_kid">%1$s 想让此设备以 %2$s（儿童账号）的身份登录 %3$s。</string>
+    <string name="login_allow">允许</string>
+    <string name="login_dont_allow">不允许</string>
+    <string name="login_cancel">取消</string>
+    <string name="login_sign_in_peer">登录 %1$s？</string>
+    <string name="login_play_on_peer">在 %1$s 上播放？</string>
+    <string name="login_check_this_code">请确认 %1$s 上显示的是以下代码：</string>
+    <string name="login_will_sign_in_kid">它将以 %1$s（儿童账号）的身份登录：仅限已批准的歌曲。</string>
+    <string name="login_will_sign_in">它将使用你的密码，以 %1$s 的身份登录。</string>
+    <string name="login_will_play">它会使用你的登录信息播放，直到断开连接。之后此设备不会再次询问。</string>
+    <string name="login_it_matches">代码一致</string>
+
+    <string name="licences_title">开源许可</string>
+    <string name="licences_includes">Seiðr 包含</string>
+    <string name="licences_shared_freely">自由分享；作者可要求移除</string>
+    <string name="licences_projectm_by">projectM 团队。未经修改随附，源代码位于 Seiðr 的代码仓库中</string>
+    <string name="licences_presets">MilkDrop 预设（Cream of the Crop）</string>
+    <string name="licences_presets_by">由 Jason Fletcher 精选；各预设的作者见其名称</string>
+    <string name="licences_textures">MilkDrop 纹理包</string>
+    <string name="licences_textures_by">由 projectM 团队收集</string>
+    <string name="licences_androidx">AndroidX：Compose、Material 3、Media3、Room、WorkManager</string>
+    <string name="licences_material_icons">Material 图标</string>
+    <string name="licences_okhttp">OkHttp 和 Retrofit</string>
+    <string name="licences_coil_by">Coil 贡献者</string>
+    <string name="licences_openxr">OpenXR 加载器</string>
+
+    <string name="vissettings_title">可视化效果</string>
+    <string name="vissettings_track_info">显示曲目信息</string>
+    <string name="vissettings_track_info_hint">在角落显示封面、标题和时间。关闭后，它们只随控件一起显示（长按，或按遥控器的上/下键）。</string>
+    <string name="vissettings_performance">显示性能信息</string>
+    <string name="vissettings_performance_hint">在角落显示帧率、渲染尺寸和画质等级，它们会随可视化效果的自动调整而变化。</string>
+    <string name="vissettings_loved">喜欢的预设</string>
+    <string name="vissettings_loved_hint">点按可视化效果控件中的爱心即可添加。喜欢的预设大约每十次出现一次。</string>
+    <string name="vissettings_unlove">取消喜欢</string>
+    <string name="vissettings_hidden">隐藏的预设</string>
+    <string name="vissettings_hidden_hint">点按可视化效果控件中的旗标可隐藏预设。此设备无法流畅显示的预设会自动隐藏。点按预设可预览。</string>
+    <string name="vissettings_hidden_by_you">由你隐藏</string>
+    <string name="vissettings_too_heavy">对此设备负担过重</string>
+    <string name="vissettings_unhide">取消隐藏</string>
+
+    <string name="whatsnew_title">更新内容</string>
+    <string name="whatsnew_this_version">%1$s（当前版本）</string>
+
+</resources>
