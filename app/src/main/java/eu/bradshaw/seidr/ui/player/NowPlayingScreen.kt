@@ -72,7 +72,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.RoundRect
@@ -130,6 +132,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.onLongClick
@@ -191,12 +194,12 @@ fun NowPlayingScreen(onClose: (() -> Unit)?, onQueue: () -> Unit, modifier: Modi
     val art = rememberArtColours(if (colourful) ui.current?.coverArt else null)
     val target = remember(art, base) { art?.let(::artScheme) ?: if (colourful) monochromeArtScheme else ArtScheme(base, base.primaryContainer) }
     val justBack = rememberJustBack()
-    val spec = artFade(justBack())
-    val wash by animateColorAsState(target.wash, spec, label = "wash")
-    val scheme = animateScheme(target.scheme, spec)
+    // Stepped for the theme, smooth for the background: see SchemeFade.
+    val fade = rememberSchemeFade(target.scheme, target.wash, artFadeProgress(justBack()))
+    val scheme = fade.scheme
     MaterialTheme(colorScheme = scheme) {
         CompositionLocalProvider(LocalContentColor provides scheme.onBackground) {
-            NowPlayingContent(onClose, onQueue, modifier, wash = if (colourful) wash else null, justBack = justBack)
+            NowPlayingContent(onClose, onQueue, modifier, fade = if (colourful) fade else null, justBack = justBack)
         }
     }
 }
@@ -205,12 +208,12 @@ fun NowPlayingScreen(onClose: (() -> Unit)?, onQueue: () -> Unit, modifier: Modi
 private val coverSlide = tween<Float>(ART_CHANGE_MS, easing = EaseOutCubic)
 
 /**
- * [wash]: the colour fading down from the top; null for Neutral's quieter look.
+ * [fade]: the colours, for the wash fading down from the top; null for Neutral's quieter look.
  * A clearly landscape window (TV, a phone on its side) puts the artwork on the
  * left at full height with the controls beside it; otherwise it's stacked.
  */
 @Composable
-private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modifier: Modifier, wash: Color?, justBack: () -> Boolean) {
+private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modifier: Modifier, fade: SchemeFade?, justBack: () -> Boolean) {
     val actions = LocalActions.current
     val player = actions.player
     val ui by player.ui.collectAsStateWithLifecycle()
@@ -236,8 +239,13 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
     }
 
     val pc = MaterialTheme.colorScheme.primaryContainer
-    val bg = if (wash != null) Brush.verticalGradient(listOf(wash, wash.copy(alpha = 0.6f), MaterialTheme.colorScheme.background))
-    else Brush.verticalGradient(listOf(pc.copy(alpha = 0.55f), MaterialTheme.colorScheme.background))
+    val plainBg = MaterialTheme.colorScheme.background
+    // Drawn every frame of a fade from the fade itself, which recomposes nothing.
+    val background = if (fade != null) Modifier.drawBehind {
+        val wash = fade.wash()
+        val under = fade.background()
+        drawRect(Brush.verticalGradient(listOf(wash, lerp(under, wash, 0.6f), under)))
+    } else Modifier.background(plainBg).background(Brush.verticalGradient(listOf(pc.copy(alpha = 0.55f), plainBg)))
 
     // Header: close, "Playing from", overflow.
     val header: @Composable () -> Unit = {
@@ -261,8 +269,7 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
     BoxWithConstraints(
         modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .background(bg)
+            .then(background)
             .safeDrawingPadding()
             .pointerInput(Unit) {
                 var total = 0f
@@ -372,7 +379,12 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
                         }
                 }
                 Box(m, contentAlignment = Alignment.Center) {
-                    HorizontalPager(pager, Modifier.fillMaxSize(), beyondViewportPageCount = 1,
+                    // Hidden from accessibility: the covers say nothing the title doesn't, and
+                    // skip is the buttons' job. Its scroll position changes every frame of a
+                    // slide, and with any accessibility service on (password managers, remote
+                    // helpers) each change had Compose re-walk the whole screen's semantics,
+                    // which on a TV cost more than drawing the frame.
+                    HorizontalPager(pager, Modifier.fillMaxSize().clearAndSetSemantics {}, beyondViewportPageCount = 1,
                         key = { pages.getOrNull(it)?.key ?: it }) { page ->
                         // aspectRatio without a fixed width shrinks to fit the height on short screens.
                         Box(Modifier.fillMaxSize().padding(horizontal = 8.dp, vertical = 16.dp), contentAlignment = Alignment.Center) {

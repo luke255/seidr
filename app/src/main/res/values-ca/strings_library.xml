@@ -22,6 +22,7 @@
     <string name="library_search_library">Cerca a la teva biblioteca</string>
     <string name="library_create_playlist">Crea una llista</string>
     <string name="library_downloaded">Baixat</string>
+    <string name="library_shared">Compartides</string>
     <string name="library_sort_custom">Ordre personalitzat</string>
     <string name="library_sort_name">Nom</string>
     <string name="library_sort_updated">Actualitzades fa poc</string>
@@ -71,6 +72,13 @@
     </plurals>
 
     <string name="playlist_by_owner">de %1$s</string>
+    <string name="playlist_shared">Compartida</string>
+    <string name="playlist_share">Comparteix la llista</string>
+    <string name="playlist_shared_now">Compartida: ara tothom al servidor pot veure aquesta llista</string>
+    <string name="playlist_unshared_now">Ja no es comparteix</string>
+    <string name="playlist_save_copy">Desa una còpia</string>
+    <string name="playlist_copied">S\'ha desat una còpia de %1$s a les teves llistes</string>
+    <string name="playlist_copy_failed">No s\'ha pogut desar una còpia. Comprova la connexió i torna-ho a provar.</string>
     <string name="playlist_done">Fet</string>
     <string name="playlist_options">Opcions de la llista</string>
     <string name="playlist_reorder">Reordena les cançons</string>
@@ -138,6 +146,7 @@
     <string name="home_offline">No tens connexió. La música baixada continua aquí: mira a Biblioteca amb el filtre Baixat.</string>
     <string name="home_kid_empty">Encara no t\'han aprovat res. Demana a qui t\'ha iniciat la sessió que hi afegeixi algunes cançons.</string>
     <string name="home_playlists">Llistes de reproducció</string>
+    <string name="home_shared_playlists">Llistes compartides</string>
     <string name="home_sort_az">A–Z</string>
     <string name="home_sort_recent">Recents</string>
     <string name="home_by_owner">de %1$s</string>

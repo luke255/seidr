@@ -85,6 +85,8 @@
     <string name="vis_hide_preset">Piilota esiasetus</string>
     <string name="vis_love_preset">Tykkää esiasetuksesta</string>
     <string name="vis_unlove_preset">Poista esiasetuksen tykkäys</string>
+    <string name="vis_previous_preset">Edellinen esiasetus</string>
+    <string name="vis_next_preset">Seuraava esiasetus</string>
     <string name="vis_preview">Esikatselu</string>
     <string name="vis_preset_hidden">Esiasetus piilotettu. Saat sen takaisin kohdasta Asetukset → Visualisointi.</string>
     <string name="vis_xr_failed">Immersiivinen visualisointi ei käynnistynyt</string>

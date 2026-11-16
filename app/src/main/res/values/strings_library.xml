@@ -23,6 +23,7 @@
     <string name="library_search_library">Search your library</string>
     <string name="library_create_playlist">Create playlist</string>
     <string name="library_downloaded">Downloaded</string>
+    <string name="library_shared">Shared</string>
     <string name="library_sort_custom">Custom order</string>
     <string name="library_sort_name">Name</string>
     <string name="library_sort_updated">Recently updated</string>
@@ -82,6 +83,13 @@
     <!-- Playlist -->
     <!-- %1$s is the playlist owner\'s username -->
     <string name="playlist_by_owner">by %1$s</string>
+    <string name="playlist_shared">Shared</string>
+    <string name="playlist_share">Share playlist</string>
+    <string name="playlist_shared_now">Shared: everyone on the server can now see this playlist</string>
+    <string name="playlist_unshared_now">No longer shared</string>
+    <string name="playlist_save_copy">Save a copy</string>
+    <string name="playlist_copied">Saved a copy of %1$s to your playlists</string>
+    <string name="playlist_copy_failed">Couldn\'t save a copy. Check your connection and try again.</string>
     <string name="playlist_done">Done</string>
     <string name="playlist_options">Playlist options</string>
     <string name="playlist_reorder">Reorder songs</string>
@@ -161,6 +169,7 @@
     <string name="home_offline">You\'re offline. Downloaded music is still here: look in Library with the Downloaded filter.</string>
     <string name="home_kid_empty">Nothing\'s been approved for you yet. Ask whoever signed you in to add some songs.</string>
     <string name="home_playlists">Playlists</string>
+    <string name="home_shared_playlists">Shared playlists</string>
     <!-- Playlist shelf sort buttons: alphabetical / most recent first. For alphabetical, use the language\'s natural short label (e.g. "by name" where A–Z means nothing). -->
     <string name="home_sort_az">A–Z</string>
     <string name="home_sort_recent">Recent</string>

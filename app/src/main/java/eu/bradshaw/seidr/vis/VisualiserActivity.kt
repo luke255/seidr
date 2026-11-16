@@ -43,13 +43,13 @@ import javax.microedition.khronos.opengles.GL10
  * 30 for good (see [VisEngine]).
  *
  * Over it, [VisOverlay]: the playing track in a corner. Playback is all
- * gestures, each confirmed by a passing sign: a tap (select on a remote)
- * plays/pauses, sideways swipes (left/right) skip tracks. Swipes up and down
- * (the D-pad's too) turn through the [VisPage]s: the preset's name with a flag
- * (hides it for good) and a heart (loved presets come up about one time in
- * ten), Now Playing's transport, the track, lyrics, the queue and the logo.
- * Sideways or Back puts a page away; pages stay until then. A hold opens the
- * preset's page. With [EXTRA_PREVIEW] it shows just that one preset, for
+ * gestures, each confirmed by a passing sign, with or without a page up: a
+ * tap (select on a remote) plays/pauses, sideways swipes (left/right) skip
+ * tracks. Swipes up and down (the D-pad's too) turn through the [VisPage]s:
+ * the preset's name with a flag (hides it for good), a heart (loved presets
+ * come up about one time in ten) and back/forward through presets, Now
+ * Playing's transport, the track, lyrics, the queue and the logo. Back puts a
+ * page away; pages stay until then. A hold opens the preset's page. With [EXTRA_PREVIEW] it shows just that one preset, for
  * Settings → Visualiser. (Now Playing shows [VisWarning] before the first.)
  *
  * Its own activity (opened from Now Playing): GL lifecycles and immersive
@@ -131,6 +131,7 @@ class VisualiserActivity : ComponentActivity() {
                     onTurn = { by -> showPage(VisPage.turn(page, by)) },
                     onPage = ::showPage,
                     onHidePreset = ::hideCurrentPreset,
+                    onPresetStep = ::stepPreset,
                     onMessageShown = { message = null },
                     pulse = pulse,
                     onPlayPause = ::playPause,
@@ -178,13 +179,19 @@ class VisualiserActivity : ComponentActivity() {
         message = getString(R.string.vis_preset_hidden)
     }
 
+    /** Back to the last preset, or on to the next, cut to straight away. */
+    private fun stepPreset(forward: Boolean) {
+        if (preview != null) return
+        view.queueEvent { if (forward) renderer.engine.next(hardCut = true) else renderer.engine.previous() }
+    }
+
     /** Select is ours (play/pause, held: the preset's page) unless a page with buttons is up. */
     private val selectIsOurs get() = page?.controls != true && preview == null
 
     /**
      * Remote, ahead of the overlay: up and down turn the pages. Left and
-     * right put a page away, or with none up, skip tracks; on a page with
-     * buttons they move between those instead (Back puts it away).
+     * right skip tracks, except on a page with buttons, where they move
+     * between those. Back puts a page away.
      */
     private fun pageKey(event: KeyEvent): Boolean {
         if (preview != null) return false
@@ -194,7 +201,7 @@ class VisualiserActivity : ComponentActivity() {
                 if (first) showPage(VisPage.turn(page, if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) 1 else -1))
             KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT -> {
                 if (page?.controls == true) return false
-                if (first) { if (page != null) showPage(null) else skip(next = event.keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) }
+                if (first) skip(next = event.keyCode == KeyEvent.KEYCODE_DPAD_RIGHT)
             }
             else -> return false
         }

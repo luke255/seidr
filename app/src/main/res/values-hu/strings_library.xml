@@ -20,6 +20,7 @@
     <string name="library_search_library">Keresés a könyvtáradban</string>
     <string name="library_create_playlist">Lejátszási lista létrehozása</string>
     <string name="library_downloaded">Letöltve</string>
+    <string name="library_shared">Megosztott</string>
     <string name="library_sort_custom">Egyéni sorrend</string>
     <string name="library_sort_name">Név</string>
     <string name="library_sort_updated">Legutóbb frissítve</string>
@@ -67,6 +68,13 @@
     </plurals>
 
     <string name="playlist_by_owner">készítette: %1$s</string>
+    <string name="playlist_shared">Megosztva</string>
+    <string name="playlist_share">Lejátszási lista megosztása</string>
+    <string name="playlist_shared_now">Megosztva: a szerveren most már mindenki látja ezt a lejátszási listát</string>
+    <string name="playlist_unshared_now">Már nincs megosztva</string>
+    <string name="playlist_save_copy">Másolat mentése</string>
+    <string name="playlist_copied">%1$s másolata elmentve a lejátszási listáid közé</string>
+    <string name="playlist_copy_failed">Nem sikerült menteni a másolatot. Ellenőrizd a kapcsolatot, és próbáld újra.</string>
     <string name="playlist_done">Kész</string>
     <string name="playlist_options">A lejátszási lista beállításai</string>
     <string name="playlist_reorder">Dalok átrendezése</string>
@@ -129,6 +137,7 @@
     <string name="home_offline">Offline vagy. A letöltött zenéid itt vannak: nézd meg a Könyvtárat a Letöltve szűrővel.</string>
     <string name="home_kid_empty">Neked még semmit sem hagytak jóvá. Kérd meg azt, aki bejelentkeztetett, hogy adjon hozzá néhány dalt.</string>
     <string name="home_playlists">Lejátszási listák</string>
+    <string name="home_shared_playlists">Megosztott lejátszási listák</string>
     <string name="home_sort_az">A–Z</string>
     <string name="home_sort_recent">Legutóbbi</string>
     <string name="home_by_owner">készítette: %1$s</string>

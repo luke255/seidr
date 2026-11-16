@@ -20,6 +20,7 @@
     <string name="library_search_library">Søg i dit bibliotek</string>
     <string name="library_create_playlist">Opret playliste</string>
     <string name="library_downloaded">Downloadet</string>
+    <string name="library_shared">Delte</string>
     <string name="library_sort_custom">Egen rækkefølge</string>
     <string name="library_sort_name">Navn</string>
     <string name="library_sort_updated">Senest opdateret</string>
@@ -67,6 +68,13 @@
     </plurals>
 
     <string name="playlist_by_owner">af %1$s</string>
+    <string name="playlist_shared">Delt</string>
+    <string name="playlist_share">Del playliste</string>
+    <string name="playlist_shared_now">Delt: alle på serveren kan nu se denne playliste</string>
+    <string name="playlist_unshared_now">Ikke længere delt</string>
+    <string name="playlist_save_copy">Gem en kopi</string>
+    <string name="playlist_copied">En kopi af %1$s er gemt i dine playlister</string>
+    <string name="playlist_copy_failed">Kunne ikke gemme en kopi. Tjek din forbindelse, og prøv igen.</string>
     <string name="playlist_done">Færdig</string>
     <string name="playlist_options">Muligheder for playlisten</string>
     <string name="playlist_reorder">Skift rækkefølge</string>
@@ -129,6 +137,7 @@
     <string name="home_offline">Du er offline. Downloadet musik er her stadig: kig i Bibliotek med filteret Downloadet.</string>
     <string name="home_kid_empty">Der er ikke godkendt noget til dig endnu. Bed den, der loggede dig ind, om at tilføje nogle sange.</string>
     <string name="home_playlists">Playlister</string>
+    <string name="home_shared_playlists">Delte playlister</string>
     <string name="home_sort_az">A–Å</string>
     <string name="home_sort_recent">Seneste</string>
     <string name="home_by_owner">af %1$s</string>

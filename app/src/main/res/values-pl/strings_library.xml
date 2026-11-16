@@ -24,6 +24,7 @@
     <string name="library_search_library">Szukaj w bibliotece</string>
     <string name="library_create_playlist">Utwórz playlistę</string>
     <string name="library_downloaded">Pobrane</string>
+    <string name="library_shared">Udostępnione</string>
     <string name="library_sort_custom">Własna kolejność</string>
     <string name="library_sort_name">Nazwa</string>
     <string name="library_sort_updated">Ostatnio zmieniane</string>
@@ -75,6 +76,13 @@
     </plurals>
 
     <string name="playlist_by_owner">autor: %1$s</string>
+    <string name="playlist_shared">Udostępniona</string>
+    <string name="playlist_share">Udostępnij playlistę</string>
+    <string name="playlist_shared_now">Udostępniono: wszyscy na serwerze widzą teraz tę playlistę</string>
+    <string name="playlist_unshared_now">Już nie jest udostępniana</string>
+    <string name="playlist_save_copy">Zapisz kopię</string>
+    <string name="playlist_copied">Zapisano kopię playlisty %1$s w Twoich playlistach</string>
+    <string name="playlist_copy_failed">Nie udało się zapisać kopii. Sprawdź połączenie i spróbuj ponownie.</string>
     <string name="playlist_done">Gotowe</string>
     <string name="playlist_options">Opcje playlisty</string>
     <string name="playlist_reorder">Zmień kolejność utworów</string>
@@ -147,6 +155,7 @@
     <string name="home_offline">Jesteś offline. Pobrana muzyka nadal tu jest: zajrzyj do Biblioteki i włącz filtr „Pobrane”.</string>
     <string name="home_kid_empty">Nic nie zostało jeszcze dla Ciebie zatwierdzone. Poproś osobę, która Cię zalogowała, o dodanie kilku utworów.</string>
     <string name="home_playlists">Playlisty</string>
+    <string name="home_shared_playlists">Udostępnione playlisty</string>
     <string name="home_sort_az">A–Z</string>
     <string name="home_sort_recent">Ostatnie</string>
     <string name="home_by_owner">autor: %1$s</string>

@@ -89,6 +89,8 @@
     <string name="vis_hide_preset">Skrýt preset</string>
     <string name="vis_love_preset">Přidat preset do oblíbených</string>
     <string name="vis_unlove_preset">Odebrat preset z oblíbených</string>
+    <string name="vis_previous_preset">Předchozí preset</string>
+    <string name="vis_next_preset">Další preset</string>
     <string name="vis_preview">Náhled</string>
     <string name="vis_preset_hidden">Preset je skrytý. Vrátíš ho v Nastavení → Vizualizace.</string>
     <string name="vis_xr_failed">Imerzivní vizualizaci se nepodařilo spustit</string>

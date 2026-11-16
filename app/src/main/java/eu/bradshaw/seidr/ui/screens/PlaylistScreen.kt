@@ -13,6 +13,11 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.DragHandle
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.LibraryAdd
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.Switch
+import androidx.compose.ui.draw.scale
+import eu.bradshaw.seidr.ui.Route
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -100,7 +105,11 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
     val ui by graph.player.ui.collectAsStateWithLifecycle()
     val server by graph.browseLogin.collectAsStateWithLifecycle()
     val me = server?.username
-    val editable = !graph.readOnly && !playlist.readonly && (playlist.owner == null || playlist.owner == me)
+    val mine = playlist.owner == null || playlist.owner == me
+    val editable = !graph.readOnly && !playlist.readonly && mine
+    // Sharing is the owner's call; anyone else can keep a copy of their own.
+    val canShare = !graph.readOnly && mine
+    val canCopy = !graph.readOnly && !mine
     val songs = playlist.entry
 
     var editing by remember { mutableStateOf(false) }
@@ -126,6 +135,10 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
     val removeLabel = stringResource(R.string.playlist_remove_from_this)
     val renamed = stringResource(R.string.playlist_renamed)
     val deleted = stringResource(R.string.playlist_deleted, playlist.name)
+    val sharedNow = stringResource(R.string.playlist_shared_now)
+    val unsharedNow = stringResource(R.string.playlist_unshared_now)
+    val copied = stringResource(R.string.playlist_copied, playlist.name)
+    val copyFailed = stringResource(R.string.playlist_copy_failed)
 
     val source = OfflineSource(
         SourceType.sourceId(SourceType.PLAYLIST, playlist.id), SourceType.PLAYLIST, playlist.id, playlist.name,
@@ -139,7 +152,8 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
         subtitle = {
             HeaderFacts(
                 listOfNotNull(
-                    playlist.owner?.let { stringResource(R.string.playlist_by_owner, it) },
+                    playlist.owner?.takeUnless { mine }?.let { stringResource(R.string.playlist_by_owner, it) },
+                    if (mine && playlist.public) stringResource(R.string.playlist_shared) else null,
                     songsText(playlist.songCount),
                     approvedCount(songs),
                     formatLongDuration(playlist.duration),
@@ -165,16 +179,48 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                         vm.load()
                     }
                 }) { Icon(Icons.Filled.Check, stringResource(R.string.playlist_done)) }
-            } else if (editable) {
+            } else if (editable || canShare || canCopy) {
                 Box {
                     IconButton(onClick = { menu = true }) { Icon(Icons.Filled.MoreVert, stringResource(R.string.playlist_options)) }
                     DropdownMenu(menu, { menu = false }) {
-                        DropdownMenuItem({ Text(stringResource(R.string.playlist_reorder)) }, leadingIcon = { Icon(Icons.Filled.DragHandle, null) },
-                            onClick = { menu = false; editing = true })
-                        DropdownMenuItem({ Text(stringResource(R.string.playlist_rename)) }, leadingIcon = { Icon(Icons.Filled.Edit, null) },
-                            onClick = { menu = false; renaming = true })
-                        DropdownMenuItem({ Text(stringResource(R.string.playlist_delete)) }, leadingIcon = { Icon(Icons.Filled.Delete, null) },
-                            onClick = { menu = false; confirmDelete = true })
+                        if (editable) {
+                            DropdownMenuItem({ Text(stringResource(R.string.playlist_reorder)) }, leadingIcon = { Icon(Icons.Filled.DragHandle, null) },
+                                onClick = { menu = false; editing = true })
+                            DropdownMenuItem({ Text(stringResource(R.string.playlist_rename)) }, leadingIcon = { Icon(Icons.Filled.Edit, null) },
+                                onClick = { menu = false; renaming = true })
+                        }
+                        if (canShare) {
+                            DropdownMenuItem({ Text(stringResource(R.string.playlist_share)) }, leadingIcon = { Icon(Icons.Filled.Share, null) },
+                                trailingIcon = { Switch(playlist.public, null, Modifier.scale(0.8f)) },
+                                onClick = {
+                                    menu = false
+                                    val share = !playlist.public
+                                    actions.launch {
+                                        actions.report(graph.editor.setShared(playlist.id, share), if (share) sharedNow else unsharedNow)
+                                        vm.load()
+                                        runCatching { graph.browse.refreshPlaylists() }
+                                    }
+                                })
+                        }
+                        if (canCopy) {
+                            DropdownMenuItem({ Text(stringResource(R.string.playlist_save_copy)) }, leadingIcon = { Icon(Icons.Filled.LibraryAdd, null) },
+                                onClick = {
+                                    menu = false
+                                    actions.launch {
+                                        val id = graph.editor.copy(playlist.id)
+                                        if (id == null) actions.toast(copyFailed)
+                                        else {
+                                            runCatching { graph.browse.refreshPlaylists() }
+                                            actions.toast(copied)
+                                            actions.open(Route.Playlist(id))
+                                        }
+                                    }
+                                })
+                        }
+                        if (editable) {
+                            DropdownMenuItem({ Text(stringResource(R.string.playlist_delete)) }, leadingIcon = { Icon(Icons.Filled.Delete, null) },
+                                onClick = { menu = false; confirmDelete = true })
+                        }
                     }
                 }
             }

@@ -87,6 +87,8 @@
     <string name="vis_hide_preset">Amaga el preset</string>
     <string name="vis_love_preset">M\'agrada aquest preset</string>
     <string name="vis_unlove_preset">Ja no m\'agrada aquest preset</string>
+    <string name="vis_previous_preset">Preset anterior</string>
+    <string name="vis_next_preset">Preset següent</string>
     <string name="vis_preview">Previsualització</string>
     <string name="vis_preset_hidden">Preset amagat. El pots recuperar a Configuració → Visualitzador.</string>
     <string name="vis_xr_failed">No s\'ha pogut iniciar el visualitzador immersiu</string>

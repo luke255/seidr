@@ -24,6 +24,7 @@
     <string name="library_search_library">Пошук у бібліотеці</string>
     <string name="library_create_playlist">Створити плейлист</string>
     <string name="library_downloaded">Завантажене</string>
+    <string name="library_shared">Спільні</string>
     <string name="library_sort_custom">Власний порядок</string>
     <string name="library_sort_name">Назва</string>
     <string name="library_sort_updated">Нещодавно оновлені</string>
@@ -75,6 +76,13 @@
     </plurals>
 
     <string name="playlist_by_owner">автор: %1$s</string>
+    <string name="playlist_shared">Спільний</string>
+    <string name="playlist_share">Поділитися плейлистом</string>
+    <string name="playlist_shared_now">Спільний: тепер цей плейлист бачать усі на сервері</string>
+    <string name="playlist_unshared_now">Більше не спільний</string>
+    <string name="playlist_save_copy">Зберегти копію</string>
+    <string name="playlist_copied">Копію плейлиста %1$s збережено у ваших плейлистах</string>
+    <string name="playlist_copy_failed">Не вдалося зберегти копію. Перевірте з’єднання та спробуйте ще раз.</string>
     <string name="playlist_done">Готово</string>
     <string name="playlist_options">Параметри плейлиста</string>
     <string name="playlist_reorder">Змінити порядок пісень</string>
@@ -147,6 +155,7 @@
     <string name="home_offline">Ви офлайн. Завантажена музика нікуди не зникла: зазирніть у Бібліотеку з фільтром «Завантажене».</string>
     <string name="home_kid_empty">Для тебе ще нічого не схвалили. Попроси того, хто налаштував тобі вхід, додати кілька пісень.</string>
     <string name="home_playlists">Плейлисти</string>
+    <string name="home_shared_playlists">Спільні плейлисти</string>
     <string name="home_sort_az">А–Я</string>
     <string name="home_sort_recent">Нещодавні</string>
     <string name="home_by_owner">автор: %1$s</string>

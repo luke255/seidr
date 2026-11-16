@@ -55,6 +55,10 @@ class Settings(context: Context) {
     /** Library shows a grid of covers rather than a list. */
     val libraryGrid: StateFlow<Boolean> = _libraryGrid.asStateFlow()
 
+    private val _libraryShared = MutableStateFlow(prefs.getBoolean("library_shared", false))
+    /** Library's playlists include other people's (shared with everyone, or an admin's view of private ones). */
+    val libraryShared: StateFlow<Boolean> = _libraryShared.asStateFlow()
+
     private val _autoUpdate = MutableStateFlow(prefs.getBoolean("auto_update", true))
     /** Check GitHub for a newer release when the app comes to the front (`Updater`). */
     val autoUpdate: StateFlow<Boolean> = _autoUpdate.asStateFlow()
@@ -145,6 +149,11 @@ class Settings(context: Context) {
     fun setLibraryGrid(value: Boolean) {
         prefs.edit().putBoolean("library_grid", value).apply()
         _libraryGrid.value = value
+    }
+
+    fun setLibraryShared(value: Boolean) {
+        prefs.edit().putBoolean("library_shared", value).apply()
+        _libraryShared.value = value
     }
 
     fun setAutoUpdate(value: Boolean) {

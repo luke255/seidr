@@ -37,6 +37,10 @@ class VisEngine(
     private var handle = 0L
     private var index = -1
     private var current: String? = null
+    /** Presets shown before [current], newest last, for [previous]. */
+    private val back = ArrayDeque<String>()
+    /** Presets [previous] stepped back over, next first, for [next] to return to. */
+    private val ahead = ArrayDeque<String>()
     private val pcm = FloatArray(4096 * 2)
     var width = 0
         private set
@@ -143,17 +147,39 @@ class VisEngine(
         val path = current ?: return
         prefs.ban(path)
         judged = true
+        current = null // not one to come back to
         next(hardCut = true)
     }
 
-    /** The next preset: blended in if this device has room for transitions, cut to on a hard cut. */
+    /**
+     * The next preset: blended in if this device has room for transitions, cut
+     * to on a hard cut. After [previous], the ones it stepped back over first.
+     */
     fun next(hardCut: Boolean) {
         if (handle == 0L || presets.isEmpty()) return
+        val hidden = prefs.hiddenPaths
+        while (ahead.firstOrNull()?.let { it in hidden } == true) ahead.removeFirst()
+        val path = ahead.removeFirstOrNull() ?: pick() ?: return
+        current?.let { back.addLast(it); while (back.size > HISTORY) back.removeFirst() }
+        load(path, hardCut)
+    }
+
+    /** Back to the preset shown before this one, cut to; false if there's none. */
+    fun previous(): Boolean {
+        if (handle == 0L || preview != null) return false
+        val hidden = prefs.hiddenPaths
+        while (back.lastOrNull()?.let { it in hidden } == true) back.removeLast()
+        val path = back.removeLastOrNull() ?: return false
+        current?.let { ahead.addFirst(it) }
+        load(path, hardCut = true)
+        return true
+    }
+
+    private fun load(path: String, hardCut: Boolean) {
         // A preset that ran its course without being judged too heavy counts as one that ran.
         if (current != null && !judged) verdict(heavy = false)
         judged = false
         remember()
-        val path = pick() ?: return
         current = path
         host.presetShown(path)
         val data = context.assets.open("milkdrop/presets/$path").bufferedReader().use { it.readText() }
@@ -201,6 +227,8 @@ class VisEngine(
         private const val LAST_RESORT_FPS = 30f
         private const val VERDICTS = 10
         private const val VERDICTS_HEAVY = 6
+        /** How many presets back [previous] can go. */
+        private const val HISTORY = 50
         // MilkDrop weighted its random pick by star rating (5 stars ≈ 1.7× a 3),
         // which across ~9,800 presets would all but never bring a favourite back.
         private const val LOVED_SHARE = 0.1

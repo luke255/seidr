@@ -89,6 +89,8 @@
     <string name="vis_hide_preset">Ukryj preset</string>
     <string name="vis_love_preset">Dodaj preset do ulubionych</string>
     <string name="vis_unlove_preset">Usuń preset z ulubionych</string>
+    <string name="vis_previous_preset">Poprzedni preset</string>
+    <string name="vis_next_preset">Następny preset</string>
     <string name="vis_preview">Podgląd</string>
     <string name="vis_preset_hidden">Preset ukryty. Przywrócisz go w: Ustawienia → Wizualizacja.</string>
     <string name="vis_xr_failed">Nie udało się uruchomić wizualizacji immersyjnej</string>

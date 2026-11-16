@@ -68,9 +68,15 @@ class Library(
     }
 
     /** Someone else's private playlist, which the server shows only because this login is an admin. */
-    fun isOthersPrivate(p: Playlist): Boolean {
+    fun isOthersPrivate(p: Playlist): Boolean = !p.public && isOthers(p)
+
+    /**
+     * Someone else's playlist: shared with everyone, or (for an admin) private.
+     * Home and Library keep these apart from the user's own.
+     */
+    fun isOthers(p: Playlist): Boolean {
         val me = user.value ?: return false
-        return !p.public && p.owner != null && !p.owner.trim().equals(me, ignoreCase = true)
+        return p.owner != null && !p.owner.trim().equals(me, ignoreCase = true)
     }
 
     private fun publishPlaylists() { _playlists.value = _allPlaylists.value?.let(::visible) }

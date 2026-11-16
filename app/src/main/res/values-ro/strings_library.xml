@@ -22,6 +22,7 @@
     <string name="library_search_library">Caută în biblioteca ta</string>
     <string name="library_create_playlist">Creează un playlist</string>
     <string name="library_downloaded">Descărcate</string>
+    <string name="library_shared">Partajate</string>
     <string name="library_sort_custom">Ordine personalizată</string>
     <string name="library_sort_name">Nume</string>
     <string name="library_sort_updated">Actualizate recent</string>
@@ -71,6 +72,13 @@
     </plurals>
 
     <string name="playlist_by_owner">de %1$s</string>
+    <string name="playlist_shared">Partajat</string>
+    <string name="playlist_share">Partajează playlistul</string>
+    <string name="playlist_shared_now">Partajat: acum toată lumea de pe server poate vedea acest playlist</string>
+    <string name="playlist_unshared_now">Nu mai este partajat</string>
+    <string name="playlist_save_copy">Salvează o copie</string>
+    <string name="playlist_copied">O copie a %1$s a fost salvată în playlisturile tale</string>
+    <string name="playlist_copy_failed">Copia nu a putut fi salvată. Verifică-ți conexiunea și încearcă din nou.</string>
     <string name="playlist_done">Gata</string>
     <string name="playlist_options">Opțiuni pentru playlist</string>
     <string name="playlist_reorder">Reordonează melodiile</string>
@@ -138,6 +146,7 @@
     <string name="home_offline">Ești offline. Muzica descărcată e tot aici: caut-o în Bibliotecă, cu filtrul Descărcate.</string>
     <string name="home_kid_empty">Încă nu ți s-a aprobat nimic. Roagă pe cine te-a autentificat să adauge câteva melodii.</string>
     <string name="home_playlists">Playlisturi</string>
+    <string name="home_shared_playlists">Playlisturi partajate</string>
     <string name="home_sort_az">A–Z</string>
     <string name="home_sort_recent">Recente</string>
     <string name="home_by_owner">de %1$s</string>

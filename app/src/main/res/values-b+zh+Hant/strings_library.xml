@@ -18,6 +18,7 @@
     <string name="library_search_library">搜尋音樂庫</string>
     <string name="library_create_playlist">建立播放清單</string>
     <string name="library_downloaded">已下載</string>
+    <string name="library_shared">分享</string>
     <string name="library_sort_custom">自訂順序</string>
     <string name="library_sort_name">名稱</string>
     <string name="library_sort_updated">最近更新</string>
@@ -63,6 +64,13 @@
     </plurals>
 
     <string name="playlist_by_owner">建立者：%1$s</string>
+    <string name="playlist_shared">已分享</string>
+    <string name="playlist_share">分享播放清單</string>
+    <string name="playlist_shared_now">已分享：伺服器上的所有人現在都能看到這個播放清單</string>
+    <string name="playlist_unshared_now">已停止分享</string>
+    <string name="playlist_save_copy">儲存副本</string>
+    <string name="playlist_copied">已將 %1$s 的副本儲存到你的播放清單</string>
+    <string name="playlist_copy_failed">無法儲存副本。請檢查網路連線後再試一次。</string>
     <string name="playlist_done">完成</string>
     <string name="playlist_options">播放清單選項</string>
     <string name="playlist_reorder">重新排序歌曲</string>
@@ -120,6 +128,7 @@
     <string name="home_offline">你目前離線。已下載的音樂仍然可以聽：請在音樂庫中使用「已下載」篩選條件。</string>
     <string name="home_kid_empty">還沒有為你核准的歌曲。請幫你登入的人加入一些歌曲吧。</string>
     <string name="home_playlists">播放清單</string>
+    <string name="home_shared_playlists">分享的播放清單</string>
     <string name="home_sort_az">依名稱</string>
     <string name="home_sort_recent">最近</string>
     <string name="home_by_owner">建立者：%1$s</string>

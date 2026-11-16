@@ -62,6 +62,7 @@ import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.ui.focusRing
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import androidx.compose.animation.core.animateFloatAsState
 import kotlinx.coroutines.withContext
 
 /** Storage, queue status, the download settings, and what's kept on the phone. Same card style as Settings. */
@@ -74,6 +75,7 @@ fun DownloadsScreen() {
     val usage by graph.downloads.usage.collectAsStateWithLifecycle()
     val wifiOnly by graph.settings.wifiOnly.collectAsStateWithLifecycle()
     val sync by graph.sync.status.collectAsStateWithLifecycle()
+    val batch by graph.downloads.batch.collectAsStateWithLifecycle()
     val pendingEdits by graph.db.offline().editCount().collectAsStateWithLifecycle(0)
     var free by remember { mutableLongStateOf(0L) }
     LaunchedEffect(Unit) { while (true) { free = withContext(Dispatchers.IO) { graph.files.freeBytes() }; delay(5000) } }
@@ -113,17 +115,24 @@ fun DownloadsScreen() {
                 CardGroup {
                     var first = true
                     @Composable fun gap() { if (!first) CardDivider(); first = false }
-                    if (active.isEmpty() && queued == 0 && failed.isEmpty()) {
+                    if (batch == null && failed.isEmpty()) {
                         gap()
                         CardItem(Icons.Filled.CheckCircle, stringResource(R.string.downloads_all_done), null)
                     }
-                    active.forEach { d ->
+                    // The file being fetched, with the whole batch's progress: files come and go
+                    // in about a second each, too quick for a bar of their own.
+                    // Between files there's a moment with none fetching: keep showing the last.
+                    val lastFile = remember { arrayOfNulls<eu.bradshaw.seidr.data.db.Download>(1) }
+                    active.firstOrNull()?.let { lastFile[0] = it }
+                    val d = lastFile[0]
+                    if (d != null && batch != null) {
                         gap()
                         Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp)) {
                             Text(d.title, style = MaterialTheme.typography.bodyLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)
                             Text(d.artist, style = MaterialTheme.typography.bodyMedium, color = cs.onSurfaceVariant, maxLines = 1)
+                            val progress by animateFloatAsState(batch!!.fraction, label = "downloaded")
                             LinearProgressIndicator(
-                                progress = { if (d.size > 0) (d.bytesDone.toFloat() / d.size).coerceIn(0f, 1f) else 0f },
+                                progress = { progress },
                                 modifier = Modifier.fillMaxWidth().padding(top = 8.dp), drawStopIndicator = {},
                             )
                         }

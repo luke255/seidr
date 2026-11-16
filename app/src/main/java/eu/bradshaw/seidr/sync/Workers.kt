@@ -55,6 +55,10 @@ class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWork
         Notifications.clearStorageFull(applicationContext)
         val attempted = mutableSetOf<String>()
         var networkTrouble = false
+        // Bytes of the files finished this run: the notification's bar covers the whole
+        // run, not each file (a FLAC over the LAN takes about a second, so a per-file bar
+        // just flickered from empty to done).
+        var doneBytes = 0L
 
         while (true) {
             ensureActive()
@@ -69,7 +73,10 @@ class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWork
 
             // Long runs get a foreground service; if Android refuses (background start
             // limits), carry on — WorkManager will reschedule if we're stopped.
-            runCatching { setForeground(foregroundInfo("${next.artist} – ${next.title}", pending.size, -1)) }
+            val title = "${next.artist} – ${next.title}"
+            val runTotal = doneBytes + pending.sumOf { it.size.coerceAtLeast(0) }
+            fun percent(written: Long) = if (runTotal > 0) ((doneBytes + written) * 100 / runTotal).toInt().coerceIn(0, 100) else -1
+            runCatching { setForeground(foregroundInfo(title, pending.size, percent(0))) }
 
             val part = g.files.partFile(next.trackId)
             val need = (next.size - part.length()).coerceAtLeast(0) + RESERVE_BYTES
@@ -81,7 +88,9 @@ class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWork
 
             dao.setState(next.trackId, DownloadState.DOWNLOADING)
             try {
-                val file = fetch(next, part, pending.size)
+                val file = fetch(next, part) { written ->
+                    runCatching { setForeground(foregroundInfo(title, pending.size, percent(written))) }
+                }
                 g.engine.lock.withLock {
                     val row = dao.download(next.trackId)
                     if (row == null || dao.claimCount(next.trackId) == 0) {
@@ -95,6 +104,7 @@ class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWork
                         ))
                     }
                 }
+                doneBytes += next.size.coerceAtLeast(0)
                 next.coverArt?.let { fetchCover(it) }
             } catch (e: IOException) {
                 Log.w(TAG, "download ${next.trackId} failed: $e")
@@ -119,7 +129,8 @@ class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWork
         g.db.offline().deleteDownload(d.trackId)
     }
 
-    private suspend fun fetch(d: Download, part: File, remaining: Int): File {
+    /** Downloads [d] into [part], then moves it into place. [progress] gets the bytes so far, now and then. */
+    private suspend fun fetch(d: Download, part: File, progress: suspend (Long) -> Unit): File {
         val url = g.client.downloadUrl(d.trackId) ?: throw IOException("not logged in")
         // The first response's Last-Modified/ETag, so a resume only continues the same file.
         val since = File(part.path + ".since")
@@ -145,13 +156,14 @@ class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWork
             if (append == null) {
                 // A part at or past full size: throw it away and start again (have is 0 next time).
                 part.delete(); since.delete()
-                return fetch(d, part, remaining)
+                return fetch(d, part, progress)
             }
             if (!append) (resp.header("ETag") ?: resp.header("Last-Modified"))
                 ?.let { since.writeText(it) } ?: since.delete()
             val total = if (append) have + resp.body.contentLength() else resp.body.contentLength()
             var written = if (append) have else 0L
-            var lastUpdate = 0L
+            // Not straight away: the first chunk alone isn't news.
+            var lastUpdate = System.currentTimeMillis()
             FileOutputStream(part, append).use { out ->
                 resp.body.byteStream().use { input ->
                     val buf = ByteArray(256 * 1024)
@@ -161,11 +173,10 @@ class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWork
                         out.write(buf, 0, n)
                         written += n
                         val now = System.currentTimeMillis()
-                        if (now - lastUpdate > 1000) {
+                        if (now - lastUpdate > PROGRESS_MS) {
                             lastUpdate = now
                             g.db.offline().setProgress(d.trackId, written)
-                            val pct = if (total > 0) (written * 100 / total).toInt() else -1
-                            runCatching { setForeground(foregroundInfo("${d.artist} – ${d.title}", remaining, pct)) }
+                            progress(written)
                         }
                     }
                 }
@@ -201,5 +212,7 @@ class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWork
     companion object {
         /** Always leave this much free for the system and other apps. */
         const val RESERVE_BYTES = 300L * 1024 * 1024
+        /** How often progress is written for the UI and the notification. */
+        private const val PROGRESS_MS = 400L
     }
 }

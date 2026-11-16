@@ -28,6 +28,14 @@ class DownloadIndex(dao: OfflineDao, scope: CoroutineScope) {
         }
         .stateIn(scope, SharingStarted.Eagerly, emptyMap())
 
+    /**
+     * The downloads under way, as one batch: from the first queued until the
+     * queue empties, including those finished meanwhile. Null when idle.
+     */
+    val batch: StateFlow<DownloadBatch?> = all
+        .map(BatchTracker()::update)
+        .stateIn(scope, SharingStarted.Eagerly, null)
+
     val sources: StateFlow<Map<String, OfflineSource>> = dao.sourcesFlow()
         .map { list -> list.associateBy { it.id } }
         .stateIn(scope, SharingStarted.Eagerly, emptyMap())
@@ -41,4 +49,37 @@ class DownloadIndex(dao: OfflineDao, scope: CoroutineScope) {
     fun localFile(trackId: String): File? = doneFiles[trackId]?.takeIf { it.isFile }
 
     fun isDownloaded(trackId: String) = doneFiles.containsKey(trackId)
+}
+
+/** [left] still to come; [fraction] of the batch's bytes on the phone. */
+data class DownloadBatch(val left: Int, val fraction: Float)
+
+/**
+ * Remembers which tracks belong to the batch running now, so the progress
+ * covers it all rather than restarting with each file. Pure; one per flow.
+ */
+internal class BatchTracker {
+    private val members = mutableSetOf<String>()
+
+    fun update(rows: Map<String, Download>): DownloadBatch? {
+        val pending = rows.values.filter { it.state == DownloadState.QUEUED || it.state == DownloadState.DOWNLOADING }
+        if (pending.isEmpty()) { members.clear(); return null }
+        pending.mapTo(members) { it.trackId }
+        // Gone (unclaimed) or failed: no longer part of it.
+        members.retainAll { id -> rows[id]?.state.let { it != null && it != DownloadState.FAILED } }
+        var total = 0L
+        var have = 0L
+        for (id in members) {
+            val d = rows.getValue(id)
+            val size = d.size.coerceAtLeast(0)
+            total += size
+            have += when (d.state) {
+                DownloadState.DONE -> size
+                DownloadState.DOWNLOADING -> d.bytesDone.coerceIn(0, size)
+                else -> 0
+            }
+        }
+        val fraction = if (total > 0) have.toFloat() / total else (members.size - pending.size).toFloat() / members.size
+        return DownloadBatch(pending.size, fraction.coerceIn(0f, 1f))
+    }
 }

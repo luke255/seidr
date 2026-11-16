@@ -20,6 +20,7 @@
     <string name="library_search_library">Kitaplığında ara</string>
     <string name="library_create_playlist">Çalma listesi oluştur</string>
     <string name="library_downloaded">İndirilenler</string>
+    <string name="library_shared">Paylaşılan</string>
     <string name="library_sort_custom">Özel sıra</string>
     <string name="library_sort_name">Ad</string>
     <string name="library_sort_updated">Son güncellenen</string>
@@ -67,6 +68,13 @@
     </plurals>
 
     <string name="playlist_by_owner">sahibi: %1$s</string>
+    <string name="playlist_shared">Paylaşıldı</string>
+    <string name="playlist_share">Çalma listesini paylaş</string>
+    <string name="playlist_shared_now">Paylaşıldı: sunucudaki herkes artık bu çalma listesini görebilir</string>
+    <string name="playlist_unshared_now">Artık paylaşılmıyor</string>
+    <string name="playlist_save_copy">Kopyasını kaydet</string>
+    <string name="playlist_copied">%1$s listesinin bir kopyası çalma listelerine kaydedildi</string>
+    <string name="playlist_copy_failed">Kopya kaydedilemedi. Bağlantını kontrol edip tekrar dene.</string>
     <string name="playlist_done">Bitti</string>
     <string name="playlist_options">Çalma listesi seçenekleri</string>
     <string name="playlist_reorder">Şarkıları yeniden sırala</string>
@@ -129,6 +137,7 @@
     <string name="home_offline">Çevrimdışısın. İndirdiğin müzikler hâlâ burada: Kitaplık’ta İndirilenler filtresine bak.</string>
     <string name="home_kid_empty">Senin için henüz bir şey onaylanmadı. Oturumunu açan kişiden birkaç şarkı eklemesini iste.</string>
     <string name="home_playlists">Çalma listeleri</string>
+    <string name="home_shared_playlists">Paylaşılan çalma listeleri</string>
     <string name="home_sort_az">A–Z</string>
     <string name="home_sort_recent">En yeni</string>
     <string name="home_by_owner">sahibi: %1$s</string>

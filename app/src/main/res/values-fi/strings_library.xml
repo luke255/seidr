@@ -20,6 +20,7 @@
     <string name="library_search_library">Hae kirjastostasi</string>
     <string name="library_create_playlist">Luo soittolista</string>
     <string name="library_downloaded">Ladatut</string>
+    <string name="library_shared">Jaetut</string>
     <string name="library_sort_custom">Oma järjestys</string>
     <string name="library_sort_name">Nimi</string>
     <string name="library_sort_updated">Viimeksi päivitetyt</string>
@@ -67,6 +68,13 @@
     </plurals>
 
     <string name="playlist_by_owner">käyttäjältä %1$s</string>
+    <string name="playlist_shared">Jaettu</string>
+    <string name="playlist_share">Jaa soittolista</string>
+    <string name="playlist_shared_now">Jaettu: kaikki palvelimella näkevät nyt tämän soittolistan</string>
+    <string name="playlist_unshared_now">Ei enää jaettu</string>
+    <string name="playlist_save_copy">Tallenna kopio</string>
+    <string name="playlist_copied">Kopio soittolistasta %1$s tallennettiin soittolistoihisi</string>
+    <string name="playlist_copy_failed">Kopion tallentaminen epäonnistui. Tarkista yhteys ja yritä uudelleen.</string>
     <string name="playlist_done">Valmis</string>
     <string name="playlist_options">Soittolistan valinnat</string>
     <string name="playlist_reorder">Järjestä kappaleet</string>
@@ -129,6 +137,7 @@
     <string name="home_offline">Olet offline-tilassa. Ladattu musiikki on yhä tallessa: katso Kirjastosta Ladatut-suodattimella.</string>
     <string name="home_kid_empty">Sinulle ei ole vielä hyväksytty mitään. Pyydä sinut sisään kirjannutta lisäämään kappaleita.</string>
     <string name="home_playlists">Soittolistat</string>
+    <string name="home_shared_playlists">Jaetut soittolistat</string>
     <string name="home_sort_az">A–Ö</string>
     <string name="home_sort_recent">Uusimmat</string>
     <string name="home_by_owner">käyttäjältä %1$s</string>

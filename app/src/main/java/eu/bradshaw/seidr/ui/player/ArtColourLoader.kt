@@ -4,12 +4,10 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.os.SystemClock
 import android.util.LruCache
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.EaseOutCubic
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
-import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -83,11 +81,6 @@ fun rememberArtColours(id: String?): ArtColours? {
  */
 internal const val ART_CHANGE_MS = 2000
 
-internal val artFade = tween<Color>(ART_CHANGE_MS, easing = EaseOutCubic)
-
-@Composable
-private fun Color.animated(spec: AnimationSpec<Color>): Color = animateColorAsState(this, spec, label = "art").value
-
 /**
  * True for a moment after the screen comes back into view (app resumed, screen
  * turned on). A track change that shows up then happened while nobody was
@@ -115,27 +108,6 @@ internal fun rememberJustBack(): () -> Boolean {
 /** Long enough for the new cover's colours to load from Coil's caches. */
 private const val JUST_BACK_MS = 1500
 
-/** [artFade], or a snap when the change happened while the screen was away ([rememberJustBack]). */
-internal fun artFade(justBack: Boolean): AnimationSpec<Color> = if (justBack) snap() else artFade
-
-/** [target] with the roles Now Playing shows animated, so colours cross-fade between tracks. */
-@Composable
-fun animateScheme(target: ColorScheme, spec: AnimationSpec<Color> = artFade): ColorScheme = target.copy(
-    primary = target.primary.animated(spec),
-    onPrimary = target.onPrimary.animated(spec),
-    primaryContainer = target.primaryContainer.animated(spec),
-    onPrimaryContainer = target.onPrimaryContainer.animated(spec),
-    secondaryContainer = target.secondaryContainer.animated(spec),
-    onSecondaryContainer = target.onSecondaryContainer.animated(spec),
-    background = target.background.animated(spec),
-    onBackground = target.onBackground.animated(spec),
-    surface = target.surface.animated(spec),
-    onSurface = target.onSurface.animated(spec),
-    surfaceVariant = target.surfaceVariant.animated(spec),
-    onSurfaceVariant = target.onSurfaceVariant.animated(spec),
-    surfaceContainer = target.surfaceContainer.animated(spec),
-    surfaceContainerHigh = target.surfaceContainerHigh.animated(spec),
-    surfaceContainerHighest = target.surfaceContainerHighest.animated(spec),
-    outline = target.outline.animated(spec),
-    outlineVariant = target.outlineVariant.animated(spec),
-)
+/** A [SchemeFade]'s timing: [ART_CHANGE_MS], or a snap when the change happened while the screen was away ([rememberJustBack]). */
+internal fun artFadeProgress(justBack: Boolean): AnimationSpec<Float> =
+    if (justBack) snap() else tween(ART_CHANGE_MS, easing = EaseOutCubic)

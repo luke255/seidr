@@ -18,6 +18,7 @@
     <string name="library_search_library">ライブラリを検索</string>
     <string name="library_create_playlist">プレイリストを作成</string>
     <string name="library_downloaded">ダウンロード済み</string>
+    <string name="library_shared">共有</string>
     <string name="library_sort_custom">カスタム順</string>
     <string name="library_sort_name">名前</string>
     <string name="library_sort_updated">最近更新</string>
@@ -63,6 +64,13 @@
     </plurals>
 
     <string name="playlist_by_owner">作成者：%1$s</string>
+    <string name="playlist_shared">共有中</string>
+    <string name="playlist_share">プレイリストを共有</string>
+    <string name="playlist_shared_now">共有しました：サーバーの全員がこのプレイリストを見られます</string>
+    <string name="playlist_unshared_now">共有を解除しました</string>
+    <string name="playlist_save_copy">コピーを保存</string>
+    <string name="playlist_copied">%1$s のコピーをプレイリストに保存しました</string>
+    <string name="playlist_copy_failed">コピーを保存できませんでした。接続を確認して、もう一度お試しください。</string>
     <string name="playlist_done">完了</string>
     <string name="playlist_options">プレイリストのオプション</string>
     <string name="playlist_reorder">曲を並べ替え</string>
@@ -120,6 +128,7 @@
     <string name="home_offline">オフラインです。ダウンロード済みの音楽はそのまま聴けます。ライブラリの「ダウンロード済み」フィルターで探してください。</string>
     <string name="home_kid_empty">まだ許可された曲がありません。サインインしてくれた人に、曲を追加してもらいましょう。</string>
     <string name="home_playlists">プレイリスト</string>
+    <string name="home_shared_playlists">共有プレイリスト</string>
     <string name="home_sort_az">名前順</string>
     <string name="home_sort_recent">最近</string>
     <string name="home_by_owner">作成者：%1$s</string>

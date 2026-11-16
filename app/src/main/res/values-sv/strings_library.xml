@@ -20,6 +20,7 @@
     <string name="library_search_library">Sök i ditt bibliotek</string>
     <string name="library_create_playlist">Skapa spellista</string>
     <string name="library_downloaded">Nedladdat</string>
+    <string name="library_shared">Delade</string>
     <string name="library_sort_custom">Egen ordning</string>
     <string name="library_sort_name">Namn</string>
     <string name="library_sort_updated">Senast uppdaterade</string>
@@ -67,6 +68,13 @@
     </plurals>
 
     <string name="playlist_by_owner">av %1$s</string>
+    <string name="playlist_shared">Delad</string>
+    <string name="playlist_share">Dela spellista</string>
+    <string name="playlist_shared_now">Delad: alla på servern kan nu se den här spellistan</string>
+    <string name="playlist_unshared_now">Inte längre delad</string>
+    <string name="playlist_save_copy">Spara en kopia</string>
+    <string name="playlist_copied">En kopia av %1$s har sparats bland dina spellistor</string>
+    <string name="playlist_copy_failed">Det gick inte att spara en kopia. Kontrollera anslutningen och försök igen.</string>
     <string name="playlist_done">Klar</string>
     <string name="playlist_options">Alternativ för spellistan</string>
     <string name="playlist_reorder">Ändra låtordning</string>
@@ -129,6 +137,7 @@
     <string name="home_offline">Du är offline. Nedladdad musik finns kvar: titta i Bibliotek med filtret Nedladdat.</string>
     <string name="home_kid_empty">Inget har godkänts för dig än. Be den som loggade in dig att lägga till några låtar.</string>
     <string name="home_playlists">Spellistor</string>
+    <string name="home_shared_playlists">Delade spellistor</string>
     <string name="home_sort_az">A–Ö</string>
     <string name="home_sort_recent">Senaste</string>
     <string name="home_by_owner">av %1$s</string>

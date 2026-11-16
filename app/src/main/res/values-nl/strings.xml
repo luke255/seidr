@@ -85,6 +85,8 @@
     <string name="vis_hide_preset">Preset verbergen</string>
     <string name="vis_love_preset">Preset leuk vinden</string>
     <string name="vis_unlove_preset">Preset niet meer leuk vinden</string>
+    <string name="vis_previous_preset">Vorige preset</string>
+    <string name="vis_next_preset">Volgende preset</string>
     <string name="vis_preview">Voorbeeld</string>
     <string name="vis_preset_hidden">Preset verborgen. Via Instellingen → Visualizer haal je hem terug.</string>
     <string name="vis_xr_failed">De immersieve visualizer kon niet starten</string>

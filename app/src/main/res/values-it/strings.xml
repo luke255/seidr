@@ -87,6 +87,8 @@
     <string name="vis_hide_preset">Nascondi preset</string>
     <string name="vis_love_preset">Mi piace questo preset</string>
     <string name="vis_unlove_preset">Non mi piace più questo preset</string>
+    <string name="vis_previous_preset">Preset precedente</string>
+    <string name="vis_next_preset">Preset successivo</string>
     <string name="vis_preview">Anteprima</string>
     <string name="vis_preset_hidden">Preset nascosto. Lo ritrovi in Impostazioni → Visualizzatore.</string>
     <string name="vis_xr_failed">Impossibile avviare il visualizzatore immersivo</string>

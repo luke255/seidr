@@ -85,6 +85,8 @@
     <string name="vis_hide_preset">Dölj förinställning</string>
     <string name="vis_love_preset">Gilla förinställning</string>
     <string name="vis_unlove_preset">Sluta gilla förinställning</string>
+    <string name="vis_previous_preset">Föregående förinställning</string>
+    <string name="vis_next_preset">Nästa förinställning</string>
     <string name="vis_preview">Förhandsvisning</string>
     <string name="vis_preset_hidden">Förinställningen är dold. Du får tillbaka den i Inställningar → Visualisering.</string>
     <string name="vis_xr_failed">Den uppslukande visualiseringen kunde inte starta</string>

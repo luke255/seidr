@@ -28,7 +28,13 @@ import eu.bradshaw.seidr.ui.player.LyricsPane
 import eu.bradshaw.seidr.ui.player.LyricsState
 import eu.bradshaw.seidr.ui.player.Scrubber
 import eu.bradshaw.seidr.ui.player.Transport
+import eu.bradshaw.seidr.ui.player.artFadeProgress
+import eu.bradshaw.seidr.ui.player.rememberSchemeFade
+import eu.bradshaw.seidr.ui.player.rememberArtColours
 import eu.bradshaw.seidr.ui.player.rememberLyrics
+import eu.bradshaw.seidr.ui.theme.LocalColourful
+import eu.bradshaw.seidr.ui.theme.artScheme
+import eu.bradshaw.seidr.ui.theme.monochromeArtScheme
 import eu.bradshaw.seidr.vis.xr.XrVisualiserActivity
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -52,6 +58,8 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.NavigateBefore
+import androidx.compose.material.icons.automirrored.filled.NavigateNext
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -87,6 +95,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import eu.bradshaw.seidr.Graph
@@ -117,10 +126,10 @@ private fun Typography.glowing(): Typography {
 
 /** An icon with a soft dark shadow under it, like the text's. */
 @Composable
-private fun GlowIcon(icon: ImageVector, description: String?, modifier: Modifier = Modifier, tint: Color = Color.White) {
+private fun GlowIcon(icon: ImageVector, description: String?, modifier: Modifier = Modifier, tint: Color = Color.White, size: Dp = 24.dp) {
     Box(modifier) {
-        Icon(icon, null, Modifier.offset(y = 1.dp).blur(5.dp, BlurredEdgeTreatment.Unbounded), tint = Color.Black.copy(alpha = 0.85f))
-        Icon(icon, description, tint = tint)
+        Icon(icon, null, Modifier.size(size).offset(y = 1.dp).blur(5.dp, BlurredEdgeTreatment.Unbounded), tint = Color.Black.copy(alpha = 0.85f))
+        Icon(icon, description, Modifier.size(size), tint = tint)
     }
 }
 
@@ -133,10 +142,11 @@ private fun Modifier.panel(shape: androidx.compose.ui.graphics.Shape = RoundedCo
 
 /**
  * The visualiser's pages, none showing at first. Up (a swipe or the D-pad)
- * goes on to the next, down back (both round through none); left or right
- * puts the page away. [controls] pages have buttons for a remote to reach
- * (sideways moves between them, Back puts them away). Pages stay until put
- * away, and sit in the middle, over the preset with no panel behind them.
+ * goes on to the next, down back (both round through none); Back puts the
+ * page away. Sideways still skips tracks, except that on [controls] pages,
+ * which have buttons for a remote to reach, the D-pad moves between those.
+ * Pages stay until put away, and sit in the middle, over the preset with no
+ * panel behind them.
  */
 enum class VisPage(val controls: Boolean = false) {
     PRESET(controls = true), TRANSPORT(controls = true), TRACK, LYRICS, QUEUE, LOGO;
@@ -167,6 +177,7 @@ fun VisOverlay(
     onTurn: (by: Int) -> Unit,
     onPage: (VisPage?) -> Unit,
     onHidePreset: () -> Unit,
+    onPresetStep: (forward: Boolean) -> Unit,
     onMessageShown: () -> Unit,
     pulse: Pulse?,
     onPlayPause: () -> Unit,
@@ -200,8 +211,8 @@ fun VisOverlay(
                             onLongPress = { if (page == null) onPage(VisPage.PRESET) },
                         )
                     }
-                    // Up and down turn the pages. Sideways puts a page away, or with none up,
-                    // skips (left for the next, like the cover in Now Playing).
+                    // Up and down turn the pages. Sideways skips, page or not (left for the
+                    // next, like the cover in Now Playing).
                     .pointerInput(preview, page) {
                         if (preview != null) return@pointerInput
                         var dx = 0f
@@ -213,7 +224,7 @@ fun VisOverlay(
                             onDragEnd = {
                                 if (fromEdge) return@detectDragGestures
                                 if (abs(dx) > abs(dy)) {
-                                    if (abs(dx) > swipe) { if (page != null) onPage(null) else onSkip(dx < 0) }
+                                    if (abs(dx) > swipe) onSkip(dx < 0)
                                 } else if (abs(dy) > swipe) {
                                     onTurn(if (dy < 0) 1 else -1)
                                 }
@@ -235,8 +246,16 @@ fun VisOverlay(
                         // amount above and below, so they stay centred.
                         val clear = maxOf(if (card) 96.dp else 0.dp, if (headset) 64.dp else 0.dp)
                         val middle = Modifier.fillMaxSize().padding(vertical = clear)
+                        // Colours follow the track's art, like Now Playing's (not under Neutral).
+                        val ui by player.ui.collectAsStateWithLifecycle()
+                        val colourful = LocalColourful.current
+                        val art = rememberArtColours(if (colourful) ui.current?.coverArt else null)
+                        val base = MaterialTheme.colorScheme
+                        val artTarget = remember(art, base) {
+                            art?.let(::artScheme)?.scheme ?: if (colourful) monochromeArtScheme.scheme else base
+                        }
                         // Borrowed pieces' greys go white: a dim grey vanishes over a bright preset.
-                        val scheme = MaterialTheme.colorScheme.copy(
+                        val scheme = rememberSchemeFade(artTarget, Color.Transparent, artFadeProgress(false)).scheme.copy(
                             onBackground = Color.White, onSurface = Color.White, onSurfaceVariant = Color.White.copy(alpha = 0.85f),
                         )
                         MaterialTheme(colorScheme = scheme, typography = MaterialTheme.typography.glowing()) {
@@ -244,7 +263,7 @@ fun VisOverlay(
                                 transitionSpec = { fadeIn(tween(250)) togetherWith fadeOut(tween(250)) }) { p ->
                                 when (p) {
                                     VisPage.PRESET -> if (preset != null) {
-                                        Box(middle, contentAlignment = Alignment.Center) { PresetBar(graph.visPrefs, preset, onHidePreset) }
+                                        Box(middle, contentAlignment = Alignment.Center) { PresetBar(graph.visPrefs, preset, onHidePreset, onPresetStep) }
                                     }
                                     VisPage.TRANSPORT -> TransportPage(player, middle)
                                     VisPage.TRACK -> TrackPage(player, tv, middle)
@@ -255,7 +274,7 @@ fun VisOverlay(
                                 }
                             }
                         }
-                        if (page != null) PageDots(page, Modifier.align(Alignment.CenterEnd))
+                        PageDots(page, Modifier.align(Alignment.CenterEnd))
                     }
                     if (headset) {
                         AnimatedVisibility(page != null || preview != null, Modifier.align(Alignment.TopEnd), enter = fadeIn(), exit = fadeOut()) {
@@ -280,13 +299,28 @@ fun VisOverlay(
     }
 }
 
-/** Which page is up: a dot for each, down the right-hand edge. */
+/** How long the page dots stay after a page turns. */
+private const val DOTS_MS = 2_000L
+
+/** Which page is up: a dot for each, down the right-hand edge, fading out a moment after each turn. */
 @Composable
-private fun PageDots(page: VisPage, modifier: Modifier) {
-    Column(modifier.padding(end = 4.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        for (p in VisPage.entries) {
-            Box(Modifier.size(if (p == page) 8.dp else 6.dp).shadow(4.dp, CircleShape)
-                .background(Color.White.copy(alpha = if (p == page) 0.95f else 0.4f), CircleShape))
+private fun PageDots(page: VisPage?, modifier: Modifier) {
+    var shown by remember { mutableStateOf(false) }
+    // The last page up, so the dots don't jump as they fade on the way to none.
+    var last by remember { mutableStateOf(page) }
+    LaunchedEffect(page) {
+        if (page == null) { shown = false; return@LaunchedEffect }
+        last = page
+        shown = true
+        delay(DOTS_MS)
+        shown = false
+    }
+    AnimatedVisibility(shown, modifier, enter = fadeIn(), exit = fadeOut(tween(600))) {
+        Column(Modifier.padding(end = 4.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            for (p in VisPage.entries) {
+                Box(Modifier.size(if (p == last) 8.dp else 6.dp).shadow(4.dp, CircleShape)
+                    .background(Color.White.copy(alpha = if (p == last) 0.95f else 0.4f), CircleShape))
+            }
         }
     }
 }
@@ -441,10 +475,12 @@ private fun TrackCard(player: PlayerConnection, visible: Boolean, tv: Boolean, m
 
 /**
  * The preset on screen: a flag (hides it for good; Settings → Visualiser
- * brings it back), its name, and a heart (loved presets come up more often).
+ * brings it back), back and forward through presets either side of its name,
+ * and a heart (loved presets come up more often). Chevrons, not the transport's
+ * skip icons, so they don't read as changing the track.
  */
 @Composable
-private fun PresetBar(prefs: VisPrefs, path: String, onHide: () -> Unit, modifier: Modifier = Modifier) {
+private fun PresetBar(prefs: VisPrefs, path: String, onHide: () -> Unit, onStep: (forward: Boolean) -> Unit, modifier: Modifier = Modifier) {
     val lovedList by prefs.loved.collectAsStateWithLifecycle()
     val loved = lovedList.any { it.path == path }
     val preset = VisPrefs.Preset(path)
@@ -456,13 +492,19 @@ private fun PresetBar(prefs: VisPrefs, path: String, onHide: () -> Unit, modifie
         IconButton(onClick = onHide, Modifier.size(52.dp).focusRing(CircleShape, Color.White), colors = side) {
             GlowIcon(Icons.Outlined.Flag, stringResource(R.string.vis_hide_preset))
         }
-        Column(Modifier.weight(1f, fill = false).widthIn(max = 520.dp).padding(horizontal = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        IconButton(onClick = { onStep(false) }, Modifier.size(52.dp).focusRing(CircleShape, Color.White), colors = side) {
+            GlowIcon(Icons.AutoMirrored.Filled.NavigateBefore, stringResource(R.string.vis_previous_preset), size = 32.dp)
+        }
+        Column(Modifier.weight(1f, fill = false).widthIn(max = 520.dp).padding(horizontal = 8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Text(preset.name, style = MaterialTheme.typography.titleSmall.copy(shadow = glow), fontWeight = FontWeight.Bold,
                 color = Color.White, maxLines = 1, overflow = TextOverflow.Ellipsis)
             if (preset.folder.isNotEmpty()) {
                 Text(preset.folder, style = MaterialTheme.typography.bodySmall.copy(shadow = glow),
                     color = Color.White.copy(alpha = 0.75f), maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
+        }
+        IconButton(onClick = { onStep(true) }, Modifier.size(52.dp).focusRing(CircleShape, Color.White), colors = side) {
+            GlowIcon(Icons.AutoMirrored.Filled.NavigateNext, stringResource(R.string.vis_next_preset), size = 32.dp)
         }
         IconButton(onClick = { prefs.setLoved(path, !loved) },
             Modifier.size(52.dp).focusRing(CircleShape, Color.White).focusRequester(heartFocus), colors = side) {

@@ -122,8 +122,9 @@ fun HomeScreen() {
                     )
                 }
                 val d = vm.data
-                val pls = playlists.orEmpty()
-                if (pls.isNotEmpty()) {
+                // The user's own, then (on a shelf of their own) everyone else's.
+                val (shared, pls) = playlists.orEmpty().partition(graph.browse::isOthers)
+                if (playlists != null) {
                     item {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             // Home has no tab header, so the first shelf sits where the other tabs' titles do.
@@ -158,6 +159,16 @@ fun HomeScreen() {
                                     art = { m -> LovedArt(m) }, modifier = focus)
                                 else CoverCard(p.name, playlistLine(p, server?.username), p.coverArt, onClick = { actions.open(Route.Playlist(p.id)) },
                                     modifier = focus)
+                            }
+                        }
+                    }
+                }
+                if (shared.isNotEmpty()) {
+                    item(key = "h:shared") { SectionHeader(stringResource(R.string.home_shared_playlists)) }
+                    item(key = "s:shared") {
+                        LazyRow(contentPadding = PaddingValues(horizontal = 10.dp)) {
+                            items(sortPlaylists(shared, alpha, lastPlayed), key = { it.id }) { p ->
+                                CoverCard(p.name, playlistLine(p, server?.username), p.coverArt, onClick = { actions.open(Route.Playlist(p.id)) })
                             }
                         }
                     }

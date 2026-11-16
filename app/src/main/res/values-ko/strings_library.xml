@@ -18,6 +18,7 @@
     <string name="library_search_library">보관함 검색</string>
     <string name="library_create_playlist">플레이리스트 만들기</string>
     <string name="library_downloaded">다운로드됨</string>
+    <string name="library_shared">공유됨</string>
     <string name="library_sort_custom">사용자 지정 순서</string>
     <string name="library_sort_name">이름</string>
     <string name="library_sort_updated">최근 업데이트</string>
@@ -63,6 +64,13 @@
     </plurals>
 
     <string name="playlist_by_owner">만든 사람: %1$s</string>
+    <string name="playlist_shared">공유됨</string>
+    <string name="playlist_share">플레이리스트 공유</string>
+    <string name="playlist_shared_now">공유됨: 이제 서버의 모든 사용자가 이 플레이리스트를 볼 수 있어요</string>
+    <string name="playlist_unshared_now">더 이상 공유하지 않음</string>
+    <string name="playlist_save_copy">사본 저장</string>
+    <string name="playlist_copied">%1$s의 사본을 내 플레이리스트에 저장했어요</string>
+    <string name="playlist_copy_failed">사본을 저장하지 못했어요. 연결을 확인하고 다시 시도하세요.</string>
     <string name="playlist_done">완료</string>
     <string name="playlist_options">플레이리스트 옵션</string>
     <string name="playlist_reorder">곡 순서 변경</string>
@@ -120,6 +128,7 @@
     <string name="home_offline">오프라인 상태예요. 다운로드한 음악은 그대로 들을 수 있어요. 보관함에서 다운로드됨 필터로 찾아보세요.</string>
     <string name="home_kid_empty">아직 허용된 곡이 없어요. 로그인해 준 분께 곡을 추가해 달라고 부탁해 보세요.</string>
     <string name="home_playlists">플레이리스트</string>
+    <string name="home_shared_playlists">공유된 플레이리스트</string>
     <string name="home_sort_az">이름순</string>
     <string name="home_sort_recent">최근순</string>
     <string name="home_by_owner">만든 사람: %1$s</string>

@@ -22,6 +22,7 @@
     <string name="library_search_library">Rechercher dans votre bibliothèque</string>
     <string name="library_create_playlist">Créer une playlist</string>
     <string name="library_downloaded">Téléchargés</string>
+    <string name="library_shared">Partagées</string>
     <string name="library_sort_custom">Ordre personnalisé</string>
     <string name="library_sort_name">Nom</string>
     <string name="library_sort_updated">Mises à jour récentes</string>
@@ -71,6 +72,13 @@
     </plurals>
 
     <string name="playlist_by_owner">de %1$s</string>
+    <string name="playlist_shared">Partagée</string>
+    <string name="playlist_share">Partager la playlist</string>
+    <string name="playlist_shared_now">Partagée : tout le monde sur le serveur peut désormais voir cette playlist</string>
+    <string name="playlist_unshared_now">N\'est plus partagée</string>
+    <string name="playlist_save_copy">Enregistrer une copie</string>
+    <string name="playlist_copied">Copie de %1$s enregistrée dans vos playlists</string>
+    <string name="playlist_copy_failed">Impossible d\'enregistrer une copie. Vérifiez votre connexion et réessayez.</string>
     <string name="playlist_done">Terminé</string>
     <string name="playlist_options">Options de la playlist</string>
     <string name="playlist_reorder">Réorganiser les titres</string>
@@ -138,6 +146,7 @@
     <string name="home_offline">Vous êtes hors ligne. La musique téléchargée est toujours là : regardez dans la Bibliothèque avec le filtre Téléchargés.</string>
     <string name="home_kid_empty">Rien n\'a encore été approuvé pour toi. Demande à la personne qui t\'a connecté d\'ajouter des titres.</string>
     <string name="home_playlists">Playlists</string>
+    <string name="home_shared_playlists">Playlists partagées</string>
     <string name="home_sort_az">A–Z</string>
     <string name="home_sort_recent">Récentes</string>
     <string name="home_by_owner">de %1$s</string>

@@ -151,10 +151,11 @@ before changing sync or playback.
     panels are 72 Hz).
   - `VisOverlay` (Compose, over the GL surface; no frame cost): track card;
     playback by gesture (tap/select plays/pauses, sideways skips, each with
-    a passing sign). Up/down turn through `VisPage`s (preset flag and heart,
-    transport, track, lyrics, queue, logo; none at first); sideways or Back
-    puts one away; pages never time out. They sit centred with no panels,
-    just shadowed white text, and reuse Now Playing's pieces via a stand-in
+    a passing sign, pages up or not). Up/down turn through `VisPage`s
+    (preset flag, back/forward and heart; transport, track, lyrics, queue,
+    logo; none at first); Back puts one away; pages never time out. They
+    sit centred with no panels, just shadowed white text, and reuse Now
+    Playing's pieces via a stand-in
     `AppActions`; the logo page is `LogoSprite`, drawn by `VisEngine` after
     projectM. The close cross shows only on a headset. `VisWarning` (flashing
     lights) shows once per device for each mode, from Now Playing's buttons.
@@ -190,7 +191,9 @@ before changing sync or playback.
     material-color-utilities.
   - Now Playing overrides the theme with a scheme from the current cover
     (`ArtPalette.kt`; not under Neutral). Its thresholds were tuned on the
-    real library, so check changes against many covers, not one.
+    real library, so check changes against many covers, not one. A new
+    scheme recomposes everything under it, so `SchemeFade` steps the theme
+    and draws the wash per frame; never animate the scheme itself.
   - Navigation is our own `Navigator` (a back stack per tab; each `Entry` owns
     a `ViewModelStore`), not navigation-compose.
   - `MainScreen` switches layouts at 600dp. Narrow: screens scroll under a

@@ -123,6 +123,26 @@ class PlaylistEditor(
         null
     }
 
+    /** Shares a playlist with everyone on the server (Subsonic's "public"), or stops sharing it. Needs the server. */
+    suspend fun setShared(playlistId: String, shared: Boolean): EditResult = attempt(playlistId, null) {
+        api().updatePlaylist(playlistId, public = shared).ok()
+    }
+
+    /**
+     * A private copy of someone else's playlist, owned by this login, from a
+     * fresh fetch: same name, same songs in the same order, from then on its
+     * own. Returns the new playlist's id, or null on failure.
+     */
+    suspend fun copy(playlistId: String): String? {
+        val source = try {
+            api().getPlaylist(playlistId).ok().playlist
+        } catch (e: Exception) {
+            Log.w("Editor", "copy of $playlistId: fetch failed: $e")
+            null
+        } ?: return null
+        return create(source.name, source.entry.map { it.id })
+    }
+
     suspend fun delete(playlistId: String): EditResult = attempt(playlistId, null) {
         api().deletePlaylist(playlistId).ok()
     }

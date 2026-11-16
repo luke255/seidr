@@ -83,6 +83,8 @@
     <string name="vis_hide_preset">프리셋 숨기기</string>
     <string name="vis_love_preset">프리셋 좋아요</string>
     <string name="vis_unlove_preset">프리셋 좋아요 취소</string>
+    <string name="vis_previous_preset">이전 프리셋</string>
+    <string name="vis_next_preset">다음 프리셋</string>
     <string name="vis_preview">미리보기</string>
     <string name="vis_preset_hidden">프리셋을 숨겼어요. 설정 → 비주얼라이저에서 되돌릴 수 있어요.</string>
     <string name="vis_xr_failed">몰입형 비주얼라이저를 시작할 수 없어요</string>

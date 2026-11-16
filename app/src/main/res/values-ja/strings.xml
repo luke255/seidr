@@ -83,6 +83,8 @@
     <string name="vis_hide_preset">プリセットを非表示</string>
     <string name="vis_love_preset">プリセットをお気に入りに追加</string>
     <string name="vis_unlove_preset">プリセットをお気に入りから削除</string>
+    <string name="vis_previous_preset">前のプリセット</string>
+    <string name="vis_next_preset">次のプリセット</string>
     <string name="vis_preview">プレビュー</string>
     <string name="vis_preset_hidden">プリセットを非表示にしました。設定 → ビジュアライザーで元に戻せます。</string>
     <string name="vis_xr_failed">没入型ビジュアライザーを開始できませんでした</string>

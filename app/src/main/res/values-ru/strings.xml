@@ -89,6 +89,8 @@
     <string name="vis_hide_preset">Скрыть пресет</string>
     <string name="vis_love_preset">Добавить пресет в любимое</string>
     <string name="vis_unlove_preset">Убрать пресет из любимого</string>
+    <string name="vis_previous_preset">Предыдущий пресет</string>
+    <string name="vis_next_preset">Следующий пресет</string>
     <string name="vis_preview">Предпросмотр</string>
     <string name="vis_preset_hidden">Пресет скрыт. Вернуть его можно в разделе Настройки → Визуализация.</string>
     <string name="vis_xr_failed">Не удалось запустить иммерсивную визуализацию</string>

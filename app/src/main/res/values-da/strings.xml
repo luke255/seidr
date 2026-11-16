@@ -85,6 +85,8 @@
     <string name="vis_hide_preset">Skjul preset</string>
     <string name="vis_love_preset">Gør preset til favorit</string>
     <string name="vis_unlove_preset">Fjern preset fra favoritter</string>
+    <string name="vis_previous_preset">Forrige preset</string>
+    <string name="vis_next_preset">Næste preset</string>
     <string name="vis_preview">Forhåndsvisning</string>
     <string name="vis_preset_hidden">Presettet er skjult. Du får det tilbage under Indstillinger → Visualisering.</string>
     <string name="vis_xr_failed">Den immersive visualisering kunne ikke starte</string>

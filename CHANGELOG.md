@@ -4,6 +4,19 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.6.4
+
+- Shared playlists: share one of yours with everyone on the server from its
+  ⋮ menu, and save a copy of someone else's to make it your own. Other
+  people's playlists have their own shelf on Home, and Library shows them
+  with the Shared filter.
+- Visualiser: the preset page can go back to the last preset or on to the
+  next. Skipping tracks and play/pause work with a page up, the page dots
+  fade away, and the transport takes the cover's colours like Now Playing.
+- Downloads show one steady progress bar for the whole batch, instead of
+  flashing and sitting near empty for each song.
+- Skipping tracks is smoother in Now Playing, especially on TVs.
+
 ## 1.6.3
 
 - Android backups and phone-to-phone transfers now bring your settings,

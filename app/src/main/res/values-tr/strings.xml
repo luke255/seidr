@@ -85,6 +85,8 @@
     <string name="vis_hide_preset">Ön ayarı gizle</string>
     <string name="vis_love_preset">Ön ayarı beğen</string>
     <string name="vis_unlove_preset">Ön ayarı beğenmekten vazgeç</string>
+    <string name="vis_previous_preset">Önceki ön ayar</string>
+    <string name="vis_next_preset">Sonraki ön ayar</string>
     <string name="vis_preview">Önizleme</string>
     <string name="vis_preset_hidden">Ön ayar gizlendi. Ayarlar → Görselleştirici’den geri getirebilirsin.</string>
     <string name="vis_xr_failed">Sürükleyici görselleştirici başlatılamadı</string>

@@ -110,6 +110,8 @@
     <string name="vis_hide_preset">Hide preset</string>
     <string name="vis_love_preset">Love preset</string>
     <string name="vis_unlove_preset">Unlove preset</string>
+    <string name="vis_previous_preset">Previous preset</string>
+    <string name="vis_next_preset">Next preset</string>
     <!-- Label over a preset being previewed from Settings. -->
     <string name="vis_preview">Preview</string>
     <string name="vis_preset_hidden">Preset hidden. Settings → Visualiser brings it back.</string>

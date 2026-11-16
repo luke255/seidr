@@ -22,6 +22,7 @@
     <string name="library_search_library">Buscar en tu biblioteca</string>
     <string name="library_create_playlist">Crear playlist</string>
     <string name="library_downloaded">Descargado</string>
+    <string name="library_shared">Compartidas</string>
     <string name="library_sort_custom">Orden personalizado</string>
     <string name="library_sort_name">Nombre</string>
     <string name="library_sort_updated">Actualizadas recientemente</string>
@@ -71,6 +72,13 @@
     </plurals>
 
     <string name="playlist_by_owner">de %1$s</string>
+    <string name="playlist_shared">Compartida</string>
+    <string name="playlist_share">Compartir playlist</string>
+    <string name="playlist_shared_now">Compartida: ahora todos en el servidor pueden ver esta playlist</string>
+    <string name="playlist_unshared_now">Ya no se comparte</string>
+    <string name="playlist_save_copy">Guardar una copia</string>
+    <string name="playlist_copied">Se guardó una copia de %1$s en tus playlists</string>
+    <string name="playlist_copy_failed">No se pudo guardar una copia. Comprueba la conexión y vuelve a intentarlo.</string>
     <string name="playlist_done">Hecho</string>
     <string name="playlist_options">Opciones de la playlist</string>
     <string name="playlist_reorder">Reordenar canciones</string>
@@ -138,6 +146,7 @@
     <string name="home_offline">No tienes conexión. La música descargada sigue aquí: mira en Biblioteca con el filtro Descargado.</string>
     <string name="home_kid_empty">Todavía no te han aprobado nada. Pídele a quien inició tu sesión que añada algunas canciones.</string>
     <string name="home_playlists">Playlists</string>
+    <string name="home_shared_playlists">Playlists compartidas</string>
     <string name="home_sort_az">A–Z</string>
     <string name="home_sort_recent">Recientes</string>
     <string name="home_by_owner">de %1$s</string>

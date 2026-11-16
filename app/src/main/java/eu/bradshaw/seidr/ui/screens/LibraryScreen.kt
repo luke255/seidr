@@ -36,6 +36,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.GridView
+import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
@@ -104,7 +105,9 @@ import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.ui.focusRing
 import eu.bradshaw.seidr.ui.rememberedFocus
 import eu.bradshaw.seidr.ui.selectToEdit
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import androidx.compose.animation.core.animateFloatAsState
 
 class LibraryVm(private val graph: Graph) : ViewModel() {
     var artists by mutableStateOf<Load<List<Artist>>>(Load.Loading)
@@ -175,6 +178,7 @@ fun LibraryScreen() {
     var searching by rememberSaveable { mutableStateOf(false) }
     var query by rememberSaveable { mutableStateOf("") }
     val grid by graph.settings.libraryGrid.collectAsStateWithLifecycle()
+    val withShared by graph.settings.libraryShared.collectAsStateWithLifecycle()
 
     val playlists by graph.browse.playlists.collectAsStateWithLifecycle()
     val sources by graph.downloads.sources.collectAsStateWithLifecycle()
@@ -230,7 +234,8 @@ fun LibraryScreen() {
             }
         }
 
-        // One row of chips: what to show, then (phones) only what's downloaded.
+        // One row of chips: what to show, then (phones) only what's downloaded, then
+        // (playlists, if anyone else has some) other people's too.
         Row(
             Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 4.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -242,6 +247,12 @@ fun LibraryScreen() {
                 FilterPill(stringResource(R.string.library_downloaded), downloadedOnly, { downloadedOnly = !downloadedOnly }, icon = {
                     Icon(Icons.Filled.ArrowCircleDown, null, Modifier.size(16.dp),
                         tint = if (downloadedOnly) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.primary)
+                })
+            }
+            if (LibTab.entries[tab] == LibTab.PLAYLISTS && playlists.orEmpty().any(graph.browse::isOthers)) {
+                FilterPill(stringResource(R.string.library_shared), withShared, { graph.settings.setLibraryShared(!withShared) }, icon = {
+                    Icon(Icons.Filled.Group, null, Modifier.size(16.dp),
+                        tint = if (withShared) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.primary)
                 })
             }
         }
@@ -274,7 +285,9 @@ fun LibraryScreen() {
                         if (vm.playlistsError != null) LoadContent(Load.Error(vm.playlistsError!!), { vm.load(true) }) {}
                         else Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
                     } else {
-                        val shown = list.filter { (!downloadedOnly || it.id in offlinePlaylists) && matches(it.name) }
+                        val shown = list.filter {
+                            (withShared || !graph.browse.isOthers(it)) && (!downloadedOnly || it.id in offlinePlaylists) && matches(it.name)
+                        }
                             .let { l ->
                                 when (sort) {
                                     1 -> l.sortedWith(nameOrder { it.name })
@@ -428,16 +441,17 @@ private fun BadgeIcon(badge: Badge) {
     }
 }
 
-/** While downloads are running: how many are left, the current one's progress, and a way to the Downloads screen. */
+/** While downloads are running: how many are left, the whole batch's progress, and a way to the Downloads screen. */
 @Composable
 private fun DownloadStrip() {
     val actions = LocalActions.current
-    val all by actions.graph.downloads.all.collectAsStateWithLifecycle()
-    val active = all.values.filter { it.state == DownloadState.DOWNLOADING }
-    val left = active.size + all.values.count { it.state == DownloadState.QUEUED }
-    if (left == 0) return
+    val now by actions.graph.downloads.batch.collectAsStateWithLifecycle()
+    // Held a moment after the queue empties, so a gap between files never blinks it away.
+    var shown by remember { mutableStateOf(now) }
+    LaunchedEffect(now) { if (now == null) delay(1_500); shown = now }
+    val batch = now ?: shown ?: return
+    val left = batch.left
     val cs = MaterialTheme.colorScheme
-    val current = active.firstOrNull()
     Row(
         Modifier
             .fillMaxWidth()
@@ -452,10 +466,8 @@ private fun DownloadStrip() {
         Spacer(Modifier.width(10.dp))
         Text(pluralStringResource(R.plurals.library_downloading_left, left, left), style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.weight(1f))
-        if (current != null && current.size > 0) LinearProgressIndicator(
-            progress = { (current.bytesDone.toFloat() / current.size).coerceIn(0f, 1f) },
-            modifier = Modifier.width(64.dp), drawStopIndicator = {},
-        )
+        val progress by animateFloatAsState(batch.fraction, label = "downloaded")
+        LinearProgressIndicator(progress = { progress }, modifier = Modifier.width(64.dp), drawStopIndicator = {})
         Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, null, tint = cs.onSurfaceVariant)
     }
 }

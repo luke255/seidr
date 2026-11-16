@@ -85,6 +85,8 @@
     <string name="vis_hide_preset">Preset ausblenden</string>
     <string name="vis_love_preset">Preset gefällt mir</string>
     <string name="vis_unlove_preset">Preset gefällt mir nicht mehr</string>
+    <string name="vis_previous_preset">Vorheriges Preset</string>
+    <string name="vis_next_preset">Nächstes Preset</string>
     <string name="vis_preview">Vorschau</string>
     <string name="vis_preset_hidden">Preset ausgeblendet. Unter Einstellungen → Visualizer holst du es zurück.</string>
     <string name="vis_xr_failed">Der immersive Visualizer konnte nicht gestartet werden</string>

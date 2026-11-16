@@ -20,6 +20,7 @@
     <string name="library_search_library">Zoeken in je bibliotheek</string>
     <string name="library_create_playlist">Playlist maken</string>
     <string name="library_downloaded">Gedownload</string>
+    <string name="library_shared">Gedeeld</string>
     <string name="library_sort_custom">Eigen volgorde</string>
     <string name="library_sort_name">Naam</string>
     <string name="library_sort_updated">Laatst bijgewerkt</string>
@@ -67,6 +68,13 @@
     </plurals>
 
     <string name="playlist_by_owner">van %1$s</string>
+    <string name="playlist_shared">Gedeeld</string>
+    <string name="playlist_share">Playlist delen</string>
+    <string name="playlist_shared_now">Gedeeld: iedereen op de server kan deze playlist nu zien</string>
+    <string name="playlist_unshared_now">Niet meer gedeeld</string>
+    <string name="playlist_save_copy">Kopie opslaan</string>
+    <string name="playlist_copied">Kopie van %1$s opgeslagen bij je playlists</string>
+    <string name="playlist_copy_failed">Kan geen kopie opslaan. Controleer je verbinding en probeer het opnieuw.</string>
     <string name="playlist_done">Klaar</string>
     <string name="playlist_options">Playlistopties</string>
     <string name="playlist_reorder">Volgorde wijzigen</string>
@@ -129,6 +137,7 @@
     <string name="home_offline">Je bent offline. Gedownloade muziek is er nog: kijk in Bibliotheek met het filter Gedownload.</string>
     <string name="home_kid_empty">Er is nog niets voor je goedgekeurd. Vraag degene die je heeft aangemeld om nummers toe te voegen.</string>
     <string name="home_playlists">Playlists</string>
+    <string name="home_shared_playlists">Gedeelde playlists</string>
     <string name="home_sort_az">A–Z</string>
     <string name="home_sort_recent">Recent</string>
     <string name="home_by_owner">van %1$s</string>

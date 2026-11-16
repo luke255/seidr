@@ -83,6 +83,8 @@
     <string name="vis_hide_preset">隱藏預設集</string>
     <string name="vis_love_preset">將預設集加入最愛</string>
     <string name="vis_unlove_preset">將預設集移出最愛</string>
+    <string name="vis_previous_preset">上一個預設集</string>
+    <string name="vis_next_preset">下一個預設集</string>
     <string name="vis_preview">預覽</string>
     <string name="vis_preset_hidden">已隱藏預設集。可在設定 → 視覺化效果中復原。</string>
     <string name="vis_xr_failed">無法啟動沉浸式視覺化效果</string>

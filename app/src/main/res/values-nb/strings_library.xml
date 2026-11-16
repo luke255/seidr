@@ -20,6 +20,7 @@
     <string name="library_search_library">Søk i biblioteket ditt</string>
     <string name="library_create_playlist">Opprett spilleliste</string>
     <string name="library_downloaded">Nedlastet</string>
+    <string name="library_shared">Delte</string>
     <string name="library_sort_custom">Egen rekkefølge</string>
     <string name="library_sort_name">Navn</string>
     <string name="library_sort_updated">Nylig oppdatert</string>
@@ -67,6 +68,13 @@
     </plurals>
 
     <string name="playlist_by_owner">av %1$s</string>
+    <string name="playlist_shared">Delt</string>
+    <string name="playlist_share">Del spilleliste</string>
+    <string name="playlist_shared_now">Delt: alle på serveren kan nå se denne spillelisten</string>
+    <string name="playlist_unshared_now">Ikke lenger delt</string>
+    <string name="playlist_save_copy">Lagre en kopi</string>
+    <string name="playlist_copied">En kopi av %1$s er lagret i spillelistene dine</string>
+    <string name="playlist_copy_failed">Kunne ikke lagre en kopi. Sjekk tilkoblingen og prøv igjen.</string>
     <string name="playlist_done">Ferdig</string>
     <string name="playlist_options">Valg for spillelisten</string>
     <string name="playlist_reorder">Endre rekkefølge</string>
@@ -129,6 +137,7 @@
     <string name="home_offline">Du er frakoblet. Nedlastet musikk er fortsatt her: se i Bibliotek med filteret Nedlastet.</string>
     <string name="home_kid_empty">Ingenting er godkjent for deg ennå. Be den som logget deg inn, om å legge til noen låter.</string>
     <string name="home_playlists">Spillelister</string>
+    <string name="home_shared_playlists">Delte spillelister</string>
     <string name="home_sort_az">A–Å</string>
     <string name="home_sort_recent">Nylige</string>
     <string name="home_by_owner">av %1$s</string>
