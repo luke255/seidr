@@ -1,6 +1,7 @@
 package eu.bradshaw.seidr.connect
 
 import android.app.Application
+import eu.bradshaw.seidr.data.nameOrder
 import android.content.Context
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
@@ -469,7 +470,7 @@ class Connect(
     }
 
     private fun publish() {
-        _devices.value = found.values.distinctBy { it.id }.sortedBy { it.name.lowercase() }
+        _devices.value = found.values.distinctBy { it.id }.sortedWith(nameOrder { it.name })
     }
 
     companion object {

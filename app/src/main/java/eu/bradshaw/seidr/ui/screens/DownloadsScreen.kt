@@ -1,6 +1,7 @@
 package eu.bradshaw.seidr.ui.screens
 
 import android.text.format.DateUtils
+import eu.bradshaw.seidr.data.nameOrder
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -180,7 +181,7 @@ fun DownloadsScreen() {
                     if (sources.isEmpty()) {
                         CardItem(null, stringResource(R.string.downloads_nothing), stringResource(R.string.downloads_nothing_hint))
                     }
-                    sources.values.sortedBy { it.name.lowercase() }.forEachIndexed { i, s ->
+                    sources.values.sortedWith(nameOrder { it.name }).forEachIndexed { i, s ->
                         if (i > 0) CardDivider()
                         val u = usage[s.id]
                         val sub = if (u == null) stringResource(R.string.downloads_waiting_short)

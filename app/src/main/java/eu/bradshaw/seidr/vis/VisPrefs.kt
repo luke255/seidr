@@ -1,6 +1,7 @@
 package eu.bradshaw.seidr.vis
 
 import android.content.Context
+import eu.bradshaw.seidr.data.nameOrder
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import eu.bradshaw.seidr.BuildConfig
@@ -181,9 +182,9 @@ class VisPrefs(private val context: Context, user: StateFlow<String?>, scope: Co
 
     private fun loadHidden(): List<Preset> =
         (banned.map { Preset(it, byUser = true) } + (tooHeavy - banned).map { Preset(it, byUser = false) })
-            .sortedBy { it.name.lowercase() }
+            .sortedWith(nameOrder { it.name })
 
-    private fun loadLoved(): List<Preset> = lovedPaths.map { Preset(it) }.sortedBy { it.name.lowercase() }
+    private fun loadLoved(): List<Preset> = lovedPaths.map { Preset(it) }.sortedWith(nameOrder { it.name })
 
     // Last, so everything it touches exists.
     init {

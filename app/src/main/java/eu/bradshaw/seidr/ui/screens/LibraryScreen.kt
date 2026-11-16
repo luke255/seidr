@@ -1,6 +1,7 @@
 package eu.bradshaw.seidr.ui.screens
 
 import androidx.compose.foundation.background
+import eu.bradshaw.seidr.data.nameOrder
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -276,7 +277,7 @@ fun LibraryScreen() {
                         val shown = list.filter { (!downloadedOnly || it.id in offlinePlaylists) && matches(it.name) }
                             .let { l ->
                                 when (sort) {
-                                    1 -> l.sortedBy { it.name.lowercase() }
+                                    1 -> l.sortedWith(nameOrder { it.name })
                                     2 -> l.sortedByDescending { it.changed ?: "" }
                                     else -> l
                                 }
@@ -307,7 +308,7 @@ fun LibraryScreen() {
                 LibTab.ARTISTS -> LoadContent(vm.artists, { vm.load(true) }) { all ->
                     val withDownloads = if (downloadedOnly) downloads.values.mapNotNull { it.artistId }.toSet() else emptySet()
                     val items = all.filter { (!downloadedOnly || it.id in withDownloads) && matches(it.name) }
-                        .let { l -> if (sort == 1) l.sortedByDescending { it.albumCount } else l.sortedBy { it.name.lowercase() } }
+                        .let { l -> if (sort == 1) l.sortedByDescending { it.albumCount } else l.sortedWith(nameOrder { it.name }) }
                         .map { a ->
                             LibItem(a.id, a.name, albumsText(a.albumCount),
                                 round = true, art = { m -> ArtistImage(a.coverArt, m) }, onClick = { actions.open(Route.Artist(a.id)) })
@@ -319,7 +320,7 @@ fun LibraryScreen() {
                         .filter { (!downloadedOnly || SourceType.sourceId(SourceType.ALBUM, it.id) in sources) && matches(it.name, it.artistLine) }
                         .let { l ->
                             when (sort) {
-                                1 -> l.sortedWith(compareBy({ it.artistLine.lowercase() }, { it.year ?: 0 }))
+                                1 -> l.sortedWith(nameOrder<Album> { it.artistLine }.thenBy { it.year ?: 0 })
                                 2 -> l.sortedByDescending { it.created ?: "" }
                                 3 -> l.sortedByDescending { it.year ?: 0 }
                                 else -> l

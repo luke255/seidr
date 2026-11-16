@@ -1,6 +1,7 @@
 package eu.bradshaw.seidr.playback
 
 import android.content.Context
+import eu.bradshaw.seidr.data.nameOrder
 import android.os.Bundle
 import androidx.annotation.OptIn
 import androidx.media3.common.MediaItem
@@ -127,7 +128,7 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
 
     private fun songCount(n: Int) = context.resources.getQuantityString(R.plurals.car_songs, n, n)
 
-    private val byName = compareBy<Playlist, String>(String.CASE_INSENSITIVE_ORDER) { it.name }
+    private val byName get() = nameOrder<Playlist> { it.name }
 
     /** Plays the best match for a voice search ("play X on Seiðr"). */
     suspend fun search(query: String): MediaSession.MediaItemsWithStartPosition? {

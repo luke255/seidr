@@ -4,6 +4,12 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.6.2
+
+- Lists sort the way your language expects: accented names sit with their
+  letter, and Chinese, Japanese and Korean names follow the language's own
+  order instead of character codes.
+
 ## 1.6.1
 
 - A signed-out device now says plainly that it's ready to play, and how to

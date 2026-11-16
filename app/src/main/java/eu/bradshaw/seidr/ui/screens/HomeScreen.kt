@@ -1,6 +1,7 @@
 package eu.bradshaw.seidr.ui.screens
 
 import eu.bradshaw.seidr.ui.components.bottomContentPadding
+import eu.bradshaw.seidr.data.nameOrder
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -176,7 +177,7 @@ fun HomeScreen() {
  * front. Ties (none of either) go A–Z.
  */
 private fun sortPlaylists(pls: List<Playlist>, alpha: Boolean, lastPlayed: Map<String, Long>): List<Playlist> {
-    val byName = compareBy<Playlist, String>(String.CASE_INSENSITIVE_ORDER) { it.name }
+    val byName = nameOrder<Playlist> { it.name }
     return if (alpha) pls.sortedWith(byName)
     else pls.sortedWith(compareByDescending<Playlist> { recency(it, lastPlayed) }.then(byName))
 }
