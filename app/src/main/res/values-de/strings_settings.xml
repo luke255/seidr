@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Was ist neu</string>
     <string name="whatsnew_this_version">%1$s (diese Version)</string>
+    <string name="settings_secrets_unprotected">Der Schlüsselspeicher dieses Geräts funktioniert nicht, daher werden deine Anmeldedaten unverschlüsselt gespeichert. Sie bleiben nur für diese App zugänglich und landen nie in einer Sicherung.</string>
+    <string name="kids_filter_warning">Nur Seiðr filtert, was das Kind sieht, Navidrome selbst nicht. Mit diesen Anmeldedaten zeigen der Webplayer von Navidrome und jede andere App alles. Gib sie dem Kind nicht: Melde seine Geräte über „%1$s“ an.</string>
 
 </resources>

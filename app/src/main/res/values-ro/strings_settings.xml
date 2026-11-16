@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Noutăți</string>
     <string name="whatsnew_this_version">%1$s (versiunea aceasta)</string>
+    <string name="settings_secrets_unprotected">Depozitul de chei al acestui dispozitiv nu funcționează, așa că datele tale de autentificare sunt salvate necriptat. Rămân accesibile doar acestei aplicații și nu ajung niciodată în copii de rezervă.</string>
+    <string name="kids_filter_warning">Doar Seiðr filtrează ce vede copilul, nu și Navidrome. Cu aceste date, playerul web Navidrome sau orice altă aplicație arată tot. Nu i le da copilului: autentifică-i dispozitivele cu „%1$s”.</string>
 
 </resources>

@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Novidades</string>
     <string name="whatsnew_this_version">%1$s (esta versão)</string>
+    <string name="settings_secrets_unprotected">O armazenamento de chaves deste dispositivo não está a funcionar, por isso os teus dados de acesso estão guardados sem encriptação. Continuam acessíveis apenas a esta aplicação e nunca são incluídos em cópias de segurança.</string>
+    <string name="kids_filter_warning">Só o Seiðr filtra o que a criança vê; o Navidrome não. Com estes dados, o leitor web do Navidrome ou qualquer outra aplicação mostra tudo. Não os dês à criança: inicia sessão nos dispositivos dela com «%1$s».</string>
 
 </resources>

@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Novidades</string>
     <string name="whatsnew_this_version">%1$s (esta versão)</string>
+    <string name="settings_secrets_unprotected">O armazenamento de chaves deste dispositivo não está funcionando, então seu login está salvo sem criptografia. Ele continua acessível só para este app e nunca entra em backups.</string>
+    <string name="kids_filter_warning">Só o Seiðr filtra o que a criança vê; o Navidrome não. Com este login, o player web do Navidrome ou qualquer outro app mostra tudo. Não passe o login para ela: faça login nos dispositivos dela com “%1$s”.</string>
 
 </resources>

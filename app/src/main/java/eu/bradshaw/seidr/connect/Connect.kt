@@ -62,7 +62,7 @@ class Connect(
     private val startService: () -> Unit,
 ) {
     private val prefs = app.getSharedPreferences("connect", Context.MODE_PRIVATE)
-    private val secrets = Secrets(prefs)
+    private val secrets = Secrets(app, legacy = prefs)
     private val main = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
     /** Stable per install. */

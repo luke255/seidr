@@ -4,6 +4,17 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.6.3
+
+- Android backups and phone-to-phone transfers now bring your settings,
+  queue and recently played with them. Your password never goes: on the new phone,
+  Seiðr asks for it with your server and username already filled in.
+  Downloads start again from the Download switches.
+- Adding a kid now says plainly that only Seiðr filters what they see, so
+  their login itself shouldn't be given to them.
+- If a phone's secure key store isn't working, Settings now says that your
+  login is saved without encryption, rather than doing so silently.
+
 ## 1.6.2
 
 - Lists sort the way your language expects: accented names sit with their

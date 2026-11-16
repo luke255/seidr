@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Nyheder</string>
     <string name="whatsnew_this_version">%1$s (denne version)</string>
+    <string name="settings_secrets_unprotected">Enhedens nøglelager virker ikke, så dit login gemmes uden kryptering. Det er stadig kun tilgængeligt for denne app og sikkerhedskopieres aldrig.</string>
+    <string name="kids_filter_warning">Kun Seiðr filtrerer, hvad barnet ser – Navidrome gør ikke. Med dette login viser Navidromes webafspiller eller enhver anden app alt. Giv det ikke til barnet: log deres enheder ind med »%1$s«.</string>
 
 </resources>

@@ -65,8 +65,10 @@ import eu.bradshaw.seidr.data.PlainHttp
 @Composable
 fun LoginScreen(graph: Graph, onBack: () -> Unit) {
     val context = LocalContext.current
-    var url by rememberSaveable { mutableStateOf("") }
-    var user by rememberSaveable { mutableStateOf("") }
+    // After a restore from backup only the password is missing: start from the rest.
+    val last = remember { graph.settings.lastLogin }
+    var url by rememberSaveable { mutableStateOf(last?.first.orEmpty()) }
+    var user by rememberSaveable { mutableStateOf(last?.second.orEmpty()) }
     var pass by rememberSaveable { mutableStateOf("") }
     var busy by rememberSaveable { mutableStateOf(false) }
     var error by rememberSaveable { mutableStateOf<String?>(null) }

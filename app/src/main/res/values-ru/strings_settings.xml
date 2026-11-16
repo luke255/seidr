@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Что нового</string>
     <string name="whatsnew_this_version">%1$s (эта версия)</string>
+    <string name="settings_secrets_unprotected">Хранилище ключей на этом устройстве не работает, поэтому ваши данные для входа сохранены без шифрования. Они по-прежнему доступны только этому приложению и никогда не попадают в резервные копии.</string>
+    <string name="kids_filter_warning">Фильтрует контент только Seiðr, а не Navidrome. С этими данными веб-плеер Navidrome или любое другое приложение покажет всё. Не сообщайте их ребёнку: входите на его устройствах через «%1$s».</string>
 
 </resources>

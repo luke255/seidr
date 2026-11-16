@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Újdonságok</string>
     <string name="whatsnew_this_version">%1$s (ez a verzió)</string>
+    <string name="settings_secrets_unprotected">Az eszköz kulcstárolója nem működik, ezért a bejelentkezési adataid titkosítás nélkül vannak mentve. Továbbra is csak ez az alkalmazás fér hozzájuk, és soha nem kerülnek biztonsági mentésbe.</string>
+    <string name="kids_filter_warning">Csak a Seiðr szűri, mit lát a gyerek, a Navidrome nem. Ezekkel az adatokkal a Navidrome webes lejátszója vagy bármely más alkalmazás mindent megmutat. Ne add oda neki: az eszközeit a(z) „%1$s” funkcióval jelentkeztesd be.</string>
 
 </resources>

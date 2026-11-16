@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Nyheter</string>
     <string name="whatsnew_this_version">%1$s (den här versionen)</string>
+    <string name="settings_secrets_unprotected">Enhetens nyckellager fungerar inte, så din inloggning sparas okrypterad. Den är fortfarande bara åtkomlig för den här appen och säkerhetskopieras aldrig.</string>
+    <string name="kids_filter_warning">Bara Seiðr filtrerar vad barnet ser – Navidrome gör det inte. Med den här inloggningen visar Navidromes webbspelare eller vilken annan app som helst allt. Ge den inte till barnet: logga in deras enheter med ”%1$s”.</string>
 
 </resources>

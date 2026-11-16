@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Novità</string>
     <string name="whatsnew_this_version">%1$s (questa versione)</string>
+    <string name="settings_secrets_unprotected">L’archivio delle chiavi di questo dispositivo non funziona, quindi le tue credenziali sono salvate senza crittografia. Restano accessibili solo a questa app e non finiscono mai nei backup.</string>
+    <string name="kids_filter_warning">Solo Seiðr filtra ciò che vede il bambino, Navidrome no. Con queste credenziali, il player web di Navidrome o qualsiasi altra app mostra tutto. Non dargliele: fai accedere i suoi dispositivi con «%1$s».</string>
 
 </resources>

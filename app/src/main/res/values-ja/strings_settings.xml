@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">新機能</string>
     <string name="whatsnew_this_version">%1$s（このバージョン）</string>
+    <string name="settings_secrets_unprotected">このデバイスのキーストアが正しく動作していないため、ログイン情報は暗号化されずに保存されています。このアプリ以外からはアクセスできず、バックアップされることもありません。</string>
+    <string name="kids_filter_warning">表示内容を絞り込むのはSeiðrだけで、Navidrome自体は絞り込みません。このログイン情報を使えば、NavidromeのWebプレーヤーや他のアプリではすべてが表示されます。お子さまには教えず、「%1$s」からお子さまのデバイスをサインインさせてください。</string>
 
 </resources>

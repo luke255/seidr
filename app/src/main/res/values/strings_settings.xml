@@ -59,6 +59,8 @@
     <!-- Settings: account card -->
     <string name="settings_not_signed_in">Not signed in</string>
     <string name="settings_not_connected">Not connected</string>
+    <!-- Shown on the account card only when Android's Keystore fails to encrypt the saved password -->
+    <string name="settings_secrets_unprotected">This device\'s key store isn\'t working, so your login is saved without encryption. It\'s still private to this app and never goes into a backup.</string>
     <!-- %1$s is the server address (host) -->
     <string name="settings_server_kid">%1$s · Kid\'s account</string>
     <string name="settings_sign_in_device">Sign in a device</string>
@@ -107,6 +109,8 @@
     <string name="kids_own_account">That\'s your own account</string>
     <!-- %1$s is the server address -->
     <string name="kids_add_message">Their Navidrome login on %1$s.</string>
+    <!-- In the Add kid dialog and Kids help. %1$s is the "Sign in a device" button label (settings_sign_in_device) -->
+    <string name="kids_filter_warning">Only Seiðr filters what they see; Navidrome itself doesn\'t. With this login, Navidrome\'s web player or any other app shows everything. Don\'t give it to them: sign their devices in with “%1$s”.</string>
     <string name="kids_username">Username</string>
     <string name="kids_password">Password</string>
     <string name="kids_add_button">Add</string>

@@ -251,6 +251,7 @@ private fun AccountCard(onSignOut: () -> Unit) {
     val actions = LocalActions.current
     val server by actions.graph.settings.server.collectAsStateWithLifecycle()
     val online by actions.graph.status.online.collectAsStateWithLifecycle()
+    val unprotected by actions.graph.settings.secretsUnprotected.collectAsStateWithLifecycle()
     val cs = MaterialTheme.colorScheme
     Column(
         Modifier.padding(horizontal = 16.dp, vertical = 8.dp).fillMaxWidth()
@@ -277,6 +278,10 @@ private fun AccountCard(onSignOut: () -> Unit) {
                     )
                 }
             }
+        }
+        if (unprotected && server != null) {
+            Text(stringResource(R.string.settings_secrets_unprotected), style = MaterialTheme.typography.bodyMedium, color = cs.error,
+                modifier = Modifier.padding(top = 12.dp))
         }
         Row(Modifier.padding(top = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             FilledTonalButton(

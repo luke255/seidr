@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Co je nového</string>
     <string name="whatsnew_this_version">%1$s (tato verze)</string>
+    <string name="settings_secrets_unprotected">Úložiště klíčů v tomto zařízení nefunguje, proto jsou tvoje přihlašovací údaje uložené bez šifrování. Zůstávají přístupné jen této aplikaci a nikdy se nezálohují.</string>
+    <string name="kids_filter_warning">Obsah filtruje jen Seiðr, Navidrome ne. S těmito údaji webový přehrávač Navidrome nebo jakákoli jiná aplikace ukáže vše. Nedávej je dítěti: jeho zařízení přihlas pomocí „%1$s“.</string>
 
 </resources>

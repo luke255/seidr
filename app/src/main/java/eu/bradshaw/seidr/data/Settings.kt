@@ -27,8 +27,14 @@ data class KidLogin(val username: String, val password: String)
  * a Keystore key ([Secrets]).
  */
 class Settings(context: Context) {
+    /** Backed up and moved to a new phone (`data_extraction_rules.xml`), so nothing secret or device-specific. */
     private val prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
-    private val secrets = Secrets(prefs)
+    /** This device's own flags: never backed up. */
+    private val device = context.getSharedPreferences("device", Context.MODE_PRIVATE)
+    private val secrets = Secrets(context, legacy = prefs)
+
+    /** The Keystore wouldn't encrypt a login, so it's stored plain (see [Secrets]). */
+    val secretsUnprotected: StateFlow<Boolean> = Secrets.unprotected
 
     private val _server = MutableStateFlow(readServer())
     val server: StateFlow<ServerConfig?> = _server.asStateFlow()
@@ -76,9 +82,25 @@ class Settings(context: Context) {
         prefs.edit().putString("cover_salt", it).apply()
     }
 
+    /** Per device: a restored or transferred install still has to ask its new phone. */
     var batteryPromptShown: Boolean
-        get() = prefs.getBoolean("battery_prompt_shown", false)
-        set(v) { prefs.edit().putBoolean("battery_prompt_shown", v).apply() }
+        get() = device.getBoolean("battery_prompt_shown", false) || prefs.getBoolean("battery_prompt_shown", false)
+        set(v) {
+            device.edit().putBoolean("battery_prompt_shown", v).apply()
+            prefs.edit().remove("battery_prompt_shown").apply()
+        }
+
+    /**
+     * The server and username of the last login, kept while signed out without
+     * a password: after a restore from backup (secrets aren't backed up) or a
+     * lost Keystore key. Login starts from them.
+     */
+    val lastLogin: Pair<String, String>?
+        get() {
+            val url = prefs.getString("server_url", null) ?: return null
+            val user = prefs.getString("username", null) ?: return null
+            return url to user
+        }
 
     private fun readServer(): ServerConfig? {
         val url = prefs.getString("server_url", null) ?: return null

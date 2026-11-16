@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Wat is er nieuw</string>
     <string name="whatsnew_this_version">%1$s (deze versie)</string>
+    <string name="settings_secrets_unprotected">De sleutelopslag van dit apparaat werkt niet, dus je inloggegevens worden onversleuteld opgeslagen. Ze blijven alleen toegankelijk voor deze app en komen nooit in een back-up terecht.</string>
+    <string name="kids_filter_warning">Alleen Seiðr filtert wat je kind ziet, Navidrome zelf niet. Met deze inloggegevens toont de webspeler van Navidrome of elke andere app alles. Geef ze dus niet aan je kind: meld hun apparaten aan via ‘%1$s’.</string>
 
 </resources>

@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">更新内容</string>
     <string name="whatsnew_this_version">%1$s（当前版本）</string>
+    <string name="settings_secrets_unprotected">此设备的密钥库无法正常工作，因此你的登录信息以未加密方式保存。它仍仅限本应用访问，且绝不会被备份。</string>
+    <string name="kids_filter_warning">只有 Seiðr 会过滤孩子能看到的内容，Navidrome 本身不会。用这个登录信息，Navidrome 网页播放器或任何其他应用都会显示全部内容。请不要告诉孩子：用“%1$s”为他们的设备登录。</string>
 
 </resources>

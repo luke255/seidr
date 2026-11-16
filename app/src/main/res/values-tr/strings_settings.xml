@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Yenilikler</string>
     <string name="whatsnew_this_version">%1$s (bu sürüm)</string>
+    <string name="settings_secrets_unprotected">Bu cihazın anahtar deposu çalışmıyor, bu yüzden giriş bilgilerin şifrelenmeden kaydediliyor. Yine de yalnızca bu uygulama erişebilir ve hiçbir zaman yedeklenmez.</string>
+    <string name="kids_filter_warning">Çocuğun gördüklerini yalnızca Seiðr filtreler, Navidrome filtrelemez. Bu giriş bilgileriyle Navidrome\'un web oynatıcısı veya başka herhangi bir uygulama her şeyi gösterir. Bunları çocuğa verme: cihazlarında “%1$s” ile oturum aç.</string>
 
 </resources>

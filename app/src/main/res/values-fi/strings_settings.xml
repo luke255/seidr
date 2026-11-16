@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Uutta</string>
     <string name="whatsnew_this_version">%1$s (tämä versio)</string>
+    <string name="settings_secrets_unprotected">Tämän laitteen avainsäilö ei toimi, joten kirjautumistietosi tallennetaan salaamattomina. Ne ovat silti vain tämän sovelluksen käytettävissä eivätkä koskaan päädy varmuuskopioihin.</string>
+    <string name="kids_filter_warning">Vain Seiðr suodattaa, mitä lapsi näkee – Navidrome ei. Näillä tunnuksilla Navidromen verkkosoitin tai mikä tahansa muu sovellus näyttää kaiken. Älä anna niitä lapselle: kirjaa hänen laitteensa sisään kohdasta ”%1$s”.</string>
 
 </resources>

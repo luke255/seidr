@@ -68,6 +68,14 @@ before changing sync or playback.
     queue model: `[history][current][user "Next in queue"][context]`.
     Shuffle reorders the timeline itself and is undone via
     `QueueEntry.ctxIndex`, so ExoPlayer's shuffle is never used.
+- **Secrets and backup**: logins and keys go through `data/Secrets`
+  (Keystore AES-GCM, in their own `secrets` prefs file; if the Keystore
+  fails they're kept plain and Settings says so). Backup and phone transfer
+  (`res/xml/data_extraction_rules.xml`) carry shared prefs and the queue,
+  never `secrets`, `connect` (Connect identity), `device`/`visualiser`
+  (per-device), the DB or music; a restore comes back signed out with the
+  server and username filled in. New prefs files are backed up by default,
+  so put anything secret in `Secrets` and anything per-device in `device`.
 - **`data/LyricsOffsets`**: per-song lyrics timing nudges. Subsonic has no
   app-data storage, so each is a bookmark on the song (position 0, comment
   `Seidr lyrics offset: +650ms`), synced every pass. Comment-less bookmarks
@@ -271,7 +279,9 @@ before changing sync or playback.
 - Lint must pass (`:app:lintDebug`, no baseline; deliberate checks are
   disabled in `lint {}` with reasons). `scripts/hooks/pre-push` runs tests and
   lint before every push (`git config core.hooksPath scripts/hooks` once per
-  clone); CI (`.github/workflows/check.yml`) runs the same.
+  clone); CI (`.github/workflows/check.yml`) runs the same plus a debug
+  build (the only check of the native code). Actions are SHA-pinned and
+  bumped by Dependabot; release signing stays off CI.
 - Release: bump `seidr.version`, commit on main, run `scripts/release.sh`. It
   refuses unless `CHANGELOG.md`'s top section is that version, runs tests and
   lint, builds `:app:dist` (signed APK + `version.json` in `build/dist/`),

@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Nouveautés</string>
     <string name="whatsnew_this_version">%1$s (cette version)</string>
+    <string name="settings_secrets_unprotected">Le magasin de clés de cet appareil ne fonctionne pas : vos identifiants sont donc enregistrés sans chiffrement. Ils restent réservés à cette application et ne sont jamais sauvegardés.</string>
+    <string name="kids_filter_warning">Seul Seiðr filtre ce que voit l’enfant, pas Navidrome. Avec ces identifiants, le lecteur web de Navidrome ou n’importe quelle autre application affiche tout. Ne les lui donnez pas : connectez ses appareils avec « %1$s ».</string>
 
 </resources>

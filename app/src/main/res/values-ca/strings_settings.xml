@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Novetats</string>
     <string name="whatsnew_this_version">%1$s (aquesta versió)</string>
+    <string name="settings_secrets_unprotected">El magatzem de claus d’aquest dispositiu no funciona, així que les teves credencials es desen sense xifrar. Continuen sent privades d’aquesta aplicació i mai no es copien a les còpies de seguretat.</string>
+    <string name="kids_filter_warning">Només Seiðr filtra el que veuen; Navidrome no. Amb aquestes credencials, el reproductor web de Navidrome o qualsevol altra aplicació ho mostra tot. No les hi donis: inicia la sessió als seus dispositius amb «%1$s».</string>
 
 </resources>

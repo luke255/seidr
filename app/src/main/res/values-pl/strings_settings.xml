@@ -141,5 +141,7 @@
 
     <string name="whatsnew_title">Co nowego</string>
     <string name="whatsnew_this_version">%1$s (ta wersja)</string>
+    <string name="settings_secrets_unprotected">Magazyn kluczy na tym urządzeniu nie działa, więc dane logowania są zapisane bez szyfrowania. Nadal ma do nich dostęp tylko ta aplikacja i nigdy nie trafiają do kopii zapasowej.</string>
+    <string name="kids_filter_warning">Treści filtruje tylko Seiðr, a nie Navidrome. Z tymi danymi odtwarzacz webowy Navidrome lub dowolna inna aplikacja pokaże wszystko. Nie przekazuj ich dziecku: zaloguj jego urządzenia przez „%1$s”.</string>
 
 </resources>

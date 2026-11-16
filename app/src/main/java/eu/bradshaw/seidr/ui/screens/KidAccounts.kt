@@ -128,6 +128,7 @@ private fun KidsHelpDialog(admin: Boolean, onDone: () -> Unit) {
                     list(KidRules.SAFE_ART, stringResource(R.string.kids_help_safe_art))
                 }
                 Text(stringResource(R.string.kids_help_hidden), color = muted)
+                Text(stringResource(R.string.kids_filter_warning, stringResource(R.string.settings_sign_in_device)), color = MaterialTheme.colorScheme.tertiary)
                 if (admin) Text(stringResource(R.string.kids_help_eye), color = muted)
             }
         },
@@ -209,6 +210,9 @@ private fun AddKidDialog(onDone: () -> Unit) {
             Column {
                 Text(stringResource(R.string.kids_add_message, own?.url?.substringAfter("://").orEmpty()),
                     color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(bottom = 8.dp))
+                // Kid mode is Seiðr's own: the login itself sees everything anywhere else.
+                Text(stringResource(R.string.kids_filter_warning, stringResource(R.string.settings_sign_in_device)),
+                    color = MaterialTheme.colorScheme.tertiary, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(bottom = 8.dp))
                 OutlinedTextField(user, { user = it }, label = { Text(stringResource(R.string.kids_username)) }, singleLine = true,
                     keyboardOptions = noCaps, modifier = Modifier.fillMaxWidth().selectToEdit())
                 OutlinedTextField(pass, { pass = it }, label = { Text(stringResource(R.string.kids_password)) }, singleLine = true,

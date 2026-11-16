@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Nothing leaves the device: allowBackup="false" stops cloud backup, but on
-     Android 12+ only these rules stop a device-to-device transfer. -->
+<!-- Backup and phone-to-phone transfer: preferences and the queue only, an
+     allowlist, so nothing else goes unless it's named here.
+     Never: secrets.xml (logins; their Keystore key can't leave the device
+     anyway), connect.xml (this install's Connect identity), device.xml and
+     visualiser.xml (this device's flags and tuner), lyrics offsets (the
+     server has them), the database (it would say tracks are downloaded that
+     aren't), downloaded music and caches. A restore comes back signed out
+     with the server and username filled in. New prefs files ARE included:
+     exclude any that's secret or about this device. -->
 <data-extraction-rules>
-    <cloud-backup>
-        <exclude domain="root" />
-        <exclude domain="file" />
-        <exclude domain="database" />
-        <exclude domain="sharedpref" />
-        <exclude domain="external" />
+    <!-- Cloud backup only when it's end-to-end encrypted (a screen lock is set). -->
+    <cloud-backup disableIfNoEncryptionCapabilities="true">
+        <include domain="sharedpref" path="." />
+        <include domain="file" path="queue.json" />
+        <include domain="file" path="queue-position" />
+        <exclude domain="sharedpref" path="secrets.xml" />
+        <exclude domain="sharedpref" path="connect.xml" />
+        <exclude domain="sharedpref" path="device.xml" />
+        <exclude domain="sharedpref" path="visualiser.xml" />
+        <exclude domain="sharedpref" path="lyrics_offsets.xml" />
+        <exclude domain="sharedpref" path="lyrics_offsets_dirty.xml" />
     </cloud-backup>
     <device-transfer>
-        <exclude domain="root" />
-        <exclude domain="file" />
-        <exclude domain="database" />
-        <exclude domain="sharedpref" />
-        <exclude domain="external" />
+        <include domain="sharedpref" path="." />
+        <include domain="file" path="queue.json" />
+        <include domain="file" path="queue-position" />
+        <exclude domain="sharedpref" path="secrets.xml" />
+        <exclude domain="sharedpref" path="connect.xml" />
+        <exclude domain="sharedpref" path="device.xml" />
+        <exclude domain="sharedpref" path="visualiser.xml" />
+        <exclude domain="sharedpref" path="lyrics_offsets.xml" />
+        <exclude domain="sharedpref" path="lyrics_offsets_dirty.xml" />
     </device-transfer>
 </data-extraction-rules>
