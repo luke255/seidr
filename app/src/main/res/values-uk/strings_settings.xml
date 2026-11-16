@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Налаштування</string>
+    <string name="settings_appearance">Вигляд</string>
+    <string name="settings_visualiser">Візуалізація</string>
+    <string name="settings_vis_item">Відомості про пісню та пресети</string>
+    <string name="settings_vis_item_hint">Що показувати поверх; вподобані й сховані пресети</string>
+    <string name="settings_playback_downloads">Відтворення й завантаження</string>
+    <string name="settings_background_playback">Фонове відтворення</string>
+    <string name="settings_battery_off">Без обмежень: оптимізацію батареї вимкнено</string>
+    <string name="settings_battery_tap">Торкніться, щоб дозволити Seiðr працювати без обмежень. Інакше на деяких телефонах диспетчер батареї зупиняє музику.</string>
+    <string name="settings_on">Увімкнено</string>
+    <string name="settings_downloads_storage">Завантаження і сховище</string>
+    <string name="settings_downloads_storage_hint">Черга, місце за плейлистами, лише Wi-Fi</string>
+    <string name="settings_library">Бібліотека</string>
+    <string name="settings_others_private">Чужі приватні плейлисти</string>
+    <string name="settings_others_private_hint">Ви адміністратор, тож сервер показує вам плейлисти всіх. Вимкніть, щоб їх не було у вашій бібліотеці.</string>
+
+    <string name="settings_reporting">Повідомлення про проблеми</string>
+    <string name="settings_report_problems">Повідомляти про проблеми</string>
+    <string name="settings_report_problems_hint">Додає пункт «Повідомити про проблему» до меню ⋮ кожної пісні</string>
+    <string name="settings_report_info">Пошкоджений файл, хибна обкладинка чи зіпсований текст потрапляє до плейлиста %1$s, %2$s або %3$s на сервері, щоб той, хто ним опікується, усе виправив. Пісні з %1$s пропускаються, доки їх не виправлять.</string>
+    <string name="settings_report_missing">Не знайдено на сервері: %1$s.</string>
+
+    <string name="settings_about">Про застосунок</string>
+    <string name="settings_auto_update">Перевіряти оновлення автоматично</string>
+    <string name="settings_auto_update_hint">Шукає новий випуск на GitHub, коли ви відкриваєте застосунок</string>
+    <string name="settings_install_update">Встановити оновлення</string>
+    <string name="settings_check_updates">Перевірити оновлення</string>
+    <string name="settings_checking">Перевірка…</string>
+    <string name="settings_version_ready">Версія %1$s готова</string>
+    <string name="settings_installs_straight_away">Новіша версія встановиться одразу</string>
+    <string name="settings_latest_version">У вас найновіша версія (або GitHub недоступний)</string>
+    <string name="settings_whats_new">Що нового</string>
+    <string name="settings_whats_new_hint">Зміни в кожній версії</string>
+    <string name="settings_licences">Ліцензії відкритого ПЗ</string>
+    <string name="settings_licences_hint">Seiðr — вільне програмне забезпечення (GNU GPL 3.0)</string>
+    <string name="settings_build">Збірка %1$d</string>
+    <string name="settings_new_badge">НОВЕ</string>
+
+    <string name="settings_sign_out_title">Вийти?</string>
+    <string name="settings_sign_out_message">Відтворення зупиниться, а синхронізація призупиниться, доки ви не ввійдете знову. Завантажені файли залишаться.</string>
+    <string name="settings_sign_out">Вийти</string>
+    <string name="settings_cancel">Скасувати</string>
+
+    <string name="settings_not_signed_in">Вхід не виконано</string>
+    <string name="settings_not_connected">Не під’єднано</string>
+    <string name="settings_server_kid">%1$s · Дитячий обліковий запис</string>
+    <string name="settings_sign_in_device">Увійти на пристрої</string>
+
+    <string name="settings_colour">Колір</string>
+    <string name="settings_theme_system">Системний (шпалери)</string>
+    <string name="settings_theme_neutral">Нейтральний</string>
+
+    <string name="kids_title">Діти</string>
+    <string name="kids_view_as_description">Переглянути як %1$s</string>
+    <string name="kids_remove_description">Вилучити %1$s</string>
+    <string name="kids_add">Додати дитячий обліковий запис</string>
+    <string name="kids_how">Як працюють дитячі облікові записи</string>
+    <string name="kids_remove_title">Вилучити %1$s?</string>
+    <string name="kids_remove_message">Цей пристрій забуде дані для входу. Пристрої, де вже виконано вхід як %1$s, залишаться в обліковому записі.</string>
+    <string name="kids_remove">Вилучити</string>
+    <string name="kids_cancel">Скасувати</string>
+    <string name="kids_help_title">Дитячі облікові записи</string>
+    <string name="kids_help_step1">1. Створіть кожній дитині власний обліковий запис Navidrome (не адміністратора) і додайте його сюди.</string>
+    <string name="kids_help_step2">2. Увійдіть на пристрої дитини через «Увійти на пристрої». Пароль дитині не кажіть.</string>
+    <string name="kids_help_step3">3. Що доступно дитині, визначають три плейлисти у вашому обліковому записі — вони з’являються, коли ви додаєте дитину:</string>
+    <string name="kids_help_approved">пісні, які можна слухати</string>
+    <string name="kids_help_safe_titles">показано сірим, лише назва</string>
+    <string name="kids_help_safe_art">показано сірим, з обкладинкою</string>
+    <string name="kids_help_hidden">Усе інше від дитини сховано. Цих плейлистів немає у вашій бібліотеці, тож редагуйте їх у вебплеєрі Navidrome чи в іншому застосунку.</string>
+    <string name="kids_help_eye">Кнопка з оком показує Seiðr таким, яким його бачить дитина, нічого не змінюючи.</string>
+    <string name="kids_got_it">Зрозуміло</string>
+    <string name="kids_view_as_title">Переглянути як %1$s?</string>
+    <string name="kids_view_as_message">Ви бачитимете лише те, що показують пристрої користувача %1$s. Змінювати тут нічого не можна: ви залишаєтеся у своєму обліковому записі, а пісні, які ви тут увімкнете, зарахуються вам, а не користувачу %1$s. Повернутися можна через банер на Головній чи в Налаштуваннях.</string>
+    <string name="kids_view_as_button">Переглянути як %1$s</string>
+    <string name="kids_viewing_as">Перегляд як %1$s</string>
+    <string name="kids_back_to">Назад до %1$s</string>
+    <string name="kids_own_account">Це ваш власний обліковий запис</string>
+    <string name="kids_add_message">Дані для входу дитини в Navidrome на %1$s.</string>
+    <string name="kids_username">Ім’я користувача</string>
+    <string name="kids_password">Пароль</string>
+    <string name="kids_add_button">Додати</string>
+
+    <string name="login_unencrypted_title">Незашифроване з’єднання</string>
+    <string name="login_unencrypted_message">Цей сервер доступний з інтернету, але його адреса починається з http://, тож ваші логін, пароль і музика передаються без шифрування. Будь-хто дорогою може їх прочитати й скористатися вашим логіном. Якщо сервер має адресу https://, використовуйте її.</string>
+    <string name="login_connect_anyway">Усе одно під’єднатися</string>
+    <string name="login_go_back">Назад</string>
+    <string name="login_heading">Під’єднайтеся до свого сервера Navidrome</string>
+    <string name="login_server_url">Адреса сервера (URL)</string>
+    <string name="login_username">Ім’я користувача</string>
+    <string name="login_password">Пароль</string>
+    <string name="login_log_in">Увійти</string>
+    <string name="login_other_device_title">Уже ввійшли на іншому пристрої?</string>
+    <string name="login_other_device_steps">Відкрийте на ньому Seiðr, перейдіть у Налаштування → Увійти на пристрої та виберіть %1$s. Обидва пристрої мають бути в одній мережі Wi-Fi, а на цьому має бути відкрито Seiðr. Перевірте, що код на обох екранах збігається, — і готово.</string>
+    <string name="login_back">Назад</string>
+    <string name="login_idle_ready">Готово до відтворення</string>
+    <string name="login_idle_hint">Відкрийте Seiðr на іншому пристрої, торкніться «Слухати на» й виберіть цей.</string>
+    <string name="login_pairing_code">Код сполучення</string>
+    <string name="login_check_same_code">Перевірте, що на пристрої %1$s той самий код.</string>
+    <string name="login_sign_in_this_device">Увійти на цьому пристрої?</string>
+    <string name="login_sign_in_request">%1$s хоче виконати вхід на цьому пристрої як %2$s на %3$s.</string>
+    <string name="login_sign_in_request_kid">%1$s хоче виконати вхід на цьому пристрої як %2$s (дитячий обліковий запис) на %3$s.</string>
+    <string name="login_allow">Дозволити</string>
+    <string name="login_dont_allow">Не дозволяти</string>
+    <string name="login_cancel">Скасувати</string>
+    <string name="login_sign_in_peer">Увійти на пристрої %1$s?</string>
+    <string name="login_play_on_peer">Слухати на пристрої %1$s?</string>
+    <string name="login_check_this_code">Перевірте, що на пристрої %1$s цей код:</string>
+    <string name="login_will_sign_in_kid">Вхід буде виконано як %1$s, дитячий обліковий запис: лише схвалені пісні.</string>
+    <string name="login_will_sign_in">Вхід буде виконано як %1$s, з вашим паролем.</string>
+    <string name="login_will_play">Він грає з вашим логіном, доки не від’єднається. Для цього пристрою більше не питатимемо.</string>
+    <string name="login_it_matches">Збігається</string>
+
+    <string name="licences_title">Ліцензії відкритого ПЗ</string>
+    <string name="licences_includes">До Seiðr входять</string>
+    <string name="licences_shared_freely">Поширюється вільно; автори можуть попросити про вилучення</string>
+    <string name="licences_projectm_by">Команда projectM. Постачається без змін; вихідний код — у репозиторії Seiðr</string>
+    <string name="licences_presets">Пресети MilkDrop (Cream of the Crop)</string>
+    <string name="licences_presets_by">Добірку уклав Jason Fletcher; автора кожного пресета зазначено в його назві</string>
+    <string name="licences_textures">Набір текстур MilkDrop</string>
+    <string name="licences_textures_by">Зібрала команда projectM</string>
+    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
+    <string name="licences_material_icons">Значки Material</string>
+    <string name="licences_okhttp">OkHttp і Retrofit</string>
+    <string name="licences_coil_by">Учасники проєкту Coil</string>
+    <string name="licences_openxr">Завантажувач OpenXR</string>
+
+    <string name="vissettings_title">Візуалізація</string>
+    <string name="vissettings_track_info">Показувати відомості про пісню</string>
+    <string name="vissettings_track_info_hint">Обкладинка, назва й час у кутку. Якщо вимкнено, їх видно лише разом із керуванням (утримуйте палець або натисніть вгору/вниз на пульті).</string>
+    <string name="vissettings_performance">Показувати продуктивність</string>
+    <string name="vissettings_performance_hint">Частота кадрів, розмір рендера й рівень якості в кутку — видно, як візуалізація підлаштовується.</string>
+    <string name="vissettings_loved">Вподобані пресети</string>
+    <string name="vissettings_loved_hint">Серце в керуванні візуалізацією. Вподобані пресети трапляються приблизно раз на десять.</string>
+    <string name="vissettings_unlove">Прибрати з вподобаних</string>
+    <string name="vissettings_hidden">Сховані пресети</string>
+    <string name="vissettings_hidden_hint">Прапорець у керуванні візуалізацією ховає пресет. Пресети, надто важкі для плавного показу на цьому пристрої, ховаються самі. Торкніться пресета, щоб переглянути його.</string>
+    <string name="vissettings_hidden_by_you">Сховали ви</string>
+    <string name="vissettings_too_heavy">Надто важкі для цього пристрою</string>
+    <string name="vissettings_unhide">Повернути</string>
+
+    <string name="whatsnew_title">Що нового</string>
+    <string name="whatsnew_this_version">%1$s (ця версія)</string>
+
+</resources>

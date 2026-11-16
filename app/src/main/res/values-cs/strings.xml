@@ -1,0 +1,100 @@
+<resources>
+    <string name="channel_updates">Aktualizace aplikace</string>
+    <string name="update_offer_title">Aktualizovat %1$s?</string>
+    <string name="update_offer_text">Verze %1$s je připravená k instalaci (máš %2$s). Aplikace se během aktualizace zavře.</string>
+    <string name="update_install">Nainstalovat</string>
+    <string name="update_later">Později</string>
+    <string name="update_whats_new">Co je nového</string>
+    <string name="update_whats_new_title">Co je nového ve verzi %1$s</string>
+    <string name="update_ready_title">Aktualizace je připravená</string>
+    <string name="update_ready_text">Klepnutím nainstaluješ verzi %1$s</string>
+
+    <string name="notif_channel_downloads">Stahování</string>
+    <string name="notif_channel_storage">Upozornění na úložiště</string>
+    <plurals name="notif_downloading">
+        <item quantity="one">Stahuje se %1$d skladba</item>
+        <item quantity="few">Stahují se %1$d skladby</item>
+        <item quantity="many">Stahuje se %1$d skladby</item>
+        <item quantity="other">Stahuje se %1$d skladeb</item>
+    </plurals>
+    <string name="notif_preparing">Příprava…</string>
+    <string name="notif_storage_title">Stahování pozastaveno: plné úložiště</string>
+    <string name="notif_storage_text">Uvolni asi %1$d MB a stahování bude pokračovat. Nic z toho, co už je stažené, se neodstranilo.</string>
+
+    <string name="sync_server_error">Chyba serveru</string>
+    <string name="sync_cant_reach">Server není dostupný</string>
+
+    <string name="car_recent">Nedávné</string>
+    <string name="car_playlists">Playlisty</string>
+    <string name="car_playlist">Playlist</string>
+    <plurals name="car_songs">
+        <item quantity="one">%1$d skladba</item>
+        <item quantity="few">%1$d skladby</item>
+        <item quantity="many">%1$d skladby</item>
+        <item quantity="other">%1$d skladeb</item>
+    </plurals>
+
+    <string name="playback_love">Přidat do oblíbených</string>
+    <string name="playback_unlove">Odebrat z oblíbených</string>
+
+    <string name="connect_not_signed_in">Toto zařízení není přihlášené</string>
+    <string name="connect_update_for_kids">Nejdřív aktualizuj Seiðr na zařízení %1$s: tahle verze neumí ochránit přihlášení dítěte</string>
+    <string name="connect_no_answer">%1$s neodpovídá</string>
+    <string name="connect_lost_why">Ztraceno spojení se zařízením %1$s: %2$s</string>
+    <string name="connect_peer_other_account">Na zařízení %1$s je přihlášený někdo jiný</string>
+    <string name="connect_peer_changed">Na zařízení %1$s se někdo přihlásil nebo odhlásil. Zkus to za chvilku znovu.</string>
+    <string name="connect_peer_unreachable">Zařízení %1$s není dostupné. Je na něm otevřený Seiðr?</string>
+    <string name="connect_playback_not_ready">Přehrávání ještě není připravené</string>
+    <string name="connect_device_fallback">Zařízení Seiðr</string>
+    <string name="connect_peer_disconnected">Zařízení %1$s se odpojilo</string>
+    <string name="connect_peer_signed_in">Zařízení %1$s se přihlásilo</string>
+    <string name="connect_nobody_answered">Na zařízení %1$s nikdo neodpověděl</string>
+    <string name="connect_not_allowed">Na zařízení %1$s to nebylo povoleno</string>
+    <string name="connect_taken_over">%1$s teď přehrává na zařízení %2$s</string>
+    <string name="connect_update_first">Nejdřív aktualizuj Seiðr na zařízení %1$s</string>
+    <string name="connect_lost_connection">Ztraceno spojení se zařízením %1$s</string>
+
+    <string name="account_connect_failed">Nepodařilo se připojit k serveru %1$s: %2$s</string>
+    <string name="account_lan_permission">Seiðr potřebuje oprávnění „Zařízení v okolí“ / místní síť, aby se dostal k serveru ve tvé domácí síti.</string>
+    <string name="account_check_failed_why">Nepodařilo se ověřit účet %1$s: %2$s</string>
+    <string name="account_check_failed">Nepodařilo se ověřit účet %1$s</string>
+    <string name="account_kid_is_admin">%1$s je na serveru správce. Dětský účet nemůže být správcovský.</string>
+    <string name="account_not_grownup">Tohle není účet dospělého</string>
+    <string name="account_own_check_failed">Nepodařilo se ověřit tvůj účet na serveru</string>
+    <string name="account_admin_only">Zobrazení jako dítě můžou používat jen správci serveru</string>
+    <string name="account_view_failed">Nepodařilo se otevřít zobrazení účtu %1$s: %2$s</string>
+    <string name="account_someone_else">Mezitím se přihlásil někdo jiný</string>
+
+    <string name="kids_signed_in_as_kid">Přihlášeno jako dítě</string>
+    <string name="kids_setup_failed">Nepodařilo se připravit dětské playlisty: %1$s</string>
+
+    <string name="report_no_playlist">Na serveru není playlist „%1$s“</string>
+    <string name="report_removed">Odebráno z playlistu %1$s</string>
+    <string name="report_song_reported">Nahlášeno. Tahle skladba se bude přeskakovat.</string>
+    <string name="report_art_reported">Obal nahlášen</string>
+    <string name="report_lyrics_reported">Text nahlášen</string>
+    <string name="report_queued">Offline: playlist %1$s se aktualizuje, až bude server zpátky</string>
+    <string name="report_conflict">Playlist %1$s se nepodařilo aktualizovat</string>
+    <string name="report_failed">Playlist %1$s se nepodařilo aktualizovat: %2$s</string>
+
+    <string name="main_battery_title">Ať hudba hraje dál</string>
+    <string name="main_battery_text">Správa baterie v některých telefonech zastavuje přehrávání na pozadí i stahování. Povolit aplikaci Seiðr běžet bez omezení? Později to můžeš změnit v Nastavení.</string>
+    <string name="main_battery_allow">Povolit</string>
+
+    <string name="vis_close">Zavřít vizualizaci</string>
+    <string name="vis_now_playing">Právě hraje</string>
+    <string name="vis_next_in_queue">Další ve frontě</string>
+    <string name="vis_next_from">Další z: %1$s</string>
+    <string name="vis_next_from_queue">Další z: fronty</string>
+    <string name="vis_hide_preset">Skrýt preset</string>
+    <string name="vis_love_preset">Přidat preset do oblíbených</string>
+    <string name="vis_unlove_preset">Odebrat preset z oblíbených</string>
+    <string name="vis_preview">Náhled</string>
+    <string name="vis_preset_hidden">Preset je skrytý. Vrátíš ho v Nastavení → Vizualizace.</string>
+    <string name="vis_xr_failed">Imerzivní vizualizaci se nepodařilo spustit</string>
+    <string name="vis_warning_title">Blikající světla</string>
+    <string name="vis_warning_headset">Některé presety rychle blikají, problikávají a víří a v brýlích ti zaplní celé zorné pole. U lidí s fotosenzitivní epilepsií to může vyvolat záchvat a může to způsobit i kinetózu nebo dezorientaci. Zůstaň sedět, a kdyby ti nebylo dobře, brýle sundej.</string>
+    <string name="vis_warning_flat">Některé presety rychle blikají, problikávají a víří. U lidí s fotosenzitivní epilepsií to může vyvolat záchvat. Kdyby ti nebylo dobře, podívej se jinam a vizualizaci zavři.</string>
+    <string name="vis_continue">Pokračovat</string>
+    <string name="vis_not_now">Teď ne</string>
+</resources>

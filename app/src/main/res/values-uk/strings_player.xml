@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">Назад</string>
+    <string name="common_cancel">Скасувати</string>
+    <string name="common_clear">Очистити</string>
+    <string name="common_close">Закрити</string>
+    <string name="common_done">Готово</string>
+    <string name="common_more">Ще</string>
+    <string name="common_remove">Прибрати</string>
+    <string name="common_try_again">Спробувати ще раз</string>
+    <string name="common_offline">Офлайн</string>
+    <string name="common_load_failed">Не вдалося завантажити</string>
+    <string name="common_drag_to_reorder">Перетягніть, щоб змінити порядок</string>
+    <string name="common_moving_hint">Переміщення: вгору чи вниз, потім виберіть, щоб відпустити</string>
+    <string name="common_shuffle_play">Слухати впереміш</string>
+    <string name="common_play_in_order">Слухати за порядком</string>
+    <string name="common_play">Слухати</string>
+
+    <string name="common_download">Завантажити</string>
+    <string name="common_downloaded">Завантажено</string>
+    <string name="common_queued">У черзі</string>
+    <string name="common_download_failed">Не вдалося завантажити</string>
+    <string name="common_waiting_to_download">Очікує на завантаження…</string>
+    <string name="common_downloading_progress">Завантаження… %1$d із %2$d</string>
+    <string name="common_download_when_reachable">Завантажиться, щойно сервер буде доступний</string>
+    <string name="common_downloads_removed">Завантажені файли вилучено: %1$s</string>
+    <string name="common_not_approved_yet">Ще не схвалено</string>
+
+    <string name="common_read_only_kid">У режимі «як дитина» нічого не можна змінювати</string>
+    <string name="common_cant_reach_server">Не вдалося зв’язатися із сервером</string>
+    <string name="common_loved">Додано до вподобаних</string>
+    <string name="common_unloved">Прибрано з вподобаних</string>
+    <string name="common_edit_queued">Офлайн: збережеться на сервері, щойно він повернеться</string>
+    <string name="common_edit_conflict">Плейлист змінили деінде, тож нічого не збережено. Його завантажено наново.</string>
+    <string name="common_edit_failed">Не вдалося зберегти: %1$s</string>
+
+    <plurals name="common_songs">
+        <item quantity="one">%d пісня</item>
+        <item quantity="few">%d пісні</item>
+        <item quantity="many">%d пісень</item>
+        <item quantity="other">%d пісні</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="one">%d альбом</item>
+        <item quantity="few">%d альбоми</item>
+        <item quantity="many">%d альбомів</item>
+        <item quantity="other">%d альбому</item>
+    </plurals>
+    <plurals name="common_approved_count">
+        <item quantity="one">Схвалено: %1$d</item>
+        <item quantity="few">Схвалено: %1$d</item>
+        <item quantity="many">Схвалено: %1$d</item>
+        <item quantity="other">Схвалено: %1$d</item>
+    </plurals>
+    <string name="common_by_owner">автор: %1$s</string>
+    <string name="common_duration_hr_min">%1$d год %2$d хв</string>
+    <string name="common_duration_min">%1$d хв</string>
+    <string name="common_size_gb">%1$.1f ГБ</string>
+    <string name="common_size_mb">%1$.0f МБ</string>
+    <string name="common_size_kb">%1$.0f КБ</string>
+
+    <string name="nav_home">Головна</string>
+    <string name="nav_search">Пошук</string>
+    <string name="nav_library">Бібліотека</string>
+    <string name="nav_now_playing">Плеєр</string>
+    <string name="nav_settings">Налаштування</string>
+    <string name="nav_update_available">Доступне оновлення</string>
+    <string name="nav_settings_update_available">Налаштування, доступне оновлення</string>
+
+    <string name="player_nothing_playing">Нічого не грає</string>
+    <string name="player_playing_from">ГРАЄ З</string>
+    <string name="player_queue">Черга</string>
+    <string name="player_disconnect">Від’єднатися</string>
+    <string name="player_play_on_another_device">Слухати на іншому пристрої</string>
+    <string name="player_lyrics">Текст</string>
+    <string name="player_hide_lyrics">Сховати текст</string>
+    <string name="player_visualiser">Візуалізація</string>
+    <string name="player_immersive_visualiser">Імерсивна візуалізація</string>
+    <string name="player_previous">Попередня</string>
+    <string name="player_next">Наступна</string>
+    <string name="player_play">Відтворити</string>
+    <string name="player_pause">Пауза</string>
+    <string name="player_playing_on">Грає на: %1$s</string>
+    <string name="player_playing_for">Грає для %1$s із пристрою %2$s</string>
+    <string name="player_repeat_one">Повторювати пісню</string>
+    <string name="player_repeat_all">Повторювати все</string>
+    <string name="player_repeat_off">Повтор вимкнено</string>
+    <string name="player_shuffle">Упереміш</string>
+    <string name="player_on">Увімк.</string>
+    <string name="player_off">Вимк.</string>
+    <string name="player_toggle_shuffle">Перемкнути режим «Упереміш»</string>
+    <string name="player_reshuffle">Перемішати наново</string>
+    <string name="player_reshuffled">Перемішано</string>
+    <string name="player_hold_to_reshuffle">Утримуйте, щоб перемішати наново</string>
+
+    <string name="queue_title">Черга відтворення</string>
+    <string name="queue_empty">Черга порожня</string>
+    <string name="queue_earlier">Раніше</string>
+    <string name="queue_now_playing">Зараз грає</string>
+    <string name="queue_next">Далі</string>
+    <string name="queue_next_in_queue">Далі в черзі</string>
+    <string name="queue_clear">Очистити чергу</string>
+    <string name="queue_next_from">Далі з: %1$s</string>
+    <string name="queue_fallback_context">черги</string>
+    <string name="queue_remove">Прибрати з черги</string>
+
+    <string name="lyrics_none">До цієї пісні немає тексту</string>
+    <string name="lyrics_failed">Не вдалося завантажити текст</string>
+    <string name="lyrics_earlier">Текст раніше</string>
+    <string name="lyrics_later">Текст пізніше</string>
+    <string name="lyrics_original_timing">Початкова синхронізація</string>
+    <string name="lyrics_reset">Скинути</string>
+
+    <string name="devices_title">Слухати на</string>
+    <string name="devices_this_device">Цей пристрій</string>
+    <string name="devices_not_signed_in">Вхід не виконано</string>
+    <string name="devices_connecting">Під’єднання…</string>
+    <string name="devices_connected">Під’єднано</string>
+    <string name="devices_allow">Дозволити</string>
+    <string name="devices_permission_rationale">Щоб знайти інші ваші пристрої, Seiðr потрібен дозвіл «Пристрої поблизу».</string>
+    <string name="devices_looking">Шукаємо пристрої. Відкрийте Seiðr на іншому пристрої в тій самій мережі Wi-Fi: з вашим обліковим записом або без входу.</string>
+
+    <string name="menu_love">Вподобати</string>
+    <string name="menu_unlove">Прибрати з вподобаних</string>
+    <string name="menu_add_to_playlist">Додати до плейлиста</string>
+    <string name="menu_add_to_queue">Додати до черги</string>
+    <string name="menu_go_to_album">Перейти до альбому</string>
+    <string name="menu_go_to_artist">Перейти до виконавця</string>
+    <plurals name="menu_added_to_queue">
+        <item quantity="one">До черги додано %d пісню</item>
+        <item quantity="few">До черги додано %d пісні</item>
+        <item quantity="many">До черги додано %d пісень</item>
+        <item quantity="other">До черги додано %d пісні</item>
+    </plurals>
+    <string name="menu_new_playlist">Новий плейлист</string>
+    <string name="menu_playlist_name">Назва</string>
+    <string name="menu_create">Створити</string>
+    <string name="menu_create_failed">Не вдалося створити плейлист (потрібен сервер)</string>
+    <string name="menu_created">Плейлист «%1$s» створено</string>
+    <string name="menu_added_to">Додано до плейлиста %1$s</string>
+
+    <string name="menu_report_a_problem">Повідомити про проблему</string>
+    <string name="menu_report_no_playlist">Немає плейлиста %1$s</string>
+    <string name="menu_report_undo_song">Скасувати повідомлення про пісню</string>
+    <string name="menu_report_undo_art">Скасувати повідомлення про обкладинку</string>
+    <string name="menu_report_undo_lyrics">Скасувати повідомлення про текст</string>
+    <string name="menu_report_bad_song">Погана пісня (пропускати)</string>
+    <string name="menu_report_bad_art">Погана обкладинка</string>
+    <string name="menu_report_bad_lyrics">Поганий текст</string>
+
+    <string name="pair_title">Увійти на пристрої</string>
+    <string name="pair_signing_in">Вхід на пристрої %1$s… Дозвольте його на пристрої %1$s.</string>
+    <string name="pair_signed_in_as">На пристрої %1$s виконано вхід: %2$s</string>
+    <string name="pair_cancelled">Скасовано</string>
+    <string name="pair_intro">Відкрийте Seiðr на пристрої, де треба ввійти, у тій самій мережі Wi-Fi, що й цей. Поки на ньому не виконано вхід, він з’являється тут. Ви перевірите, що на обох екранах той самий код, і тоді на пристрої буде виконано вхід як %1$s.</string>
+    <string name="pair_intro_kid">Відкрийте Seiðr на пристрої, де треба ввійти, у тій самій мережі Wi-Fi, що й цей. Поки на ньому не виконано вхід, він з’являється тут. Ви перевірите, що на обох екранах той самий код, і тоді на пристрої буде виконано вхід як %1$s. Він теж стане дитячим, із тими самими піснями.</string>
+    <string name="pair_you">Ви</string>
+    <string name="pair_kid_approved_only">Дитина: лише схвалені пісні</string>
+    <string name="pair_permission_rationale">Щоб знайти інші пристрої, Seiðr потрібен дозвіл «Пристрої поблизу».</string>
+    <string name="pair_looking">Шукаємо пристрої без входу…</string>
+
+    <string name="theme_system">Системний</string>
+    <string name="theme_neutral">Нейтральний</string>
+    <string name="theme_red">Червоний</string>
+    <string name="theme_orange">Помаранчевий</string>
+    <string name="theme_amber">Бурштиновий</string>
+    <string name="theme_yellow">Жовтий</string>
+    <string name="theme_lime">Лаймовий</string>
+    <string name="theme_green">Зелений</string>
+    <string name="theme_emerald">Смарагдовий</string>
+    <string name="theme_teal">Бірюзовий</string>
+    <string name="theme_cyan">Блакитний</string>
+    <string name="theme_sky">Небесний</string>
+    <string name="theme_blue">Синій</string>
+    <string name="theme_indigo">Індиго</string>
+    <string name="theme_violet">Фіолетовий</string>
+    <string name="theme_purple">Пурпуровий</string>
+    <string name="theme_magenta">Маджента</string>
+    <string name="theme_pink">Рожевий</string>
+</resources>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">Zpět</string>
+    <string name="common_cancel">Zrušit</string>
+    <string name="common_clear">Vymazat</string>
+    <string name="common_close">Zavřít</string>
+    <string name="common_done">Hotovo</string>
+    <string name="common_more">Více</string>
+    <string name="common_remove">Odebrat</string>
+    <string name="common_try_again">Zkusit znovu</string>
+    <string name="common_offline">Offline</string>
+    <string name="common_load_failed">Tohle se nepodařilo načíst</string>
+    <string name="common_drag_to_reorder">Přetažením změníš pořadí</string>
+    <string name="common_moving_hint">Přesouvání: nahoru nebo dolů, výběrem položíš</string>
+    <string name="common_shuffle_play">Přehrát náhodně</string>
+    <string name="common_play_in_order">Přehrát popořadě</string>
+    <string name="common_play">Přehrát</string>
+
+    <string name="common_download">Stáhnout</string>
+    <string name="common_downloaded">Staženo</string>
+    <string name="common_queued">Ve frontě</string>
+    <string name="common_download_failed">Stahování se nezdařilo</string>
+    <string name="common_waiting_to_download">Čeká na stažení…</string>
+    <string name="common_downloading_progress">Stahování… %1$d/%2$d</string>
+    <string name="common_download_when_reachable">Stáhne se, až bude server dostupný</string>
+    <string name="common_downloads_removed">Stažené soubory odebrány: %1$s</string>
+    <string name="common_not_approved_yet">Zatím neschváleno</string>
+
+    <string name="common_read_only_kid">Zobrazení jako dítě je jen pro čtení</string>
+    <string name="common_cant_reach_server">Nepodařilo se připojit k serveru</string>
+    <string name="common_loved">Přidáno do oblíbených</string>
+    <string name="common_unloved">Odebráno z oblíbených</string>
+    <string name="common_edit_queued">Offline: na server se to uloží, až bude zpátky</string>
+    <string name="common_edit_conflict">Playlist se mezitím změnil jinde, takže se nic neuložilo. Načetl se znovu.</string>
+    <string name="common_edit_failed">Nepodařilo se uložit: %1$s</string>
+
+    <plurals name="common_songs">
+        <item quantity="one">%d skladba</item>
+        <item quantity="few">%d skladby</item>
+        <item quantity="many">%d skladby</item>
+        <item quantity="other">%d skladeb</item>
+    </plurals>
+    <plurals name="common_albums">
+        <item quantity="one">%d album</item>
+        <item quantity="few">%d alba</item>
+        <item quantity="many">%d alba</item>
+        <item quantity="other">%d alb</item>
+    </plurals>
+    <plurals name="common_approved_count">
+        <item quantity="one">Schváleno: %1$d</item>
+        <item quantity="few">Schváleno: %1$d</item>
+        <item quantity="many">Schváleno: %1$d</item>
+        <item quantity="other">Schváleno: %1$d</item>
+    </plurals>
+    <string name="common_by_owner">autor: %1$s</string>
+    <string name="common_duration_hr_min">%1$d h %2$d min</string>
+    <string name="common_duration_min">%1$d min</string>
+    <string name="common_size_gb">%1$.1f GB</string>
+    <string name="common_size_mb">%1$.0f MB</string>
+    <string name="common_size_kb">%1$.0f kB</string>
+
+    <string name="nav_home">Domů</string>
+    <string name="nav_search">Hledat</string>
+    <string name="nav_library">Knihovna</string>
+    <string name="nav_now_playing">Přehrává se</string>
+    <string name="nav_settings">Nastavení</string>
+    <string name="nav_update_available">Je dostupná aktualizace</string>
+    <string name="nav_settings_update_available">Nastavení, je dostupná aktualizace</string>
+
+    <string name="player_nothing_playing">Nic nehraje</string>
+    <string name="player_playing_from">PŘEHRÁVÁ SE Z</string>
+    <string name="player_queue">Fronta</string>
+    <string name="player_disconnect">Odpojit</string>
+    <string name="player_play_on_another_device">Přehrát na jiném zařízení</string>
+    <string name="player_lyrics">Text</string>
+    <string name="player_hide_lyrics">Skrýt text</string>
+    <string name="player_visualiser">Vizualizace</string>
+    <string name="player_immersive_visualiser">Imerzivní vizualizace</string>
+    <string name="player_previous">Předchozí</string>
+    <string name="player_next">Další</string>
+    <string name="player_play">Přehrát</string>
+    <string name="player_pause">Pozastavit</string>
+    <string name="player_playing_on">Hraje na: %1$s</string>
+    <string name="player_playing_for">Hraje pro %1$s ze zařízení %2$s</string>
+    <string name="player_repeat_one">Opakovat skladbu</string>
+    <string name="player_repeat_all">Opakovat vše</string>
+    <string name="player_repeat_off">Opakování vypnuto</string>
+    <string name="player_shuffle">Náhodně</string>
+    <string name="player_on">Zapnuto</string>
+    <string name="player_off">Vypnuto</string>
+    <string name="player_toggle_shuffle">Přepnout náhodné přehrávání</string>
+    <string name="player_reshuffle">Znovu zamíchat</string>
+    <string name="player_reshuffled">Zamícháno</string>
+    <string name="player_hold_to_reshuffle">Podržením znovu zamícháš</string>
+
+    <string name="queue_title">Fronta přehrávání</string>
+    <string name="queue_empty">Fronta je prázdná</string>
+    <string name="queue_earlier">Dříve</string>
+    <string name="queue_now_playing">Právě hraje</string>
+    <string name="queue_next">Další</string>
+    <string name="queue_next_in_queue">Další ve frontě</string>
+    <string name="queue_clear">Vymazat frontu</string>
+    <string name="queue_next_from">Další z: %1$s</string>
+    <string name="queue_fallback_context">fronty</string>
+    <string name="queue_remove">Odebrat z fronty</string>
+
+    <string name="lyrics_none">K této skladbě není text</string>
+    <string name="lyrics_failed">Text se nepodařilo načíst</string>
+    <string name="lyrics_earlier">Text dříve</string>
+    <string name="lyrics_later">Text později</string>
+    <string name="lyrics_original_timing">Původní časování</string>
+    <string name="lyrics_reset">Obnovit</string>
+
+    <string name="devices_title">Přehrát na</string>
+    <string name="devices_this_device">Toto zařízení</string>
+    <string name="devices_not_signed_in">Nepřihlášeno</string>
+    <string name="devices_connecting">Připojování…</string>
+    <string name="devices_connected">Připojeno</string>
+    <string name="devices_allow">Povolit</string>
+    <string name="devices_permission_rationale">Seiðr potřebuje oprávnění „Zařízení v okolí“, aby našel tvoje další zařízení.</string>
+    <string name="devices_looking">Hledám zařízení. Otevři Seiðr na jiném zařízení ve stejné Wi-Fi: na takovém, které je přihlášené k tvému účtu, nebo které přihlášené není.</string>
+
+    <string name="menu_love">Přidat do oblíbených</string>
+    <string name="menu_unlove">Odebrat z oblíbených</string>
+    <string name="menu_add_to_playlist">Přidat do playlistu</string>
+    <string name="menu_add_to_queue">Přidat do fronty</string>
+    <string name="menu_go_to_album">Přejít na album</string>
+    <string name="menu_go_to_artist">Přejít na interpreta</string>
+    <plurals name="menu_added_to_queue">
+        <item quantity="one">Přidáno do fronty</item>
+        <item quantity="few">Do fronty přidány %d skladby</item>
+        <item quantity="many">Do fronty přidáno %d skladby</item>
+        <item quantity="other">Do fronty přidáno %d skladeb</item>
+    </plurals>
+    <string name="menu_new_playlist">Nový playlist</string>
+    <string name="menu_playlist_name">Název</string>
+    <string name="menu_create">Vytvořit</string>
+    <string name="menu_create_failed">Playlist se nepodařilo vytvořit (je potřeba server)</string>
+    <string name="menu_created">Playlist „%1$s“ vytvořen</string>
+    <string name="menu_added_to">Přidáno do playlistu %1$s</string>
+
+    <string name="menu_report_a_problem">Nahlásit problém</string>
+    <string name="menu_report_no_playlist">Chybí playlist %1$s</string>
+    <string name="menu_report_undo_song">Vzít zpět nahlášení skladby</string>
+    <string name="menu_report_undo_art">Vzít zpět nahlášení obalu</string>
+    <string name="menu_report_undo_lyrics">Vzít zpět nahlášení textu</string>
+    <string name="menu_report_bad_song">Vadná skladba (přeskakovat)</string>
+    <string name="menu_report_bad_art">Špatný obal</string>
+    <string name="menu_report_bad_lyrics">Špatný text</string>
+
+    <string name="pair_title">Přihlásit zařízení</string>
+    <string name="pair_signing_in">Přihlašuje se zařízení %1$s… Povol to na zařízení %1$s.</string>
+    <string name="pair_signed_in_as">Zařízení %1$s je přihlášené jako %2$s</string>
+    <string name="pair_cancelled">Zrušeno</string>
+    <string name="pair_intro">Otevři Seiðr na zařízení, které chceš přihlásit, ve stejné Wi-Fi jako tohle. Dokud je odhlášené, ukáže se tady. Zkontroluješ, že obě obrazovky ukazují stejný kód, a pak se přihlásí jako %1$s.</string>
+    <string name="pair_intro_kid">Otevři Seiðr na zařízení, které chceš přihlásit, ve stejné Wi-Fi jako tohle. Dokud je odhlášené, ukáže se tady. Zkontroluješ, že obě obrazovky ukazují stejný kód, a pak se přihlásí jako %1$s. Bude to taky dětské zařízení, se stejnými skladbami.</string>
+    <string name="pair_you">Ty</string>
+    <string name="pair_kid_approved_only">Dítě: jen schválené skladby</string>
+    <string name="pair_permission_rationale">Seiðr potřebuje oprávnění „Zařízení v okolí“, aby našel další zařízení.</string>
+    <string name="pair_looking">Hledám odhlášená zařízení…</string>
+
+    <string name="theme_system">Systémová</string>
+    <string name="theme_neutral">Neutrální</string>
+    <string name="theme_red">Červená</string>
+    <string name="theme_orange">Oranžová</string>
+    <string name="theme_amber">Jantarová</string>
+    <string name="theme_yellow">Žlutá</string>
+    <string name="theme_lime">Limetková</string>
+    <string name="theme_green">Zelená</string>
+    <string name="theme_emerald">Smaragdová</string>
+    <string name="theme_teal">Modrozelená</string>
+    <string name="theme_cyan">Azurová</string>
+    <string name="theme_sky">Nebeská</string>
+    <string name="theme_blue">Modrá</string>
+    <string name="theme_indigo">Indigová</string>
+    <string name="theme_violet">Fialová</string>
+    <string name="theme_purple">Nachová</string>
+    <string name="theme_magenta">Purpurová</string>
+    <string name="theme_pink">Růžová</string>
+</resources>

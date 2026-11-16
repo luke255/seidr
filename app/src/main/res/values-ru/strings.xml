@@ -1,0 +1,100 @@
+<resources>
+    <string name="channel_updates">Обновления приложения</string>
+    <string name="update_offer_title">Обновить %1$s?</string>
+    <string name="update_offer_text">Версия %1$s готова к установке (у вас %2$s). На время обновления приложение закроется.</string>
+    <string name="update_install">Установить</string>
+    <string name="update_later">Позже</string>
+    <string name="update_whats_new">Что нового</string>
+    <string name="update_whats_new_title">Что нового в версии %1$s</string>
+    <string name="update_ready_title">Обновление готово</string>
+    <string name="update_ready_text">Нажмите, чтобы установить версию %1$s</string>
+
+    <string name="notif_channel_downloads">Скачивание</string>
+    <string name="notif_channel_storage">Предупреждения о памяти</string>
+    <plurals name="notif_downloading">
+        <item quantity="one">Скачивается %1$d трек</item>
+        <item quantity="few">Скачиваются %1$d трека</item>
+        <item quantity="many">Скачивается %1$d треков</item>
+        <item quantity="other">Скачивается %1$d трека</item>
+    </plurals>
+    <string name="notif_preparing">Подготовка…</string>
+    <string name="notif_storage_title">Скачивание приостановлено: нет места</string>
+    <string name="notif_storage_text">Освободите около %1$d МБ, чтобы продолжить. Ничего из уже скачанного не удалено.</string>
+
+    <string name="sync_server_error">Ошибка сервера</string>
+    <string name="sync_cant_reach">Нет связи с сервером</string>
+
+    <string name="car_recent">Недавнее</string>
+    <string name="car_playlists">Плейлисты</string>
+    <string name="car_playlist">Плейлист</string>
+    <plurals name="car_songs">
+        <item quantity="one">%1$d трек</item>
+        <item quantity="few">%1$d трека</item>
+        <item quantity="many">%1$d треков</item>
+        <item quantity="other">%1$d трека</item>
+    </plurals>
+
+    <string name="playback_love">В любимое</string>
+    <string name="playback_unlove">Убрать из любимого</string>
+
+    <string name="connect_not_signed_in">На этом устройстве не выполнен вход</string>
+    <string name="connect_update_for_kids">Сначала обновите Seiðr на устройстве %1$s: эта версия не может защитить детский аккаунт</string>
+    <string name="connect_no_answer">%1$s не отвечает</string>
+    <string name="connect_lost_why">Связь с устройством %1$s потеряна: %2$s</string>
+    <string name="connect_peer_other_account">На устройстве %1$s вошёл кто-то другой</string>
+    <string name="connect_peer_changed">На устройстве %1$s кто-то вошёл или вышел. Повторите попытку чуть позже.</string>
+    <string name="connect_peer_unreachable">Не удалось связаться с устройством %1$s. Seiðr на нём открыт?</string>
+    <string name="connect_playback_not_ready">Воспроизведение ещё не готово</string>
+    <string name="connect_device_fallback">Устройство Seiðr</string>
+    <string name="connect_peer_disconnected">%1$s: отключено</string>
+    <string name="connect_peer_signed_in">%1$s: вход выполнен</string>
+    <string name="connect_nobody_answered">На устройстве %1$s никто не ответил</string>
+    <string name="connect_not_allowed">На устройстве %1$s не разрешили</string>
+    <string name="connect_taken_over">%1$s теперь играет на устройстве %2$s</string>
+    <string name="connect_update_first">Сначала обновите Seiðr на устройстве %1$s</string>
+    <string name="connect_lost_connection">Связь с устройством %1$s потеряна</string>
+
+    <string name="account_connect_failed">Не удалось подключиться к серверу %1$s: %2$s</string>
+    <string name="account_lan_permission">Чтобы подключиться к серверу в домашней сети, Seiðr нужно разрешение «Устройства поблизости» / локальная сеть.</string>
+    <string name="account_check_failed_why">Не удалось проверить аккаунт %1$s: %2$s</string>
+    <string name="account_check_failed">Не удалось проверить аккаунт %1$s</string>
+    <string name="account_kid_is_admin">%1$s — администратор сервера. Детский аккаунт не может быть администратором.</string>
+    <string name="account_not_grownup">Это не аккаунт взрослого</string>
+    <string name="account_own_check_failed">Не удалось проверить ваш аккаунт на сервере</string>
+    <string name="account_admin_only">Смотреть как ребёнок могут только администраторы сервера</string>
+    <string name="account_view_failed">Не удалось открыть просмотр как %1$s: %2$s</string>
+    <string name="account_someone_else">Тем временем вошёл кто-то другой</string>
+
+    <string name="kids_signed_in_as_kid">Выполнен вход как ребёнок</string>
+    <string name="kids_setup_failed">Не удалось настроить детские плейлисты: %1$s</string>
+
+    <string name="report_no_playlist">На сервере нет плейлиста «%1$s»</string>
+    <string name="report_removed">Убрано из плейлиста %1$s</string>
+    <string name="report_song_reported">Сообщение отправлено. Этот трек будет пропускаться.</string>
+    <string name="report_art_reported">Сообщение об обложке отправлено</string>
+    <string name="report_lyrics_reported">Сообщение о тексте отправлено</string>
+    <string name="report_queued">Офлайн: плейлист %1$s обновится, когда сервер вернётся</string>
+    <string name="report_conflict">Не удалось обновить плейлист %1$s</string>
+    <string name="report_failed">Не удалось обновить плейлист %1$s: %2$s</string>
+
+    <string name="main_battery_title">Чтобы музыка не прерывалась</string>
+    <string name="main_battery_text">На некоторых телефонах менеджер батареи останавливает фоновое воспроизведение и скачивание. Разрешить Seiðr работать без ограничений? Это можно изменить позже в настройках.</string>
+    <string name="main_battery_allow">Разрешить</string>
+
+    <string name="vis_close">Закрыть визуализацию</string>
+    <string name="vis_now_playing">Сейчас играет</string>
+    <string name="vis_next_in_queue">Далее в очереди</string>
+    <string name="vis_next_from">Далее из: %1$s</string>
+    <string name="vis_next_from_queue">Далее из: очереди</string>
+    <string name="vis_hide_preset">Скрыть пресет</string>
+    <string name="vis_love_preset">Добавить пресет в любимое</string>
+    <string name="vis_unlove_preset">Убрать пресет из любимого</string>
+    <string name="vis_preview">Предпросмотр</string>
+    <string name="vis_preset_hidden">Пресет скрыт. Вернуть его можно в разделе Настройки → Визуализация.</string>
+    <string name="vis_xr_failed">Не удалось запустить иммерсивную визуализацию</string>
+    <string name="vis_warning_title">Мигающий свет</string>
+    <string name="vis_warning_headset">Некоторые пресеты быстро мигают, вспыхивают и кружатся, а в шлеме заполняют всё поле зрения. У людей с фоточувствительной эпилепсией это может вызвать приступ, а ещё может укачать или сбить ориентацию. Не вставайте, а если почувствуете себя плохо, снимите шлем.</string>
+    <string name="vis_warning_flat">Некоторые пресеты быстро мигают, вспыхивают и кружатся. У людей с фоточувствительной эпилепсией это может вызвать приступ. Если почувствуете себя плохо, отведите взгляд и закройте визуализацию.</string>
+    <string name="vis_continue">Продолжить</string>
+    <string name="vis_not_now">Не сейчас</string>
+</resources>

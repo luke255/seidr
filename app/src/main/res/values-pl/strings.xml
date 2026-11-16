@@ -1,0 +1,100 @@
+<resources>
+    <string name="channel_updates">Aktualizacje aplikacji</string>
+    <string name="update_offer_title">Zaktualizować %1$s?</string>
+    <string name="update_offer_text">Wersja %1$s jest gotowa do instalacji (masz %2$s). Aplikacja zamknie się na czas aktualizacji.</string>
+    <string name="update_install">Zainstaluj</string>
+    <string name="update_later">Później</string>
+    <string name="update_whats_new">Co nowego</string>
+    <string name="update_whats_new_title">Co nowego w wersji %1$s</string>
+    <string name="update_ready_title">Aktualizacja gotowa</string>
+    <string name="update_ready_text">Dotknij, aby zainstalować wersję %1$s</string>
+
+    <string name="notif_channel_downloads">Pobieranie</string>
+    <string name="notif_channel_storage">Ostrzeżenia o pamięci</string>
+    <plurals name="notif_downloading">
+        <item quantity="one">Pobieranie %1$d utworu</item>
+        <item quantity="few">Pobieranie %1$d utworów</item>
+        <item quantity="many">Pobieranie %1$d utworów</item>
+        <item quantity="other">Pobieranie %1$d utworu</item>
+    </plurals>
+    <string name="notif_preparing">Przygotowywanie…</string>
+    <string name="notif_storage_title">Pobieranie wstrzymane: brak miejsca</string>
+    <string name="notif_storage_text">Zwolnij około %1$d MB, aby kontynuować. Nic z tego, co już pobrano, nie zostało usunięte.</string>
+
+    <string name="sync_server_error">Błąd serwera</string>
+    <string name="sync_cant_reach">Nie można połączyć się z serwerem</string>
+
+    <string name="car_recent">Ostatnie</string>
+    <string name="car_playlists">Playlisty</string>
+    <string name="car_playlist">Playlista</string>
+    <plurals name="car_songs">
+        <item quantity="one">%1$d utwór</item>
+        <item quantity="few">%1$d utwory</item>
+        <item quantity="many">%1$d utworów</item>
+        <item quantity="other">%1$d utworu</item>
+    </plurals>
+
+    <string name="playback_love">Dodaj do ulubionych</string>
+    <string name="playback_unlove">Usuń z ulubionych</string>
+
+    <string name="connect_not_signed_in">To urządzenie nie jest zalogowane</string>
+    <string name="connect_update_for_kids">Najpierw zaktualizuj Seiðr na urządzeniu %1$s: ta wersja nie ochroni danych logowania dziecka</string>
+    <string name="connect_no_answer">%1$s nie odpowiada</string>
+    <string name="connect_lost_why">Utracono połączenie z urządzeniem %1$s: %2$s</string>
+    <string name="connect_peer_other_account">Na urządzeniu %1$s zalogowany jest ktoś inny</string>
+    <string name="connect_peer_changed">Na urządzeniu %1$s ktoś się zalogował lub wylogował. Spróbuj ponownie za chwilę.</string>
+    <string name="connect_peer_unreachable">Nie udało się połączyć z urządzeniem %1$s. Czy Seiðr jest na nim otwarty?</string>
+    <string name="connect_playback_not_ready">Odtwarzanie nie jest jeszcze gotowe</string>
+    <string name="connect_device_fallback">Urządzenie Seiðr</string>
+    <string name="connect_peer_disconnected">%1$s: rozłączono</string>
+    <string name="connect_peer_signed_in">%1$s: zalogowano</string>
+    <string name="connect_nobody_answered">Nikt nie odpowiedział na urządzeniu %1$s</string>
+    <string name="connect_not_allowed">Nie zezwolono na urządzeniu %1$s</string>
+    <string name="connect_taken_over">%1$s odtwarza teraz na urządzeniu %2$s</string>
+    <string name="connect_update_first">Najpierw zaktualizuj Seiðr na urządzeniu %1$s</string>
+    <string name="connect_lost_connection">Utracono połączenie z urządzeniem %1$s</string>
+
+    <string name="account_connect_failed">Nie udało się połączyć z serwerem %1$s: %2$s</string>
+    <string name="account_lan_permission">Seiðr potrzebuje uprawnienia „Urządzenia w pobliżu” / sieć lokalna, aby połączyć się z serwerem w Twojej sieci domowej.</string>
+    <string name="account_check_failed_why">Nie udało się sprawdzić konta %1$s: %2$s</string>
+    <string name="account_check_failed">Nie udało się sprawdzić konta %1$s</string>
+    <string name="account_kid_is_admin">%1$s ma na serwerze uprawnienia administratora. Konto dziecka nie może być kontem administratora.</string>
+    <string name="account_not_grownup">To nie jest konto osoby dorosłej</string>
+    <string name="account_own_check_failed">Nie udało się sprawdzić Twojego konta na serwerze</string>
+    <string name="account_admin_only">Tylko administratorzy serwera mogą korzystać z widoku dziecka</string>
+    <string name="account_view_failed">Nie udało się otworzyć widoku konta %1$s: %2$s</string>
+    <string name="account_someone_else">W międzyczasie zalogował się ktoś inny</string>
+
+    <string name="kids_signed_in_as_kid">Zalogowano jako dziecko</string>
+    <string name="kids_setup_failed">Nie udało się przygotować playlist dla dzieci: %1$s</string>
+
+    <string name="report_no_playlist">Na serwerze nie ma playlisty „%1$s”</string>
+    <string name="report_removed">Usunięto z playlisty %1$s</string>
+    <string name="report_song_reported">Zgłoszono. Ten utwór będzie pomijany.</string>
+    <string name="report_art_reported">Zgłoszono okładkę</string>
+    <string name="report_lyrics_reported">Zgłoszono tekst</string>
+    <string name="report_queued">Offline: playlista %1$s zaktualizuje się, gdy serwer wróci</string>
+    <string name="report_conflict">Nie udało się zaktualizować playlisty %1$s</string>
+    <string name="report_failed">Nie udało się zaktualizować playlisty %1$s: %2$s</string>
+
+    <string name="main_battery_title">Niech muzyka gra</string>
+    <string name="main_battery_text">Menedżery baterii w niektórych telefonach zatrzymują odtwarzanie w tle i pobieranie. Pozwolić Seiðr działać bez ograniczeń? Możesz to później zmienić w Ustawieniach.</string>
+    <string name="main_battery_allow">Zezwól</string>
+
+    <string name="vis_close">Zamknij wizualizację</string>
+    <string name="vis_now_playing">Teraz odtwarzane</string>
+    <string name="vis_next_in_queue">Następne w kolejce</string>
+    <string name="vis_next_from">Następne z: %1$s</string>
+    <string name="vis_next_from_queue">Następne z: kolejki</string>
+    <string name="vis_hide_preset">Ukryj preset</string>
+    <string name="vis_love_preset">Dodaj preset do ulubionych</string>
+    <string name="vis_unlove_preset">Usuń preset z ulubionych</string>
+    <string name="vis_preview">Podgląd</string>
+    <string name="vis_preset_hidden">Preset ukryty. Przywrócisz go w: Ustawienia → Wizualizacja.</string>
+    <string name="vis_xr_failed">Nie udało się uruchomić wizualizacji immersyjnej</string>
+    <string name="vis_warning_title">Migające światła</string>
+    <string name="vis_warning_headset">Niektóre presety szybko migają, błyskają i wirują, a w goglach wypełniają całe pole widzenia. U osób z padaczką fotowrażliwą może to wywołać napad, może też powodować chorobę lokomocyjną lub dezorientację. Oglądaj na siedząco, a jeśli poczujesz się źle, zdejmij gogle.</string>
+    <string name="vis_warning_flat">Niektóre presety szybko migają, błyskają i wirują. U osób z padaczką fotowrażliwą może to wywołać napad. Jeśli poczujesz się źle, odwróć wzrok i zamknij wizualizację.</string>
+    <string name="vis_continue">Dalej</string>
+    <string name="vis_not_now">Nie teraz</string>
+</resources>

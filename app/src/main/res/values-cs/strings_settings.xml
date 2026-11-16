@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Nastavení</string>
+    <string name="settings_appearance">Vzhled</string>
+    <string name="settings_visualiser">Vizualizace</string>
+    <string name="settings_vis_item">Informace o skladbě a presety</string>
+    <string name="settings_vis_item_hint">Co se přes ni zobrazuje; oblíbené a skryté presety</string>
+    <string name="settings_playback_downloads">Přehrávání a stahování</string>
+    <string name="settings_background_playback">Přehrávání na pozadí</string>
+    <string name="settings_battery_off">Bez omezení: optimalizace baterie je vypnutá</string>
+    <string name="settings_battery_tap">Klepnutím povolíš aplikaci Seiðr běžet bez omezení. Správa baterie v některých telefonech jinak hudbu zastavuje.</string>
+    <string name="settings_on">Zapnuto</string>
+    <string name="settings_downloads_storage">Stažené a úložiště</string>
+    <string name="settings_downloads_storage_hint">Fronta, místo podle playlistů, jen Wi-Fi</string>
+    <string name="settings_library">Knihovna</string>
+    <string name="settings_others_private">Soukromé playlisty ostatních</string>
+    <string name="settings_others_private_hint">Jsi správce, takže ti server ukazuje playlisty všech. Když to vypneš, ve tvé knihovně nebudou.</string>
+
+    <string name="settings_reporting">Hlášení</string>
+    <string name="settings_report_problems">Hlásit problémy</string>
+    <string name="settings_report_problems_hint">Přidá „Nahlásit problém“ do nabídky ⋮ u každé skladby</string>
+    <string name="settings_report_info">Vadný soubor, špatný obal nebo rozbitý text se na serveru zařadí do playlistu %1$s, %2$s nebo %3$s, aby to ten, kdo se o server stará, opravil. Skladby v %1$s se přeskakují, dokud nejsou opravené.</string>
+    <string name="settings_report_missing">Na serveru chybí: %1$s.</string>
+
+    <string name="settings_about">O aplikaci</string>
+    <string name="settings_auto_update">Automaticky kontrolovat aktualizace</string>
+    <string name="settings_auto_update_hint">Při otevření aplikace se podívá na GitHub, jestli nevyšla nová verze</string>
+    <string name="settings_install_update">Nainstalovat aktualizaci</string>
+    <string name="settings_check_updates">Zkontrolovat aktualizace</string>
+    <string name="settings_checking">Kontrola…</string>
+    <string name="settings_version_ready">Verze %1$s je připravená</string>
+    <string name="settings_installs_straight_away">Novější verzi nainstaluje rovnou</string>
+    <string name="settings_latest_version">Máš nejnovější verzi (nebo je GitHub nedostupný)</string>
+    <string name="settings_whats_new">Co je nového</string>
+    <string name="settings_whats_new_hint">Změny v jednotlivých verzích</string>
+    <string name="settings_licences">Open source licence</string>
+    <string name="settings_licences_hint">Seiðr je svobodný software (GNU GPL 3.0)</string>
+    <string name="settings_build">Sestavení %1$d</string>
+    <string name="settings_new_badge">NOVÉ</string>
+
+    <string name="settings_sign_out_title">Odhlásit se?</string>
+    <string name="settings_sign_out_message">Přehrávání se zastaví a synchronizace se pozastaví, dokud se znovu nepřihlásíš. Stažené soubory zůstanou.</string>
+    <string name="settings_sign_out">Odhlásit se</string>
+    <string name="settings_cancel">Zrušit</string>
+
+    <string name="settings_not_signed_in">Nepřihlášeno</string>
+    <string name="settings_not_connected">Nepřipojeno</string>
+    <string name="settings_server_kid">%1$s · Dětský účet</string>
+    <string name="settings_sign_in_device">Přihlásit zařízení</string>
+
+    <string name="settings_colour">Barva</string>
+    <string name="settings_theme_system">Systémová (tapeta)</string>
+    <string name="settings_theme_neutral">Neutrální</string>
+
+    <string name="kids_title">Děti</string>
+    <string name="kids_view_as_description">Zobrazit jako %1$s</string>
+    <string name="kids_remove_description">Odebrat %1$s</string>
+    <string name="kids_add">Přidat dětský účet</string>
+    <string name="kids_how">Jak fungují dětské účty</string>
+    <string name="kids_remove_title">Odebrat %1$s?</string>
+    <string name="kids_remove_message">Toto zařízení zapomene přihlašovací údaje dítěte. Zařízení, která už jsou přihlášená jako %1$s, zůstanou přihlášená.</string>
+    <string name="kids_remove">Odebrat</string>
+    <string name="kids_cancel">Zrušit</string>
+    <string name="kids_help_title">Dětské účty</string>
+    <string name="kids_help_step1">1. Založ každému dítěti vlastní účet v Navidrome (ne správcovský) a přidej ho sem.</string>
+    <string name="kids_help_step2">2. Jeho zařízení přihlas přes „Přihlásit zařízení“. Heslo si nech pro sebe.</string>
+    <string name="kids_help_step3">3. Co dítě dostane, určuješ třemi playlisty na svém účtu, které vzniknou při přidání dítěte:</string>
+    <string name="kids_help_approved">skladby, které může přehrávat</string>
+    <string name="kids_help_safe_titles">zobrazené šedě, jen název</string>
+    <string name="kids_help_safe_art">zobrazené šedě, s obalem</string>
+    <string name="kids_help_hidden">Všechno ostatní je před dítětem skryté. Tyhle playlisty ve tvé knihovně nejsou, takže je upravuj ve webovém přehrávači Navidrome nebo v jiné aplikaci.</string>
+    <string name="kids_help_eye">Tlačítko s okem ukáže Seiðr tak, jak ho vidí dítě, a nic přitom nezmění.</string>
+    <string name="kids_got_it">Rozumím</string>
+    <string name="kids_view_as_title">Zobrazit jako %1$s?</string>
+    <string name="kids_view_as_message">Uvidíš jen to, co ukazují zařízení uživatele %1$s. Je to jen pro čtení: tvoje přihlášení zůstává a skladby, které tu pustíš, se počítají jako tvoje přehrání, ne uživatele %1$s. Zpátky se dostaneš přes banner na obrazovce „Domů“ nebo v Nastavení.</string>
+    <string name="kids_view_as_button">Zobrazit jako %1$s</string>
+    <string name="kids_viewing_as">Zobrazeno jako %1$s</string>
+    <string name="kids_back_to">Zpět na: %1$s</string>
+    <string name="kids_own_account">To je tvůj vlastní účet</string>
+    <string name="kids_add_message">Přihlašovací údaje dítěte do Navidrome na %1$s.</string>
+    <string name="kids_username">Uživatelské jméno</string>
+    <string name="kids_password">Heslo</string>
+    <string name="kids_add_button">Přidat</string>
+
+    <string name="login_unencrypted_title">Nešifrované připojení</string>
+    <string name="login_unencrypted_message">Tento server je na internetu, ale jeho adresa začíná na http://, takže tvoje přihlašovací údaje i hudba putují nešifrovaně. Kdokoli po cestě si je může přečíst a tvoje přihlášení zneužít. Pokud má server adresu https://, použij ji.</string>
+    <string name="login_connect_anyway">Přesto připojit</string>
+    <string name="login_go_back">Zpět</string>
+    <string name="login_heading">Připoj se ke svému serveru Navidrome</string>
+    <string name="login_server_url">Adresa URL serveru</string>
+    <string name="login_username">Uživatelské jméno</string>
+    <string name="login_password">Heslo</string>
+    <string name="login_log_in">Přihlásit se</string>
+    <string name="login_other_device_title">Už máš přihlášené jiné zařízení?</string>
+    <string name="login_other_device_steps">Otevři na něm Seiðr, jdi do Nastavení → Přihlásit zařízení a vyber %1$s. Obě zařízení musí být ve stejné Wi-Fi a na tomhle musí být Seiðr otevřený. Zkontroluj, že kód na obou obrazovkách souhlasí, a je to.</string>
+    <string name="login_back">Zpět</string>
+    <string name="login_idle_ready">Připraveno k přehrávání</string>
+    <string name="login_idle_hint">Otevři Seiðr na jiném zařízení, klepni na „Přehrát na“ a vyber tohle.</string>
+    <string name="login_pairing_code">Párovací kód</string>
+    <string name="login_check_same_code">Zkontroluj, že %1$s ukazuje stejný kód.</string>
+    <string name="login_sign_in_this_device">Přihlásit toto zařízení?</string>
+    <string name="login_sign_in_request">%1$s chce toto zařízení přihlásit jako %2$s na %3$s.</string>
+    <string name="login_sign_in_request_kid">%1$s chce toto zařízení přihlásit jako %2$s (dětský účet) na %3$s.</string>
+    <string name="login_allow">Povolit</string>
+    <string name="login_dont_allow">Nepovolit</string>
+    <string name="login_cancel">Zrušit</string>
+    <string name="login_sign_in_peer">Přihlásit zařízení %1$s?</string>
+    <string name="login_play_on_peer">Přehrát na zařízení %1$s?</string>
+    <string name="login_check_this_code">Zkontroluj, že %1$s ukazuje tento kód:</string>
+    <string name="login_will_sign_in_kid">Přihlásí se jako %1$s, dětský účet: jen schválené skladby.</string>
+    <string name="login_will_sign_in">Přihlásí se jako %1$s, s tvým heslem.</string>
+    <string name="login_will_play">Bude přehrávat s tvým přihlášením, dokud se neodpojí. U tohoto zařízení se už ptát nebudeme.</string>
+    <string name="login_it_matches">Souhlasí</string>
+
+    <string name="licences_title">Open source licence</string>
+    <string name="licences_includes">Seiðr obsahuje</string>
+    <string name="licences_shared_freely">Volně sdíleno; autoři můžou požádat o odstranění</string>
+    <string name="licences_projectm_by">Tým projectM. Dodáváno beze změn; zdrojový kód je v repozitáři Seiðr</string>
+    <string name="licences_presets">Presety MilkDrop (Cream of the Crop)</string>
+    <string name="licences_presets_by">Výběr: Jason Fletcher; autor každého presetu je uvedený v jeho názvu</string>
+    <string name="licences_textures">Balíček textur MilkDrop</string>
+    <string name="licences_textures_by">Sestavil tým projectM</string>
+    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
+    <string name="licences_material_icons">Ikony Material</string>
+    <string name="licences_okhttp">OkHttp a Retrofit</string>
+    <string name="licences_coil_by">Přispěvatelé projektu Coil</string>
+    <string name="licences_openxr">Zavaděč OpenXR</string>
+
+    <string name="vissettings_title">Vizualizace</string>
+    <string name="vissettings_track_info">Zobrazovat informace o skladbě</string>
+    <string name="vissettings_track_info_hint">Obal, název a čas v rohu. Když je to vypnuté, ukážou se jen s ovládáním (podržením, nebo nahoru/dolů na ovladači).</string>
+    <string name="vissettings_performance">Zobrazovat výkon</string>
+    <string name="vissettings_performance_hint">Snímková frekvence, velikost vykreslování a úroveň kvality v rohu, jak se vizualizace sama přizpůsobuje.</string>
+    <string name="vissettings_loved">Oblíbené presety</string>
+    <string name="vissettings_loved_hint">Srdce v ovládání vizualizace. Oblíbené presety přijdou na řadu zhruba jednou z deseti.</string>
+    <string name="vissettings_unlove">Odebrat z oblíbených</string>
+    <string name="vissettings_hidden">Skryté presety</string>
+    <string name="vissettings_hidden_hint">Vlajka v ovládání vizualizace preset skryje. Presety, které jsou pro tohle zařízení na plynulé zobrazení moc náročné, se skryjí samy. Klepnutím na preset zobrazíš náhled.</string>
+    <string name="vissettings_hidden_by_you">Skryté tebou</string>
+    <string name="vissettings_too_heavy">Moc náročné pro toto zařízení</string>
+    <string name="vissettings_unhide">Zrušit skrytí</string>
+
+    <string name="whatsnew_title">Co je nového</string>
+    <string name="whatsnew_this_version">%1$s (tato verze)</string>
+
+</resources>

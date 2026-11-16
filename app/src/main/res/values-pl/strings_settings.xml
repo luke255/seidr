@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Ustawienia</string>
+    <string name="settings_appearance">Wygląd</string>
+    <string name="settings_visualiser">Wizualizacja</string>
+    <string name="settings_vis_item">Informacje o utworze i presety</string>
+    <string name="settings_vis_item_hint">Co widać na wizualizacji; ulubione i ukryte presety</string>
+    <string name="settings_playback_downloads">Odtwarzanie i pobieranie</string>
+    <string name="settings_background_playback">Odtwarzanie w tle</string>
+    <string name="settings_battery_off">Bez ograniczeń: optymalizacja baterii jest wyłączona</string>
+    <string name="settings_battery_tap">Dotknij, aby Seiðr mógł działać bez ograniczeń. Inaczej menedżery baterii w niektórych telefonach zatrzymują muzykę.</string>
+    <string name="settings_on">Włączone</string>
+    <string name="settings_downloads_storage">Pobrane i pamięć</string>
+    <string name="settings_downloads_storage_hint">Kolejka, miejsce zajęte przez playlisty, tylko Wi-Fi</string>
+    <string name="settings_library">Biblioteka</string>
+    <string name="settings_others_private">Prywatne playlisty innych osób</string>
+    <string name="settings_others_private_hint">Jesteś administratorem, więc serwer pokazuje Ci playlisty wszystkich. Wyłącz, aby nie trafiały do Twojej biblioteki.</string>
+
+    <string name="settings_reporting">Zgłaszanie</string>
+    <string name="settings_report_problems">Zgłaszaj problemy</string>
+    <string name="settings_report_problems_hint">Dodaje „Zgłoś problem” do menu ⋮ każdego utworu</string>
+    <string name="settings_report_info">Wadliwy plik, zła okładka lub błędny tekst trafia na serwerową playlistę %1$s, %2$s lub %3$s, żeby osoba opiekująca się serwerem mogła to naprawić. Utwory z %1$s są pomijane, dopóki nie zostaną naprawione.</string>
+    <string name="settings_report_missing">Nie znaleziono na serwerze: %1$s.</string>
+
+    <string name="settings_about">O aplikacji</string>
+    <string name="settings_auto_update">Automatycznie sprawdzaj aktualizacje</string>
+    <string name="settings_auto_update_hint">Przy otwieraniu aplikacji szuka nowego wydania w serwisie GitHub</string>
+    <string name="settings_install_update">Zainstaluj aktualizację</string>
+    <string name="settings_check_updates">Sprawdź aktualizacje</string>
+    <string name="settings_checking">Sprawdzanie…</string>
+    <string name="settings_version_ready">Wersja %1$s jest gotowa</string>
+    <string name="settings_installs_straight_away">Nowsza wersja instaluje się od razu</string>
+    <string name="settings_latest_version">Masz najnowszą wersję (albo GitHub jest nieosiągalny)</string>
+    <string name="settings_whats_new">Co nowego</string>
+    <string name="settings_whats_new_hint">Zmiany w każdej wersji</string>
+    <string name="settings_licences">Licencje open source</string>
+    <string name="settings_licences_hint">Seiðr to wolne oprogramowanie (GNU GPL 3.0)</string>
+    <string name="settings_build">Kompilacja %1$d</string>
+    <string name="settings_new_badge">NOWE</string>
+
+    <string name="settings_sign_out_title">Wylogować się?</string>
+    <string name="settings_sign_out_message">Odtwarzanie się zatrzyma, a synchronizacja zostanie wstrzymana do ponownego zalogowania. Pobrane pliki zostaną.</string>
+    <string name="settings_sign_out">Wyloguj się</string>
+    <string name="settings_cancel">Anuluj</string>
+
+    <string name="settings_not_signed_in">Nie zalogowano</string>
+    <string name="settings_not_connected">Brak połączenia</string>
+    <string name="settings_server_kid">%1$s · Konto dziecka</string>
+    <string name="settings_sign_in_device">Zaloguj urządzenie</string>
+
+    <string name="settings_colour">Kolor</string>
+    <string name="settings_theme_system">Systemowy (tapeta)</string>
+    <string name="settings_theme_neutral">Neutralny</string>
+
+    <string name="kids_title">Dzieci</string>
+    <string name="kids_view_as_description">Zobacz jako %1$s</string>
+    <string name="kids_remove_description">Usuń %1$s</string>
+    <string name="kids_add">Dodaj konto dziecka</string>
+    <string name="kids_how">Jak działają konta dzieci</string>
+    <string name="kids_remove_title">Usunąć %1$s?</string>
+    <string name="kids_remove_message">To urządzenie zapomni dane logowania dziecka. Urządzenia już zalogowane jako %1$s pozostaną zalogowane.</string>
+    <string name="kids_remove">Usuń</string>
+    <string name="kids_cancel">Anuluj</string>
+    <string name="kids_help_title">Konta dzieci</string>
+    <string name="kids_help_step1">1. Załóż każdemu dziecku osobne konto w Navidrome (bez uprawnień administratora) i dodaj je tutaj.</string>
+    <string name="kids_help_step2">2. Zaloguj urządzenie dziecka przez „Zaloguj urządzenie”. Hasło dziecka zachowaj dla siebie.</string>
+    <string name="kids_help_step3">3. O tym, co dziecko dostaje, decydują trzy playlisty na Twoim koncie, tworzone przy dodawaniu dziecka:</string>
+    <string name="kids_help_approved">utwory, które może odtwarzać</string>
+    <string name="kids_help_safe_titles">widoczne na szaro, sama nazwa</string>
+    <string name="kids_help_safe_art">widoczne na szaro, z okładką</string>
+    <string name="kids_help_hidden">Wszystko inne jest przed dzieckiem ukryte. Tych playlist nie ma w Twojej bibliotece, więc edytuj je w odtwarzaczu internetowym Navidrome albo w innej aplikacji.</string>
+    <string name="kids_help_eye">Przycisk z okiem pokazuje Seiðr tak, jak widzi go dziecko, niczego nie zmieniając.</string>
+    <string name="kids_got_it">Rozumiem</string>
+    <string name="kids_view_as_title">Zobaczyć jako %1$s?</string>
+    <string name="kids_view_as_message">Przeglądasz tylko to, co pokazują urządzenia użytkownika %1$s. To widok tylko do odczytu: Twoje logowanie się nie zmienia, a utwory odtwarzane tutaj liczą się jako Twoje odtworzenia, nie użytkownika %1$s. Wrócisz przez baner na ekranie „Główna” albo w Ustawieniach.</string>
+    <string name="kids_view_as_button">Zobacz jako %1$s</string>
+    <string name="kids_viewing_as">Widok jako %1$s</string>
+    <string name="kids_back_to">Wróć do: %1$s</string>
+    <string name="kids_own_account">To Twoje własne konto</string>
+    <string name="kids_add_message">Dane logowania dziecka do Navidrome na %1$s.</string>
+    <string name="kids_username">Nazwa użytkownika</string>
+    <string name="kids_password">Hasło</string>
+    <string name="kids_add_button">Dodaj</string>
+
+    <string name="login_unencrypted_title">Połączenie nieszyfrowane</string>
+    <string name="login_unencrypted_message">Ten serwer jest dostępny w internecie, ale jego adres zaczyna się od http://, więc Twoje dane logowania i muzyka są przesyłane bez szyfrowania. Każdy po drodze mógłby je odczytać i użyć Twoich danych logowania. Jeśli serwer ma adres https://, użyj go.</string>
+    <string name="login_connect_anyway">Połącz mimo to</string>
+    <string name="login_go_back">Wróć</string>
+    <string name="login_heading">Połącz się ze swoim serwerem Navidrome</string>
+    <string name="login_server_url">Adres URL serwera</string>
+    <string name="login_username">Nazwa użytkownika</string>
+    <string name="login_password">Hasło</string>
+    <string name="login_log_in">Zaloguj się</string>
+    <string name="login_other_device_title">Masz już zalogowane inne urządzenie?</string>
+    <string name="login_other_device_steps">Otwórz na nim Seiðr, przejdź do Ustawienia → Zaloguj urządzenie i wybierz %1$s. Oba urządzenia muszą być w tej samej sieci Wi-Fi, a na tym Seiðr musi być otwarty. Sprawdź, czy kod na obu ekranach jest taki sam, i gotowe.</string>
+    <string name="login_back">Wstecz</string>
+    <string name="login_idle_ready">Gotowe do odtwarzania</string>
+    <string name="login_idle_hint">Otwórz Seiðr na innym urządzeniu, dotknij „Odtwarzaj na” i wybierz to.</string>
+    <string name="login_pairing_code">Kod parowania</string>
+    <string name="login_check_same_code">Sprawdź, czy %1$s pokazuje ten sam kod.</string>
+    <string name="login_sign_in_this_device">Zalogować to urządzenie?</string>
+    <string name="login_sign_in_request">%1$s chce zalogować to urządzenie jako %2$s na %3$s.</string>
+    <string name="login_sign_in_request_kid">%1$s chce zalogować to urządzenie jako %2$s (konto dziecka) na %3$s.</string>
+    <string name="login_allow">Zezwól</string>
+    <string name="login_dont_allow">Nie zezwalaj</string>
+    <string name="login_cancel">Anuluj</string>
+    <string name="login_sign_in_peer">Zalogować urządzenie %1$s?</string>
+    <string name="login_play_on_peer">Odtwarzać na urządzeniu %1$s?</string>
+    <string name="login_check_this_code">Sprawdź, czy %1$s pokazuje ten kod:</string>
+    <string name="login_will_sign_in_kid">Zaloguje się jako %1$s, konto dziecka: tylko zatwierdzone utwory.</string>
+    <string name="login_will_sign_in">Zaloguje się jako %1$s, Twoim hasłem.</string>
+    <string name="login_will_play">Odtwarza z Twoim loginem, dopóki się nie rozłączy. W przypadku tego urządzenia nie zapytamy ponownie.</string>
+    <string name="login_it_matches">Zgadza się</string>
+
+    <string name="licences_title">Licencje open source</string>
+    <string name="licences_includes">Seiðr zawiera</string>
+    <string name="licences_shared_freely">Udostępniane swobodnie; autorzy mogą poprosić o usunięcie</string>
+    <string name="licences_projectm_by">Zespół projectM. Dołączony bez zmian; jego kod źródłowy jest w repozytorium Seiðr</string>
+    <string name="licences_presets">Presety MilkDrop (Cream of the Crop)</string>
+    <string name="licences_presets_by">Wybór: Jason Fletcher; autor każdego presetu jest podany w jego nazwie</string>
+    <string name="licences_textures">Pakiet tekstur MilkDrop</string>
+    <string name="licences_textures_by">Zebrane przez zespół projectM</string>
+    <string name="licences_androidx">AndroidX: Compose, Material 3, Media3, Room, WorkManager</string>
+    <string name="licences_material_icons">Ikony Material</string>
+    <string name="licences_okhttp">OkHttp i Retrofit</string>
+    <string name="licences_coil_by">Współtwórcy Coil</string>
+    <string name="licences_openxr">Moduł ładujący OpenXR</string>
+
+    <string name="vissettings_title">Wizualizacja</string>
+    <string name="vissettings_track_info">Pokazuj informacje o utworze</string>
+    <string name="vissettings_track_info_hint">Okładka, tytuł i czas w rogu. Po wyłączeniu widać je tylko razem ze sterowaniem (przytrzymaj albo góra/dół na pilocie).</string>
+    <string name="vissettings_performance">Pokazuj wydajność</string>
+    <string name="vissettings_performance_hint">Liczba klatek, rozmiar renderowania i poziom jakości w rogu, na bieżąco, gdy wizualizacja sama się dostraja.</string>
+    <string name="vissettings_loved">Ulubione presety</string>
+    <string name="vissettings_loved_hint">Serce w sterowaniu wizualizacji. Ulubione presety pojawiają się mniej więcej raz na dziesięć.</string>
+    <string name="vissettings_unlove">Usuń z ulubionych</string>
+    <string name="vissettings_hidden">Ukryte presety</string>
+    <string name="vissettings_hidden_hint">Flaga w sterowaniu wizualizacji ukrywa preset. Presety zbyt ciężkie, by to urządzenie pokazywało je płynnie, ukrywają się same. Dotknij presetu, aby zobaczyć podgląd.</string>
+    <string name="vissettings_hidden_by_you">Ukryte przez Ciebie</string>
+    <string name="vissettings_too_heavy">Zbyt ciężkie dla tego urządzenia</string>
+    <string name="vissettings_unhide">Przywróć</string>
+
+    <string name="whatsnew_title">Co nowego</string>
+    <string name="whatsnew_this_version">%1$s (ta wersja)</string>
+
+</resources>

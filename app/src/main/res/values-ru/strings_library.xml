@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="library_songs">
+        <item quantity="one">%d трек</item>
+        <item quantity="few">%d трека</item>
+        <item quantity="many">%d треков</item>
+        <item quantity="other">%d трека</item>
+    </plurals>
+    <plurals name="library_albums">
+        <item quantity="one">%d альбом</item>
+        <item quantity="few">%d альбома</item>
+        <item quantity="many">%d альбомов</item>
+        <item quantity="other">%d альбома</item>
+    </plurals>
+
+    <string name="library_title">Медиатека</string>
+    <string name="library_tab_playlists">Плейлисты</string>
+    <string name="library_tab_artists">Исполнители</string>
+    <string name="library_tab_albums">Альбомы</string>
+    <string name="library_search_playlists">Поиск плейлистов</string>
+    <string name="library_search_artists">Поиск исполнителей</string>
+    <string name="library_search_albums">Поиск альбомов</string>
+    <string name="library_close_search">Закрыть поиск</string>
+    <string name="library_search_library">Поиск по медиатеке</string>
+    <string name="library_create_playlist">Создать плейлист</string>
+    <string name="library_downloaded">Скачанное</string>
+    <string name="library_sort_custom">Свой порядок</string>
+    <string name="library_sort_name">Название</string>
+    <string name="library_sort_updated">Недавно изменённые</string>
+    <string name="library_sort_most_albums">Больше всего альбомов</string>
+    <string name="library_sort_artist">Исполнитель</string>
+    <string name="library_sort_added">Недавно добавленные</string>
+    <string name="library_sort_year">Год</string>
+    <string name="library_show_list">Показать списком</string>
+    <string name="library_show_grid">Показать сеткой</string>
+    <string name="library_by_owner">автор: %1$s</string>
+    <string name="library_playlist">Плейлист</string>
+    <string name="library_name">Название</string>
+    <string name="library_create">Создать</string>
+    <string name="library_cancel">Отмена</string>
+    <string name="library_create_failed">Не удалось создать плейлист (нужен сервер)</string>
+    <string name="library_no_match">По запросу «%1$s» ничего нет</string>
+    <string name="library_none_downloaded">Здесь пока ничего не скачано</string>
+    <string name="library_empty">Здесь пока ничего нет</string>
+    <plurals name="library_downloading_left">
+        <item quantity="one">Скачивание: остался %d трек</item>
+        <item quantity="few">Скачивание: осталось %d трека</item>
+        <item quantity="many">Скачивание: осталось %d треков</item>
+        <item quantity="other">Скачивание: осталось %d трека</item>
+    </plurals>
+
+    <string name="search_title">Поиск</string>
+    <string name="search_hint">Исполнители, треки, альбомы или плейлисты</string>
+    <string name="search_recent">Недавние запросы</string>
+    <string name="search_clear">Очистить</string>
+    <string name="search_filter_all">Все</string>
+    <string name="search_filter_songs">Треки</string>
+    <string name="search_filter_artists">Исполнители</string>
+    <string name="search_filter_albums">Альбомы</string>
+    <string name="search_filter_playlists">Плейлисты</string>
+    <string name="search_failed">Не удалось выполнить поиск</string>
+    <string name="search_no_results">По запросу «%1$s» ничего не найдено</string>
+    <string name="search_context">Поиск: %1$s</string>
+    <string name="search_top_result">Лучший результат</string>
+    <string name="search_kind_artist">Исполнитель</string>
+    <string name="search_kind_album">Альбом</string>
+    <string name="search_kind_song">Трек</string>
+    <string name="search_kind_album_by">Альбом · %1$s</string>
+    <string name="search_kind_song_by">Трек · %1$s</string>
+    <plurals name="search_kind_playlist">
+        <item quantity="one">Плейлист · %d трек</item>
+        <item quantity="few">Плейлист · %d трека</item>
+        <item quantity="many">Плейлист · %d треков</item>
+        <item quantity="other">Плейлист · %d трека</item>
+    </plurals>
+
+    <string name="playlist_by_owner">автор: %1$s</string>
+    <string name="playlist_done">Готово</string>
+    <string name="playlist_options">Параметры плейлиста</string>
+    <string name="playlist_reorder">Изменить порядок треков</string>
+    <string name="playlist_rename">Переименовать</string>
+    <string name="playlist_delete">Удалить плейлист</string>
+    <string name="playlist_remove_from_this">Убрать из этого плейлиста</string>
+    <string name="playlist_order_saved">Порядок плейлиста сохранён</string>
+    <string name="playlist_removed_from">Убрано из плейлиста %1$s</string>
+    <string name="playlist_rename_title">Переименовать плейлист</string>
+    <string name="playlist_renamed">Переименовано</string>
+    <string name="playlist_save">Сохранить</string>
+    <string name="playlist_cancel">Отмена</string>
+    <string name="playlist_delete_title">Удалить «%1$s»?</string>
+    <string name="playlist_delete_body">Плейлист будет удалён на сервере. Скачанные треки, которые хранились только из-за него, удалятся с телефона.</string>
+    <string name="playlist_deleted">Плейлист %1$s удалён</string>
+    <string name="playlist_delete_confirm">Удалить</string>
+
+    <string name="downloads_title">Скачанное</string>
+    <string name="downloads_free">Свободно на телефоне: %1$s</string>
+    <string name="downloads_queue">Очередь</string>
+    <string name="downloads_all_done">Всё скачано</string>
+    <plurals name="downloads_waiting">
+        <item quantity="one">%d трек ждёт</item>
+        <item quantity="few">%d трека ждут</item>
+        <item quantity="many">%d треков ждут</item>
+        <item quantity="other">%d трека ждут</item>
+    </plurals>
+    <string name="downloads_wifi_only_note">Скачивание только по Wi-Fi</string>
+    <plurals name="downloads_failed">
+        <item quantity="one">Ошибок: %d</item>
+        <item quantity="few">Ошибок: %d</item>
+        <item quantity="many">Ошибок: %d</item>
+        <item quantity="other">Ошибок: %d</item>
+    </plurals>
+    <string name="downloads_retry">Повторить</string>
+    <plurals name="downloads_edits_waiting">
+        <item quantity="one">%d правка плейлистов ждёт отправки</item>
+        <item quantity="few">%d правки плейлистов ждут отправки</item>
+        <item quantity="many">%d правок плейлистов ждут отправки</item>
+        <item quantity="other">%d правки плейлистов ждут отправки</item>
+    </plurals>
+    <string name="downloads_edits_note">Отправятся, когда сервер станет доступен</string>
+    <string name="downloads_settings">Настройки</string>
+    <string name="downloads_wifi_only">Скачивать только по Wi-Fi</string>
+    <string name="downloads_wifi_only_hint">Выключите, чтобы скачивать и через мобильный интернет</string>
+    <string name="downloads_syncing">Синхронизация…</string>
+    <string name="downloads_not_synced">Синхронизации ещё не было</string>
+    <string name="downloads_last_synced">Последняя синхронизация: %1$s</string>
+    <plurals name="downloads_unchecked">
+        <item quantity="one">Не удалось проверить: %d; ничего не удалено</item>
+        <item quantity="few">Не удалось проверить: %d; ничего не удалено</item>
+        <item quantity="many">Не удалось проверить: %d; ничего не удалено</item>
+        <item quantity="other">Не удалось проверить: %d; ничего не удалено</item>
+    </plurals>
+    <string name="downloads_sync_now">Синхронизировать</string>
+    <string name="downloads_downloaded">Скачано</string>
+    <string name="downloads_nothing">Пока ничего</string>
+    <string name="downloads_nothing_hint">Включите «Скачать» у плейлиста или альбома, чтобы он хранился на телефоне.</string>
+    <plurals name="downloads_progress">
+        <item quantity="one">%1$d из %2$d трека · %3$s</item>
+        <item quantity="few">%1$d из %2$d треков · %3$s</item>
+        <item quantity="many">%1$d из %2$d треков · %3$s</item>
+        <item quantity="other">%1$d из %2$d трека · %3$s</item>
+    </plurals>
+    <string name="downloads_waiting_short">Ожидание</string>
+    <string name="downloads_kind_playlist">Плейлист</string>
+    <string name="downloads_kind_album">Альбом</string>
+
+    <string name="home_offline_tv">Вы не в сети. Seiðr подключится снова, когда сервер станет доступен.</string>
+    <string name="home_offline">Вы не в сети. Скачанная музыка никуда не делась: откройте Медиатеку и включите фильтр «Скачанное».</string>
+    <string name="home_kid_empty">Для тебя пока ничего не одобрили. Попроси того, кто настроил тебе вход, добавить несколько треков.</string>
+    <string name="home_playlists">Плейлисты</string>
+    <string name="home_sort_az">А–Я</string>
+    <string name="home_sort_recent">Недавние</string>
+    <string name="home_by_owner">автор: %1$s</string>
+    <string name="home_recently_added">Недавно добавленные</string>
+    <string name="home_most_played">Слушаете чаще всего</string>
+    <string name="home_saved_albums">Сохранённые альбомы</string>
+
+    <string name="artist_load_failed">Не удалось загрузить треки</string>
+    <string name="artist_label">Исполнитель</string>
+    <string name="artist_popular">Популярное</string>
+    <string name="artist_show_less">Свернуть</string>
+    <string name="artist_show_all">Показать все</string>
+    <string name="artist_albums">Альбомы</string>
+    <string name="artist_singles">Синглы и EP</string>
+    <string name="artist_appears_on">Участие в других релизах</string>
+
+    <string name="album_unreachable">Не удалось связаться с сервером</string>
+    <string name="album_remove_from_library">Убрать из медиатеки</string>
+    <string name="album_save_to_library">Сохранить в медиатеке</string>
+    <string name="album_disc">Диск %1$s</string>
+
+    <string name="loved_title">Любимое</string>
+</resources>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="library_songs">
+        <item quantity="one">%d skladba</item>
+        <item quantity="few">%d skladby</item>
+        <item quantity="many">%d skladby</item>
+        <item quantity="other">%d skladeb</item>
+    </plurals>
+    <plurals name="library_albums">
+        <item quantity="one">%d album</item>
+        <item quantity="few">%d alba</item>
+        <item quantity="many">%d alba</item>
+        <item quantity="other">%d alb</item>
+    </plurals>
+
+    <string name="library_title">Knihovna</string>
+    <string name="library_tab_playlists">Playlisty</string>
+    <string name="library_tab_artists">Interpreti</string>
+    <string name="library_tab_albums">Alba</string>
+    <string name="library_search_playlists">Hledat playlisty</string>
+    <string name="library_search_artists">Hledat interprety</string>
+    <string name="library_search_albums">Hledat alba</string>
+    <string name="library_close_search">Zavřít hledání</string>
+    <string name="library_search_library">Hledat v knihovně</string>
+    <string name="library_create_playlist">Vytvořit playlist</string>
+    <string name="library_downloaded">Stažené</string>
+    <string name="library_sort_custom">Vlastní pořadí</string>
+    <string name="library_sort_name">Název</string>
+    <string name="library_sort_updated">Naposledy upravené</string>
+    <string name="library_sort_most_albums">Nejvíc alb</string>
+    <string name="library_sort_artist">Interpret</string>
+    <string name="library_sort_added">Naposledy přidané</string>
+    <string name="library_sort_year">Rok</string>
+    <string name="library_show_list">Zobrazit jako seznam</string>
+    <string name="library_show_grid">Zobrazit jako mřížku</string>
+    <string name="library_by_owner">autor: %1$s</string>
+    <string name="library_playlist">Playlist</string>
+    <string name="library_name">Název</string>
+    <string name="library_create">Vytvořit</string>
+    <string name="library_cancel">Zrušit</string>
+    <string name="library_create_failed">Playlist se nepodařilo vytvořit (je potřeba server)</string>
+    <string name="library_no_match">Výrazu „%1$s“ nic neodpovídá</string>
+    <string name="library_none_downloaded">Zatím tu není nic staženého</string>
+    <string name="library_empty">Zatím tu nic není</string>
+    <plurals name="library_downloading_left">
+        <item quantity="one">Stahování: zbývá %d skladba</item>
+        <item quantity="few">Stahování: zbývají %d skladby</item>
+        <item quantity="many">Stahování: zbývá %d skladby</item>
+        <item quantity="other">Stahování: zbývá %d skladeb</item>
+    </plurals>
+
+    <string name="search_title">Hledat</string>
+    <string name="search_hint">Interpreti, skladby, alba nebo playlisty</string>
+    <string name="search_recent">Nedávná hledání</string>
+    <string name="search_clear">Vymazat</string>
+    <string name="search_filter_all">Vše</string>
+    <string name="search_filter_songs">Skladby</string>
+    <string name="search_filter_artists">Interpreti</string>
+    <string name="search_filter_albums">Alba</string>
+    <string name="search_filter_playlists">Playlisty</string>
+    <string name="search_failed">Hledání se nezdařilo</string>
+    <string name="search_no_results">Žádné výsledky pro „%1$s“</string>
+    <string name="search_context">Hledání: %1$s</string>
+    <string name="search_top_result">Nejlepší výsledek</string>
+    <string name="search_kind_artist">Interpret</string>
+    <string name="search_kind_album">Album</string>
+    <string name="search_kind_song">Skladba</string>
+    <string name="search_kind_album_by">Album · %1$s</string>
+    <string name="search_kind_song_by">Skladba · %1$s</string>
+    <plurals name="search_kind_playlist">
+        <item quantity="one">Playlist · %d skladba</item>
+        <item quantity="few">Playlist · %d skladby</item>
+        <item quantity="many">Playlist · %d skladby</item>
+        <item quantity="other">Playlist · %d skladeb</item>
+    </plurals>
+
+    <string name="playlist_by_owner">autor: %1$s</string>
+    <string name="playlist_done">Hotovo</string>
+    <string name="playlist_options">Možnosti playlistu</string>
+    <string name="playlist_reorder">Změnit pořadí skladeb</string>
+    <string name="playlist_rename">Přejmenovat</string>
+    <string name="playlist_delete">Smazat playlist</string>
+    <string name="playlist_remove_from_this">Odebrat z tohoto playlistu</string>
+    <string name="playlist_order_saved">Pořadí playlistu uloženo</string>
+    <string name="playlist_removed_from">Odebráno z playlistu %1$s</string>
+    <string name="playlist_rename_title">Přejmenovat playlist</string>
+    <string name="playlist_renamed">Přejmenováno</string>
+    <string name="playlist_save">Uložit</string>
+    <string name="playlist_cancel">Zrušit</string>
+    <string name="playlist_delete_title">Smazat „%1$s“?</string>
+    <string name="playlist_delete_body">Smaže se na serveru. Stažené skladby, které v telefonu držel jen tenhle playlist, se odstraní.</string>
+    <string name="playlist_deleted">Playlist %1$s smazán</string>
+    <string name="playlist_delete_confirm">Smazat</string>
+
+    <string name="downloads_title">Stažené</string>
+    <string name="downloads_free">Volné místo v telefonu: %1$s</string>
+    <string name="downloads_queue">Fronta</string>
+    <string name="downloads_all_done">Všechno je stažené</string>
+    <plurals name="downloads_waiting">
+        <item quantity="one">%d skladba čeká</item>
+        <item quantity="few">%d skladby čekají</item>
+        <item quantity="many">%d skladby čeká</item>
+        <item quantity="other">%d skladeb čeká</item>
+    </plurals>
+    <string name="downloads_wifi_only_note">Stahování jen přes Wi-Fi</string>
+    <plurals name="downloads_failed">
+        <item quantity="one">Nezdařilo se: %d</item>
+        <item quantity="few">Nezdařilo se: %d</item>
+        <item quantity="many">Nezdařilo se: %d</item>
+        <item quantity="other">Nezdařilo se: %d</item>
+    </plurals>
+    <string name="downloads_retry">Zkusit znovu</string>
+    <plurals name="downloads_edits_waiting">
+        <item quantity="one">%d úprava playlistů čeká</item>
+        <item quantity="few">%d úpravy playlistů čekají</item>
+        <item quantity="many">%d úpravy playlistů čeká</item>
+        <item quantity="other">%d úprav playlistů čeká</item>
+    </plurals>
+    <string name="downloads_edits_note">Odešlou se, až bude server dostupný</string>
+    <string name="downloads_settings">Nastavení</string>
+    <string name="downloads_wifi_only">Stahovat jen přes Wi-Fi</string>
+    <string name="downloads_wifi_only_hint">Vypni, pokud chceš stahovat i přes mobilní data</string>
+    <string name="downloads_syncing">Synchronizace…</string>
+    <string name="downloads_not_synced">Zatím nesynchronizováno</string>
+    <string name="downloads_last_synced">Poslední synchronizace: %1$s</string>
+    <plurals name="downloads_unchecked">
+        <item quantity="one">%d položku se nepodařilo zkontrolovat; nic se neodstranilo</item>
+        <item quantity="few">%d položky se nepodařilo zkontrolovat; nic se neodstranilo</item>
+        <item quantity="many">%d položky se nepodařilo zkontrolovat; nic se neodstranilo</item>
+        <item quantity="other">%d položek se nepodařilo zkontrolovat; nic se neodstranilo</item>
+    </plurals>
+    <string name="downloads_sync_now">Synchronizovat</string>
+    <string name="downloads_downloaded">Stažené</string>
+    <string name="downloads_nothing">Zatím nic</string>
+    <string name="downloads_nothing_hint">Zapni u playlistu nebo alba přepínač „Stáhnout“ a zůstane ti v telefonu.</string>
+    <plurals name="downloads_progress">
+        <item quantity="one">%1$d/%2$d skladby · %3$s</item>
+        <item quantity="few">%1$d/%2$d skladeb · %3$s</item>
+        <item quantity="many">%1$d/%2$d skladby · %3$s</item>
+        <item quantity="other">%1$d/%2$d skladeb · %3$s</item>
+    </plurals>
+    <string name="downloads_waiting_short">Čeká</string>
+    <string name="downloads_kind_playlist">Playlist</string>
+    <string name="downloads_kind_album">Album</string>
+
+    <string name="home_offline_tv">Jsi offline. Seiðr se znovu připojí, až bude server dostupný.</string>
+    <string name="home_offline">Jsi offline. Stažená hudba tu pořád je: najdeš ji v Knihovně pod filtrem „Stažené“.</string>
+    <string name="home_kid_empty">Zatím pro tebe nebylo nic schváleno. Popros toho, kdo tě přihlásil, ať ti přidá pár skladeb.</string>
+    <string name="home_playlists">Playlisty</string>
+    <string name="home_sort_az">A–Z</string>
+    <string name="home_sort_recent">Nedávné</string>
+    <string name="home_by_owner">autor: %1$s</string>
+    <string name="home_recently_added">Nedávno přidané</string>
+    <string name="home_most_played">Nejhranější</string>
+    <string name="home_saved_albums">Uložená alba</string>
+
+    <string name="artist_load_failed">Skladby se nepodařilo načíst</string>
+    <string name="artist_label">Interpret</string>
+    <string name="artist_popular">Populární</string>
+    <string name="artist_show_less">Zobrazit méně</string>
+    <string name="artist_show_all">Zobrazit vše</string>
+    <string name="artist_albums">Alba</string>
+    <string name="artist_singles">Singly a EP</string>
+    <string name="artist_appears_on">Objevuje se na</string>
+
+    <string name="album_unreachable">Nepodařilo se připojit k serveru</string>
+    <string name="album_remove_from_library">Odebrat z knihovny</string>
+    <string name="album_save_to_library">Uložit do knihovny</string>
+    <string name="album_disc">Disk %1$s</string>
+
+    <string name="loved_title">Oblíbené</string>
+</resources>
