@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.rememberCoroutineScope
@@ -26,6 +27,8 @@ import eu.bradshaw.seidr.ui.player.LyricsPane
 import eu.bradshaw.seidr.ui.player.LyricsState
 import eu.bradshaw.seidr.ui.player.ART_CHANGE_MS
 import eu.bradshaw.seidr.ui.player.artOf
+import eu.bradshaw.seidr.ui.player.ArtworkPager
+import eu.bradshaw.seidr.ui.player.rememberJustBack
 import androidx.compose.animation.core.EaseOutCubic
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
@@ -337,9 +340,18 @@ private fun TrackPage(player: PlayerConnection, tv: Boolean, modifier: Modifier)
     BoxWithConstraints(modifier, contentAlignment = Alignment.Center) {
         val wide = maxWidth > maxHeight * 1.25f
         val art = if (wide) minOf(maxHeight * 0.8f, maxWidth * 0.4f, 480.dp) else minOf(maxWidth * 0.8f, maxHeight * 0.55f, 480.dp)
+        // Now Playing's artwork pager: the cover follows a finger and skips where it's let go,
+        // and slides itself when the track changes. Upright, it slides the full width; beside
+        // the words, within its own square. Room round the cover for its shadow.
+        val justBack = rememberJustBack()
         val cover: @Composable () -> Unit = {
-            SlidingCover(cur, ui.index, Modifier.size(art), gap = 32.dp, clip = false) { e ->
-                Cover(e.coverArt, Modifier.fillMaxSize().shadow(24.dp, RoundedCornerShape(8.dp)), size = 900, shape = RoundedCornerShape(8.dp))
+            val room = 24.dp
+            // Upright, out past the page's side margins to the screen's edges, so covers aren't cut off short of them.
+            val edge = if (tv) 48.dp else 24.dp
+            ArtworkPager(justBack, if (wide) Modifier.size(art + room * 2) else Modifier.requiredWidth(maxWidth + edge * 2).height(art + room * 2)) { c ->
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Cover(c, Modifier.size(art).shadow(24.dp, RoundedCornerShape(8.dp)), size = 900, shape = RoundedCornerShape(8.dp))
+                }
             }
         }
         val words: @Composable (Alignment.Horizontal, TextAlign) -> Unit = { align, textAlign ->
@@ -358,13 +370,12 @@ private fun TrackPage(player: PlayerConnection, tv: Boolean, modifier: Modifier)
         if (wide) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 cover()
-                Spacer(Modifier.width(32.dp))
+                Spacer(Modifier.width(8.dp))
                 Box(Modifier.widthIn(max = 480.dp)) { words(Alignment.Start, TextAlign.Start) }
             }
         } else {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 cover()
-                Spacer(Modifier.height(20.dp))
                 words(Alignment.CenterHorizontally, TextAlign.Center)
             }
         }

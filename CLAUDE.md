@@ -152,8 +152,8 @@ before changing sync or playback.
   - `VisOverlay` (Compose, over the GL surface; no frame cost): track card;
     playback by gesture (tap/select plays/pauses, sideways skips, each with
     a passing sign, pages up or not). Up/down turn through `VisPage`s
-    (preset flag, back/forward and heart; track, lyrics, queue, logo; none
-    at first); Back puts one away; pages never time out. They
+    (preset flag, back/forward and heart; track, with Now Playing's
+    `ArtworkPager`; lyrics, queue, logo; none at first); Back puts one away; pages never time out. They
     sit centred with no panels, just shadowed white text, and reuse Now
     Playing's pieces via a stand-in
     `AppActions`; the logo page is `LogoSprite`, drawn by `VisEngine` after
