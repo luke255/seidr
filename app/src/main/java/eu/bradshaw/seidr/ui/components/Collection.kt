@@ -36,6 +36,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.scale
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -133,11 +140,12 @@ fun HeaderFacts(text: String, downloaded: Boolean) {
 }
 
 /**
- * The classic Download switch. On creates an offline source and syncs it
- * straight away; off removes the source (files nothing else claims go).
+ * Download, in a collection's ⋮ menu, with its switch. On creates an offline
+ * source and syncs it straight away; off removes the source (files nothing
+ * else claims go). The label says how far it's got.
  */
 @Composable
-fun DownloadToggle(source: OfflineSource, totalTracks: Int) {
+private fun DownloadMenuItem(source: OfflineSource, close: () -> Unit) {
     val actions = LocalActions.current
     val graph = actions.graph
     val willDownload = stringResource(R.string.common_download_when_reachable)
@@ -152,23 +160,25 @@ fun DownloadToggle(source: OfflineSource, totalTracks: Int) {
         u.done < u.tracks -> stringResource(R.string.common_downloading_progress, u.done, u.tracks)
         else -> stringResource(R.string.common_downloaded)
     }
-    Row(
-        Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text(label, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f),
-            color = if (enabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
-        Switch(checked = enabled, onCheckedChange = { on ->
+    DropdownMenuItem(
+        { Text(label, color = if (enabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface) },
+        leadingIcon = { Icon(Icons.Filled.ArrowCircleDown, null, tint = if (enabled) MaterialTheme.colorScheme.primary else LocalContentColor.current) },
+        trailingIcon = { Switch(checked = enabled, onCheckedChange = null, modifier = Modifier.scale(0.8f)) },
+        onClick = {
+            close()
+            val on = !enabled
             graph.sync.setOffline(source, on)
             if (on && !graph.status.online.value) actions.toast(willDownload)
             if (!on) actions.toast(removedToast)
-        })
-    }
+        },
+    )
 }
 
 /**
  * Shared layout for playlist, album and Liked Songs: art, title, subtitle,
- * play buttons, Download switch, then rows. Stacked and centred on the cover
+ * play buttons, then rows. The top bar's ⋮ menu has Download (for
+ * [offline], not on TV or read-only) and then [menu]'s items, while
+ * [showMenu]. Stacked and centred on the cover
  * screen; art beside the text on wide panes, so tracks start on screen. The
  * screen's wash takes its colour from [washCover].
  */
@@ -184,6 +194,8 @@ fun CollectionLayout(
     offline: OfflineSource?,
     trackCount: Int,
     topActions: @Composable RowScope.() -> Unit = {},
+    menu: (@Composable (close: () -> Unit) -> Unit)? = null,
+    showMenu: Boolean = true,
     headerExtra: @Composable () -> Unit = {},
     listState: LazyListState = rememberLazyListState(),
     washCover: String? = null,
@@ -196,7 +208,22 @@ fun CollectionLayout(
     val wide = LocalWideShell.current
     val scope = rememberCoroutineScope()
     Column(Modifier.fillMaxSize()) {
-        BackTopBar(title, showTitle = showTitle, actions = topActions)
+        // No downloads on TV: it streams. Browsing as a kid is read-only; downloads are the admin's.
+        val download = offline?.takeIf { !tv && !readOnly }
+        BackTopBar(title, showTitle = showTitle) {
+            topActions()
+            if (showMenu && (download != null || menu != null)) {
+                Box {
+                    var open by remember { mutableStateOf(false) }
+                    val close = { open = false }
+                    IconButton(onClick = { open = true }) { Icon(Icons.Filled.MoreVert, stringResource(R.string.common_more)) }
+                    DropdownMenu(open, close) {
+                        if (download != null) DownloadMenuItem(download, close)
+                        menu?.invoke(close)
+                    }
+                }
+            }
+        }
         BoxWithConstraints(Modifier.fillMaxSize()) {
         // Short windows (a TV pane) shrink the art so the play buttons fit under it unscrolled.
         val artMax = (maxHeight - 200.dp).coerceIn(120.dp, 220.dp)
@@ -244,9 +271,6 @@ fun CollectionLayout(
                     }
                 }
             }
-            // No downloads on TV: it streams.
-            // Browsing as a kid is read-only; downloads are the admin's.
-            if (offline != null && !tv && !readOnly) item(key = "download") { DownloadToggle(offline, trackCount) }
             rows()
         }
         }

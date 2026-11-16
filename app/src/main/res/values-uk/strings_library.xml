@@ -84,7 +84,6 @@
     <string name="playlist_copied">Копію плейлиста %1$s збережено у ваших плейлистах</string>
     <string name="playlist_copy_failed">Не вдалося зберегти копію. Перевірте з’єднання та спробуйте ще раз.</string>
     <string name="playlist_done">Готово</string>
-    <string name="playlist_options">Параметри плейлиста</string>
     <string name="playlist_reorder">Змінити порядок пісень</string>
     <string name="playlist_rename">Перейменувати</string>
     <string name="playlist_delete">Видалити плейлист</string>

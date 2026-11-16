@@ -84,7 +84,6 @@
     <string name="playlist_copied">Kopie playlistu %1$s byla uložena do vašich playlistů</string>
     <string name="playlist_copy_failed">Kopii se nepodařilo uložit. Zkontrolujte připojení a zkuste to znovu.</string>
     <string name="playlist_done">Hotovo</string>
-    <string name="playlist_options">Možnosti playlistu</string>
     <string name="playlist_reorder">Změnit pořadí skladeb</string>
     <string name="playlist_rename">Přejmenovat</string>
     <string name="playlist_delete">Smazat playlist</string>

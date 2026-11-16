@@ -113,7 +113,6 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
     val songs = playlist.entry
 
     var editing by remember { mutableStateOf(false) }
-    var menu by remember { mutableStateOf(false) }
     var renaming by remember { mutableStateOf(false) }
     var confirmDelete by remember { mutableStateOf(false) }
     // Local copy for drag-reordering; keyed by position so duplicates are fine.
@@ -179,50 +178,47 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                         vm.load()
                     }
                 }) { Icon(Icons.Filled.Check, stringResource(R.string.playlist_done)) }
-            } else if (editable || canShare || canCopy) {
-                Box {
-                    IconButton(onClick = { menu = true }) { Icon(Icons.Filled.MoreVert, stringResource(R.string.playlist_options)) }
-                    DropdownMenu(menu, { menu = false }) {
-                        if (editable) {
-                            DropdownMenuItem({ Text(stringResource(R.string.playlist_reorder)) }, leadingIcon = { Icon(Icons.Filled.DragHandle, null) },
-                                onClick = { menu = false; editing = true })
-                            DropdownMenuItem({ Text(stringResource(R.string.playlist_rename)) }, leadingIcon = { Icon(Icons.Filled.Edit, null) },
-                                onClick = { menu = false; renaming = true })
+            }
+        },
+        showMenu = !editing,
+        menu = if (!(editable || canShare || canCopy)) null else { close ->
+            if (editable) {
+                DropdownMenuItem({ Text(stringResource(R.string.playlist_reorder)) }, leadingIcon = { Icon(Icons.Filled.DragHandle, null) },
+                    onClick = { close(); editing = true })
+                DropdownMenuItem({ Text(stringResource(R.string.playlist_rename)) }, leadingIcon = { Icon(Icons.Filled.Edit, null) },
+                    onClick = { close(); renaming = true })
+            }
+            if (canShare) {
+                DropdownMenuItem({ Text(stringResource(R.string.playlist_share)) }, leadingIcon = { Icon(Icons.Filled.Share, null) },
+                    trailingIcon = { Switch(playlist.public, null, Modifier.scale(0.8f)) },
+                    onClick = {
+                        close()
+                        val share = !playlist.public
+                        actions.launch {
+                            actions.report(graph.editor.setShared(playlist.id, share), if (share) sharedNow else unsharedNow)
+                            vm.load()
+                            runCatching { graph.browse.refreshPlaylists() }
                         }
-                        if (canShare) {
-                            DropdownMenuItem({ Text(stringResource(R.string.playlist_share)) }, leadingIcon = { Icon(Icons.Filled.Share, null) },
-                                trailingIcon = { Switch(playlist.public, null, Modifier.scale(0.8f)) },
-                                onClick = {
-                                    menu = false
-                                    val share = !playlist.public
-                                    actions.launch {
-                                        actions.report(graph.editor.setShared(playlist.id, share), if (share) sharedNow else unsharedNow)
-                                        vm.load()
-                                        runCatching { graph.browse.refreshPlaylists() }
-                                    }
-                                })
+                    })
+            }
+            if (canCopy) {
+                DropdownMenuItem({ Text(stringResource(R.string.playlist_save_copy)) }, leadingIcon = { Icon(Icons.Filled.LibraryAdd, null) },
+                    onClick = {
+                        close()
+                        actions.launch {
+                            val id = graph.editor.copy(playlist.id)
+                            if (id == null) actions.toast(copyFailed)
+                            else {
+                                runCatching { graph.browse.refreshPlaylists() }
+                                actions.toast(copied)
+                                actions.open(Route.Playlist(id))
+                            }
                         }
-                        if (canCopy) {
-                            DropdownMenuItem({ Text(stringResource(R.string.playlist_save_copy)) }, leadingIcon = { Icon(Icons.Filled.LibraryAdd, null) },
-                                onClick = {
-                                    menu = false
-                                    actions.launch {
-                                        val id = graph.editor.copy(playlist.id)
-                                        if (id == null) actions.toast(copyFailed)
-                                        else {
-                                            runCatching { graph.browse.refreshPlaylists() }
-                                            actions.toast(copied)
-                                            actions.open(Route.Playlist(id))
-                                        }
-                                    }
-                                })
-                        }
-                        if (editable) {
-                            DropdownMenuItem({ Text(stringResource(R.string.playlist_delete)) }, leadingIcon = { Icon(Icons.Filled.Delete, null) },
-                                onClick = { menu = false; confirmDelete = true })
-                        }
-                    }
-                }
+                    })
+            }
+            if (editable) {
+                DropdownMenuItem({ Text(stringResource(R.string.playlist_delete)) }, leadingIcon = { Icon(Icons.Filled.Delete, null) },
+                    onClick = { close(); confirmDelete = true })
             }
         },
     ) {

@@ -76,7 +76,6 @@
     <string name="playlist_copied">%1$s listesinin bir kopyası çalma listelerine kaydedildi</string>
     <string name="playlist_copy_failed">Kopya kaydedilemedi. Bağlantını kontrol edip tekrar dene.</string>
     <string name="playlist_done">Bitti</string>
-    <string name="playlist_options">Çalma listesi seçenekleri</string>
     <string name="playlist_reorder">Şarkıları yeniden sırala</string>
     <string name="playlist_rename">Yeniden adlandır</string>
     <string name="playlist_delete">Çalma listesini sil</string>

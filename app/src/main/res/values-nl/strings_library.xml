@@ -76,7 +76,6 @@
     <string name="playlist_copied">Kopie van %1$s opgeslagen bij je playlists</string>
     <string name="playlist_copy_failed">Kan geen kopie opslaan. Controleer je verbinding en probeer het opnieuw.</string>
     <string name="playlist_done">Klaar</string>
-    <string name="playlist_options">Playlistopties</string>
     <string name="playlist_reorder">Volgorde wijzigen</string>
     <string name="playlist_rename">Naam wijzigen</string>
     <string name="playlist_delete">Playlist verwijderen</string>

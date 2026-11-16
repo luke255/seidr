@@ -76,7 +76,6 @@
     <string name="playlist_copied">Αποθηκεύτηκε αντίγραφο της λίστας %1$s στις λίστες σας</string>
     <string name="playlist_copy_failed">Δεν ήταν δυνατή η αποθήκευση αντιγράφου. Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά.</string>
     <string name="playlist_done">Τέλος</string>
-    <string name="playlist_options">Επιλογές playlist</string>
     <string name="playlist_reorder">Αλλαγή σειράς τραγουδιών</string>
     <string name="playlist_rename">Μετονομασία</string>
     <string name="playlist_delete">Διαγραφή playlist</string>

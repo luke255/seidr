@@ -76,7 +76,6 @@
     <string name="playlist_copied">%1$s másolata elmentve a lejátszási listáid közé</string>
     <string name="playlist_copy_failed">Nem sikerült menteni a másolatot. Ellenőrizd a kapcsolatot, és próbáld újra.</string>
     <string name="playlist_done">Kész</string>
-    <string name="playlist_options">A lejátszási lista beállításai</string>
     <string name="playlist_reorder">Dalok átrendezése</string>
     <string name="playlist_rename">Átnevezés</string>
     <string name="playlist_delete">Lejátszási lista törlése</string>

@@ -80,7 +80,6 @@
     <string name="playlist_copied">Cópia de %1$s salva nas suas playlists</string>
     <string name="playlist_copy_failed">Não foi possível salvar uma cópia. Verifique sua conexão e tente de novo.</string>
     <string name="playlist_done">Concluir</string>
-    <string name="playlist_options">Opções da playlist</string>
     <string name="playlist_reorder">Reordenar músicas</string>
     <string name="playlist_rename">Renomear</string>
     <string name="playlist_delete">Excluir playlist</string>

@@ -76,7 +76,6 @@
     <string name="playlist_copied">En kopi av %1$s er lagret i spillelistene dine</string>
     <string name="playlist_copy_failed">Kunne ikke lagre en kopi. Sjekk tilkoblingen og prøv igjen.</string>
     <string name="playlist_done">Ferdig</string>
-    <string name="playlist_options">Valg for spillelisten</string>
     <string name="playlist_reorder">Endre rekkefølge</string>
     <string name="playlist_rename">Gi nytt navn</string>
     <string name="playlist_delete">Slett spilleliste</string>

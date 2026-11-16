@@ -72,7 +72,6 @@
     <string name="playlist_copied">%1$s のコピーをプレイリストに保存しました</string>
     <string name="playlist_copy_failed">コピーを保存できませんでした。接続を確認して、もう一度お試しください。</string>
     <string name="playlist_done">完了</string>
-    <string name="playlist_options">プレイリストのオプション</string>
     <string name="playlist_reorder">曲を並べ替え</string>
     <string name="playlist_rename">名前を変更</string>
     <string name="playlist_delete">プレイリストを削除</string>

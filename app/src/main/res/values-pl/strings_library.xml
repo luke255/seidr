@@ -84,7 +84,6 @@
     <string name="playlist_copied">Zapisano kopię playlisty %1$s w Twoich playlistach</string>
     <string name="playlist_copy_failed">Nie udało się zapisać kopii. Sprawdź połączenie i spróbuj ponownie.</string>
     <string name="playlist_done">Gotowe</string>
-    <string name="playlist_options">Opcje playlisty</string>
     <string name="playlist_reorder">Zmień kolejność utworów</string>
     <string name="playlist_rename">Zmień nazwę</string>
     <string name="playlist_delete">Usuń playlistę</string>

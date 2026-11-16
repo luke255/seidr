@@ -76,7 +76,6 @@
     <string name="playlist_copied">Kopio soittolistasta %1$s tallennettiin soittolistoihisi</string>
     <string name="playlist_copy_failed">Kopion tallentaminen epäonnistui. Tarkista yhteys ja yritä uudelleen.</string>
     <string name="playlist_done">Valmis</string>
-    <string name="playlist_options">Soittolistan valinnat</string>
     <string name="playlist_reorder">Järjestä kappaleet</string>
     <string name="playlist_rename">Nimeä uudelleen</string>
     <string name="playlist_delete">Poista soittolista</string>

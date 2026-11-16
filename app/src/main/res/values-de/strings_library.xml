@@ -76,7 +76,6 @@
     <string name="playlist_copied">Kopie von %1$s in deinen Playlists gespeichert</string>
     <string name="playlist_copy_failed">Kopie konnte nicht gespeichert werden. Prüfe deine Verbindung und versuche es erneut.</string>
     <string name="playlist_done">Fertig</string>
-    <string name="playlist_options">Playlist-Optionen</string>
     <string name="playlist_reorder">Songs neu anordnen</string>
     <string name="playlist_rename">Umbenennen</string>
     <string name="playlist_delete">Playlist löschen</string>

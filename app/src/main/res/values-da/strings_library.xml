@@ -76,7 +76,6 @@
     <string name="playlist_copied">En kopi af %1$s er gemt i dine playlister</string>
     <string name="playlist_copy_failed">Kunne ikke gemme en kopi. Tjek din forbindelse, og prøv igen.</string>
     <string name="playlist_done">Færdig</string>
-    <string name="playlist_options">Muligheder for playlisten</string>
     <string name="playlist_reorder">Skift rækkefølge</string>
     <string name="playlist_rename">Omdøb</string>
     <string name="playlist_delete">Slet playliste</string>

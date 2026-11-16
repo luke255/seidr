@@ -72,7 +72,6 @@
     <string name="playlist_copied">%1$s의 사본을 내 플레이리스트에 저장했어요</string>
     <string name="playlist_copy_failed">사본을 저장하지 못했어요. 연결을 확인하고 다시 시도하세요.</string>
     <string name="playlist_done">완료</string>
-    <string name="playlist_options">플레이리스트 옵션</string>
     <string name="playlist_reorder">곡 순서 변경</string>
     <string name="playlist_rename">이름 변경</string>
     <string name="playlist_delete">플레이리스트 삭제</string>

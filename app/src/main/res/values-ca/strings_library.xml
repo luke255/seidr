@@ -80,7 +80,6 @@
     <string name="playlist_copied">S\'ha desat una còpia de %1$s a les teves llistes</string>
     <string name="playlist_copy_failed">No s\'ha pogut desar una còpia. Comprova la connexió i torna-ho a provar.</string>
     <string name="playlist_done">Fet</string>
-    <string name="playlist_options">Opcions de la llista</string>
     <string name="playlist_reorder">Reordena les cançons</string>
     <string name="playlist_rename">Canvia el nom</string>
     <string name="playlist_delete">Suprimeix la llista</string>

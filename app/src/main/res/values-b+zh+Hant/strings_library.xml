@@ -72,7 +72,6 @@
     <string name="playlist_copied">已將 %1$s 的副本儲存到你的播放清單</string>
     <string name="playlist_copy_failed">無法儲存副本。請檢查網路連線後再試一次。</string>
     <string name="playlist_done">完成</string>
-    <string name="playlist_options">播放清單選項</string>
     <string name="playlist_reorder">重新排序歌曲</string>
     <string name="playlist_rename">重新命名</string>
     <string name="playlist_delete">刪除播放清單</string>

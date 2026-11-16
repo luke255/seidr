@@ -15,19 +15,22 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.text.style.TextAlign
 import eu.bradshaw.seidr.playback.QueueEntry
 import eu.bradshaw.seidr.ui.AppActions
 import eu.bradshaw.seidr.ui.LocalActions
-import eu.bradshaw.seidr.ui.LocalPrimaryFocus
 import eu.bradshaw.seidr.ui.Navigator
 import eu.bradshaw.seidr.ui.player.LyricsPane
 import eu.bradshaw.seidr.ui.player.LyricsState
-import eu.bradshaw.seidr.ui.player.Scrubber
-import eu.bradshaw.seidr.ui.player.Transport
+import eu.bradshaw.seidr.ui.player.ART_CHANGE_MS
+import eu.bradshaw.seidr.ui.player.artOf
+import androidx.compose.animation.core.EaseOutCubic
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.unit.IntOffset
 import eu.bradshaw.seidr.ui.player.artFadeProgress
 import eu.bradshaw.seidr.ui.player.rememberSchemeFade
 import eu.bradshaw.seidr.ui.player.rememberArtColours
@@ -149,7 +152,7 @@ private fun Modifier.panel(shape: androidx.compose.ui.graphics.Shape = RoundedCo
  * panel behind them.
  */
 enum class VisPage(val controls: Boolean = false) {
-    PRESET(controls = true), TRANSPORT(controls = true), TRACK, LYRICS, QUEUE, LOGO;
+    PRESET(controls = true), TRACK, LYRICS, QUEUE, LOGO;
 
     companion object {
         /** [by] pages on from [from] (null: none), round through none. */
@@ -232,7 +235,6 @@ fun VisOverlay(
                         ) { change, delta -> change.consume(); dx += delta.x; dy += delta.y }
                     },
             ) {
-                if (pulse != null) PulseSign(pulse, Modifier.align(Alignment.Center))
                 val edge = if (tv) PaddingValues(horizontal = 48.dp, vertical = 32.dp) else PaddingValues(24.dp)
                 Box(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(edge)) {
                     if (preview != null) {
@@ -265,7 +267,6 @@ fun VisOverlay(
                                     VisPage.PRESET -> if (preset != null) {
                                         Box(middle, contentAlignment = Alignment.Center) { PresetBar(graph.visPrefs, preset, onHidePreset, onPresetStep) }
                                     }
-                                    VisPage.TRANSPORT -> TransportPage(player, middle)
                                     VisPage.TRACK -> TrackPage(player, tv, middle)
                                     VisPage.LYRICS -> LyricsPage(player, middle)
                                     VisPage.QUEUE -> QueuePage(player, middle)
@@ -294,6 +295,9 @@ fun VisOverlay(
                         LaunchedEffect(message) { delay(3_500); onMessageShown() }
                     }
                 }
+                // Over everything, pages included. Not a skip's on the track page: the cover's slide says it.
+                val skip = pulse?.kind == Pulse.Kind.NEXT || pulse?.kind == Pulse.Kind.PREVIOUS
+                if (pulse != null && !(skip && page == VisPage.TRACK)) PulseSign(pulse, Modifier.align(Alignment.Center))
             }
         }
     }
@@ -325,25 +329,6 @@ private fun PageDots(page: VisPage?, modifier: Modifier) {
     }
 }
 
-/** Now Playing's scrubber and transport, on a panel. The remote starts on play/pause. */
-@Composable
-private fun TransportPage(player: PlayerConnection, modifier: Modifier) {
-    val ui by player.ui.collectAsStateWithLifecycle()
-    val cur = ui.current ?: return
-    val play = remember { FocusRequester() }
-    LaunchedEffect(Unit) {
-        repeat(20) { if (runCatching { play.requestFocus() }.getOrDefault(false)) return@LaunchedEffect; delay(50) }
-    }
-    Box(modifier, contentAlignment = Alignment.Center) {
-        Column(Modifier.widthIn(max = 520.dp).fillMaxWidth().padding(horizontal = 20.dp)) {
-            CompositionLocalProvider(LocalContentColor provides Color.White, LocalPrimaryFocus provides play) {
-                Scrubber(cur)
-                Box(Modifier.padding(top = 4.dp, bottom = 8.dp)) { Transport() }
-            }
-        }
-    }
-}
-
 /** Now Playing's artwork and title, big, in the middle. */
 @Composable
 private fun TrackPage(player: PlayerConnection, tv: Boolean, modifier: Modifier) {
@@ -353,7 +338,9 @@ private fun TrackPage(player: PlayerConnection, tv: Boolean, modifier: Modifier)
         val wide = maxWidth > maxHeight * 1.25f
         val art = if (wide) minOf(maxHeight * 0.8f, maxWidth * 0.4f, 480.dp) else minOf(maxWidth * 0.8f, maxHeight * 0.55f, 480.dp)
         val cover: @Composable () -> Unit = {
-            Cover(cur.coverArt, Modifier.size(art).shadow(24.dp, RoundedCornerShape(8.dp)), size = 900, shape = RoundedCornerShape(8.dp))
+            SlidingCover(cur, ui.index, Modifier.size(art), gap = 32.dp, clip = false) { e ->
+                Cover(e.coverArt, Modifier.fillMaxSize().shadow(24.dp, RoundedCornerShape(8.dp)), size = 900, shape = RoundedCornerShape(8.dp))
+            }
         }
         val words: @Composable (Alignment.Horizontal, TextAlign) -> Unit = { align, textAlign ->
             Column(horizontalAlignment = align) {
@@ -445,6 +432,30 @@ private fun QueueLine(e: QueueEntry, now: Boolean) {
     }
 }
 
+/**
+ * A cover that slides to the next track's, like Now Playing's artwork: in
+ * from the right for a track further on, from the left for one back, and
+ * not at all between tracks with the same art. [gap] between the two on the
+ * way; [clip] keeps the slide inside the cover's own square.
+ */
+@Composable
+private fun SlidingCover(entry: QueueEntry, index: Int, modifier: Modifier, gap: Dp, clip: Boolean, cover: @Composable (QueueEntry) -> Unit) {
+    val gapPx = with(LocalDensity.current) { gap.roundToPx() }
+    val slide = tween<IntOffset>(ART_CHANGE_MS, easing = EaseOutCubic)
+    AnimatedContent(
+        Shown(entry, index), modifier.then(if (clip) Modifier.clipToBounds() else Modifier),
+        contentKey = { artOf(it.entry) }, label = "cover",
+        transitionSpec = {
+            val sign = if (targetState.index >= initialState.index) 1 else -1
+            (slideInHorizontally(slide) { sign * (it + gapPx) } + fadeIn(tween(400))) togetherWith
+                (slideOutHorizontally(slide) { -sign * (it + gapPx) } + fadeOut(tween(ART_CHANGE_MS / 2, easing = EaseOutCubic)))
+        },
+    ) { cover(it.entry) }
+}
+
+/** What [SlidingCover] shows: the entry, and where it is in the queue (for the direction). */
+private data class Shown(val entry: QueueEntry, val index: Int)
+
 /** Cover, title, artist and "1:23 / 3:45", left aligned, while [visible]. */
 @Composable
 private fun TrackCard(player: PlayerConnection, visible: Boolean, tv: Boolean, modifier: Modifier) {
@@ -458,8 +469,9 @@ private fun TrackCard(player: PlayerConnection, visible: Boolean, tv: Boolean, m
     val durationMs = ui.durationMs.takeIf { it > 0 } ?: (cur.duration * 1000L)
     AnimatedVisibility(visible, modifier, enter = fadeIn(), exit = fadeOut()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Cover(cur.coverArt, Modifier.size(if (tv) 80.dp else 60.dp).shadow(10.dp, RoundedCornerShape(6.dp)), size = 200,
-                shape = RoundedCornerShape(6.dp))
+            SlidingCover(cur, ui.index, Modifier.size(if (tv) 80.dp else 60.dp), gap = 0.dp, clip = true) { e ->
+                Cover(e.coverArt, Modifier.fillMaxSize().shadow(10.dp, RoundedCornerShape(6.dp)), size = 200, shape = RoundedCornerShape(6.dp))
+            }
             Spacer(Modifier.width(16.dp))
             Column(Modifier.widthIn(max = 420.dp)) {
                 Text(cur.title, style = MaterialTheme.typography.titleMedium.copy(shadow = glow), fontWeight = FontWeight.Bold,

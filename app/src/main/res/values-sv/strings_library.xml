@@ -76,7 +76,6 @@
     <string name="playlist_copied">En kopia av %1$s har sparats bland dina spellistor</string>
     <string name="playlist_copy_failed">Det gick inte att spara en kopia. Kontrollera anslutningen och försök igen.</string>
     <string name="playlist_done">Klar</string>
-    <string name="playlist_options">Alternativ för spellistan</string>
     <string name="playlist_reorder">Ändra låtordning</string>
     <string name="playlist_rename">Byt namn</string>
     <string name="playlist_delete">Radera spellista</string>

@@ -47,8 +47,9 @@ import javax.microedition.khronos.opengles.GL10
  * tap (select on a remote) plays/pauses, sideways swipes (left/right) skip
  * tracks. Swipes up and down (the D-pad's too) turn through the [VisPage]s:
  * the preset's name with a flag (hides it for good), a heart (loved presets
- * come up about one time in ten) and back/forward through presets, Now
- * Playing's transport, the track, lyrics, the queue and the logo. Back puts a
+ * come up about one time in ten) and back/forward through presets, the
+ * track (its cover sliding on a skip, like Now Playing's), lyrics, the queue
+ * and the logo. Back puts a
  * page away; pages stay until then. A hold opens the preset's page. With [EXTRA_PREVIEW] it shows just that one preset, for
  * Settings → Visualiser. (Now Playing shows [VisWarning] before the first.)
  *

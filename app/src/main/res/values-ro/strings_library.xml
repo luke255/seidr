@@ -80,7 +80,6 @@
     <string name="playlist_copied">O copie a %1$s a fost salvată în playlisturile tale</string>
     <string name="playlist_copy_failed">Copia nu a putut fi salvată. Verifică-ți conexiunea și încearcă din nou.</string>
     <string name="playlist_done">Gata</string>
-    <string name="playlist_options">Opțiuni pentru playlist</string>
     <string name="playlist_reorder">Reordonează melodiile</string>
     <string name="playlist_rename">Redenumește</string>
     <string name="playlist_delete">Șterge playlistul</string>

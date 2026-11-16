@@ -80,7 +80,6 @@
     <string name="playlist_copied">Se guardó una copia de %1$s en tus playlists</string>
     <string name="playlist_copy_failed">No se pudo guardar una copia. Revisa tu conexión y vuelve a intentarlo.</string>
     <string name="playlist_done">Listo</string>
-    <string name="playlist_options">Opciones de la playlist</string>
     <string name="playlist_reorder">Reordenar canciones</string>
     <string name="playlist_rename">Cambiar nombre</string>
     <string name="playlist_delete">Eliminar playlist</string>
