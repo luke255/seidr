@@ -11,6 +11,7 @@ import androidx.compose.ui.input.pointer.util.VelocityTracker
 import kotlinx.coroutines.coroutineScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.key
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.graphicsLayer
 import kotlinx.coroutines.CancellationException
@@ -18,7 +19,6 @@ import kotlinx.coroutines.launch
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.runtime.derivedStateOf
-import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
@@ -443,7 +443,7 @@ private fun NarrowLayout(
                                 translationX = if (under) -0.25f * size.width * (1f - p) else p * size.width
                                 if (!under) shadowElevation = 24.dp.toPx()
                             }
-                            .background(bg).background(washBrush(washes[entry]))
+                            .background(bg).background(washBrush()).artBackground(washes[entry])
                             .drawWithContent {
                                 drawContent()
                                 if (under) drawRect(Color.Black.copy(alpha = 0.35f * (1f - p)))
@@ -459,13 +459,20 @@ private fun NarrowLayout(
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
                 .onSizeChanged { chrome = with(density) { it.height.toDp() } }
-                .background(Brush.verticalGradient(0f to bg.copy(alpha = 0f), 0.3f to bg.copy(alpha = 0.9f), 0.5f to bg))
+                .drawBehind {
+                    // Fades into the page's own background (an album's art colours).
+                    val under = washes[nav.stack.last()].bottom(bg)
+                    drawRect(Brush.verticalGradient(0f to under.copy(alpha = 0f), 0.3f to under.copy(alpha = 0.9f), 0.5f to under))
+                }
                 .navigationBarsPadding()
                 .padding(top = 24.dp),
         ) {
-            Row(Modifier.fillMaxWidth().height(60.dp).padding(top = 4.dp)) {
-                tabs.forEach { t -> NavItem(t, nav.tab == t.tab, { nav.select(t.tab) }, Modifier.weight(1f).fillMaxHeight()) }
-                NowPlayingItem(actions, Modifier.weight(1f).fillMaxHeight())
+            // Tinted like the page under it (an album's art colours).
+            MaterialTheme(colorScheme = rememberPageScheme(washes[nav.stack.last()], MaterialTheme.colorScheme)) {
+                Row(Modifier.fillMaxWidth().height(60.dp).padding(top = 4.dp)) {
+                    tabs.forEach { t -> NavItem(t, nav.tab == t.tab, { nav.select(t.tab) }, Modifier.weight(1f).fillMaxHeight()) }
+                    NowPlayingItem(actions, Modifier.weight(1f).fillMaxHeight())
+                }
             }
         }
         SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).padding(bottom = chrome))
@@ -484,7 +491,7 @@ private fun WideLayout(nav: Navigator, saveable: SaveableStateHolder, focus: Ent
     val washes = LocalWashes.current!!
     @Composable
     fun paneModifier(entry: Entry) = Modifier.fillMaxHeight().clip(pane).background(cs.background)
-        .background(washBrush(washes[entry], height = 360.dp, themeStrength = 0.7f))
+        .background(washBrush(height = 360.dp, themeStrength = 0.7f)).artBackground(washes[entry])
     Box(Modifier.fillMaxSize().background(lerp(cs.background, Color.Black, 0.45f))) {
         Row(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(top = 4.dp, end = 8.dp, bottom = 8.dp)) {
             Column(

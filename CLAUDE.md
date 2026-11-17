@@ -196,7 +196,9 @@ before changing sync or playback.
     seeded colour; `Palette.kt` builds tonal palettes in CIELAB LCh, so no
     material-color-utilities.
   - Now Playing overrides the theme with a scheme from the current cover
-    (`ArtPalette.kt`; not under Neutral). Its thresholds were tuned on the
+    (`ArtPalette.kt`; not under Neutral), and so do album pages (`ArtPage`
+    in `Wash.kt`; the shell draws its gradient). Playlists and artists keep
+    the theme. The palette's thresholds were tuned on the
     real library, so check changes against many covers, not one. A new
     scheme recomposes everything under it, so `SchemeFade` steps the theme
     and draws the wash per frame; never animate the scheme itself.

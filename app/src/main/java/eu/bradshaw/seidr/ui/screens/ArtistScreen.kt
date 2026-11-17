@@ -3,7 +3,6 @@ package eu.bradshaw.seidr.ui.screens
 import eu.bradshaw.seidr.ui.components.TrackNumber
 import eu.bradshaw.seidr.ui.components.LocalWideShell
 import eu.bradshaw.seidr.ui.RowArtShape
-import eu.bradshaw.seidr.ui.ArtWash
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -123,7 +122,6 @@ fun ArtistScreen(id: String) {
         val listState = rememberLazyListState()
         val showTitle by remember { derivedStateOf { listState.firstVisibleItemIndex > 0 } }
         val wide = LocalWideShell.current
-        ArtWash(page.artist.coverArt)
         val loadFailed = stringResource(R.string.artist_load_failed)
         val shuffle: () -> Unit = {
             if (page.top.isNotEmpty()) actions.player.shufflePlay(page.top, page.artist.name)

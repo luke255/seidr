@@ -107,6 +107,7 @@ import eu.bradshaw.seidr.ui.LocalActions
 import eu.bradshaw.seidr.ui.theme.ArtScheme
 import eu.bradshaw.seidr.ui.theme.LocalColourful
 import eu.bradshaw.seidr.ui.theme.artScheme
+import eu.bradshaw.seidr.ui.artGradient
 import eu.bradshaw.seidr.ui.theme.monochromeArtScheme
 import eu.bradshaw.seidr.ui.components.Cover
 import eu.bradshaw.seidr.ui.components.TrackMenu
@@ -239,7 +240,7 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
     val background = if (fade != null) Modifier.drawBehind {
         val wash = fade.wash()
         val under = fade.background()
-        drawRect(Brush.verticalGradient(listOf(wash, lerp(under, wash, 0.6f), under)))
+        drawRect(artGradient(wash, under))
     } else Modifier.background(plainBg).background(Brush.verticalGradient(listOf(pc.copy(alpha = 0.55f), plainBg)))
 
     // Header: close, "Playing from", overflow.

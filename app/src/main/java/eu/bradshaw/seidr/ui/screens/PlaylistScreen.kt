@@ -169,7 +169,6 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
 
     CollectionLayout(
         title = playlist.name,
-        washCover = playlist.coverArt,
         art = { m -> Mosaic(songs.distinctBy { it.albumId }.mapNotNull { it.coverArt }, m, fallback = playlist.coverArt) },
         subtitle = {
             HeaderFacts(

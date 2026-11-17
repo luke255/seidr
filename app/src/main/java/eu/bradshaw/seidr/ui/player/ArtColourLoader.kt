@@ -27,6 +27,9 @@ import coil3.request.allowHardware
 import coil3.toBitmap
 import eu.bradshaw.seidr.CoverArt
 import eu.bradshaw.seidr.ui.theme.ArtColours
+import eu.bradshaw.seidr.ui.theme.ArtScheme
+import eu.bradshaw.seidr.ui.theme.artScheme
+import eu.bradshaw.seidr.ui.theme.monochromeArtScheme
 import eu.bradshaw.seidr.ui.theme.extractArtColours
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -111,3 +114,18 @@ private const val JUST_BACK_MS = 1500
 /** A [SchemeFade]'s timing: [ART_CHANGE_MS], or a snap when the change happened while the screen was away ([rememberJustBack]). */
 internal fun artFadeProgress(justBack: Boolean): AnimationSpec<Float> =
     if (justBack) snap() else tween(ART_CHANGE_MS, easing = EaseOutCubic)
+
+/**
+ * Now Playing's look for the cover [id]: its [artScheme], or the monochrome one
+ * for black-and-white art. Null while loading, if the art can't be loaded, or
+ * for a null [id], so a page keeps the app's theme rather than going grey.
+ */
+@Composable
+fun rememberArtLook(id: String?): ArtScheme? {
+    val context = LocalContext.current
+    var picked by remember { mutableStateOf(id?.let { cache.get(it) }) }
+    LaunchedEffect(id) {
+        picked = if (id == null) null else load(context.applicationContext, id)
+    }
+    return remember(picked) { picked?.let { p -> p.colours?.let(::artScheme) ?: monochromeArtScheme } }
+}

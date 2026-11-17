@@ -2,7 +2,6 @@ package eu.bradshaw.seidr.ui.components
 
 import androidx.compose.ui.res.stringResource
 import eu.bradshaw.seidr.R
-import eu.bradshaw.seidr.ui.ArtWash
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -179,8 +178,7 @@ private fun DownloadMenuItem(source: OfflineSource, close: () -> Unit) {
  * play buttons, then rows. The top bar's ⋮ menu has Download (for
  * [offline], not on TV or read-only) and then [menu]'s items, while
  * [showMenu]. Stacked and centred on the cover
- * screen; art beside the text on wide panes, so tracks start on screen. The
- * screen's wash takes its colour from [washCover].
+ * screen; art beside the text on wide panes, so tracks start on screen.
  */
 @Composable
 fun CollectionLayout(
@@ -198,10 +196,8 @@ fun CollectionLayout(
     showMenu: Boolean = true,
     headerExtra: @Composable () -> Unit = {},
     listState: LazyListState = rememberLazyListState(),
-    washCover: String? = null,
     rows: LazyListScope.() -> Unit,
 ) {
-    ArtWash(washCover)
     val showTitle by remember { derivedStateOf { listState.firstVisibleItemIndex > 0 } }
     val tv = LocalIsTv.current
     val readOnly = LocalActions.current.graph.readOnly

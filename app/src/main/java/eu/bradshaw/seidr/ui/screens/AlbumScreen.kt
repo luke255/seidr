@@ -26,6 +26,7 @@ import eu.bradshaw.seidr.Graph
 import eu.bradshaw.seidr.data.api.Album
 import eu.bradshaw.seidr.data.db.OfflineSource
 import eu.bradshaw.seidr.data.db.SourceType
+import eu.bradshaw.seidr.ui.ArtPage
 import eu.bradshaw.seidr.ui.LocalActions
 import eu.bradshaw.seidr.ui.Route
 import eu.bradshaw.seidr.ui.components.CollectionLayout
@@ -82,8 +83,8 @@ fun AlbumScreen(id: String) {
         val discs = songs.mapNotNull { it.discNumber }.distinct().size > 1
         val saved = album.id in starredAlbums
         val unreachable = stringResource(R.string.album_unreachable)
-        CollectionLayout(
-            washCover = album.coverArt,
+        // Albums take Now Playing's colours from the cover; playlists and artists keep the theme.
+        ArtPage(album.coverArt) { CollectionLayout(
             title = album.name,
             art = { m -> Cover(album.coverArt, m.aspectRatio(1f), size = 600) },
             subtitle = {
@@ -130,6 +131,6 @@ fun AlbumScreen(id: String) {
                     )
                 }
             }
-        }
+        } }
     }
 }
