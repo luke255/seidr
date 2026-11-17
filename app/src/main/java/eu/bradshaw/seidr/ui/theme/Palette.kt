@@ -34,6 +34,7 @@ fun vividDarkScheme(
     neutralHue: Double = hue,
     chroma: Double = 90.0,
     neutralChroma: Double = 10.0,
+    deepReds: Boolean = false,
 ): ColorScheme {
     val p = TonalPalette(hue, chroma)
     val t = TonalPalette(tertiaryHue, chroma)
@@ -43,7 +44,7 @@ fun vividDarkScheme(
     val s = TonalPalette(secondaryHue, minOf(40.0, chroma))
     val n = TonalPalette(neutralHue, neutralChroma)
     val nv = TonalPalette(neutralHue, neutralChroma * 1.8)
-    val pt = vividTone(hue)
+    val pt = vividTone(hue, deepReds)
     val tt = vividTone(tertiaryHue)
     return darkColorScheme(
         primary = p(pt), onPrimary = p(10), primaryContainer = pc(30), onPrimaryContainer = pc(90), inversePrimary = p(40),
@@ -64,9 +65,15 @@ private const val MAX_CHROMA = 150.0
 /**
  * The tone in 65..85 where [hue] holds the most chroma. Text and icons in the
  * primary colour stay readable on tone-6 backgrounds anywhere in that range,
- * and tone-10 content on a primary button does too.
+ * and tone-10 content on a primary button does too. With [deepReds] (the app
+ * theme, on near-black; not Now Playing's lighter washes) reds may go down
+ * to 55, still about 4.6:1 both ways: red peaks near tone 53, and at 65 it's
+ * salmon.
  */
-internal fun vividTone(hue: Double): Int = (65..85).maxBy { maxChroma(it.toDouble(), hue) }
+internal fun vividTone(hue: Double, deepReds: Boolean = false): Int {
+    val lowest = if (deepReds && ((hue % 360) + 360) % 360 in 25.0..50.0) 55 else 65
+    return (lowest..85).maxBy { maxChroma(it.toDouble(), hue) }
+}
 
 internal fun maxChroma(l: Double, hue: Double): Double {
     var lo = 0.0

@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 enum class ThemeChoice(@androidx.annotation.StringRes val labelRes: Int, val hue: Double? = null) {
     SYSTEM(R.string.theme_system),
     NEUTRAL(R.string.theme_neutral),
-    RED(R.string.theme_red, 30.0),
+    RED(R.string.theme_red, 38.0),
     ORANGE(R.string.theme_orange, 55.0),
     AMBER(R.string.theme_amber, 75.0),
     YELLOW(R.string.theme_yellow, 98.0),
@@ -55,7 +55,7 @@ enum class ThemeChoice(@androidx.annotation.StringRes val labelRes: Int, val hue
     }
 }
 
-private val FallbackHue = ThemeChoice.VIOLET.hue!!
+private val FallbackHue = ThemeChoice.RED.hue!!
 
 /**
  * The phone's Material You hues, made vivid. Hues come from the tonal
@@ -73,8 +73,8 @@ private fun systemScheme(context: Context): ColorScheme = runCatching {
     }
     val (_, chroma, hue) = lch("system_accent1_500")
     if (chroma < 8) return@runCatching dynamicDarkColorScheme(context)
-    vividDarkScheme(hue, secondaryHue = lch("system_accent2_500").third, neutralHue = lch("system_neutral1_500").third)
-}.getOrElse { vividDarkScheme(FallbackHue) }
+    vividDarkScheme(hue, secondaryHue = lch("system_accent2_500").third, neutralHue = lch("system_neutral1_500").third, deepReds = true)
+}.getOrElse { vividDarkScheme(FallbackHue, deepReds = true) }
 
 /**
  * [key] as another device can show it: System becomes this phone's hue
@@ -92,7 +92,7 @@ fun portableTheme(key: String, context: Context): String {
 
 /** A theme key from [portableTheme]: a choice, or "hue:<degrees>". */
 fun colorSchemeForKey(key: String, context: Context): ColorScheme =
-    key.removePrefix("hue:").takeIf { key.startsWith("hue:") }?.toDoubleOrNull()?.let { vividDarkScheme(it) }
+    key.removePrefix("hue:").takeIf { key.startsWith("hue:") }?.toDoubleOrNull()?.let { vividDarkScheme(it, deepReds = true) }
         ?: colorSchemeFor(ThemeChoice.fromKey(key), context)
 
 fun colorSchemeFor(choice: ThemeChoice, context: Context): ColorScheme = when (choice) {
@@ -101,7 +101,7 @@ fun colorSchemeFor(choice: ThemeChoice, context: Context): ColorScheme = when (c
     ThemeChoice.NEUTRAL -> runCatching { dynamicDarkColorScheme(context) }.getOrElse {
         darkColorScheme(primary = Color(0xFFFFB4A2), secondary = Color(0xFFE7BDB3))
     }.copy(background = Color(0xFF121212), surface = Color(0xFF121212))
-    else -> vividDarkScheme(choice.hue!!)
+    else -> vividDarkScheme(choice.hue!!, deepReds = true)
 }
 
 /** False for Neutral: screens skip their colour washes and keep the plain near-black look. */

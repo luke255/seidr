@@ -4,6 +4,10 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.6.11
+
+- Red is now a true red rather than coral, and it's the colour Seiðr uses when your phone doesn't offer one.
+
 ## 1.6.10
 
 - Playlist changes made anywhere (another device, Navidrome's web page, or while Seiðr was in the background) now show straight away: the open playlist, song counts on Home and Library, and Android Auto all follow.
