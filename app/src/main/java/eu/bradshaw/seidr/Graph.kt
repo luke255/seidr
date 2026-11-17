@@ -138,6 +138,8 @@ class Graph(val app: Application) {
         MUSIC,
         /** Plays or saves (songs, albums) changed; a burst per track played. */
         ANNOTATIONS,
+        /** A kid's rules changed: the same music, seen through new lists. */
+        KIDS,
     }
 
     private val _changes = kotlinx.coroutines.flow.MutableSharedFlow<Change>(extraBufferCapacity = 8)
@@ -160,6 +162,9 @@ class Graph(val app: Application) {
     val bad = BadReports(badReportsOn, library, editor, db.offline(), scope, app) { client.strict }
 
     init {
+        // New kid rules (an approval, say) change what every screen shows. Unchanged
+        // lists keep the same rules object, so this fires only on a real change.
+        scope.launch { kids.rules.drop(1).distinctUntilChanged { a, b -> a === b }.collect { _changes.tryEmit(Change.KIDS) } }
         // Signed out or in as someone else: whatever kid view was open was theirs.
         scope.launch { settings.server.drop(1).collect { stopKidView() } }
         // The history is one login's: someone else signing in starts it afresh.

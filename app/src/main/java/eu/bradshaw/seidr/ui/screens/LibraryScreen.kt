@@ -130,9 +130,11 @@ class LibraryVm(private val graph: Graph) : ViewModel() {
     init {
         load(false)
         // A scan changed the music: fetch the lists again, quietly, once a burst of
-        // scans (one per folder the server's watcher saw change) has settled.
+        // scans (one per folder the server's watcher saw change) has settled. New kid
+        // rules filter the same lists afresh.
         viewModelScope.launch {
-            graph.changes.filter { it == Graph.Change.MUSIC }.collectLatest {
+            graph.changes.filter { it != Graph.Change.ANNOTATIONS }.collectLatest {
+                if (it == Graph.Change.KIDS) return@collectLatest load(false, quiet = true)
                 delay(3_000)
                 load(true, quiet = true)
             }

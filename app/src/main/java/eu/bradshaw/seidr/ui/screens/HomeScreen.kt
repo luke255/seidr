@@ -84,7 +84,7 @@ class HomeVm(private val graph: Graph) : ViewModel() {
 
     init {
         load()
-        // Live: a scan reloads at once; plays (a burst per track) once they've settled.
+        // Live: a scan or new kid rules reload at once; plays (a burst per track) once they've settled.
         viewModelScope.launch {
             graph.changes.collectLatest { c ->
                 if (c == Graph.Change.ANNOTATIONS) delay(20_000)

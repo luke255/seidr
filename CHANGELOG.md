@@ -4,6 +4,10 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.6.9
+
+- Kids see newly approved music within a minute while Seiðr is open, without restarting it.
+
 ## 1.6.8
 
 - Home and Library update by themselves when music is added to or removed from the server, even if it happened while Seiðr was closed.

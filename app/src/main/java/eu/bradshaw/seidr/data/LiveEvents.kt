@@ -43,12 +43,32 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
 
     fun start() {
         if (job?.isActive == true) return
-        job = scope.launch { run() }
+        job = scope.launch {
+            launch { watchKidLists() }
+            run()
+        }
     }
 
     fun stop() {
         job?.cancel()
         job = null
+    }
+
+    /**
+     * A kid's lists belong to their grown-up, and an edit made in Navidrome's web UI
+     * is only announced to its own login, so a kid's stream may never hear of it.
+     * While on screen, ask every minute instead: one playlist listing, with the lists
+     * themselves fetched only when one changed. New rules reach the screens through
+     * [Graph.Change.KIDS]; a sync then downloads to match.
+     */
+    private suspend fun watchKidLists() {
+        while (scope.isActive) {
+            delay(60_000)
+            if (!graph.kids.isKid) continue
+            val before = graph.kids.rules.value
+            val after = runCatching { graph.kids.refresh() }.getOrNull() ?: continue
+            if (after !== before) { Log.i("Live", "kids' lists changed (polled)"); graph.sync.request() }
+        }
     }
 
     /** Sign-out: forget the session token too. */
