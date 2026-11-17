@@ -48,6 +48,8 @@ class PlaylistEditor(
     private val dao: EditQueue,
     /** Looks up the user-facing wording of the errors; tests leave it blank. */
     private val text: (Int) -> String = { "" },
+    /** A playlist this device made (or copied): counts as played, so Recent puts it first. */
+    private val onCreated: (playlistId: String) -> Unit = {},
     private val afterEdit: (playlistId: String) -> Unit,
 ) {
     private suspend fun fresh(playlistId: String): List<String> =
@@ -132,7 +134,7 @@ class PlaylistEditor(
             runCatching { api().updatePlaylist(pl.id, public = false).ok() }
                 .onFailure { Log.w("Editor", "couldn't make ${pl.id} private: $it") }
         }
-        pl?.id
+        pl?.id?.also(onCreated)
     } catch (e: Exception) {
         Log.w("Editor", "create failed: $e")
         null

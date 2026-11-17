@@ -131,6 +131,7 @@ class Graph(val app: Application) {
             scope.launch { runCatching { library.refreshPlaylists() } }
         },
         text = { app.getString(it) },
+        onCreated = { playlistPlays.record(it) },
     )
 
     /** What changed on the server, so open screens can reload (see [LiveEvents]). */

@@ -15,14 +15,17 @@ class LibrarySortTest {
     private fun ms(iso: String) = java.time.Instant.parse(iso).toEpochMilli()
     private fun ids(l: List<Playlist?>) = l.map { it?.id ?: "loved" }
 
-    @Test fun recentIsLastPlayedOrCreated() {
+    @Test fun recentIsLastPlayedThenNeverPlayedByName() {
         val played = mapOf("old" to ms("2026-11-01T00:00:00Z"))
         assertEquals(listOf("old", "new", "mid"), ids(PlaylistSort.RECENT.sort(playlists, played, null)))
+        // Never played: A–Z, not by creation date.
+        assertEquals(listOf("new", "mid", "old"), ids(PlaylistSort.RECENT.sort(playlists, emptyMap(), null)))
     }
 
     @Test fun lovedGoesWhereItsNewestPlayOrLovePlacesIt() {
         val loved = LovedAt(played = null, lastLoved = "2025-01-01T00:00:00Z")
-        assertEquals(listOf("new", "loved", "mid", "old"), ids(PlaylistSort.RECENT.sort(playlists, emptyMap(), loved)))
+        val played = mapOf("new" to ms("2026-06-01T00:00:00Z"), "mid" to ms("2024-01-01T00:00:00Z"))
+        assertEquals(listOf("new", "loved", "mid", "old"), ids(PlaylistSort.RECENT.sort(playlists, played, loved)))
         assertEquals(listOf("new", "old", "loved", "mid"), ids(PlaylistSort.UPDATED.sort(playlists, emptyMap(), loved)))
     }
 

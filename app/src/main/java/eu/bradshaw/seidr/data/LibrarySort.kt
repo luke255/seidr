@@ -9,7 +9,7 @@ import eu.bradshaw.seidr.data.api.Playlist
 
 /** Playlists, the same on Home's shelf and in Library. */
 enum class PlaylistSort(val key: String) {
-    /** Last played on this device, or created, whichever is later. */
+    /** Last played (or made) on this device; never-played ones after, A–Z. */
     RECENT("recent"),
     NAME("name"),
     /** Last changed on the server. */
@@ -109,6 +109,6 @@ enum class ArtistSort(val key: String) {
     }
 }
 
-private fun recency(p: Playlist, lastPlayed: Map<String, Long>): Long = maxOf(lastPlayed[p.id] ?: 0L, epochMs(p.created))
+private fun recency(p: Playlist, lastPlayed: Map<String, Long>): Long = lastPlayed[p.id] ?: 0L
 
 internal fun epochMs(iso: String?): Long = iso?.let { runCatching { java.time.Instant.parse(it).toEpochMilli() }.getOrNull() } ?: 0L

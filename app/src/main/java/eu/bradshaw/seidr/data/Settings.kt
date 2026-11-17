@@ -43,9 +43,24 @@ class Settings(context: Context) {
     /** Downloads only run on unmetered networks while this is set (the default). */
     val wifiOnly: StateFlow<Boolean> = _wifiOnly.asStateFlow()
 
-    private val _theme = MutableStateFlow(prefs.getString("theme", "system")!!)
-    /** Colour theme key (see `ThemeChoice`): "system", "neutral" or a colour name. */
+    private val _theme = MutableStateFlow(run {
+        // Before themes were per login, one "theme" served everyone: it's the signed-in login's.
+        prefs.getString("theme", null)?.let { old ->
+            _server.value?.let { prefs.edit().putString(themeKey(it.username), old).apply() }
+            prefs.edit().remove("theme").apply()
+        }
+        readTheme(_server.value?.username)
+    })
+    /**
+     * Colour theme key (see `ThemeChoice`): "system", "neutral" or a colour
+     * name. Each login keeps its own; signed out, it's always Red.
+     */
     val theme: StateFlow<String> = _theme.asStateFlow()
+
+    private fun themeKey(username: String) = "theme:" + username.trim().lowercase()
+
+    private fun readTheme(username: String?): String =
+        username?.let { prefs.getString(themeKey(it), null) } ?: if (username == null) SIGNED_OUT_THEME else "system"
 
     private val _playlistsSort = MutableStateFlow(
         // Before Home and Library shared one, Home's was a choice of A–Z or recent.
@@ -140,6 +155,7 @@ class Settings(context: Context) {
         edit.apply()
         secrets.write("password", config.password)
         _server.value = config
+        _theme.value = readTheme(config.username)
     }
 
     fun clearServer() {
@@ -148,6 +164,7 @@ class Settings(context: Context) {
         secrets.write("kid_logins", null)
         _server.value = null
         _kidLogins.value = emptyList()
+        _theme.value = SIGNED_OUT_THEME
     }
 
     fun setWifiOnly(value: Boolean) {
@@ -156,7 +173,8 @@ class Settings(context: Context) {
     }
 
     fun setTheme(key: String) {
-        prefs.edit().putString("theme", key).apply()
+        val user = _server.value?.username ?: return
+        prefs.edit().putString(themeKey(user), key).apply()
         _theme.value = key
     }
 
@@ -243,6 +261,8 @@ class Settings(context: Context) {
     }
 
     companion object {
+        /** `ThemeChoice.RED`: signed out (sign-in, a TV waiting for a guest) is always the brand colour. */
+        const val SIGNED_OUT_THEME = "red"
         /** Accepts "192.168.1.20:4533" or a full URL; strips trailing slashes and a trailing /rest. */
         fun normaliseUrl(input: String): String {
             var u = input.trim().trimEnd('/')

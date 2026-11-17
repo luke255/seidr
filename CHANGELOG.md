@@ -7,6 +7,8 @@ them, not how.
 ## 1.6.11
 
 - Red is now a true red rather than coral, and it's the colour Seiðr uses when your phone doesn't offer one.
+- Each login keeps its own colour, so a shared device (a TV, say) no longer keeps the last person's. Signed out, Seiðr is always red.
+- Sorting playlists by Recent now lists the ones you've never played A–Z, after the ones you have. A playlist you make still goes to the top.
 
 ## 1.6.10
 
