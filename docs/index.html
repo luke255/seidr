@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#D42A1E">
+<title>Seiðr</title>
+<link rel="icon" href="icons/favicon.svg">
+<style>
+body { background: #D42A1E; margin: 16px 8px; text-align: center; }
+img { max-width: 100%; height: auto; vertical-align: middle; }
+nav { margin: 8px 0 24px; }
+nav a { margin: 0 12px; }
+main { max-width: 1200px; margin: 0 auto; }
+main img { width: 270px; max-width: 46%; margin: 1%; border-radius: 16px; }
+</style>
+</head>
+<body>
+<header><img src="banner.svg" width="640" height="160" alt="Seiðr"></header>
+<nav>
+<a href="https://www.navidrome.org/"><img src="icons/navidrome.svg" width="48" height="48" alt="Navidrome"></a>
+<a id="apk" href="https://github.com/luke255/seidr/releases/latest"><img src="icons/download.svg" width="48" height="48" alt="Download"></a>
+<a href="https://github.com/luke255/seidr"><img src="icons/github.svg" width="48" height="48" alt="GitHub"></a>
+<a href="https://bradshaw.eu/"><img src="icons/luke255.png" width="48" height="48" alt="bradshaw.eu"></a>
+</nav>
+<main>
+<a href="screenshots/01-now-playing-cyan.webp"><img src="screenshots/01-now-playing-cyan.webp" width="270" height="400" loading="lazy" alt="Now Playing, coloured from the album cover"></a>
+<a href="screenshots/02-home.webp"><img src="screenshots/02-home.webp" width="270" height="400" loading="lazy" alt="Home"></a>
+<a href="screenshots/03-library.webp"><img src="screenshots/03-library.webp" width="270" height="400" loading="lazy" alt="Library: albums"></a>
+<a href="screenshots/04-now-playing-orange.webp"><img src="screenshots/04-now-playing-orange.webp" width="270" height="400" loading="lazy" alt="Now Playing on an orange cover"></a>
+<a href="screenshots/05-visualiser.webp"><img src="screenshots/05-visualiser.webp" width="270" height="400" loading="lazy" alt="The MilkDrop visualiser"></a>
+<a href="screenshots/06-queue.webp"><img src="screenshots/06-queue.webp" width="270" height="400" loading="lazy" alt="The play queue"></a>
+<a href="screenshots/07-lyrics.webp"><img src="screenshots/07-lyrics.webp" width="270" height="400" loading="lazy" alt="Synced lyrics"></a>
+<a href="screenshots/08-now-playing-red.webp"><img src="screenshots/08-now-playing-red.webp" width="270" height="400" loading="lazy" alt="Now Playing on a red cover"></a>
+<a href="screenshots/09-album.webp"><img src="screenshots/09-album.webp" width="270" height="400" loading="lazy" alt="An album"></a>
+<a href="screenshots/10-playlist.webp"><img src="screenshots/10-playlist.webp" width="270" height="400" loading="lazy" alt="Playlist options: download, share, rename, reorder, earlier versions"></a>
+<a href="screenshots/11-settings.webp"><img src="screenshots/11-settings.webp" width="270" height="400" loading="lazy" alt="Settings, with the colour picker"></a>
+<a href="screenshots/12-kids.webp"><img src="screenshots/12-kids.webp" width="270" height="400" loading="lazy" alt="Kids' accounts in Settings"></a>
+</main>
+<script>
+// Point Download straight at the latest release's APK; the release page stays as the fallback.
+fetch('https://api.github.com/repos/luke255/seidr/releases/latest')
+  .then(function (r) { return r.json(); })
+  .then(function (r) {
+    var apk = (r.assets || []).filter(function (a) { return /\.apk$/.test(a.name); })[0];
+    if (apk) document.getElementById('apk').href = apk.browser_download_url;
+  })
+  .catch(function () {});
+</script>
+</body>
+</html>
