@@ -12,6 +12,7 @@ import kotlinx.coroutines.coroutineScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.key
 import androidx.compose.ui.draw.drawBehind
+import eu.bradshaw.seidr.ui.player.lerpScheme
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.graphicsLayer
 import kotlinx.coroutines.CancellationException
@@ -454,6 +455,11 @@ private fun NarrowLayout(
                 }
             }
         }
+        // The nav bar follows the top page, and mid back-swipe moves toward the
+        // one coming back in step with the slide.
+        val topWash = washes[nav.stack.last()]
+        val underWash = if (swipe != null && nav.stack.size > 1) washes[nav.stack[nav.stack.size - 2]] else topWash
+        val swipeP = if (underWash === topWash) 0f else swipe ?: 0f
         Column(
             Modifier
                 .align(Alignment.BottomCenter)
@@ -461,14 +467,16 @@ private fun NarrowLayout(
                 .onSizeChanged { chrome = with(density) { it.height.toDp() } }
                 .drawBehind {
                     // Fades into the page's own background (an album's art colours).
-                    val under = washes[nav.stack.last()].bottom(bg)
+                    val under = lerp(topWash.bottom(bg), underWash.bottom(bg), swipeP)
                     drawRect(Brush.verticalGradient(0f to under.copy(alpha = 0f), 0.3f to under.copy(alpha = 0.9f), 0.5f to under))
                 }
                 .navigationBarsPadding()
                 .padding(top = 24.dp),
         ) {
             // Tinted like the page under it (an album's art colours).
-            MaterialTheme(colorScheme = rememberPageScheme(washes[nav.stack.last()], MaterialTheme.colorScheme)) {
+            val base = MaterialTheme.colorScheme
+            val navScheme = lerpScheme(rememberPageScheme(topWash, base), rememberPageScheme(underWash, base), swipeP)
+            MaterialTheme(colorScheme = navScheme) {
                 Row(Modifier.fillMaxWidth().height(60.dp).padding(top = 4.dp)) {
                     tabs.forEach { t -> NavItem(t, nav.tab == t.tab, { nav.select(t.tab) }, Modifier.weight(1f).fillMaxHeight()) }
                     NowPlayingItem(actions, Modifier.weight(1f).fillMaxHeight())

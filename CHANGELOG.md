@@ -4,6 +4,10 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.6.13
+
+- Swiping back from an album, the navigation bar's colours now follow the page as it slides away.
+
 ## 1.6.12
 
 - Album pages take their colours from the cover, as Now Playing does: the background, buttons and highlights all match. Playlists and artists now keep your theme colour.
