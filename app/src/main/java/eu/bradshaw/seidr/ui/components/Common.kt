@@ -18,6 +18,13 @@ import androidx.compose.material3.Button
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import eu.bradshaw.seidr.R
+import eu.bradshaw.seidr.Graph
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -40,6 +47,34 @@ sealed interface Load<out T> {
     data object Loading : Load<Nothing>
     data class Error(val message: String) : Load<Nothing>
     data class Ready<T>(val value: T) : Load<T>
+}
+
+/**
+ * The state after loading again. A quiet reload (a live update) that fails keeps
+ * what's showing, unless the thing is gone: the server says not found (70), or
+ * it's no longer there for this login (a kid's rules; the library's `error`).
+ */
+fun <T> Load<T>.reloaded(result: Result<T>, quiet: Boolean): Load<T> = result.fold(
+    { Load.Ready(it) },
+    { e ->
+        // A newer load took over: leave the state to it.
+        if (e is kotlinx.coroutines.CancellationException) throw e
+        val gone = (e as? eu.bradshaw.seidr.data.api.SubsonicException)?.code == 70 || e is IllegalStateException
+        if (quiet && this is Load.Ready && !gone) this else Load.Error(e.message ?: "Error")
+    },
+)
+
+/**
+ * Calls [reload] when the server's music changes (a scan, which comes in bursts,
+ * so once they settle) or a kid's rules do, so an open screen shows what's there now.
+ */
+fun ViewModel.reloadOnChanges(graph: Graph, reload: () -> Unit) {
+    viewModelScope.launch {
+        graph.changes.filter { it != Graph.Change.ANNOTATIONS }.collectLatest {
+            if (it == Graph.Change.MUSIC) delay(3_000)
+            reload()
+        }
+    }
 }
 
 @Composable

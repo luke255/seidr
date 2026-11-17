@@ -39,6 +39,9 @@ import androidx.compose.ui.res.stringResource
 import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.ui.components.rememberAllDownloaded
 import kotlinx.coroutines.launch
+import eu.bradshaw.seidr.ui.components.reloadOnChanges
+import eu.bradshaw.seidr.ui.components.reloaded
+import kotlinx.coroutines.Job
 
 /** The built-in Loved playlist: the server's starred songs. */
 object Loved {
@@ -65,13 +68,18 @@ class LovedVm(private val graph: Graph) : ViewModel() {
         // Loves made elsewhere add rows; un-loves just hide (below) until the next load.
         viewModelScope.launch {
             var known = graph.browse.starredSongs.value
-            graph.browse.starredSongs.collect { now -> if (!known.containsAll(now)) load(); known = now }
+            graph.browse.starredSongs.collect { now -> if (!known.containsAll(now)) load(quiet = true); known = now }
         }
+        reloadOnChanges(graph) { load(quiet = true) }
     }
 
-    fun load() {
-        viewModelScope.launch {
-            state = try { Load.Ready(graph.browse.starredSongsList()) } catch (e: Exception) { Load.Error(e.message ?: "Error") }
+    private var loading: Job? = null
+
+    /** [quiet]: a live update, so a failure keeps what's showing. */
+    fun load(quiet: Boolean = false) {
+        loading?.cancel()
+        loading = viewModelScope.launch {
+            state = state.reloaded(runCatching { graph.browse.starredSongsList() }, quiet)
         }
     }
 }

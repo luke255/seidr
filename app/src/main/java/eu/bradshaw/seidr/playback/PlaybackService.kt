@@ -48,6 +48,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -132,6 +133,14 @@ class PlaybackService : MediaLibraryService() {
         session = MediaLibrarySession.Builder(this, fading, Callback())
             .setSessionActivity(open)
             .build()
+        // The playlists changed (an edit, here or elsewhere): the car's lists follow.
+        scope.launch {
+            graph.library.playlists.drop(1).collectLatest {
+                for (id in listOf(LibraryTree.RECENT, LibraryTree.PLAYLISTS)) {
+                    runCatching { session.notifyChildrenChanged(id, tree.children(id).size, null) }
+                }
+            }
+        }
         connect = eu.bradshaw.seidr.connect.ConnectSession(this, graph, fading, ::setSessionPlayer)
         connect.start()
 

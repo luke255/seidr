@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -97,8 +98,11 @@ class Library(
     private val _starredAlbums = MutableStateFlow<Set<String>>(emptySet())
     val starredAlbums: StateFlow<Set<String>> = _starredAlbums.asStateFlow()
 
-    private val _playlistEdited = MutableSharedFlow<String>(extraBufferCapacity = 16)
-    /** Ids of playlists just edited from this app, so open screens can reload. */
+    private val _playlistEdited = MutableSharedFlow<String>(extraBufferCapacity = 64)
+    /**
+     * Ids of playlists just edited, here or elsewhere (live events, or a listing
+     * that changed), so open screens reload and downloads follow.
+     */
     val playlistEdited: SharedFlow<String> = _playlistEdited.asSharedFlow()
     fun notifyPlaylistEdited(id: String) { _playlistEdited.tryEmit(id) }
 
@@ -114,14 +118,40 @@ class Library(
     /** Refetches the list and returns the visible playlists (see [playlists]). */
     suspend fun refreshPlaylists(): List<Playlist> = visible(fetchAllPlaylists())
 
-    suspend fun fetchAllPlaylists(): List<Playlist> =
-        api.getPlaylists().ok().playlists?.playlist.orEmpty().also(::setAll)
-            .also { l -> history?.let { h -> scope.launch { h.listed(l) } } }
+    /**
+     * Refetches every playlist. Any that changed since the last listing (or came
+     * or went) is announced on [playlistEdited], so open screens reload and
+     * downloads follow, whatever made the change.
+     */
+    suspend fun fetchAllPlaylists(): List<Playlist> {
+        val list = api.getPlaylists().ok().playlists?.playlist.orEmpty()
+        val before = _allPlaylists.value
+        setAll(list)
+        if (before != null) changedPlaylists(before, list).forEach(::notifyPlaylistEdited)
+        history?.let { h -> scope.launch { h.listed(list) } }
+        return list
+    }
 
     suspend fun playlist(id: String): Playlist =
         (api.getPlaylist(id).ok().playlist ?: error("No playlist")).also(::rememberSongs)
             .also { p -> history?.takeUnless { isOthers(p) }?.let { h -> scope.launch { h.seen(p) } } }
+            .also(::checkListing)
             .let(::forKid)
+
+    private var listingJob: Job? = null
+
+    /**
+     * A full fetch newer than the listing's entry (or one the listing lacks) means
+     * the listing is stale, so Home and Library's counts are wrong: fetch it again.
+     * Smart playlists change on every read, so they're left to scans.
+     */
+    private fun checkListing(p: Playlist) {
+        if (p.readonly) return
+        val listed = _allPlaylists.value ?: return
+        if (listed.find { it.id == p.id }?.changed == p.changed) return
+        if (listingJob?.isActive == true) return
+        listingJob = scope.launch { runCatching { fetchAllPlaylists() } }
+    }
 
     private fun forKid(p: Playlist): Playlist = kid?.let { it.playlist(p) ?: error("No playlist") } ?: p
     private fun forKid(a: Album): Album = kid?.let { it.album(a) ?: error("No album") } ?: a
@@ -292,5 +322,25 @@ class Library(
         _starredSongs.value = emptySet()
         _lastLoved.value = null
         _starredAlbums.value = emptySet()
+    }
+}
+
+/**
+ * Playlists whose listing entry changed between two listings, plus any added
+ * or gone. Smart (readonly) playlists bump `changed` on every read, so only
+ * their contents' size and name count.
+ */
+internal fun changedPlaylists(before: List<Playlist>, after: List<Playlist>): List<String> {
+    val old = before.associateBy { it.id }
+    val now = after.associateBy { it.id }
+    return (old.keys + now.keys).filter { id ->
+        val a = old[id]
+        val b = now[id]
+        when {
+            a == null || b == null -> true
+            a.name != b.name || a.songCount != b.songCount || a.duration != b.duration -> true
+            b.readonly -> false
+            else -> a.changed != b.changed || a.public != b.public || a.coverArt != b.coverArt
+        }
     }
 }

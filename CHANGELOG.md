@@ -4,6 +4,12 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.6.10
+
+- Playlist changes made anywhere (another device, Navidrome's web page, or while Seiðr was in the background) now show straight away: the open playlist, song counts on Home and Library, and Android Auto all follow.
+- Playlists created or deleted elsewhere appear or disappear within a minute while Seiðr is open.
+- Albums, artists and Loved refresh by themselves after the server rescans its music.
+
 ## 1.6.9
 
 - Kids see newly approved music within a minute while Seiðr is open, without restarting it.

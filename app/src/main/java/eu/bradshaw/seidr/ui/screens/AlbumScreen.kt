@@ -43,6 +43,9 @@ import eu.bradshaw.seidr.ui.components.formatLongDuration
 import androidx.compose.ui.res.stringResource
 import eu.bradshaw.seidr.R
 import kotlinx.coroutines.launch
+import eu.bradshaw.seidr.ui.components.reloadOnChanges
+import eu.bradshaw.seidr.ui.components.reloaded
+import kotlinx.coroutines.Job
 
 class AlbumVm(private val graph: Graph, val id: String) : ViewModel() {
     var state by mutableStateOf<Load<Album>>(Load.Loading)
@@ -52,11 +55,16 @@ class AlbumVm(private val graph: Graph, val id: String) : ViewModel() {
         load()
         val sid = SourceType.sourceId(SourceType.ALBUM, id)
         if (sid in graph.downloads.sources.value) graph.sync.request(setOf(sid))
+        reloadOnChanges(graph) { load(quiet = true) }
     }
 
-    fun load() {
-        viewModelScope.launch {
-            state = try { Load.Ready(graph.browse.album(id)) } catch (e: Exception) { Load.Error(e.message ?: "Error") }
+    private var loading: Job? = null
+
+    /** [quiet]: a live update, so a failure keeps what's showing. */
+    fun load(quiet: Boolean = false) {
+        loading?.cancel()
+        loading = viewModelScope.launch {
+            state = state.reloaded(runCatching { graph.browse.album(id) }, quiet)
         }
     }
 }

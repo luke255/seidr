@@ -65,6 +65,9 @@ import eu.bradshaw.seidr.ui.components.PlayButtons
 import eu.bradshaw.seidr.ui.components.TrackRow
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import eu.bradshaw.seidr.ui.components.reloadOnChanges
+import eu.bradshaw.seidr.ui.components.reloaded
+import kotlinx.coroutines.Job
 
 data class ArtistPage(val artist: Artist, val top: List<Song>, val albums: List<Album>, val singles: List<Album>, val appearsOn: List<Album>)
 
@@ -72,25 +75,32 @@ class ArtistVm(private val graph: Graph, val id: String) : ViewModel() {
     var state by mutableStateOf<Load<ArtistPage>>(Load.Loading)
         private set
 
-    init { load() }
+    init {
+        load()
+        reloadOnChanges(graph) { load(quiet = true) }
+    }
 
-    fun load() {
-        viewModelScope.launch {
-            state = try {
+    private var loading: Job? = null
+
+    /** [quiet]: a live update, so a failure keeps what's showing. */
+    fun load(quiet: Boolean = false) {
+        loading?.cancel()
+        loading = viewModelScope.launch {
+            state = state.reloaded(runCatching {
                 val artist = graph.browse.artist(id)
                 val top = async { graph.browse.topSongs(artist.name) }
                 // OpenSubsonic release types split albums from singles and EPs where tagged.
                 val isSingle = { a: Album -> a.releaseTypes.any { it.equals("single", true) || it.equals("ep", true) } }
                 val compilation = { a: Album -> a.isCompilation || a.releaseTypes.any { it.equals("compilation", true) } }
                 val sorted = artist.album.sortedByDescending { it.year ?: 0 }
-                Load.Ready(ArtistPage(
+                ArtistPage(
                     artist = artist,
                     top = top.await(),
                     albums = sorted.filter { !isSingle(it) && !compilation(it) },
                     singles = sorted.filter(isSingle),
                     appearsOn = sorted.filter { compilation(it) && !isSingle(it) },
-                ))
-            } catch (e: Exception) { Load.Error(e.message ?: "Error") }
+                )
+            }, quiet)
         }
     }
 

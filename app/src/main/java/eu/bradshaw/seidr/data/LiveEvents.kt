@@ -3,7 +3,6 @@ package eu.bradshaw.seidr.data
 import android.util.Log
 import eu.bradshaw.seidr.Graph
 import eu.bradshaw.seidr.data.api.ok
-import eu.bradshaw.seidr.data.db.SourceType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -44,7 +43,7 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
     fun start() {
         if (job?.isActive == true) return
         job = scope.launch {
-            launch { watchKidLists() }
+            launch { poll() }
             run()
         }
     }
@@ -55,19 +54,26 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
     }
 
     /**
+     * Catches up on coming back on screen (the stream doesn't replay what was
+     * missed), then asks again every minute: Navidrome sends no event when a
+     * playlist is created or deleted, and the stream may be down. One playlist
+     * listing; [Library.fetchAllPlaylists] announces whatever changed.
+     *
      * A kid's lists belong to their grown-up, and an edit made in Navidrome's web UI
-     * is only announced to its own login, so a kid's stream may never hear of it.
-     * While on screen, ask every minute instead: one playlist listing, with the lists
-     * themselves fetched only when one changed. New rules reach the screens through
-     * [Graph.Change.KIDS]; a sync then downloads to match.
+     * is only announced to its own login, so a kid's stream may never hear of it:
+     * those are checked here too, with the lists themselves fetched only when one
+     * changed. New rules reach the screens through [Graph.Change.KIDS]; a sync then
+     * downloads to match.
      */
-    private suspend fun watchKidLists() {
+    private suspend fun poll() {
         while (scope.isActive) {
+            if (graph.status.online.value) runCatching { graph.library.refreshPlaylists() }
+            if (graph.kids.isKid) {
+                val before = graph.kids.rules.value
+                val after = runCatching { graph.kids.refresh() }.getOrNull()
+                if (after != null && after !== before) { Log.i("Live", "kids' lists changed (polled)"); graph.sync.request() }
+            }
             delay(60_000)
-            if (!graph.kids.isKid) continue
-            val before = graph.kids.rules.value
-            val after = runCatching { graph.kids.refresh() }.getOrNull() ?: continue
-            if (after !== before) { Log.i("Live", "kids' lists changed (polled)"); graph.sync.request() }
         }
     }
 
@@ -183,11 +189,10 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
         }
         if (playlists.isNotEmpty()) {
             Log.i("Live", "playlists changed: $playlists")
+            // Open screens reload and downloaded ones sync (see Graph); the listing
+            // refetch updates the counts Home and Library show.
             playlists.forEach(graph.library::notifyPlaylistEdited)
             scope.launch { runCatching { graph.library.refreshPlaylists() } }
-            val sources = graph.downloads.sources.value.keys
-            val force = playlists.map { SourceType.sourceId(SourceType.PLAYLIST, it) }.filter { it in sources }.toSet()
-            if (force.isNotEmpty()) graph.sync.request(force)
         }
         // Song and album events cover likes made elsewhere (and play counts, ratings).
         if (ids("song").isNotEmpty() || ids("album").isNotEmpty()) refreshStarredSoon()

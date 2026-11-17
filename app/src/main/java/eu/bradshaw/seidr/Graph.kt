@@ -127,7 +127,8 @@ class Graph(val app: Application) {
         dao = db.offline().asEditQueue(),
         afterEdit = { id ->
             library.notifyPlaylistEdited(id)
-            sync.request(setOf(PlaylistEditor.sourceId(id)))
+            // Home and Library show the listing's counts, so fetch it again too.
+            scope.launch { runCatching { library.refreshPlaylists() } }
         },
         text = { app.getString(it) },
     )
@@ -188,6 +189,22 @@ class Graph(val app: Application) {
             if (status.online.value && !cm.isActiveNetworkMetered) library.warmPlaylists()
             bad.refresh()
         })
+        // Every playlist change, wherever it came from (an edit here, a live event, a
+        // listing that moved): the kid view's screens reload too, and a downloaded
+        // one syncs. Changes come in bursts (an event, then the listing), so batch them.
+        scope.launch {
+            val due = mutableSetOf<String>()
+            library.playlistEdited.collect { id ->
+                kidView.value?.library?.notifyPlaylistEdited(id)
+                val source = PlaylistEditor.sourceId(id)
+                if (source !in downloads.sources.value) return@collect
+                val first = synchronized(due) { due.isEmpty().also { due += source } }
+                if (first) launch {
+                    kotlinx.coroutines.delay(1_000)
+                    sync.request(synchronized(due) { due.toSet().also { due.clear() } })
+                }
+            }
+        }
     }
 
     val player by lazy { PlayerConnection(app, this) }

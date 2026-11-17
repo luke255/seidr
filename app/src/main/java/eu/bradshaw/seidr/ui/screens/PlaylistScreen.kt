@@ -69,6 +69,9 @@ import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.ui.components.rememberReorderState
 import eu.bradshaw.seidr.ui.components.reorderable
 import kotlinx.coroutines.launch
+import eu.bradshaw.seidr.ui.components.reloadOnChanges
+import eu.bradshaw.seidr.ui.components.reloaded
+import kotlinx.coroutines.Job
 
 class PlaylistVm(private val graph: Graph, val id: String) : ViewModel() {
     var state by mutableStateOf<Load<Playlist>>(Load.Loading)
@@ -76,20 +79,26 @@ class PlaylistVm(private val graph: Graph, val id: String) : ViewModel() {
 
     init {
         load()
-        // Edits made elsewhere in the app (add to playlist from search, say) must show here.
+        // Changes made anywhere (here, another app, another device) must show here.
         viewModelScope.launch {
-            graph.browse.playlistEdited.collect { if (it == id) load() }
+            graph.browse.playlistEdited.collect { if (it == id) load(quiet = true) }
         }
+        // A scan can change its songs' details (and a smart playlist's songs).
+        reloadOnChanges(graph) { load(quiet = true) }
         // Opening a playlist is a sync trigger (cheap when nothing changed).
         if (SourceType.sourceId(SourceType.PLAYLIST, id) in graph.downloads.sources.value) {
             graph.sync.request(setOf(SourceType.sourceId(SourceType.PLAYLIST, id)))
         }
     }
 
-    fun load() {
-        viewModelScope.launch {
+    private var loading: Job? = null
+
+    /** [quiet]: a live update, so a failure keeps what's showing. Changes come in bursts; the latest load wins. */
+    fun load(quiet: Boolean = false) {
+        loading?.cancel()
+        loading = viewModelScope.launch {
             if (state !is Load.Ready) state = Load.Loading
-            state = try { Load.Ready(graph.browse.playlist(id)) } catch (e: Exception) { Load.Error(e.message ?: "Error") }
+            state = state.reloaded(runCatching { graph.browse.playlist(id) }, quiet)
         }
     }
 }
