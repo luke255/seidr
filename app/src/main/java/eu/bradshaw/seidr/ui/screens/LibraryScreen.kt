@@ -110,7 +110,10 @@ import eu.bradshaw.seidr.R
 import eu.bradshaw.seidr.ui.focusRing
 import eu.bradshaw.seidr.ui.rememberedFocus
 import eu.bradshaw.seidr.ui.selectToEdit
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import androidx.compose.animation.core.animateFloatAsState
 
@@ -124,18 +127,33 @@ class LibraryVm(private val graph: Graph) : ViewModel() {
     var refreshing by mutableStateOf(false)
         private set
 
-    init { load(false) }
-
-    fun load(refresh: Boolean) {
+    init {
+        load(false)
+        // A scan changed the music: fetch the lists again, quietly, once a burst of
+        // scans (one per folder the server's watcher saw change) has settled.
         viewModelScope.launch {
-            refreshing = refresh
+            graph.changes.filter { it == Graph.Change.MUSIC }.collectLatest {
+                delay(3_000)
+                load(true, quiet = true)
+            }
+        }
+    }
+
+    private var loading: Job? = null
+
+    /** [quiet]: a live update, so no refresh spinner. */
+    fun load(refresh: Boolean, quiet: Boolean = false) {
+        loading?.cancel()
+        loading = viewModelScope.launch {
+            refreshing = refresh && !quiet
             launch {
                 playlistsError = try { graph.browse.refreshPlaylists(); null } catch (e: Exception) { e.message ?: "Error" }
             }
+            // A live update that fails keeps what's showing.
             launch {
-                artists = try { Load.Ready(graph.browse.artists(refresh)) } catch (e: Exception) { Load.Error(e.message ?: "Error") }
+                artists = try { Load.Ready(graph.browse.artists(refresh)) } catch (e: Exception) { if (quiet) artists else Load.Error(e.message ?: "Error") }
             }
-            albums = try { Load.Ready(graph.browse.allAlbums(refresh)) } catch (e: Exception) { Load.Error(e.message ?: "Error") }
+            albums = try { Load.Ready(graph.browse.allAlbums(refresh)) } catch (e: Exception) { if (quiet) albums else Load.Error(e.message ?: "Error") }
             refreshing = false
         }
     }

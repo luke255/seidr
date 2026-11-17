@@ -2,6 +2,7 @@ package eu.bradshaw.seidr.data
 
 import android.util.Log
 import eu.bradshaw.seidr.Graph
+import eu.bradshaw.seidr.data.api.ok
 import eu.bradshaw.seidr.data.db.SourceType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -86,6 +87,7 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
                     if (resp.code == 401) { token = null; throw IllegalStateException("token expired") }
                     if (resp.code == 404) throw NotNavidrome()
                     if (!resp.isSuccessful) throw IllegalStateException("HTTP ${resp.code}")
+                    checkMissedScan()
                     read(resp)
                 }
             }
@@ -113,6 +115,24 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
 
     private var scanning = false
 
+    /** The last scan seen, as (lastScan, count); null before the first connection. */
+    private var lastScan: Pair<String?, Long?>? = null
+
+    /**
+     * The stream only runs while the app's on screen and doesn't replay what was
+     * missed, so on each connection compare the server's last scan with the one
+     * seen before: a scan in between means the music changed.
+     */
+    private fun checkMissedScan() {
+        scope.launch {
+            val s = runCatching { graph.client.strict.getScanStatus().ok().scanStatus }.getOrNull() ?: return@launch
+            val now = s.lastScan to s.count
+            val before = lastScan
+            lastScan = now
+            if (before != null && before != now) { Log.i("Live", "missed a scan"); graph.changed(Graph.Change.MUSIC) }
+        }
+    }
+
     private fun handle(event: String, data: String) {
         val obj = runCatching { json.parseToJsonElement(data).jsonObject }.getOrNull() ?: return
         when (event) {
@@ -120,7 +140,7 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
             "scanStatus" -> {
                 val now = obj["scanning"]?.jsonPrimitive?.booleanOrNull ?: return
                 // A finished scan can change albums and smart playlists, which send no events of their own.
-                if (scanning && !now) { Log.i("Live", "scan finished"); graph.sync.request() }
+                if (scanning && !now) { Log.i("Live", "scan finished"); graph.sync.request(); graph.changed(Graph.Change.MUSIC) }
                 scanning = now
             }
         }
@@ -130,6 +150,7 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
         fun ids(key: String) = (obj[key] as? JsonArray)?.mapNotNull { it.jsonPrimitive.contentOrNull }.orEmpty()
         if (obj.containsKey("*")) {
             graph.sync.request()
+            graph.changed(Graph.Change.MUSIC)
             scope.launch { runCatching { graph.library.refreshPlaylists() } }
             return
         }
@@ -163,6 +184,7 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
             graph.library.refreshStarred()
             // Play counts send song events too, so only sync Loved when loves changed.
             if (graph.library.starredSongs.value != before) graph.lovedChanged()
+            graph.changed(Graph.Change.ANNOTATIONS)
         }
     }
 

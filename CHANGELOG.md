@@ -4,6 +4,12 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.6.8
+
+- Home and Library update by themselves when music is added to or removed from the server, even if it happened while Seiðr was closed.
+- Home's Most played shelves follow what you play, and Saved albums follows what you save.
+- Something new at the front of a Home shelf now shows, instead of arriving just out of view.
+
 ## 1.6.7
 
 - Home's shelves show 15 each and end in an arrow that opens the whole list in Library, in the same order.

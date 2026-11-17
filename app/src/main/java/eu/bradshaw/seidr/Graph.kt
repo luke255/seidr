@@ -132,6 +132,25 @@ class Graph(val app: Application) {
         text = { app.getString(it) },
     )
 
+    /** What changed on the server, so open screens can reload (see [LiveEvents]). */
+    enum class Change {
+        /** A scan added, changed or removed music. */
+        MUSIC,
+        /** Plays or saves (songs, albums) changed; a burst per track played. */
+        ANNOTATIONS,
+    }
+
+    private val _changes = kotlinx.coroutines.flow.MutableSharedFlow<Change>(extraBufferCapacity = 8)
+    val changes: kotlinx.coroutines.flow.SharedFlow<Change> = _changes
+
+    fun changed(change: Change) {
+        if (change == Change.MUSIC) {
+            library.forgetMusic()
+            kidView.value?.library?.forgetMusic()
+        }
+        _changes.tryEmit(change)
+    }
+
     /** Loves changed (here or elsewhere): a downloaded Loved list follows them. */
     fun lovedChanged() {
         val id = eu.bradshaw.seidr.data.db.SourceType.STARRED_ID

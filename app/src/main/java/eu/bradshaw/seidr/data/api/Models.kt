@@ -32,7 +32,12 @@ data class SubsonicResponse(
     val bookmarks: Bookmarks? = null,
     val albumInfo: AlbumInfo? = null,
     val user: User? = null,
+    val scanStatus: ScanStatus? = null,
 )
+
+/** [lastScan] (Navidrome) and [count] move when a scan changes the library. */
+@Serializable
+data class ScanStatus(val scanning: Boolean = false, val count: Long? = null, val lastScan: String? = null)
 
 @Serializable
 data class User(val username: String = "", val adminRole: Boolean = false)

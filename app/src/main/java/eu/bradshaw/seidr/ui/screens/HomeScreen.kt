@@ -31,6 +31,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -60,7 +61,11 @@ import eu.bradshaw.seidr.ui.components.CoverCard
 import eu.bradshaw.seidr.ui.components.SectionHeader
 import androidx.compose.ui.res.stringResource
 import eu.bradshaw.seidr.R
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 
 data class HomeData(val newest: List<Album>, val frequent: List<Album>, val artists: List<Artist>, val starred: List<Album>)
@@ -75,21 +80,49 @@ class HomeVm(private val graph: Graph) : ViewModel() {
     var refreshing by mutableStateOf(false)
         private set
 
-    init { load() }
+    private var loading: Job? = null
 
-    fun load() {
+    init {
+        load()
+        // Live: a scan reloads at once; plays (a burst per track) once they've settled.
         viewModelScope.launch {
-            refreshing = true
-            fun list(type: String, size: Int = SHELF) = async { runCatching { graph.browse.albumList(type, size) }.getOrDefault(emptyList()) }
+            graph.changes.collectLatest { c ->
+                if (c == Graph.Change.ANNOTATIONS) delay(20_000)
+                load(quiet = true)
+            }
+        }
+        // An album saved or unsaved, here or (via the live feed) elsewhere: just that shelf.
+        viewModelScope.launch {
+            graph.browse.starredAlbums.drop(1).collectLatest {
+                val starred = runCatching { graph.browse.albumList("starred", SHELF) }.getOrNull() ?: return@collectLatest
+                data = data?.copy(starred = starred)
+            }
+        }
+    }
+
+    /** [quiet]: a live update, so no refresh spinner, and a list that fails keeps what it showed. */
+    fun load(quiet: Boolean = false) {
+        loading?.cancel()
+        loading = viewModelScope.launch {
+            if (!quiet) refreshing = true
+            val old = data
+            fun list(type: String, size: Int = SHELF) = async { runCatching { graph.browse.albumList(type, size) }.getOrNull() }
             // Artists' plays are their albums' (as Library's Most played sorts them), so
             // fetch well past the albums shelf: enough to rank everyone who's been played.
             val newest = list("newest"); val frequent = list("frequent", 500); val starred = list("starred")
-            val artists = async { runCatching { graph.browse.artists() }.getOrDefault(emptyList()) }
+            val artists = async { runCatching { graph.browse.artists() }.getOrNull() }
             launch { runCatching { graph.browse.refreshPlaylists() } }
             val played = frequent.await()
-            val plays = ArtistSort.plays(played)
-            val topArtists = ArtistSort.PLAYS.sort(artists.await()) { plays }.filter { (plays[it.id] ?: 0L) > 0 }.take(SHELF)
-            data = HomeData(newest.await(), played.take(SHELF), topArtists, starred.await())
+            val topArtists = played?.let { p ->
+                val plays = ArtistSort.plays(p)
+                artists.await()?.let { a -> ArtistSort.PLAYS.sort(a) { plays }.filter { (plays[it.id] ?: 0L) > 0 }.take(SHELF) }
+            }
+            data = HomeData(
+                newest.await() ?: old?.newest.orEmpty(),
+                played?.take(SHELF) ?: old?.frequent.orEmpty(),
+                topArtists ?: old?.artists.orEmpty(),
+                starred.await() ?: old?.starred.orEmpty(),
+            )
             refreshing = false
         }
     }
@@ -145,21 +178,7 @@ fun HomeScreen() {
                     item {
                         // Always most recent first. null is Loved.
                         val shelf = PlaylistSort.RECENT.sort(pls, lastPlayed, LovedAt(lastPlayed[Loved.PLAYS_KEY], lastLoved)).take(SHELF)
-                        val row = rememberLazyListState()
-                        // A lazy row keeps its first visible item when items are put in front of it,
-                        // so a playlist that arrives first (one just created, after the cached list
-                        // showed) would open scrolled out of sight. At the start, stay at the start.
-                        // SideEffect runs after this composition is applied but before the row's
-                        // next layout, which is when the request has to land.
-                        val first = shelf.firstOrNull()?.id ?: "loved"
-                        val seenFirst = remember { arrayOfNulls<String>(1) }
-                        SideEffect {
-                            if (seenFirst[0] != first) {
-                                seenFirst[0] = first
-                                if (row.firstVisibleItemIndex == 0 && row.firstVisibleItemScrollOffset == 0) row.requestScrollToItem(0)
-                            }
-                        }
-                        LazyRow(state = row, contentPadding = PaddingValues(horizontal = 10.dp)) {
+                        LazyRow(state = shelfState(shelf.firstOrNull()?.id ?: "loved"), contentPadding = PaddingValues(horizontal = 10.dp)) {
                             itemsIndexed(shelf, key = { _, p -> p?.id ?: "loved" }) { i, p ->
                                 val focus = if (i == 0) Modifier.primaryFocus() else Modifier
                                 if (p == null) CoverCard(Loved.title, Loved.subtitle(starred), null, onClick = { actions.open(Route.Loved) },
@@ -174,8 +193,9 @@ fun HomeScreen() {
                 if (shared.isNotEmpty()) {
                     item(key = "h:shared") { SectionHeader(stringResource(R.string.home_shared_playlists)) }
                     item(key = "s:shared") {
-                        LazyRow(contentPadding = PaddingValues(horizontal = 10.dp)) {
-                            items(PlaylistSort.RECENT.sort(shared, lastPlayed, loved = null).filterNotNull().take(SHELF), key = { it.id }) { p ->
+                        val shelf = PlaylistSort.RECENT.sort(shared, lastPlayed, loved = null).filterNotNull().take(SHELF)
+                        LazyRow(state = shelfState(shelf.firstOrNull()?.id), contentPadding = PaddingValues(horizontal = 10.dp)) {
+                            items(shelf, key = { it.id }) { p ->
                                 CoverCard(p.name, playlistLine(p, server?.username), p.coverArt, onClick = { actions.open(Route.Playlist(p.id)) })
                             }
                             seeAll { settings.setPlaylistsSort(PlaylistSort.RECENT); settings.setLibraryShared(true); actions.openLibrary(LibTab.PLAYLISTS) }
@@ -190,7 +210,7 @@ fun HomeScreen() {
                 if (artists.isNotEmpty()) {
                     item(key = "h:artists") { SectionHeader(mostPlayedArtists) }
                     item(key = "s:artists") {
-                        LazyRow(contentPadding = PaddingValues(horizontal = 10.dp)) {
+                        LazyRow(state = shelfState(artists.firstOrNull()?.id), contentPadding = PaddingValues(horizontal = 10.dp)) {
                             items(artists, key = { it.id }) { a ->
                                 CoverCard(a.name, albumsText(a.albumCount), a.coverArt, onClick = { actions.open(Route.Artist(a.id)) },
                                     round = true, art = { m -> ArtistImage(a.coverArt, m) })
@@ -211,11 +231,31 @@ private fun androidx.compose.foundation.lazy.LazyListScope.albumShelf(
     if (albums.isEmpty()) return
     item(key = "h:$title") { SectionHeader(title) }
     item(key = "s:$title") {
-        LazyRow(contentPadding = PaddingValues(horizontal = 10.dp)) {
+        LazyRow(state = shelfState(albums.firstOrNull()?.id), contentPadding = PaddingValues(horizontal = 10.dp)) {
             items(albums, key = { it.id }) { a -> CoverCard(a.name, a.artistLine, a.coverArt, onClick = { open(a.id) }) }
             seeAll(more)
         }
     }
+}
+
+/**
+ * A shelf's scroll state. A lazy row keeps its first visible item when items are put
+ * in front of it, so one that arrives first (an album just added, a playlist just
+ * created) would land out of sight. At the start, stay at the start. SideEffect runs
+ * after this composition is applied but before the row's next layout, which is when
+ * the request has to land.
+ */
+@Composable
+private fun shelfState(first: String?): LazyListState {
+    val row = rememberLazyListState()
+    val seenFirst = remember { arrayOfNulls<String>(1) }
+    SideEffect {
+        if (seenFirst[0] != first) {
+            seenFirst[0] = first
+            if (row.firstVisibleItemIndex == 0 && row.firstVisibleItemScrollOffset == 0) row.requestScrollToItem(0)
+        }
+    }
+    return row
 }
 
 /** A shelf's last item: an arrow to the whole list in Library. As tall as a card's art. */

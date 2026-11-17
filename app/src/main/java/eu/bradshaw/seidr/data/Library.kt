@@ -105,6 +105,12 @@ class Library(
     private var artistsCache: List<Artist>? = null
     private var albumsCache: List<Album>? = null
 
+    /** The server's music changed (a scan): the next artists/albums read fetches again. */
+    fun forgetMusic() {
+        artistsCache = null
+        albumsCache = null
+    }
+
     /** Refetches the list and returns the visible playlists (see [playlists]). */
     suspend fun refreshPlaylists(): List<Playlist> = visible(fetchAllPlaylists())
 

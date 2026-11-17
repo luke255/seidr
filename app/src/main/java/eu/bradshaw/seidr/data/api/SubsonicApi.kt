@@ -52,6 +52,8 @@ interface SubsonicApi {
 
     @GET("getStarred2.view") suspend fun getStarred2(): Envelope
 
+    @GET("getScanStatus.view") suspend fun getScanStatus(): Envelope
+
     @GET("search3.view")
     suspend fun search3(
         @Query("query") query: String,
