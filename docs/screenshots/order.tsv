@@ -1,12 +1,12 @@
 # Priority order (the first 6 are in the README): file<TAB>alt text
 01-now-playing-cyan.webp	Now Playing, coloured from the album cover
 02-home.webp	Home
-03-library.webp	Library: albums
-04-now-playing-orange.webp	Now Playing on an orange cover
-05-visualiser.webp	The MilkDrop visualiser
+03-visualiser.webp	The MilkDrop visualiser
+04-library.webp	Library: albums
+05-now-playing-orange.webp	Now Playing on an orange cover
 06-queue.webp	The play queue
 07-lyrics.webp	Synced lyrics
-08-now-playing-red.webp	Now Playing on a red cover
+08-now-playing-flower.webp	Now Playing on a muted cover
 09-album.webp	An album
 10-playlist.webp	Playlist options: download, share, rename, reorder, earlier versions
 11-settings.webp	Settings, with the colour picker
