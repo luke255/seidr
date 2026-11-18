@@ -179,5 +179,12 @@
     <string name="sleep_set_until">Musiikki pysähtyy klo %1$s</string>
     <string name="sleep_set_end_of_song">Musiikki pysähtyy tämän kappaleen jälkeen</string>
     <string name="sleep_off_toast">Uniajastin pois käytöstä</string>
+    <string name="vis_pack_title">Visualisoinnin esiasetukset</string>
+    <string name="vis_pack_missing">Visualisoinnin esiasetuksia ei ole vielä tällä laitteella. Ne tulevat projectM-projektin kokoelmasta, ovat noin %1$d Mt ja ladataan kerran.</string>
+    <string name="vis_pack_metered">Käytät mobiilidataa.</string>
+    <string name="vis_pack_failed">Edellinen lataus jäi kesken.</string>
+    <string name="vis_pack_download">Lataa</string>
+    <string name="vis_pack_downloading">Ladataan visualisoinnin esiasetuksia… %1$d %%</string>
+    <string name="vis_pack_not_ready">Visualisoinnin esiasetuksia ei ole vielä ladattu.</string>
 
 </resources>

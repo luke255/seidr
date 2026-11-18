@@ -187,5 +187,12 @@
     <string name="sleep_set_until">Hudba se zastaví v %1$s</string>
     <string name="sleep_set_end_of_song">Hudba se zastaví po této skladbě</string>
     <string name="sleep_off_toast">Časovač spánku vypnut</string>
+    <string name="vis_pack_title">Předvolby vizualizace</string>
+    <string name="vis_pack_missing">Předvolby vizualizace v tomto zařízení zatím nejsou. Pocházejí ze sbírky projektu projectM, mají asi %1$d MB a stahují se jen jednou.</string>
+    <string name="vis_pack_metered">Jsi na mobilních datech.</string>
+    <string name="vis_pack_failed">Poslední stahování se nedokončilo.</string>
+    <string name="vis_pack_download">Stáhnout</string>
+    <string name="vis_pack_downloading">Stahuji předvolby vizualizace… %1$d %%</string>
+    <string name="vis_pack_not_ready">Předvolby vizualizace se ještě nestáhly.</string>
 
 </resources>

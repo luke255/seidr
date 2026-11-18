@@ -50,6 +50,7 @@ class SeidrApp : Application(), SingletonImageLoader.Factory {
         ProcessLifecycleOwner.get().lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onStart(owner: LifecycleOwner) {
                 graph.connect.startDiscovery()
+                graph.presetPack.downloadIfUnmetered()
                 if (graph.settings.server.value == null) return
                 graph.scope.launch {
                     probeServer()

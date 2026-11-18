@@ -183,5 +183,12 @@
     <string name="sleep_set_until">La musique s\'arrête à %1$s</string>
     <string name="sleep_set_end_of_song">La musique s\'arrête après ce titre</string>
     <string name="sleep_off_toast">Minuterie désactivée</string>
+    <string name="vis_pack_title">Préréglages du visualiseur</string>
+    <string name="vis_pack_missing">Les préréglages du visualiseur ne sont pas encore sur cet appareil. Ils viennent de la collection du projet projectM, font environ %1$d Mo et se téléchargent une seule fois.</string>
+    <string name="vis_pack_metered">Vous utilisez les données mobiles.</string>
+    <string name="vis_pack_failed">Le dernier téléchargement n\'a pas abouti.</string>
+    <string name="vis_pack_download">Télécharger</string>
+    <string name="vis_pack_downloading">Téléchargement des préréglages du visualiseur… %1$d %%</string>
+    <string name="vis_pack_not_ready">Les préréglages du visualiseur ne sont pas encore téléchargés.</string>
 
 </resources>

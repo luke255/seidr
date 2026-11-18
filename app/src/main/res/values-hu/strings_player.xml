@@ -179,5 +179,12 @@
     <string name="sleep_set_until">A zene %1$s-kor leáll</string>
     <string name="sleep_set_end_of_song">A zene e dal után leáll</string>
     <string name="sleep_off_toast">Elalvási időzítő kikapcsolva</string>
+    <string name="vis_pack_title">Vizualizációs előbeállítások</string>
+    <string name="vis_pack_missing">A vizualizáció előbeállításai még nincsenek ezen az eszközön. A projectM projekt gyűjteményéből származnak, nagyjából %1$d MB-osak, és egyszer kell letölteni őket.</string>
+    <string name="vis_pack_metered">Mobiladatot használsz.</string>
+    <string name="vis_pack_failed">Az utolsó letöltés nem fejeződött be.</string>
+    <string name="vis_pack_download">Letöltés</string>
+    <string name="vis_pack_downloading">A vizualizáció előbeállításainak letöltése… %1$d%%</string>
+    <string name="vis_pack_not_ready">A vizualizáció előbeállításai még nincsenek letöltve.</string>
 
 </resources>

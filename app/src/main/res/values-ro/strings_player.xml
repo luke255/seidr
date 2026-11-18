@@ -183,5 +183,12 @@
     <string name="sleep_set_until">Muzica se oprește la %1$s</string>
     <string name="sleep_set_end_of_song">Muzica se oprește după această melodie</string>
     <string name="sleep_off_toast">Temporizator dezactivat</string>
+    <string name="vis_pack_title">Presetări pentru vizualizare</string>
+    <string name="vis_pack_missing">Presetările pentru vizualizare nu sunt încă pe acest dispozitiv. Vin din colecția proiectului projectM, au circa %1$d MB și se descarcă o singură dată.</string>
+    <string name="vis_pack_metered">Folosești date mobile.</string>
+    <string name="vis_pack_failed">Ultima descărcare nu s-a terminat.</string>
+    <string name="vis_pack_download">Descarcă</string>
+    <string name="vis_pack_downloading">Se descarcă presetările pentru vizualizare… %1$d%%</string>
+    <string name="vis_pack_not_ready">Presetările pentru vizualizare nu s-au descărcat încă.</string>
 
 </resources>

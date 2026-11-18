@@ -1,6 +1,7 @@
 package eu.bradshaw.seidr.vis
 
 import eu.bradshaw.seidr.R
+import android.widget.Toast
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -80,6 +81,12 @@ class VisualiserActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Now Playing offers the download first; this is for any other way in.
+        if (!graph.presetPack.ready) {
+            Toast.makeText(this, getString(R.string.vis_pack_not_ready), Toast.LENGTH_LONG).show()
+            finish()
+            return
+        }
         preview = intent.getStringExtra(EXTRA_PREVIEW)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         window.attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS

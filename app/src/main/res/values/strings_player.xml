@@ -225,5 +225,12 @@
     <string name="sleep_set_until">Music stops at %1$s</string>
     <string name="sleep_set_end_of_song">Music stops after this song</string>
     <string name="sleep_off_toast">Sleep timer off</string>
+    <string name="vis_pack_title">Visualiser presets</string>
+    <string name="vis_pack_missing">The visualiser\'s presets aren\'t on this device yet. They come from the projectM project\'s collection, about %1$d MB, and download once.</string>
+    <string name="vis_pack_metered">You\'re on mobile data.</string>
+    <string name="vis_pack_failed">The last download didn\'t finish.</string>
+    <string name="vis_pack_download">Download</string>
+    <string name="vis_pack_downloading">Downloading the visualiser\'s presets… %1$d%%</string>
+    <string name="vis_pack_not_ready">The visualiser\'s presets haven\'t downloaded yet.</string>
 
 </resources>

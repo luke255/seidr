@@ -39,6 +39,11 @@ class XrVisualiserActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (!graph.presetPack.ready) {
+            Toast.makeText(this, getString(R.string.vis_pack_not_ready), Toast.LENGTH_LONG).show()
+            finish()
+            return
+        }
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         thread = Thread(::run, "XrVisualiser").apply { start() }
         closeWhenGuestLeaves(graph)
@@ -51,7 +56,7 @@ class XrVisualiserActivity : ComponentActivity() {
 
     override fun onDestroy() {
         running = false
-        thread.join(2_000)
+        if (::thread.isInitialized) thread.join(2_000)
         super.onDestroy()
     }
 

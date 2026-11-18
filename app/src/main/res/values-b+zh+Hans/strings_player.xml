@@ -175,5 +175,12 @@
     <string name="sleep_set_until">音乐将在 %1$s 停止</string>
     <string name="sleep_set_end_of_song">音乐将在这首歌之后停止</string>
     <string name="sleep_off_toast">睡眠定时已关闭</string>
+    <string name="vis_pack_title">可视化预设</string>
+    <string name="vis_pack_missing">此设备上还没有可视化预设。它们来自 projectM 项目的合集，大约 %1$d MB，只需下载一次。</string>
+    <string name="vis_pack_metered">你正在使用移动数据。</string>
+    <string name="vis_pack_failed">上次下载没有完成。</string>
+    <string name="vis_pack_download">下载</string>
+    <string name="vis_pack_downloading">正在下载可视化预设… %1$d%%</string>
+    <string name="vis_pack_not_ready">可视化预设还没有下载。</string>
 
 </resources>

@@ -179,5 +179,12 @@
     <string name="sleep_set_until">Η μουσική σταματά στις %1$s</string>
     <string name="sleep_set_end_of_song">Η μουσική σταματά μετά από αυτό το τραγούδι</string>
     <string name="sleep_off_toast">Ο χρονοδιακόπτης ύπνου απενεργοποιήθηκε</string>
+    <string name="vis_pack_title">Προρρυθμίσεις οπτικοποίησης</string>
+    <string name="vis_pack_missing">Οι προρρυθμίσεις οπτικοποίησης δεν βρίσκονται ακόμα σε αυτή τη συσκευή. Προέρχονται από τη συλλογή του έργου projectM, είναι περίπου %1$d MB και κατεβαίνουν μία φορά.</string>
+    <string name="vis_pack_metered">Χρησιμοποιείς δεδομένα κινητής.</string>
+    <string name="vis_pack_failed">Η τελευταία λήψη δεν ολοκληρώθηκε.</string>
+    <string name="vis_pack_download">Λήψη</string>
+    <string name="vis_pack_downloading">Λήψη προρρυθμίσεων οπτικοποίησης… %1$d%%</string>
+    <string name="vis_pack_not_ready">Οι προρρυθμίσεις οπτικοποίησης δεν έχουν κατέβει ακόμα.</string>
 
 </resources>

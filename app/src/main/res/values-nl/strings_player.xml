@@ -179,5 +179,12 @@
     <string name="sleep_set_until">De muziek stopt om %1$s</string>
     <string name="sleep_set_end_of_song">De muziek stopt na dit nummer</string>
     <string name="sleep_off_toast">Slaaptimer uit</string>
+    <string name="vis_pack_title">Visualisatievoorinstellingen</string>
+    <string name="vis_pack_missing">De voorinstellingen van de visualisatie staan nog niet op dit apparaat. Ze komen uit de collectie van het projectM-project, zijn ongeveer %1$d MB en worden één keer gedownload.</string>
+    <string name="vis_pack_metered">Je gebruikt mobiele data.</string>
+    <string name="vis_pack_failed">De vorige download is niet afgemaakt.</string>
+    <string name="vis_pack_download">Downloaden</string>
+    <string name="vis_pack_downloading">Voorinstellingen van de visualisatie downloaden… %1$d%%</string>
+    <string name="vis_pack_not_ready">De voorinstellingen van de visualisatie zijn nog niet gedownload.</string>
 
 </resources>

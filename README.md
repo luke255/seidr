@@ -120,6 +120,9 @@ Download the APK from the [latest release](https://github.com/luke255/seidr/rele
 and open it on your device. You may need to allow installing apps from your
 browser or file manager.
 
+The APK is about 14 MB. The visualiser's presets (about 36 MB) download
+separately, by themselves on Wi-Fi or when you first open the visualiser.
+
 Seiðr updates itself: when a new release is out it offers to install it,
 with what's new. You can turn the automatic check off in Settings → About.
 If you'd rather use Obtainium, turn that check off so the two don't compete.
@@ -166,7 +169,8 @@ anywhere. Questions are welcome in
 Seiðr has no analytics, tracking, ads or accounts of its own. It talks to:
 
 - **your server**, for everything to do with your music;
-- **GitHub**, to check for a new release (you can turn this off);
+- **GitHub**, to check for a new release (you can turn this off), and once
+  to download the visualiser's presets from projectM's repositories;
 - **other devices running Seiðr** on your local network, when you sign one in
   or play on one.
 
@@ -227,16 +231,20 @@ Thank you to all of them.
   `app/src/main/cpp/projectm` (version 4.1.8), under the
   [GNU LGPL 2.1](app/src/main/cpp/projectm/LICENSE.txt). That folder holds its full
   source, so you can rebuild it, or swap in your own build.
-- **Presets**: the
-  ["Cream of the Crop" pack](https://github.com/projectM-visualizer/presets-cream-of-the-crop),
-  ~9,800 MilkDrop presets curated and sorted by **Jason Fletcher (ISOSCELES)**,
-  as published by projectM. Each preset is the work of its author, named in its
-  file name, from Geiss himself to the hundreds of artists of the MilkDrop
-  scene (Rovastar, Krash, Flexi, Martin, shifter, Eo.S., Aderrasi, suksma,
-  Isosceles and so many more). Few presets were ever released under a licence.
-  Like projectM, we treat them as freely shared, and **any author who would
-  rather their work wasn't included can ask, and it will be removed**.
+- **Presets**: the ["Cream of the Crop"
+  pack](https://github.com/projectM-visualizer/presets-cream-of-the-crop),
+  ~9,800 MilkDrop presets curated and sorted by **Jason Fletcher
+  (ISOSCELES)**, as published by projectM. Seiðr doesn't ship them: the first
+  time you open the visualiser (or sooner, on Wi-Fi), it downloads the pack
+  from projectM's own repository, about 36 MB, and checks every file. Each
+  preset is the work of its author, named in its file name, from Geiss himself
+  to the hundreds of artists of the MilkDrop scene (Rovastar, Krash, Flexi,
+  Martin, shifter, Eo.S., Aderrasi, suksma, Isosceles and so many more). Few
+  presets were ever released under a licence. Like projectM, we treat them as
+  freely shared, and **any author who would rather their work wasn't included
+  can ask, and Seiðr will stop using it**.
 - **Textures**: the
   [MilkDrop texture pack](https://github.com/projectM-visualizer/presets-milkdrop-texture-pack)
   collected by projectM: the textures that shipped with MilkDrop, plus others
-  that popular presets rely on. The same removal offer applies.
+  that popular presets rely on, downloaded the same way. The same removal
+  offer applies.

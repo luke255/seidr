@@ -347,7 +347,18 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
                                 open(immersive)
                             })
                         }
-                        val visualise = { immersive: Boolean -> if (prefs.warned(immersive)) open(immersive) else warn = immersive }
+                        // The presets download once (PresetPack); until then, offer that first.
+                        var fetch by remember { mutableStateOf<Boolean?>(null) } // immersive, or not
+                        val visualise = { immersive: Boolean ->
+                            when {
+                                !actions.graph.presetPack.ready -> fetch = immersive
+                                prefs.warned(immersive) -> open(immersive)
+                                else -> warn = immersive
+                            }
+                        }
+                        fetch?.let { immersive ->
+                            PresetPackDialog(onDismiss = { fetch = null }, onReady = { fetch = null; visualise(immersive) })
+                        }
                         IconButton(onClick = { visualise(false) }, enabled = remote == null) {
                             Icon(Icons.Filled.GraphicEq, stringResource(R.string.player_visualiser))
                         }
@@ -587,6 +598,7 @@ private fun SleepMenu(expanded: Boolean, onDismiss: () -> Unit) {
     val sleep = actions.graph.sleep
     val mode by sleep.mode.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val res = androidx.compose.ui.platform.LocalResources.current
     val endMessage = stringResource(R.string.sleep_set_end_of_song)
     val offMessage = stringResource(R.string.sleep_off_toast)
     DropdownMenu(expanded = expanded, onDismissRequest = onDismiss) {
@@ -596,7 +608,7 @@ private fun SleepMenu(expanded: Boolean, onDismiss: () -> Unit) {
             DropdownMenuItem(text = { Text(stringResource(R.string.sleep_minutes, min)) }, onClick = {
                 onDismiss()
                 sleep.stopIn(min)
-                (sleep.mode.value as? SleepTimer.Mode.At)?.let { actions.toast(context.getString(R.string.sleep_set_until, sleepClock(context, it))) }
+                (sleep.mode.value as? SleepTimer.Mode.At)?.let { actions.toast(res.getString(R.string.sleep_set_until, sleepClock(context, it))) }
             })
         }
         DropdownMenuItem(text = { Text(stringResource(R.string.sleep_end_of_song)) }, onClick = {

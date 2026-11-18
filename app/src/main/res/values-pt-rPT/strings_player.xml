@@ -183,5 +183,12 @@
     <string name="sleep_set_until">A música para às %1$s</string>
     <string name="sleep_set_end_of_song">A música para depois desta música</string>
     <string name="sleep_off_toast">Temporizador desativado</string>
+    <string name="vis_pack_title">Predefinições do visualizador</string>
+    <string name="vis_pack_missing">As predefinições do visualizador ainda não estão neste dispositivo. Vêm da coleção do projeto projectM, têm cerca de %1$d MB e são transferidas uma única vez.</string>
+    <string name="vis_pack_metered">Estás a usar dados móveis.</string>
+    <string name="vis_pack_failed">A última transferência não terminou.</string>
+    <string name="vis_pack_download">Transferir</string>
+    <string name="vis_pack_downloading">A transferir as predefinições do visualizador… %1$d%%</string>
+    <string name="vis_pack_not_ready">As predefinições do visualizador ainda não foram transferidas.</string>
 
 </resources>

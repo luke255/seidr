@@ -179,5 +179,12 @@
     <string name="sleep_set_until">Die Musik stoppt um %1$s</string>
     <string name="sleep_set_end_of_song">Die Musik stoppt nach diesem Song</string>
     <string name="sleep_off_toast">Sleep-Timer aus</string>
+    <string name="vis_pack_title">Visualisierungs-Presets</string>
+    <string name="vis_pack_missing">Die Presets der Visualisierung sind noch nicht auf diesem Gerät. Sie stammen aus der Sammlung des projectM-Projekts, sind etwa %1$d MB groß und werden einmal heruntergeladen.</string>
+    <string name="vis_pack_metered">Du nutzt gerade mobile Daten.</string>
+    <string name="vis_pack_failed">Der letzte Download wurde nicht fertig.</string>
+    <string name="vis_pack_download">Herunterladen</string>
+    <string name="vis_pack_downloading">Visualisierungs-Presets werden heruntergeladen … %1$d %%</string>
+    <string name="vis_pack_not_ready">Die Visualisierungs-Presets sind noch nicht heruntergeladen.</string>
 
 </resources>

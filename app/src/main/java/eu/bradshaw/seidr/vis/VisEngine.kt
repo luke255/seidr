@@ -182,7 +182,7 @@ class VisEngine(
         remember()
         current = path
         host.presetShown(path)
-        val data = context.assets.open("milkdrop/presets/$path").bufferedReader().use { it.readText() }
+        val data = eu.bradshaw.seidr.Graph.get(context).presetPack.read(path)
         val start = SystemClock.elapsedRealtime()
         ProjectM.nativeLoadPreset(handle, data, tune.current.transitions && !hardCut)
         Log.i(TAG, "preset $path (load ${SystemClock.elapsedRealtime() - start} ms${if (hardCut) ", hard cut" else ""})")
@@ -237,25 +237,10 @@ class VisEngine(
         fun presets(context: Context, prefs: VisPrefs, preview: String?): List<String> {
             if (preview != null) return listOf(preview)
             val hidden = prefs.hiddenPaths
-            // presets.txt lists the pack (walking ~200 asset folders is slow); MilkdropAssetsTest keeps it in step.
-            return context.assets.open("milkdrop/presets.txt").bufferedReader().readLines()
-                .filter { it.isNotBlank() && it !in hidden }
-                .shuffled()
+            return eu.bradshaw.seidr.Graph.get(context).presetPack.presets.filter { it !in hidden }.shuffled()
         }
 
-        /** The texture pack, unpacked once per install: projectM wants files on disk. */
-        fun textureDir(context: Context): File {
-            val dir = File(context.noBackupFilesDir, "milkdrop/textures")
-            val stamp = File(dir, ".installed")
-            val version = context.packageManager.getPackageInfo(context.packageName, 0).lastUpdateTime.toString()
-            if (stamp.isFile && stamp.readText() == version) return dir
-            dir.deleteRecursively()
-            dir.mkdirs()
-            for (name in context.assets.list("milkdrop/textures").orEmpty()) {
-                context.assets.open("milkdrop/textures/$name").use { input -> File(dir, name).outputStream().use { input.copyTo(it) } }
-            }
-            stamp.writeText(version)
-            return dir
-        }
+        /** The texture pack, from the downloaded [PresetPack]: projectM wants files on disk. */
+        fun textureDir(context: Context): File = eu.bradshaw.seidr.Graph.get(context).presetPack.textureDir
     }
 }

@@ -175,5 +175,12 @@
     <string name="sleep_set_until">音樂將在 %1$s 停止</string>
     <string name="sleep_set_end_of_song">音樂將在這首歌之後停止</string>
     <string name="sleep_off_toast">睡眠定時已關閉</string>
+    <string name="vis_pack_title">視覺化預設</string>
+    <string name="vis_pack_missing">此裝置上還沒有視覺化預設。它們來自 projectM 專案的合集，大約 %1$d MB，只需下載一次。</string>
+    <string name="vis_pack_metered">你正在使用行動數據。</string>
+    <string name="vis_pack_failed">上次下載沒有完成。</string>
+    <string name="vis_pack_download">下載</string>
+    <string name="vis_pack_downloading">正在下載視覺化預設… %1$d%%</string>
+    <string name="vis_pack_not_ready">視覺化預設還沒有下載。</string>
 
 </resources>

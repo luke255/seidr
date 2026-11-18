@@ -179,5 +179,12 @@
     <string name="sleep_set_until">Musikken stopper kl. %1$s</string>
     <string name="sleep_set_end_of_song">Musikken stopper etter denne sangen</string>
     <string name="sleep_off_toast">Søvntimer slått av</string>
+    <string name="vis_pack_title">Visualiseringsforhåndsinnstillinger</string>
+    <string name="vis_pack_missing">Visualiseringens forhåndsinnstillinger er ikke på denne enheten ennå. De kommer fra projectM-prosjektets samling, er på omtrent %1$d MB og lastes ned én gang.</string>
+    <string name="vis_pack_metered">Du bruker mobildata.</string>
+    <string name="vis_pack_failed">Den forrige nedlastingen ble ikke fullført.</string>
+    <string name="vis_pack_download">Last ned</string>
+    <string name="vis_pack_downloading">Laster ned visualiseringens forhåndsinnstillinger … %1$d %%</string>
+    <string name="vis_pack_not_ready">Visualiseringens forhåndsinnstillinger er ikke lastet ned ennå.</string>
 
 </resources>

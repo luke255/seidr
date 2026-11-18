@@ -183,5 +183,12 @@
     <string name="sleep_set_until">La musica si ferma alle %1$s</string>
     <string name="sleep_set_end_of_song">La musica si ferma dopo questo brano</string>
     <string name="sleep_off_toast">Timer disattivato</string>
+    <string name="vis_pack_title">Preset del visualizzatore</string>
+    <string name="vis_pack_missing">I preset del visualizzatore non sono ancora su questo dispositivo. Vengono dalla raccolta del progetto projectM, occupano circa %1$d MB e si scaricano una volta sola.</string>
+    <string name="vis_pack_metered">Stai usando i dati mobili.</string>
+    <string name="vis_pack_failed">L\'ultimo download non è stato completato.</string>
+    <string name="vis_pack_download">Scarica</string>
+    <string name="vis_pack_downloading">Download dei preset del visualizzatore… %1$d%%</string>
+    <string name="vis_pack_not_ready">I preset del visualizzatore non sono ancora stati scaricati.</string>
 
 </resources>

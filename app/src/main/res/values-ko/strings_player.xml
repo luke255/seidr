@@ -175,5 +175,12 @@
     <string name="sleep_set_until">%1$s에 음악이 멈춥니다</string>
     <string name="sleep_set_end_of_song">이 곡이 끝나면 음악이 멈춥니다</string>
     <string name="sleep_off_toast">수면 타이머 꺼짐</string>
+    <string name="vis_pack_title">시각화 프리셋</string>
+    <string name="vis_pack_missing">이 기기에는 아직 시각화 프리셋이 없습니다. projectM 프로젝트의 모음집에서 약 %1$dMB를 한 번만 다운로드합니다.</string>
+    <string name="vis_pack_metered">모바일 데이터를 사용 중입니다.</string>
+    <string name="vis_pack_failed">지난번 다운로드가 끝나지 않았습니다.</string>
+    <string name="vis_pack_download">다운로드</string>
+    <string name="vis_pack_downloading">시각화 프리셋 다운로드 중… %1$d%%</string>
+    <string name="vis_pack_not_ready">시각화 프리셋이 아직 다운로드되지 않았습니다.</string>
 
 </resources>

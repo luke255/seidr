@@ -183,5 +183,12 @@
     <string name="sleep_set_until">La música s\'atura a les %1$s</string>
     <string name="sleep_set_end_of_song">La música s\'atura després d\'aquesta cançó</string>
     <string name="sleep_off_toast">Temporitzador desactivat</string>
+    <string name="vis_pack_title">Predefinits del visualitzador</string>
+    <string name="vis_pack_missing">Els predefinits del visualitzador encara no són en aquest dispositiu. Provenen de la col·lecció del projecte projectM, ocupen uns %1$d MB i es baixen una sola vegada.</string>
+    <string name="vis_pack_metered">Estàs fent servir dades mòbils.</string>
+    <string name="vis_pack_failed">L\'última baixada no va acabar.</string>
+    <string name="vis_pack_download">Baixa</string>
+    <string name="vis_pack_downloading">S\'estan baixant els predefinits del visualitzador… %1$d %%</string>
+    <string name="vis_pack_not_ready">Els predefinits del visualitzador encara no s\'han baixat.</string>
 
 </resources>

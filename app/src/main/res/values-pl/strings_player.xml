@@ -187,5 +187,12 @@
     <string name="sleep_set_until">Muzyka zatrzyma się o %1$s</string>
     <string name="sleep_set_end_of_song">Muzyka zatrzyma się po tym utworze</string>
     <string name="sleep_off_toast">Wyłącznik czasowy wyłączony</string>
+    <string name="vis_pack_title">Ustawienia wizualizacji</string>
+    <string name="vis_pack_missing">Ustawień wizualizacji nie ma jeszcze na tym urządzeniu. Pochodzą z kolekcji projektu projectM, zajmują około %1$d MB i pobiera się je raz.</string>
+    <string name="vis_pack_metered">Korzystasz z danych komórkowych.</string>
+    <string name="vis_pack_failed">Ostatnie pobieranie się nie zakończyło.</string>
+    <string name="vis_pack_download">Pobierz</string>
+    <string name="vis_pack_downloading">Pobieranie ustawień wizualizacji… %1$d%%</string>
+    <string name="vis_pack_not_ready">Ustawienia wizualizacji nie zostały jeszcze pobrane.</string>
 
 </resources>

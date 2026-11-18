@@ -179,5 +179,12 @@
     <string name="sleep_set_until">Müzik %1$s itibarıyla durur</string>
     <string name="sleep_set_end_of_song">Müzik bu şarkıdan sonra durur</string>
     <string name="sleep_off_toast">Uyku zamanlayıcısı kapatıldı</string>
+    <string name="vis_pack_title">Görselleştirici ön ayarları</string>
+    <string name="vis_pack_missing">Görselleştirici ön ayarları henüz bu cihazda yok. projectM projesinin koleksiyonundan gelirler, yaklaşık %1$d MB\'tır ve bir kez indirilir.</string>
+    <string name="vis_pack_metered">Mobil veri kullanıyorsun.</string>
+    <string name="vis_pack_failed">Son indirme tamamlanmadı.</string>
+    <string name="vis_pack_download">İndir</string>
+    <string name="vis_pack_downloading">Görselleştirici ön ayarları indiriliyor… %%%1$d</string>
+    <string name="vis_pack_not_ready">Görselleştirici ön ayarları henüz indirilmedi.</string>
 
 </resources>

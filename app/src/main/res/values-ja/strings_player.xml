@@ -175,5 +175,12 @@
     <string name="sleep_set_until">%1$s に音楽が止まります</string>
     <string name="sleep_set_end_of_song">この曲の後で音楽が止まります</string>
     <string name="sleep_off_toast">スリープタイマーをオフにしました</string>
+    <string name="vis_pack_title">ビジュアライザーのプリセット</string>
+    <string name="vis_pack_missing">ビジュアライザーのプリセットはまだこのデバイスにありません。projectM プロジェクトのコレクションから約 %1$d MB を一度だけダウンロードします。</string>
+    <string name="vis_pack_metered">モバイルデータ通信中です。</string>
+    <string name="vis_pack_failed">前回のダウンロードは完了しませんでした。</string>
+    <string name="vis_pack_download">ダウンロード</string>
+    <string name="vis_pack_downloading">ビジュアライザーのプリセットをダウンロード中… %1$d%%</string>
+    <string name="vis_pack_not_ready">ビジュアライザーのプリセットはまだダウンロードされていません。</string>
 
 </resources>

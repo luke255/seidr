@@ -218,6 +218,7 @@ class Graph(val app: Application) {
     val connect by lazy { eu.bradshaw.seidr.connect.Connect(app, settings) { player.connect() } }
 
     /** The visualiser's settings, hidden presets and tuner memory. */
+    val presetPack by lazy { eu.bradshaw.seidr.vis.PresetPack(app, baseHttp, scope) }
     val visPrefs by lazy { eu.bradshaw.seidr.vis.VisPrefs(app, user, scope) }
 
     companion object {

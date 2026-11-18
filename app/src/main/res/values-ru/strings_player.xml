@@ -187,5 +187,12 @@
     <string name="sleep_set_until">Музыка остановится в %1$s</string>
     <string name="sleep_set_end_of_song">Музыка остановится после этой песни</string>
     <string name="sleep_off_toast">Таймер сна выключен</string>
+    <string name="vis_pack_title">Пресеты визуализации</string>
+    <string name="vis_pack_missing">Пресетов визуализации пока нет на этом устройстве. Они из коллекции проекта projectM, весят около %1$d МБ и скачиваются один раз.</string>
+    <string name="vis_pack_metered">Вы используете мобильную сеть.</string>
+    <string name="vis_pack_failed">Прошлая загрузка не завершилась.</string>
+    <string name="vis_pack_download">Скачать</string>
+    <string name="vis_pack_downloading">Скачиваем пресеты визуализации… %1$d %%</string>
+    <string name="vis_pack_not_ready">Пресеты визуализации ещё не скачаны.</string>
 
 </resources>

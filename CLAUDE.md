@@ -189,9 +189,14 @@ before changing sync or playback.
     `VisEngine` into a pbuffer and copies each frame to an equirect2 layer
     (150° x 100°, at infinity). Controller input comes through OpenXR actions.
     `PlaybackService.onTaskRemoved` ignores that task.
-  - Assets: the Cream of the Crop presets and texture pack under
-    `assets/milkdrop`, indexed by `presets.txt` (`MilkdropAssetsTest` keeps it
-    in step). Credits are in `README.md`.
+  - Presets and textures aren't in the APK: `PresetPack` downloads the Cream
+    of the Crop and texture-pack archives from projectM's GitHub (automatically
+    on an unmetered network, or when the visualiser is first opened) into
+    `noBackupFilesDir`. `assets/milkdrop/manifest.txt` (written by
+    `scripts/milkdrop-manifest.py`) pins both commits and lists every file with
+    its git blob hash; only listed files are used, and all must match. Presets
+    are read straight from the kept zip; textures are unpacked. Credits are in
+    `README.md`.
 - **`ui/`**:
   - Compose with Material 3, always dark. `ThemeChoice` (Settings → Colour)
     is System (Material You), Neutral (the original near-black look) or a
