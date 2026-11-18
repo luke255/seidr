@@ -29,7 +29,6 @@
     <string name="library_sort_added">Senest tilføjet</string>
     <string name="library_sort_year">År</string>
     <string name="library_sort_most_played">Mest afspillet</string>
-    <string name="library_sort_saved">Senest gemt</string>
     <string name="playlist_sort_title">Titel</string>
     <string name="playlist_sort_album">Album</string>
     <string name="library_show_list">Vis som liste</string>
@@ -140,13 +139,9 @@
     <string name="home_offline">Du er offline. Downloadet musik er her stadig: kig i Bibliotek med filteret Downloadet.</string>
     <string name="home_kid_empty">Der er ikke godkendt noget til dig endnu. Bed den, der loggede dig ind, om at tilføje nogle sange.</string>
     <string name="home_playlists">Playlister</string>
-    <string name="home_shared_playlists">Delte playlister</string>
+    <string name="home_new">Nyt</string>
     <string name="home_sort_recent">Seneste</string>
     <string name="home_by_owner">af %1$s</string>
-    <string name="home_recently_added">Senest tilføjet</string>
-    <string name="home_most_played">Mest afspillet</string>
-    <string name="home_most_played_artists">Mest afspillede kunstnere</string>
-    <string name="home_saved_albums">Gemte albummer</string>
     <string name="home_see_all">Se alle</string>
 
     <string name="artist_load_failed">Kunne ikke indlæse sange</string>
@@ -158,9 +153,6 @@
     <string name="artist_singles">Singler og EP’er</string>
     <string name="artist_appears_on">Medvirker på</string>
 
-    <string name="album_unreachable">Kunne ikke få forbindelse til serveren</string>
-    <string name="album_remove_from_library">Fjern fra bibliotek</string>
-    <string name="album_save_to_library">Gem i bibliotek</string>
     <string name="album_disc">Disk %1$s</string>
 
     <string name="loved_title">Favoritter</string>

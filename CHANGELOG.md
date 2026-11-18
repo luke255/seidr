@@ -6,6 +6,8 @@ them, not how.
 
 ## 1.6.13
 
+- Home's rows have shorter names: Playlists, Shared, New, Albums and Artists.
+- Albums no longer have a heart of their own, and Home's Saved albums row is gone. To keep an album, download it or add it to a playlist; Loved songs are unchanged.
 - Swiping back from an album, the navigation bar's colours now follow the page as it slides away.
 - On the Fold's inner screen and other wide screens, swiping back from an album, artist or playlist now slides the page away with your finger.
 - Swiping back from Search or Library to Home now slides the page away too, and so does going back from Log in.

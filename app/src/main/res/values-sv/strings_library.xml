@@ -29,7 +29,6 @@
     <string name="library_sort_added">Senast tillagda</string>
     <string name="library_sort_year">År</string>
     <string name="library_sort_most_played">Mest spelade</string>
-    <string name="library_sort_saved">Senast sparade</string>
     <string name="playlist_sort_title">Titel</string>
     <string name="playlist_sort_album">Album</string>
     <string name="library_show_list">Visa som lista</string>
@@ -140,13 +139,9 @@
     <string name="home_offline">Du är offline. Nedladdad musik finns kvar: titta i Bibliotek med filtret Nedladdat.</string>
     <string name="home_kid_empty">Inget har godkänts för dig än. Be den som loggade in dig att lägga till några låtar.</string>
     <string name="home_playlists">Spellistor</string>
-    <string name="home_shared_playlists">Delade spellistor</string>
+    <string name="home_new">Nytt</string>
     <string name="home_sort_recent">Senaste</string>
     <string name="home_by_owner">av %1$s</string>
-    <string name="home_recently_added">Nyligen tillagt</string>
-    <string name="home_most_played">Mest spelat</string>
-    <string name="home_most_played_artists">Mest spelade artister</string>
-    <string name="home_saved_albums">Sparade album</string>
     <string name="home_see_all">Visa alla</string>
 
     <string name="artist_load_failed">Kunde inte läsa in låtar</string>
@@ -158,9 +153,6 @@
     <string name="artist_singles">Singlar och EP</string>
     <string name="artist_appears_on">Medverkar på</string>
 
-    <string name="album_unreachable">Kunde inte nå servern</string>
-    <string name="album_remove_from_library">Ta bort från biblioteket</string>
-    <string name="album_save_to_library">Spara i biblioteket</string>
     <string name="album_disc">Skiva %1$s</string>
 
     <string name="loved_title">Gillade</string>

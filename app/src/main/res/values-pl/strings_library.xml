@@ -33,7 +33,6 @@
     <string name="library_sort_added">Ostatnio dodane</string>
     <string name="library_sort_year">Rok</string>
     <string name="library_sort_most_played">Najczęściej odtwarzane</string>
-    <string name="library_sort_saved">Ostatnio zapisane</string>
     <string name="playlist_sort_title">Tytuł</string>
     <string name="playlist_sort_album">Album</string>
     <string name="library_show_list">Pokaż jako listę</string>
@@ -158,13 +157,9 @@
     <string name="home_offline">Jesteś offline. Pobrana muzyka nadal tu jest: zajrzyj do Biblioteki i włącz filtr „Pobrane”.</string>
     <string name="home_kid_empty">Nic nie zostało jeszcze dla Ciebie zatwierdzone. Poproś osobę, która Cię zalogowała, o dodanie kilku utworów.</string>
     <string name="home_playlists">Playlisty</string>
-    <string name="home_shared_playlists">Udostępnione playlisty</string>
+    <string name="home_new">Nowości</string>
     <string name="home_sort_recent">Ostatnie</string>
     <string name="home_by_owner">autor: %1$s</string>
-    <string name="home_recently_added">Ostatnio dodane</string>
-    <string name="home_most_played">Najczęściej odtwarzane</string>
-    <string name="home_most_played_artists">Najczęściej odtwarzani wykonawcy</string>
-    <string name="home_saved_albums">Zapisane albumy</string>
     <string name="home_see_all">Pokaż wszystko</string>
 
     <string name="artist_load_failed">Nie udało się wczytać utworów</string>
@@ -176,9 +171,6 @@
     <string name="artist_singles">Single i EP-ki</string>
     <string name="artist_appears_on">Występuje w</string>
 
-    <string name="album_unreachable">Nie udało się połączyć z serwerem</string>
-    <string name="album_remove_from_library">Usuń z biblioteki</string>
-    <string name="album_save_to_library">Zapisz w bibliotece</string>
     <string name="album_disc">Płyta %1$s</string>
 
     <string name="loved_title">Ulubione</string>

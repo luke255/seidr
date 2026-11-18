@@ -31,7 +31,6 @@
     <string name="library_sort_added">Añadidos recientemente</string>
     <string name="library_sort_year">Año</string>
     <string name="library_sort_most_played">Más escuchados</string>
-    <string name="library_sort_saved">Guardados recientemente</string>
     <string name="playlist_sort_title">Título</string>
     <string name="playlist_sort_album">Álbum</string>
     <string name="library_show_list">Ver como lista</string>
@@ -149,13 +148,9 @@
     <string name="home_offline">No tienes conexión. La música descargada sigue aquí: mira en Biblioteca con el filtro Descargado.</string>
     <string name="home_kid_empty">Todavía no te han aprobado nada. Pídele a quien inició tu sesión que añada algunas canciones.</string>
     <string name="home_playlists">Playlists</string>
-    <string name="home_shared_playlists">Playlists compartidas</string>
+    <string name="home_new">Novedades</string>
     <string name="home_sort_recent">Recientes</string>
     <string name="home_by_owner">de %1$s</string>
-    <string name="home_recently_added">Añadidos recientemente</string>
-    <string name="home_most_played">Lo más escuchado</string>
-    <string name="home_most_played_artists">Artistas más escuchados</string>
-    <string name="home_saved_albums">Álbumes guardados</string>
     <string name="home_see_all">Ver todo</string>
 
     <string name="artist_load_failed">No se han podido cargar las canciones</string>
@@ -167,9 +162,6 @@
     <string name="artist_singles">Sencillos y EP</string>
     <string name="artist_appears_on">Aparece en</string>
 
-    <string name="album_unreachable">No se ha podido conectar con el servidor</string>
-    <string name="album_remove_from_library">Quitar de la biblioteca</string>
-    <string name="album_save_to_library">Guardar en la biblioteca</string>
     <string name="album_disc">Disco %1$s</string>
 
     <string name="loved_title">Favoritas</string>

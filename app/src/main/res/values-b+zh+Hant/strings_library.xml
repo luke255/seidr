@@ -27,7 +27,6 @@
     <string name="library_sort_added">最近加入</string>
     <string name="library_sort_year">年份</string>
     <string name="library_sort_most_played">最常播放</string>
-    <string name="library_sort_saved">最近儲存</string>
     <string name="playlist_sort_title">標題</string>
     <string name="playlist_sort_album">專輯</string>
     <string name="library_show_list">以清單顯示</string>
@@ -131,13 +130,9 @@
     <string name="home_offline">你目前離線。已下載的音樂仍然可以聽：請在音樂庫中使用「已下載」篩選條件。</string>
     <string name="home_kid_empty">還沒有為你核准的歌曲。請幫你登入的人加入一些歌曲吧。</string>
     <string name="home_playlists">播放清單</string>
-    <string name="home_shared_playlists">分享的播放清單</string>
+    <string name="home_new">最新</string>
     <string name="home_sort_recent">最近</string>
     <string name="home_by_owner">建立者：%1$s</string>
-    <string name="home_recently_added">最近加入</string>
-    <string name="home_most_played">最常播放</string>
-    <string name="home_most_played_artists">最常播放的藝人</string>
-    <string name="home_saved_albums">已儲存的專輯</string>
     <string name="home_see_all">查看全部</string>
 
     <string name="artist_load_failed">無法載入歌曲</string>
@@ -149,9 +144,6 @@
     <string name="artist_singles">單曲和 EP</string>
     <string name="artist_appears_on">參與作品</string>
 
-    <string name="album_unreachable">無法連線到伺服器</string>
-    <string name="album_remove_from_library">從音樂庫移除</string>
-    <string name="album_save_to_library">儲存到音樂庫</string>
     <string name="album_disc">光碟 %1$s</string>
 
     <string name="loved_title">我的最愛</string>

@@ -65,10 +65,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 
-data class HomeData(val newest: List<Album>, val frequent: List<Album>, val artists: List<Artist>, val starred: List<Album>)
+data class HomeData(val newest: List<Album>, val frequent: List<Album>, val artists: List<Artist>)
 
 /** How many a Home shelf shows; its arrow opens the rest in Library. */
 private const val SHELF = 15
@@ -91,13 +90,6 @@ class HomeVm(private val graph: Graph) : ViewModel() {
                 load(quiet = true)
             }
         }
-        // An album saved or unsaved, here or (via the live feed) elsewhere: just that shelf.
-        viewModelScope.launch {
-            graph.browse.starredAlbums.drop(1).collectLatest {
-                val starred = runCatching { graph.browse.albumList("starred", SHELF) }.getOrNull() ?: return@collectLatest
-                data = data?.copy(starred = starred)
-            }
-        }
     }
 
     /** [quiet]: a live update, so no refresh spinner, and a list that fails keeps what it showed. */
@@ -109,7 +101,7 @@ class HomeVm(private val graph: Graph) : ViewModel() {
             fun list(type: String, size: Int = SHELF) = async { runCatching { graph.browse.albumList(type, size) }.getOrNull() }
             // Artists' plays are their albums' (as Library's Most played sorts them), so
             // fetch well past the albums shelf: enough to rank everyone who's been played.
-            val newest = list("newest"); val frequent = list("frequent", 500); val starred = list("starred")
+            val newest = list("newest"); val frequent = list("frequent", 500)
             val artists = async { runCatching { graph.browse.artists() }.getOrNull() }
             launch { runCatching { graph.browse.refreshPlaylists() } }
             val played = frequent.await()
@@ -121,7 +113,6 @@ class HomeVm(private val graph: Graph) : ViewModel() {
                 newest.await() ?: old?.newest.orEmpty(),
                 played?.take(SHELF) ?: old?.frequent.orEmpty(),
                 topArtists ?: old?.artists.orEmpty(),
-                starred.await() ?: old?.starred.orEmpty(),
             )
             refreshing = false
         }
@@ -140,10 +131,9 @@ fun HomeScreen() {
     val kid by graph.browseKids.rules.collectAsStateWithLifecycle()
     val starred by graph.browse.starredSongs.collectAsStateWithLifecycle()
     val lastLoved by graph.browse.lastLoved.collectAsStateWithLifecycle()
-    val recentlyAdded = stringResource(R.string.home_recently_added)
-    val mostPlayed = stringResource(R.string.home_most_played)
-    val savedAlbums = stringResource(R.string.home_saved_albums)
-    val mostPlayedArtists = stringResource(R.string.home_most_played_artists)
+    val newest = stringResource(R.string.home_new)
+    val mostPlayed = stringResource(R.string.library_tab_albums)
+    val mostPlayedArtists = stringResource(R.string.library_tab_artists)
     val settings = graph.settings
     Column(Modifier.fillMaxSize()) {
         RefreshBox(vm.refreshing && vm.data != null, onRefresh = vm::load, modifier = Modifier.weight(1f)) {
@@ -191,7 +181,7 @@ fun HomeScreen() {
                     }
                 }
                 if (shared.isNotEmpty()) {
-                    item(key = "h:shared") { SectionHeader(stringResource(R.string.home_shared_playlists)) }
+                    item(key = "h:shared") { SectionHeader(stringResource(R.string.library_shared)) }
                     item(key = "s:shared") {
                         val shelf = PlaylistSort.RECENT.sort(shared, lastPlayed, loved = null).filterNotNull().take(SHELF)
                         LazyRow(state = shelfState(shelf.firstOrNull()?.id), contentPadding = PaddingValues(horizontal = 10.dp)) {
@@ -204,7 +194,7 @@ fun HomeScreen() {
                 }
                 // Each arrow opens Library in the shelf's own order.
                 fun albums(sort: AlbumSort) { settings.setAlbumSort(sort); actions.openLibrary(LibTab.ALBUMS) }
-                albumShelf(recentlyAdded, d?.newest.orEmpty(), { actions.open(Route.Album(it)) }) { albums(AlbumSort.ADDED) }
+                albumShelf(newest, d?.newest.orEmpty(), { actions.open(Route.Album(it)) }) { albums(AlbumSort.ADDED) }
                 albumShelf(mostPlayed, d?.frequent.orEmpty(), { actions.open(Route.Album(it)) }) { albums(AlbumSort.PLAYS) }
                 val artists = d?.artists.orEmpty()
                 if (artists.isNotEmpty()) {
@@ -219,7 +209,6 @@ fun HomeScreen() {
                         }
                     }
                 }
-                albumShelf(savedAlbums, d?.starred.orEmpty(), { actions.open(Route.Album(it)) }) { albums(AlbumSort.SAVED) }
             }
         }
     }

@@ -229,7 +229,6 @@ fun LibraryScreen() {
     val playlistSort by graph.settings.playlistsSort.collectAsStateWithLifecycle()
     val artistSort by graph.settings.artistSort.collectAsStateWithLifecycle()
     val albumSort by graph.settings.albumSort.collectAsStateWithLifecycle()
-    val savedAlbums by graph.browse.starredAlbums.collectAsStateWithLifecycle()
     val lastPlayed by graph.playlistPlays.lastPlayed.collectAsStateWithLifecycle()
     var creating by rememberSaveable { mutableStateOf(false) }
     val grid by graph.settings.libraryGrid.collectAsStateWithLifecycle()
@@ -361,7 +360,7 @@ fun LibraryScreen() {
                 LibTab.ALBUMS -> LoadContent(vm.albums, { vm.load(true) }) { all ->
                     val items = all
                         .filter { (!downloadedOnly || SourceType.sourceId(SourceType.ALBUM, it.id) in sources) && matches(it.name, it.artistLine) }
-                        .let { albumSort.sort(it, savedAlbums) }
+                        .let { albumSort.sort(it) }
                         .map { a ->
                             LibItem(a.id, a.name, listOfNotNull(a.artistLine.takeIf { it.isNotBlank() }, a.year?.toString()).joinToString(" · "),
                                 gridSubtitle = a.artistLine,

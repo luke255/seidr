@@ -95,8 +95,6 @@ class Library(
     /** When the newest loved song was loved (ISO 8601), for sorting Loved by "Recently updated". */
     val lastLoved: StateFlow<String?> = _lastLoved.asStateFlow()
 
-    private val _starredAlbums = MutableStateFlow<Set<String>>(emptySet())
-    val starredAlbums: StateFlow<Set<String>> = _starredAlbums.asStateFlow()
 
     private val _playlistEdited = MutableSharedFlow<String>(extraBufferCapacity = 64)
     /**
@@ -248,7 +246,6 @@ class Library(
         val songs = s?.song.orEmpty().sortedByDescending { it.starred ?: "" }
         _starredSongs.value = songs.map { it.id }.toSet()
         _lastLoved.value = songs.firstOrNull()?.starred
-        _starredAlbums.value = s?.album.orEmpty().map { it.id }.toSet()
         return kid?.songs(songs) ?: songs
     }
 
@@ -275,17 +272,6 @@ class Library(
             true
         } catch (e: Exception) {
             _starredSongs.update { if (starred) it - id else it + id }
-            false
-        }
-    }
-
-    suspend fun setAlbumStarred(id: String, starred: Boolean): Boolean {
-        _starredAlbums.update { if (starred) it + id else it - id }
-        return try {
-            if (starred) client.strict.starAlbum(id).ok() else client.strict.unstarAlbum(id).ok()
-            true
-        } catch (e: Exception) {
-            _starredAlbums.update { if (starred) it - id else it + id }
             false
         }
     }
@@ -321,7 +307,6 @@ class Library(
         albumsCache = null
         _starredSongs.value = emptySet()
         _lastLoved.value = null
-        _starredAlbums.value = emptySet()
     }
 }
 

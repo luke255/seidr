@@ -29,7 +29,6 @@
     <string name="library_sort_added">Πρόσφατες προσθήκες</string>
     <string name="library_sort_year">Έτος</string>
     <string name="library_sort_most_played">Πιο ακουσμένα</string>
-    <string name="library_sort_saved">Πρόσφατα αποθηκευμένα</string>
     <string name="playlist_sort_title">Τίτλος</string>
     <string name="playlist_sort_album">Άλμπουμ</string>
     <string name="library_show_list">Προβολή ως λίστα</string>
@@ -140,13 +139,9 @@
     <string name="home_offline">Είσαι εκτός σύνδεσης. Η μουσική που έχεις κατεβάσει είναι ακόμα εδώ: δες στη Βιβλιοθήκη, με το φίλτρο Ληφθέντα.</string>
     <string name="home_kid_empty">Δεν έχει εγκριθεί τίποτα για σένα ακόμα. Ζήτα από όποιον σε συνέδεσε να προσθέσει μερικά τραγούδια.</string>
     <string name="home_playlists">Playlist</string>
-    <string name="home_shared_playlists">Κοινόχρηστες λίστες</string>
+    <string name="home_new">Νέα</string>
     <string name="home_sort_recent">Πρόσφατα</string>
     <string name="home_by_owner">από %1$s</string>
-    <string name="home_recently_added">Πρόσφατες προσθήκες</string>
-    <string name="home_most_played">Τα πιο πολυπαιγμένα</string>
-    <string name="home_most_played_artists">Οι πιο πολυπαιγμένοι καλλιτέχνες</string>
-    <string name="home_saved_albums">Αποθηκευμένα άλμπουμ</string>
     <string name="home_see_all">Προβολή όλων</string>
 
     <string name="artist_load_failed">Τα τραγούδια δεν φορτώθηκαν</string>
@@ -158,9 +153,6 @@
     <string name="artist_singles">Single και EP</string>
     <string name="artist_appears_on">Συμμετέχει σε</string>
 
-    <string name="album_unreachable">Δεν υπήρξε πρόσβαση στον διακομιστή</string>
-    <string name="album_remove_from_library">Αφαίρεση από τη βιβλιοθήκη</string>
-    <string name="album_save_to_library">Αποθήκευση στη βιβλιοθήκη</string>
     <string name="album_disc">Δίσκος %1$s</string>
 
     <string name="loved_title">Αγαπημένα</string>

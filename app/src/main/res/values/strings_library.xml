@@ -32,7 +32,6 @@
     <string name="library_sort_added">Recently added</string>
     <string name="library_sort_year">Year</string>
     <string name="library_sort_most_played">Most played</string>
-    <string name="library_sort_saved">Recently saved</string>
     <string name="playlist_sort_title">Title</string>
     <string name="playlist_sort_album">Album</string>
     <string name="library_show_list">Show as list</string>
@@ -172,17 +171,12 @@
     <string name="home_offline">You\'re offline. Downloaded music is still here: look in Library with the Downloaded filter.</string>
     <string name="home_kid_empty">Nothing\'s been approved for you yet. Ask whoever signed you in to add some songs.</string>
     <string name="home_playlists">Playlists</string>
-    <string name="home_shared_playlists">Shared playlists</string>
+    <!-- Home shelf of the albums added to the server most recently. -->
+    <string name="home_new">New</string>
     <!-- Playlist shelf sort buttons: alphabetical / most recent first. For alphabetical, use the language\'s natural short label (e.g. "by name" where A–Z means nothing). -->
     <string name="home_sort_recent">Recent</string>
     <!-- %1$s is the playlist owner\'s username -->
     <string name="home_by_owner">by %1$s</string>
-    <string name="home_recently_added">Recently added</string>
-    <!-- Shelf of the albums played most often. -->
-    <string name="home_most_played">Most played</string>
-    <!-- Shelf of the artists played most often. -->
-    <string name="home_most_played_artists">Most played artists</string>
-    <string name="home_saved_albums">Saved albums</string>
     <!-- Spoken label of the arrow ending each Home shelf, which opens the whole list in Library. -->
     <string name="home_see_all">See all</string>
 
@@ -197,9 +191,6 @@
     <string name="artist_appears_on">Appears on</string>
 
     <!-- Album -->
-    <string name="album_unreachable">Couldn\'t reach the server</string>
-    <string name="album_remove_from_library">Remove from library</string>
-    <string name="album_save_to_library">Save to library</string>
     <!-- Disc heading in a multi-disc album. %1$s is the disc number. -->
     <string name="album_disc">Disc %1$s</string>
 

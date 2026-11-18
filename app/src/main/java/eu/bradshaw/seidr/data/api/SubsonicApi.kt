@@ -81,8 +81,6 @@ interface SubsonicApi {
 
     @FormUrlEncoded @POST("star.view") suspend fun star(@Field("id") id: String): Envelope
     @FormUrlEncoded @POST("unstar.view") suspend fun unstar(@Field("id") id: String): Envelope
-    @FormUrlEncoded @POST("star.view") suspend fun starAlbum(@Field("albumId") id: String): Envelope
-    @FormUrlEncoded @POST("unstar.view") suspend fun unstarAlbum(@Field("albumId") id: String): Envelope
 
     @FormUrlEncoded @POST("scrobble.view")
     suspend fun scrobble(@Field("id") id: String, @Field("time") time: Long, @Field("submission") submission: Boolean): Envelope

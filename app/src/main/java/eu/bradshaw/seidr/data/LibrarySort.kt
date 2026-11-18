@@ -50,16 +50,9 @@ enum class PlaylistSort(val key: String) {
 data class LovedAt(val played: Long?, val lastLoved: String?)
 
 enum class AlbumSort(val key: String) {
-    NAME("name"), ARTIST("artist"), ADDED("added"), YEAR("year"), PLAYS("plays"),
-    /** Most recently saved first, then the rest. */
-    SAVED("saved");
+    NAME("name"), ARTIST("artist"), ADDED("added"), YEAR("year"), PLAYS("plays");
 
-    /**
-     * [saved]: the albums saved now (`Library.starredAlbums`), which beats each
-     * album's own `starred` (the all-albums list is cached, so it can be stale).
-     * Empty means not known yet, so `starred` alone decides.
-     */
-    fun sort(albums: List<Album>, saved: Set<String> = emptySet()): List<Album> {
+    fun sort(albums: List<Album>): List<Album> {
         val artist = nameOrder<Album> { it.artistLine }
         val name = nameOrder<Album> { it.name }
         val rest = artist.then(name)
@@ -70,14 +63,6 @@ enum class AlbumSort(val key: String) {
                 ADDED -> compareByDescending<Album> { it.created.orEmpty() }.then(rest)
                 YEAR -> compareByDescending<Album> { it.year ?: 0 }.then(rest)
                 PLAYS -> compareByDescending<Album> { it.playCount ?: 0L }.then(rest)
-                SAVED -> compareByDescending<Album> {
-                    when {
-                        saved.isEmpty() -> it.starred.orEmpty()
-                        it.id !in saved -> ""
-                        // Saved since the list was fetched: newest of all.
-                        else -> it.starred ?: "~"
-                    }
-                }.then(rest)
             }
         )
     }

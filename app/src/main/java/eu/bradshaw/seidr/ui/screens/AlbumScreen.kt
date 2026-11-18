@@ -4,11 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -76,13 +71,10 @@ fun AlbumScreen(id: String) {
     val graph = actions.graph
     val vm = viewModel(key = "album:$id") { AlbumVm(graph, id) }
     val ui by graph.player.ui.collectAsStateWithLifecycle()
-    val starredAlbums by graph.browse.starredAlbums.collectAsStateWithLifecycle()
 
     LoadContent(vm.state, vm::load) { album ->
         val songs = album.song
         val discs = songs.mapNotNull { it.discNumber }.distinct().size > 1
-        val saved = album.id in starredAlbums
-        val unreachable = stringResource(R.string.album_unreachable)
         // Albums take Now Playing's colours from the cover; playlists and artists keep the theme.
         ArtPage(album.coverArt) { CollectionLayout(
             title = album.name,
@@ -104,16 +96,6 @@ fun AlbumScreen(id: String) {
             onPlay = { graph.albumPlays.record(album); actions.player.playContext(songs, 0, album.name, shuffle = false) },
             offline = OfflineSource(SourceType.sourceId(SourceType.ALBUM, album.id), SourceType.ALBUM, album.id, album.name, coverArt = album.coverArt),
             trackCount = songs.size,
-            topActions = {
-                if (!graph.readOnly) IconButton(onClick = {
-                    actions.launch {
-                        if (!graph.browse.setAlbumStarred(album.id, !saved)) actions.toast(unreachable)
-                    }
-                }) {
-                    Icon(if (saved) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder, stringResource(if (saved) R.string.album_remove_from_library else R.string.album_save_to_library),
-                        tint = if (saved) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
-                }
-            },
         ) {
             var lastDisc: Int? = null
             songs.forEachIndexed { i, song ->

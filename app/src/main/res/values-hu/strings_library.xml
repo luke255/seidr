@@ -29,7 +29,6 @@
     <string name="library_sort_added">Legutóbb hozzáadva</string>
     <string name="library_sort_year">Év</string>
     <string name="library_sort_most_played">Legtöbbet játszott</string>
-    <string name="library_sort_saved">Legutóbb mentve</string>
     <string name="playlist_sort_title">Cím</string>
     <string name="playlist_sort_album">Album</string>
     <string name="library_show_list">Megjelenítés listaként</string>
@@ -140,13 +139,9 @@
     <string name="home_offline">Offline vagy. A letöltött zenéid itt vannak: nézd meg a Könyvtárat a Letöltve szűrővel.</string>
     <string name="home_kid_empty">Neked még semmit sem hagytak jóvá. Kérd meg azt, aki bejelentkeztetett, hogy adjon hozzá néhány dalt.</string>
     <string name="home_playlists">Lejátszási listák</string>
-    <string name="home_shared_playlists">Megosztott lejátszási listák</string>
+    <string name="home_new">Új</string>
     <string name="home_sort_recent">Legutóbbi</string>
     <string name="home_by_owner">készítette: %1$s</string>
-    <string name="home_recently_added">Legutóbb hozzáadva</string>
-    <string name="home_most_played">Legtöbbet játszott</string>
-    <string name="home_most_played_artists">Legtöbbet játszott előadók</string>
-    <string name="home_saved_albums">Mentett albumok</string>
     <string name="home_see_all">Összes megtekintése</string>
 
     <string name="artist_load_failed">Nem sikerült betölteni a dalokat</string>
@@ -158,9 +153,6 @@
     <string name="artist_singles">Kislemezek és EP-k</string>
     <string name="artist_appears_on">Közreműködik</string>
 
-    <string name="album_unreachable">A szerver nem érhető el</string>
-    <string name="album_remove_from_library">Eltávolítás a könyvtárból</string>
-    <string name="album_save_to_library">Mentés a könyvtárba</string>
     <string name="album_disc">%1$s. lemez</string>
 
     <string name="loved_title">Kedvencek</string>
