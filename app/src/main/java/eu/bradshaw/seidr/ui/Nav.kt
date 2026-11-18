@@ -29,6 +29,8 @@ sealed interface Route {
     data object Log : Route
     data class PlaylistHistory(val id: String) : Route
     data object DeletedPlaylists : Route
+    /** A smart playlist's rules; a new one when [id] is null, starting as [name]. */
+    data class SmartRules(val id: String?, val name: String = "") : Route
     data class LicenceText(val title: String, val file: String) : Route
 }
 

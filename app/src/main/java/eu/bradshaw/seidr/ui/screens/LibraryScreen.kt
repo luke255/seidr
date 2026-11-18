@@ -44,6 +44,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Checkbox
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.ui.semantics.Role
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -375,14 +378,34 @@ fun LibraryScreen() {
 
     if (creating) {
         var name by rememberSaveable { mutableStateOf("") }
+        // Smart playlists are Navidrome's; a kid's login keeps to plain ones.
+        val smartOn by graph.smart.available.collectAsStateWithLifecycle()
+        val canSmart = smartOn && !graph.kids.isKid
+        var smart by rememberSaveable { mutableStateOf(false) }
         val createFailed = stringResource(R.string.library_create_failed)
         AlertDialog(
             onDismissRequest = { creating = false },
             title = { Text(stringResource(R.string.library_create_playlist)) },
-            text = { OutlinedTextField(name, { name = it }, label = { Text(stringResource(R.string.library_name)) }, singleLine = true, modifier = Modifier.selectToEdit()) },
+            text = {
+                Column {
+                    OutlinedTextField(name, { name = it }, label = { Text(stringResource(R.string.library_name)) }, singleLine = true, modifier = Modifier.selectToEdit())
+                    if (canSmart) {
+                        Row(
+                            Modifier.fillMaxWidth().padding(top = 8.dp).clip(RoundedCornerShape(8.dp))
+                                .toggleable(smart, role = Role.Checkbox, onValueChange = { smart = it }),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Checkbox(smart, null)
+                            Text(stringResource(R.string.smart_create_choice), style = MaterialTheme.typography.bodyMedium)
+                        }
+                    }
+                }
+            },
             confirmButton = {
                 TextButton(enabled = name.isNotBlank(), onClick = {
                     creating = false
+                    // A smart one is made by its editor's Save, once it has rules.
+                    if (canSmart && smart) return@TextButton actions.open(Route.SmartRules(null, name.trim()))
                     actions.launch {
                         val id = graph.editor.create(name.trim(), emptyList())
                         if (id == null) actions.toast(createFailed)

@@ -116,6 +116,8 @@ data class PlaylistVersion(
     val savedAt: Long,
     /** Set on the newest version only, once the playlist is gone from the server. */
     val deletedAt: Long? = null,
+    /** A smart playlist's rules (Navidrome's JSON); its songs aren't kept, as the rules make them. */
+    val rules: String? = null,
 ) {
     val songs: List<String> get() = if (songIds.isEmpty()) emptyList() else songIds.split('\n')
 }

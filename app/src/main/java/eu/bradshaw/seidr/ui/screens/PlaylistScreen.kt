@@ -28,6 +28,7 @@ import eu.bradshaw.seidr.ui.components.renderPicture
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.LibraryAdd
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material3.Switch
 import androidx.compose.ui.draw.scale
 import eu.bradshaw.seidr.ui.Route
@@ -132,6 +133,10 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
     val me = server?.username
     val mine = playlist.owner == null || playlist.owner == me
     val editable = !graph.readOnly && !playlist.readonly && mine
+    // Navidrome marks smart playlists read-only: their songs are the rules', which the owner edits.
+    val ownSmart = !graph.readOnly && playlist.readonly && mine && !graph.kids.isKid
+    val smartIds by graph.smart.ids.collectAsStateWithLifecycle()
+    val smart = playlist.readonly && (mine || playlist.id in smartIds)
     // Sharing is the owner's call; anyone else can keep a copy of their own.
     val canShare = !graph.readOnly && mine
     val canCopy = !graph.readOnly && !mine
@@ -227,6 +232,7 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
             HeaderFacts(
                 listOfNotNull(
                     playlist.owner?.takeUnless { mine }?.let { stringResource(R.string.playlist_by_owner, it) },
+                    if (smart) stringResource(R.string.smart_badge) else null,
                     if (mine && playlist.public) stringResource(R.string.playlist_shared) else null,
                     songsText(playlist.songCount),
                     approvedCount(songs),
@@ -257,7 +263,7 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
         },
         showMenu = !editing,
         // After Download (the layout's): the switches, then the edits, then Delete.
-        menu = if (!(editable || canShare || canCopy)) null else { close ->
+        menu = if (!(editable || ownSmart || canShare || canCopy)) null else { close ->
             if (canShare) {
                 DropdownMenuItem({ Text(stringResource(R.string.playlist_share)) }, leadingIcon = { Icon(Icons.Filled.Share, null) },
                     trailingIcon = { Switch(playlist.public, null, Modifier.scale(0.8f)) },
@@ -271,9 +277,15 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                         }
                     })
             }
-            if (editable) {
+            if (ownSmart) {
+                DropdownMenuItem({ Text(stringResource(R.string.smart_edit_rules)) }, leadingIcon = { Icon(Icons.Filled.Tune, null) },
+                    onClick = { close(); actions.open(Route.SmartRules(playlist.id)) })
+            }
+            if (editable || ownSmart) {
                 DropdownMenuItem({ Text(stringResource(R.string.playlist_rename)) }, leadingIcon = { Icon(Icons.Filled.Edit, null) },
                     onClick = { close(); renaming = true })
+            }
+            if (editable) {
                 DropdownMenuItem({ Text(stringResource(R.string.playlist_reorder)) }, leadingIcon = { Icon(Icons.Filled.DragHandle, null) },
                     // Reordering is of the playlist's own order, so the view goes back to it.
                     onClick = { close(); graph.settings.setPlaylistSort(playlist.id, TrackSort.CUSTOM); editing = true })
@@ -301,7 +313,7 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                         }
                     })
             }
-            if (editable) {
+            if (editable || ownSmart) {
                 DropdownMenuItem({ Text(stringResource(R.string.playlist_history)) }, leadingIcon = { Icon(Icons.Filled.History, null) },
                     onClick = { close(); actions.open(Route.PlaylistHistory(playlist.id)) })
                 DropdownMenuItem({ Text(stringResource(R.string.playlist_delete)) }, leadingIcon = { Icon(Icons.Filled.Delete, null) },
@@ -377,9 +389,15 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                         val name = playlist.name
                         val ids = serverSongs()
                         val shared = playlist.public
+                        // A smart playlist comes back from its rules (and they go into its history).
+                        val rules = if (playlist.readonly) runCatching { graph.smart.load(playlist.id).rules }.getOrNull() else null
                         val r = graph.editor.delete(playlist.id)
                         actions.report(r, deleted) {
-                            val id = graph.editor.undoDelete(name, ids, shared)
+                            val id = if (rules != null) {
+                                graph.smart.create(name, rules)?.also { id ->
+                                    if (shared) graph.editor.setShared(id, true)
+                                }
+                            } else graph.editor.undoDelete(name, ids, shared)
                             if (id == null) actions.toast(restoreFailed)
                             else {
                                 graph.history.restored(playlist.id, id)

@@ -90,8 +90,11 @@ and "Rules that must hold" before changing sync or playback.
   fetch of the user's own playlists (not smart, Bad: or kids' lists) and every
   listing. A changed state is kept for 90 days (30 per playlist), and one
   missing from a listing counts as deleted. Earlier versions (playlist ⋮) and
-  Recently deleted (Settings → Library) only ever Save a copy. It never writes
-  to the original. Cleared when a different login signs in.
+  Recently deleted (Settings → Library) only ever Save a copy of a song list;
+  it never writes one to the original. A smart playlist's versions are its
+  rules (`seenRules`, from `SmartPlaylists`), and those Restore onto the
+  playlist itself (safe: what it has now is kept first). Cleared when a
+  different login signs in.
 - **`data/LyricsOffsets`**: per-song lyrics timing nudges. Subsonic has no
   app-data storage, so each is a bookmark on the song (position 0, comment
   `Seidr lyrics offset: +650ms`), synced every pass. Comment-less bookmarks
@@ -129,7 +132,21 @@ and "Rules that must hold" before changing sync or playback.
 - **`data/NavidromeApi`**: Navidrome's native `/api/…` (JWT from
   `/auth/login`), for what Subsonic lacks; `PlaylistPictures` uses it for
   playlist pictures (a playlist with one shows it, not the mosaic), framed
-  in `PictureCropDialog` (`PictureFrame` is the pure maths).
+  in `PictureCropDialog` (`PictureFrame` is the pure maths). JSON bodies must
+  be typed exactly `application/json` (no charset): otherwise Navidrome takes
+  a playlist POST for an M3U import.
+- **Smart playlists**: `data/SmartRules` (pure, tested) reads Navidrome's
+  rules into groups of rules; anything it doesn't understand (an unknown
+  field, test or shape, other top-level keys) is kept and written back
+  exactly, shown read-only. `SmartPlaylists` reads, saves and creates them
+  through `NavidromeApi`: a save goes ahead only if the server's rules still
+  equal what the editor loaded (else `Conflict`), and every set seen goes into
+  `PlaylistHistory` first. `ui/screens/SmartRulesScreen` is the editor (rule
+  rows edited in a dialog). Subsonic's `readonly` also marks other people's
+  ordinary playlists, so "smart" is `readonly` and mine, or in
+  `SmartPlaylists.ids`. Navidrome accepts any field name (an unknown one
+  matches nothing) and refuses an empty group (422), so the editor offers
+  only `SmartField` and blocks empty groups. Not for kid logins.
 - **`data/LiveEvents`**: while the app is on screen, listens to Navidrome's
   native `/api/events` stream (token from `NavidromeApi`). Events only trigger
   sync or screen reloads; on any failure it backs off and polling carries on.
@@ -240,7 +257,8 @@ and "Rules that must hold" before changing sync or playback.
   - `AppActions` (via `LocalActions`) is how screens navigate, play, toast
     and open the add-to-playlist dialog.
   - All user-visible text is in `res/values/strings*.xml` (by area: `strings`
-    for non-UI, `strings_settings`, `strings_library`, `strings_player`), one
+    for non-UI, `strings_settings`, `strings_library`, `strings_player`,
+    `strings_smart`), one
     whole sentence per string with positional args, `<plurals>` for counts;
     translations in `values-<lang>/`. Lint fails on a missing translation, so
     new text needs every language. Non-composable formatters read through

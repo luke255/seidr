@@ -8,9 +8,9 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [OfflineSource::class, Claim::class, Download::class, PendingEdit::class, PendingScrobble::class, PlaylistVersion::class],
-    version = 2,
+    version = 3,
     exportSchema = true,
-    autoMigrations = [AutoMigration(from = 1, to = 2)],
+    autoMigrations = [AutoMigration(from = 1, to = 2), AutoMigration(from = 2, to = 3)],
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun offline(): OfflineDao

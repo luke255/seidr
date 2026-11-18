@@ -37,6 +37,9 @@ the *th* of "weather" in place of the *f*. ASCII spelling: Seidr.
   lower bitrate that suits the connection.
 - **Edit playlists anywhere.** Create, rename, add, remove, reorder and
   delete. Changes made offline are saved and sent when you're back.
+- **Smart playlists** (Navidrome): make them and edit their rules, in groups
+  that match all or any, with a sort and a limit. Rules Seiðr doesn't know
+  are kept exactly as they are, and every change can be undone.
 - **Changes show up straight away**, even ones made on another device.
 
 ### Now Playing
@@ -253,3 +256,8 @@ Thank you to all of them.
   collected by projectM: the textures that shipped with MilkDrop, plus others
   that popular presets rely on, downloaded the same way. The same removal
   offer applies.
+
+Seiðr's smart playlist editor follows the one in
+[Feishin](https://github.com/jeffvli/feishin), by jeffvli and contributors:
+rules of field, test and value, in groups that match all or any. Thank you for
+showing how it should work. No Feishin code is used.

@@ -57,6 +57,29 @@ class PlaylistHistoryTest {
         assertEquals(listOf("a\nb", "a", "a"), dao.rows.map { it.songIds })
     }
 
+    private fun rules(year: Int) = kotlinx.serialization.json.Json.parseToJsonElement(
+        """{"all": [{"is": {"year": $year}}], "sort": "+title"}""",
+    ) as kotlinx.serialization.json.JsonObject
+
+    @Test fun keepsEachChangeOfASmartPlaylistsRules() = runTest {
+        history.seenRules("s", "Smart", rules(2000))
+        // The same rules, keys in another order, aren't a change.
+        history.seenRules("s", "Smart", kotlinx.serialization.json.Json.parseToJsonElement(
+            """{"sort": "+title", "all": [{"is": {"year": 2000}}]}""",
+        ) as kotlinx.serialization.json.JsonObject)
+        history.seenRules("s", "Smart", rules(2001))
+        history.seenRules("s", "Renamed", rules(2001))
+        assertEquals(3, dao.rows.size)
+        assertEquals(rules(2000), PlaylistHistory.parseRules(dao.rows[0].rules!!))
+        assertEquals(listOf("", "", ""), dao.rows.map { it.songIds })
+        // A smart playlist's song lists never go in.
+        history.seen(pl("a", id = "s", readonly = true))
+        assertEquals(3, dao.rows.size)
+        // Nor do the app's own lists' rules.
+        history.seenRules("b", "Bad: Songs", rules(1))
+        assertEquals(3, dao.rows.size)
+    }
+
     @Test fun leavesOutSmartAndAppLists() = runTest {
         history.seen(pl("a", readonly = true))
         history.seen(pl("a", name = "Bad: Songs"))

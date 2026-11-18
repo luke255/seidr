@@ -4,6 +4,11 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.7.0
+
+- Smart playlists: make them and edit their rules here, no other app needed (Navidrome). Create playlist has a Smart playlist option, and a smart playlist's ⋮ menu has Edit rules, plus Rename, Earlier versions and Delete. Rules sit in groups that match all or any of them, on title, artist, year, date added, plays, loved, other playlists and more, with a sort and a limit. Saving says how many songs now match, with Undo.
+- Seiðr keeps any rule it can't edit exactly as it is, and saves only if nobody has changed the rules meanwhile. Earlier versions keeps each version of a smart playlist's rules for 90 days, and Restore puts one back. A deleted smart playlist comes back with its rules too.
+
 ## 1.6.14
 
 - Downloaded songs keep their album art and lyrics when your server is out of reach, including while it's updating or restarting. Albums and playlists you've downloaded from keep their pictures too. Lyrics for songs you've already downloaded are fetched in the background on your next sync.

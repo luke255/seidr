@@ -27,6 +27,8 @@ class PlaylistPictures(
     private val library: Library,
     private val kids: Kids,
     scope: CoroutineScope,
+    /** Every listing fetched here, or null when the server turns out not to be Navidrome (smart playlists use it). */
+    private val onListing: (List<NdPlaylist>?) -> Unit = {},
 ) {
     private val prefs = context.getSharedPreferences("playlist_pictures", Context.MODE_PRIVATE)
 
@@ -55,11 +57,14 @@ class PlaylistPictures(
     private suspend fun refresh() {
         val k = key() ?: return
         val found = try {
-            api.playlistPictures()
+            val (list, supported) = api.playlists()
+            onListing(list)
+            if (supported) list.filter { it.hasPicture }.map { it.id }.toSet() else null
         } catch (e: NotNavidromeException) {
+            onListing(null)
             null
         }
-        val ids = found?.keys.orEmpty()
+        val ids = found.orEmpty()
         if (key() != k) return
         _ids.value = ids
         _supported.value = found != null

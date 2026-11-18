@@ -84,7 +84,10 @@ class Graph(val app: Application) {
     /** Navidrome's own API, for what Subsonic has no call for. The signed-in login only. */
     val navidrome = eu.bradshaw.seidr.data.NavidromeApi(baseHttp) { settings.server.value }
     /** Which playlists have a picture of their own, and changing it. */
-    val playlistPictures = eu.bradshaw.seidr.data.PlaylistPictures(app, navidrome, { settings.server.value }, library, kids, scope)
+    val playlistPictures = eu.bradshaw.seidr.data.PlaylistPictures(app, navidrome, { settings.server.value }, library, kids, scope) { list ->
+        // Its listing has every smart playlist's rules: their history notes them.
+        scope.launch { smart.listed(list, settings.server.value?.username) }
+    }
 
     /** While an admin browses as one of their kids (see `KidView`); null otherwise. */
     val kidView = kotlinx.coroutines.flow.MutableStateFlow<eu.bradshaw.seidr.data.KidView?>(null)
@@ -140,6 +143,19 @@ class Graph(val app: Application) {
         text = { app.getString(it) },
         onCreated = { playlistPlays.record(it) },
     )
+
+    /** Smart playlists' rules: reading, saving and making them (Navidrome's own API). */
+    val smart by lazy {
+        eu.bradshaw.seidr.data.SmartPlaylists(
+            app, navidrome, history,
+            text = { app.getString(it) },
+            afterEdit = { id ->
+                library.notifyPlaylistEdited(id)
+                scope.launch { runCatching { library.refreshPlaylists() } }
+            },
+            onCreated = { playlistPlays.record(it) },
+        )
+    }
 
     /** What changed on the server, so open screens can reload (see [LiveEvents]). */
     enum class Change {
