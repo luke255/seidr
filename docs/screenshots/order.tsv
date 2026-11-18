@@ -3,15 +3,14 @@
 02-home.webp	Home, with a Starred row of albums, artists and playlists
 03-visualiser.webp	The MilkDrop visualiser
 04-library.webp	Library: playlists, with the filter row
-05-now-playing-orange.webp	Now Playing on an orange cover
-06-queue.webp	The play queue
-07-lyrics.webp	Synced lyrics
-08-now-playing-flower.webp	Now Playing on a muted cover
+05-play-on.webp	Play on: speakers, groups, TVs, headsets and other phones
+06-song-menu.webp	The song menu on Now Playing: love, add to a playlist or the queue, go to the album or artist, sleep timer
+07-queue.webp	The play queue
+08-lyrics.webp	Synced lyrics
 09-album.webp	A starred album
 10-playlist.webp	A starred playlist and its options: download, share, rename, reorder, change picture, earlier versions
 11-settings.webp	Settings, with the colour picker
 12-kids.webp	Kids' accounts in Settings
-13-devices.webp	Play on another device: the TV
 # Wide (Fold inner screen), not part of the carousel:
 hero-foldable.webp	On a foldable: the library beside a playlist
 hero-foldable-now-playing.webp	Now Playing on a foldable

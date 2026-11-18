@@ -16,8 +16,8 @@ the *th* of "weather" in place of the *f*. ASCII spelling: Seidr.
 </p>
 <p>
   <img src="docs/screenshots/04-library.webp" width="32%" alt="Library: playlists, with the filter row">
-  <img src="docs/screenshots/05-now-playing-orange.webp" width="32%" alt="Now Playing on an orange cover">
-  <img src="docs/screenshots/06-queue.webp" width="32%" alt="The play queue">
+  <img src="docs/screenshots/05-play-on.webp" width="32%" alt="Play on: speakers, groups, TVs, headsets and other phones">
+  <img src="docs/screenshots/06-song-menu.webp" width="32%" alt="The song menu on Now Playing: love, add to a playlist or the queue, go to the album or artist, sleep timer">
 </p>
 
 <sub>Screenshots use Navidrome's public demo server and its Creative Commons music.</sub>
