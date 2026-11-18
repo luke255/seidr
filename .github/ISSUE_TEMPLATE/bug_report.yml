@@ -1,0 +1,73 @@
+name: Something's wrong
+description: A bug, a crash, or something that doesn't work the way the README says.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time. The more of this you fill in, the quicker it gets fixed.
+        Security problems go to the **Security** tab instead, not here.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: And what you expected to happen instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How can I make it happen?
+      description: Step by step, if you know. "It happens sometimes" is fine too; say roughly how often.
+      placeholder: |
+        1. Open a playlist
+        2. Turn on Download
+        3. ...
+  - type: input
+    id: version
+    attributes:
+      label: Seiðr version
+      description: Settings → About.
+      placeholder: "1.6.12"
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and Android version
+      placeholder: "Pixel 8, Android 16"
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where does it happen?
+      multiple: true
+      options:
+        - Phone
+        - Foldable or tablet
+        - Android TV
+        - Android Auto
+        - Meta Quest
+        - Playing on another device (Connect)
+        - A kid's device
+  - type: input
+    id: server
+    attributes:
+      label: Server and its version
+      description: Seiðr is built and tested on Navidrome. Other OpenSubsonic servers are welcome, but say which.
+      placeholder: "Navidrome 0.58.0"
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Log
+      description: |
+        Settings → About → Share a log, soon after it happens. Logins, server addresses and device names are taken out,
+        but please read it through first. Attach the file by dragging it here, or paste it.
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Screenshots or a screen recording help a lot.

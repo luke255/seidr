@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s (ez a verzió)</string>
     <string name="settings_secrets_unprotected">Az eszköz kulcstárolója nem működik, ezért a bejelentkezési adataid titkosítás nélkül vannak mentve. Továbbra is csak ez az alkalmazás fér hozzájuk, és soha nem kerülnek biztonsági mentésbe.</string>
     <string name="kids_filter_warning">Csak a Seiðr szűri, mit lát a gyerek, a Navidrome nem. Ezekkel az adatokkal a Navidrome webes lejátszója vagy bármely más alkalmazás mindent megmutat. Ne add oda neki: az eszközeit a(z) „%1$s” funkcióval jelentkeztesd be.</string>
+    <string name="settings_share_log">Napló megosztása</string>
+    <string name="settings_share_log_hint">Hibajelentéshez, bejelentkezési adatok és címek nélkül</string>
+    <string name="log_title">Napló megosztása</string>
+    <string name="log_intro">A Seiðr friss naplója, hibajelentéshez csatolva. A szerverek címeit, a felhasználóneveket, a jelszavakat és az eszközök nevét eltávolítottuk. Megosztás előtt olvasd át.</string>
+    <string name="log_share">Megosztás</string>
+    <string name="log_copy">Másolás</string>
+    <string name="log_copied">Napló másolva</string>
+    <string name="log_no_app">Ezen az eszközön egyetlen alkalmazás sem tudja megosztani. Próbáld a Másolást.</string>
+    <string name="log_subject">Seiðr-napló</string>
 
 </resources>

@@ -40,6 +40,7 @@ import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.RestoreFromTrash
 import androidx.compose.material.icons.outlined.Autorenew
+import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material.icons.outlined.Info
@@ -227,6 +228,9 @@ fun SettingsScreen() {
                 CardDivider()
                 CardItem(Icons.Outlined.Description, stringResource(R.string.settings_licences), stringResource(R.string.settings_licences_hint),
                     trailing = { Chevron() }) { actions.open(Route.Licences) }
+                CardDivider()
+                CardItem(Icons.Outlined.BugReport, stringResource(R.string.settings_share_log), stringResource(R.string.settings_share_log_hint),
+                    trailing = { Chevron() }) { actions.open(Route.Log) }
                 CardDivider()
                 CardItem(Icons.Outlined.Info, stringResource(R.string.settings_app_version, BuildConfig.VERSION_NAME), stringResource(R.string.settings_build, BuildConfig.VERSION_CODE))
             }

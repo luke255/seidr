@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s（目前版本）</string>
     <string name="settings_secrets_unprotected">此裝置的金鑰庫無法正常運作，因此你的登入資訊以未加密方式儲存。它仍僅限本應用程式存取，且絕不會被備份。</string>
     <string name="kids_filter_warning">只有 Seiðr 會過濾孩子能看到的內容，Navidrome 本身不會。用這組登入資訊，Navidrome 網頁播放器或任何其他應用程式都會顯示全部內容。請不要告訴孩子：用「%1$s」為他們的裝置登入。</string>
+    <string name="settings_share_log">分享記錄</string>
+    <string name="settings_share_log_hint">用於回報問題，已移除登入資訊和位址</string>
+    <string name="log_title">分享記錄</string>
+    <string name="log_intro">Seiðr 的近期記錄，可附在問題回報中。伺服器位址、使用者名稱、密碼和裝置名稱已被移除。分享前請先讀過一遍。</string>
+    <string name="log_share">分享</string>
+    <string name="log_copy">複製</string>
+    <string name="log_copied">記錄已複製</string>
+    <string name="log_no_app">此裝置上沒有可以分享它的應用程式。請改用「複製」。</string>
+    <string name="log_subject">Seiðr 記錄</string>
 
 </resources>

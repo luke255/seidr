@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s (ця версія)</string>
     <string name="settings_secrets_unprotected">Сховище ключів на цьому пристрої не працює, тому ваші дані для входу збережено без шифрування. Вони й надалі доступні лише цьому застосунку й ніколи не потрапляють у резервні копії.</string>
     <string name="kids_filter_warning">Вміст фільтрує лише Seiðr, а не Navidrome. З цими даними вебплеєр Navidrome або будь-який інший застосунок покаже все. Не повідомляйте їх дитині: входьте на її пристроях через «%1$s».</string>
+    <string name="settings_share_log">Поділитися журналом</string>
+    <string name="settings_share_log_hint">Для звіту про помилку, без даних входу та адрес</string>
+    <string name="log_title">Поділитися журналом</string>
+    <string name="log_intro">Нещодавній журнал Seiðr, щоб додати до звіту про помилку. Адреси сервера, імена користувачів, паролі та назви пристроїв вилучено. Перегляньте його, перш ніж ділитися.</string>
+    <string name="log_share">Поділитися</string>
+    <string name="log_copy">Копіювати</string>
+    <string name="log_copied">Журнал скопійовано</string>
+    <string name="log_no_app">Жоден застосунок на цьому пристрої не може ним поділитися. Спробуйте «Копіювати».</string>
+    <string name="log_subject">Журнал Seiðr</string>
 
 </resources>

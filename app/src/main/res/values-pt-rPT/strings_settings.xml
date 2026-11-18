@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s (esta versão)</string>
     <string name="settings_secrets_unprotected">O armazenamento de chaves deste dispositivo não está a funcionar, por isso os teus dados de acesso estão guardados sem encriptação. Continuam acessíveis apenas a esta aplicação e nunca são incluídos em cópias de segurança.</string>
     <string name="kids_filter_warning">Só o Seiðr filtra o que a criança vê; o Navidrome não. Com estes dados, o leitor web do Navidrome ou qualquer outra aplicação mostra tudo. Não os dês à criança: inicia sessão nos dispositivos dela com «%1$s».</string>
+    <string name="settings_share_log">Partilhar um registo</string>
+    <string name="settings_share_log_hint">Para comunicar um erro, sem dados de início de sessão nem endereços</string>
+    <string name="log_title">Partilhar um registo</string>
+    <string name="log_intro">O registo recente do Seiðr, para anexar a um relatório de erro. Os endereços do servidor, nomes de utilizador, palavras-passe e nomes de dispositivos foram removidos. Lê-o antes de o partilhares.</string>
+    <string name="log_share">Partilhar</string>
+    <string name="log_copy">Copiar</string>
+    <string name="log_copied">Registo copiado</string>
+    <string name="log_no_app">Nenhuma app neste dispositivo o pode partilhar. Experimenta Copiar.</string>
+    <string name="log_subject">Registo do Seiðr</string>
 
 </resources>

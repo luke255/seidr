@@ -1,0 +1,28 @@
+name: An idea
+description: Something Seiðr could do, or do better.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Seiðr is opinionated: it's built around one Navidrome server, offline playlists that mirror it, and a classic layout.
+        Ideas that fit that are very welcome. Some things are already decided against; see **Not planned** in the README.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would it help you do?
+      description: The problem or the moment it's for, rather than the solution. "When I'm driving, I want to..."
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: How might it work?
+      description: If you have a picture of it. Optional.
+  - type: checkboxes
+    id: checked
+    attributes:
+      label: Checked
+      options:
+        - label: It isn't in the README's Not planned list, and there isn't already an issue for it.
+          required: true

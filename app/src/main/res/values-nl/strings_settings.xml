@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s (deze versie)</string>
     <string name="settings_secrets_unprotected">De sleutelopslag van dit apparaat werkt niet, dus je inloggegevens worden onversleuteld opgeslagen. Ze blijven alleen toegankelijk voor deze app en komen nooit in een back-up terecht.</string>
     <string name="kids_filter_warning">Alleen Seiðr filtert wat je kind ziet, Navidrome zelf niet. Met deze inloggegevens toont de webspeler van Navidrome of elke andere app alles. Geef ze dus niet aan je kind: meld hun apparaten aan via ‘%1$s’.</string>
+    <string name="settings_share_log">Logboek delen</string>
+    <string name="settings_share_log_hint">Voor een foutmelding, zonder inloggegevens en adressen</string>
+    <string name="log_title">Logboek delen</string>
+    <string name="log_intro">Het recente logboek van Seiðr, om bij een foutmelding te voegen. Serveradressen, gebruikersnamen, wachtwoorden en apparaatnamen zijn eruit gehaald. Lees het door voordat je het deelt.</string>
+    <string name="log_share">Delen</string>
+    <string name="log_copy">Kopiëren</string>
+    <string name="log_copied">Logboek gekopieerd</string>
+    <string name="log_no_app">Geen app op dit apparaat kan het delen. Probeer Kopiëren.</string>
+    <string name="log_subject">Seiðr-logboek</string>
 
 </resources>

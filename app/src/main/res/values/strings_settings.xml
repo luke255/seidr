@@ -207,5 +207,14 @@
     <string name="whatsnew_title">What\'s new</string>
     <!-- %1$s is a version number, shown for the version currently installed -->
     <string name="whatsnew_this_version">%1$s (this version)</string>
+    <string name="settings_share_log">Share a log</string>
+    <string name="settings_share_log_hint">For a bug report, with logins and addresses taken out</string>
+    <string name="log_title">Share a log</string>
+    <string name="log_intro">Seiðr\'s recent log, to attach to a bug report. Server addresses, usernames, passwords and device names have been taken out. Read it through before you share it.</string>
+    <string name="log_share">Share</string>
+    <string name="log_copy">Copy</string>
+    <string name="log_copied">Log copied</string>
+    <string name="log_no_app">No app on this device can share it. Try Copy instead.</string>
+    <string name="log_subject">Seiðr log</string>
 
 </resources>

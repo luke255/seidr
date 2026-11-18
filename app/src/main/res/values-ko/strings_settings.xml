@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s(현재 버전)</string>
     <string name="settings_secrets_unprotected">이 기기의 키 저장소가 작동하지 않아 로그인 정보가 암호화되지 않은 채 저장돼요. 이 앱만 접근할 수 있고 백업에는 절대 포함되지 않아요.</string>
     <string name="kids_filter_warning">보이는 내용을 거르는 건 Seiðr뿐이고 Navidrome 자체는 거르지 않아요. 이 로그인 정보로는 Navidrome 웹 플레이어나 다른 앱에서 모든 게 보여요. 아이에게 알려 주지 말고 ‘%1$s’로 아이의 기기에 로그인해 주세요.</string>
+    <string name="settings_share_log">로그 공유</string>
+    <string name="settings_share_log_hint">버그 신고용, 로그인 정보와 주소는 제거됩니다</string>
+    <string name="log_title">로그 공유</string>
+    <string name="log_intro">버그 신고에 첨부할 Seiðr의 최근 로그입니다. 서버 주소, 사용자 이름, 비밀번호, 기기 이름은 제거되었습니다. 공유하기 전에 한번 읽어 보세요.</string>
+    <string name="log_share">공유</string>
+    <string name="log_copy">복사</string>
+    <string name="log_copied">로그를 복사했습니다</string>
+    <string name="log_no_app">이 기기에는 공유할 수 있는 앱이 없습니다. 대신 복사를 사용해 보세요.</string>
+    <string name="log_subject">Seiðr 로그</string>
 
 </resources>

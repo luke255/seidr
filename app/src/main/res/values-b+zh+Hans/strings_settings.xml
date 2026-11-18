@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s（当前版本）</string>
     <string name="settings_secrets_unprotected">此设备的密钥库无法正常工作，因此你的登录信息以未加密方式保存。它仍仅限本应用访问，且绝不会被备份。</string>
     <string name="kids_filter_warning">只有 Seiðr 会过滤孩子能看到的内容，Navidrome 本身不会。用这个登录信息，Navidrome 网页播放器或任何其他应用都会显示全部内容。请不要告诉孩子：用“%1$s”为他们的设备登录。</string>
+    <string name="settings_share_log">分享日志</string>
+    <string name="settings_share_log_hint">用于报告问题，已去除登录信息和地址</string>
+    <string name="log_title">分享日志</string>
+    <string name="log_intro">Seiðr 的近期日志，可附在问题报告中。服务器地址、用户名、密码和设备名称已被去除。分享前请先通读一遍。</string>
+    <string name="log_share">分享</string>
+    <string name="log_copy">复制</string>
+    <string name="log_copied">日志已复制</string>
+    <string name="log_no_app">此设备上没有可以分享它的应用。请改用“复制”。</string>
+    <string name="log_subject">Seiðr 日志</string>
 
 </resources>

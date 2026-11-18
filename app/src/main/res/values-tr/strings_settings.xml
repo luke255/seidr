@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s (bu sürüm)</string>
     <string name="settings_secrets_unprotected">Bu cihazın anahtar deposu çalışmıyor, bu yüzden giriş bilgilerin şifrelenmeden kaydediliyor. Yine de yalnızca bu uygulama erişebilir ve hiçbir zaman yedeklenmez.</string>
     <string name="kids_filter_warning">Çocuğun gördüklerini yalnızca Seiðr filtreler, Navidrome filtrelemez. Bu giriş bilgileriyle Navidrome\'un web oynatıcısı veya başka herhangi bir uygulama her şeyi gösterir. Bunları çocuğa verme: cihazlarında “%1$s” ile oturum aç.</string>
+    <string name="settings_share_log">Günlük paylaş</string>
+    <string name="settings_share_log_hint">Hata bildirimi için, giriş bilgileri ve adresler çıkarılmış olarak</string>
+    <string name="log_title">Günlük paylaş</string>
+    <string name="log_intro">Hata bildirimine eklemek için Seiðr\'ın son günlüğü. Sunucu adresleri, kullanıcı adları, parolalar ve cihaz adları çıkarıldı. Paylaşmadan önce göz gezdir.</string>
+    <string name="log_share">Paylaş</string>
+    <string name="log_copy">Kopyala</string>
+    <string name="log_copied">Günlük kopyalandı</string>
+    <string name="log_no_app">Bu cihazdaki hiçbir uygulama bunu paylaşamıyor. Bunun yerine Kopyala\'yı dene.</string>
+    <string name="log_subject">Seiðr günlüğü</string>
 
 </resources>

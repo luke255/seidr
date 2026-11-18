@@ -130,6 +130,7 @@ private fun RouteContent(route: Route) {
         Route.SignInDevice -> eu.bradshaw.seidr.ui.pair.SignInDeviceScreen()
         Route.Licences -> eu.bradshaw.seidr.ui.screens.LicencesScreen()
         Route.WhatsNew -> eu.bradshaw.seidr.ui.screens.WhatsNewScreen()
+        Route.Log -> eu.bradshaw.seidr.ui.screens.LogScreen()
         is Route.PlaylistHistory -> eu.bradshaw.seidr.ui.screens.PlaylistHistoryScreen(route.id)
         Route.DeletedPlaylists -> eu.bradshaw.seidr.ui.screens.DeletedPlaylistsScreen()
         is Route.LicenceText -> eu.bradshaw.seidr.ui.screens.LicenceTextScreen(route.title, route.file)

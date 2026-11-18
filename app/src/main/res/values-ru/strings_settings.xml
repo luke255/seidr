@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s (эта версия)</string>
     <string name="settings_secrets_unprotected">Хранилище ключей на этом устройстве не работает, поэтому ваши данные для входа сохранены без шифрования. Они по-прежнему доступны только этому приложению и никогда не попадают в резервные копии.</string>
     <string name="kids_filter_warning">Фильтрует контент только Seiðr, а не Navidrome. С этими данными веб-плеер Navidrome или любое другое приложение покажет всё. Не сообщайте их ребёнку: входите на его устройствах через «%1$s».</string>
+    <string name="settings_share_log">Поделиться журналом</string>
+    <string name="settings_share_log_hint">Для отчёта об ошибке, без данных входа и адресов</string>
+    <string name="log_title">Поделиться журналом</string>
+    <string name="log_intro">Недавний журнал Seiðr, чтобы приложить к отчёту об ошибке. Адреса сервера, имена пользователей, пароли и названия устройств удалены. Просмотрите его, прежде чем делиться.</string>
+    <string name="log_share">Поделиться</string>
+    <string name="log_copy">Копировать</string>
+    <string name="log_copied">Журнал скопирован</string>
+    <string name="log_no_app">На этом устройстве нет приложения, которое может им поделиться. Попробуйте «Копировать».</string>
+    <string name="log_subject">Журнал Seiðr</string>
 
 </resources>

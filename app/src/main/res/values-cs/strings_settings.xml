@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s (tato verze)</string>
     <string name="settings_secrets_unprotected">Úložiště klíčů v tomto zařízení nefunguje, proto jsou tvoje přihlašovací údaje uložené bez šifrování. Zůstávají přístupné jen této aplikaci a nikdy se nezálohují.</string>
     <string name="kids_filter_warning">Obsah filtruje jen Seiðr, Navidrome ne. S těmito údaji webový přehrávač Navidrome nebo jakákoli jiná aplikace ukáže vše. Nedávej je dítěti: jeho zařízení přihlas pomocí „%1$s“.</string>
+    <string name="settings_share_log">Sdílet protokol</string>
+    <string name="settings_share_log_hint">Pro hlášení chyby, bez přihlašovacích údajů a adres</string>
+    <string name="log_title">Sdílet protokol</string>
+    <string name="log_intro">Nedávný protokol Seiðru, k přiložení k hlášení chyby. Adresy serveru, uživatelská jména, hesla a názvy zařízení byly odstraněny. Než ho nasdílíš, projdi si ho.</string>
+    <string name="log_share">Sdílet</string>
+    <string name="log_copy">Kopírovat</string>
+    <string name="log_copied">Protokol zkopírován</string>
+    <string name="log_no_app">Žádná aplikace v tomto zařízení ho neumí sdílet. Zkus Kopírovat.</string>
+    <string name="log_subject">Protokol Seiðr</string>
 
 </resources>

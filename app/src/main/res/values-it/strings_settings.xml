@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s (questa versione)</string>
     <string name="settings_secrets_unprotected">L’archivio delle chiavi di questo dispositivo non funziona, quindi le tue credenziali sono salvate senza crittografia. Restano accessibili solo a questa app e non finiscono mai nei backup.</string>
     <string name="kids_filter_warning">Solo Seiðr filtra ciò che vede il bambino, Navidrome no. Con queste credenziali, il player web di Navidrome o qualsiasi altra app mostra tutto. Non dargliele: fai accedere i suoi dispositivi con «%1$s».</string>
+    <string name="settings_share_log">Condividi un registro</string>
+    <string name="settings_share_log_hint">Per segnalare un problema, senza credenziali né indirizzi</string>
+    <string name="log_title">Condividi un registro</string>
+    <string name="log_intro">Il registro recente di Seiðr, da allegare a una segnalazione. Indirizzi del server, nomi utente, password e nomi dei dispositivi sono stati tolti. Leggilo prima di condividerlo.</string>
+    <string name="log_share">Condividi</string>
+    <string name="log_copy">Copia</string>
+    <string name="log_copied">Registro copiato</string>
+    <string name="log_no_app">Nessuna app su questo dispositivo può condividerlo. Prova con Copia.</string>
+    <string name="log_subject">Registro di Seiðr</string>
 
 </resources>

@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s (diese Version)</string>
     <string name="settings_secrets_unprotected">Der Schlüsselspeicher dieses Geräts funktioniert nicht, daher werden deine Anmeldedaten unverschlüsselt gespeichert. Sie bleiben nur für diese App zugänglich und landen nie in einer Sicherung.</string>
     <string name="kids_filter_warning">Nur Seiðr filtert, was das Kind sieht, Navidrome selbst nicht. Mit diesen Anmeldedaten zeigen der Webplayer von Navidrome und jede andere App alles. Gib sie dem Kind nicht: Melde seine Geräte über „%1$s“ an.</string>
+    <string name="settings_share_log">Protokoll teilen</string>
+    <string name="settings_share_log_hint">Für einen Fehlerbericht, ohne Anmeldedaten und Adressen</string>
+    <string name="log_title">Protokoll teilen</string>
+    <string name="log_intro">Das aktuelle Protokoll von Seiðr, zum Anhängen an einen Fehlerbericht. Serveradressen, Benutzernamen, Passwörter und Gerätenamen wurden entfernt. Lies es durch, bevor du es teilst.</string>
+    <string name="log_share">Teilen</string>
+    <string name="log_copy">Kopieren</string>
+    <string name="log_copied">Protokoll kopiert</string>
+    <string name="log_no_app">Keine App auf diesem Gerät kann es teilen. Versuch es mit Kopieren.</string>
+    <string name="log_subject">Seiðr-Protokoll</string>
 
 </resources>

@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s (cette version)</string>
     <string name="settings_secrets_unprotected">Le magasin de clés de cet appareil ne fonctionne pas : vos identifiants sont donc enregistrés sans chiffrement. Ils restent réservés à cette application et ne sont jamais sauvegardés.</string>
     <string name="kids_filter_warning">Seul Seiðr filtre ce que voit l’enfant, pas Navidrome. Avec ces identifiants, le lecteur web de Navidrome ou n’importe quelle autre application affiche tout. Ne les lui donnez pas : connectez ses appareils avec « %1$s ».</string>
+    <string name="settings_share_log">Partager un journal</string>
+    <string name="settings_share_log_hint">Pour signaler un bug, sans identifiants ni adresses</string>
+    <string name="log_title">Partager un journal</string>
+    <string name="log_intro">Le journal récent de Seiðr, à joindre à un signalement de bug. Les adresses du serveur, noms d\'utilisateur, mots de passe et noms d\'appareils ont été retirés. Relisez-le avant de le partager.</string>
+    <string name="log_share">Partager</string>
+    <string name="log_copy">Copier</string>
+    <string name="log_copied">Journal copié</string>
+    <string name="log_no_app">Aucune appli de cet appareil ne peut le partager. Essayez plutôt Copier.</string>
+    <string name="log_subject">Journal Seiðr</string>
 
 </resources>

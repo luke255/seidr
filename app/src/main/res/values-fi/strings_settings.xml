@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s (tämä versio)</string>
     <string name="settings_secrets_unprotected">Tämän laitteen avainsäilö ei toimi, joten kirjautumistietosi tallennetaan salaamattomina. Ne ovat silti vain tämän sovelluksen käytettävissä eivätkä koskaan päädy varmuuskopioihin.</string>
     <string name="kids_filter_warning">Vain Seiðr suodattaa, mitä lapsi näkee – Navidrome ei. Näillä tunnuksilla Navidromen verkkosoitin tai mikä tahansa muu sovellus näyttää kaiken. Älä anna niitä lapselle: kirjaa hänen laitteensa sisään kohdasta ”%1$s”.</string>
+    <string name="settings_share_log">Jaa loki</string>
+    <string name="settings_share_log_hint">Vikailmoitusta varten, ilman kirjautumistietoja ja osoitteita</string>
+    <string name="log_title">Jaa loki</string>
+    <string name="log_intro">Seiðrin tuore loki vikailmoituksen liitteeksi. Palvelinosoitteet, käyttäjänimet, salasanat ja laitteiden nimet on poistettu. Lue se läpi ennen kuin jaat sen.</string>
+    <string name="log_share">Jaa</string>
+    <string name="log_copy">Kopioi</string>
+    <string name="log_copied">Loki kopioitu</string>
+    <string name="log_no_app">Mikään tämän laitteen sovellus ei voi jakaa sitä. Kokeile Kopioi-painiketta.</string>
+    <string name="log_subject">Seiðr-loki</string>
 
 </resources>

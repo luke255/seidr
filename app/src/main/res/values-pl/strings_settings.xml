@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s (ta wersja)</string>
     <string name="settings_secrets_unprotected">Magazyn kluczy na tym urządzeniu nie działa, więc dane logowania są zapisane bez szyfrowania. Nadal ma do nich dostęp tylko ta aplikacja i nigdy nie trafiają do kopii zapasowej.</string>
     <string name="kids_filter_warning">Treści filtruje tylko Seiðr, a nie Navidrome. Z tymi danymi odtwarzacz webowy Navidrome lub dowolna inna aplikacja pokaże wszystko. Nie przekazuj ich dziecku: zaloguj jego urządzenia przez „%1$s”.</string>
+    <string name="settings_share_log">Udostępnij dziennik</string>
+    <string name="settings_share_log_hint">Do zgłoszenia błędu, bez danych logowania i adresów</string>
+    <string name="log_title">Udostępnij dziennik</string>
+    <string name="log_intro">Ostatni dziennik Seiðr do dołączenia do zgłoszenia błędu. Adresy serwera, nazwy użytkowników, hasła i nazwy urządzeń zostały usunięte. Przeczytaj go przed udostępnieniem.</string>
+    <string name="log_share">Udostępnij</string>
+    <string name="log_copy">Kopiuj</string>
+    <string name="log_copied">Skopiowano dziennik</string>
+    <string name="log_no_app">Żadna aplikacja na tym urządzeniu nie może go udostępnić. Spróbuj Kopiuj.</string>
+    <string name="log_subject">Dziennik Seiðr</string>
 
 </resources>

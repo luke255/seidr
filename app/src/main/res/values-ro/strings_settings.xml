@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s (versiunea aceasta)</string>
     <string name="settings_secrets_unprotected">Depozitul de chei al acestui dispozitiv nu funcționează, așa că datele tale de autentificare sunt salvate necriptat. Rămân accesibile doar acestei aplicații și nu ajung niciodată în copii de rezervă.</string>
     <string name="kids_filter_warning">Doar Seiðr filtrează ce vede copilul, nu și Navidrome. Cu aceste date, playerul web Navidrome sau orice altă aplicație arată tot. Nu i le da copilului: autentifică-i dispozitivele cu „%1$s”.</string>
+    <string name="settings_share_log">Partajează un jurnal</string>
+    <string name="settings_share_log_hint">Pentru raportarea unei erori, fără date de conectare și adrese</string>
+    <string name="log_title">Partajează un jurnal</string>
+    <string name="log_intro">Jurnalul recent al Seiðr, de atașat la un raport de eroare. Adresele serverului, numele de utilizator, parolele și numele dispozitivelor au fost eliminate. Citește-l înainte să-l partajezi.</string>
+    <string name="log_share">Partajează</string>
+    <string name="log_copy">Copiază</string>
+    <string name="log_copied">Jurnal copiat</string>
+    <string name="log_no_app">Nicio aplicație de pe acest dispozitiv nu îl poate partaja. Încearcă Copiază.</string>
+    <string name="log_subject">Jurnal Seiðr</string>
 
 </resources>

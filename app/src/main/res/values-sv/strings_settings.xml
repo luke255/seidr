@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s (den här versionen)</string>
     <string name="settings_secrets_unprotected">Enhetens nyckellager fungerar inte, så din inloggning sparas okrypterad. Den är fortfarande bara åtkomlig för den här appen och säkerhetskopieras aldrig.</string>
     <string name="kids_filter_warning">Bara Seiðr filtrerar vad barnet ser – Navidrome gör det inte. Med den här inloggningen visar Navidromes webbspelare eller vilken annan app som helst allt. Ge den inte till barnet: logga in deras enheter med ”%1$s”.</string>
+    <string name="settings_share_log">Dela en logg</string>
+    <string name="settings_share_log_hint">För en felrapport, utan inloggning och adresser</string>
+    <string name="log_title">Dela en logg</string>
+    <string name="log_intro">Seiðrs senaste logg, att bifoga en felrapport. Serveradresser, användarnamn, lösenord och enhetsnamn har tagits bort. Läs igenom den innan du delar den.</string>
+    <string name="log_share">Dela</string>
+    <string name="log_copy">Kopiera</string>
+    <string name="log_copied">Logg kopierad</string>
+    <string name="log_no_app">Ingen app på den här enheten kan dela den. Prova Kopiera i stället.</string>
+    <string name="log_subject">Seiðr-logg</string>
 
 </resources>

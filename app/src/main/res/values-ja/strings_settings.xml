@@ -143,5 +143,14 @@
     <string name="whatsnew_this_version">%1$s（このバージョン）</string>
     <string name="settings_secrets_unprotected">このデバイスのキーストアが正しく動作していないため、ログイン情報は暗号化されずに保存されています。このアプリ以外からはアクセスできず、バックアップされることもありません。</string>
     <string name="kids_filter_warning">表示内容を絞り込むのはSeiðrだけで、Navidrome自体は絞り込みません。このログイン情報を使えば、NavidromeのWebプレーヤーや他のアプリではすべてが表示されます。お子さまには教えず、「%1$s」からお子さまのデバイスをサインインさせてください。</string>
+    <string name="settings_share_log">ログを共有</string>
+    <string name="settings_share_log_hint">不具合の報告用。ログイン情報とアドレスは取り除かれます</string>
+    <string name="log_title">ログを共有</string>
+    <string name="log_intro">不具合の報告に添付する、Seiðr の最近のログです。サーバーのアドレス、ユーザー名、パスワード、デバイス名は取り除かれています。共有する前に目を通してください。</string>
+    <string name="log_share">共有</string>
+    <string name="log_copy">コピー</string>
+    <string name="log_copied">ログをコピーしました</string>
+    <string name="log_no_app">このデバイスには共有できるアプリがありません。代わりに「コピー」を使ってください。</string>
+    <string name="log_subject">Seiðr のログ</string>
 
 </resources>
