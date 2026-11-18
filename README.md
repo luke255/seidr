@@ -127,11 +127,13 @@ Seiðr updates itself: when a new release is out it offers to install it,
 with what's new. You can turn the automatic check off in Settings → About.
 If you'd rather use Obtainium, turn that check off so the two don't compete.
 
-**Requirements:** Android 14 or later, and a Navidrome server. Seiðr is built
-and tested on Navidrome. It speaks the OpenSubsonic API, so other servers that
-do (gonic, LMS and others) should mostly work, but they haven't been tested
-yet; live updates and cover art for casting from a TV use Navidrome's own APIs
-either way.
+**Requirements:** Android 14 or later, and a Navidrome or gonic server. Seiðr is built
+and tested on Navidrome. It also works with **gonic** (tested with 0.23:
+browsing, playback, offline downloads that follow the server, and playlist
+editing), though changes there show up on the next sync rather than straight
+away, and Save mobile data streams the original files, since gonic doesn't
+convert for it. **LMS** doesn't work yet: it only accepts API keys, and Seiðr
+signs in with a password. Other OpenSubsonic servers are untested.
 
 **First run:** enter your server's address, username and password. On
 Android 17, reaching a server on your home network needs the Nearby devices

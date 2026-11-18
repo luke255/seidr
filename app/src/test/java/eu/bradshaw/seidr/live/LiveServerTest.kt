@@ -33,11 +33,13 @@ import java.util.Properties
 /**
  * Runs the real API client and sync engine against a live Navidrome. Skipped
  * unless ~/.config/seidr/test-server.properties exists (url, user, password,
- * and allowWrites=true for the playlist-editing test).
+ * and allowWrites=true for the playlist-editing test). SEIDR_TEST_SERVER
+ * names another properties file, to try a different server.
  */
 class LiveServerTest {
     private val props = Properties().apply {
-        val f = File(System.getProperty("user.home"), ".config/seidr/test-server.properties")
+        val f = System.getenv("SEIDR_TEST_SERVER")?.let(::File)
+            ?: File(System.getProperty("user.home"), ".config/seidr/test-server.properties")
         if (f.isFile) f.inputStream().use { load(it) }
     }
     private lateinit var client: SubsonicClient
