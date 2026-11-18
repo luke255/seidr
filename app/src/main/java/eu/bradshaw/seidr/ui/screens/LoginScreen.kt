@@ -50,7 +50,6 @@ import eu.bradshaw.seidr.Graph
 import eu.bradshaw.seidr.ui.pair.deviceName
 import eu.bradshaw.seidr.data.ServerConfig
 import eu.bradshaw.seidr.data.Account
-import androidx.activity.compose.BackHandler
 import eu.bradshaw.seidr.data.Settings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -73,7 +72,6 @@ fun LoginScreen(graph: Graph, onBack: () -> Unit) {
     var busy by rememberSaveable { mutableStateOf(false) }
     var error by rememberSaveable { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
-    BackHandler(onBack = onBack)
 
     // An http:// server on the open internet: confirm before signing in.
     var exposed by remember { mutableStateOf<ServerConfig?>(null) }

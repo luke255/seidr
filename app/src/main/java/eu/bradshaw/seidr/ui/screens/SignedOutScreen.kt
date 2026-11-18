@@ -2,6 +2,11 @@ package eu.bradshaw.seidr.ui.screens
 
 import androidx.compose.ui.res.stringResource
 import androidx.compose.animation.AnimatedVisibility
+import androidx.activity.compose.PredictiveBackHandler
+import androidx.compose.animation.core.Animatable
+import androidx.compose.ui.graphics.RectangleShape
+import eu.bradshaw.seidr.ui.SwipeStack
+import eu.bradshaw.seidr.ui.followBack
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -95,10 +100,22 @@ fun SignedOutScreen(graph: Graph, nav: Navigator) {
 
     CompositionLocalProvider(LocalActions provides actions) {
         Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
-            when {
-                guest != null -> GuestPlayer(actions)
-                login -> LoginScreen(graph, onBack = { login = false })
-                else -> Idle(onLogin = { login = true })
+            if (guest != null) GuestPlayer(actions)
+            else {
+                // Back from Log in slides it off, uncovering the idle screen, as pages do when signed in.
+                val swipe = remember { Animatable(0f) }
+                var swiping by remember { mutableStateOf(false) }
+                PredictiveBackHandler(enabled = login) { events ->
+                    followBack(swipe, scope, onStart = { swiping = true }, onCancelled = { swiping = false }) { events.collect(it) }
+                    login = false
+                    swiping = false
+                    swipe.snapTo(0f)
+                }
+                val bg = MaterialTheme.colorScheme.background
+                SwipeStack(top = login, below = false.takeIf { login }, swipe = if (swiping) swipe.value else null,
+                    parallax = 0.25f, shape = RectangleShape, page = { Modifier.background(bg) }) { loggingIn ->
+                    if (loggingIn) LoginScreen(graph, onBack = { login = false }) else Idle(onLogin = { login = true })
+                }
             }
             SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).safeDrawingPadding().padding(bottom = 16.dp))
         }
@@ -111,12 +128,19 @@ fun SignedOutScreen(graph: Graph, nav: Navigator) {
 private fun GuestPlayer(actions: AppActions) {
     val npPrimary = remember { FocusRequester() }
     val queuePrimary = remember { FocusRequester() }
+    val scope = rememberCoroutineScope()
+    // How far a back swipe has pulled the queue down (0..1); put back when it next opens.
+    val queueSwipe = remember { Animatable(0f) }
+    LaunchedEffect(actions.queueOpen) { if (actions.queueOpen) queueSwipe.snapTo(0f) }
     CompositionLocalProvider(LocalPrimaryFocus provides npPrimary) {
         NowPlayingScreen(onClose = null, onQueue = { actions.queueOpen = true },
             modifier = Modifier.overlayFocus(!actions.queueOpen, npPrimary))
     }
-    androidx.activity.compose.BackHandler(enabled = actions.queueOpen) { actions.queueOpen = false }
-    AnimatedVisibility(actions.queueOpen, enter = slideInVertically { it }, exit = slideOutVertically { it }) {
+    PredictiveBackHandler(enabled = actions.queueOpen) { events ->
+        followBack(queueSwipe, scope) { events.collect(it) }
+        actions.queueOpen = false
+    }
+    AnimatedVisibility(actions.queueOpen, Modifier.graphicsLayer { translationY = queueSwipe.value * size.height }, enter = slideInVertically { it }, exit = slideOutVertically { it }) {
         CompositionLocalProvider(LocalPrimaryFocus provides queuePrimary) {
             QueueScreen(onClose = { actions.queueOpen = false }, readOnly = true,
                 modifier = Modifier.overlayFocus(actions.queueOpen, queuePrimary))

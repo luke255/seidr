@@ -15,8 +15,13 @@ import androidx.compose.ui.draw.drawBehind
 import eu.bradshaw.seidr.ui.player.lerpScheme
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.FlowCollector
+import androidx.activity.BackEventCompat
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.runtime.derivedStateOf
@@ -261,52 +266,24 @@ fun MainScreen(graph: Graph, nav: Navigator) {
         BoxWithConstraints(Modifier.fillMaxSize().drawWithContent { if (!covered) drawContent() }
             .background(MaterialTheme.colorScheme.background).focusArea(mainFocus)) {
             val wide = maxWidth >= 600.dp
-            // How far a back swipe has slid the top screen off (0..1); narrow only.
+            // How far a back swipe has slid the top screen off (0..1).
             val swipe = remember { Animatable(0f) }
             var swiping by remember { mutableStateOf(false) }
             PredictiveBackHandler(enabled = actions.queueOpen || actions.nowPlayingOpen || nav.stack.size > 1 || nav.tab != Tab.HOME) { events ->
-                val slide = !actions.queueOpen && !actions.nowPlayingOpen && !wide && nav.stack.size > 1
                 if (actions.queueOpen || actions.nowPlayingOpen) {
-                    // The sheet follows the swipe down, then carries on off the bottom. (A
-                    // remote's Back has no progress: that just closes it.)
-                    val pull = if (actions.queueOpen) queueSwipe else npSwipe
-                    var moved = false
-                    try {
-                        events.collect { moved = true; pull.snapTo(it.progress) }
-                        if (moved) pull.animateTo(1f, tween(160))
-                    } catch (e: CancellationException) {
-                        scope.launch { pull.animateTo(0f, tween(200)) }
-                        throw e
-                    }
+                    // The sheet follows the swipe down, then carries on off the bottom.
+                    followBack(if (actions.queueOpen) queueSwipe else npSwipe, scope) { events.collect(it) }
                     if (actions.queueOpen) actions.queueOpen = false else actions.nowPlayingOpen = false
                     return@PredictiveBackHandler
                 }
-                if (!slide) {
-                    events.collect {}
-                    when {
-                        actions.queueOpen -> actions.queueOpen = false
-                        actions.nowPlayingOpen -> actions.nowPlayingOpen = false
-                        else -> nav.pop()
-                    }
-                    return@PredictiveBackHandler
-                }
-                // Like iOS: the screen follows the finger off to the right, uncovering the one below.
-                swiping = true
-                try {
-                    events.collect { swipe.snapTo(it.progress) }
-                    swipe.animateTo(1f, tween(160))
-                    nav.pop()
-                    swiping = false
-                    swipe.snapTo(0f)
-                } catch (e: CancellationException) {
-                    scope.launch {
-                        swipe.animateTo(0f, tween(200))
-                        swiping = false
-                    }
-                    throw e
-                }
+                // Like iOS: the screen follows the finger off to the right, uncovering the one
+                // below (from a tab's root, Home).
+                followBack(swipe, scope, onStart = { swiping = true }, onCancelled = { swiping = false }) { events.collect(it) }
+                nav.pop()
+                swiping = false
+                swipe.snapTo(0f)
             }
-            if (wide) WideLayout(nav, saveable, focus, actions, snackbar)
+            if (wide) WideLayout(nav, saveable, focus, actions, snackbar, if (swiping) swipe.value else null)
             else NarrowLayout(nav, saveable, focus, actions, snackbar, if (swiping) swipe.value else null)
         }
         // Now Playing and the queue cover the whole window on both screens.
@@ -413,6 +390,64 @@ private fun NavItemLayout(icon: ImageVector, label: String, color: Color, bold: 
 }
 
 /**
+ * Follows a back swipe's progress (0..1) with [pull], and once it's committed carries it on
+ * to 1; cancelled, it springs back to 0 and the cancellation carries on. A remote's Back has
+ * no progress: then nothing moves (and [onStart] isn't called) and the caller just closes.
+ * [collect] collects the handler's events into the collector it's given (lint wants to see
+ * each handler collect its own).
+ */
+internal suspend fun followBack(
+    pull: Animatable<Float, AnimationVector1D>, scope: CoroutineScope,
+    onStart: () -> Unit = {}, onCancelled: () -> Unit = {},
+    collect: suspend (FlowCollector<BackEventCompat>) -> Unit,
+) {
+    var moved = false
+    try {
+        collect {
+            if (!moved) { moved = true; onStart() }
+            pull.snapTo(it.progress)
+        }
+        if (moved) pull.animateTo(1f, tween(160))
+    } catch (e: CancellationException) {
+        scope.launch { pull.animateTo(0f, tween(200)); onCancelled() }
+        throw e
+    }
+}
+
+/**
+ * The [top] page, and mid back-swipe ([swipe], 0..1) the one [below] it too: the top
+ * follows the finger off to the right, uncovering the one below, which comes in from
+ * [parallax] of the width to the left and out of shadow. Keyed by page, so the one below
+ * carries on (rather than starting over) once the swipe takes the top one away.
+ */
+@Composable
+internal fun <T : Any> SwipeStack(
+    top: T, below: T?, swipe: Float?, parallax: Float, shape: Shape,
+    page: @Composable (T) -> Modifier, content: @Composable (T) -> Unit,
+) {
+    val shown = if (swipe != null && below != null) listOf(below, top) else listOf(top)
+    shown.forEach { entry ->
+        key(entry) {
+            val under = swipe != null && entry !== top
+            val p = swipe ?: 0f
+            Box(
+                Modifier.fillMaxSize()
+                    .graphicsLayer {
+                        if (swipe == null) return@graphicsLayer
+                        translationX = if (under) -parallax * size.width * (1f - p) else p * size.width
+                        if (!under) { shadowElevation = 24.dp.toPx(); this.shape = shape }
+                    }
+                    .then(page(entry))
+                    .drawWithContent {
+                        drawContent()
+                        if (under) drawRect(Color.Black.copy(alpha = 0.35f * (1f - p)))
+                    },
+            ) { content(entry) }
+        }
+    }
+}
+
+/**
  * Cover screen: the screen fills the window and scrolls under the floating
  * chrome (a slim nav bar on a fade to the background).
  * Screens pad their ends by [LocalBottomChrome] so the last row clears it.
@@ -429,36 +464,15 @@ private fun NarrowLayout(
     val washes = LocalWashes.current!!
     Box(Modifier.fillMaxSize()) {
         CompositionLocalProvider(LocalBottomChrome provides chrome) {
-            // Mid-swipe the screen below is composed too. Keyed, so it carries on
-            // (rather than starting over) once the swipe pops the top one.
-            val stack = nav.stack
-            val shown = if (swipe != null && stack.size > 1) stack.takeLast(2) else listOf(stack.last())
-            shown.forEach { entry ->
-                key(entry.id) {
-                    val under = swipe != null && entry !== stack.last()
-                    val p = swipe ?: 0f
-                    Box(
-                        Modifier.fillMaxSize()
-                            .graphicsLayer {
-                                if (swipe == null) return@graphicsLayer
-                                translationX = if (under) -0.25f * size.width * (1f - p) else p * size.width
-                                if (!under) shadowElevation = 24.dp.toPx()
-                            }
-                            .background(bg).background(washBrush()).artBackground(washes[entry])
-                            .drawWithContent {
-                                drawContent()
-                                if (under) drawRect(Color.Black.copy(alpha = 0.35f * (1f - p)))
-                            },
-                    ) {
-                        Box(Modifier.fillMaxSize().statusBarsPadding()) { EntryHost(entry, saveable, focus) }
-                    }
-                }
+            SwipeStack(nav.top, nav.below, swipe, parallax = 0.25f, shape = RectangleShape,
+                page = { Modifier.background(bg).background(washBrush()).artBackground(washes[it]) }) { entry ->
+                Box(Modifier.fillMaxSize().statusBarsPadding()) { EntryHost(entry, saveable, focus) }
             }
         }
         // The nav bar follows the top page, and mid back-swipe moves toward the
         // one coming back in step with the slide.
-        val topWash = washes[nav.stack.last()]
-        val underWash = if (swipe != null && nav.stack.size > 1) washes[nav.stack[nav.stack.size - 2]] else topWash
+        val topWash = washes[nav.top]
+        val underWash = nav.below?.takeIf { swipe != null }?.let { washes[it] } ?: topWash
         val swipeP = if (underWash === topWash) 0f else swipe ?: 0f
         Column(
             Modifier
@@ -493,13 +507,15 @@ private fun NarrowLayout(
  * ground. Nothing overlaps, so a remote's focus never hides.
  */
 @Composable
-private fun WideLayout(nav: Navigator, saveable: SaveableStateHolder, focus: EntryFocus, actions: AppActions, snackbar: SnackbarHostState) {
+private fun WideLayout(
+    nav: Navigator, saveable: SaveableStateHolder, focus: EntryFocus, actions: AppActions, snackbar: SnackbarHostState,
+    /** While a back swipe is under way, how far the top screen has slid off (0..1). */
+    swipe: Float?,
+) {
     val cs = MaterialTheme.colorScheme
     val pane = RoundedCornerShape(12.dp)
     val washes = LocalWashes.current!!
-    @Composable
-    fun paneModifier(entry: Entry) = Modifier.fillMaxHeight().clip(pane).background(cs.background)
-        .background(washBrush(height = 360.dp, themeStrength = 0.7f)).artBackground(washes[entry])
+    val paneBrush = washBrush(height = 360.dp, themeStrength = 0.7f)
     Box(Modifier.fillMaxSize().background(lerp(cs.background, Color.Black, 0.45f))) {
         Row(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(top = 4.dp, end = 8.dp, bottom = 8.dp)) {
             Column(
@@ -519,11 +535,21 @@ private fun WideLayout(nav: Navigator, saveable: SaveableStateHolder, focus: Ent
                     val detail = nav.stack.size > 1
                     val split = detail && maxWidth >= 720.dp
                     Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        if (split || !detail) {
-                            Box(paneModifier(nav.root).weight(if (split) 0.4f else 1f)) { EntryHost(nav.root, saveable, focus) }
+                        // One pane: the whole stack, as on the cover screen. Split: the root on its
+                        // own, the rest in the detail pane, whose last page slides off to the ground.
+                        // The same call either way, so the root carries on when the split closes.
+                        val page: @Composable (Entry) -> Modifier = {
+                            Modifier.clip(pane).background(cs.background).background(paneBrush).artBackground(washes[it])
                         }
-                        if (detail) {
-                            Box(paneModifier(nav.top).weight(if (split) 0.6f else 1f)) { EntryHost(nav.top, saveable, focus) }
+                        Box(Modifier.fillMaxHeight().weight(if (split) 0.4f else 1f)) {
+                            SwipeStack(if (split) nav.root else nav.top, nav.below.takeUnless { split }, swipe, 0f, pane, page) {
+                                EntryHost(it, saveable, focus)
+                            }
+                        }
+                        if (split) Box(Modifier.fillMaxHeight().weight(0.6f)) {
+                            SwipeStack(nav.top, nav.below.takeIf { nav.stack.size > 2 }, swipe, 0f, pane, page) {
+                                EntryHost(it, saveable, focus)
+                            }
                         }
                     }
                 }

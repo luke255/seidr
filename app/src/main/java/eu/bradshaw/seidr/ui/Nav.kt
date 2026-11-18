@@ -59,6 +59,13 @@ class Navigator : ViewModel() {
     val top: Entry get() = stack.last()
     val root: Entry get() = stack.first()
 
+    /** What Back would show: the page under the top one, or from another tab's root, Home's top page. */
+    val below: Entry? get() = when {
+        stack.size > 1 -> stack[stack.size - 2]
+        tab != Tab.HOME -> stacks.getValue(Tab.HOME).last()
+        else -> null
+    }
+
     fun push(route: Route) {
         val s = stacks.getValue(tab)
         if (s.last().route == route) return
