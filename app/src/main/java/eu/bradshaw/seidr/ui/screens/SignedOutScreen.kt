@@ -167,7 +167,8 @@ private fun Idle(onLogin: () -> Unit) {
         Box(m.aspectRatio(1f, matchHeightConstraintsFirst = true).clip(RoundedCornerShape(8.dp)).background(colorResource(R.color.icon_bg)), contentAlignment = Alignment.Center) {
             Image(painterResource(R.drawable.wordmark), contentDescription = stringResource(R.string.login_logo_description),
                 colorFilter = ColorFilter.tint(colorResource(R.color.brand_yellow)), contentScale = ContentScale.Fit,
-                modifier = Modifier.fillMaxWidth(0.72f))
+                // The aspect ratio lets it scale: on width alone it kept its 44dp intrinsic height.
+                modifier = Modifier.fillMaxWidth(0.76f).aspectRatio(340.3f / 100f))
         }
     }
     // Ready to play is the headline; Log in is there but quiet (outlined, set
