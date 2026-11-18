@@ -64,6 +64,12 @@ before changing sync or playback.
     and queue items alike (the car can't load http or private file URIs).
     On TV, `PublicArt` swaps queue art for Navidrome's public signed cover
     links (`getAlbumInfo2`), so Cast/Home Assistant can show it.
+    ReplayGain is the volume `FadingPlayer.gain` (only ever down; `Loudness`),
+    on when the user says or `LoudnessCoverage` finds the library mostly
+    tagged. Save mobile data (`StreamQuality`) resolves a stream to a
+    constant-bitrate MP3 on metered networks; seeks re-request with
+    `timeOffset`, and a song keeps its format while it's current. A sleep
+    timer (`SleepTimer`) is carried out here too.
   - `PlayerConnection` is the UI-side `MediaController` and implements the
     queue model: `[history][current][user "Next in queue"][context]`.
     Shuffle reorders the timeline itself and is undone via
@@ -284,7 +290,8 @@ before changing sync or playback.
   4.1.2 (in the SDK), ABIs arm64-v8a and armeabi-v7a (some TVs are 32-bit).
   Native builds are incremental (`app/.cxx`); a clean one adds ~25 s.
 - Tests: `./gradlew :app:testDebugUnitTest`. `LiveServerTest` runs against a
-  real server only when `~/.config/seidr/test-server.properties` exists; with
+  real server only when `~/.config/seidr/test-server.properties` exists (or
+  `SEIDR_TEST_SERVER` names another file, e.g. for gonic); with
   `allowWrites=true` it creates, edits and deletes a scratch playlist.
 - Version: `seidr.version` in `gradle.properties` (major.minor.patch);
   versionCode is derived from it. `seidr.repo` names the GitHub repo that
