@@ -170,4 +170,14 @@
     <string name="theme_purple">Lila</string>
     <string name="theme_magenta">Magenta</string>
     <string name="theme_pink">Pink</string>
+    <string name="sleep_timer">Sleep-Timer</string>
+    <string name="sleep_timer_until">Sleep-Timer: stoppt um %1$s</string>
+    <string name="sleep_timer_end_of_song">Sleep-Timer: nach diesem Song</string>
+    <string name="sleep_minutes">%1$d Min.</string>
+    <string name="sleep_end_of_song">Am Ende dieses Songs</string>
+    <string name="sleep_turn_off">Ausschalten</string>
+    <string name="sleep_set_until">Die Musik stoppt um %1$s</string>
+    <string name="sleep_set_end_of_song">Die Musik stoppt nach diesem Song</string>
+    <string name="sleep_off_toast">Sleep-Timer aus</string>
+
 </resources>

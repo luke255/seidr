@@ -153,6 +153,22 @@ class PlaybackService : MediaLibraryService() {
             kotlinx.coroutines.flow.combine(graph.bad.skipped, graph.kids.rules) { _, _ -> }
                 .collect { restoreFixedSongs(); hideBadSongs() }
         }
+        scope.launch { graph.sleep.mode.collectLatest(::sleep) }
+    }
+
+    /**
+     * Carries out the sleep timer on whatever the session plays (here, or a
+     * device it's controlling). A timed stop fades out over its last
+     * [SleepTimer.FADE_MS]; the end of a song is ExoPlayer's own pause there,
+     * or a pause as the next song starts on another device.
+     */
+    private suspend fun sleep(mode: SleepTimer.Mode?) {
+        player.pauseAtEndOfMediaItems = mode == SleepTimer.Mode.EndOfSong
+        if (mode !is SleepTimer.Mode.At) return
+        delay((mode.atElapsedMs - SystemClock.elapsedRealtime() - SleepTimer.FADE_MS).coerceAtLeast(0))
+        val p = session.player
+        if (p === fading) fading.pauseSlowly(SleepTimer.FADE_MS) else p.pause()
+        graph.sleep.done(mode)
     }
 
     /** Songs kept out of the queue: in Bad: Songs, or (a kid's login) not approved. */
@@ -270,6 +286,10 @@ class PlaybackService : MediaLibraryService() {
             }
         }
 
+        override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
+            if (reason == Player.PLAY_WHEN_READY_CHANGE_REASON_END_OF_MEDIA_ITEM) graph.sleep.done(SleepTimer.Mode.EndOfSong)
+        }
+
         override fun onPlayerError(error: androidx.media3.common.PlaybackException) {
             Log.w("Playback", "error on ${player.currentMediaItem?.mediaId}: $error")
             // Streaming hits a dead server before anything else does; switch to offline mode
@@ -375,7 +395,14 @@ class PlaybackService : MediaLibraryService() {
     }
 
     private val remoteListener = object : Player.Listener {
-        override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) = updateLikeButton()
+        override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+            updateLikeButton()
+            // The other device can't pause at the end of a song for us: pause as the next begins.
+            if (reason == Player.MEDIA_ITEM_TRANSITION_REASON_AUTO && graph.sleep.mode.value == SleepTimer.Mode.EndOfSong) {
+                session.player.pause()
+                graph.sleep.done(SleepTimer.Mode.EndOfSong)
+            }
+        }
     }
 
     // --- Like button on the notification and lockscreen ---------------------------

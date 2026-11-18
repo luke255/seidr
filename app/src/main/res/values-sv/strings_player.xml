@@ -170,4 +170,14 @@
     <string name="theme_purple">Lila</string>
     <string name="theme_magenta">Magenta</string>
     <string name="theme_pink">Rosa</string>
+    <string name="sleep_timer">Insomningstimer</string>
+    <string name="sleep_timer_until">Insomningstimer: stannar %1$s</string>
+    <string name="sleep_timer_end_of_song">Insomningstimer: efter den här låten</string>
+    <string name="sleep_minutes">%1$d min</string>
+    <string name="sleep_end_of_song">När den här låten är slut</string>
+    <string name="sleep_turn_off">Stäng av</string>
+    <string name="sleep_set_until">Musiken stannar %1$s</string>
+    <string name="sleep_set_end_of_song">Musiken stannar efter den här låten</string>
+    <string name="sleep_off_toast">Insomningstimer av</string>
+
 </resources>

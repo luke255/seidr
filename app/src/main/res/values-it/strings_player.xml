@@ -174,4 +174,14 @@
     <string name="theme_purple">Viola</string>
     <string name="theme_magenta">Magenta</string>
     <string name="theme_pink">Rosa</string>
+    <string name="sleep_timer">Timer di spegnimento</string>
+    <string name="sleep_timer_until">Timer: si ferma alle %1$s</string>
+    <string name="sleep_timer_end_of_song">Timer: dopo questo brano</string>
+    <string name="sleep_minutes">%1$d min</string>
+    <string name="sleep_end_of_song">Alla fine di questo brano</string>
+    <string name="sleep_turn_off">Disattiva</string>
+    <string name="sleep_set_until">La musica si ferma alle %1$s</string>
+    <string name="sleep_set_end_of_song">La musica si ferma dopo questo brano</string>
+    <string name="sleep_off_toast">Timer disattivato</string>
+
 </resources>

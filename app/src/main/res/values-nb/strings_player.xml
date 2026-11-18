@@ -170,4 +170,14 @@
     <string name="theme_purple">Lilla</string>
     <string name="theme_magenta">Magenta</string>
     <string name="theme_pink">Rosa</string>
+    <string name="sleep_timer">Søvntimer</string>
+    <string name="sleep_timer_until">Søvntimer: stopper kl. %1$s</string>
+    <string name="sleep_timer_end_of_song">Søvntimer: etter denne sangen</string>
+    <string name="sleep_minutes">%1$d min</string>
+    <string name="sleep_end_of_song">Når denne sangen er ferdig</string>
+    <string name="sleep_turn_off">Slå av</string>
+    <string name="sleep_set_until">Musikken stopper kl. %1$s</string>
+    <string name="sleep_set_end_of_song">Musikken stopper etter denne sangen</string>
+    <string name="sleep_off_toast">Søvntimer slått av</string>
+
 </resources>

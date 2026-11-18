@@ -178,4 +178,14 @@
     <string name="theme_purple">Purpurowy</string>
     <string name="theme_magenta">Magenta</string>
     <string name="theme_pink">Różowy</string>
+    <string name="sleep_timer">Wyłącznik czasowy</string>
+    <string name="sleep_timer_until">Wyłącznik czasowy: stop o %1$s</string>
+    <string name="sleep_timer_end_of_song">Wyłącznik czasowy: po tym utworze</string>
+    <string name="sleep_minutes">%1$d min</string>
+    <string name="sleep_end_of_song">Na końcu tego utworu</string>
+    <string name="sleep_turn_off">Wyłącz</string>
+    <string name="sleep_set_until">Muzyka zatrzyma się o %1$s</string>
+    <string name="sleep_set_end_of_song">Muzyka zatrzyma się po tym utworze</string>
+    <string name="sleep_off_toast">Wyłącznik czasowy wyłączony</string>
+
 </resources>

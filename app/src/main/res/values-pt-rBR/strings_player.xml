@@ -174,4 +174,14 @@
     <string name="theme_purple">Roxo</string>
     <string name="theme_magenta">Magenta</string>
     <string name="theme_pink">Rosa</string>
+    <string name="sleep_timer">Timer para dormir</string>
+    <string name="sleep_timer_until">Timer para dormir: para às %1$s</string>
+    <string name="sleep_timer_end_of_song">Timer para dormir: depois desta música</string>
+    <string name="sleep_minutes">%1$d min</string>
+    <string name="sleep_end_of_song">No fim desta música</string>
+    <string name="sleep_turn_off">Desativar</string>
+    <string name="sleep_set_until">A música para às %1$s</string>
+    <string name="sleep_set_end_of_song">A música para depois desta música</string>
+    <string name="sleep_off_toast">Timer para dormir desativado</string>
+
 </resources>

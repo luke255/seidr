@@ -170,4 +170,14 @@
     <string name="theme_purple">Purppura</string>
     <string name="theme_magenta">Magenta</string>
     <string name="theme_pink">Pinkki</string>
+    <string name="sleep_timer">Uniajastin</string>
+    <string name="sleep_timer_until">Uniajastin: pysähtyy klo %1$s</string>
+    <string name="sleep_timer_end_of_song">Uniajastin: tämän kappaleen jälkeen</string>
+    <string name="sleep_minutes">%1$d min</string>
+    <string name="sleep_end_of_song">Tämän kappaleen lopussa</string>
+    <string name="sleep_turn_off">Poista käytöstä</string>
+    <string name="sleep_set_until">Musiikki pysähtyy klo %1$s</string>
+    <string name="sleep_set_end_of_song">Musiikki pysähtyy tämän kappaleen jälkeen</string>
+    <string name="sleep_off_toast">Uniajastin pois käytöstä</string>
+
 </resources>

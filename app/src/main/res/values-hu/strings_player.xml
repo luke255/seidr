@@ -170,4 +170,14 @@
     <string name="theme_purple">Lila</string>
     <string name="theme_magenta">Magenta</string>
     <string name="theme_pink">Rózsaszín</string>
+    <string name="sleep_timer">Elalvási időzítő</string>
+    <string name="sleep_timer_until">Elalvási időzítő: %1$s-kor leáll</string>
+    <string name="sleep_timer_end_of_song">Elalvási időzítő: a dal után</string>
+    <string name="sleep_minutes">%1$d perc</string>
+    <string name="sleep_end_of_song">A dal végén</string>
+    <string name="sleep_turn_off">Kikapcsolás</string>
+    <string name="sleep_set_until">A zene %1$s-kor leáll</string>
+    <string name="sleep_set_end_of_song">A zene e dal után leáll</string>
+    <string name="sleep_off_toast">Elalvási időzítő kikapcsolva</string>
+
 </resources>

@@ -36,6 +36,13 @@ class FadingPlayer(private val exo: ExoPlayer, private val scope: CoroutineScope
     private var holdingPause = false
     /** Perceived loudness 0..1; the player volume is its square, which sounds even. */
     private var level = 1f
+    private var pauseFadeMs = PAUSE_FADE_MS
+
+    /** Pauses after a slow fade (the sleep timer); playing again during it cancels the pause. */
+    fun pauseSlowly(fadeMs: Int) {
+        pauseFadeMs = fadeMs
+        try { pause() } finally { pauseFadeMs = PAUSE_FADE_MS }
+    }
 
     override fun handleSetPlayWhenReady(playWhenReady: Boolean): ListenableFuture<*> =
         if (playWhenReady) fadeIn() else fadeOutThenPause()
@@ -109,7 +116,8 @@ class FadingPlayer(private val exo: ExoPlayer, private val scope: CoroutineScope
         }
         val done = hold { super.handleSetPlayWhenReady(false); setLevel(1f) }
         holdingPause = true
-        job = scope.launch { ramp(0f, PAUSE_FADE_MS); runHeld() }
+        val fadeMs = pauseFadeMs
+        job = scope.launch { ramp(0f, fadeMs); runHeld() }
         return done
     }
 

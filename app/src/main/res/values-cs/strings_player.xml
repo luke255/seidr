@@ -178,4 +178,14 @@
     <string name="theme_purple">Nachová</string>
     <string name="theme_magenta">Purpurová</string>
     <string name="theme_pink">Růžová</string>
+    <string name="sleep_timer">Časovač spánku</string>
+    <string name="sleep_timer_until">Časovač spánku: zastaví v %1$s</string>
+    <string name="sleep_timer_end_of_song">Časovač spánku: po této skladbě</string>
+    <string name="sleep_minutes">%1$d min</string>
+    <string name="sleep_end_of_song">Na konci této skladby</string>
+    <string name="sleep_turn_off">Vypnout</string>
+    <string name="sleep_set_until">Hudba se zastaví v %1$s</string>
+    <string name="sleep_set_end_of_song">Hudba se zastaví po této skladbě</string>
+    <string name="sleep_off_toast">Časovač spánku vypnut</string>
+
 </resources>

@@ -216,4 +216,14 @@
     <string name="theme_purple">Purple</string>
     <string name="theme_magenta">Magenta</string>
     <string name="theme_pink">Pink</string>
+    <string name="sleep_timer">Sleep timer</string>
+    <string name="sleep_timer_until">Sleep timer: stops at %1$s</string>
+    <string name="sleep_timer_end_of_song">Sleep timer: after this song</string>
+    <string name="sleep_minutes">%1$d min</string>
+    <string name="sleep_end_of_song">End of this song</string>
+    <string name="sleep_turn_off">Turn off</string>
+    <string name="sleep_set_until">Music stops at %1$s</string>
+    <string name="sleep_set_end_of_song">Music stops after this song</string>
+    <string name="sleep_off_toast">Sleep timer off</string>
+
 </resources>

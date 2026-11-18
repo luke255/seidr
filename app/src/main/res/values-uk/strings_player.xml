@@ -178,4 +178,14 @@
     <string name="theme_purple">Пурпуровий</string>
     <string name="theme_magenta">Маджента</string>
     <string name="theme_pink">Рожевий</string>
+    <string name="sleep_timer">Таймер сну</string>
+    <string name="sleep_timer_until">Таймер сну: зупинка о %1$s</string>
+    <string name="sleep_timer_end_of_song">Таймер сну: після цієї пісні</string>
+    <string name="sleep_minutes">%1$d хв</string>
+    <string name="sleep_end_of_song">Наприкінці цієї пісні</string>
+    <string name="sleep_turn_off">Вимкнути</string>
+    <string name="sleep_set_until">Музика зупиниться о %1$s</string>
+    <string name="sleep_set_end_of_song">Музика зупиниться після цієї пісні</string>
+    <string name="sleep_off_toast">Таймер сну вимкнено</string>
+
 </resources>

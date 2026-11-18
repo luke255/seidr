@@ -170,4 +170,14 @@
     <string name="theme_purple">Μοβ</string>
     <string name="theme_magenta">Ματζέντα</string>
     <string name="theme_pink">Ροζ</string>
+    <string name="sleep_timer">Χρονοδιακόπτης ύπνου</string>
+    <string name="sleep_timer_until">Χρονοδιακόπτης ύπνου: σταματά στις %1$s</string>
+    <string name="sleep_timer_end_of_song">Χρονοδιακόπτης ύπνου: μετά από αυτό το τραγούδι</string>
+    <string name="sleep_minutes">%1$d λεπτά</string>
+    <string name="sleep_end_of_song">Στο τέλος αυτού του τραγουδιού</string>
+    <string name="sleep_turn_off">Απενεργοποίηση</string>
+    <string name="sleep_set_until">Η μουσική σταματά στις %1$s</string>
+    <string name="sleep_set_end_of_song">Η μουσική σταματά μετά από αυτό το τραγούδι</string>
+    <string name="sleep_off_toast">Ο χρονοδιακόπτης ύπνου απενεργοποιήθηκε</string>
+
 </resources>

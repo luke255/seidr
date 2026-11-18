@@ -174,4 +174,14 @@
     <string name="theme_purple">Mov</string>
     <string name="theme_magenta">Magenta</string>
     <string name="theme_pink">Roz</string>
+    <string name="sleep_timer">Temporizator de oprire</string>
+    <string name="sleep_timer_until">Temporizator: se oprește la %1$s</string>
+    <string name="sleep_timer_end_of_song">Temporizator: după această melodie</string>
+    <string name="sleep_minutes">%1$d min</string>
+    <string name="sleep_end_of_song">La finalul acestei melodii</string>
+    <string name="sleep_turn_off">Dezactivează</string>
+    <string name="sleep_set_until">Muzica se oprește la %1$s</string>
+    <string name="sleep_set_end_of_song">Muzica se oprește după această melodie</string>
+    <string name="sleep_off_toast">Temporizator dezactivat</string>
+
 </resources>

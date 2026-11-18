@@ -174,4 +174,14 @@
     <string name="theme_purple">Morado</string>
     <string name="theme_magenta">Magenta</string>
     <string name="theme_pink">Rosa</string>
+    <string name="sleep_timer">Temporizador</string>
+    <string name="sleep_timer_until">Temporizador: se detiene a las %1$s</string>
+    <string name="sleep_timer_end_of_song">Temporizador: al terminar esta canción</string>
+    <string name="sleep_minutes">%1$d min</string>
+    <string name="sleep_end_of_song">Al terminar esta canción</string>
+    <string name="sleep_turn_off">Desactivar</string>
+    <string name="sleep_set_until">La música se detiene a las %1$s</string>
+    <string name="sleep_set_end_of_song">La música se detiene al terminar esta canción</string>
+    <string name="sleep_off_toast">Temporizador desactivado</string>
+
 </resources>

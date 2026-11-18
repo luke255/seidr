@@ -166,4 +166,14 @@
     <string name="theme_purple">パープル</string>
     <string name="theme_magenta">マゼンタ</string>
     <string name="theme_pink">ピンク</string>
+    <string name="sleep_timer">スリープタイマー</string>
+    <string name="sleep_timer_until">スリープタイマー：%1$s に停止</string>
+    <string name="sleep_timer_end_of_song">スリープタイマー：この曲の後</string>
+    <string name="sleep_minutes">%1$d 分</string>
+    <string name="sleep_end_of_song">この曲の終わり</string>
+    <string name="sleep_turn_off">オフにする</string>
+    <string name="sleep_set_until">%1$s に音楽が止まります</string>
+    <string name="sleep_set_end_of_song">この曲の後で音楽が止まります</string>
+    <string name="sleep_off_toast">スリープタイマーをオフにしました</string>
+
 </resources>

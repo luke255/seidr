@@ -174,4 +174,14 @@
     <string name="theme_purple">Pourpre</string>
     <string name="theme_magenta">Magenta</string>
     <string name="theme_pink">Rose</string>
+    <string name="sleep_timer">Minuterie de sommeil</string>
+    <string name="sleep_timer_until">Minuterie : arrêt à %1$s</string>
+    <string name="sleep_timer_end_of_song">Minuterie : après ce titre</string>
+    <string name="sleep_minutes">%1$d min</string>
+    <string name="sleep_end_of_song">À la fin de ce titre</string>
+    <string name="sleep_turn_off">Désactiver</string>
+    <string name="sleep_set_until">La musique s\'arrête à %1$s</string>
+    <string name="sleep_set_end_of_song">La musique s\'arrête après ce titre</string>
+    <string name="sleep_off_toast">Minuterie désactivée</string>
+
 </resources>

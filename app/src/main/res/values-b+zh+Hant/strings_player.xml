@@ -166,4 +166,14 @@
     <string name="theme_purple">紫色</string>
     <string name="theme_magenta">洋紅色</string>
     <string name="theme_pink">粉紅色</string>
+    <string name="sleep_timer">睡眠定時</string>
+    <string name="sleep_timer_until">睡眠定時：%1$s 停止</string>
+    <string name="sleep_timer_end_of_song">睡眠定時：這首歌之後</string>
+    <string name="sleep_minutes">%1$d 分鐘</string>
+    <string name="sleep_end_of_song">這首歌結束時</string>
+    <string name="sleep_turn_off">關閉</string>
+    <string name="sleep_set_until">音樂將在 %1$s 停止</string>
+    <string name="sleep_set_end_of_song">音樂將在這首歌之後停止</string>
+    <string name="sleep_off_toast">睡眠定時已關閉</string>
+
 </resources>

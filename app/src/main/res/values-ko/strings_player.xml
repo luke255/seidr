@@ -166,4 +166,14 @@
     <string name="theme_purple">보라</string>
     <string name="theme_magenta">마젠타</string>
     <string name="theme_pink">분홍</string>
+    <string name="sleep_timer">수면 타이머</string>
+    <string name="sleep_timer_until">수면 타이머: %1$s에 정지</string>
+    <string name="sleep_timer_end_of_song">수면 타이머: 이 곡 다음</string>
+    <string name="sleep_minutes">%1$d분</string>
+    <string name="sleep_end_of_song">이 곡이 끝나면</string>
+    <string name="sleep_turn_off">끄기</string>
+    <string name="sleep_set_until">%1$s에 음악이 멈춥니다</string>
+    <string name="sleep_set_end_of_song">이 곡이 끝나면 음악이 멈춥니다</string>
+    <string name="sleep_off_toast">수면 타이머 꺼짐</string>
+
 </resources>

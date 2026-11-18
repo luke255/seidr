@@ -37,7 +37,10 @@ import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.Devices
 import androidx.compose.material.icons.filled.LinkOff
 import androidx.compose.material.icons.outlined.Flag
+import androidx.compose.material.icons.outlined.Bedtime
+import eu.bradshaw.seidr.playback.SleepTimer
 import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import eu.bradshaw.seidr.ui.components.ReportItems
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.GraphicEq
@@ -256,8 +259,10 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
             var menu by remember { mutableStateOf(false) }
             if (asGuest) Spacer(Modifier.size(48.dp))
             else Box {
+                var sleepMenu by remember { mutableStateOf(false) }
                 IconButton(onClick = { menu = true }, enabled = cur != null) { Icon(Icons.Filled.MoreVert, stringResource(R.string.common_more)) }
-                if (cur != null) TrackMenu(cur.asSong(), menu, { menu = false })
+                if (cur != null) TrackMenu(cur.asSong(), menu, { menu = false }, extra = listOf(sleepAction { sleepMenu = true }))
+                SleepMenu(sleepMenu) { sleepMenu = false }
             }
         }
     }
@@ -557,3 +562,49 @@ private class HalfPill(private val start: Boolean, private val cut: Dp, private 
         return Outline.Generic(Path.combine(PathOperation.Difference, pill, circle))
     }
 }
+
+/** The ⋮ menu's sleep timer item, saying when it's set. */
+@Composable
+private fun sleepAction(open: () -> Unit): eu.bradshaw.seidr.ui.components.MenuAction {
+    val mode by LocalActions.current.graph.sleep.mode.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    val label = when (val m = mode) {
+        null -> stringResource(R.string.sleep_timer)
+        SleepTimer.Mode.EndOfSong -> stringResource(R.string.sleep_timer_end_of_song)
+        is SleepTimer.Mode.At -> stringResource(R.string.sleep_timer_until, sleepClock(context, m))
+    }
+    return eu.bradshaw.seidr.ui.components.MenuAction(label, Icons.Outlined.Bedtime, onClick = open)
+}
+
+/** The wall-clock time a timed stop happens, in the device's own format. */
+private fun sleepClock(context: android.content.Context, m: SleepTimer.Mode.At): String =
+    android.text.format.DateFormat.getTimeFormat(context)
+        .format(java.util.Date(System.currentTimeMillis() + (m.atElapsedMs - android.os.SystemClock.elapsedRealtime())))
+
+@Composable
+private fun SleepMenu(expanded: Boolean, onDismiss: () -> Unit) {
+    val actions = LocalActions.current
+    val sleep = actions.graph.sleep
+    val mode by sleep.mode.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    val endMessage = stringResource(R.string.sleep_set_end_of_song)
+    val offMessage = stringResource(R.string.sleep_off_toast)
+    DropdownMenu(expanded = expanded, onDismissRequest = onDismiss) {
+        Text(stringResource(R.string.sleep_timer), style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
+        for (min in SleepTimer.CHOICES_MIN) {
+            DropdownMenuItem(text = { Text(stringResource(R.string.sleep_minutes, min)) }, onClick = {
+                onDismiss()
+                sleep.stopIn(min)
+                (sleep.mode.value as? SleepTimer.Mode.At)?.let { actions.toast(context.getString(R.string.sleep_set_until, sleepClock(context, it))) }
+            })
+        }
+        DropdownMenuItem(text = { Text(stringResource(R.string.sleep_end_of_song)) }, onClick = {
+            onDismiss(); sleep.stopAtEndOfSong(); actions.toast(endMessage)
+        })
+        if (mode != null) DropdownMenuItem(text = { Text(stringResource(R.string.sleep_turn_off)) }, onClick = {
+            onDismiss(); sleep.cancel(); actions.toast(offMessage)
+        })
+    }
+}
+

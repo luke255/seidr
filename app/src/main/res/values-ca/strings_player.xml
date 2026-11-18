@@ -174,4 +174,14 @@
     <string name="theme_purple">Porpra</string>
     <string name="theme_magenta">Magenta</string>
     <string name="theme_pink">Rosa</string>
+    <string name="sleep_timer">Temporitzador</string>
+    <string name="sleep_timer_until">Temporitzador: s\'atura a les %1$s</string>
+    <string name="sleep_timer_end_of_song">Temporitzador: després d\'aquesta cançó</string>
+    <string name="sleep_minutes">%1$d min</string>
+    <string name="sleep_end_of_song">Al final d\'aquesta cançó</string>
+    <string name="sleep_turn_off">Desactiva</string>
+    <string name="sleep_set_until">La música s\'atura a les %1$s</string>
+    <string name="sleep_set_end_of_song">La música s\'atura després d\'aquesta cançó</string>
+    <string name="sleep_off_toast">Temporitzador desactivat</string>
+
 </resources>

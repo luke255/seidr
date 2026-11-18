@@ -170,4 +170,14 @@
     <string name="theme_purple">Paars</string>
     <string name="theme_magenta">Magenta</string>
     <string name="theme_pink">Roze</string>
+    <string name="sleep_timer">Slaaptimer</string>
+    <string name="sleep_timer_until">Slaaptimer: stopt om %1$s</string>
+    <string name="sleep_timer_end_of_song">Slaaptimer: na dit nummer</string>
+    <string name="sleep_minutes">%1$d min</string>
+    <string name="sleep_end_of_song">Aan het eind van dit nummer</string>
+    <string name="sleep_turn_off">Uitzetten</string>
+    <string name="sleep_set_until">De muziek stopt om %1$s</string>
+    <string name="sleep_set_end_of_song">De muziek stopt na dit nummer</string>
+    <string name="sleep_off_toast">Slaaptimer uit</string>
+
 </resources>

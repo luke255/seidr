@@ -174,4 +174,14 @@
     <string name="theme_purple">Roxo</string>
     <string name="theme_magenta">Magenta</string>
     <string name="theme_pink">Cor-de-rosa</string>
+    <string name="sleep_timer">Temporizador</string>
+    <string name="sleep_timer_until">Temporizador: para às %1$s</string>
+    <string name="sleep_timer_end_of_song">Temporizador: depois desta música</string>
+    <string name="sleep_minutes">%1$d min</string>
+    <string name="sleep_end_of_song">No fim desta música</string>
+    <string name="sleep_turn_off">Desativar</string>
+    <string name="sleep_set_until">A música para às %1$s</string>
+    <string name="sleep_set_end_of_song">A música para depois desta música</string>
+    <string name="sleep_off_toast">Temporizador desativado</string>
+
 </resources>

@@ -170,4 +170,14 @@
     <string name="theme_purple">Mor</string>
     <string name="theme_magenta">Macenta</string>
     <string name="theme_pink">Pembe</string>
+    <string name="sleep_timer">Uyku zamanlayıcısı</string>
+    <string name="sleep_timer_until">Uyku zamanlayıcısı: %1$s itibarıyla durur</string>
+    <string name="sleep_timer_end_of_song">Uyku zamanlayıcısı: bu şarkıdan sonra</string>
+    <string name="sleep_minutes">%1$d dk</string>
+    <string name="sleep_end_of_song">Bu şarkının sonunda</string>
+    <string name="sleep_turn_off">Kapat</string>
+    <string name="sleep_set_until">Müzik %1$s itibarıyla durur</string>
+    <string name="sleep_set_end_of_song">Müzik bu şarkıdan sonra durur</string>
+    <string name="sleep_off_toast">Uyku zamanlayıcısı kapatıldı</string>
+
 </resources>
