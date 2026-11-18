@@ -5,27 +5,95 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#D42A1E">
 <meta name="darkreader-lock">
-<title>Seiðr</title>
+<title>Seiðr: an Android music player for Navidrome</title>
+<meta name="description" content="Seiðr is a free, open-source Android player for your Navidrome (Subsonic) server, laid out like classic Spotify: offline playlists that stay in sync, original FLAC downloads, Android Auto, TV and a MilkDrop visualiser.">
+<link rel="canonical" href="https://seidr.bradshaw.eu/">
 <link rel="icon" href="icons/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Seiðr">
+<meta property="og:title" content="Seiðr: an Android music player for Navidrome">
+<meta property="og:description" content="Offline playlists that keep themselves in sync with your server, original-quality downloads, a proper queue, and the same app on your phone, car, TV and headset. Free and open source.">
+<meta property="og:url" content="https://seidr.bradshaw.eu/">
+<meta property="og:image" content="https://seidr.bradshaw.eu/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Seiðr, with three screenshots: Now Playing, Home and the visualiser">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Seiðr",
+  "alternateName": "Seidr",
+  "description": "A native Android music player for one Navidrome (or other Subsonic-compatible) server. Offline playlists and albums mirror the server automatically, downloads are the original files, and the layout follows classic Spotify.",
+  "url": "https://seidr.bradshaw.eu/",
+  "downloadUrl": "https://github.com/luke255/seidr/releases/latest",
+  "applicationCategory": "MultimediaApplication",
+  "applicationSubCategory": "Music player",
+  "operatingSystem": "Android 14 or later",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+  "author": { "@type": "Person", "name": "Luke Bradshaw", "url": "https://bradshaw.eu/" },
+  "sameAs": ["https://github.com/luke255/seidr"],
+  "image": "https://seidr.bradshaw.eu/og.png",
+  "screenshot": [
+    "https://seidr.bradshaw.eu/screenshots/01-now-playing-cyan.webp",
+    "https://seidr.bradshaw.eu/screenshots/02-home.webp",
+    "https://seidr.bradshaw.eu/screenshots/03-visualiser.webp"
+  ],
+  "featureList": [
+    "Offline playlists and albums that follow the server",
+    "Original-quality (FLAC) downloads",
+    "Playlist editing, including offline",
+    "Android Auto, Android TV, foldables and Meta Quest",
+    "Play on and sign in other devices on the same Wi-Fi",
+    "Synced lyrics",
+    "ReplayGain and gapless playback",
+    "MilkDrop visualiser",
+    "Kids' accounts with approved-song playlists",
+    "No Google Play services, no tracking"
+  ],
+  "inLanguage": ["en", "ca", "cs", "da", "de", "el", "es", "fi", "fr", "hu", "it", "ja", "ko", "nb", "nl", "pl", "pt", "ro", "ru", "sv", "tr", "uk", "zh"]
+}
+</script>
 <style>
-body { background: #D42A1E; margin: 16px 8px; text-align: center; }
+:root { --bg: #D42A1E; --ink: #FFFFFF; --soft: #FFE7E3; --accent: #FFC93C; }
+body { background: var(--bg); color: var(--ink); margin: 16px; font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; text-align: center; }
 img { max-width: 100%; height: auto; vertical-align: middle; }
-.get { margin: 8px 0 36px; }
-nav { margin: 8px 0 24px; }
+a { color: var(--accent); }
+h1 { margin: 0; }
+.lede { font-size: 1.25rem; max-width: 34em; margin: 12px auto 0; }
+.get { margin: 20px 0 8px; }
+.facts { color: var(--soft); font-size: 0.95rem; margin: 0 0 20px; }
+nav { margin: 8px 0 28px; }
 nav a { margin: 0 12px; }
-main { max-width: 1200px; margin: 0 auto; }
-main img { width: 270px; max-width: 46%; margin: 1%; border-radius: 16px; }
+.shots { max-width: 1200px; margin: 0 auto; }
+.shots img { width: 270px; max-width: 46%; margin: 1%; border-radius: 16px; }
+article { max-width: 44em; margin: 40px auto 0; text-align: left; }
+h2 { color: var(--accent); font-size: 1.5rem; margin: 40px 0 8px; }
+h3 { font-size: 1.1rem; margin: 24px 0 4px; }
+ul { padding-left: 1.2em; margin: 8px 0; }
+li { margin: 6px 0; }
+p { margin: 8px 0; }
+code { font-size: 0.92em; background: rgba(0,0,0,0.18); padding: 1px 5px; border-radius: 4px; }
+footer { color: var(--soft); font-size: 0.9rem; max-width: 44em; margin: 48px auto 16px; }
 </style>
 </head>
 <body>
-<header><img src="banner.svg" width="640" height="160" alt="Seiðr"></header>
-<p class="get"><a id="apk" href="https://github.com/luke255/seidr/releases/latest"><img src="icons/download.svg" width="64" height="64" alt="Download"></a></p>
+<header>
+<h1><img src="banner.svg" width="640" height="160" alt="Seiðr"></h1>
+<p class="lede">An Android music player for your <a href="https://www.navidrome.org/">Navidrome</a> server. Offline playlists that keep themselves up to date, a proper queue, and the same app on your phone, foldable, car, TV and headset.</p>
+<p class="get"><a id="apk" href="https://github.com/luke255/seidr/releases/latest"><img src="icons/download.svg" width="64" height="64" alt="Download the APK"></a></p>
+<p class="facts">Free and open source (GPL 3.0) · Android 14+ · No Google Play services, no tracking</p>
+</header>
 <nav>
 <a href="https://www.navidrome.org/"><img src="icons/navidrome.svg" width="48" height="48" alt="Navidrome"></a>
-<a href="https://github.com/luke255/seidr"><img src="icons/github.svg" width="48" height="48" alt="GitHub"></a>
+<a href="https://github.com/luke255/seidr"><img src="icons/github.svg" width="48" height="48" alt="Seiðr on GitHub"></a>
 <a href="https://bradshaw.eu/"><img src="icons/luke255.png" width="48" height="48" alt="bradshaw.eu"></a>
 </nav>
 <main>
+<div class="shots">
 <a href="screenshots/01-now-playing-cyan.webp"><img src="screenshots/01-now-playing-cyan.webp" width="270" height="400" loading="lazy" alt="Now Playing, coloured from the album cover"></a>
 <a href="screenshots/02-home.webp"><img src="screenshots/02-home.webp" width="270" height="400" loading="lazy" alt="Home"></a>
 <a href="screenshots/03-visualiser.webp"><img src="screenshots/03-visualiser.webp" width="270" height="400" loading="lazy" alt="The MilkDrop visualiser"></a>
@@ -38,7 +106,80 @@ main img { width: 270px; max-width: 46%; margin: 1%; border-radius: 16px; }
 <a href="screenshots/10-playlist.webp"><img src="screenshots/10-playlist.webp" width="270" height="400" loading="lazy" alt="Playlist options: download, share, rename, reorder, earlier versions"></a>
 <a href="screenshots/11-settings.webp"><img src="screenshots/11-settings.webp" width="270" height="400" loading="lazy" alt="Settings, with the colour picker"></a>
 <a href="screenshots/12-kids.webp"><img src="screenshots/12-kids.webp" width="270" height="400" loading="lazy" alt="Kids' accounts in Settings"></a>
+</div>
+
+<article>
+<h2>What it is</h2>
+<p>Seiðr is a native Android client for one self-hosted music server: <a href="https://www.navidrome.org/">Navidrome</a>, or <a href="https://github.com/sentriz/gonic">gonic</a> and other Subsonic-compatible servers. Its look and layout follow classic Spotify (around 2016–2019), with your own music. It's for people who want their own library to feel like a streaming app, and who want downloads they don't have to babysit.</p>
+<p><em>Seiðr</em> (Old Norse, a kind of sorcery) is said "SAY-ther". The ASCII spelling is Seidr.</p>
+
+<h2>Features</h2>
+
+<h3>Offline you can trust</h3>
+<ul>
+<li><strong>Downloads stay in step with your server.</strong> Switch on Download for a playlist or album and it looks after itself: songs added on the server download, and songs removed are cleared from your phone.</li>
+<li><strong>It won't lose your music.</strong> A dropped connection or a server having a bad day never deletes anything.</li>
+<li><strong>Original quality.</strong> Downloads are your files as they are on the server (usually FLAC), and anything downloaded plays from the phone, even online. To save mobile data, other songs can stream at a lower bitrate.</li>
+<li><strong>Edit playlists anywhere.</strong> Create, rename, add, remove, reorder and delete. Changes made offline are sent when you're back.</li>
+<li><strong>Changes show up straight away</strong>, even ones made on another device.</li>
+</ul>
+
+<h3>Now Playing and the queue</h3>
+<ul>
+<li>Colours from the album art, so every album looks like itself.</li>
+<li>Synced lyrics that scroll smoothly, with a countdown through instrumental breaks. Nudge them into time and every device remembers.</li>
+<li>Gapless playback, gentle fades on play, pause and skip, ReplayGain volume levelling and a sleep timer.</li>
+<li>"Next in queue" plays before the rest of the album or playlist. Drag to reorder, and turn shuffle off to get the original order back.</li>
+</ul>
+
+<h3>Everywhere</h3>
+<ul>
+<li><strong>Android Auto</strong>, with recent music and playlists ready the moment you get in, and voice search.</li>
+<li><strong>Android TV</strong>, with every screen built for the remote.</li>
+<li><strong>Foldables and tablets</strong>, with two panes side by side.</li>
+<li><strong>Play on another device</strong> on the same Wi-Fi and control it from this one, or sign a new device in by checking a code on both screens. No typing passwords on a TV.</li>
+</ul>
+
+<h3>MilkDrop visualiser</h3>
+<ul>
+<li>Thousands of classic MilkDrop presets, rendered by <a href="https://github.com/projectM-visualizer/projectm">projectM</a> and reacting to your music in real time.</li>
+<li>Adjusts itself to run smoothly on phones and TVs alike. On a Meta Quest, step inside it.</li>
+</ul>
+
+<h3>Kids' accounts</h3>
+<ul>
+<li>Give each child their own Navidrome login and choose what they can see and hear with three playlists on your account. Everything else stays out of sight, and their downloads follow your choices.</li>
+<li>It fails safe: until a kid's device has your lists, nothing plays.</li>
+</ul>
+
+<h3>Also</h3>
+<ul>
+<li>Material You colours, a neutral dark look, or one of 16 colours.</li>
+<li>In 26 languages: English, Catalan, Chinese (Simplified and Traditional), Czech, Danish, Dutch, Finnish, French, German, Greek, Hungarian, Italian, Japanese, Korean, Norwegian, Polish, Portuguese (Brazil and Portugal), Romanian, Russian, Spanish (Spain and Latin America), Swedish, Turkish and Ukrainian.</li>
+<li>Updates itself from GitHub Releases, with what's new. Obtainium works too.</li>
+</ul>
+
+<h2>Questions</h2>
+
+<h3>Which servers does it work with?</h3>
+<p>It's built and tested on Navidrome. gonic works too (playlist changes show up on the next sync rather than straight away). LMS doesn't work yet, because it only accepts API keys. Other OpenSubsonic servers are untested. Jellyfin and Plex aren't supported.</p>
+
+<h3>Is it on Google Play or F-Droid?</h3>
+<p>No. Download the APK from <a href="https://github.com/luke255/seidr/releases/latest">GitHub Releases</a>, or add the repository to Obtainium. Seiðr doesn't need Google Play services, so it runs on de-Googled phones.</p>
+
+<h3>Can it play music stored only on my phone, or from several servers?</h3>
+<p>No. Everything comes from one server and one login. Seiðr does a few things really well rather than everything.</p>
+
+<h3>What does it collect?</h3>
+<p>Nothing. There are no analytics, ads or accounts of its own. It talks to your server, to GitHub to check for updates (you can turn that off) and to fetch the visualiser's presets, and to other Seiðr devices on your network when you ask it to.</p>
+
+<h3>Who makes it?</h3>
+<p>Seiðr is written by Claude (Anthropic's AI model) in Claude Code. It's designed, directed and tested by <a href="https://bradshaw.eu/">Luke Bradshaw</a> on real devices (a Galaxy Fold, an Android TV, a Meta Quest 3 and Android Auto) against a real library. The rules that protect your downloads are covered by unit tests. The source is on <a href="https://github.com/luke255/seidr">GitHub</a>, and questions and ideas are welcome in <a href="https://github.com/luke255/seidr/discussions">Discussions</a>.</p>
+</article>
 </main>
+<footer>
+<p>Screenshots use Navidrome's public demo server and its Creative Commons music. Seiðr isn't affiliated with Spotify or Navidrome.</p>
+</footer>
 <script>
 // Point Download straight at the latest release's APK; the release page stays as the fallback.
 fetch('https://api.github.com/repos/luke255/seidr/releases/latest')

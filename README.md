@@ -144,8 +144,8 @@ developer settings.
 ## What it is, and isn't
 
 Seiðr is opinionated. It's built around one Navidrome server, offline
-playlists that mirror it, and a layout in the spirit of classic music apps,
-and it tries to do those really well rather than everything. Ideas that fit
+playlists that mirror it, and a layout that follows classic Spotify (around
+2016–2019; Seiðr isn't affiliated with it), and it tries to do those really well rather than everything. Ideas that fit
 are welcome in [issues](https://github.com/luke255/seidr/issues).
 
 **Not planned:**
