@@ -30,6 +30,8 @@ data class QueueEntry(
     val ctxIndex: Int = -1,
     /** "Playlist name", "Album name"… shown as "Next from: …". */
     val ctxName: String? = null,
+    /** The playlist the context came from, if it's one: the visualiser shows its picture. */
+    val ctxPlaylist: String? = null,
     /** ReplayGain, in dB, when the file is tagged ([Loudness]). */
     val trackGain: Float? = null,
     val albumGain: Float? = null,
@@ -42,10 +44,10 @@ fun songIdOf(mediaId: String) = mediaId.substringBefore('|')
 /** The URI the player sees; [PlaybackService] resolves it to a local file or a stream at load time. */
 fun songUri(songId: String): Uri = Uri.parse("seidr://song/$songId")
 
-fun Song.toEntry(user: Boolean = false, ctxIndex: Int = -1, ctxName: String? = null) = QueueEntry(
+fun Song.toEntry(user: Boolean = false, ctxIndex: Int = -1, ctxName: String? = null, ctxPlaylist: String? = null) = QueueEntry(
     key = newKey(id), songId = id, title = title, artist = artistLine, album = album.orEmpty(),
     albumId = albumId, artistId = artistId, coverArt = coverArt, duration = duration,
-    user = user, ctxIndex = ctxIndex, ctxName = ctxName,
+    user = user, ctxIndex = ctxIndex, ctxName = ctxName, ctxPlaylist = ctxPlaylist,
     trackGain = replayGain?.trackGain, albumGain = replayGain?.albumGain,
 )
 
@@ -62,6 +64,7 @@ fun QueueEntry.toMediaItem(graph: Graph): MediaItem {
         putBoolean("user", user)
         putInt("ctxIndex", ctxIndex)
         putString("ctxName", ctxName)
+        putString("ctxPlaylist", ctxPlaylist)
         trackGain?.let { putFloat("trackGain", it) }
         albumGain?.let { putFloat("albumGain", it) }
     }
@@ -100,6 +103,7 @@ fun MediaItem.toEntry(): QueueEntry {
         user = x.getBoolean("user"),
         ctxIndex = x.getInt("ctxIndex", -1),
         ctxName = x.getString("ctxName"),
+        ctxPlaylist = x.getString("ctxPlaylist"),
         trackGain = if (x.containsKey("trackGain")) x.getFloat("trackGain") else null,
         albumGain = if (x.containsKey("albumGain")) x.getFloat("albumGain") else null,
     )

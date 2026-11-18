@@ -1,6 +1,7 @@
 package eu.bradshaw.seidr.ui
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.EaseInOutSine
 import androidx.compose.animation.core.tween
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.LocalContentColor
@@ -68,7 +69,7 @@ fun ArtPage(coverId: String?, content: @Composable () -> Unit) {
     val target = kept[0]
     // Already known (cached) on arrival: no fade.
     val shown = remember { Animatable(if (look != null) 1f else 0f) }
-    LaunchedEffect(look != null) { shown.animateTo(if (look != null) 1f else 0f, tween(ART_PAGE_FADE_MS)) }
+    LaunchedEffect(look != null) { shown.animateTo(if (look != null) 1f else 0f, tween(ART_PAGE_FADE_MS, easing = EaseInOutSine)) }
     val scheme by remember(base, target) {
         derivedStateOf { if (target == null) base else lerpScheme(base, target.scheme, SchemeFade.stepOf(shown.value)) }
     }
@@ -84,7 +85,8 @@ fun ArtPage(coverId: String?, content: @Composable () -> Unit) {
     }
 }
 
-private const val ART_PAGE_FADE_MS = 500
+/** Slow and eased at both ends: the colours arrive a moment after the page, so they settle in rather than snap. */
+private const val ART_PAGE_FADE_MS = 1200
 
 /**
  * [base] taken toward [state]'s art as far as it has faded in, in

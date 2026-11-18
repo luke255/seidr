@@ -92,7 +92,7 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
         if (ctx.startsWith(PL)) graph.playlistPlays.record(ctx.removePrefix(PL))
         if (ctx == LOVED) graph.playlistPlays.record(Loved.PLAYS_KEY)
         c.album?.let(graph.albumPlays::record)
-        return queue(c.songs, start, c.name, shuffle)
+        return queue(c.songs, start, c.name, shuffle, c.playlist)
     }
 
     private suspend fun playlists(): List<Playlist> =
@@ -138,13 +138,13 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
             val p = playlists().filter { it.id in last }.maxByOrNull { last.getValue(it.id) } ?: return null
             val (name, songs) = contextSongs("$PL${p.id}") ?: return null
             graph.playlistPlays.record(p.id)
-            return queue(songs, -1, name, shuffle = true)
+            return queue(songs, -1, name, shuffle = true, p.id)
         }
         // A playlist named exactly what was asked for wins ("play Active library").
         playlists().firstOrNull { it.name.equals(query.trim(), ignoreCase = true) }?.let { p ->
             contextSongs("$PL${p.id}")?.let { (name, songs) ->
                 graph.playlistPlays.record(p.id)
-                return queue(songs, -1, name, shuffle = true)
+                return queue(songs, -1, name, shuffle = true, p.id)
             }
         }
         val r = runCatching { graph.library.search(query) }.getOrNull() ?: return null
@@ -159,13 +159,13 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
         return null
     }
 
-    private data class Ctx(val name: String, val songs: List<Song>, val album: Album? = null)
+    private data class Ctx(val name: String, val songs: List<Song>, val album: Album? = null, val playlist: String? = null)
 
     private suspend fun contextSongs(ctx: String): Ctx? = when {
         ctx == LOVED -> freshOr({ graph.library.cachedStarredSongs() }) { graph.library.starredSongsList() }
             ?.let { Ctx(Loved.title, it) }
         ctx.startsWith(PL) -> ctx.removePrefix(PL).let { id ->
-            freshOr({ graph.library.cachedPlaylist(id) }) { graph.library.playlist(id) }?.let { Ctx(it.name, it.entry) }
+            freshOr({ graph.library.cachedPlaylist(id) }) { graph.library.playlist(id) }?.let { Ctx(it.name, it.entry, playlist = id) }
         }
         ctx.startsWith(AL) -> ctx.removePrefix(AL).let { id ->
             freshOr({ graph.library.cachedAlbum(id) }) { graph.library.album(id) }?.let { Ctx(it.name, it.song, it) }
@@ -182,8 +182,8 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
         withTimeoutOrNull(FIRST_FETCH_MS) { runCatching { fetch() }.getOrNull() }
 
     /** The same queue rules as [PlayerConnection.playContext], minus "Next in queue". */
-    private fun queue(songs: List<Song>, start: Int, name: String, shuffle: Boolean): MediaSession.MediaItemsWithStartPosition? {
-        val entries = songs.mapIndexed { i, s -> s.toEntry(ctxIndex = i, ctxName = name) }
+    private fun queue(songs: List<Song>, start: Int, name: String, shuffle: Boolean, playlistId: String? = null): MediaSession.MediaItemsWithStartPosition? {
+        val entries = songs.mapIndexed { i, s -> s.toEntry(ctxIndex = i, ctxName = name, ctxPlaylist = playlistId) }
         val (all, first) = KidGate.queue(entries, entries.getOrNull(start), graph.kids.current, graph.status.online.value,
             graph.downloads::isDownloaded)
         if (all.isEmpty()) return null

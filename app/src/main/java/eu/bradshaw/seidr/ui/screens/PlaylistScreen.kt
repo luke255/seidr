@@ -19,6 +19,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.aspectRatio
+import eu.bradshaw.seidr.ui.ArtPage
 import eu.bradshaw.seidr.ui.LocalIsTv
 import eu.bradshaw.seidr.ui.components.Cover
 import eu.bradshaw.seidr.ui.components.PickedPicture
@@ -222,7 +223,8 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
         coverArt = playlist.coverArt,
     )
 
-    CollectionLayout(
+    // A picture of its own colours the page, as a cover does an album's; the mosaic keeps the theme.
+    ArtPage(picture) { CollectionLayout(
         title = playlist.name,
         art = { m ->
             if (picture != null) Cover(picture, m.aspectRatio(1f), size = 600)
@@ -241,9 +243,9 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                 downloaded = rememberAllDownloaded(remember(songs) { songs.map { it.id } }),
             )
         },
-        onShuffle = { graph.playlistPlays.record(playlist.id); actions.player.shufflePlay(songs, playlist.name) },
+        onShuffle = { graph.playlistPlays.record(playlist.id); actions.player.shufflePlay(songs, playlist.name, playlist.id) },
         shuffleEnabled = songs.any { !it.locked } && !editing,
-        onPlay = { graph.playlistPlays.record(playlist.id); actions.player.playContext(shownSongs, 0, playlist.name, shuffle = false) },
+        onPlay = { graph.playlistPlays.record(playlist.id); actions.player.playContext(shownSongs, 0, playlist.name, shuffle = false, playlistId = playlist.id) },
         shufflePrimary = true,
         offline = source,
         trackCount = songs.size,
@@ -341,7 +343,7 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
             itemsIndexed(shown, key = { _, (at, s) -> "$at:${s.id}" }) { i, (at, song) ->
                 TrackRow(
                     song,
-                    onClick = { graph.playlistPlays.record(playlist.id); actions.player.playContext(shownSongs, i, playlist.name) },
+                    onClick = { graph.playlistPlays.record(playlist.id); actions.player.playContext(shownSongs, i, playlist.name, playlistId = playlist.id) },
                     playing = ui.current?.songId == song.id,
                     extraMenu = if (editable) listOf(MenuAction(removeLabel, Icons.Filled.RemoveCircleOutline) {
                         actions.launch {
@@ -356,7 +358,7 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                 )
             }
         }
-    }
+    } }
 
     if (renaming) {
         var name by remember { mutableStateOf(playlist.name) }

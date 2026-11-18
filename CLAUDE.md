@@ -194,7 +194,8 @@ and "Rules that must hold" before changing sync or playback.
     playback by gesture (tap/select plays/pauses, sideways skips, each with
     a passing sign, pages up or not). Up/down turn through `VisPage`s
     (preset flag, back/forward and heart; track, with Now Playing's
-    `ArtworkPager`; lyrics, queue, logo; none at first); Back puts one away; pages never time out. They
+    `ArtworkPager`; the playing playlist's own picture, only while there is
+    one (`QueueEntry.ctxPlaylist`); lyrics, queue, logo; none at first); Back puts one away; pages never time out. They
     sit centred with no panels, just shadowed white text, and reuse Now
     Playing's pieces via a stand-in
     `AppActions`; the logo page is `LogoSprite`, drawn by `VisEngine` after
@@ -237,8 +238,9 @@ and "Rules that must hold" before changing sync or playback.
     material-color-utilities.
   - Now Playing overrides the theme with a scheme from the current cover
     (`ArtPalette.kt`; not under Neutral), and so do album pages (`ArtPage`
-    in `Wash.kt`; the shell draws its gradient). Playlists and artists keep
-    the theme. The palette's thresholds were tuned on the
+    in `Wash.kt`; the shell draws its gradient), and playlists with a picture of
+    their own (from it; the mosaic doesn't count). Other playlists and
+    artists keep the theme. The palette's thresholds were tuned on the
     real library, so check changes against many covers, not one. A new
     scheme recomposes everything under it, so `SchemeFade` steps the theme
     and draws the wash per frame; never animate the scheme itself.

@@ -4,6 +4,12 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.7.1
+
+- A playlist with a picture of its own takes its colours from it, the way an album takes them from its cover.
+- Albums and playlists fade into their colours more gently.
+- The visualiser has a page showing the picture of the playlist you're playing, when it has one of its own. Swipe up from the track page to see it.
+
 ## 1.7.0
 
 - Smart playlists: make them and edit their rules here, no other app needed (Navidrome). Create playlist has a Smart playlist option, and a smart playlist's ⋮ menu has Edit rules, plus Rename, Earlier versions and Delete. Rules sit in groups that match all or any of them, on title, artist, year, date added, plays, loved, other playlists and more, with a sort and a limit. Saving says how many songs now match, with Undo.

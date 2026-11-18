@@ -116,6 +116,9 @@ import eu.bradshaw.seidr.ui.theme.SeidrTheme
 import eu.bradshaw.seidr.ui.theme.ThemeChoice
 import kotlinx.coroutines.delay
 import kotlin.math.abs
+import kotlin.math.sign
+import eu.bradshaw.seidr.data.api.Playlist
+import eu.bradshaw.seidr.playback.PlayerUi
 
 /** Keeps white text legible over whatever a preset draws: a generous dark halo, no panel. */
 private val glow = Shadow(Color.Black, offset = Offset(0f, 1.5f), blurRadius = 16f)
@@ -152,19 +155,37 @@ private fun Modifier.panel(shape: androidx.compose.ui.graphics.Shape = RoundedCo
  * page away. Sideways still skips tracks, except that on [controls] pages,
  * which have buttons for a remote to reach, the D-pad moves between those.
  * Pages stay until put away, and sit in the middle, over the preset with no
- * panel behind them.
+ * panel behind them. [PLAYLIST] is there only while a playlist with a
+ * picture of its own is playing ([playlistPicture]).
  */
 enum class VisPage(val controls: Boolean = false) {
-    PRESET(controls = true), TRACK, LYRICS, QUEUE, LOGO;
+    PRESET(controls = true), TRACK, PLAYLIST, LYRICS, QUEUE, LOGO;
 
     companion object {
-        /** [by] pages on from [from] (null: none), round through none. */
-        fun turn(from: VisPage?, by: Int): VisPage? {
+        /** [by] pages on from [from] (null: none), round through none, passing pages not [shown]. */
+        fun turn(from: VisPage?, by: Int, shown: (VisPage) -> Boolean = { true }): VisPage? {
             val ring = listOf(null) + entries
-            return ring[Math.floorMod(ring.indexOf(from) + by, ring.size)]
+            var at = ring.indexOf(from)
+            repeat(abs(by)) {
+                do at = Math.floorMod(at + by.sign, ring.size) while (ring[at]?.let(shown) == false)
+            }
+            return ring[at]
         }
     }
 }
+
+/**
+ * The playlist playing, if it has a picture of its own (not the mosaic) that
+ * may show: [PlaylistPictures] knows which do, and a kid's [Library] keeps
+ * only the art they may see.
+ */
+fun playlistPicture(ui: PlayerUi, pictured: Set<String>, playlists: List<Playlist>?): Playlist? {
+    val id = ui.contextPlaylist?.takeIf { it in pictured } ?: return null
+    return playlists?.firstOrNull { it.id == id }?.takeIf { it.coverArt != null }
+}
+
+/** [playlistPicture], now. */
+fun Graph.playlistPicture(): Playlist? = playlistPicture(player.ui.value, playlistPictures.ids.value, library.playlists.value)
 
 /**
  * Everything over the visualiser: the track card (bottom left); the [page]
@@ -195,6 +216,12 @@ fun VisOverlay(
     val tv = remember { isTv(context) }
     val headset = remember { XrVisualiserActivity.available(context) }
     val player = graph.player
+    val playerUi by player.ui.collectAsStateWithLifecycle()
+    val pictured by graph.playlistPictures.ids.collectAsStateWithLifecycle()
+    val playlists by graph.library.playlists.collectAsStateWithLifecycle()
+    val picture = playlistPicture(playerUi, pictured, playlists)
+    // Its page goes when the playlist does (another context, or the picture taken off).
+    LaunchedEffect(page, picture == null) { if (page == VisPage.PLAYLIST && picture == null) onPage(VisPage.TRACK) }
     // The Now Playing pieces the pages borrow look for these.
     val scope = rememberCoroutineScope()
     val actions = remember { AppActions(graph, Navigator(), SnackbarHostState(), scope) }
@@ -271,6 +298,7 @@ fun VisOverlay(
                                         Box(middle, contentAlignment = Alignment.Center) { PresetBar(graph.visPrefs, preset, onHidePreset, onPresetStep) }
                                     }
                                     VisPage.TRACK -> TrackPage(player, tv, middle)
+                                    VisPage.PLAYLIST -> if (picture != null) PlaylistPage(picture, middle)
                                     VisPage.LYRICS -> LyricsPage(player, middle)
                                     VisPage.QUEUE -> QueuePage(player, middle)
                                     // The logo is the engine's, drawn into the picture (LogoSprite).
@@ -278,7 +306,7 @@ fun VisOverlay(
                                 }
                             }
                         }
-                        PageDots(page, Modifier.align(Alignment.CenterEnd))
+                        PageDots(page, picture != null, Modifier.align(Alignment.CenterEnd))
                     }
                     if (headset) {
                         AnimatedVisibility(page != null || preview != null, Modifier.align(Alignment.TopEnd), enter = fadeIn(), exit = fadeOut()) {
@@ -311,7 +339,7 @@ private const val DOTS_MS = 2_000L
 
 /** Which page is up: a dot for each, down the right-hand edge, fading out a moment after each turn. */
 @Composable
-private fun PageDots(page: VisPage?, modifier: Modifier) {
+private fun PageDots(page: VisPage?, withPlaylist: Boolean, modifier: Modifier) {
     var shown by remember { mutableStateOf(false) }
     // The last page up, so the dots don't jump as they fade on the way to none.
     var last by remember { mutableStateOf(page) }
@@ -325,6 +353,7 @@ private fun PageDots(page: VisPage?, modifier: Modifier) {
     AnimatedVisibility(shown, modifier, enter = fadeIn(), exit = fadeOut(tween(600))) {
         Column(Modifier.padding(end = 4.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             for (p in VisPage.entries) {
+                if (p == VisPage.PLAYLIST && !withPlaylist) continue
                 Box(Modifier.size(if (p == last) 8.dp else 6.dp).shadow(4.dp, CircleShape)
                     .background(Color.White.copy(alpha = if (p == last) 0.95f else 0.4f), CircleShape))
             }
@@ -380,6 +409,18 @@ private fun TrackPage(player: PlayerConnection, tv: Boolean, modifier: Modifier)
                 cover()
                 words(Alignment.CenterHorizontally, TextAlign.Center)
             }
+        }
+    }
+}
+
+/** The playing playlist's own picture, big and on its own; it crossfades to another playlist's. */
+@Composable
+private fun PlaylistPage(playlist: Playlist, modifier: Modifier) {
+    BoxWithConstraints(modifier, contentAlignment = Alignment.Center) {
+        val art = minOf(maxWidth * 0.8f, maxHeight * 0.8f, 560.dp)
+        AnimatedContent(playlist.coverArt, label = "playlist",
+            transitionSpec = { fadeIn(tween(ART_CHANGE_MS)) togetherWith fadeOut(tween(ART_CHANGE_MS)) }) { cover ->
+            Cover(cover, Modifier.size(art).shadow(24.dp, RoundedCornerShape(8.dp)), size = 900, shape = RoundedCornerShape(8.dp))
         }
     }
 }

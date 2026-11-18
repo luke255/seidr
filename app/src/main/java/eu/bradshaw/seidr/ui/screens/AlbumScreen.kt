@@ -75,7 +75,7 @@ fun AlbumScreen(id: String) {
     LoadContent(vm.state, vm::load) { album ->
         val songs = album.song
         val discs = songs.mapNotNull { it.discNumber }.distinct().size > 1
-        // Albums take Now Playing's colours from the cover; playlists and artists keep the theme.
+        // Albums take Now Playing's colours from the cover (as do playlists with a picture); artists keep the theme.
         ArtPage(album.coverArt) { CollectionLayout(
             title = album.name,
             art = { m -> Cover(album.coverArt, m.aspectRatio(1f), size = 600) },

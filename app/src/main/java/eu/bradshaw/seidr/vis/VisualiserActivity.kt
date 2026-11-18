@@ -136,7 +136,7 @@ class VisualiserActivity : ComponentActivity() {
                     preset = preset,
                     page = page,
                     message = message,
-                    onTurn = { by -> showPage(VisPage.turn(page, by)) },
+                    onTurn = { by -> turnPage(by) },
                     onPage = ::showPage,
                     onHidePreset = ::hideCurrentPreset,
                     onPresetStep = ::stepPreset,
@@ -173,6 +173,12 @@ class VisualiserActivity : ComponentActivity() {
         })
     }
 
+    /** Up ([by] 1) or down a page, past the playlist's unless one with a picture is playing. */
+    private fun turnPage(by: Int) {
+        val withPlaylist = graph.playlistPicture() != null
+        showPage(VisPage.turn(page, by) { it != VisPage.PLAYLIST || withPlaylist })
+    }
+
     private fun showPage(to: VisPage?) {
         page = to
         renderer.engine.logo = to == VisPage.LOGO
@@ -206,7 +212,7 @@ class VisualiserActivity : ComponentActivity() {
         val first = event.action == KeyEvent.ACTION_DOWN && event.repeatCount == 0
         when (event.keyCode) {
             KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN ->
-                if (first) showPage(VisPage.turn(page, if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) 1 else -1))
+                if (first) turnPage(if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) 1 else -1)
             KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT -> {
                 if (page?.controls == true) return false
                 if (first) skip(next = event.keyCode == KeyEvent.KEYCODE_DPAD_RIGHT)
