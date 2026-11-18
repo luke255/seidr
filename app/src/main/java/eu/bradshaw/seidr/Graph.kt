@@ -151,6 +151,8 @@ class Graph(val app: Application) {
         if (change == Change.MUSIC) {
             library.forgetMusic()
             kidView.value?.library?.forgetMusic()
+            // Tags may have changed (say, ReplayGain added): sample the library again.
+            loudness.refresh(soon = true)
         }
         _changes.tryEmit(change)
     }

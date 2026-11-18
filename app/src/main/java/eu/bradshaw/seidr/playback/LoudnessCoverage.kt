@@ -34,10 +34,13 @@ class LoudnessCoverage(context: Context, private val settings: Settings, private
         scope.launch { settings.server.collect { _fraction.value = stored() } }
     }
 
-    /** At app start: samples the library again if a day has passed. */
-    fun refresh() {
+    /**
+     * Samples the library again: at app start if a day has passed, or after a
+     * scan ([soon]) if ten minutes have.
+     */
+    fun refresh(soon: Boolean = false) {
         val url = settings.server.value?.url ?: return
-        if (System.currentTimeMillis() - prefs.getLong("rg_checked:$url", 0) < DAY_MS) return
+        if (System.currentTimeMillis() - prefs.getLong("rg_checked:$url", 0) < if (soon) SOON_MS else DAY_MS) return
         scope.launch {
             val songs = runCatching { client.strict.getRandomSongs(SAMPLE).ok().randomSongs?.song }.getOrNull() ?: return@launch
             if (songs.isEmpty()) return@launch
@@ -54,6 +57,7 @@ class LoudnessCoverage(context: Context, private val settings: Settings, private
     companion object {
         private const val SAMPLE = 500
         private const val DAY_MS = 24 * 60 * 60 * 1000L
+        private const val SOON_MS = 10 * 60 * 1000L
         /** Mostly tagged: the untagged rest are turned down to match ([Loudness.UNTAGGED_DB]). */
         const val THRESHOLD = 0.8f
 
