@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">大部分有标签后会自动开启。</string>
     <string name="settings_save_mobile_data_hint">使用移动数据时，未下载的歌曲以较低比特率串流，配合网络状况。</string>
 
+    <string name="settings_playlist_order">歌单排序</string>
+    <string name="settings_playlist_order_hint">在你为歌单选择排序之前，歌单按此方式排列歌曲。“自定义顺序”保留歌单自己的顺序。</string>
 </resources>

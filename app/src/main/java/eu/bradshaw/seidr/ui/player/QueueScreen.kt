@@ -73,6 +73,13 @@ fun QueueScreen(onClose: () -> Unit, modifier: Modifier = Modifier, readOnly: Bo
     val actions = LocalActions.current
     val player = actions.player
     val ui by player.ui.collectAsStateWithLifecycle()
+    // Clean mode: a grown-up's, for what plays here (not on a device this one controls).
+    val kids = actions.graph.kids
+    val clean by kids.clean.collectAsStateWithLifecycle()
+    val cleanRules by kids.cleanRules.collectAsStateWithLifecycle()
+    val remote by actions.graph.connect.active.collectAsStateWithLifecycle()
+    val cleanAvailable = !readOnly && remote == null && !kids.isKid
+    val cleanFailed = stringResource(R.string.clean_lists_failed)
     // Items before "Now playing" are the "Earlier" header and one row per earlier
     // track; open on the last of those rows so what just played shows above it.
     val listState = rememberLazyListState(initialFirstVisibleItemIndex = ui.index.coerceAtLeast(0))
@@ -121,10 +128,15 @@ fun QueueScreen(onClose: () -> Unit, modifier: Modifier = Modifier, readOnly: Bo
             IconButton(onClick = onClose) { Icon(Icons.Filled.KeyboardArrowDown, stringResource(R.string.common_close)) }
             Text(stringResource(R.string.queue_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
             if (!readOnly) {
+                if (cleanAvailable) CleanButton(clean) {
+                    if (clean) kids.cleanOff()
+                    else actions.launch { if (!kids.setClean(true)) actions.toast(cleanFailed) }
+                }
                 ShuffleButton(ui.shuffle, onToggle = player::toggleShuffle, onReshuffle = player::reshuffle)
                 RepeatButton(ui.repeat, onClick = player::cycleRepeat)
             }
         }
+        if (cleanAvailable && clean) CleanBanner(cleanRules?.lists?.approved?.size, onTurnOff = kids::cleanOff)
         val cur = ui.current
         if (cur == null) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Text(stringResource(R.string.queue_empty)) }

@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">Çoğu etiketlendiğinde kendiliğinden açılır.</string>
     <string name="settings_save_mobile_data_hint">Mobil veride, indirilmemiş şarkılar bağlantıya uygun daha düşük bit hızıyla çalınır.</string>
 
+    <string name="settings_playlist_order">Çalma listesi sırası</string>
+    <string name="settings_playlist_order_hint">Siz bir sıra seçene kadar çalma listesi şarkılarını böyle gösterir. Özel sıra, listenin kendi sırasını korur.</string>
 </resources>

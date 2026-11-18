@@ -98,8 +98,16 @@ class Settings(context: Context) {
         prefs.getString("playlist_sorts", null)
             ?.let { runCatching { Json.decodeFromString<Map<String, String>>(it) }.getOrNull() }.orEmpty()
     )
-    /** Each playlist's chosen track order (id → [TrackSort.key]); a playlist missing here shows its own order. */
+    /** Each playlist's chosen track order (id → [TrackSort.key]); a playlist missing here shows [playlistSortDefault]. */
     val playlistSorts: StateFlow<Map<String, String>> = _playlistSorts.asStateFlow()
+
+    private val _playlistSortDefault = MutableStateFlow(TrackSort.of(prefs.getString("playlist_sort_default", null), TrackSort.ARTIST))
+    /** How a playlist lists its songs until one is chosen for it (Settings → Library). */
+    val playlistSortDefault: StateFlow<TrackSort> = _playlistSortDefault.asStateFlow()
+
+    /** [playlistId]'s order: its own choice, else the default. */
+    fun playlistSort(playlistId: String, sorts: Map<String, String> = _playlistSorts.value, default: TrackSort = _playlistSortDefault.value): TrackSort =
+        sorts[playlistId]?.let { TrackSort.of(it, default) } ?: default
 
     private val _autoUpdate = MutableStateFlow(prefs.getBoolean("auto_update", true))
     /** Check GitHub for a newer release when the app comes to the front (`Updater`). */
@@ -227,10 +235,16 @@ class Settings(context: Context) {
         _libraryShared.value = value
     }
 
+    /** A choice equal to the default isn't kept, so the playlist follows the default if that changes. */
     fun setPlaylistSort(id: String, sort: TrackSort) {
-        val next = if (sort == TrackSort.CUSTOM) _playlistSorts.value - id else _playlistSorts.value + (id to sort.key)
+        val next = if (sort == _playlistSortDefault.value) _playlistSorts.value - id else _playlistSorts.value + (id to sort.key)
         prefs.edit().putString("playlist_sorts", Json.encodeToString(next)).apply()
         _playlistSorts.value = next
+    }
+
+    fun setPlaylistSortDefault(sort: TrackSort) {
+        prefs.edit().putString("playlist_sort_default", sort.key).apply()
+        _playlistSortDefault.value = sort
     }
 
     fun setAutoUpdate(value: Boolean) {

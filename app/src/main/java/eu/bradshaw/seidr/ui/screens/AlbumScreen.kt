@@ -29,6 +29,7 @@ import eu.bradshaw.seidr.ui.LocalActions
 import eu.bradshaw.seidr.ui.Route
 import eu.bradshaw.seidr.ui.components.CollectionLayout
 import eu.bradshaw.seidr.ui.components.Cover
+import eu.bradshaw.seidr.ui.components.FullArt
 import eu.bradshaw.seidr.ui.components.HeaderFacts
 import eu.bradshaw.seidr.ui.components.approvedCount
 import eu.bradshaw.seidr.ui.components.rememberAllDownloaded
@@ -82,6 +83,7 @@ fun AlbumScreen(id: String) {
         ArtPage(album.coverArt) { CollectionLayout(
             title = album.name,
             art = { m -> Cover(album.coverArt, m.aspectRatio(1f), size = 600) },
+            fullArt = album.coverArt?.let { FullArt(it) },
             subtitle = {
                 Text(
                     album.artistLine,

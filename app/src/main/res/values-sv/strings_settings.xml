@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">Den slås på av sig själv när det mesta är det.</string>
     <string name="settings_save_mobile_data_hint">Via mobildata spelas låtar som inte är nedladdade med lägre bithastighet, anpassad till anslutningen.</string>
 
+    <string name="settings_playlist_order">Ordning i spellistor</string>
+    <string name="settings_playlist_order_hint">Så visar en spellista sina låtar tills du väljer en ordning för den. Egen ordning behåller spellistans egen.</string>
 </resources>

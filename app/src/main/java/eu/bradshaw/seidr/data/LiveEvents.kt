@@ -69,7 +69,7 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
                 val before = graph.kids.rules.value
                 val after = runCatching { graph.kids.refresh() }.getOrNull()
                 if (after != null && after !== before) { Log.i("Live", "kids' lists changed (polled)"); graph.sync.request() }
-            }
+            } else if (graph.kids.clean.value) runCatching { graph.kids.refreshClean() }
             delay(60_000)
         }
     }
@@ -184,6 +184,9 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
             Log.i("Live", "kids' lists changed")
             graph.sync.request()
         }
+        // Clean mode's lists (the grown-up's own) changed: play by the new ones.
+        val clean = graph.kids.cleanRules.value
+        if (clean != null && playlists.any { it in clean.playlistIds }) scope.launch { runCatching { graph.kids.refreshClean() } }
         if (playlists.isNotEmpty()) {
             Log.i("Live", "playlists changed: $playlists")
             // Open screens reload and downloaded ones sync (see Graph); the listing

@@ -187,4 +187,12 @@
     <string name="vis_pack_downloading">Görselleştirici ön ayarları indiriliyor… %%%1$d</string>
     <string name="vis_pack_not_ready">Görselleştirici ön ayarları henüz indirilmedi.</string>
 
+    <string name="clean_turn_on">Temiz modu aç</string>
+    <string name="clean_turn_off">Temiz modu kapat</string>
+    <string name="clean_on_title">Temiz mod açık</string>
+    <string name="clean_on_body">Bu cihazda yalnızca çocuklar için onaylanan şarkılar çalar. Diğerleri siz kapatana kadar atlanır.</string>
+    <string name="clean_none_approved">Henüz çocuklar için onaylanmış şarkı yok, bu yüzden hiçbir şey çalmayacak.</string>
+    <string name="clean_off_button">Kapat</string>
+    <string name="clean_pill">Temiz mod</string>
+    <string name="clean_lists_failed">Çocuklar için onaylanan şarkılar alınamadı, bu yüzden temiz mod hâlâ kapalı.</string>
 </resources>

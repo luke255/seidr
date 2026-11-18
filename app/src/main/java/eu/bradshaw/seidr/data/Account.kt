@@ -113,6 +113,7 @@ object Account {
         graph.library.clear()
         graph.bad.clear()
         graph.lyricsOffsets.clear()
+        graph.kids.cleanOff()
         graph.client.clearCache()
         graph.settings.clearServer()
     }

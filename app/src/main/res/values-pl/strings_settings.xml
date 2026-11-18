@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">Włącza się samo, gdy będzie ich większość.</string>
     <string name="settings_save_mobile_data_hint">Przez dane komórkowe niepobrane utwory grają z niższą przepływnością, dopasowaną do połączenia.</string>
 
+    <string name="settings_playlist_order">Kolejność playlist</string>
+    <string name="settings_playlist_order_hint">Jak playlista układa utwory, dopóki nie wybierzesz dla niej kolejności. Własna kolejność zachowuje kolejność playlisty.</string>
 </resources>

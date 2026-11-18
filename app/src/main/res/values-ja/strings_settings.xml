@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">大半にタグが付くと自動でオンになります。</string>
     <string name="settings_save_mobile_data_hint">モバイルデータ通信時は、ダウンロードしていない曲を接続に合わせた低いビットレートで再生します。</string>
 
+    <string name="settings_playlist_order">プレイリストの並び順</string>
+    <string name="settings_playlist_order_hint">並び順を選ぶまで、プレイリストの曲はこの順で並びます。「カスタム順」はプレイリスト本来の順です。</string>
 </resources>

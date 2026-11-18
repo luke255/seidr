@@ -186,4 +186,5 @@
     <string name="deleted_playlists_hint">Playlists, die dieses Gerät kannte und die in den letzten 90 Tagen gelöscht wurden, egal in welcher App. Speichere eine Kopie, um eine zurückzuholen.</string>
     <string name="deleted_playlists_none">In letzter Zeit wurden keine Playlists gelöscht. Playlists, die dieses Gerät kannte, erscheinen hier noch 90 Tage nach dem Löschen, egal in welcher App.</string>
     <string name="deleted_playlists_on">Gelöscht am %1$s</string>
+    <string name="collection_show_art">Cover im Vollbild zeigen</string>
 </resources>

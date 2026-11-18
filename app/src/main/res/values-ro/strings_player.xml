@@ -191,4 +191,12 @@
     <string name="vis_pack_downloading">Se descarcă presetările pentru vizualizare… %1$d%%</string>
     <string name="vis_pack_not_ready">Presetările pentru vizualizare nu s-au descărcat încă.</string>
 
+    <string name="clean_turn_on">Activează modul curat</string>
+    <string name="clean_turn_off">Dezactivează modul curat</string>
+    <string name="clean_on_title">Modul curat este activat</string>
+    <string name="clean_on_body">Pe acest dispozitiv se aud doar melodiile aprobate pentru copii. Celelalte sunt sărite până îl dezactivezi.</string>
+    <string name="clean_none_approved">Încă nu e aprobată nicio melodie pentru copii, așa că nu se va auzi nimic.</string>
+    <string name="clean_off_button">Dezactivează</string>
+    <string name="clean_pill">Mod curat</string>
+    <string name="clean_lists_failed">Nu s-au putut prelua melodiile aprobate pentru copii, așa că modul curat rămâne dezactivat.</string>
 </resources>

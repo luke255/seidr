@@ -191,4 +191,12 @@
     <string name="vis_pack_downloading">S\'estan baixant els predefinits del visualitzador… %1$d %%</string>
     <string name="vis_pack_not_ready">Els predefinits del visualitzador encara no s\'han baixat.</string>
 
+    <string name="clean_turn_on">Activa el mode net</string>
+    <string name="clean_turn_off">Desactiva el mode net</string>
+    <string name="clean_on_title">El mode net està activat</string>
+    <string name="clean_on_body">En aquest dispositiu només sonen les cançons aprovades per als nens. La resta se salten fins que el desactivis.</string>
+    <string name="clean_none_approved">Encara no hi ha cap cançó aprovada per als nens, així que no sonarà res.</string>
+    <string name="clean_off_button">Desactiva</string>
+    <string name="clean_pill">Mode net</string>
+    <string name="clean_lists_failed">No s\'han pogut obtenir les cançons aprovades per als nens, així que el mode net continua desactivat.</string>
 </resources>

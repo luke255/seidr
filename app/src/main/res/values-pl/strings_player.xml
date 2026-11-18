@@ -195,4 +195,12 @@
     <string name="vis_pack_downloading">Pobieranie ustawień wizualizacji… %1$d%%</string>
     <string name="vis_pack_not_ready">Ustawienia wizualizacji nie zostały jeszcze pobrane.</string>
 
+    <string name="clean_turn_on">Włącz tryb bez wulgaryzmów</string>
+    <string name="clean_turn_off">Wyłącz tryb bez wulgaryzmów</string>
+    <string name="clean_on_title">Tryb bez wulgaryzmów jest włączony</string>
+    <string name="clean_on_body">Na tym urządzeniu grają tylko utwory zatwierdzone dla dzieci. Pozostałe są pomijane, dopóki go nie wyłączysz.</string>
+    <string name="clean_none_approved">Nie ma jeszcze utworów zatwierdzonych dla dzieci, więc nic nie zagra.</string>
+    <string name="clean_off_button">Wyłącz</string>
+    <string name="clean_pill">Bez wulgaryzmów</string>
+    <string name="clean_lists_failed">Nie udało się pobrać utworów zatwierdzonych dla dzieci, więc tryb bez wulgaryzmów pozostaje wyłączony.</string>
 </resources>

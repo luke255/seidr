@@ -183,4 +183,12 @@
     <string name="vis_pack_downloading">正在下載視覺化預設… %1$d%%</string>
     <string name="vis_pack_not_ready">視覺化預設還沒有下載。</string>
 
+    <string name="clean_turn_on">開啟純淨模式</string>
+    <string name="clean_turn_off">關閉純淨模式</string>
+    <string name="clean_on_title">純淨模式已開啟</string>
+    <string name="clean_on_body">此裝置上只播放已為孩子核准的歌曲。其餘歌曲會被略過，直到你關閉它。</string>
+    <string name="clean_none_approved">還沒有為孩子核准的歌曲，所以什麼都不會播放。</string>
+    <string name="clean_off_button">關閉</string>
+    <string name="clean_pill">純淨模式</string>
+    <string name="clean_lists_failed">無法取得為孩子核准的歌曲，所以純淨模式仍是關閉的。</string>
 </resources>

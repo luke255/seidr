@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">Se activa sola cuando lo está la mayor parte.</string>
     <string name="settings_save_mobile_data_hint">Con datos móviles, las canciones que no descargaste se reproducen con una tasa de bits menor, según la conexión.</string>
 
+    <string name="settings_playlist_order">Orden de las playlists</string>
+    <string name="settings_playlist_order_hint">Cómo muestra sus canciones una playlist hasta que elijas un orden para ella. Orden personalizado mantiene el de la playlist.</string>
 </resources>

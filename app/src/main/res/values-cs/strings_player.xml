@@ -195,4 +195,12 @@
     <string name="vis_pack_downloading">Stahuji předvolby vizualizace… %1$d %%</string>
     <string name="vis_pack_not_ready">Předvolby vizualizace se ještě nestáhly.</string>
 
+    <string name="clean_turn_on">Zapnout čistý režim</string>
+    <string name="clean_turn_off">Vypnout čistý režim</string>
+    <string name="clean_on_title">Čistý režim je zapnutý</string>
+    <string name="clean_on_body">Na tomto zařízení hrají jen skladby schválené pro děti. Ostatní se přeskakují, dokud ho nevypnete.</string>
+    <string name="clean_none_approved">Pro děti zatím nejsou schválené žádné skladby, takže nic nezahraje.</string>
+    <string name="clean_off_button">Vypnout</string>
+    <string name="clean_pill">Čistý režim</string>
+    <string name="clean_lists_failed">Skladby schválené pro děti se nepodařilo načíst, takže čistý režim zůstává vypnutý.</string>
 </resources>

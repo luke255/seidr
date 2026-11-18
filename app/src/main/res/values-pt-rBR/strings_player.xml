@@ -191,4 +191,12 @@
     <string name="vis_pack_downloading">Baixando as predefinições do visualizador… %1$d%%</string>
     <string name="vis_pack_not_ready">As predefinições do visualizador ainda não foram baixadas.</string>
 
+    <string name="clean_turn_on">Ativar modo livre</string>
+    <string name="clean_turn_off">Desativar modo livre</string>
+    <string name="clean_on_title">O modo livre está ativado</string>
+    <string name="clean_on_body">Neste dispositivo só tocam músicas aprovadas para crianças. As outras são puladas até você desativá-lo.</string>
+    <string name="clean_none_approved">Ainda não há músicas aprovadas para crianças, então nada vai tocar.</string>
+    <string name="clean_off_button">Desativar</string>
+    <string name="clean_pill">Modo livre</string>
+    <string name="clean_lists_failed">Não foi possível buscar as músicas aprovadas para crianças, então o modo livre continua desativado.</string>
 </resources>

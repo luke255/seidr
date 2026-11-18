@@ -191,4 +191,12 @@
     <string name="vis_pack_downloading">Descargando los ajustes del visualizador… %1$d %%</string>
     <string name="vis_pack_not_ready">Los ajustes del visualizador todavía no se descargaron.</string>
 
+    <string name="clean_turn_on">Activar modo apto</string>
+    <string name="clean_turn_off">Desactivar modo apto</string>
+    <string name="clean_on_title">El modo apto está activado</string>
+    <string name="clean_on_body">En este dispositivo solo suenan las canciones aprobadas para niños. Las demás se saltan hasta que lo desactives.</string>
+    <string name="clean_none_approved">Todavía no hay canciones aprobadas para niños, así que no sonará nada.</string>
+    <string name="clean_off_button">Desactivar</string>
+    <string name="clean_pill">Modo apto</string>
+    <string name="clean_lists_failed">No se pudieron obtener las canciones aprobadas para niños, así que el modo apto sigue desactivado.</string>
 </resources>

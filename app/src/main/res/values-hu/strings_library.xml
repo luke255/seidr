@@ -186,4 +186,5 @@
     <string name="deleted_playlists_hint">Lejátszási listák, amelyeket ez az eszköz ismert, és az elmúlt 90 napban törölték őket, bármelyik alkalmazásban. Ments másolatot, hogy visszakapd.</string>
     <string name="deleted_playlists_none">Mostanában nem töröltek lejátszási listát. Az eszköz által ismert listák a törlésük után 90 napig itt láthatók, bármelyik alkalmazásban törölték őket.</string>
     <string name="deleted_playlists_on">Törölve: %1$s</string>
+    <string name="collection_show_art">Borító teljes képernyőn</string>
 </resources>

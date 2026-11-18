@@ -175,4 +175,5 @@
     <string name="deleted_playlists_hint">這部裝置看過、並在過去 90 天內被刪除的播放清單（不論來自哪個應用程式）。儲存副本即可找回。</string>
     <string name="deleted_playlists_none">最近沒有刪除播放清單。這部裝置看過的播放清單被刪除後（不論來自哪個應用程式），會在這裡顯示 90 天。</string>
     <string name="deleted_playlists_on">刪除於 %1$s</string>
+    <string name="collection_show_art">全螢幕檢視封面</string>
 </resources>

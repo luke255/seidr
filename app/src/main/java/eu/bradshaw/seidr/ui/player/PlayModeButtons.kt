@@ -45,6 +45,11 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Repeat
 import androidx.compose.material.icons.filled.RepeatOne
 import androidx.compose.material.icons.filled.Shuffle
+import androidx.compose.material.icons.filled.GppGood
+import androidx.compose.material.icons.outlined.Shield
+import androidx.compose.material3.TextButton
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material3.FilledIconButton
@@ -376,5 +381,63 @@ private class AboveAnchor(private val gap: Int) : PopupPositionProvider {
         val x = (anchorBounds.left - popupContentSize.width - gap).coerceAtLeast(0)
         val y = (anchorBounds.center.y - popupContentSize.height / 2).coerceIn(0, (windowSize.height - popupContentSize.height).coerceAtLeast(0))
         return IntOffset(x, y)
+    }
+}
+
+/** Clean mode's switch (see `Kids.clean`): a shield, ticked and coloured while it's on. */
+@Composable
+internal fun CleanButton(on: Boolean, onClick: () -> Unit) {
+    IconButton(onClick = onClick) {
+        Icon(
+            if (on) Icons.Filled.GppGood else Icons.Outlined.Shield,
+            stringResource(if (on) R.string.clean_turn_off else R.string.clean_turn_on),
+            tint = if (on) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+}
+
+/**
+ * Under the queue's header while clean mode is on: hard to miss, so it isn't
+ * left on by accident, and turned off from right here. [approved] is how many
+ * songs may play (none: nothing will).
+ */
+@Composable
+internal fun CleanBanner(approved: Int?, onTurnOff: () -> Unit, modifier: Modifier = Modifier) {
+    val cs = MaterialTheme.colorScheme
+    Row(
+        modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)
+            .clip(RoundedCornerShape(16.dp)).background(cs.tertiaryContainer)
+            .padding(start = 16.dp, end = 8.dp, top = 10.dp, bottom = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        CompositionLocalProvider(LocalContentColor provides cs.onTertiaryContainer) {
+            Icon(Icons.Filled.GppGood, null)
+            Spacer(Modifier.width(12.dp))
+            Column(Modifier.weight(1f)) {
+                Text(stringResource(R.string.clean_on_title), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+                Text(
+                    stringResource(if (approved == 0) R.string.clean_none_approved else R.string.clean_on_body),
+                    style = MaterialTheme.typography.bodySmall,
+                )
+            }
+            TextButton(onClick = onTurnOff, modifier = Modifier.focusRing(CircleShape)) {
+                Text(stringResource(R.string.clean_off_button), color = cs.onTertiaryContainer, fontWeight = FontWeight.Bold)
+            }
+        }
+    }
+}
+
+/** On Now Playing, under "Playing from" while clean mode is on; a tap opens the queue, where it's switched. */
+@Composable
+internal fun CleanPill(onClick: () -> Unit) {
+    val cs = MaterialTheme.colorScheme
+    Row(
+        Modifier.padding(top = 4.dp).clip(CircleShape).background(cs.tertiaryContainer)
+            .clickable(onClick = onClick).padding(horizontal = 10.dp, vertical = 3.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(Icons.Filled.GppGood, null, Modifier.size(14.dp), tint = cs.onTertiaryContainer)
+        Spacer(Modifier.width(4.dp))
+        Text(stringResource(R.string.clean_pill), style = MaterialTheme.typography.labelMedium, color = cs.onTertiaryContainer, fontWeight = FontWeight.Bold)
     }
 }

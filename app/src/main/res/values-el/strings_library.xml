@@ -186,4 +186,5 @@
     <string name="deleted_playlists_hint">Playlist που είχε δει αυτή η συσκευή και διαγράφηκαν τις τελευταίες 90 ημέρες, από οποιαδήποτε εφαρμογή. Αποθηκεύστε αντίγραφο για να πάρετε πίσω μία.</string>
     <string name="deleted_playlists_none">Δεν διαγράφηκαν playlist πρόσφατα. Όσες είχε δει αυτή η συσκευή εμφανίζονται εδώ για 90 ημέρες μετά τη διαγραφή τους, από οποιαδήποτε εφαρμογή.</string>
     <string name="deleted_playlists_on">Διαγράφηκε: %1$s</string>
+    <string name="collection_show_art">Εμφάνιση εξωφύλλου σε πλήρη οθόνη</string>
 </resources>

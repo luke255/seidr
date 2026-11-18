@@ -225,4 +225,6 @@
     <string name="settings_replay_gain_auto">It turns on by itself once most of it is.</string>
     <string name="settings_save_mobile_data_hint">On mobile data, songs that aren\'t downloaded stream at a lower bitrate, to suit the connection.</string>
 
+    <string name="settings_playlist_order">Playlist order</string>
+    <string name="settings_playlist_order_hint">How a playlist lists its songs until you pick an order for it. Custom order keeps the playlist\'s own.</string>
 </resources>

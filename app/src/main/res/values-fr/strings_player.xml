@@ -191,4 +191,12 @@
     <string name="vis_pack_downloading">Téléchargement des préréglages du visualiseur… %1$d %%</string>
     <string name="vis_pack_not_ready">Les préréglages du visualiseur ne sont pas encore téléchargés.</string>
 
+    <string name="clean_turn_on">Activer le mode tout public</string>
+    <string name="clean_turn_off">Désactiver le mode tout public</string>
+    <string name="clean_on_title">Le mode tout public est activé</string>
+    <string name="clean_on_body">Seuls les titres approuvés pour les enfants sont lus sur cet appareil. Les autres sont passés jusqu\'à ce que vous le désactiviez.</string>
+    <string name="clean_none_approved">Aucun titre n\'est encore approuvé pour les enfants, donc rien ne sera lu.</string>
+    <string name="clean_off_button">Désactiver</string>
+    <string name="clean_pill">Tout public</string>
+    <string name="clean_lists_failed">Impossible de récupérer les titres approuvés pour les enfants, le mode tout public reste donc désactivé.</string>
 </resources>

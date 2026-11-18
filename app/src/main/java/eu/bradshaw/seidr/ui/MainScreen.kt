@@ -10,6 +10,11 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.util.VelocityTracker
 import kotlinx.coroutines.coroutineScope
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.runtime.LaunchedEffect
+import eu.bradshaw.seidr.ui.components.FullArt
+import eu.bradshaw.seidr.ui.components.FullArtView
 import androidx.compose.runtime.key
 import androidx.compose.ui.draw.drawBehind
 import eu.bradshaw.seidr.ui.player.lerpScheme
@@ -254,6 +259,11 @@ fun MainScreen(graph: Graph, nav: Navigator) {
     // underneath stay composed but aren't drawn. Drawn anyway, a TV's GPU spent most of each
     // frame of a cover slide on Home's covers hidden under Now Playing.
     val npShown = remember { MutableTransitionState(false) }
+    // The art shown full screen, kept while it fades out; and how far a back swipe has faded it.
+    var shownArt by remember { mutableStateOf<FullArt?>(null) }
+    actions.fullArt?.let { if (it != shownArt) shownArt = it }
+    val artSwipe = remember { Animatable(0f) }
+    LaunchedEffect(actions.fullArt) { if (actions.fullArt != null) artSwipe.snapTo(0f) }
     val queueShown = remember { MutableTransitionState(false) }
     if (npShown.targetState != actions.nowPlayingOpen) npShown.targetState = actions.nowPlayingOpen
     if (queueShown.targetState != actions.queueOpen) queueShown.targetState = actions.queueOpen
@@ -271,7 +281,13 @@ fun MainScreen(graph: Graph, nav: Navigator) {
             // How far a back swipe has slid the top screen off (0..1).
             val swipe = remember { Animatable(0f) }
             var swiping by remember { mutableStateOf(false) }
-            PredictiveBackHandler(enabled = actions.queueOpen || actions.nowPlayingOpen || nav.stack.size > 1 || nav.tab != Tab.HOME) { events ->
+            PredictiveBackHandler(enabled = actions.fullArt != null || actions.queueOpen || actions.nowPlayingOpen || nav.stack.size > 1 || nav.tab != Tab.HOME) { events ->
+                if (actions.fullArt != null) {
+                    // The art fades with the swipe; letting go finishes the fade.
+                    followBack(artSwipe, scope) { events.collect(it) }
+                    actions.fullArt = null
+                    return@PredictiveBackHandler
+                }
                 if (actions.queueOpen || actions.nowPlayingOpen) {
                     // The sheet follows the swipe down, then carries on off the bottom.
                     followBack(if (actions.queueOpen) queueSwipe else npSwipe, scope) { events.collect(it) }
@@ -293,6 +309,10 @@ fun MainScreen(graph: Graph, nav: Navigator) {
         val npPull = Modifier.pullDownToClose(npSwipe) { actions.nowPlayingOpen = false }
             .graphicsLayer { translationY = npSwipe.value * size.height }
         val queuePull = Modifier.graphicsLayer { translationY = queueSwipe.value * size.height }
+        // Full-screen art fades in over everything (bar and rail included) and out again.
+        AnimatedVisibility(actions.fullArt != null, enter = fadeIn(tween(FULL_ART_FADE_MS)), exit = fadeOut(tween(FULL_ART_FADE_MS))) {
+            shownArt?.let { FullArtView(it, back = { artSwipe.value }, onClose = { actions.fullArt = null }) }
+        }
         AnimatedVisibility(npShown, npPull, enter = slideInVertically { it }, exit = slideOutVertically { it }) {
             CompositionLocalProvider(LocalPrimaryFocus provides nowPlayingPrimary) {
                 NowPlayingScreen(onClose = { actions.nowPlayingOpen = false }, onQueue = { actions.queueOpen = true },
@@ -560,3 +580,6 @@ private fun WideLayout(
         SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).padding(bottom = 16.dp))
     }
 }
+
+/** Full-screen art's fade in and out. */
+private const val FULL_ART_FADE_MS = 220

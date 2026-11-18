@@ -187,4 +187,12 @@
     <string name="vis_pack_downloading">Λήψη προρρυθμίσεων οπτικοποίησης… %1$d%%</string>
     <string name="vis_pack_not_ready">Οι προρρυθμίσεις οπτικοποίησης δεν έχουν κατέβει ακόμα.</string>
 
+    <string name="clean_turn_on">Ενεργοποίηση καθαρής λειτουργίας</string>
+    <string name="clean_turn_off">Απενεργοποίηση καθαρής λειτουργίας</string>
+    <string name="clean_on_title">Η καθαρή λειτουργία είναι ενεργή</string>
+    <string name="clean_on_body">Σε αυτή τη συσκευή παίζουν μόνο τραγούδια εγκεκριμένα για παιδιά. Τα υπόλοιπα παραλείπονται μέχρι να την απενεργοποιήσεις.</string>
+    <string name="clean_none_approved">Δεν υπάρχουν ακόμα τραγούδια εγκεκριμένα για παιδιά, οπότε δεν θα παίξει τίποτα.</string>
+    <string name="clean_off_button">Απενεργοποίηση</string>
+    <string name="clean_pill">Καθαρή λειτουργία</string>
+    <string name="clean_lists_failed">Δεν ήταν δυνατή η λήψη των τραγουδιών που έχουν εγκριθεί για παιδιά, οπότε η καθαρή λειτουργία παραμένει ανενεργή.</string>
 </resources>

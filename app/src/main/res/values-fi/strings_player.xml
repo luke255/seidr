@@ -187,4 +187,12 @@
     <string name="vis_pack_downloading">Ladataan visualisoinnin esiasetuksia… %1$d %%</string>
     <string name="vis_pack_not_ready">Visualisoinnin esiasetuksia ei ole vielä ladattu.</string>
 
+    <string name="clean_turn_on">Ota siisti tila käyttöön</string>
+    <string name="clean_turn_off">Poista siisti tila käytöstä</string>
+    <string name="clean_on_title">Siisti tila on käytössä</string>
+    <string name="clean_on_body">Tällä laitteella soivat vain lapsille hyväksytyt kappaleet. Muut ohitetaan, kunnes poistat sen käytöstä.</string>
+    <string name="clean_none_approved">Lapsille ei ole vielä hyväksytty kappaleita, joten mitään ei soi.</string>
+    <string name="clean_off_button">Poista käytöstä</string>
+    <string name="clean_pill">Siisti tila</string>
+    <string name="clean_lists_failed">Lapsille hyväksyttyjä kappaleita ei saatu haettua, joten siisti tila on yhä pois käytöstä.</string>
 </resources>

@@ -187,4 +187,12 @@
     <string name="vis_pack_downloading">Downloader visualiseringens forudindstillinger … %1$d %%</string>
     <string name="vis_pack_not_ready">Visualiseringens forudindstillinger er ikke downloadet endnu.</string>
 
+    <string name="clean_turn_on">Slå ren tilstand til</string>
+    <string name="clean_turn_off">Slå ren tilstand fra</string>
+    <string name="clean_on_title">Ren tilstand er slået til</string>
+    <string name="clean_on_body">Kun sange godkendt til børn spiller på denne enhed. Resten springes over, indtil du slår den fra.</string>
+    <string name="clean_none_approved">Ingen sange er godkendt til børn endnu, så intet vil spille.</string>
+    <string name="clean_off_button">Slå fra</string>
+    <string name="clean_pill">Ren tilstand</string>
+    <string name="clean_lists_failed">Sangene godkendt til børn kunne ikke hentes, så ren tilstand er stadig slået fra.</string>
 </resources>

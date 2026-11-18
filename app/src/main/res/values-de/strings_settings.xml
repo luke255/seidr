@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">Es schaltet sich selbst ein, sobald der Großteil getaggt ist.</string>
     <string name="settings_save_mobile_data_hint">Über mobile Daten laufen nicht heruntergeladene Songs mit niedrigerer Bitrate, passend zur Verbindung.</string>
 
+    <string name="settings_playlist_order">Playlist-Reihenfolge</string>
+    <string name="settings_playlist_order_hint">So zeigt eine Playlist ihre Songs, bis du eine Reihenfolge für sie wählst. Eigene Reihenfolge behält die der Playlist.</string>
 </resources>

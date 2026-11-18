@@ -197,4 +197,5 @@
     <string name="deleted_playlists_hint">Playlisturi pe care acest dispozitiv le văzuse și care au fost șterse în ultimele 90 de zile, din orice aplicație. Salvează o copie ca să recuperezi unul.</string>
     <string name="deleted_playlists_none">Niciun playlist șters în ultima vreme. Cele pe care acest dispozitiv le văzuse apar aici 90 de zile după ștergere, din orice aplicație.</string>
     <string name="deleted_playlists_on">Șters pe %1$s</string>
+    <string name="collection_show_art">Arată coperta pe tot ecranul</string>
 </resources>

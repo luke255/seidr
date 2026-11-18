@@ -187,4 +187,12 @@
     <string name="vis_pack_downloading">Laster ned visualiseringens forhåndsinnstillinger … %1$d %%</string>
     <string name="vis_pack_not_ready">Visualiseringens forhåndsinnstillinger er ikke lastet ned ennå.</string>
 
+    <string name="clean_turn_on">Slå på ren modus</string>
+    <string name="clean_turn_off">Slå av ren modus</string>
+    <string name="clean_on_title">Ren modus er på</string>
+    <string name="clean_on_body">Bare sanger godkjent for barn spilles på denne enheten. Resten hoppes over til du slår den av.</string>
+    <string name="clean_none_approved">Ingen sanger er godkjent for barn ennå, så ingenting vil spilles.</string>
+    <string name="clean_off_button">Slå av</string>
+    <string name="clean_pill">Ren modus</string>
+    <string name="clean_lists_failed">Kunne ikke hente sangene som er godkjent for barn, så ren modus er fortsatt av.</string>
 </resources>

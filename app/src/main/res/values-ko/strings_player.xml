@@ -183,4 +183,12 @@
     <string name="vis_pack_downloading">시각화 프리셋 다운로드 중… %1$d%%</string>
     <string name="vis_pack_not_ready">시각화 프리셋이 아직 다운로드되지 않았습니다.</string>
 
+    <string name="clean_turn_on">클린 모드 켜기</string>
+    <string name="clean_turn_off">클린 모드 끄기</string>
+    <string name="clean_on_title">클린 모드가 켜져 있음</string>
+    <string name="clean_on_body">이 기기에서는 아이용으로 승인된 곡만 재생됩니다. 나머지는 끌 때까지 건너뜁니다.</string>
+    <string name="clean_none_approved">아직 아이용으로 승인된 곡이 없어 아무것도 재생되지 않습니다.</string>
+    <string name="clean_off_button">끄기</string>
+    <string name="clean_pill">클린 모드</string>
+    <string name="clean_lists_failed">아이용으로 승인된 곡을 가져오지 못해 클린 모드가 꺼진 상태로 유지됩니다.</string>
 </resources>

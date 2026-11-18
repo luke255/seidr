@@ -165,7 +165,9 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
         ctx == LOVED -> freshOr({ graph.library.cachedStarredSongs() }) { graph.library.starredSongsList() }
             ?.let { Ctx(Loved.title, it) }
         ctx.startsWith(PL) -> ctx.removePrefix(PL).let { id ->
-            freshOr({ graph.library.cachedPlaylist(id) }) { graph.library.playlist(id) }?.let { Ctx(it.name, it.entry, playlist = id) }
+            // In the playlist's chosen order, so turning shuffle off lands where the phone's page would.
+            freshOr({ graph.library.cachedPlaylist(id) }) { graph.library.playlist(id) }
+                ?.let { Ctx(it.name, graph.settings.playlistSort(id).sort(it.entry).map { s -> s.value }, playlist = id) }
         }
         ctx.startsWith(AL) -> ctx.removePrefix(AL).let { id ->
             freshOr({ graph.library.cachedAlbum(id) }) { graph.library.album(id) }?.let { Ctx(it.name, it.song, it) }
@@ -183,7 +185,10 @@ class LibraryTree(private val context: Context, private val graph: Graph) {
 
     /** The same queue rules as [PlayerConnection.playContext], minus "Next in queue". */
     private fun queue(songs: List<Song>, start: Int, name: String, shuffle: Boolean, playlistId: String? = null): MediaSession.MediaItemsWithStartPosition? {
-        val entries = songs.mapIndexed { i, s -> s.toEntry(ctxIndex = i, ctxName = name, ctxPlaylist = playlistId) }
+        // The playlist's own picture, if it has one, travels with the queue (see QueueEntry.ctxArt).
+        val art = playlistId?.takeIf { it in graph.playlistPictures.ids.value }
+            ?.let { id -> graph.library.cachedPlaylists()?.firstOrNull { it.id == id }?.coverArt }
+        val entries = songs.mapIndexed { i, s -> s.toEntry(ctxIndex = i, ctxName = name, ctxPlaylist = playlistId, ctxArt = art) }
         val (all, first) = KidGate.queue(entries, entries.getOrNull(start), graph.kids.current, graph.status.online.value,
             graph.downloads::isDownloaded)
         if (all.isEmpty()) return null

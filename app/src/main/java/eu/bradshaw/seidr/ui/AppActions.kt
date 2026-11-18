@@ -32,10 +32,13 @@ class AppActions(
     var addToPlaylist by mutableStateOf<List<Song>?>(null)
     var nowPlayingOpen by mutableStateOf(false)
     var queueOpen by mutableStateOf(false)
+    /** An album's or playlist's art, full screen over everything; null when it's closed. */
+    var fullArt by mutableStateOf<eu.bradshaw.seidr.ui.components.FullArt?>(null)
 
     fun open(route: Route) {
         nowPlayingOpen = false
         queueOpen = false
+        fullArt = null
         nav.push(route)
     }
 

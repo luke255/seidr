@@ -197,4 +197,5 @@
     <string name="deleted_playlists_hint">Playlists que cet appareil avait vues et qui ont été supprimées ces 90 derniers jours, depuis n\'importe quelle app. Enregistrez une copie pour en récupérer une.</string>
     <string name="deleted_playlists_none">Aucune playlist supprimée récemment. Celles que cet appareil avait vues restent ici pendant 90 jours après leur suppression, depuis n\'importe quelle app.</string>
     <string name="deleted_playlists_on">Supprimée le %1$s</string>
+    <string name="collection_show_art">Afficher la pochette en plein écran</string>
 </resources>

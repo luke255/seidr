@@ -208,4 +208,5 @@
     <string name="deleted_playlists_hint">Плейлисты, которые видело это устройство и которые были удалены за последние 90 дней (в любом приложении). Сохраните копию, чтобы вернуть плейлист.</string>
     <string name="deleted_playlists_none">Недавно удалённых плейлистов нет. Плейлисты, которые видело это устройство, показываются здесь 90 дней после удаления (в любом приложении).</string>
     <string name="deleted_playlists_on">Удалён %1$s</string>
+    <string name="collection_show_art">Показать обложку на весь экран</string>
 </resources>

@@ -183,4 +183,12 @@
     <string name="vis_pack_downloading">ビジュアライザーのプリセットをダウンロード中… %1$d%%</string>
     <string name="vis_pack_not_ready">ビジュアライザーのプリセットはまだダウンロードされていません。</string>
 
+    <string name="clean_turn_on">クリーンモードをオン</string>
+    <string name="clean_turn_off">クリーンモードをオフ</string>
+    <string name="clean_on_title">クリーンモードがオンです</string>
+    <string name="clean_on_body">このデバイスでは子ども向けに承認された曲だけを再生します。ほかの曲はオフにするまでスキップされます。</string>
+    <string name="clean_none_approved">子ども向けに承認された曲がまだないため、何も再生されません。</string>
+    <string name="clean_off_button">オフにする</string>
+    <string name="clean_pill">クリーンモード</string>
+    <string name="clean_lists_failed">子ども向けに承認された曲を取得できなかったため、クリーンモードはオフのままです。</string>
 </resources>

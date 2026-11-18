@@ -186,4 +186,5 @@
     <string name="deleted_playlists_hint">Playlists die dit apparaat had gezien en die de afgelopen 90 dagen zijn verwijderd, vanuit welke app ook. Sla een kopie op om er een terug te krijgen.</string>
     <string name="deleted_playlists_none">Onlangs geen playlists verwijderd. Playlists die dit apparaat had gezien, staan hier tot 90 dagen nadat ze zijn verwijderd, vanuit welke app ook.</string>
     <string name="deleted_playlists_on">Verwijderd op %1$s</string>
+    <string name="collection_show_art">Hoes schermvullend tonen</string>
 </resources>

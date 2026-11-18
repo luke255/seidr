@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">S\'activa sola quan ho estigui la major part.</string>
     <string name="settings_save_mobile_data_hint">Amb dades mòbils, les cançons que no has baixat sonen amb una taxa de bits més baixa, segons la connexió.</string>
 
+    <string name="settings_playlist_order">Ordre de les llistes</string>
+    <string name="settings_playlist_order_hint">Com mostra les cançons una llista fins que en triïs un ordre. Ordre personalitzat manté el de la llista.</string>
 </resources>

@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">Se kytkeytyy päälle itsestään, kun suurin osa on.</string>
     <string name="settings_save_mobile_data_hint">Mobiilidatalla lataamattomat kappaleet soivat pienemmällä bittinopeudella yhteyden mukaan.</string>
 
+    <string name="settings_playlist_order">Soittolistojen järjestys</string>
+    <string name="settings_playlist_order_hint">Näin soittolista järjestää kappaleensa, kunnes valitset sille järjestyksen. Oma järjestys pitää soittolistan oman.</string>
 </resources>

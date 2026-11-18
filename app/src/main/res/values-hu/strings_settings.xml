@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">Magától bekapcsol, ha a nagy része az lesz.</string>
     <string name="settings_save_mobile_data_hint">Mobiladaton a le nem töltött dalok kisebb bitrátával szólnak, a kapcsolathoz igazítva.</string>
 
+    <string name="settings_playlist_order">Lejátszási listák sorrendje</string>
+    <string name="settings_playlist_order_hint">Így rendezi a dalait egy lejátszási lista, amíg nem választasz neki sorrendet. Az egyéni sorrend a lista saját sorrendje.</string>
 </resources>

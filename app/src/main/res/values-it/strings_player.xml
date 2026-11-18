@@ -191,4 +191,12 @@
     <string name="vis_pack_downloading">Download dei preset del visualizzatore… %1$d%%</string>
     <string name="vis_pack_not_ready">I preset del visualizzatore non sono ancora stati scaricati.</string>
 
+    <string name="clean_turn_on">Attiva la modalità per tutti</string>
+    <string name="clean_turn_off">Disattiva la modalità per tutti</string>
+    <string name="clean_on_title">La modalità per tutti è attiva</string>
+    <string name="clean_on_body">Su questo dispositivo suonano solo i brani approvati per i bambini. Gli altri vengono saltati finché non la disattivi.</string>
+    <string name="clean_none_approved">Non ci sono ancora brani approvati per i bambini, quindi non suonerà nulla.</string>
+    <string name="clean_off_button">Disattiva</string>
+    <string name="clean_pill">Per tutti</string>
+    <string name="clean_lists_failed">Impossibile recuperare i brani approvati per i bambini, quindi la modalità per tutti resta disattivata.</string>
 </resources>

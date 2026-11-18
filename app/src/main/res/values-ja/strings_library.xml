@@ -175,4 +175,5 @@
     <string name="deleted_playlists_hint">このデバイスが確認したことがあり、過去90日以内に削除されたプレイリスト（どのアプリで削除されたものでも）。コピーを保存すると元に戻せます。</string>
     <string name="deleted_playlists_none">最近削除されたプレイリストはありません。このデバイスが確認したことのあるプレイリストは、削除後90日間ここに表示されます（どのアプリで削除されたものでも）。</string>
     <string name="deleted_playlists_on">%1$sに削除</string>
+    <string name="collection_show_art">アートを全画面で表示</string>
 </resources>

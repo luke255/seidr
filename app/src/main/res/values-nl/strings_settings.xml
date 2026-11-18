@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">Het gaat vanzelf aan zodra het meeste dat is.</string>
     <string name="settings_save_mobile_data_hint">Via mobiele data streamen niet-gedownloade nummers met een lagere bitrate, passend bij de verbinding.</string>
 
+    <string name="settings_playlist_order">Volgorde van playlists</string>
+    <string name="settings_playlist_order_hint">Zo toont een playlist zijn nummers tot je er een volgorde voor kiest. Eigen volgorde houdt die van de playlist zelf.</string>
 </resources>

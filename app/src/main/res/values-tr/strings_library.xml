@@ -186,4 +186,5 @@
     <string name="deleted_playlists_hint">Bu cihazın gördüğü ve son 90 günde (hangi uygulamadan olursa olsun) silinen çalma listeleri. Geri almak için bir kopya kaydet.</string>
     <string name="deleted_playlists_none">Son zamanlarda silinen çalma listesi yok. Bu cihazın gördüğü listeler, silindikten sonra (hangi uygulamadan olursa olsun) 90 gün burada görünür.</string>
     <string name="deleted_playlists_on">Silinme: %1$s</string>
+    <string name="collection_show_art">Kapağı tam ekran göster</string>
 </resources>

@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">大部分有標籤後會自動開啟。</string>
     <string name="settings_save_mobile_data_hint">使用行動數據時，未下載的歌曲以較低位元率串流，配合網路狀況。</string>
 
+    <string name="settings_playlist_order">播放清單排序</string>
+    <string name="settings_playlist_order_hint">在你為播放清單選擇排序之前，播放清單依此方式排列歌曲。「自訂順序」保留播放清單自己的順序。</string>
 </resources>

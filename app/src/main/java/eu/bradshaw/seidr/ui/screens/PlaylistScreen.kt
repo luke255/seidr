@@ -77,6 +77,7 @@ import eu.bradshaw.seidr.ui.components.Load
 import eu.bradshaw.seidr.ui.components.LoadContent
 import eu.bradshaw.seidr.ui.components.MenuAction
 import eu.bradshaw.seidr.ui.components.Mosaic
+import eu.bradshaw.seidr.ui.components.FullArt
 import eu.bradshaw.seidr.ui.components.TrackRow
 import eu.bradshaw.seidr.ui.components.dragHandle
 import eu.bradshaw.seidr.ui.components.LiftHandle
@@ -148,7 +149,8 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
     val songs = playlist.entry
     // A view-only order (the server's stays as it is), remembered per playlist.
     val sorts by graph.settings.playlistSorts.collectAsStateWithLifecycle()
-    val sort = TrackSort.of(sorts[playlist.id])
+    val sortDefault by graph.settings.playlistSortDefault.collectAsStateWithLifecycle()
+    val sort = graph.settings.playlistSort(playlist.id, sorts, sortDefault)
     val shown = remember(songs, sort) { sort.sort(songs) }
     val shownSongs = remember(shown) { shown.map { it.value } }
 
@@ -234,6 +236,8 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
             if (picture != null) Cover(picture, m.aspectRatio(1f), size = 600)
             else Mosaic(songs.distinctBy { it.albumId }.mapNotNull { it.coverArt }, m, fallback = playlist.coverArt)
         },
+        fullArt = if (picture != null) FullArt(picture)
+            else FullArt(playlist.coverArt, songs.distinctBy { it.albumId }.mapNotNull { it.coverArt }),
         subtitle = {
             HeaderFacts(
                 listOfNotNull(
@@ -247,9 +251,9 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                 downloaded = rememberAllDownloaded(remember(songs) { songs.map { it.id } }),
             )
         },
-        onShuffle = { graph.playlistPlays.record(playlist.id); actions.player.shufflePlay(songs, playlist.name, playlist.id) },
+        onShuffle = { graph.playlistPlays.record(playlist.id); actions.player.shufflePlay(shownSongs, playlist.name, playlist.id, picture) },
         shuffleEnabled = songs.any { !it.locked } && !editing,
-        onPlay = { graph.playlistPlays.record(playlist.id); actions.player.playContext(shownSongs, 0, playlist.name, shuffle = false, playlistId = playlist.id) },
+        onPlay = { graph.playlistPlays.record(playlist.id); actions.player.playContext(shownSongs, 0, playlist.name, shuffle = false, playlistId = playlist.id, playlistArt = picture) },
         shufflePrimary = true,
         offline = source,
         trackCount = songs.size,
@@ -348,7 +352,7 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
             itemsIndexed(shown, key = { _, (at, s) -> "$at:${s.id}" }) { i, (at, song) ->
                 TrackRow(
                     song,
-                    onClick = { graph.playlistPlays.record(playlist.id); actions.player.playContext(shownSongs, i, playlist.name, playlistId = playlist.id) },
+                    onClick = { graph.playlistPlays.record(playlist.id); actions.player.playContext(shownSongs, i, playlist.name, playlistId = playlist.id, playlistArt = picture) },
                     playing = ui.current?.songId == song.id,
                     extraMenu = if (editable) listOf(MenuAction(removeLabel, Icons.Filled.RemoveCircleOutline) {
                         actions.launch {

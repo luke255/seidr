@@ -187,4 +187,12 @@
     <string name="vis_pack_downloading">Visualisierungs-Presets werden heruntergeladen … %1$d %%</string>
     <string name="vis_pack_not_ready">Die Visualisierungs-Presets sind noch nicht heruntergeladen.</string>
 
+    <string name="clean_turn_on">Jugendfreien Modus einschalten</string>
+    <string name="clean_turn_off">Jugendfreien Modus ausschalten</string>
+    <string name="clean_on_title">Jugendfreier Modus ist an</string>
+    <string name="clean_on_body">Auf diesem Gerät laufen nur Songs, die für Kinder freigegeben sind. Die anderen werden übersprungen, bis du ihn ausschaltest.</string>
+    <string name="clean_none_approved">Noch sind keine Songs für Kinder freigegeben, also läuft nichts.</string>
+    <string name="clean_off_button">Ausschalten</string>
+    <string name="clean_pill">Jugendfrei</string>
+    <string name="clean_lists_failed">Die für Kinder freigegebenen Songs konnten nicht geladen werden, daher bleibt der jugendfreie Modus aus.</string>
 </resources>

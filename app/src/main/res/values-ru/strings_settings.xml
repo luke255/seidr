@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">Включится само, когда тегов будет у большей части.</string>
     <string name="settings_save_mobile_data_hint">В мобильной сети не скачанные песни играют с более низким битрейтом под качество соединения.</string>
 
+    <string name="settings_playlist_order">Порядок в плейлистах</string>
+    <string name="settings_playlist_order_hint">Так плейлист показывает песни, пока вы не выберете для него порядок. «Свой порядок» сохраняет порядок самого плейлиста.</string>
 </resources>

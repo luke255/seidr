@@ -183,4 +183,12 @@
     <string name="vis_pack_downloading">正在下载可视化预设… %1$d%%</string>
     <string name="vis_pack_not_ready">可视化预设还没有下载。</string>
 
+    <string name="clean_turn_on">开启纯净模式</string>
+    <string name="clean_turn_off">关闭纯净模式</string>
+    <string name="clean_on_title">纯净模式已开启</string>
+    <string name="clean_on_body">此设备上只播放已为孩子批准的歌曲。其余歌曲会被跳过，直到你关闭它。</string>
+    <string name="clean_none_approved">还没有为孩子批准的歌曲，所以什么都不会播放。</string>
+    <string name="clean_off_button">关闭</string>
+    <string name="clean_pill">纯净模式</string>
+    <string name="clean_lists_failed">无法获取为孩子批准的歌曲，所以纯净模式仍处于关闭状态。</string>
 </resources>

@@ -4,6 +4,13 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.9.0
+
+- Clean mode, for when there are passengers in the car: the shield in the queue (or in Android Auto) plays only the songs approved for your kids and skips the rest until you turn it off. While it's on, the queue and Now Playing say so.
+- Tap an album's or playlist's art to see it full screen on its own colours. Swipe back to fade it away.
+- Playlists list their songs by artist until you pick an order for one. Settings → Library → Playlist order changes that default.
+- A playlist's own picture now shows on the visualiser of a device you're playing on, even one that isn't signed in.
+
 ## 1.8.1
 
 - Play on's device list scrolls, so every device is reachable on small screens like a Fold's cover screen.

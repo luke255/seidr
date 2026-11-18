@@ -1,6 +1,7 @@
 package eu.bradshaw.seidr.ui.components
 
 import androidx.compose.ui.res.stringResource
+import androidx.compose.foundation.clickable
 import eu.bradshaw.seidr.R
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.draw.clip
@@ -184,6 +185,8 @@ private fun DownloadMenuItem(source: OfflineSource, close: () -> Unit) {
 fun CollectionLayout(
     title: String,
     art: @Composable (Modifier) -> Unit,
+    /** What a tap on the art shows full screen; null: the art isn't tappable. */
+    fullArt: FullArt? = null,
     subtitle: @Composable () -> Unit,
     onShuffle: () -> Unit,
     shuffleEnabled: Boolean,
@@ -203,6 +206,10 @@ fun CollectionLayout(
     val readOnly = LocalActions.current.graph.readOnly
     val wide = LocalWideShell.current
     val scope = rememberCoroutineScope()
+    val actions = LocalActions.current
+    // Not on TV: the art would be one more stop for the remote on the way to the tracks.
+    val showFull = stringResource(R.string.collection_show_art)
+    val artTap = if (fullArt != null && !tv) Modifier.clickable(onClickLabel = showFull) { actions.fullArt = fullArt } else Modifier
     Column(Modifier.fillMaxSize()) {
         // No downloads on TV: it streams. Browsing as a kid is read-only; downloads are the admin's.
         val download = offline?.takeIf { !tv && !readOnly }
@@ -238,7 +245,7 @@ fun CollectionLayout(
                 val artShape = RoundedCornerShape(8.dp)
                 if (wide) {
                     Row(header.padding(bottom = 8.dp), verticalAlignment = Alignment.Bottom) {
-                        Box(Modifier.size(wideArt).shadow(12.dp, artShape).clip(artShape)) {
+                        Box(Modifier.size(wideArt).shadow(12.dp, artShape).clip(artShape).then(artTap)) {
                             art(Modifier.fillMaxWidth())
                         }
                         Spacer(Modifier.width(20.dp))
@@ -257,7 +264,7 @@ fun CollectionLayout(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
-                        Box(Modifier.widthIn(max = artMax).fillMaxWidth(0.6f).shadow(12.dp, artShape).clip(artShape)) { art(Modifier.fillMaxWidth()) }
+                        Box(Modifier.widthIn(max = artMax).fillMaxWidth(0.6f).shadow(12.dp, artShape).clip(artShape).then(artTap)) { art(Modifier.fillMaxWidth()) }
                         Text(title, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center, maxLines = 2, overflow = TextOverflow.Ellipsis)
                         subtitle()

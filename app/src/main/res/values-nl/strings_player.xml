@@ -187,4 +187,12 @@
     <string name="vis_pack_downloading">Voorinstellingen van de visualisatie downloaden… %1$d%%</string>
     <string name="vis_pack_not_ready">De voorinstellingen van de visualisatie zijn nog niet gedownload.</string>
 
+    <string name="clean_turn_on">Schone modus aanzetten</string>
+    <string name="clean_turn_off">Schone modus uitzetten</string>
+    <string name="clean_on_title">Schone modus staat aan</string>
+    <string name="clean_on_body">Op dit apparaat spelen alleen nummers die voor kinderen zijn goedgekeurd. De rest wordt overgeslagen tot je hem uitzet.</string>
+    <string name="clean_none_approved">Er zijn nog geen nummers voor kinderen goedgekeurd, dus er speelt niets.</string>
+    <string name="clean_off_button">Uitzetten</string>
+    <string name="clean_pill">Schone modus</string>
+    <string name="clean_lists_failed">De nummers die voor kinderen zijn goedgekeurd konden niet worden opgehaald, dus schone modus staat nog uit.</string>
 </resources>

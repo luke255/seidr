@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">Ativa-se sozinho quando a maior parte tiver.</string>
     <string name="settings_save_mobile_data_hint">Nos dados móveis, as músicas não transferidas tocam com uma taxa de bits mais baixa, de acordo com a ligação.</string>
 
+    <string name="settings_playlist_order">Ordem das playlists</string>
+    <string name="settings_playlist_order_hint">Como uma playlist mostra as músicas até escolheres uma ordem para ela. Ordem personalizada mantém a da playlist.</string>
 </resources>

@@ -32,6 +32,11 @@ data class QueueEntry(
     val ctxName: String? = null,
     /** The playlist the context came from, if it's one: the visualiser shows its picture. */
     val ctxPlaylist: String? = null,
+    /**
+     * That playlist's own picture (its cover id), when it has one. Sent with the
+     * queue so a device that can't look it up (a guest's) shows it too.
+     */
+    val ctxArt: String? = null,
     /** ReplayGain, in dB, when the file is tagged ([Loudness]). */
     val trackGain: Float? = null,
     val albumGain: Float? = null,
@@ -44,10 +49,10 @@ fun songIdOf(mediaId: String) = mediaId.substringBefore('|')
 /** The URI the player sees; [PlaybackService] resolves it to a local file or a stream at load time. */
 fun songUri(songId: String): Uri = Uri.parse("seidr://song/$songId")
 
-fun Song.toEntry(user: Boolean = false, ctxIndex: Int = -1, ctxName: String? = null, ctxPlaylist: String? = null) = QueueEntry(
+fun Song.toEntry(user: Boolean = false, ctxIndex: Int = -1, ctxName: String? = null, ctxPlaylist: String? = null, ctxArt: String? = null) = QueueEntry(
     key = newKey(id), songId = id, title = title, artist = artistLine, album = album.orEmpty(),
     albumId = albumId, artistId = artistId, coverArt = coverArt, duration = duration,
-    user = user, ctxIndex = ctxIndex, ctxName = ctxName, ctxPlaylist = ctxPlaylist,
+    user = user, ctxIndex = ctxIndex, ctxName = ctxName, ctxPlaylist = ctxPlaylist, ctxArt = ctxArt,
     trackGain = replayGain?.trackGain, albumGain = replayGain?.albumGain,
 )
 
@@ -65,6 +70,7 @@ fun QueueEntry.toMediaItem(graph: Graph): MediaItem {
         putInt("ctxIndex", ctxIndex)
         putString("ctxName", ctxName)
         putString("ctxPlaylist", ctxPlaylist)
+        putString("ctxArt", ctxArt)
         trackGain?.let { putFloat("trackGain", it) }
         albumGain?.let { putFloat("albumGain", it) }
     }
@@ -104,6 +110,7 @@ fun MediaItem.toEntry(): QueueEntry {
         ctxIndex = x.getInt("ctxIndex", -1),
         ctxName = x.getString("ctxName"),
         ctxPlaylist = x.getString("ctxPlaylist"),
+        ctxArt = x.getString("ctxArt"),
         trackGain = if (x.containsKey("trackGain")) x.getFloat("trackGain") else null,
         albumGain = if (x.containsKey("albumGain")) x.getFloat("albumGain") else null,
     )

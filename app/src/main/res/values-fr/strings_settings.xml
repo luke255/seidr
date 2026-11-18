@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">Il s\'active tout seul dès que la majeure partie l\'est.</string>
     <string name="settings_save_mobile_data_hint">Sur les données mobiles, les titres non téléchargés sont lus à un débit plus faible, adapté à la connexion.</string>
 
+    <string name="settings_playlist_order">Ordre des playlists</string>
+    <string name="settings_playlist_order_hint">Comment une playlist range ses titres tant que vous ne lui avez pas choisi d\'ordre. Ordre personnalisé garde celui de la playlist.</string>
 </resources>

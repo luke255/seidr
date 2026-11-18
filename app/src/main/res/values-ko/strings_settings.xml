@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">대부분에 태그가 있으면 자동으로 켜집니다.</string>
     <string name="settings_save_mobile_data_hint">모바일 데이터에서는 다운로드하지 않은 곡을 연결에 맞춰 낮은 비트레이트로 재생합니다.</string>
 
+    <string name="settings_playlist_order">플레이리스트 정렬</string>
+    <string name="settings_playlist_order_hint">순서를 고르기 전까지 플레이리스트의 곡은 이 순서로 표시됩니다. 사용자 지정 순서는 플레이리스트 본래의 순서입니다.</string>
 </resources>

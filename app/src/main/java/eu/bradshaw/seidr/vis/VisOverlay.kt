@@ -118,6 +118,7 @@ import kotlinx.coroutines.delay
 import kotlin.math.abs
 import kotlin.math.sign
 import eu.bradshaw.seidr.data.api.Playlist
+import eu.bradshaw.seidr.data.KidRules
 import eu.bradshaw.seidr.playback.PlayerUi
 
 /** Keeps white text legible over whatever a preset draws: a generous dark halo, no panel. */
@@ -175,17 +176,24 @@ enum class VisPage(val controls: Boolean = false) {
 }
 
 /**
- * The playlist playing, if it has a picture of its own (not the mosaic) that
- * may show: [PlaylistPictures] knows which do, and a kid's [Library] keeps
- * only the art they may see.
+ * The playing playlist's own picture (a cover id), if it has one (not the
+ * mosaic) that may show. Where this device can look it up (its login's own
+ * playlists, with [PlaylistPictures] working) that wins, so a picture changed
+ * mid-play follows; a kid's [Library] keeps only the art they may see.
+ * Otherwise (a guest's queue, say) it's the one the queue came with,
+ * checked against a kid's rules.
  */
-fun playlistPicture(ui: PlayerUi, pictured: Set<String>, playlists: List<Playlist>?): Playlist? {
-    val id = ui.contextPlaylist?.takeIf { it in pictured } ?: return null
-    return playlists?.firstOrNull { it.id == id }?.takeIf { it.coverArt != null }
+fun playlistPicture(ui: PlayerUi, pictured: Set<String>, lookups: Boolean, playlists: List<Playlist>?, kid: KidRules?): String? {
+    val id = ui.contextPlaylist ?: return null
+    val listed = playlists?.firstOrNull { it.id == id }
+    if (listed != null && lookups) return listed.coverArt?.takeIf { id in pictured }
+    return ui.contextArt?.takeIf { kid?.coverAllowed(it) != false }
 }
 
 /** [playlistPicture], now. */
-fun Graph.playlistPicture(): Playlist? = playlistPicture(player.ui.value, playlistPictures.ids.value, library.playlists.value)
+fun Graph.playlistPicture(): String? = playlistPicture(
+    player.ui.value, playlistPictures.ids.value, playlistPictures.supported.value, library.playlists.value, kids.current,
+)
 
 /**
  * Everything over the visualiser: the track card (bottom left); the [page]
@@ -218,8 +226,10 @@ fun VisOverlay(
     val player = graph.player
     val playerUi by player.ui.collectAsStateWithLifecycle()
     val pictured by graph.playlistPictures.ids.collectAsStateWithLifecycle()
+    val lookups by graph.playlistPictures.supported.collectAsStateWithLifecycle()
     val playlists by graph.library.playlists.collectAsStateWithLifecycle()
-    val picture = playlistPicture(playerUi, pictured, playlists)
+    val kidRules by graph.kids.rules.collectAsStateWithLifecycle()
+    val picture = playlistPicture(playerUi, pictured, lookups, playlists, kidRules?.let { graph.kids.current })
     // Its page goes when the playlist does (another context, or the picture taken off).
     LaunchedEffect(page, picture == null) { if (page == VisPage.PLAYLIST && picture == null) onPage(VisPage.TRACK) }
     // The Now Playing pieces the pages borrow look for these.
@@ -415,10 +425,10 @@ private fun TrackPage(player: PlayerConnection, tv: Boolean, modifier: Modifier)
 
 /** The playing playlist's own picture, big and on its own; it crossfades to another playlist's. */
 @Composable
-private fun PlaylistPage(playlist: Playlist, modifier: Modifier) {
+private fun PlaylistPage(picture: String, modifier: Modifier) {
     BoxWithConstraints(modifier, contentAlignment = Alignment.Center) {
         val art = minOf(maxWidth * 0.8f, maxHeight * 0.8f, 560.dp)
-        AnimatedContent(playlist.coverArt, label = "playlist",
+        AnimatedContent(picture, label = "playlist",
             transitionSpec = { fadeIn(tween(ART_CHANGE_MS)) togetherWith fadeOut(tween(ART_CHANGE_MS)) }) { cover ->
             Cover(cover, Modifier.size(art).shadow(24.dp, RoundedCornerShape(8.dp)), size = 900, shape = RoundedCornerShape(8.dp))
         }

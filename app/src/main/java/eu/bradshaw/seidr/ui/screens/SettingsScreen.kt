@@ -99,6 +99,10 @@ import eu.bradshaw.seidr.ui.focusRing
 import eu.bradshaw.seidr.ui.theme.ThemeChoice
 import eu.bradshaw.seidr.ui.theme.colorSchemeFor
 import eu.bradshaw.seidr.update.Updater
+import eu.bradshaw.seidr.data.TrackSort
+import eu.bradshaw.seidr.ui.components.SortButton
+import eu.bradshaw.seidr.ui.components.label
+import androidx.compose.material.icons.automirrored.outlined.Sort
 import kotlin.math.roundToInt
 
 @Composable
@@ -170,9 +174,13 @@ fun SettingsScreen() {
             // Only admins get other people's private playlists, so only they see this.
             val othersOn by graph.settings.othersPrivatePlaylists.collectAsStateWithLifecycle()
             val anyOthers = graph.library.allPlaylists.collectAsStateWithLifecycle().value.orEmpty().any(graph.library::isOthersPrivate)
-            if (!kid) {
-                CardLabel(stringResource(R.string.settings_library))
-                CardGroup {
+            CardLabel(stringResource(R.string.settings_library))
+            CardGroup {
+                val sortDefault by graph.settings.playlistSortDefault.collectAsStateWithLifecycle()
+                CardItem(Icons.AutoMirrored.Outlined.Sort, stringResource(R.string.settings_playlist_order), stringResource(R.string.settings_playlist_order_hint),
+                    trailing = { SortButton(TrackSort.entries, sortDefault, TrackSort::label, graph.settings::setPlaylistSortDefault) })
+                if (!kid) {
+                    CardDivider()
                     CardItem(Icons.Outlined.RestoreFromTrash, stringResource(R.string.deleted_playlists), stringResource(R.string.deleted_playlists_summary),
                         trailing = { Chevron() }) { actions.open(Route.DeletedPlaylists) }
                     if (othersOn || anyOthers) {

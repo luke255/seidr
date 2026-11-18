@@ -129,6 +129,11 @@ and "Rules that must hold" before changing sync or playback.
   own client, `Kids` and `Library`, which only browsing screens read
   (`Graph.browse`/`browseKids`/`browseLogin`; `readOnly` hides every edit).
   Sync, playback, scrobbles and Connect stay on the admin's login.
+  Clean mode (`Kids.clean`, per device; queue shield, car button) is a
+  grown-up's own Approved list applied to this device's playback only
+  (`Kids.playing`: data source and `HiddenQueue`), never to browsing, sync or
+  remote devices. It fetches the lists before switching on: with none,
+  everything would be hidden at once.
 - **`data/NavidromeApi`**: Navidrome's native `/api/…` (JWT from
   `/auth/login`), for what Subsonic lacks: starred playlists (Subsonic takes
   the star but never shows it; `Library.stars` is Home's Starred row of
@@ -216,7 +221,8 @@ and "Rules that must hold" before changing sync or playback.
     a passing sign, pages up or not). Up/down turn through `VisPage`s
     (preset flag, back/forward and heart; track, with Now Playing's
     `ArtworkPager`; the playing playlist's own picture, only while there is
-    one (`QueueEntry.ctxPlaylist`); lyrics, queue, logo; none at first); Back puts one away; pages never time out. They
+    one (`QueueEntry.ctxPlaylist`, with `ctxArt` carrying the picture for a
+    device that can't look it up, e.g. a guest's); lyrics, queue, logo; none at first); Back puts one away; pages never time out. They
     sit centred with no panels, just shadowed white text, and reuse Now
     Playing's pieces via a stand-in
     `AppActions`; the logo page is `LogoSprite`, drawn by `VisEngine` after
@@ -273,7 +279,8 @@ and "Rules that must hold" before changing sync or playback.
     TV): rail with Settings at its foot, rounded list + detail panes (nothing
     overlaps, so remote focus never hides). No mini player: both bar and rail
     end their tabs with a Now Playing item. Now Playing/Queue are full-screen
-    on both, and the screens under them aren't drawn once covered (the
+    on both, as is album or playlist art when tapped (`FullArtView` via
+    `AppActions.fullArt`; fades with predictive back; not on TV), and the screens under them aren't drawn once covered (the
     TV's GPU can't afford both). Search and Library
     use `TabHeader` (title, Offline pill, actions; on narrow, Library's
     actions end with the Settings cog). Home has no header.

@@ -228,4 +228,5 @@
     <string name="deleted_playlists_hint">Playlists this device had seen that were deleted in the last 90 days, from any app. Save a copy to get one back.</string>
     <string name="deleted_playlists_none">No playlists deleted lately. Ones this device had seen show here for 90 days after they\'re deleted, from any app.</string>
     <string name="deleted_playlists_on">Deleted %1$s</string>
+    <string name="collection_show_art">Show the art full screen</string>
 </resources>

@@ -30,6 +30,6 @@ enum class TrackSort(val key: String) {
     }
 
     companion object {
-        fun of(key: String?): TrackSort = entries.firstOrNull { it.key == key } ?: CUSTOM
+        fun of(key: String?, fallback: TrackSort = CUSTOM): TrackSort = entries.firstOrNull { it.key == key } ?: fallback
     }
 }

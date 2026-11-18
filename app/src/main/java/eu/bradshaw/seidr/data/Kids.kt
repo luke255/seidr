@@ -55,11 +55,28 @@ class Kids(
     /** For reacting to changes; read [current] when deciding anything. */
     val rules: StateFlow<KidRules?> = _rules.asStateFlow()
 
+    private val device = context.getSharedPreferences("device", Context.MODE_PRIVATE)
+    private val _clean = MutableStateFlow(device.getBoolean("clean_mode", false))
+    /**
+     * Clean mode, this device's (Now Playing's queue, or the car): for a
+     * grown-up, only the songs on their own Kids Approved list play here. The
+     * rest stay in the queue, hidden and skipped until it's off again.
+     * Browsing, downloads and other devices carry on as they are.
+     */
+    val clean: StateFlow<Boolean> = _clean.asStateFlow()
+
+    @Volatile private var loadedClean: Loaded? = null
+    private val _cleanRules = MutableStateFlow<KidRules?>(null)
+    /** The grown-up's own lists while clean mode is on, for reacting to changes; read [playing] when deciding. */
+    val cleanRules: StateFlow<KidRules?> = _cleanRules.asStateFlow()
+
     init {
         scope.launch {
             logins.collect {
                 _rules.value = current
+                _cleanRules.value = cleanCurrent()
                 if (it?.isKid == true) runCatching { refresh() }.onFailure { e -> Log.w(TAG, "refresh failed: $e") }
+                else if (it != null && _clean.value) runCatching { refreshClean() }.onFailure { e -> Log.w(TAG, "clean refresh failed: $e") }
             }
         }
     }
@@ -91,27 +108,8 @@ class Kids(
         val c = loginNow()?.takeIf { it.isKid } ?: return null
         val owner = c.kidOf!!
         val key = keyOf(c)
-        val listing = api().getPlaylists().ok().playlists?.playlist.orEmpty()
-        val trusted = KidRules.NAMES.associateWith { name -> listing.filter { KidRules.trusted(it, name, owner) } }
-        val versions = trusted.values.flatten().associate { it.id to "${it.changed}|${it.songCount}" }
-        // The lists run to thousands of songs (megabytes each), so they're
-        // fetched again only when the server says one changed.
         val saved = read(key)
-        val lists = if (saved != null && saved.versions == versions && saved.playlistIds.toSet() == versions.keys) saved
-        else coroutineScope {
-            suspend fun fetch(name: String): List<KidSong> {
-                val out = LinkedHashMap<String, KidSong>()
-                val fulls = trusted.getValue(name).map { p -> async { api().getPlaylist(p.id).ok().playlist ?: throw IOException("no playlist in response") } }
-                for (full in fulls.awaitAll()) {
-                    if (full.entry.size != full.songCount) throw IOException("$name incomplete (${full.entry.size} of ${full.songCount})")
-                    full.entry.forEach { s: Song -> out.putIfAbsent(s.id, KidRules.kidSong(s)) }
-                }
-                return out.values.toList()
-            }
-            val (approved, titles, art) = listOf(KidRules.APPROVED, KidRules.SAFE_TITLES, KidRules.SAFE_ART)
-                .map { async { fetch(it) } }.awaitAll()
-            KidLists(approved, titles, art, versions.keys.toList(), versions)
-        }
+        val lists = fetchLists(owner, saved)
         // Pictures are one small call, so they're checked every time. Only the grown-up's
         // playlists and the kid's own count. Unreachable keeps what we had; a server without them has none.
         val pictures = try {
@@ -133,6 +131,95 @@ class Kids(
         _rules.value = rules
         Log.i(TAG, "lists${if (withPictures === saved) " (unchanged)" else ""}: ${lists.approved.size} approved, ${lists.titles.size} titles, ${lists.art.size} art, ${pictures.size} pictures")
         rules
+    }
+
+    /**
+     * [owner]'s three lists, fetched strictly and completely, or [saved] (the
+     * same object) when the listing says none has changed since.
+     */
+    private suspend fun fetchLists(owner: String, saved: KidLists?): KidLists {
+        val listing = api().getPlaylists().ok().playlists?.playlist.orEmpty()
+        val trusted = KidRules.NAMES.associateWith { name -> listing.filter { KidRules.trusted(it, name, owner) } }
+        val versions = trusted.values.flatten().associate { it.id to "${it.changed}|${it.songCount}" }
+        // The lists run to thousands of songs (megabytes each), so they're
+        // fetched again only when the server says one changed.
+        return if (saved != null && saved.versions == versions && saved.playlistIds.toSet() == versions.keys) saved
+        else coroutineScope {
+            suspend fun fetch(name: String): List<KidSong> {
+                val out = LinkedHashMap<String, KidSong>()
+                val fulls = trusted.getValue(name).map { p -> async { api().getPlaylist(p.id).ok().playlist ?: throw IOException("no playlist in response") } }
+                for (full in fulls.awaitAll()) {
+                    if (full.entry.size != full.songCount) throw IOException("$name incomplete (${full.entry.size} of ${full.songCount})")
+                    full.entry.forEach { s: Song -> out.putIfAbsent(s.id, KidRules.kidSong(s)) }
+                }
+                return out.values.toList()
+            }
+            val (approved, titles, art) = listOf(KidRules.APPROVED, KidRules.SAFE_TITLES, KidRules.SAFE_ART)
+                .map { async { fetch(it) } }.awaitAll()
+            KidLists(approved, titles, art, versions.keys.toList(), versions)
+        }
+    }
+
+    // --- Clean mode ---------------------------------------------------------------
+
+    /**
+     * Turns clean mode on or off. Never seen the lists before, it fetches them
+     * first (with none, nothing would play, and the whole queue would be hidden
+     * at once); if that fails it stays off and returns false.
+     */
+    suspend fun setClean(on: Boolean): Boolean {
+        if (!on) { cleanOff(); return true }
+        if (_clean.value) return true
+        val c = loginNow()?.takeIf { !it.isKid } ?: return false
+        val known = read(keyOf(c)) != null
+        if (!known) runCatching { lock.withLock { loadClean(c) } }.onFailure { Log.w(TAG, "clean lists: $it"); return false }
+        device.edit().putBoolean("clean_mode", true).apply()
+        _clean.value = true
+        _cleanRules.value = cleanCurrent()
+        if (known) scope.launch { runCatching { refreshClean() }.onFailure { Log.w(TAG, "clean refresh failed: $it") } }
+        return true
+    }
+
+    fun cleanOff() {
+        device.edit().putBoolean("clean_mode", false).apply()
+        _clean.value = false
+        _cleanRules.value = null
+    }
+
+    /** The last lists seen for the grown-up signed in, while clean mode is on: empty (nothing plays) until fetched. */
+    private fun cleanCurrent(): KidRules? {
+        if (!_clean.value) return null
+        val c = loginNow()?.takeIf { !it.isKid } ?: return null
+        val key = keyOf(c)
+        loadedClean?.takeIf { it.key == key }?.let { return it.rules }
+        return KidRules(read(key) ?: KidLists()).also { loadedClean = Loaded(key, it) }
+    }
+
+    /**
+     * What this device's playback goes by: a kid's rules, else clean mode's
+     * (only [KidRules.playable] matters there), else none.
+     */
+    val playing: KidRules? get() = current ?: cleanCurrent()
+
+    /** Fetches the grown-up's own lists again for clean mode (strict, like [refresh]). Null if it's off or not theirs. */
+    suspend fun refreshClean(): KidRules? = lock.withLock {
+        if (!_clean.value) return null
+        val c = loginNow()?.takeIf { !it.isKid } ?: return null
+        loadClean(c)
+    }
+
+    /** Fetches and saves [c]'s own lists for clean mode (under [lock]); null if the login changed meanwhile. */
+    private suspend fun loadClean(c: ServerConfig): KidRules? {
+        val key = keyOf(c)
+        val saved = read(key)
+        val lists = fetchLists(c.username, saved)
+        if (loginNow() != c) return null
+        if (lists !== saved) write(key, lists)
+        val rules = loadedClean?.takeIf { it.key == key && lists === saved }?.rules ?: KidRules(lists)
+        loadedClean = Loaded(key, rules)
+        if (_clean.value) _cleanRules.value = rules
+        Log.i(TAG, "clean lists${if (lists === saved) " (unchanged)" else ""}: ${lists.approved.size} approved")
+        return rules
     }
 
     /**

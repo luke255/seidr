@@ -175,4 +175,5 @@
     <string name="deleted_playlists_hint">이 기기가 본 적 있고 최근 90일 안에 삭제된 플레이리스트예요(어떤 앱에서 삭제했든). 사본을 저장하면 되돌릴 수 있어요.</string>
     <string name="deleted_playlists_none">최근에 삭제된 플레이리스트가 없어요. 이 기기가 본 적 있는 플레이리스트는 삭제된 뒤 90일 동안 여기에 표시돼요(어떤 앱에서 삭제했든).</string>
     <string name="deleted_playlists_on">%1$s에 삭제됨</string>
+    <string name="collection_show_art">아트를 전체 화면으로 보기</string>
 </resources>

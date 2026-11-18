@@ -197,4 +197,5 @@
     <string name="deleted_playlists_hint">Playlist che questo dispositivo aveva visto e che sono state eliminate negli ultimi 90 giorni, da qualsiasi app. Salva una copia per recuperarne una.</string>
     <string name="deleted_playlists_none">Nessuna playlist eliminata di recente. Quelle che questo dispositivo aveva visto restano qui per 90 giorni dopo l\'eliminazione, da qualsiasi app.</string>
     <string name="deleted_playlists_on">Eliminata il %1$s</string>
+    <string name="collection_show_art">Mostra la copertina a schermo intero</string>
 </resources>

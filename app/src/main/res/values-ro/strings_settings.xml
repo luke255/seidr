@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">Pornește singur când cea mai mare parte e etichetată.</string>
     <string name="settings_save_mobile_data_hint">Pe date mobile, melodiile nedescărcate sunt redate la o rată de biți mai mică, potrivită conexiunii.</string>
 
+    <string name="settings_playlist_order">Ordinea playlisturilor</string>
+    <string name="settings_playlist_order_hint">Cum își arată un playlist melodiile până îi alegi o ordine. Ordinea personalizată o păstrează pe cea a playlistului.</string>
 </resources>

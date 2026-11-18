@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">Ενεργοποιείται μόνο του μόλις το έχει το μεγαλύτερο μέρος.</string>
     <string name="settings_save_mobile_data_hint">Με δεδομένα κινητής, τα τραγούδια που δεν έχεις κατεβάσει παίζουν με χαμηλότερο ρυθμό bit, ανάλογα με τη σύνδεση.</string>
 
+    <string name="settings_playlist_order">Σειρά playlist</string>
+    <string name="settings_playlist_order_hint">Πώς δείχνει τα τραγούδια της μια playlist μέχρι να διαλέξεις σειρά γι\' αυτήν. Η προσαρμοσμένη σειρά κρατά τη δική της.</string>
 </resources>

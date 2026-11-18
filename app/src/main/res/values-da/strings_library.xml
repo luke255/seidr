@@ -186,4 +186,5 @@
     <string name="deleted_playlists_hint">Playlister, som denne enhed havde set, og som er slettet inden for de sidste 90 dage, fra en hvilken som helst app. Gem en kopi for at få en tilbage.</string>
     <string name="deleted_playlists_none">Ingen playlister er slettet for nylig. Dem, denne enhed havde set, vises her i 90 dage efter, de er slettet, fra en hvilken som helst app.</string>
     <string name="deleted_playlists_on">Slettet %1$s</string>
+    <string name="collection_show_art">Vis coveret i fuld skærm</string>
 </resources>

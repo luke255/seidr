@@ -46,6 +46,9 @@ data class PlayerUi(
     /** The playlist playing (or next up after "Next in queue"), if the context is one. */
     val contextPlaylist: String? get() = contextEntry?.ctxPlaylist
 
+    /** [contextPlaylist]'s own picture, as whoever started it saw it. */
+    val contextArt: String? get() = contextEntry?.ctxArt
+
     private val contextEntry: QueueEntry? get() = current?.takeIf { it.ctxName != null }
         ?: queue.drop(index + 1).firstOrNull { !it.user }
 }
@@ -134,10 +137,10 @@ class PlayerConnection(private val context: Context, private val graph: Graph) {
      * [start]. Tracks the user had queued stay queued, as they would in any streaming app.
      * When offline, tracks that aren't downloaded are left out.
      */
-    fun playContext(songs: List<Song>, start: Int, name: String, shuffle: Boolean? = null, playlistId: String? = null) {
+    fun playContext(songs: List<Song>, start: Int, name: String, shuffle: Boolean? = null, playlistId: String? = null, playlistArt: String? = null) {
         if (songs.isEmpty()) return
         val online = graph.status.online.value
-        var all = songs.mapIndexed { i, s -> s.toEntry(user = false, ctxIndex = i, ctxName = name, ctxPlaylist = playlistId) }
+        var all = songs.mapIndexed { i, s -> s.toEntry(user = false, ctxIndex = i, ctxName = name, ctxPlaylist = playlistId, ctxArt = playlistArt) }
         var startEntry = all.getOrNull(start)
         // A kid's disabled songs stay out (PlaybackService would hide them anyway).
         val kid = graph.kids.current
@@ -175,7 +178,8 @@ class PlayerConnection(private val context: Context, private val graph: Graph) {
         }
     }
 
-    fun shufflePlay(songs: List<Song>, name: String, playlistId: String? = null) = playContext(songs, -1, name, shuffle = true, playlistId)
+    fun shufflePlay(songs: List<Song>, name: String, playlistId: String? = null, playlistArt: String? = null) =
+        playContext(songs, -1, name, shuffle = true, playlistId, playlistArt)
 
     // --- Queue -------------------------------------------------------------------
 

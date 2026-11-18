@@ -161,4 +161,6 @@
     <string name="settings_replay_gain_auto">Den slår sig selv til, når det meste er.</string>
     <string name="settings_save_mobile_data_hint">På mobildata streames sange, der ikke er downloadet, med lavere bitrate, der passer til forbindelsen.</string>
 
+    <string name="settings_playlist_order">Rækkefølge i playlister</string>
+    <string name="settings_playlist_order_hint">Sådan viser en playliste sine sange, indtil du vælger en rækkefølge for den. Egen rækkefølge beholder playlistens egen.</string>
 </resources>

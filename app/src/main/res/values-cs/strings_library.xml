@@ -208,4 +208,5 @@
     <string name="deleted_playlists_hint">Playlisty, které toto zařízení znalo a které byly za posledních 90 dní smazány (z jakékoli aplikace). Uložením kopie je získáte zpět.</string>
     <string name="deleted_playlists_none">V poslední době nebyly smazány žádné playlisty. Ty, které toto zařízení znalo, se zde po smazání (z jakékoli aplikace) zobrazují 90 dní.</string>
     <string name="deleted_playlists_on">Smazáno %1$s</string>
+    <string name="collection_show_art">Zobrazit obal na celou obrazovku</string>
 </resources>

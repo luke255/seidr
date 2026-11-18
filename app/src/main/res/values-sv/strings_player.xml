@@ -187,4 +187,12 @@
     <string name="vis_pack_downloading">Laddar ned visualiseringens förinställningar … %1$d %%</string>
     <string name="vis_pack_not_ready">Visualiseringens förinställningar är inte nedladdade än.</string>
 
+    <string name="clean_turn_on">Slå på rent läge</string>
+    <string name="clean_turn_off">Slå av rent läge</string>
+    <string name="clean_on_title">Rent läge är på</string>
+    <string name="clean_on_body">Bara låtar som är godkända för barn spelas på den här enheten. Resten hoppas över tills du slår av det.</string>
+    <string name="clean_none_approved">Inga låtar är godkända för barn än, så inget kommer att spelas.</string>
+    <string name="clean_off_button">Slå av</string>
+    <string name="clean_pill">Rent läge</string>
+    <string name="clean_lists_failed">Det gick inte att hämta låtarna som är godkända för barn, så rent läge är fortfarande av.</string>
 </resources>

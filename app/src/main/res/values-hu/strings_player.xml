@@ -187,4 +187,12 @@
     <string name="vis_pack_downloading">A vizualizáció előbeállításainak letöltése… %1$d%%</string>
     <string name="vis_pack_not_ready">A vizualizáció előbeállításai még nincsenek letöltve.</string>
 
+    <string name="clean_turn_on">Tiszta mód bekapcsolása</string>
+    <string name="clean_turn_off">Tiszta mód kikapcsolása</string>
+    <string name="clean_on_title">A tiszta mód be van kapcsolva</string>
+    <string name="clean_on_body">Ezen az eszközön csak a gyerekeknek jóváhagyott dalok szólnak. A többit átugorja, amíg ki nem kapcsolod.</string>
+    <string name="clean_none_approved">Még nincs gyerekeknek jóváhagyott dal, így semmi sem fog szólni.</string>
+    <string name="clean_off_button">Kikapcsolás</string>
+    <string name="clean_pill">Tiszta mód</string>
+    <string name="clean_lists_failed">Nem sikerült lekérni a gyerekeknek jóváhagyott dalokat, így a tiszta mód kikapcsolva marad.</string>
 </resources>

@@ -208,4 +208,5 @@
     <string name="deleted_playlists_hint">Playlisty, które to urządzenie znało, usunięte w ciągu ostatnich 90 dni (w dowolnej aplikacji). Zapisz kopię, aby ją odzyskać.</string>
     <string name="deleted_playlists_none">Ostatnio nie usunięto żadnej playlisty. Te, które to urządzenie znało, są tu widoczne przez 90 dni po usunięciu (w dowolnej aplikacji).</string>
     <string name="deleted_playlists_on">Usunięto %1$s</string>
+    <string name="collection_show_art">Pokaż okładkę na pełnym ekranie</string>
 </resources>

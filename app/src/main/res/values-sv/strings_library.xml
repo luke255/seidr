@@ -186,4 +186,5 @@
     <string name="deleted_playlists_hint">Spellistor som den här enheten hade sett och som raderats de senaste 90 dagarna, i vilken app som helst. Spara en kopia för att få tillbaka en.</string>
     <string name="deleted_playlists_none">Inga spellistor har raderats nyligen. De som den här enheten hade sett visas här i 90 dagar efter att de raderats, i vilken app som helst.</string>
     <string name="deleted_playlists_on">Raderad %1$s</string>
+    <string name="collection_show_art">Visa omslaget i helskärm</string>
 </resources>

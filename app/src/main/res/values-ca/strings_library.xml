@@ -197,4 +197,5 @@
     <string name="deleted_playlists_hint">Llistes que aquest dispositiu havia vist i que s\'han suprimit els últims 90 dies, des de qualsevol app. Desa\'n una còpia per recuperar-la.</string>
     <string name="deleted_playlists_none">No s\'ha suprimit cap llista últimament. Les que aquest dispositiu havia vist surten aquí durant 90 dies després de suprimir-se, des de qualsevol app.</string>
     <string name="deleted_playlists_on">Suprimida el %1$s</string>
+    <string name="collection_show_art">Mostra la portada a pantalla completa</string>
 </resources>

@@ -186,4 +186,5 @@
     <string name="deleted_playlists_hint">Soittolistat, jotka tämä laite oli nähnyt ja jotka on poistettu viimeisen 90 päivän aikana missä tahansa sovelluksessa. Tallenna kopio saadaksesi sen takaisin.</string>
     <string name="deleted_playlists_none">Soittolistoja ei ole poistettu viime aikoina. Tämän laitteen näkemät soittolistat näkyvät täällä 90 päivää poistamisen jälkeen, missä tahansa sovelluksessa.</string>
     <string name="deleted_playlists_on">Poistettu %1$s</string>
+    <string name="collection_show_art">Näytä kansikuva koko näytöllä</string>
 </resources>

@@ -233,4 +233,12 @@
     <string name="vis_pack_downloading">Downloading the visualiser\'s presets… %1$d%%</string>
     <string name="vis_pack_not_ready">The visualiser\'s presets haven\'t downloaded yet.</string>
 
+    <string name="clean_turn_on">Turn on clean mode</string>
+    <string name="clean_turn_off">Turn off clean mode</string>
+    <string name="clean_on_title">Clean mode is on</string>
+    <string name="clean_on_body">Only songs approved for kids play on this device. The rest are skipped until you turn it off.</string>
+    <string name="clean_none_approved">No songs are approved for kids yet, so nothing will play.</string>
+    <string name="clean_off_button">Turn off</string>
+    <string name="clean_pill">Clean mode</string>
+    <string name="clean_lists_failed">Couldn\'t fetch the songs approved for kids, so clean mode is still off.</string>
 </resources>

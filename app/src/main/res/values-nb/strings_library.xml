@@ -186,4 +186,5 @@
     <string name="deleted_playlists_hint">Spillelister denne enheten hadde sett, som er slettet de siste 90 dagene, fra hvilken som helst app. Lagre en kopi for å få en tilbake.</string>
     <string name="deleted_playlists_none">Ingen spillelister er slettet nylig. De denne enheten hadde sett, vises her i 90 dager etter at de er slettet, fra hvilken som helst app.</string>
     <string name="deleted_playlists_on">Slettet %1$s</string>
+    <string name="collection_show_art">Vis omslaget i fullskjerm</string>
 </resources>

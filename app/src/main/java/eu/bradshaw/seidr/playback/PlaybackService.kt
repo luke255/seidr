@@ -97,7 +97,8 @@ class PlaybackService : MediaLibraryService() {
         val resolving = ResolvingDataSource.Factory(DefaultDataSource.Factory(this, http)) { spec ->
             if (spec.uri.scheme != "seidr") return@Factory spec
             val songId = spec.uri.lastPathSegment ?: return@Factory spec
-            val kid = graph.kids.current
+            // A kid's rules, or clean mode's: either way only approved songs play.
+            val kid = graph.kids.playing
             val local = if (kid?.playable(songId) == false) null else graph.downloads.localFile(songId)
             when (val s = KidGate.source(songId, kid, local, graph.status.online.value)) {
                 is KidGate.Source.Refused -> throw IOException(s.why)
@@ -160,8 +161,9 @@ class PlaybackService : MediaLibraryService() {
         restoreQueue()
         updateLikeButton()
         scope.launch { graph.library.starredSongs.collectLatest { updateLikeButton() } }
+        scope.launch { graph.kids.clean.collectLatest { updateLikeButton() } }
         scope.launch {
-            kotlinx.coroutines.flow.combine(graph.bad.skipped, graph.kids.rules) { _, _ -> }
+            kotlinx.coroutines.flow.combine(graph.bad.skipped, graph.kids.rules, graph.kids.cleanRules) { _, _, _ -> }
                 .collect { restoreFixedSongs(); hideBadSongs() }
         }
         scope.launch { graph.sleep.mode.collectLatest(::sleep) }
@@ -197,11 +199,11 @@ class PlaybackService : MediaLibraryService() {
         graph.sleep.done(mode)
     }
 
-    /** Songs kept out of the queue: in Bad: Songs, or (a kid's login) not approved. */
+    /** Songs kept out of the queue: in Bad: Songs, or (a kid's login, or clean mode) not approved. */
     private fun blocked(songId: String): Boolean =
-        songId in graph.bad.skipped.value || graph.kids.current?.playable(songId) == false
+        songId in graph.bad.skipped.value || graph.kids.playing?.playable(songId) == false
 
-    private fun anyBlocked() = graph.bad.skipped.value.isNotEmpty() || graph.kids.isKid
+    private fun anyBlocked() = graph.bad.skipped.value.isNotEmpty() || graph.kids.playing != null
 
     /** Queue entries whose song is blocked, out of the player until it isn't. */
     private var hidden: List<HiddenEntry> = emptyList()
@@ -444,7 +446,24 @@ class PlaybackService : MediaLibraryService() {
             .setSlots(CommandButton.SLOT_OVERFLOW)
             .build()
         session.setMediaButtonPreferences(ImmutableList.of(button))
+        // The car also gets clean mode's switch, for when passengers get in.
+        val clean = cleanButton() ?: return
+        for (c in session.connectedControllers) if (isCar(c)) session.setMediaButtonPreferences(c, ImmutableList.of(button, clean))
     }
+
+    /** Clean mode's switch, shown as on or off; none for a kid's login (always approved-only). */
+    private fun cleanButton(): CommandButton? {
+        if (graph.kids.isKid) return null
+        val on = graph.kids.clean.value
+        return CommandButton.Builder(CommandButton.ICON_UNDEFINED)
+            .setCustomIconResId(if (on) R.drawable.ic_clean_on else R.drawable.ic_clean_off)
+            .setDisplayName(getString(if (on) R.string.clean_turn_off else R.string.clean_turn_on))
+            .setSessionCommand(SessionCommand(CMD_CLEAN, Bundle.EMPTY))
+            .setSlots(CommandButton.SLOT_OVERFLOW)
+            .build()
+    }
+
+    private fun isCar(c: MediaSession.ControllerInfo) = c.packageName in CAR_PACKAGES
 
     private val refreshedAt = mutableMapOf<String, Long>()
 
@@ -474,6 +493,7 @@ class PlaybackService : MediaLibraryService() {
         override fun onConnect(session: MediaSession, controller: MediaSession.ControllerInfo): MediaSession.ConnectionResult {
             val base = MediaSession.ConnectionResult.DEFAULT_SESSION_AND_LIBRARY_COMMANDS.buildUpon()
                 .add(SessionCommand(CMD_LIKE, Bundle.EMPTY))
+                .add(SessionCommand(CMD_CLEAN, Bundle.EMPTY))
                 .build()
             // Shuffle is ours (PlayerConnection reorders the queue); ExoPlayer's must never switch on,
             // so other controllers (Android Auto, Bluetooth) don't get its toggle.
@@ -484,6 +504,10 @@ class PlaybackService : MediaLibraryService() {
                 .setAvailableSessionCommands(base)
                 .setAvailablePlayerCommands(playerCommands)
                 .build()
+        }
+
+        override fun onPostConnect(session: MediaSession, controller: MediaSession.ControllerInfo) {
+            if (isCar(controller)) updateLikeButton()
         }
 
         // --- Browsing (Android Auto) ---
@@ -537,6 +561,12 @@ class PlaybackService : MediaLibraryService() {
                 }
                 return Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
             }
+            if (customCommand.customAction == CMD_CLEAN) {
+                if (!graph.kids.isKid) {
+                    if (graph.kids.clean.value) graph.kids.cleanOff() else scope.launch { graph.kids.setClean(true) }
+                }
+                return Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
+            }
             return super.onCustomCommand(session, controller, customCommand, args)
         }
 
@@ -560,6 +590,9 @@ class PlaybackService : MediaLibraryService() {
 
     companion object {
         const val CMD_LIKE = "eu.bradshaw.seidr.LIKE"
+        const val CMD_CLEAN = "eu.bradshaw.seidr.CLEAN"
+        /** Android Auto, and Android Automotive's media app. */
+        private val CAR_PACKAGES = setOf("com.google.android.projection.gearhead", "com.android.car.media")
         private const val PRELOAD_NEXT_US = 10_000_000L
         private const val MAX_HIDDEN = 1000
     }

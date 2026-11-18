@@ -195,4 +195,12 @@
     <string name="vis_pack_downloading">Завантажуємо пресети візуалізації… %1$d%%</string>
     <string name="vis_pack_not_ready">Пресети візуалізації ще не завантажено.</string>
 
+    <string name="clean_turn_on">Увімкнути чистий режим</string>
+    <string name="clean_turn_off">Вимкнути чистий режим</string>
+    <string name="clean_on_title">Чистий режим увімкнено</string>
+    <string name="clean_on_body">На цьому пристрої грають лише пісні, схвалені для дітей. Решта пропускаються, доки ви його не вимкнете.</string>
+    <string name="clean_none_approved">Для дітей ще не схвалено жодної пісні, тож нічого не гратиме.</string>
+    <string name="clean_off_button">Вимкнути</string>
+    <string name="clean_pill">Чистий режим</string>
+    <string name="clean_lists_failed">Не вдалося отримати пісні, схвалені для дітей, тож чистий режим досі вимкнено.</string>
 </resources>
