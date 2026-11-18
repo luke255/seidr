@@ -102,6 +102,7 @@ import eu.bradshaw.seidr.ui.components.LocalWideShell
 import eu.bradshaw.seidr.ui.components.SettingsButton
 import eu.bradshaw.seidr.ui.components.SearchField
 import eu.bradshaw.seidr.ui.components.FilterPill
+import eu.bradshaw.seidr.ui.components.fadeScrollEdges
 import eu.bradshaw.seidr.ui.highlightClickable
 import eu.bradshaw.seidr.ui.CardPadding
 import eu.bradshaw.seidr.ui.CardArtShape
@@ -281,8 +282,9 @@ fun LibraryScreen() {
 
         // One row of chips: what to show, then (phones) only what's downloaded, then
         // (playlists, if anyone else has some) other people's too.
+        val pills = rememberScrollState()
         Row(
-            Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 4.dp),
+            Modifier.fillMaxWidth().fadeScrollEdges(pills).horizontalScroll(pills).padding(horizontal = 16.dp, vertical = 4.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {

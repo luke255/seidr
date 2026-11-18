@@ -49,6 +49,15 @@ import eu.bradshaw.seidr.ui.Route
 import eu.bradshaw.seidr.ui.focusRing
 import eu.bradshaw.seidr.ui.selectToEdit
 import eu.bradshaw.seidr.update.Updater
+import androidx.compose.foundation.ScrollState
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.unit.LayoutDirection
 
 /**
  * How much of the bottom of the screen the floating nav bar covers. On the
@@ -174,6 +183,34 @@ fun SearchField(
         shape = shape,
         modifier = modifier.selectToEdit(shape),
     )
+}
+
+/**
+ * Fades a horizontally scrolling row out at whichever ends have more to scroll
+ * to, so a row of pills cut off by the screen edge reads as one that scrolls.
+ * Goes before `horizontalScroll`, so the fade stays put while the row moves.
+ * The layer reaches [overhang] above and below, so focus rings aren't clipped.
+ */
+fun Modifier.fadeScrollEdges(state: ScrollState, width: Dp = 40.dp, overhang: Dp = 8.dp) = drawWithContent {
+    val fade = width.toPx()
+    val before = (state.value / fade).coerceIn(0f, 1f)
+    val after = ((state.maxValue - state.value) / fade).coerceIn(0f, 1f)
+    if (before == 0f && after == 0f) { drawContent(); return@drawWithContent }
+    val (left, right) = if (layoutDirection == LayoutDirection.Ltr) before to after else after to before
+    val edge = (fade / size.width).coerceAtMost(0.5f)
+    val o = overhang.toPx()
+    val canvas = drawContext.canvas
+    canvas.saveLayer(Rect(0f, -o, size.width, size.height + o), Paint())
+    drawContent()
+    drawRect(
+        Brush.horizontalGradient(
+            0f to Color.Black.copy(alpha = 1f - left), edge to Color.Black,
+            1f - edge to Color.Black, 1f to Color.Black.copy(alpha = 1f - right),
+        ),
+        topLeft = Offset(0f, -o), size = Size(size.width, size.height + 2 * o),
+        blendMode = BlendMode.DstIn,
+    )
+    canvas.restore()
 }
 
 /** A pill filter chip, filled with the theme colour when selected (Library, Search). */

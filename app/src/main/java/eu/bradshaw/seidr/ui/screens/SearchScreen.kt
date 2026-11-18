@@ -54,6 +54,7 @@ import eu.bradshaw.seidr.ui.Route
 import eu.bradshaw.seidr.ui.components.ArtistImage
 import eu.bradshaw.seidr.ui.components.Cover
 import eu.bradshaw.seidr.ui.components.FilterPill
+import eu.bradshaw.seidr.ui.components.fadeScrollEdges
 import eu.bradshaw.seidr.ui.components.ListRow
 import eu.bradshaw.seidr.ui.components.SearchField
 import eu.bradshaw.seidr.ui.components.SectionHeader
@@ -167,8 +168,9 @@ fun SearchScreen() {
             return@Column
         }
 
+        val pills = rememberScrollState()
         Row(
-            Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 8.dp),
+            Modifier.fillMaxWidth().fadeScrollEdges(pills).horizontalScroll(pills).padding(horizontal = 16.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Filter.entries.forEachIndexed { i, f -> FilterPill(stringResource(f.label), filter == i, { filter = i }) }
