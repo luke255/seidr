@@ -3,6 +3,3 @@ contact_links:
   - name: A question, or help setting up
     url: https://github.com/luke255/seidr/discussions
     about: Ask in Discussions; issues are for bugs and ideas.
-  - name: A security problem
-    url: https://github.com/luke255/seidr/security/advisories/new
-    about: Report it privately, please, not as a public issue.
