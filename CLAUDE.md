@@ -1,9 +1,10 @@
 # CLAUDE.md
 
 Seiðr (ASCII: Seidr): a native Android player for one Navidrome server. Its
-behaviour and layout follow classic (2016–2019) Spotify, but never its name,
-logo, green, icons or code. Read "Principles" and "Rules that must hold"
-before changing sync or playback.
+behaviour and layout follow the classic (2016–2019) streaming apps (the exact
+reference, which is never named anywhere in the repo, is in `CLAUDE.local.md`),
+but never borrow their names, logos, colours, icons or code. Read "Principles"
+and "Rules that must hold" before changing sync or playback.
 
 ## Principles
 

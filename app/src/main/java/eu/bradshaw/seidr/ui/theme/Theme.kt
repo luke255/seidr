@@ -97,7 +97,7 @@ fun colorSchemeForKey(key: String, context: Context): ColorScheme =
 
 fun colorSchemeFor(choice: ThemeChoice, context: Context): ColorScheme = when (choice) {
     ThemeChoice.SYSTEM -> systemScheme(context)
-    // The original look: near-black backgrounds (classic Spotify), quiet accents from the system.
+    // The original look: near-black backgrounds (the classic streaming apps), quiet accents from the system.
     ThemeChoice.NEUTRAL -> runCatching { dynamicDarkColorScheme(context) }.getOrElse {
         darkColorScheme(primary = Color(0xFFFFB4A2), secondary = Color(0xFFE7BDB3))
     }.copy(background = Color(0xFF121212), surface = Color(0xFF121212))
@@ -115,7 +115,7 @@ private val FocusRipple = RippleConfiguration(
     rippleAlpha = RippleAlpha(draggedAlpha = 0.16f, focusedAlpha = 0.3f, hoveredAlpha = 0.08f, pressedAlpha = 0.1f),
 )
 
-/** Dark always (classic-era Spotify was dark-only); colours follow [choice]. */
+/** Dark always (the classic streaming apps were dark-only); colours follow [choice]. */
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
 fun SeidrTheme(key: String, content: @Composable () -> Unit) {

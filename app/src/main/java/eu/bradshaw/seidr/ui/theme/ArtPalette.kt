@@ -292,8 +292,8 @@ fun artScheme(art: ArtColours): ArtScheme {
 }
 
 /**
- * For monochrome art, or none: greys only, with a white accent (classic
- * Spotify's play button), so black-and-white covers don't jump to the app's
+ * For monochrome art, or none: greys only, with a white accent (like the
+ * classic streaming apps' play button), so black-and-white covers don't jump to the app's
  * theme colour.
  */
 val monochromeArtScheme: ArtScheme = run {

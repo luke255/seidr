@@ -126,7 +126,7 @@ class PlayerConnection(private val context: Context, private val graph: Graph) {
 
     /**
      * Plays [songs] as a context (playlist, album, artist top tracks…) starting at
-     * [start]. Tracks the user had queued stay queued, as they would on Spotify.
+     * [start]. Tracks the user had queued stay queued, as they would in any streaming app.
      * When offline, tracks that aren't downloaded are left out.
      */
     fun playContext(songs: List<Song>, start: Int, name: String, shuffle: Boolean? = null) {
