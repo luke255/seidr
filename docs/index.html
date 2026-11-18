@@ -63,10 +63,16 @@ body { background: var(--bg); color: var(--ink); margin: 16px; font: 17px/1.55 s
 img { max-width: 100%; height: auto; vertical-align: middle; }
 a { color: var(--accent); }
 h1 { margin: 0; }
-.lede { font-size: 1.25rem; max-width: 34em; margin: 12px auto 0; }
-.get { margin: 20px 0 8px; }
-.facts { color: var(--soft); font-size: 0.95rem; margin: 0 0 20px; }
-nav { margin: 8px 0 28px; }
+.intro { display: flex; align-items: center; justify-content: center; gap: 32px; max-width: 46em; margin: 12px auto 32px; }
+.lede { font-size: 1.25rem; margin: 0; text-align: left; }
+.get { flex: none; margin: 0; }
+.get a { display: inline-block; color: var(--ink); text-decoration: none; font-weight: 600; }
+.get span { display: block; margin-top: 4px; }
+@media (max-width: 600px) {
+  .intro { flex-direction: column; gap: 16px; }
+  .lede { text-align: center; }
+}
+nav { margin: 0 0 16px; }
 nav a { margin: 0 12px; }
 .shots { max-width: 1200px; margin: 0 auto; }
 .shots img { width: 270px; max-width: 46%; margin: 1%; border-radius: 16px; }
@@ -83,15 +89,11 @@ footer { color: var(--soft); font-size: 0.9rem; max-width: 44em; margin: 48px au
 <body>
 <header>
 <h1><img src="banner.svg" width="640" height="160" alt="Seiðr"></h1>
-<p class="lede">An Android music player for your <a href="https://www.navidrome.org/">Navidrome</a> server. Offline playlists that keep themselves up to date, a proper queue, and the same app on your phone, foldable, car, TV and headset.</p>
-<p class="get"><a id="apk" href="https://github.com/luke255/seidr/releases/latest"><img src="icons/download.svg" width="64" height="64" alt="Download the APK"></a></p>
-<p class="facts">Free and open source (GPL 3.0) · Android 14+ · No Google Play services, no tracking</p>
+<div class="intro">
+<p class="lede">An Android music player for your <a href="https://www.navidrome.org/">Navidrome</a> server. Offline playlists that keep themselves up to date, a proper queue, and the same app on your phone, foldable, car, TV and headset. Free, open source, and no tracking.</p>
+<p class="get"><a id="apk" href="https://github.com/luke255/seidr/releases/latest"><img src="icons/download.svg" width="64" height="64" alt=""><span>Download</span></a></p>
+</div>
 </header>
-<nav>
-<a href="https://www.navidrome.org/"><img src="icons/navidrome.svg" width="48" height="48" alt="Navidrome"></a>
-<a href="https://github.com/luke255/seidr"><img src="icons/github.svg" width="48" height="48" alt="Seiðr on GitHub"></a>
-<a href="https://bradshaw.eu/"><img src="icons/luke255.png" width="48" height="48" alt="bradshaw.eu"></a>
-</nav>
 <main>
 <div class="shots">
 <a href="screenshots/01-now-playing-cyan.webp"><img src="screenshots/01-now-playing-cyan.webp" width="270" height="400" loading="lazy" alt="Now Playing, coloured from the album cover"></a>
@@ -178,6 +180,12 @@ footer { color: var(--soft); font-size: 0.9rem; max-width: 44em; margin: 48px au
 </article>
 </main>
 <footer>
+<nav>
+<a href="https://www.navidrome.org/"><img src="icons/navidrome.svg" width="48" height="48" alt="Navidrome"></a>
+<a href="https://github.com/luke255/seidr"><img src="icons/github.svg" width="48" height="48" alt="Seiðr on GitHub"></a>
+<a href="https://bradshaw.eu/"><img src="icons/luke255.png" width="48" height="48" alt="bradshaw.eu"></a>
+</nav>
+<p>Free and open source (GPL 3.0) · Android 14 or later · No Google Play services</p>
 <p>Screenshots use Navidrome's public demo server and its Creative Commons music. Seiðr isn't affiliated with Spotify or Navidrome.</p>
 </footer>
 <script>
