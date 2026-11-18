@@ -121,15 +121,42 @@ Seiðr updates itself: when a new release is out it offers to install it,
 with what's new. You can turn the automatic check off in Settings → About.
 If you'd rather use Obtainium, turn that check off so the two don't compete.
 
-**Requirements:** Android 14 or later, and a Navidrome server. Most features
-work with any OpenSubsonic server, but live updates and cover art for
-casting from a TV use Navidrome's own APIs.
+**Requirements:** Android 14 or later, and a Navidrome server. Seiðr is built
+and tested on Navidrome. It speaks the OpenSubsonic API, so other servers that
+do (gonic, LMS and others) should mostly work, but they haven't been tested
+yet; live updates and cover art for casting from a TV use Navidrome's own APIs
+either way.
 
 **First run:** enter your server's address, username and password. On
 Android 17, reaching a server on your home network needs the Nearby devices
 permission, which Seiðr asks for. Android Auto only lists apps installed
 outside the Play Store once "Unknown sources" is on in Android Auto's
 developer settings.
+
+## What it is, and isn't
+
+Seiðr is opinionated. It's built around one Navidrome server, offline
+playlists that mirror it, and a layout in the spirit of classic music apps,
+and it tries to do those really well rather than everything. Ideas that fit
+are welcome in [issues](https://github.com/luke255/seidr/issues).
+
+**Not planned:**
+
+- **Several servers at once.** One server, one login (kids' logins aside).
+- **Jellyfin, Plex and other servers without the Subsonic API.** Jellyfin
+  might happen one day, but it would mean a second version of everything that
+  talks to the server, so not soon.
+- **Music stored only on the phone.** Everything comes from your server.
+- **Google Play.** Seiðr has no Google Play services and comes from GitHub
+  Releases (or Obtainium).
+
+## Problems?
+
+[Open an issue](https://github.com/luke255/seidr/issues/new/choose). Settings →
+About → Share a log gives you Seiðr's recent log to attach, with logins, server
+addresses and device names taken out; you see the whole thing before it goes
+anywhere. Questions are welcome in
+[Discussions](https://github.com/luke255/seidr/discussions).
 
 ## Privacy
 
@@ -155,6 +182,10 @@ Claude Code. It's designed, directed and tested by me, on real devices
 (a Galaxy Fold, an Android TV, a Meta Quest 3 and Android Auto) and against a
 real library. The rules that matter most, like never deleting
 downloads on the strength of a bad response, are covered by unit tests.
+
+The app's 25 translations are machine-translated too. They should read
+naturally, but a native speaker will spot slips; corrections are very
+welcome, as an issue or a pull request against `app/src/main/res/values-*/`.
 
 ## Building
 
