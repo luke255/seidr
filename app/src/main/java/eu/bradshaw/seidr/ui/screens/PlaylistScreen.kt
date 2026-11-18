@@ -1,5 +1,8 @@
 package eu.bradshaw.seidr.ui.screens
 
+import eu.bradshaw.seidr.data.Star
+import eu.bradshaw.seidr.ui.components.StarButton
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -131,6 +134,7 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
     val graph = actions.graph
     val ui by graph.player.ui.collectAsStateWithLifecycle()
     val server by graph.browseLogin.collectAsStateWithLifecycle()
+    val canStarPlaylists by graph.browse.canStarPlaylists.collectAsStateWithLifecycle()
     val me = server?.username
     val mine = playlist.owner == null || playlist.owner == me
     val editable = !graph.readOnly && !playlist.readonly && mine
@@ -251,6 +255,7 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
         trackCount = songs.size,
         listState = listState,
         topActions = {
+            if (!editing && canStarPlaylists) StarButton(Star.OfPlaylist(playlist.id, null))
             if (editing) {
                 IconButton(onClick = {
                     editing = false

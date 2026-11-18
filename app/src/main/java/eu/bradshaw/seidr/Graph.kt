@@ -80,9 +80,9 @@ class Graph(val app: Application) {
     private val badReportsOn = kotlinx.coroutines.flow.combine(settings.badReports, settings.server) { on, s -> on && s?.isKid != true }
         .stateIn(scope, kotlinx.coroutines.flow.SharingStarted.Eagerly, settings.badReports.value && settings.server.value?.isKid != true)
 
-    val library = Library(client, badReportsOn, user, settings.othersPrivatePlaylists, kids, scope)
     /** Navidrome's own API, for what Subsonic has no call for. The signed-in login only. */
     val navidrome = eu.bradshaw.seidr.data.NavidromeApi(baseHttp) { settings.server.value }
+    val library = Library(client, badReportsOn, user, settings.othersPrivatePlaylists, kids, scope, navidrome)
     /** Which playlists have a picture of their own, and changing it. */
     val playlistPictures = eu.bradshaw.seidr.data.PlaylistPictures(app, navidrome, { settings.server.value }, library, kids, scope) { list ->
         // Its listing has every smart playlist's rules: their history notes them.

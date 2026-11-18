@@ -156,6 +156,9 @@
     <string name="home_kid_empty">Todavía no te aprobaron nada. Pídele a quien inició tu sesión que agregue algunas canciones.</string>
     <string name="home_playlists">Playlists</string>
     <string name="home_new">Novedades</string>
+    <string name="home_starred">Con estrella</string>
+    <string name="star_add">Marcar con estrella</string>
+    <string name="star_remove">Quitar estrella</string>
     <string name="home_sort_recent">Recientes</string>
     <string name="home_by_owner">de %1$s</string>
     <string name="home_see_all">Ver todo</string>

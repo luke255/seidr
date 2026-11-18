@@ -1,5 +1,8 @@
 package eu.bradshaw.seidr.ui.screens
 
+import eu.bradshaw.seidr.data.Star
+import eu.bradshaw.seidr.ui.components.StarButton
+
 import eu.bradshaw.seidr.ui.components.TrackNumber
 import eu.bradshaw.seidr.ui.components.LocalWideShell
 import eu.bradshaw.seidr.ui.RowArtShape
@@ -146,7 +149,7 @@ fun ArtistScreen(id: String) {
         val singlesTitle = stringResource(R.string.artist_singles)
         val appearsOnTitle = stringResource(R.string.artist_appears_on)
         Column(Modifier.fillMaxSize()) {
-            BackTopBar(page.artist.name, showTitle = showTitle)
+            BackTopBar(page.artist.name, showTitle = showTitle) { StarButton(Star.OfArtist(page.artist.copy(album = emptyList()), null)) }
             LazyColumn(Modifier.fillMaxSize(), state = listState, contentPadding = bottomContentPadding(24.dp)) {
                 item {
                     if (wide) {

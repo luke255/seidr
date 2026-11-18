@@ -1,5 +1,8 @@
 package eu.bradshaw.seidr.ui.screens
 
+import eu.bradshaw.seidr.data.Star
+import eu.bradshaw.seidr.ui.components.StarButton
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
@@ -96,6 +99,7 @@ fun AlbumScreen(id: String) {
             onPlay = { graph.albumPlays.record(album); actions.player.playContext(songs, 0, album.name, shuffle = false) },
             offline = OfflineSource(SourceType.sourceId(SourceType.ALBUM, album.id), SourceType.ALBUM, album.id, album.name, coverArt = album.coverArt),
             trackCount = songs.size,
+            topActions = { StarButton(Star.OfAlbum(album, null)) },
         ) {
             var lastDisc: Int? = null
             songs.forEachIndexed { i, song ->

@@ -128,6 +128,21 @@ class NavidromeApi(private val http: OkHttpClient, private val server: () -> Ser
         return if (supported) list.filter { it.hasPicture }.associate { it.id to it.owner.orEmpty() } else null
     }
 
+    /**
+     * The playlists this login has starred, by id, with when (ISO 8601). Only
+     * entries marked `starred` count, so a server that ignores the filter can't
+     * pass off every playlist as starred.
+     */
+    suspend fun starredPlaylists(): List<Pair<String, String?>> = call("playlist?starred=true", {}) { resp ->
+        val list = json.parseToJsonElement(resp.body.string()) as? JsonArray ?: throw IOException("not a list")
+        list.mapNotNull { o ->
+            (o as? JsonObject)?.takeIf { (it["starred"] as? JsonPrimitive)?.booleanOrNull == true }?.let {
+                val id = (it["id"] as? JsonPrimitive)?.contentOrNull ?: return@let null
+                id to (it["starredAt"] as? JsonPrimitive)?.contentOrNull
+            }
+        }
+    }
+
     /** One playlist, fresh. */
     suspend fun playlist(id: String): NdPlaylist = call("playlist/$id", {}) { resp ->
         (json.parseToJsonElement(resp.body.string()) as? JsonObject)?.let(::ndPlaylist) ?: throw IOException("not a playlist")

@@ -147,6 +147,9 @@
     <string name="home_kid_empty">Sinulle ei ole vielä hyväksytty mitään. Pyydä sinut sisään kirjannutta lisäämään kappaleita.</string>
     <string name="home_playlists">Soittolistat</string>
     <string name="home_new">Uudet</string>
+    <string name="home_starred">Tähdellä merkityt</string>
+    <string name="star_add">Merkitse tähdellä</string>
+    <string name="star_remove">Poista tähti</string>
     <string name="home_sort_recent">Uusimmat</string>
     <string name="home_by_owner">käyttäjältä %1$s</string>
     <string name="home_see_all">Näytä kaikki</string>

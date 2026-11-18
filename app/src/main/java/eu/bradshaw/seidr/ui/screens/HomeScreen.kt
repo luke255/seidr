@@ -4,6 +4,7 @@ import eu.bradshaw.seidr.data.AlbumSort
 import eu.bradshaw.seidr.data.ArtistSort
 import eu.bradshaw.seidr.data.LovedAt
 import eu.bradshaw.seidr.data.PlaylistSort
+import eu.bradshaw.seidr.data.Star
 import eu.bradshaw.seidr.data.api.Artist
 import eu.bradshaw.seidr.ui.CardPadding
 import eu.bradshaw.seidr.ui.highlightClickable
@@ -104,6 +105,7 @@ class HomeVm(private val graph: Graph) : ViewModel() {
             val newest = list("newest"); val frequent = list("frequent", 500)
             val artists = async { runCatching { graph.browse.artists() }.getOrNull() }
             launch { runCatching { graph.browse.refreshPlaylists() } }
+            launch { graph.browse.refreshStarred() }
             val played = frequent.await()
             val topArtists = played?.let { p ->
                 val plays = ArtistSort.plays(p)
@@ -131,6 +133,7 @@ fun HomeScreen() {
     val kid by graph.browseKids.rules.collectAsStateWithLifecycle()
     val starred by graph.browse.starredSongs.collectAsStateWithLifecycle()
     val lastLoved by graph.browse.lastLoved.collectAsStateWithLifecycle()
+    val stars by graph.browse.stars.collectAsStateWithLifecycle()
     val newest = stringResource(R.string.home_new)
     val mostPlayed = stringResource(R.string.library_tab_albums)
     val mostPlayedArtists = stringResource(R.string.library_tab_artists)
@@ -177,6 +180,27 @@ fun HomeScreen() {
                                     modifier = focus)
                             }
                             seeAll { settings.setPlaylistsSort(PlaylistSort.RECENT); settings.setLibraryShared(false); actions.openLibrary(LibTab.PLAYLISTS) }
+                        }
+                    }
+                }
+                // Starred albums, artists and playlists together, newest first. Every one: it has no See all.
+                val byId = playlists.orEmpty().associateBy { it.id }
+                val starredShelf = stars.filter { it !is Star.OfPlaylist || it.id in byId }
+                if (starredShelf.isNotEmpty()) {
+                    item(key = "h:starred") { SectionHeader(stringResource(R.string.home_starred)) }
+                    item(key = "s:starred") {
+                        val artistLabel = stringResource(R.string.artist_label)
+                        LazyRow(state = shelfState(starredShelf.first().id), contentPadding = PaddingValues(horizontal = 10.dp)) {
+                            items(starredShelf, key = { "${it::class.simpleName}:${it.id}" }) { s ->
+                                when (s) {
+                                    is Star.OfAlbum -> CoverCard(s.album.name, s.album.artistLine, s.album.coverArt, onClick = { actions.open(Route.Album(s.id)) })
+                                    is Star.OfArtist -> CoverCard(s.artist.name, artistLabel, s.artist.coverArt, onClick = { actions.open(Route.Artist(s.id)) },
+                                        round = true, art = { m -> ArtistImage(s.artist.coverArt, m) })
+                                    is Star.OfPlaylist -> byId[s.id]?.let { p ->
+                                        CoverCard(p.name, playlistLine(p, server?.username), p.coverArt, onClick = { actions.open(Route.Playlist(p.id)) })
+                                    }
+                                }
+                            }
                         }
                     }
                 }

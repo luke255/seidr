@@ -6,6 +6,7 @@ them, not how.
 
 ## 1.7.1
 
+- Star albums, artists and playlists to keep them close: they gather in a Starred row on Home, newest first. The star sits at the top of each page. Starring playlists needs Navidrome.
 - A playlist with a picture of its own takes its colours from it, the way an album takes them from its cover.
 - Albums and playlists fade into their colours more gently.
 - The visualiser has a page showing the picture of the playlist you're playing, when it has one of its own. Swipe up from the track page to see it.

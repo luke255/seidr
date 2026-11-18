@@ -191,8 +191,8 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
             playlists.forEach(graph.library::notifyPlaylistEdited)
             scope.launch { runCatching { graph.library.refreshPlaylists() } }
         }
-        // Song and album events cover likes made elsewhere (and play counts, ratings).
-        if (ids("song").isNotEmpty() || ids("album").isNotEmpty()) refreshStarredSoon()
+        // Song, album, artist and playlist events cover loves and stars made elsewhere (and play counts, ratings).
+        if (listOf("song", "album", "artist", "playlist").any { ids(it).isNotEmpty() }) refreshStarredSoon()
     }
 
     private var starredJob: Job? = null

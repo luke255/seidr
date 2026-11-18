@@ -180,6 +180,11 @@
     <string name="home_playlists">Playlists</string>
     <!-- Home shelf of the albums added to the server most recently. -->
     <string name="home_new">New</string>
+    <!-- Home row of the albums, artists and playlists you've starred (not songs: those are Loved). -->
+    <string name="home_starred">Starred</string>
+    <!-- Spoken labels of the star button on album, artist and playlist pages. -->
+    <string name="star_add">Star</string>
+    <string name="star_remove">Remove star</string>
     <!-- Playlist shelf sort buttons: alphabetical / most recent first. For alphabetical, use the language\'s natural short label (e.g. "by name" where A–Z means nothing). -->
     <string name="home_sort_recent">Recent</string>
     <!-- %1$s is the playlist owner\'s username -->

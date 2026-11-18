@@ -36,6 +36,8 @@ class Library(
     private val showOthersPrivate: StateFlow<Boolean>,
     private val kids: Kids,
     private val scope: CoroutineScope,
+    /** Navidrome's own API for the same login, which alone knows starred playlists; null for none. */
+    private val navidrome: NavidromeApi? = null,
 ) {
     /** The main library's safety net, told of every full fetch and listing; null for a kid view's. */
     var history: PlaylistHistory? = null
@@ -95,6 +97,16 @@ class Library(
     /** When the newest loved song was loved (ISO 8601), for sorting Loved by "Recently updated". */
     val lastLoved: StateFlow<String?> = _lastLoved.asStateFlow()
 
+    private val _stars = MutableStateFlow<List<Star>>(emptyList())
+    /** Starred albums, artists and playlists, newest first: Home's Starred row. */
+    val stars: StateFlow<List<Star>> = _stars.asStateFlow()
+
+    private val _canStarPlaylists = MutableStateFlow(false)
+    /**
+     * Playlists can be starred: Navidrome, read through its own API (Subsonic
+     * takes a playlist's star but never shows it). False until it has answered.
+     */
+    val canStarPlaylists: StateFlow<Boolean> = _canStarPlaylists.asStateFlow()
 
     private val _playlistEdited = MutableSharedFlow<String>(extraBufferCapacity = 64)
     /**
@@ -246,10 +258,59 @@ class Library(
         val songs = s?.song.orEmpty().sortedByDescending { it.starred ?: "" }
         _starredSongs.value = songs.map { it.id }.toSet()
         _lastLoved.value = songs.firstOrNull()?.starred
+        val albums = s?.album.orEmpty().let { a -> kid?.albums(a) ?: a }.map { Star.OfAlbum(it, it.starred) }
+        val artists = s?.artist.orEmpty().let { a -> kid?.artists(a) ?: a }.map { Star.OfArtist(it, it.starred) }
+        _stars.update { Star.sorted(albums + artists + it.filterIsInstance<Star.OfPlaylist>()) }
         return kid?.songs(songs) ?: songs
     }
 
-    suspend fun refreshStarred() { runCatching { starredSongsList() } }
+    /** Loved songs and every star, fresh. */
+    suspend fun refreshStarred() {
+        runCatching { starredSongsList() }
+        refreshPlaylistStars()
+    }
+
+    private suspend fun refreshPlaylistStars() {
+        val nd = navidrome ?: return
+        val list = try {
+            nd.starredPlaylists().also { _canStarPlaylists.value = true }
+        } catch (e: NotNavidromeException) {
+            _canStarPlaylists.value = false
+            emptyList()
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            return // Out of reach: keep what's showing.
+        }
+        val playlists = list.map { (id, at) -> Star.OfPlaylist(id, at) }
+        _stars.update { Star.sorted(it.filterNot { s -> s is Star.OfPlaylist } + playlists) }
+    }
+
+    /** Optimistic: stars or unstars [star] at once, then writes to the server; reverts on failure. */
+    suspend fun setStarred(star: Star, on: Boolean): Boolean {
+        val old = _stars.value.find { it.id == star.id }
+        val now = when (star) {
+            is Star.OfAlbum -> star.copy(at = java.time.Instant.now().toString())
+            is Star.OfArtist -> star.copy(at = java.time.Instant.now().toString())
+            is Star.OfPlaylist -> star.copy(at = java.time.Instant.now().toString())
+        }
+        _stars.update { list -> list.filterNot { it.id == star.id }.let { if (on) listOf(now) + it else it } }
+        return try {
+            val api = client.strict
+            when (star) {
+                is Star.OfAlbum -> if (on) api.starAlbum(star.id) else api.unstarAlbum(star.id)
+                is Star.OfArtist -> if (on) api.starArtist(star.id) else api.unstarArtist(star.id)
+                // Navidrome finds what an id is, playlists included.
+                is Star.OfPlaylist -> if (on) api.star(star.id) else api.unstar(star.id)
+            }.ok()
+            true
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            _stars.update { list -> Star.sorted(list.filterNot { it.id == star.id } + listOfNotNull(old)) }
+            false
+        }
+    }
 
     suspend fun search(query: String): SearchResult {
         val k = kid ?: return api.search3(query).ok().searchResult3 ?: SearchResult()
@@ -307,6 +368,28 @@ class Library(
         albumsCache = null
         _starredSongs.value = emptySet()
         _lastLoved.value = null
+        _stars.value = emptyList()
+        _canStarPlaylists.value = false
+    }
+}
+
+/** Something starred that isn't a song (a starred song is Loved). */
+sealed interface Star {
+    val id: String
+    /** When it was starred (ISO 8601), if known. */
+    val at: String?
+
+    data class OfAlbum(val album: Album, override val at: String?) : Star { override val id: String get() = album.id }
+    data class OfArtist(val artist: Artist, override val at: String?) : Star { override val id: String get() = artist.id }
+    /** Just the id: the playlist listing has its name and art. */
+    data class OfPlaylist(override val id: String, override val at: String?) : Star
+
+    companion object {
+        private fun instant(at: String?): java.time.Instant =
+            at?.let { runCatching { java.time.OffsetDateTime.parse(it).toInstant() }.getOrNull() } ?: java.time.Instant.EPOCH
+
+        /** Newest first. Subsonic and Navidrome's own API write times differently, so compare instants. */
+        fun sorted(stars: List<Star>): List<Star> = stars.sortedByDescending { instant(it.at) }
     }
 }
 

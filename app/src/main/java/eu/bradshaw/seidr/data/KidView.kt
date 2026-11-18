@@ -36,6 +36,7 @@ class KidView(val config: ServerConfig, graph: Graph) {
         showOthersPrivate = MutableStateFlow(false),
         kids = kids,
         scope = scope,
+        navidrome = NavidromeApi(graph.baseHttp) { config },
     )
 
     fun close() {

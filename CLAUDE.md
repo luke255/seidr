@@ -130,7 +130,9 @@ and "Rules that must hold" before changing sync or playback.
   (`Graph.browse`/`browseKids`/`browseLogin`; `readOnly` hides every edit).
   Sync, playback, scrobbles and Connect stay on the admin's login.
 - **`data/NavidromeApi`**: Navidrome's native `/api/…` (JWT from
-  `/auth/login`), for what Subsonic lacks; `PlaylistPictures` uses it for
+  `/auth/login`), for what Subsonic lacks: starred playlists (Subsonic takes
+  the star but never shows it; `Library.stars` is Home's Starred row of
+  albums, artists and playlists, never songs: those are Loved). `PlaylistPictures` uses it for
   playlist pictures (a playlist with one shows it, not the mosaic), framed
   in `PictureCropDialog` (`PictureFrame` is the pure maths). JSON bodies must
   be typed exactly `application/json` (no charset): otherwise Navidrome takes

@@ -165,6 +165,9 @@
     <string name="home_kid_empty">Nic nie zostało jeszcze dla Ciebie zatwierdzone. Poproś osobę, która Cię zalogowała, o dodanie kilku utworów.</string>
     <string name="home_playlists">Playlisty</string>
     <string name="home_new">Nowości</string>
+    <string name="home_starred">Oznaczone gwiazdką</string>
+    <string name="star_add">Oznacz gwiazdką</string>
+    <string name="star_remove">Usuń gwiazdkę</string>
     <string name="home_sort_recent">Ostatnie</string>
     <string name="home_by_owner">autor: %1$s</string>
     <string name="home_see_all">Pokaż wszystko</string>

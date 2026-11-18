@@ -138,6 +138,9 @@
     <string name="home_kid_empty">还没有为你批准的歌曲。请让帮你登录的人添加一些歌曲。</string>
     <string name="home_playlists">歌单</string>
     <string name="home_new">最新</string>
+    <string name="home_starred">星标</string>
+    <string name="star_add">加星标</string>
+    <string name="star_remove">取消星标</string>
     <string name="home_sort_recent">最近</string>
     <string name="home_by_owner">创建者：%1$s</string>
     <string name="home_see_all">查看全部</string>
