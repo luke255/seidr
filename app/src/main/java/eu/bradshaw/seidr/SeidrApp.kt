@@ -54,6 +54,7 @@ class SeidrApp : Application(), SingletonImageLoader.Factory {
                 if (graph.settings.server.value == null) return
                 graph.scope.launch {
                     probeServer()
+                    graph.loudness.refresh()
                     graph.library.refreshStarred()
                     graph.bad.refresh()
                 }

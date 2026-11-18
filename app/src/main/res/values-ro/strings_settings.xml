@@ -152,14 +152,13 @@
     <string name="log_copied">Jurnal copiat</string>
     <string name="log_no_app">Nicio aplicație de pe acest dispozitiv nu îl poate partaja. Încearcă Copiază.</string>
     <string name="log_subject">Jurnal Seiðr</string>
-    <string name="settings_mobile_streaming">Streaming pe date mobile</string>
-    <string name="settings_mobile_original">Fișierele originale</string>
-    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
-    <string name="settings_mobile_explain">Melodiile nedescărcate pot fi redate pe date mobile la o rată de biți mai mică, ca să consume mai puțin. Descărcările și streamingul pe Wi-Fi folosesc mereu fișierele originale.</string>
     <string name="settings_mobile_unsupported">Serverul tău nu poate converti muzica pentru streaming (Navidrome are nevoie de ffmpeg pentru asta), așa că Seiðr redă fișierele originale.</string>
-    <string name="settings_mobile_checking">Se verifică dacă serverul tău poate converti muzica…</string>
     <string name="settings_playback">Redare</string>
     <string name="settings_replay_gain">Uniformizează volumul</string>
-    <string name="settings_replay_gain_hint">Folosește etichetele ReplayGain ale muzicii tale: nivelul albumului când un album e redat în ordine, altfel nivelul fiecărei melodii. Melodiile fără etichete sunt date mai încet ca să se potrivească.</string>
+    <string name="settings_save_mobile_data">Economisește date mobile</string>
+    <string name="settings_replay_gain_coverage">Aproximativ %1$d%% din bibliotecă are etichete.</string>
+    <string name="settings_replay_gain_hint">Folosește etichetele ReplayGain ale muzicii tale.</string>
+    <string name="settings_replay_gain_auto">Pornește singur când cea mai mare parte e etichetată.</string>
+    <string name="settings_save_mobile_data_hint">Pe date mobile, melodiile nedescărcate sunt redate la o rată de biți mai mică, potrivită conexiunii.</string>
 
 </resources>

@@ -33,8 +33,8 @@ the *th* of "weather" in place of the *f*. ASCII spelling: Seidr.
   day never deletes anything.
 - **Original quality.** Downloads are your files as they are on the server,
   and anything you've downloaded plays from the phone, even when you're
-  online. If you'd like, songs you haven't downloaded can stream at a lower
-  bitrate on mobile data.
+  online. To save mobile data, songs you haven't downloaded can stream at a
+  lower bitrate that suits the connection.
 - **Edit playlists anywhere.** Create, rename, add, remove, reorder and
   delete. Changes made offline are saved and sent when you're back.
 - **Changes show up straight away**, even ones made on another device.
@@ -48,7 +48,7 @@ the *th* of "weather" in place of the *f*. ASCII spelling: Seidr.
 - **Smoothly animated throughout**, from the progress bar to the artwork, and
   play, pause and skip fade gently instead of cutting.
 - **Swipe the cover** to skip.
-- **Even out volume** with your music's ReplayGain tags, if you like, and a
+- **Even out volume** with your music's ReplayGain tags, and a
   **sleep timer** that fades the music away.
 
 ### A proper queue

@@ -152,14 +152,13 @@
     <string name="log_copied">Skopiowano dziennik</string>
     <string name="log_no_app">Żadna aplikacja na tym urządzeniu nie może go udostępnić. Spróbuj Kopiuj.</string>
     <string name="log_subject">Dziennik Seiðr</string>
-    <string name="settings_mobile_streaming">Strumieniowanie przez dane komórkowe</string>
-    <string name="settings_mobile_original">Oryginalne pliki</string>
-    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
-    <string name="settings_mobile_explain">Utwory, których nie pobrano, mogą być odtwarzane przez dane komórkowe z niższą przepływnością, żeby zużywać ich mniej. Pobrane utwory i strumieniowanie przez Wi-Fi to zawsze oryginalne pliki.</string>
     <string name="settings_mobile_unsupported">Twój serwer nie potrafi konwertować muzyki do strumieniowania (Navidrome potrzebuje do tego ffmpeg), więc Seiðr odtwarza oryginalne pliki.</string>
-    <string name="settings_mobile_checking">Sprawdzam, czy twój serwer potrafi konwertować muzykę…</string>
     <string name="settings_playback">Odtwarzanie</string>
     <string name="settings_replay_gain">Wyrównaj głośność</string>
-    <string name="settings_replay_gain_hint">Korzysta ze znaczników ReplayGain twojej muzyki: poziom albumu, gdy album gra po kolei, w innych przypadkach poziom utworu. Utwory bez znaczników są ściszane, żeby pasowały.</string>
+    <string name="settings_save_mobile_data">Oszczędzaj dane komórkowe</string>
+    <string name="settings_replay_gain_coverage">Znaczniki ma około %1$d%% twojej biblioteki.</string>
+    <string name="settings_replay_gain_hint">Korzysta ze znaczników ReplayGain twojej muzyki.</string>
+    <string name="settings_replay_gain_auto">Włącza się samo, gdy będzie ich większość.</string>
+    <string name="settings_save_mobile_data_hint">Przez dane komórkowe niepobrane utwory grają z niższą przepływnością, dopasowaną do połączenia.</string>
 
 </resources>

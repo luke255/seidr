@@ -152,14 +152,13 @@
     <string name="log_copied">Logg kopiert</string>
     <string name="log_no_app">Ingen app på denne enheten kan dele den. Prøv Kopier i stedet.</string>
     <string name="log_subject">Seiðr-logg</string>
-    <string name="settings_mobile_streaming">Strømming på mobildata</string>
-    <string name="settings_mobile_original">Originalfiler</string>
-    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
-    <string name="settings_mobile_explain">Sanger som ikke er lastet ned, kan strømmes med lavere bithastighet på mobildata, så du bruker mindre. Nedlastinger og strømming på wifi er alltid originalfilene.</string>
     <string name="settings_mobile_unsupported">Serveren din kan ikke konvertere musikk for strømming (Navidrome trenger ffmpeg for det), så Seiðr strømmer originalfilene.</string>
-    <string name="settings_mobile_checking">Sjekker om serveren din kan konvertere musikk …</string>
     <string name="settings_playback">Avspilling</string>
     <string name="settings_replay_gain">Jevn ut volumet</string>
-    <string name="settings_replay_gain_hint">Bruker ReplayGain-taggene i musikken: albumnivå når et album spilles i rekkefølge, ellers sangnivå. Sanger uten tagger skrus ned så de passer.</string>
+    <string name="settings_save_mobile_data">Spar mobildata</string>
+    <string name="settings_replay_gain_coverage">Omtrent %1$d %% av biblioteket ditt har tagger.</string>
+    <string name="settings_replay_gain_hint">Bruker ReplayGain-taggene i musikken.</string>
+    <string name="settings_replay_gain_auto">Den slår seg på av seg selv når det meste er det.</string>
+    <string name="settings_save_mobile_data_hint">På mobildata strømmes sanger som ikke er lastet ned, med lavere bithastighet tilpasset forbindelsen.</string>
 
 </resources>

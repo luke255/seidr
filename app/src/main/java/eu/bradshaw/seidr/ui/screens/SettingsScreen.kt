@@ -48,7 +48,6 @@ import androidx.compose.material.icons.outlined.NewReleases
 import androidx.compose.material.icons.outlined.SystemUpdate
 import androidx.compose.material.icons.outlined.SignalCellularAlt
 import androidx.compose.material.icons.automirrored.outlined.VolumeUp
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
@@ -60,6 +59,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -99,6 +99,7 @@ import eu.bradshaw.seidr.ui.focusRing
 import eu.bradshaw.seidr.ui.theme.ThemeChoice
 import eu.bradshaw.seidr.ui.theme.colorSchemeFor
 import eu.bradshaw.seidr.update.Updater
+import kotlin.math.roundToInt
 
 @Composable
 fun SettingsScreen() {
@@ -131,8 +132,14 @@ fun SettingsScreen() {
 
             CardLabel(stringResource(if (tv) R.string.settings_playback else R.string.settings_playback_downloads))
             CardGroup {
-                val evenOut by graph.settings.replayGain.collectAsStateWithLifecycle()
-                ToggleItem(Icons.AutoMirrored.Outlined.VolumeUp, stringResource(R.string.settings_replay_gain), stringResource(R.string.settings_replay_gain_hint), evenOut) {
+                val evenOut by graph.loudness.on.collectAsStateWithLifecycle()
+                val tagged by graph.loudness.fraction.collectAsStateWithLifecycle()
+                val hint = stringResource(R.string.settings_replay_gain_hint)
+                val chosen by graph.settings.replayGainChoice.collectAsStateWithLifecycle()
+                // "Once most of it is" follows the coverage sentence, so only with it.
+                val auto = if (chosen == null && tagged != null) stringResource(R.string.settings_replay_gain_auto) else null
+                val coverage = tagged?.let { stringResource(R.string.settings_replay_gain_coverage, (it * 100).roundToInt()) }
+                ToggleItem(Icons.AutoMirrored.Outlined.VolumeUp, stringResource(R.string.settings_replay_gain), listOfNotNull(hint, coverage, auto).joinToString(" "), evenOut) {
                     graph.settings.setReplayGain(it)
                 }
                 // TVs are on mains power, and don't download.
@@ -318,55 +325,18 @@ private fun AccountCard(onSignOut: () -> Unit) {
     }
 }
 
-/** Streaming on mobile data: original files, or an MP3 bitrate (see `StreamQuality`). */
+/** Save mobile data: lower-bitrate streams on metered networks (see `StreamQuality`). */
 @Composable
 private fun MobileStreamingItem() {
     val graph = LocalActions.current.graph
-    val kbps by graph.settings.mobileKbps.collectAsStateWithLifecycle()
+    val on by graph.settings.saveMobileData.collectAsStateWithLifecycle()
     val supported by graph.streamQuality.supported.collectAsStateWithLifecycle()
-    var open by remember { mutableStateOf(false) }
-    val current = if (kbps == 0 || supported == false) stringResource(R.string.settings_mobile_original) else stringResource(R.string.settings_mobile_mp3, kbps)
-    CardItem(Icons.Outlined.SignalCellularAlt, stringResource(R.string.settings_mobile_streaming), current, trailing = { Chevron() }) {
-        open = true
-        graph.streamQuality.check()
-    }
-    if (!open) return
-    AlertDialog(
-        onDismissRequest = { open = false },
-        title = { Text(stringResource(R.string.settings_mobile_streaming)) },
-        text = {
-            Column {
-                Text(stringResource(R.string.settings_mobile_explain), style = MaterialTheme.typography.bodyMedium)
-                when (supported) {
-                    false -> Text(stringResource(R.string.settings_mobile_unsupported), style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(top = 8.dp))
-                    null -> Text(stringResource(R.string.settings_mobile_checking), style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 8.dp))
-                    true -> {}
-                }
-                Spacer(Modifier.height(8.dp))
-                for (choice in listOf(0, 320, 192, 128)) {
-                    val enabled = choice == 0 || supported == true
-                    val selected = choice == (if (supported == false) 0 else kbps)
-                    Row(
-                        Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
-                            .selectable(selected, enabled = enabled, role = Role.RadioButton) { graph.settings.setMobileKbps(choice); open = false }
-                            .padding(vertical = 10.dp, horizontal = 4.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        RadioButton(selected, null, enabled = enabled)
-                        Spacer(Modifier.width(12.dp))
-                        Text(
-                            if (choice == 0) stringResource(R.string.settings_mobile_original) else stringResource(R.string.settings_mobile_mp3, choice),
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = if (enabled) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
-                        )
-                    }
-                }
-            }
-        },
-        confirmButton = { TextButton(onClick = { open = false }) { Text(stringResource(R.string.common_close)) } },
-    )
+    LaunchedEffect(on) { if (on) graph.streamQuality.check() }
+    ToggleItem(
+        Icons.Outlined.SignalCellularAlt, stringResource(R.string.settings_save_mobile_data),
+        stringResource(if (on && supported == false) R.string.settings_mobile_unsupported else R.string.settings_save_mobile_data_hint),
+        on,
+    ) { graph.settings.setSaveMobileData(it) }
 }
 
 @Composable

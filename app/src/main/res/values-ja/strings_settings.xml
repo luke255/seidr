@@ -152,14 +152,13 @@
     <string name="log_copied">ログをコピーしました</string>
     <string name="log_no_app">このデバイスには共有できるアプリがありません。代わりに「コピー」を使ってください。</string>
     <string name="log_subject">Seiðr のログ</string>
-    <string name="settings_mobile_streaming">モバイルデータでのストリーミング</string>
-    <string name="settings_mobile_original">元のファイル</string>
-    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
-    <string name="settings_mobile_explain">ダウンロードしていない曲は、モバイルデータ通信時に低いビットレートでストリーミングして通信量を抑えられます。ダウンロードと Wi-Fi でのストリーミングは常に元のファイルです。</string>
     <string name="settings_mobile_unsupported">お使いのサーバーはストリーミング用に音楽を変換できません（Navidrome には ffmpeg が必要です）。そのため Seiðr は元のファイルをストリーミングします。</string>
-    <string name="settings_mobile_checking">サーバーが音楽を変換できるか確認しています…</string>
     <string name="settings_playback">再生</string>
     <string name="settings_replay_gain">音量をそろえる</string>
-    <string name="settings_replay_gain_hint">音楽の ReplayGain タグを使います。アルバムを曲順どおりに再生するときはアルバム単位、それ以外は曲単位です。タグのない曲は合わせて音量を下げます。</string>
+    <string name="settings_save_mobile_data">モバイルデータを節約</string>
+    <string name="settings_replay_gain_coverage">ライブラリの約 %1$d%% にタグがあります。</string>
+    <string name="settings_replay_gain_hint">音楽の ReplayGain タグを使います。</string>
+    <string name="settings_replay_gain_auto">大半にタグが付くと自動でオンになります。</string>
+    <string name="settings_save_mobile_data_hint">モバイルデータ通信時は、ダウンロードしていない曲を接続に合わせた低いビットレートで再生します。</string>
 
 </resources>

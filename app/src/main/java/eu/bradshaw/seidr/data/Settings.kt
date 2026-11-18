@@ -43,13 +43,13 @@ class Settings(context: Context) {
     /** Downloads only run on unmetered networks while this is set (the default). */
     val wifiOnly: StateFlow<Boolean> = _wifiOnly.asStateFlow()
 
-    private val _replayGain = MutableStateFlow(prefs.getBoolean("replay_gain", false))
-    /** Even out volume with ReplayGain tags (`Loudness`); off by default. */
-    val replayGain: StateFlow<Boolean> = _replayGain.asStateFlow()
+    private val _replayGainChoice = MutableStateFlow(if (prefs.contains("replay_gain")) prefs.getBoolean("replay_gain", false) else null)
+    /** Even out volume as the user set it; null until they do, and `LoudnessCoverage` decides. */
+    val replayGainChoice: StateFlow<Boolean?> = _replayGainChoice.asStateFlow()
 
-    private val _mobileKbps = MutableStateFlow(prefs.getInt("mobile_kbps", 0))
-    /** Streaming on metered networks: an MP3 bitrate, or 0 for the original file (the default). */
-    val mobileKbps: StateFlow<Int> = _mobileKbps.asStateFlow()
+    private val _saveMobileData = MutableStateFlow(prefs.getBoolean("save_mobile_data", false))
+    /** Stream lower-bitrate MP3 on metered networks (`StreamQuality`); off by default. */
+    val saveMobileData: StateFlow<Boolean> = _saveMobileData.asStateFlow()
 
     private val _theme = MutableStateFlow(run {
         // Before themes were per login, one "theme" served everyone: it's the signed-in login's.
@@ -182,12 +182,12 @@ class Settings(context: Context) {
 
     fun setReplayGain(value: Boolean) {
         prefs.edit().putBoolean("replay_gain", value).apply()
-        _replayGain.value = value
+        _replayGainChoice.value = value
     }
 
-    fun setMobileKbps(kbps: Int) {
-        prefs.edit().putInt("mobile_kbps", kbps).apply()
-        _mobileKbps.value = kbps
+    fun setSaveMobileData(value: Boolean) {
+        prefs.edit().putBoolean("save_mobile_data", value).apply()
+        _saveMobileData.value = value
     }
 
     /** Whether [url]'s server can convert for streaming (see `StreamQuality`); null if not known yet. */

@@ -152,14 +152,13 @@
     <string name="log_copied">Journal copié</string>
     <string name="log_no_app">Aucune appli de cet appareil ne peut le partager. Essayez plutôt Copier.</string>
     <string name="log_subject">Journal Seiðr</string>
-    <string name="settings_mobile_streaming">Streaming sur données mobiles</string>
-    <string name="settings_mobile_original">Fichiers d\'origine</string>
-    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
-    <string name="settings_mobile_explain">Les titres non téléchargés peuvent être lus à un débit plus faible sur les données mobiles, pour en consommer moins. Les téléchargements et le streaming en Wi-Fi utilisent toujours les fichiers d\'origine.</string>
     <string name="settings_mobile_unsupported">Votre serveur ne peut pas convertir la musique pour le streaming (Navidrome a besoin de ffmpeg pour cela), donc Seiðr lit les fichiers d\'origine.</string>
-    <string name="settings_mobile_checking">Vérification de la capacité de votre serveur à convertir la musique…</string>
     <string name="settings_playback">Lecture</string>
     <string name="settings_replay_gain">Uniformiser le volume</string>
-    <string name="settings_replay_gain_hint">Utilise les balises ReplayGain de votre musique : niveaux de l\'album quand un album est lu dans l\'ordre, niveaux de chaque titre sinon. Les titres sans balises sont baissés pour s\'accorder.</string>
+    <string name="settings_save_mobile_data">Économiser les données mobiles</string>
+    <string name="settings_replay_gain_coverage">Environ %1$d %% de votre bibliothèque a des balises.</string>
+    <string name="settings_replay_gain_hint">Utilise les balises ReplayGain de votre musique.</string>
+    <string name="settings_replay_gain_auto">Il s\'active tout seul dès que la majeure partie l\'est.</string>
+    <string name="settings_save_mobile_data_hint">Sur les données mobiles, les titres non téléchargés sont lus à un débit plus faible, adapté à la connexion.</string>
 
 </resources>

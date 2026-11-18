@@ -152,14 +152,13 @@
     <string name="log_copied">Журнал скопійовано</string>
     <string name="log_no_app">Жоден застосунок на цьому пристрої не може ним поділитися. Спробуйте «Копіювати».</string>
     <string name="log_subject">Журнал Seiðr</string>
-    <string name="settings_mobile_streaming">Потокове відтворення через мобільну мережу</string>
-    <string name="settings_mobile_original">Оригінальні файли</string>
-    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
-    <string name="settings_mobile_explain">Не завантажені пісні можна відтворювати через мобільну мережу з нижчим бітрейтом, щоб витрачати менше трафіку. Завантаження й відтворення через Wi-Fi — завжди оригінальні файли.</string>
     <string name="settings_mobile_unsupported">Ваш сервер не вміє конвертувати музику для потокового відтворення (Navidrome для цього потрібен ffmpeg), тому Seiðr відтворює оригінальні файли.</string>
-    <string name="settings_mobile_checking">Перевіряємо, чи може ваш сервер конвертувати музику…</string>
     <string name="settings_playback">Відтворення</string>
     <string name="settings_replay_gain">Вирівнювати гучність</string>
-    <string name="settings_replay_gain_hint">Використовує теги ReplayGain вашої музики: рівень альбому, коли альбом грає по порядку, інакше рівень пісні. Пісні без тегів стають тихішими, щоб не вирізнятися.</string>
+    <string name="settings_save_mobile_data">Заощаджувати мобільний трафік</string>
+    <string name="settings_replay_gain_coverage">Теги має приблизно %1$d%% вашої бібліотеки.</string>
+    <string name="settings_replay_gain_hint">Використовує теги ReplayGain вашої музики.</string>
+    <string name="settings_replay_gain_auto">Увімкнеться саме, коли тегів матиме більша частина.</string>
+    <string name="settings_save_mobile_data_hint">У мобільній мережі не завантажені пісні грають з нижчим бітрейтом під якість з\'єднання.</string>
 
 </resources>

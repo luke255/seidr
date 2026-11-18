@@ -152,14 +152,13 @@
     <string name="log_copied">Το αρχείο καταγραφής αντιγράφηκε</string>
     <string name="log_no_app">Καμία εφαρμογή σε αυτή τη συσκευή δεν μπορεί να το κοινοποιήσει. Δοκίμασε την Αντιγραφή.</string>
     <string name="log_subject">Αρχείο καταγραφής Seiðr</string>
-    <string name="settings_mobile_streaming">Ροή με δεδομένα κινητής</string>
-    <string name="settings_mobile_original">Αρχικά αρχεία</string>
-    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
-    <string name="settings_mobile_explain">Τα τραγούδια που δεν έχεις κατεβάσει μπορούν να παίζουν με χαμηλότερο ρυθμό bit με δεδομένα κινητής, για να καταναλώνουν λιγότερα. Οι λήψεις και η ροή μέσω Wi-Fi είναι πάντα τα αρχικά αρχεία.</string>
     <string name="settings_mobile_unsupported">Ο διακομιστής σου δεν μπορεί να μετατρέψει μουσική για ροή (το Navidrome χρειάζεται το ffmpeg γι\' αυτό), οπότε το Seiðr παίζει τα αρχικά αρχεία.</string>
-    <string name="settings_mobile_checking">Έλεγχος αν ο διακομιστής σου μπορεί να μετατρέψει μουσική…</string>
     <string name="settings_playback">Αναπαραγωγή</string>
     <string name="settings_replay_gain">Εξισορρόπηση έντασης</string>
-    <string name="settings_replay_gain_hint">Χρησιμοποιεί τις ετικέτες ReplayGain της μουσικής σου: επίπεδα άλμπουμ όταν ένα άλμπουμ παίζει με τη σειρά, αλλιώς επίπεδα τραγουδιού. Τα τραγούδια χωρίς ετικέτες χαμηλώνουν για να ταιριάζουν.</string>
+    <string name="settings_save_mobile_data">Εξοικονόμηση δεδομένων κινητής</string>
+    <string name="settings_replay_gain_coverage">Περίπου το %1$d%% της βιβλιοθήκης σου έχει ετικέτες.</string>
+    <string name="settings_replay_gain_hint">Χρησιμοποιεί τις ετικέτες ReplayGain της μουσικής σου.</string>
+    <string name="settings_replay_gain_auto">Ενεργοποιείται μόνο του μόλις το έχει το μεγαλύτερο μέρος.</string>
+    <string name="settings_save_mobile_data_hint">Με δεδομένα κινητής, τα τραγούδια που δεν έχεις κατεβάσει παίζουν με χαμηλότερο ρυθμό bit, ανάλογα με τη σύνδεση.</string>
 
 </resources>

@@ -165,13 +165,13 @@ class PlaybackService : MediaLibraryService() {
                 .collect { restoreFixedSongs(); hideBadSongs() }
         }
         scope.launch { graph.sleep.mode.collectLatest(::sleep) }
-        scope.launch { graph.settings.replayGain.collect { applyGain() } }
+        scope.launch { graph.loudness.on.collect { applyGain() } }
     }
 
     /** ReplayGain for the current song, by its place in the queue ([Loudness]). */
     private fun applyGain() {
         val item = player.currentMediaItem
-        if (!graph.settings.replayGain.value || item == null) { fading.gain = 1f; return }
+        if (!graph.loudness.on.value || item == null) { fading.gain = 1f; return }
         val i = player.currentMediaItemIndex
         fun albumAt(j: Int) = if (j in 0 until player.mediaItemCount) player.getMediaItemAt(j).mediaMetadata.extras?.getString("albumId") else null
         val x = item.mediaMetadata.extras

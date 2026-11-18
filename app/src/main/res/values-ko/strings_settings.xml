@@ -152,14 +152,13 @@
     <string name="log_copied">로그를 복사했습니다</string>
     <string name="log_no_app">이 기기에는 공유할 수 있는 앱이 없습니다. 대신 복사를 사용해 보세요.</string>
     <string name="log_subject">Seiðr 로그</string>
-    <string name="settings_mobile_streaming">모바일 데이터 스트리밍</string>
-    <string name="settings_mobile_original">원본 파일</string>
-    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
-    <string name="settings_mobile_explain">다운로드하지 않은 곡은 모바일 데이터에서 낮은 비트레이트로 스트리밍해 데이터를 아낄 수 있습니다. 다운로드와 Wi-Fi 스트리밍은 항상 원본 파일입니다.</string>
     <string name="settings_mobile_unsupported">서버가 스트리밍용으로 음악을 변환할 수 없습니다(Navidrome에는 ffmpeg가 필요합니다). 그래서 Seiðr는 원본 파일을 스트리밍합니다.</string>
-    <string name="settings_mobile_checking">서버가 음악을 변환할 수 있는지 확인하는 중…</string>
     <string name="settings_playback">재생</string>
     <string name="settings_replay_gain">음량 고르게</string>
-    <string name="settings_replay_gain_hint">음악의 ReplayGain 태그를 사용합니다. 앨범을 순서대로 재생할 때는 앨범 기준, 그 외에는 곡 기준입니다. 태그가 없는 곡은 맞춰서 소리를 낮춥니다.</string>
+    <string name="settings_save_mobile_data">모바일 데이터 절약</string>
+    <string name="settings_replay_gain_coverage">보관함의 약 %1$d%%에 태그가 있습니다.</string>
+    <string name="settings_replay_gain_hint">음악의 ReplayGain 태그를 사용합니다.</string>
+    <string name="settings_replay_gain_auto">대부분에 태그가 있으면 자동으로 켜집니다.</string>
+    <string name="settings_save_mobile_data_hint">모바일 데이터에서는 다운로드하지 않은 곡을 연결에 맞춰 낮은 비트레이트로 재생합니다.</string>
 
 </resources>

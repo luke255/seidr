@@ -152,14 +152,13 @@
     <string name="log_copied">Registro copiato</string>
     <string name="log_no_app">Nessuna app su questo dispositivo può condividerlo. Prova con Copia.</string>
     <string name="log_subject">Registro di Seiðr</string>
-    <string name="settings_mobile_streaming">Streaming con dati mobili</string>
-    <string name="settings_mobile_original">File originali</string>
-    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
-    <string name="settings_mobile_explain">I brani non scaricati possono essere riprodotti con un bitrate più basso con i dati mobili, per consumarne meno. I download e lo streaming in Wi-Fi usano sempre i file originali.</string>
     <string name="settings_mobile_unsupported">Il tuo server non può convertire la musica per lo streaming (Navidrome ha bisogno di ffmpeg per farlo), quindi Seiðr riproduce i file originali.</string>
-    <string name="settings_mobile_checking">Verifico se il tuo server può convertire la musica…</string>
     <string name="settings_playback">Riproduzione</string>
     <string name="settings_replay_gain">Uniforma il volume</string>
-    <string name="settings_replay_gain_hint">Usa i tag ReplayGain della tua musica: livelli dell\'album quando un album è riprodotto in ordine, altrimenti quelli del brano. I brani senza tag vengono abbassati per uniformarli.</string>
+    <string name="settings_save_mobile_data">Risparmia dati mobili</string>
+    <string name="settings_replay_gain_coverage">Circa il %1$d%% della tua libreria ha i tag.</string>
+    <string name="settings_replay_gain_hint">Usa i tag ReplayGain della tua musica.</string>
+    <string name="settings_replay_gain_auto">Si attiva da solo quando lo è la maggior parte.</string>
+    <string name="settings_save_mobile_data_hint">Con i dati mobili, i brani non scaricati vengono riprodotti con un bitrate più basso, adatto alla connessione.</string>
 
 </resources>
