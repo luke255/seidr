@@ -95,4 +95,7 @@
     <string name="vis_warning_flat">Sommige presets flitsen, knipperen en draaien snel. Dat kan aanvallen uitlokken bij mensen met lichtgevoelige epilepsie. Voel je je niet lekker, kijk dan weg en sluit de visualizer.</string>
     <string name="vis_continue">Doorgaan</string>
     <string name="vis_not_now">Niet nu</string>
+    <string name="cast_unreachable">Kan %1$s niet bereiken.</string>
+    <string name="cast_taken">%1$s speelt nu iets anders af.</string>
+    <string name="cast_load_failed">%1$s kon %2$s niet afspelen.</string>
 </resources>

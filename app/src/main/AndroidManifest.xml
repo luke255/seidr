@@ -9,6 +9,8 @@
     <!-- Android TV: runs with a D-pad remote, no touchscreen needed. -->
     <uses-feature android:name="android.software.leanback" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+    <!-- CHANGE_WIFI_MULTICAST_STATE (TvKeeper) would otherwise imply Wi-Fi is required; many TVs use ethernet. -->
+    <uses-feature android:name="android.hardware.wifi" android:required="false" />
     <!-- Quest: the immersive visualiser (head tracking; hands as well as controllers). -->
     <uses-feature android:name="android.hardware.vr.headtracking" android:version="1" android:required="false" />
     <uses-feature android:name="oculus.software.handtracking" android:required="false" />
@@ -17,6 +19,10 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <!-- Android TV: TvKeeper keeps Connect answering (a "connected device" service, which mDNS's multicast qualifies). -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <!-- Self-update (Updater): the first update asks to allow installs from this app. -->
@@ -106,6 +112,20 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/shared_files" />
         </provider>
+
+        <service
+            android:name=".connect.TvKeeper"
+            android:exported="false"
+            android:foregroundServiceType="connectedDevice" />
+
+        <receiver
+            android:name=".connect.TvKeeperStarter"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
 
         <receiver
             android:name=".update.UpdateReceiver"

@@ -99,4 +99,7 @@
     <string name="vis_warning_flat">Niektóre presety szybko migają, błyskają i wirują. U osób z padaczką fotowrażliwą może to wywołać napad. Jeśli poczujesz się źle, odwróć wzrok i zamknij wizualizację.</string>
     <string name="vis_continue">Dalej</string>
     <string name="vis_not_now">Nie teraz</string>
+    <string name="cast_unreachable">Nie udało się połączyć z %1$s.</string>
+    <string name="cast_taken">%1$s odtwarza teraz coś innego.</string>
+    <string name="cast_load_failed">%1$s nie może odtworzyć %2$s.</string>
 </resources>

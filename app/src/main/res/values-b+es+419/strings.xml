@@ -97,4 +97,7 @@
     <string name="vis_warning_flat">Algunos presets parpadean, destellan y giran muy rápido. Eso puede provocar convulsiones en personas con epilepsia fotosensible. Si te sientes mal, mira hacia otro lado y cierra el visualizador.</string>
     <string name="vis_continue">Continuar</string>
     <string name="vis_not_now">Ahora no</string>
+    <string name="cast_unreachable">No se pudo conectar con %1$s.</string>
+    <string name="cast_taken">%1$s está reproduciendo otra cosa ahora.</string>
+    <string name="cast_load_failed">%1$s no pudo reproducir %2$s.</string>
 </resources>

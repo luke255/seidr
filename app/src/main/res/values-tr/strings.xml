@@ -95,4 +95,7 @@
     <string name="vis_warning_flat">Bazı ön ayarlar hızla yanıp söner, çakar ve döner. Bu, ışığa duyarlı epilepsisi olan kişilerde nöbeti tetikleyebilir. Kendini kötü hissedersen başka yöne bak ve görselleştiriciyi kapat.</string>
     <string name="vis_continue">Devam</string>
     <string name="vis_not_now">Şimdi değil</string>
+    <string name="cast_unreachable">%1$s cihazına ulaşılamadı.</string>
+    <string name="cast_taken">%1$s şu anda başka bir şey çalıyor.</string>
+    <string name="cast_load_failed">%1$s, %2$s parçasını çalamadı.</string>
 </resources>

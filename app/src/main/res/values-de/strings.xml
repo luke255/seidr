@@ -95,4 +95,7 @@
     <string name="vis_warning_flat">Manche Presets blitzen, flackern und wirbeln schnell. Das kann bei Menschen mit fotosensitiver Epilepsie Anfälle auslösen. Wenn dir unwohl wird, schau weg und schließe den Visualizer.</string>
     <string name="vis_continue">Weiter</string>
     <string name="vis_not_now">Nicht jetzt</string>
+    <string name="cast_unreachable">%1$s ist nicht erreichbar.</string>
+    <string name="cast_taken">%1$s spielt jetzt etwas anderes.</string>
+    <string name="cast_load_failed">%1$s konnte %2$s nicht abspielen.</string>
 </resources>

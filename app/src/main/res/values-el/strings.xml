@@ -95,4 +95,7 @@
     <string name="vis_warning_flat">Ορισμένα preset αναβοσβήνουν, τρεμοπαίζουν και στροβιλίζονται γρήγορα. Αυτό μπορεί να προκαλέσει κρίσεις σε άτομα με φωτοευαίσθητη επιληψία. Αν δεν νιώσεις καλά, κοίτα αλλού και κλείσε την οπτικοποίηση.</string>
     <string name="vis_continue">Συνέχεια</string>
     <string name="vis_not_now">Όχι τώρα</string>
+    <string name="cast_unreachable">Δεν ήταν δυνατή η σύνδεση με το %1$s.</string>
+    <string name="cast_taken">Το %1$s παίζει κάτι άλλο τώρα.</string>
+    <string name="cast_load_failed">Το %1$s δεν μπόρεσε να παίξει το %2$s.</string>
 </resources>

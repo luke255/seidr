@@ -93,4 +93,7 @@
     <string name="vis_warning_flat">一部のプリセットは、激しく点滅したり、すばやく渦を巻いたりします。光過敏性てんかんのある方は発作を起こすおそれがあります。気分が悪くなったら、画面から目を離してビジュアライザーを閉じてください。</string>
     <string name="vis_continue">続ける</string>
     <string name="vis_not_now">今はしない</string>
+    <string name="cast_unreachable">%1$s に接続できませんでした。</string>
+    <string name="cast_taken">%1$s は今ほかのものを再生しています。</string>
+    <string name="cast_load_failed">%1$s で %2$s を再生できませんでした。</string>
 </resources>

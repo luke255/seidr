@@ -97,4 +97,7 @@
     <string name="vis_warning_flat">Alguns presets piscam, cintilam e giram rápido. Isso pode provocar convulsões em pessoas com epilepsia fotossensível. Se sentir algum mal-estar, desvie o olhar e feche o visualizador.</string>
     <string name="vis_continue">Continuar</string>
     <string name="vis_not_now">Agora não</string>
+    <string name="cast_unreachable">Não foi possível conectar a %1$s.</string>
+    <string name="cast_taken">%1$s está tocando outra coisa agora.</string>
+    <string name="cast_load_failed">%1$s não conseguiu tocar %2$s.</string>
 </resources>

@@ -99,4 +99,7 @@
     <string name="vis_warning_flat">Некоторые пресеты быстро мигают, вспыхивают и кружатся. У людей с фоточувствительной эпилепсией это может вызвать приступ. Если почувствуете себя плохо, отведите взгляд и закройте визуализацию.</string>
     <string name="vis_continue">Продолжить</string>
     <string name="vis_not_now">Не сейчас</string>
+    <string name="cast_unreachable">Не удалось подключиться к %1$s.</string>
+    <string name="cast_taken">%1$s сейчас воспроизводит что-то другое.</string>
+    <string name="cast_load_failed">%1$s не может воспроизвести %2$s.</string>
 </resources>

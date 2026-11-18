@@ -93,4 +93,7 @@
     <string name="vis_warning_flat">일부 프리셋은 빠르게 번쩍이고 깜빡이며 소용돌이쳐요. 광과민성 뇌전증이 있는 분은 발작을 일으킬 수 있어요. 몸이 불편하면 화면에서 눈을 떼고 비주얼라이저를 닫아 주세요.</string>
     <string name="vis_continue">계속</string>
     <string name="vis_not_now">나중에</string>
+    <string name="cast_unreachable">%1$s에 연결할 수 없습니다.</string>
+    <string name="cast_taken">%1$s에서 지금 다른 것을 재생하고 있습니다.</string>
+    <string name="cast_load_failed">%1$s에서 %2$s을(를) 재생할 수 없습니다.</string>
 </resources>

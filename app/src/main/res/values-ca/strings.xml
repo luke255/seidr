@@ -97,4 +97,7 @@
     <string name="vis_warning_flat">Alguns presets fan pampallugues, centellegen i giren molt de pressa. Això pot provocar crisis en persones amb epilèpsia fotosensible. Si et trobes malament, aparta la vista i tanca el visualitzador.</string>
     <string name="vis_continue">Continua</string>
     <string name="vis_not_now">Ara no</string>
+    <string name="cast_unreachable">No s\'ha pogut connectar amb %1$s.</string>
+    <string name="cast_taken">%1$s ara reprodueix una altra cosa.</string>
+    <string name="cast_load_failed">%1$s no ha pogut reproduir %2$s.</string>
 </resources>

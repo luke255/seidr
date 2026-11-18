@@ -64,15 +64,19 @@ data class Peer(
     val name: String,
     val hosts: List<String>,
     val port: Int,
-    /** "phone", "tv" or "headset", for the icon. */
+    /** "phone", "tv", "headset", "speaker" or "group", for the icon. */
     val kind: String = KIND_PHONE,
     /** Signed out: anyone can play on it, or sign it in. */
     val guest: Boolean = false,
+    /** A Cast device, not a Seiðr: [eu.bradshaw.seidr.cast.CastPlayer] plays there. Never sent to other devices. */
+    val cast: Boolean = false,
 ) {
     companion object {
         const val KIND_PHONE = "phone"
         const val KIND_TV = "tv"
         const val KIND_HEADSET = "headset"
+        const val KIND_SPEAKER = "speaker"
+        const val KIND_SPEAKER_GROUP = "group"
     }
 }
 

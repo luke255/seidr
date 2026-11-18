@@ -122,4 +122,7 @@
     <string name="vis_warning_flat">Some presets flash, strobe and swirl quickly. That can trigger seizures in people with photosensitive epilepsy. If you feel unwell, look away and close the visualiser.</string>
     <string name="vis_continue">Continue</string>
     <string name="vis_not_now">Not now</string>
+    <string name="cast_unreachable">Couldn\'t reach %1$s.</string>
+    <string name="cast_taken">%1$s is playing something else now.</string>
+    <string name="cast_load_failed">%1$s couldn\'t play %2$s.</string>
 </resources>

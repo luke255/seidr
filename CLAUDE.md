@@ -175,9 +175,28 @@ and "Rules that must hold" before changing sync or playback.
     saves it; `data/Account`). Another user's `Guest` takes the device over.
     The guest ends on Disconnect, when playback moves away, or on sign-in.
     Its queue isn't saved and its scrobbles aren't queued for retry.
+  - On Android TV, `TvKeeper` (a "connected device" foreground service,
+    started at boot, on update and at app start) keeps the process out of
+    the freezer so Connect answers with Seiðr closed; a frozen app never
+    answers. Android still won't let it open itself (background activity
+    launch), so playback arriving there plays without the screen following.
   - Signed out, the app is `ui/screens/SignedOutScreen`: an idle Now Playing
     with Log in, or a locked Now Playing (read-only queue, lyrics,
     visualiser) in the sender's colour (`portableTheme`).
+- **`cast/`**: Google Cast (speakers, groups, TVs) with no Google libraries,
+  after pychromecast (credited in `README.md`). `CastWire` hand-encodes the
+  protobuf frames, `CastChannel` is the TLS socket (devices' certificates
+  can't be checked), `CastLink` launches the Default Media Receiver and
+  matches replies. `CastPlayer` (a `SimpleBasePlayer`) goes in the session
+  like `RemotePlayer`, via `ConnectSession` (`Peer.cast`, found by
+  `CastDiscovery` and listed in Connect's picker). Seiðr's queue stays here:
+  the receiver holds a window (`CastQueue`, pure), each item's `contentId`
+  is its queue key, and repeat-all and scrobbles are ours. Speakers never get
+  server links: they fetch from `CastRelay`, a small HTTP server on this
+  device (random per-session path, queue songs only, kid rules, local files
+  first, else proxied with Range). Google speakers ignore local DNS, and the
+  relay keeps the login here. `CastLiveTest` runs against a real device only
+  when `SEIDR_TEST_CAST` names one.
 - **`update/`**: self-update from GitHub Releases. `Updater` reads the latest
   release's `version.json` on resume (30 min throttle; off via Settings →
   About), downloads the APK it names, verifies sha256 and offers a dialog.

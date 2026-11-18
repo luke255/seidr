@@ -97,4 +97,7 @@
     <string name="vis_warning_flat">Certains préréglages clignotent, flashent et tourbillonnent rapidement. Cela peut déclencher des crises chez les personnes atteintes d\'épilepsie photosensible. Si vous vous sentez mal, détournez le regard et fermez le visualiseur.</string>
     <string name="vis_continue">Continuer</string>
     <string name="vis_not_now">Pas maintenant</string>
+    <string name="cast_unreachable">Impossible de joindre %1$s.</string>
+    <string name="cast_taken">%1$s lit autre chose maintenant.</string>
+    <string name="cast_load_failed">%1$s n\'a pas pu lire %2$s.</string>
 </resources>

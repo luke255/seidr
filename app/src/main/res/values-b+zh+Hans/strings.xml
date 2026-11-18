@@ -93,4 +93,7 @@
     <string name="vis_warning_flat">部分预设会快速闪烁、频闪和旋转，可能诱发光敏性癫痫患者发作。如感不适，请移开视线并关闭可视化效果。</string>
     <string name="vis_continue">继续</string>
     <string name="vis_not_now">暂不</string>
+    <string name="cast_unreachable">无法连接到 %1$s。</string>
+    <string name="cast_taken">%1$s 现在正在播放其他内容。</string>
+    <string name="cast_load_failed">%1$s 无法播放 %2$s。</string>
 </resources>

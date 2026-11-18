@@ -97,4 +97,7 @@
     <string name="vis_warning_flat">Alcuni preset lampeggiano, pulsano e vorticano rapidamente. Questo può scatenare crisi nelle persone con epilessia fotosensibile. Se non ti senti bene, distogli lo sguardo e chiudi il visualizzatore.</string>
     <string name="vis_continue">Continua</string>
     <string name="vis_not_now">Non ora</string>
+    <string name="cast_unreachable">Impossibile raggiungere %1$s.</string>
+    <string name="cast_taken">%1$s ora sta riproducendo altro.</string>
+    <string name="cast_load_failed">%1$s non è riuscito a riprodurre %2$s.</string>
 </resources>

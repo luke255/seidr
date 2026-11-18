@@ -67,6 +67,8 @@ class ConnectSession(
     private var port = 0
     private val clients = mutableListOf<Client>()
     private var link: Link? = null
+    /** The Cast device playing, while one is (never at the same time as [link]). */
+    private var cast: eu.bradshaw.seidr.cast.CastPlayer? = null
     private var busy = false
 
     fun start() {
@@ -89,6 +91,7 @@ class ConnectSession(
             graph.settings.server.drop(1).collect {
                 if (it == null) {
                     link?.let(::dropLink)
+                    cast?.let { c -> endCast(c) }
                     clients.toList().forEach { c -> c.close() }
                 } else {
                     endGuest(connect.str(R.string.connect_peer_signed_in, connect.name))
@@ -120,6 +123,7 @@ class ConnectSession(
         local.removeListener(hostListener)
         link?.close()
         link = null
+        cast?.let { c -> cast = null; c.leave() }
         clients.toList().forEach { it.close() }
         runCatching { server?.close() }
         scope.cancel()
@@ -139,15 +143,20 @@ class ConnectSession(
         busy = true
         try {
             val cur = link
+            val curCast = cast
             if (target == null) {
                 if (cur != null) bringBack(cur)
+                if (curCast != null) endCast(curCast)?.let { adopt(it) }
                 return
             }
-            if (cur?.peer?.id == target.id) return
+            if ((cur?.peer ?: curCast?.peer)?.id == target.id) return
             connect._connecting.value = target.id
+            if (target.cast) { castOn(target, onError); return }
             val next = openLink(target, onError = onError) ?: return
             val first = next.first.await()
-            if (cur != null) {
+            if (curCast != null) {
+                endCast(curCast, back = false)?.let { next.send(it) }
+            } else if (cur != null) {
                 // From one remote device to another: carry its final state over. Whether it
                 // was playing is read first: the release pauses it.
                 val wasPlaying = cur.player.state?.playWhenReady == true
@@ -196,10 +205,78 @@ class ConnectSession(
     private fun ConnectMessage.State.toSetQueue(queue: List<QueueEntry>) =
         RemoteOp.SetQueue(queue, index, positionMs, playWhenReady, shuffle, repeat)
 
+    // --- Cast devices ---------------------------------------------------------------
+
+    /** Moves playback to a Cast device, from wherever it is now. */
+    private suspend fun castOn(target: Peer, onError: ((String) -> Boolean)?) {
+        val next = eu.bradshaw.seidr.cast.CastPlayer(graph, target, ::castGone)
+        next.connect()?.let { message ->
+            if (onError?.invoke(message) != true) connect.tell(message)
+            return
+        }
+        val l = link
+        val c = cast
+        val from: RemoteOp.SetQueue? = when {
+            c != null -> endCast(c, back = false)
+            l != null -> {
+                // Read before the release, which pauses it. Not sent anywhere: other devices can't follow to a speaker.
+                val wasPlaying = l.player.state?.playWhenReady == true
+                val final = l.request(RemoteOp.Release(null)) ?: l.player.state
+                val queue = l.player.queue
+                link = null
+                l.close()
+                if (final != null && queue.isNotEmpty()) final.toSetQueue(queue).copy(play = wasPlaying) else null
+            }
+            local.mediaItemCount > 0 -> localState(play = local.playWhenReady && local.playbackState != Player.STATE_ENDED)
+            else -> null
+        }
+        if (local.playWhenReady) local.pause()
+        cast = next
+        setSessionPlayer(next)
+        connect._active.value = target
+        next.start(from)
+    }
+
+    /**
+     * Stops the Cast device (it goes quiet) and returns where it had got to.
+     * With [back], the session gets this device's own player again.
+     */
+    private fun endCast(c: eu.bradshaw.seidr.cast.CastPlayer, back: Boolean = true): RemoteOp.SetQueue? {
+        val h = c.handoff()
+        // First: the session releasing it would otherwise hang up before the speaker is told to stop.
+        c.leave()
+        if (cast === c) {
+            cast = null
+            if (back) { setSessionPlayer(local); connect._active.value = null }
+        }
+        return h
+    }
+
+    /** The speaker dropped out or someone else took it: the music comes back here, paused. */
+    private fun castGone(c: eu.bradshaw.seidr.cast.CastPlayer, reason: String) {
+        if (cast !== c) return
+        val h = c.handoff()
+        cast = null
+        setSessionPlayer(local)
+        connect._active.value = null
+        h?.let { adopt(it.copy(play = false)) }
+        connect.tell(reason)
+    }
+
+    private fun adopt(h: RemoteOp.SetQueue) {
+        if (h.entries.isEmpty()) return
+        local.setMediaItems(h.entries.map { it.toMediaItem(graph) }, h.index.coerceIn(0, h.entries.lastIndex), h.positionMs)
+        h.repeat?.let { local.repeatMode = it }
+        h.shuffle?.let(::setShuffleFlag)
+        local.prepare()
+        if (h.play == true) local.play()
+    }
+
     /** Makes [next] the device this one controls. */
     private fun use(next: Link) {
         val old = link
         link = next
+        cast = null
         if (local.playWhenReady) local.pause()
         setSessionPlayer(next.player)
         connect._active.value = next.peer
@@ -239,6 +316,7 @@ class ConnectSession(
 
     /** This device is taking playback (from a controller's op): stop controlling anything else. */
     private fun becomePlaying() {
+        cast?.let { endCast(it) }
         val l = link ?: return
         l.send(RemoteOp.Release(me()))
         dropLink(l)
@@ -350,6 +428,7 @@ class ConnectSession(
                 op.shuffle?.let(::setShuffleFlag)
                 local.prepare()
                 when (op.play) { true -> playLocal(); false -> local.pause(); null -> {} }
+                showOnTv()
             }
             is RemoteOp.Add -> local.addMediaItems(op.index.coerceIn(0, count), op.entries.map { it.toMediaItem(graph) })
             is RemoteOp.Move -> if (op.from in 0..op.to && op.to <= count && op.newIndex in 0..count - (op.to - op.from)) {
@@ -387,6 +466,19 @@ class ConnectSession(
     // --- Guests (this device signed out) ---------------------------------------------
 
     /** Someone is playing here with [login]. Another user takes over: the last one's music stops. */
+    /**
+     * Android TV: playback just arrived from another device, so put Now
+     * Playing on screen. Android may refuse while Seiðr is in the background
+     * (it doesn't let apps open themselves); then the music plays anyway.
+     */
+    private fun showOnTv() {
+        if (!eu.bradshaw.seidr.ui.isTv(context)) return
+        val i = android.content.Intent(context, eu.bradshaw.seidr.MainActivity::class.java)
+            .addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            .putExtra("open", "nowplaying")
+        runCatching { context.startActivity(i) }.onFailure { Log.i(Connect.TAG, "couldn't show Now Playing: $it") }
+    }
+
     private fun startGuest(login: GuestLogin) {
         endGuestJob?.cancel()
         val cur = graph.guest.value

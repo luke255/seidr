@@ -99,4 +99,7 @@
     <string name="vis_warning_flat">Деякі пресети швидко миготять, спалахують і кружляють. У людей із фоточутливою епілепсією це може спричинити напад. Якщо вам стане зле, відведіть погляд і закрийте візуалізацію.</string>
     <string name="vis_continue">Продовжити</string>
     <string name="vis_not_now">Не зараз</string>
+    <string name="cast_unreachable">Не вдалося з\'єднатися з %1$s.</string>
+    <string name="cast_taken">%1$s зараз відтворює щось інше.</string>
+    <string name="cast_load_failed">%1$s не може відтворити %2$s.</string>
 </resources>

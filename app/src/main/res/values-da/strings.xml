@@ -95,4 +95,7 @@
     <string name="vis_warning_flat">Nogle presets blinker, blitzer og hvirvler hurtigt. Det kan udløse anfald hos personer med fotosensitiv epilepsi. Kig væk, og luk visualiseringen, hvis du får det dårligt.</string>
     <string name="vis_continue">Fortsæt</string>
     <string name="vis_not_now">Ikke nu</string>
+    <string name="cast_unreachable">Kunne ikke nå %1$s.</string>
+    <string name="cast_taken">%1$s afspiller noget andet nu.</string>
+    <string name="cast_load_failed">%1$s kunne ikke afspille %2$s.</string>
 </resources>

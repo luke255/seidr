@@ -97,4 +97,7 @@
     <string name="vis_warning_flat">Unele preseturi clipesc, pâlpâie și se învârt rapid. Asta poate declanșa crize la persoanele cu epilepsie fotosensibilă. Dacă nu te simți bine, uită-te în altă parte și închide vizualizatorul.</string>
     <string name="vis_continue">Continuă</string>
     <string name="vis_not_now">Nu acum</string>
+    <string name="cast_unreachable">Nu s-a putut conecta la %1$s.</string>
+    <string name="cast_taken">%1$s redă acum altceva.</string>
+    <string name="cast_load_failed">%1$s nu a putut reda %2$s.</string>
 </resources>

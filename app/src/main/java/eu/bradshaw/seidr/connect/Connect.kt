@@ -405,6 +405,8 @@ class Connect(
     // --- Discovery (while the app is on screen) ------------------------------------
 
     private var discovery: NsdManager.DiscoveryListener? = null
+    private var castFound = emptyList<Peer>()
+    private val casts = eu.bradshaw.seidr.cast.CastDiscovery(nsd, app.mainExecutor) { castFound = it; publish() }
     /** Per service name: the resolver watching it, and the device it resolved to. */
     private val watching = mutableMapOf<String, NsdManager.ServiceInfoCallback>()
     private val found = mutableMapOf<String, Peer>()
@@ -429,6 +431,8 @@ class Connect(
         discovery = listener
         runCatching { nsd.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, listener) }
             .onFailure { Log.w(TAG, "discovery failed", it); discovery = null }
+        // Kids too: speakers fetch through CastRelay, which keeps to their rules.
+        casts.start()
     }
 
     fun stopDiscovery() = main.launch {
@@ -436,6 +440,7 @@ class Connect(
         discovery?.let { runCatching { nsd.stopServiceDiscovery(it) } }
         discovery = null
         watching.keys.toList().forEach(::forget)
+        casts.stop()
     }
 
     private fun watch(info: NsdServiceInfo) {
@@ -475,8 +480,17 @@ class Connect(
         publish()
     }
 
+    /**
+     * Seiðr devices, then Cast ones. A Cast TV that runs Seiðr is listed once,
+     * as Seiðr (its groups, on their own ports, stay).
+     */
     private fun publish() {
-        _devices.value = found.values.distinctBy { it.id }.sortedWith(nameOrder { it.name })
+        val seidr = found.values.distinctBy { it.id }.sortedWith(nameOrder { it.name })
+        val hosts = seidr.flatMap { it.hosts }.toSet()
+        val cast = castFound
+            .filterNot { it.port == eu.bradshaw.seidr.cast.CastDiscovery.DEFAULT_PORT && it.hosts.any(hosts::contains) }
+            .sortedWith(nameOrder { it.name })
+        _devices.value = seidr + cast
     }
 
     companion object {
@@ -496,6 +510,8 @@ class Connect(
         internal const val CHECK_TIMEOUT_MS = 120_000L
         /** Connect's port on an emulator, which the laptop forwards to (`android-emu`). */
         const val EMULATOR_PORT = 47317
+        /** [eu.bradshaw.seidr.cast.CastRelay]'s port on an emulator, likewise. */
+        const val EMULATOR_RELAY_PORT = 47318
     }
 }
 
@@ -509,7 +525,7 @@ val isEmulator: Boolean = android.os.Build.HARDWARE == "ranchu"
  * the computer's LAN address, which the advert then carries as `h`; discovery
  * tries `h` first. Null on real devices, and on an emulator nothing forwards to.
  */
-private val emulatorLanHost: String? by lazy {
+internal val emulatorLanHost: String? by lazy {
     if (!isEmulator) return@lazy null
     runCatching {
         Runtime.getRuntime().exec(arrayOf("getprop", "debug.emu.lan_host")).inputStream.bufferedReader().use { it.readText() }.trim()

@@ -97,4 +97,7 @@
     <string name="vis_warning_flat">Alguns presets piscam, cintilam e rodopiam muito depressa. Isso pode provocar crises em pessoas com epilepsia fotossensível. Se te sentires mal, desvia o olhar e fecha o visualizador.</string>
     <string name="vis_continue">Continuar</string>
     <string name="vis_not_now">Agora não</string>
+    <string name="cast_unreachable">Não foi possível ligar a %1$s.</string>
+    <string name="cast_taken">%1$s está agora a reproduzir outra coisa.</string>
+    <string name="cast_load_failed">%1$s não conseguiu reproduzir %2$s.</string>
 </resources>

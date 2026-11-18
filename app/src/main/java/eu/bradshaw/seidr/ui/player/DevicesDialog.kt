@@ -19,6 +19,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Devices
 import androidx.compose.material.icons.filled.Smartphone
+import androidx.compose.material.icons.filled.Speaker
+import androidx.compose.material.icons.filled.SpeakerGroup
 import androidx.compose.material.icons.filled.Tv
 import androidx.compose.material.icons.filled.ViewInAr
 import androidx.compose.material3.AlertDialog
@@ -87,7 +89,8 @@ fun DevicesDialog(onDismiss: () -> Unit) {
                 }
                 others.forEach { d ->
                     val error = failed?.takeIf { it.first == d.id && connecting != d.id }?.second
-                    DeviceRow(kindIcon(d.kind), d.name, error ?: if (d.guest) stringResource(R.string.devices_not_signed_in) else null,
+                    DeviceRow(kindIcon(d.kind), d.name, // A TV is everyone's: whether it's signed in doesn't matter to anyone picking it.
+                        error ?: if (d.guest && d.kind != Peer.KIND_TV) stringResource(R.string.devices_not_signed_in) else null,
                         selected = active?.id == d.id, busy = connecting == d.id, isError = error != null) {
                         if (connecting != null) return@DeviceRow
                         if (active?.id == d.id) { onDismiss(); return@DeviceRow }
@@ -150,5 +153,7 @@ private fun DeviceRow(icon: ImageVector, name: String, label: String?, selected:
 fun kindIcon(kind: String): ImageVector = when (kind) {
     Peer.KIND_TV -> Icons.Filled.Tv
     Peer.KIND_HEADSET -> Icons.Filled.ViewInAr
+    Peer.KIND_SPEAKER -> Icons.Filled.Speaker
+    Peer.KIND_SPEAKER_GROUP -> Icons.Filled.SpeakerGroup
     else -> Icons.Filled.Smartphone
 }

@@ -95,4 +95,7 @@
     <string name="vis_warning_flat">Jotkin esiasetukset välkkyvät, vilkkuvat ja pyörivät nopeasti. Se voi laukaista kohtauksen valoherkkää epilepsiaa sairastavilla. Jos alat voida huonosti, katso muualle ja sulje visualisointi.</string>
     <string name="vis_continue">Jatka</string>
     <string name="vis_not_now">Ei nyt</string>
+    <string name="cast_unreachable">Laitteeseen %1$s ei saatu yhteyttä.</string>
+    <string name="cast_taken">%1$s toistaa nyt jotain muuta.</string>
+    <string name="cast_load_failed">%1$s ei voinut toistaa kappaletta %2$s.</string>
 </resources>

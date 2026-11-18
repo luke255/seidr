@@ -261,3 +261,10 @@ Seiðr's smart playlist editor follows the one in
 [Feishin](https://github.com/jeffvli/feishin), by jeffvli and contributors:
 rules of field, test and value, in groups that match all or any. Thank you for
 showing how it should work. No Feishin code is used.
+
+Playing on Google Cast speakers and TVs speaks the Cast protocol directly,
+without Google's libraries. How that protocol behaves was learned from
+[pychromecast](https://github.com/home-assistant-libs/pychromecast), by Paulus
+Schoutsen and contributors, the open implementation behind Home Assistant's
+Cast support. Thank you for documenting it in working code. No pychromecast
+code is used.

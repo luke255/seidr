@@ -95,4 +95,7 @@
     <string name="vis_warning_flat">Vissa förinställningar blinkar, blixtrar och virvlar snabbt. Det kan utlösa anfall hos personer med ljuskänslig epilepsi. Titta bort och stäng visualiseringen om du mår dåligt.</string>
     <string name="vis_continue">Fortsätt</string>
     <string name="vis_not_now">Inte nu</string>
+    <string name="cast_unreachable">Det gick inte att nå %1$s.</string>
+    <string name="cast_taken">%1$s spelar något annat nu.</string>
+    <string name="cast_load_failed">%1$s kunde inte spela %2$s.</string>
 </resources>

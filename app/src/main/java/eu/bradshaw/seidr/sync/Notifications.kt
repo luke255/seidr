@@ -16,12 +16,16 @@ object Notifications {
     const val STORAGE_ID = 2002
     const val UPDATES = "app-updates"
     const val UPDATE_ID = 2003
+    /** Android TV: Connect kept ready ([eu.bradshaw.seidr.connect.TvKeeper]). */
+    const val READY = "ready"
+    const val READY_ID = 2004
 
     fun createChannels(context: Context) {
         val nm = context.getSystemService(NotificationManager::class.java)
         nm.createNotificationChannel(NotificationChannel(DOWNLOADS, context.getString(R.string.notif_channel_downloads), NotificationManager.IMPORTANCE_LOW))
         nm.createNotificationChannel(NotificationChannel(STORAGE, context.getString(R.string.notif_channel_storage), NotificationManager.IMPORTANCE_DEFAULT))
         nm.createNotificationChannel(NotificationChannel(UPDATES, context.getString(R.string.channel_updates), NotificationManager.IMPORTANCE_LOW))
+        nm.createNotificationChannel(NotificationChannel(READY, context.getString(R.string.login_idle_ready), NotificationManager.IMPORTANCE_MIN))
     }
 
     private fun openApp(context: Context) = PendingIntent.getActivity(

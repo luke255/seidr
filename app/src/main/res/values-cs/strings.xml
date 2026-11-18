@@ -99,4 +99,7 @@
     <string name="vis_warning_flat">Některé presety rychle blikají, problikávají a víří. U lidí s fotosenzitivní epilepsií to může vyvolat záchvat. Kdyby ti nebylo dobře, podívej se jinam a vizualizaci zavři.</string>
     <string name="vis_continue">Pokračovat</string>
     <string name="vis_not_now">Teď ne</string>
+    <string name="cast_unreachable">Nepodařilo se spojit s %1$s.</string>
+    <string name="cast_taken">%1$s teď přehrává něco jiného.</string>
+    <string name="cast_load_failed">%1$s nemohl přehrát %2$s.</string>
 </resources>

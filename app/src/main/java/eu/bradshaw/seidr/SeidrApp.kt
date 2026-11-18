@@ -42,6 +42,7 @@ class SeidrApp : Application(), SingletonImageLoader.Factory {
         eu.bradshaw.seidr.ui.components.AppText.context = this
         graph = Graph.get(this)
         Notifications.createChannels(this)
+        eu.bradshaw.seidr.connect.TvKeeper.start(this)
         graph.scope.launch { graph.library.loadCachedPlaylists() }
         watchReachability()
         watchNetwork()

@@ -93,4 +93,7 @@
     <string name="vis_warning_flat">部分預設集會快速閃爍、頻閃和旋轉，可能誘發光敏感性癲癇患者發作。如感不適，請移開視線並關閉視覺化效果。</string>
     <string name="vis_continue">繼續</string>
     <string name="vis_not_now">暫時不要</string>
+    <string name="cast_unreachable">無法連線到 %1$s。</string>
+    <string name="cast_taken">%1$s 現在正在播放其他內容。</string>
+    <string name="cast_load_failed">%1$s 無法播放 %2$s。</string>
 </resources>
