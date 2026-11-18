@@ -11,11 +11,11 @@ the *th* of "weather" in place of the *f*. ASCII spelling: Seidr.
 
 <p>
   <img src="docs/screenshots/01-now-playing-cyan.webp" width="32%" alt="Now Playing, coloured from the album cover">
-  <img src="docs/screenshots/02-home.webp" width="32%" alt="Home">
+  <img src="docs/screenshots/02-home.webp" width="32%" alt="Home, with a Starred row of albums, artists and playlists">
   <img src="docs/screenshots/03-visualiser.webp" width="32%" alt="The MilkDrop visualiser">
 </p>
 <p>
-  <img src="docs/screenshots/04-library.webp" width="32%" alt="Library: albums">
+  <img src="docs/screenshots/04-library.webp" width="32%" alt="Library: playlists, with the filter row">
   <img src="docs/screenshots/05-now-playing-orange.webp" width="32%" alt="Now Playing on an orange cover">
   <img src="docs/screenshots/06-queue.webp" width="32%" alt="The play queue">
 </p>
