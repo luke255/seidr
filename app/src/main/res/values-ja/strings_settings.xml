@@ -158,5 +158,8 @@
     <string name="settings_mobile_explain">ダウンロードしていない曲は、モバイルデータ通信時に低いビットレートでストリーミングして通信量を抑えられます。ダウンロードと Wi-Fi でのストリーミングは常に元のファイルです。</string>
     <string name="settings_mobile_unsupported">お使いのサーバーはストリーミング用に音楽を変換できません（Navidrome には ffmpeg が必要です）。そのため Seiðr は元のファイルをストリーミングします。</string>
     <string name="settings_mobile_checking">サーバーが音楽を変換できるか確認しています…</string>
+    <string name="settings_playback">再生</string>
+    <string name="settings_replay_gain">音量をそろえる</string>
+    <string name="settings_replay_gain_hint">音楽の ReplayGain タグを使います。アルバムを曲順どおりに再生するときはアルバム単位、それ以外は曲単位です。タグのない曲は合わせて音量を下げます。</string>
 
 </resources>

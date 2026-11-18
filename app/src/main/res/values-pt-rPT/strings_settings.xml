@@ -158,5 +158,8 @@
     <string name="settings_mobile_explain">As músicas que não transferiste podem ser reproduzidas com uma taxa de bits mais baixa nos dados móveis, para gastar menos. As transferências e o streaming por Wi-Fi usam sempre os ficheiros originais.</string>
     <string name="settings_mobile_unsupported">O teu servidor não consegue converter música para streaming (o Navidrome precisa do ffmpeg para isso), por isso o Seiðr reproduz os ficheiros originais.</string>
     <string name="settings_mobile_checking">A verificar se o teu servidor consegue converter música…</string>
+    <string name="settings_playback">Reprodução</string>
+    <string name="settings_replay_gain">Uniformizar o volume</string>
+    <string name="settings_replay_gain_hint">Usa as etiquetas ReplayGain da tua música: níveis do álbum quando um álbum toca por ordem, níveis de cada música nos outros casos. As músicas sem etiquetas ficam mais baixas para combinar.</string>
 
 </resources>

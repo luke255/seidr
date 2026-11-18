@@ -165,6 +165,21 @@ class PlaybackService : MediaLibraryService() {
                 .collect { restoreFixedSongs(); hideBadSongs() }
         }
         scope.launch { graph.sleep.mode.collectLatest(::sleep) }
+        scope.launch { graph.settings.replayGain.collect { applyGain() } }
+    }
+
+    /** ReplayGain for the current song, by its place in the queue ([Loudness]). */
+    private fun applyGain() {
+        val item = player.currentMediaItem
+        if (!graph.settings.replayGain.value || item == null) { fading.gain = 1f; return }
+        val i = player.currentMediaItemIndex
+        fun albumAt(j: Int) = if (j in 0 until player.mediaItemCount) player.getMediaItemAt(j).mediaMetadata.extras?.getString("albumId") else null
+        val x = item.mediaMetadata.extras
+        fading.gain = Loudness.volume(
+            x?.takeIf { it.containsKey("trackGain") }?.getFloat("trackGain"),
+            x?.takeIf { it.containsKey("albumGain") }?.getFloat("albumGain"),
+            Loudness.albumMode(albumAt(i), albumAt(i - 1), albumAt(i + 1)),
+        )
     }
 
     /**
@@ -260,6 +275,7 @@ class PlaybackService : MediaLibraryService() {
             // Same queue slot, new metadata (PublicArt's swap): not a new play.
             if (mediaItem?.mediaId == currentKey && reason == Player.MEDIA_ITEM_TRANSITION_REASON_PLAYLIST_CHANGED) return
             currentKey = mediaItem?.mediaId
+            applyGain()
             val previous = NowPlaying.currentSongId
             val songId = mediaItem?.mediaId?.let(::songIdOf)
             NowPlaying.currentSongId = songId
@@ -293,6 +309,7 @@ class PlaybackService : MediaLibraryService() {
                 // Posted: changing the timeline from inside its own callback confuses other listeners.
                 if (anyBlocked()) scope.launch { hideBadSongs() }
                 publicArt?.let { scope.launch { it.fill() } }
+                applyGain()
                 saveQueue()
             }
         }

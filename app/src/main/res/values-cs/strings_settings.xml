@@ -158,5 +158,8 @@
     <string name="settings_mobile_explain">Skladby, které nemáš stažené, se můžou přes mobilní data streamovat v nižším datovém toku, aby jich spotřebovaly méně. Stažené skladby a streamování přes Wi-Fi jsou vždy původní soubory.</string>
     <string name="settings_mobile_unsupported">Tvůj server neumí převádět hudbu pro streamování (Navidrome k tomu potřebuje ffmpeg), takže Seiðr streamuje původní soubory.</string>
     <string name="settings_mobile_checking">Zjišťuji, jestli tvůj server umí převádět hudbu…</string>
+    <string name="settings_playback">Přehrávání</string>
+    <string name="settings_replay_gain">Vyrovnat hlasitost</string>
+    <string name="settings_replay_gain_hint">Používá štítky ReplayGain tvé hudby: úroveň alba, když hraje album popořadě, jinak úroveň skladby. Skladby bez štítků se ztiší, aby ladily.</string>
 
 </resources>

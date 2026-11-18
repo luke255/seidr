@@ -158,5 +158,8 @@
     <string name="settings_mobile_explain">Melodiile nedescărcate pot fi redate pe date mobile la o rată de biți mai mică, ca să consume mai puțin. Descărcările și streamingul pe Wi-Fi folosesc mereu fișierele originale.</string>
     <string name="settings_mobile_unsupported">Serverul tău nu poate converti muzica pentru streaming (Navidrome are nevoie de ffmpeg pentru asta), așa că Seiðr redă fișierele originale.</string>
     <string name="settings_mobile_checking">Se verifică dacă serverul tău poate converti muzica…</string>
+    <string name="settings_playback">Redare</string>
+    <string name="settings_replay_gain">Uniformizează volumul</string>
+    <string name="settings_replay_gain_hint">Folosește etichetele ReplayGain ale muzicii tale: nivelul albumului când un album e redat în ordine, altfel nivelul fiecărei melodii. Melodiile fără etichete sunt date mai încet ca să se potrivească.</string>
 
 </resources>

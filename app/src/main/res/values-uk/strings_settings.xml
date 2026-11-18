@@ -158,5 +158,8 @@
     <string name="settings_mobile_explain">Не завантажені пісні можна відтворювати через мобільну мережу з нижчим бітрейтом, щоб витрачати менше трафіку. Завантаження й відтворення через Wi-Fi — завжди оригінальні файли.</string>
     <string name="settings_mobile_unsupported">Ваш сервер не вміє конвертувати музику для потокового відтворення (Navidrome для цього потрібен ffmpeg), тому Seiðr відтворює оригінальні файли.</string>
     <string name="settings_mobile_checking">Перевіряємо, чи може ваш сервер конвертувати музику…</string>
+    <string name="settings_playback">Відтворення</string>
+    <string name="settings_replay_gain">Вирівнювати гучність</string>
+    <string name="settings_replay_gain_hint">Використовує теги ReplayGain вашої музики: рівень альбому, коли альбом грає по порядку, інакше рівень пісні. Пісні без тегів стають тихішими, щоб не вирізнятися.</string>
 
 </resources>

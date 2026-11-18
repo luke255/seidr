@@ -158,5 +158,8 @@
     <string name="settings_mobile_explain">Låtar som inte är nedladdade kan streamas med lägre bithastighet via mobildata, så att du använder mindre. Nedladdningar och streaming via wifi är alltid originalfilerna.</string>
     <string name="settings_mobile_unsupported">Din server kan inte konvertera musik för streaming (Navidrome behöver ffmpeg för det), så Seiðr streamar originalfilerna.</string>
     <string name="settings_mobile_checking">Kontrollerar om din server kan konvertera musik …</string>
+    <string name="settings_playback">Uppspelning</string>
+    <string name="settings_replay_gain">Jämna ut volymen</string>
+    <string name="settings_replay_gain_hint">Använder musikens ReplayGain-taggar: albumnivå när ett album spelas i ordning, annars låtnivå. Låtar utan taggar sänks så att de passar.</string>
 
 </resources>

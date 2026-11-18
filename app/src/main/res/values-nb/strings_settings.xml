@@ -158,5 +158,8 @@
     <string name="settings_mobile_explain">Sanger som ikke er lastet ned, kan strømmes med lavere bithastighet på mobildata, så du bruker mindre. Nedlastinger og strømming på wifi er alltid originalfilene.</string>
     <string name="settings_mobile_unsupported">Serveren din kan ikke konvertere musikk for strømming (Navidrome trenger ffmpeg for det), så Seiðr strømmer originalfilene.</string>
     <string name="settings_mobile_checking">Sjekker om serveren din kan konvertere musikk …</string>
+    <string name="settings_playback">Avspilling</string>
+    <string name="settings_replay_gain">Jevn ut volumet</string>
+    <string name="settings_replay_gain_hint">Bruker ReplayGain-taggene i musikken: albumnivå når et album spilles i rekkefølge, ellers sangnivå. Sanger uten tagger skrus ned så de passer.</string>
 
 </resources>

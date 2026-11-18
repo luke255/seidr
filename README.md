@@ -48,6 +48,8 @@ the *th* of "weather" in place of the *f*. ASCII spelling: Seidr.
 - **Smoothly animated throughout**, from the progress bar to the artwork, and
   play, pause and skip fade gently instead of cutting.
 - **Swipe the cover** to skip.
+- **Even out volume** with your music's ReplayGain tags, if you like, and a
+  **sleep timer** that fades the music away.
 
 ### A proper queue
 

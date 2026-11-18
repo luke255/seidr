@@ -158,5 +158,8 @@
     <string name="settings_mobile_explain">Les cançons que no has baixat es poden reproduir amb una taxa de bits més baixa amb dades mòbils, per gastar-ne menys. Les baixades i la reproducció per Wi-Fi sempre fan servir els fitxers originals.</string>
     <string name="settings_mobile_unsupported">El teu servidor no pot convertir música per a la reproducció en línia (Navidrome necessita ffmpeg per fer-ho), així que Seiðr reprodueix els fitxers originals.</string>
     <string name="settings_mobile_checking">S\'està comprovant si el teu servidor pot convertir música…</string>
+    <string name="settings_playback">Reproducció</string>
+    <string name="settings_replay_gain">Iguala el volum</string>
+    <string name="settings_replay_gain_hint">Fa servir les etiquetes ReplayGain de la teva música: nivells de l\'àlbum quan un àlbum sona en ordre i de cada cançó en els altres casos. Les cançons sense etiquetes s\'abaixen perquè hi encaixin.</string>
 
 </resources>

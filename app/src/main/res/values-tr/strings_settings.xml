@@ -158,5 +158,8 @@
     <string name="settings_mobile_explain">İndirilmemiş şarkılar mobil veride daha düşük bit hızıyla akışla çalınabilir, böylece daha az veri harcanır. İndirilenler ve Wi-Fi üzerinden akış her zaman orijinal dosyalardır.</string>
     <string name="settings_mobile_unsupported">Sunucun müziği akış için dönüştüremiyor (Navidrome\'un bunun için ffmpeg\'e ihtiyacı var), bu yüzden Seiðr orijinal dosyaları çalıyor.</string>
     <string name="settings_mobile_checking">Sunucunun müziği dönüştürüp dönüştüremediği kontrol ediliyor…</string>
+    <string name="settings_playback">Oynatma</string>
+    <string name="settings_replay_gain">Ses düzeyini eşitle</string>
+    <string name="settings_replay_gain_hint">Müziğinin ReplayGain etiketlerini kullanır: bir albüm sırayla çalarken albüm düzeyi, diğer durumlarda şarkı düzeyi. Etiketsiz şarkıların sesi uyması için kısılır.</string>
 
 </resources>

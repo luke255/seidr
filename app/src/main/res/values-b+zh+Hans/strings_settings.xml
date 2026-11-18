@@ -158,5 +158,8 @@
     <string name="settings_mobile_explain">未下载的歌曲在使用移动数据时可以用较低的比特率串流，以节省流量。下载和通过 Wi-Fi 串流始终使用原始文件。</string>
     <string name="settings_mobile_unsupported">你的服务器无法为串流转换音乐（Navidrome 需要 ffmpeg 才能做到），所以 Seiðr 串流原始文件。</string>
     <string name="settings_mobile_checking">正在检查你的服务器能否转换音乐…</string>
+    <string name="settings_playback">播放</string>
+    <string name="settings_replay_gain">均衡音量</string>
+    <string name="settings_replay_gain_hint">使用音乐的 ReplayGain 标签：按顺序播放专辑时用专辑电平，其他情况用单曲电平。没有标签的歌曲会调低音量以保持一致。</string>
 
 </resources>

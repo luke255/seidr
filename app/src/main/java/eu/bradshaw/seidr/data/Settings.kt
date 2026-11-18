@@ -43,6 +43,10 @@ class Settings(context: Context) {
     /** Downloads only run on unmetered networks while this is set (the default). */
     val wifiOnly: StateFlow<Boolean> = _wifiOnly.asStateFlow()
 
+    private val _replayGain = MutableStateFlow(prefs.getBoolean("replay_gain", false))
+    /** Even out volume with ReplayGain tags (`Loudness`); off by default. */
+    val replayGain: StateFlow<Boolean> = _replayGain.asStateFlow()
+
     private val _mobileKbps = MutableStateFlow(prefs.getInt("mobile_kbps", 0))
     /** Streaming on metered networks: an MP3 bitrate, or 0 for the original file (the default). */
     val mobileKbps: StateFlow<Int> = _mobileKbps.asStateFlow()
@@ -174,6 +178,11 @@ class Settings(context: Context) {
     fun setWifiOnly(value: Boolean) {
         prefs.edit().putBoolean("wifi_only", value).apply()
         _wifiOnly.value = value
+    }
+
+    fun setReplayGain(value: Boolean) {
+        prefs.edit().putBoolean("replay_gain", value).apply()
+        _replayGain.value = value
     }
 
     fun setMobileKbps(kbps: Int) {

@@ -158,5 +158,8 @@
     <string name="settings_mobile_explain">A le nem töltött dalok mobiladaton kisebb bitrátával is streamelhetők, hogy kevesebb adatot fogyasszanak. A letöltések és a Wi-Fi-n át streamelt dalok mindig az eredeti fájlok.</string>
     <string name="settings_mobile_unsupported">A szervered nem tud zenét átalakítani streameléshez (a Navidrome-nak ehhez ffmpeg kell), ezért a Seiðr az eredeti fájlokat streameli.</string>
     <string name="settings_mobile_checking">Ellenőrzöm, hogy a szervered tud-e zenét átalakítani…</string>
+    <string name="settings_playback">Lejátszás</string>
+    <string name="settings_replay_gain">Hangerő kiegyenlítése</string>
+    <string name="settings_replay_gain_hint">A zene ReplayGain-címkéit használja: sorrendben lejátszott albumnál az album szintjét, egyébként a dalét. A címke nélküli dalokat lehalkítja, hogy illeszkedjenek.</string>
 
 </resources>

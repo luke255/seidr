@@ -158,5 +158,8 @@
     <string name="settings_mobile_explain">Les titres non téléchargés peuvent être lus à un débit plus faible sur les données mobiles, pour en consommer moins. Les téléchargements et le streaming en Wi-Fi utilisent toujours les fichiers d\'origine.</string>
     <string name="settings_mobile_unsupported">Votre serveur ne peut pas convertir la musique pour le streaming (Navidrome a besoin de ffmpeg pour cela), donc Seiðr lit les fichiers d\'origine.</string>
     <string name="settings_mobile_checking">Vérification de la capacité de votre serveur à convertir la musique…</string>
+    <string name="settings_playback">Lecture</string>
+    <string name="settings_replay_gain">Uniformiser le volume</string>
+    <string name="settings_replay_gain_hint">Utilise les balises ReplayGain de votre musique : niveaux de l\'album quand un album est lu dans l\'ordre, niveaux de chaque titre sinon. Les titres sans balises sont baissés pour s\'accorder.</string>
 
 </resources>

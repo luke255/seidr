@@ -222,5 +222,8 @@
     <string name="settings_mobile_explain">Songs that aren\'t downloaded can stream at a lower bitrate on mobile data, to use less of it. Downloads, and streaming on Wi-Fi, are always the original files.</string>
     <string name="settings_mobile_unsupported">Your server can\'t convert music for streaming (Navidrome needs ffmpeg for that), so Seiðr streams the original files.</string>
     <string name="settings_mobile_checking">Checking whether your server can convert music…</string>
+    <string name="settings_playback">Playback</string>
+    <string name="settings_replay_gain">Even out volume</string>
+    <string name="settings_replay_gain_hint">Uses your music\'s ReplayGain tags: album levels when an album plays in order, song levels otherwise. Songs without tags are turned down to match.</string>
 
 </resources>

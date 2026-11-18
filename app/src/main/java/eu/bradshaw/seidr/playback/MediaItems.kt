@@ -30,6 +30,9 @@ data class QueueEntry(
     val ctxIndex: Int = -1,
     /** "Playlist name", "Album name"… shown as "Next from: …". */
     val ctxName: String? = null,
+    /** ReplayGain, in dB, when the file is tagged ([Loudness]). */
+    val trackGain: Float? = null,
+    val albumGain: Float? = null,
 )
 
 private val counter = AtomicLong(System.currentTimeMillis())
@@ -43,6 +46,7 @@ fun Song.toEntry(user: Boolean = false, ctxIndex: Int = -1, ctxName: String? = n
     key = newKey(id), songId = id, title = title, artist = artistLine, album = album.orEmpty(),
     albumId = albumId, artistId = artistId, coverArt = coverArt, duration = duration,
     user = user, ctxIndex = ctxIndex, ctxName = ctxName,
+    trackGain = replayGain?.trackGain, albumGain = replayGain?.albumGain,
 )
 
 fun QueueEntry.toMediaItem(graph: Graph): MediaItem {
@@ -58,6 +62,8 @@ fun QueueEntry.toMediaItem(graph: Graph): MediaItem {
         putBoolean("user", user)
         putInt("ctxIndex", ctxIndex)
         putString("ctxName", ctxName)
+        trackGain?.let { putFloat("trackGain", it) }
+        albumGain?.let { putFloat("albumGain", it) }
     }
     return MediaItem.Builder()
         .setMediaId(key)
@@ -94,5 +100,7 @@ fun MediaItem.toEntry(): QueueEntry {
         user = x.getBoolean("user"),
         ctxIndex = x.getInt("ctxIndex", -1),
         ctxName = x.getString("ctxName"),
+        trackGain = if (x.containsKey("trackGain")) x.getFloat("trackGain") else null,
+        albumGain = if (x.containsKey("albumGain")) x.getFloat("albumGain") else null,
     )
 }

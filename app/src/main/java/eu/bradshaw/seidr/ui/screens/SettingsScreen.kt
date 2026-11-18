@@ -47,6 +47,7 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.NewReleases
 import androidx.compose.material.icons.outlined.SystemUpdate
 import androidx.compose.material.icons.outlined.SignalCellularAlt
+import androidx.compose.material.icons.automirrored.outlined.VolumeUp
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
@@ -128,10 +129,15 @@ fun SettingsScreen() {
                     trailing = { Chevron() }) { actions.open(Route.Visualiser) }
             }
 
-            // TVs are on mains power, and don't download.
-            if (!tv) {
-                CardLabel(stringResource(R.string.settings_playback_downloads))
-                CardGroup {
+            CardLabel(stringResource(if (tv) R.string.settings_playback else R.string.settings_playback_downloads))
+            CardGroup {
+                val evenOut by graph.settings.replayGain.collectAsStateWithLifecycle()
+                ToggleItem(Icons.AutoMirrored.Outlined.VolumeUp, stringResource(R.string.settings_replay_gain), stringResource(R.string.settings_replay_gain_hint), evenOut) {
+                    graph.settings.setReplayGain(it)
+                }
+                // TVs are on mains power, and don't download.
+                if (!tv) {
+                    CardDivider()
                     CardItem(
                         Icons.Outlined.BatteryChargingFull, stringResource(R.string.settings_background_playback),
                         stringResource(if (exempt) R.string.settings_battery_off else R.string.settings_battery_tap),

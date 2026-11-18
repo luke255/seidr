@@ -158,5 +158,8 @@
     <string name="settings_mobile_explain">Lataamattomat kappaleet voidaan suoratoistaa mobiilidatalla pienemmällä bittinopeudella, jotta dataa kuluu vähemmän. Lataukset ja suoratoisto Wi-Fin kautta ovat aina alkuperäisiä tiedostoja.</string>
     <string name="settings_mobile_unsupported">Palvelimesi ei pysty muuntamaan musiikkia suoratoistoa varten (Navidrome tarvitsee siihen ffmpegin), joten Seiðr suoratoistaa alkuperäiset tiedostot.</string>
     <string name="settings_mobile_checking">Tarkistetaan, pystyykö palvelimesi muuntamaan musiikkia…</string>
+    <string name="settings_playback">Toisto</string>
+    <string name="settings_replay_gain">Tasaa äänenvoimakkuus</string>
+    <string name="settings_replay_gain_hint">Käyttää musiikkisi ReplayGain-tunnisteita: albumin tasoa, kun albumi soi järjestyksessä, muuten kappaleen tasoa. Kappaleet ilman tunnisteita hiljennetään sopimaan joukkoon.</string>
 
 </resources>

@@ -13,6 +13,7 @@ them, not how.
 - If a device can't be reached when you pick it to play on, the device list now stays open and says why, so you can try again.
 - Swiping back from Search or Library to Home now slides the page away too, and so does going back from Log in.
 - On a device someone else is playing on, a back swipe pulls the queue down with your finger.
+- Even out volume (Settings, off unless you turn it on): uses your music's ReplayGain tags, with album levels when an album plays in order and song levels otherwise. Songs without tags are turned down to match.
 - Streaming on mobile data (Settings): songs that aren't downloaded can stream as MP3 at 128, 192 or 320 kbps on mobile data, to use less of it. It's off unless you choose it, downloads and Wi-Fi stay the original files, and Seiðr checks your server can convert music first (Navidrome needs ffmpeg).
 - Sleep timer, in Now Playing's ⋮ menu: stop the music after 15 to 90 minutes, with a slow fade, or at the end of the song.
 - Settings → About → Share a log: Seiðr's recent log for a bug report, with logins, server addresses and device names taken out. It shows you the whole thing before you share it.

@@ -38,6 +38,10 @@ class FadingPlayer(private val exo: ExoPlayer, private val scope: CoroutineScope
     private var level = 1f
     private var pauseFadeMs = PAUSE_FADE_MS
 
+    /** ReplayGain's volume for the current song ([Loudness]); the fades work under it. */
+    var gain = 1f
+        set(value) { field = value.coerceIn(0f, 1f); exo.volume = level * level * field }
+
     /** Pauses after a slow fade (the sleep timer); playing again during it cancels the pause. */
     fun pauseSlowly(fadeMs: Int) {
         pauseFadeMs = fadeMs
@@ -163,7 +167,7 @@ class FadingPlayer(private val exo: ExoPlayer, private val scope: CoroutineScope
 
     private fun setLevel(v: Float) {
         level = v.coerceIn(0f, 1f)
-        exo.volume = level * level
+        exo.volume = level * level * gain
     }
 
     private companion object {

@@ -158,5 +158,8 @@
     <string name="settings_mobile_explain">Nicht heruntergeladene Songs können über mobile Daten mit niedrigerer Bitrate gestreamt werden, damit du weniger verbrauchst. Downloads und Streaming über WLAN sind immer die Originaldateien.</string>
     <string name="settings_mobile_unsupported">Dein Server kann Musik nicht fürs Streaming umwandeln (Navidrome braucht dafür ffmpeg), daher streamt Seiðr die Originaldateien.</string>
     <string name="settings_mobile_checking">Prüfe, ob dein Server Musik umwandeln kann …</string>
+    <string name="settings_playback">Wiedergabe</string>
+    <string name="settings_replay_gain">Lautstärke angleichen</string>
+    <string name="settings_replay_gain_hint">Nutzt die ReplayGain-Tags deiner Musik: Album-Pegel, wenn ein Album der Reihe nach läuft, sonst Song-Pegel. Songs ohne Tags werden passend leiser gestellt.</string>
 
 </resources>

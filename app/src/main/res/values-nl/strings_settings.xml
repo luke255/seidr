@@ -158,5 +158,8 @@
     <string name="settings_mobile_explain">Nummers die niet gedownload zijn, kunnen via mobiele data met een lagere bitrate streamen, zodat je minder verbruikt. Downloads en streamen via wifi zijn altijd de originele bestanden.</string>
     <string name="settings_mobile_unsupported">Je server kan geen muziek omzetten om te streamen (Navidrome heeft daar ffmpeg voor nodig), dus Seiðr streamt de originele bestanden.</string>
     <string name="settings_mobile_checking">Controleren of je server muziek kan omzetten…</string>
+    <string name="settings_playback">Afspelen</string>
+    <string name="settings_replay_gain">Volume gelijktrekken</string>
+    <string name="settings_replay_gain_hint">Gebruikt de ReplayGain-tags van je muziek: albumniveau als een album op volgorde speelt, anders per nummer. Nummers zonder tags worden zachter gezet zodat ze passen.</string>
 
 </resources>
