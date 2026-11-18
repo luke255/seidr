@@ -7,6 +7,8 @@ import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -82,7 +84,9 @@ fun DevicesDialog(onDismiss: () -> Unit) {
         icon = { Icon(Icons.Filled.Devices, null) },
         title = { Text(stringResource(R.string.devices_title)) },
         text = {
-            Column {
+            // The dialog caps the text slot's height, so a long list (or a
+            // Fold's cover screen) scrolls rather than clipping devices.
+            Column(Modifier.verticalScroll(rememberScrollState())) {
                 DeviceRow(kindIcon(connect.kind), connect.name, stringResource(R.string.devices_this_device), selected = active == null, busy = false) {
                     connect.playOn(null)
                     onDismiss()

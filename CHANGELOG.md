@@ -4,6 +4,10 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.8.1
+
+- Play on's device list scrolls, so every device is reachable on small screens like a Fold's cover screen.
+
 ## 1.8.0
 
 - Play on Google Cast speakers, speaker groups and TVs: they're in Play on, beside your other devices. Your phone sends the music to the speaker itself, so downloaded songs play even without the server, and the speaker never needs your login. Keep your phone on the same Wi-Fi while it plays.
