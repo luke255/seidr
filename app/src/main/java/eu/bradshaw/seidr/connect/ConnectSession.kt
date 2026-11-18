@@ -73,7 +73,9 @@ class ConnectSession(
         local.addListener(hostListener)
         connect.session = this
         scope.launch(Dispatchers.IO) {
-            val s = runCatching { ServerSocket(0) }.getOrNull() ?: return@launch
+            // A fixed port on an emulator, so the laptop can forward it (see [emulatorLanHost]).
+            val s = (if (isEmulator) runCatching { ServerSocket(Connect.EMULATOR_PORT) }.getOrNull() else null)
+                ?: runCatching { ServerSocket(0) }.getOrNull() ?: return@launch
             withContext(Dispatchers.Main) { server = s; port = s.localPort; connect.advertise(port) }
             while (true) {
                 val socket = try { s.accept() } catch (_: IOException) { return@launch }
@@ -131,8 +133,8 @@ class ConnectSession(
 
     // --- Moving playback -----------------------------------------------------------
 
-    /** Plays on [target], or here when it's null. */
-    suspend fun playOn(target: Peer?) {
+    /** Plays on [target], or here when it's null. [onError]: see [openLink]. */
+    suspend fun playOn(target: Peer?, onError: ((String) -> Boolean)? = null) {
         if (busy) return
         busy = true
         try {
@@ -143,7 +145,7 @@ class ConnectSession(
             }
             if (cur?.peer?.id == target.id) return
             connect._connecting.value = target.id
-            val next = openLink(target) ?: return
+            val next = openLink(target, onError = onError) ?: return
             val first = next.first.await()
             if (cur != null) {
                 // From one remote device to another: carry its final state over. Whether it
@@ -482,14 +484,16 @@ class ConnectSession(
     /**
      * Connects to [peer] for control. A signed-out one gets this login to play
      * with (its code checked first, unless [quiet] or already pinned).
+     * Failures go to [onError] when it takes them, else to a toast; never when [quiet].
      */
-    private suspend fun openLink(peer: Peer, quiet: Boolean = false): Link? {
+    private suspend fun openLink(peer: Peer, quiet: Boolean = false, onError: ((String) -> Boolean)? = null): Link? {
+        fun fail(message: String) { if (!quiet && onError?.invoke(message) != true) connect.tell(message) }
         val config = graph.settings.server.value ?: return null
         val d = try {
             connect.dial(peer, ask = !quiet) ?: return null
         } catch (e: IOException) {
             Log.i(Connect.TAG, "couldn't connect to ${peer.name}: $e")
-            if (!quiet) connect.tell(connect.dialError(peer, e))
+            fail(connect.dialError(peer, e))
             return null
         }
         val socket = d.socket
@@ -497,20 +501,20 @@ class ConnectSession(
         if (peer.guest) {
             if (config.isKid && d.hello.version < eu.bradshaw.seidr.connect.KIDS_VERSION) {
                 ch.close()
-                if (!quiet) connect.tell(connect.str(R.string.connect_update_first, peer.name))
+                fail(connect.str(R.string.connect_update_first, peer.name))
                 return null
             }
             val sent = withContext(Dispatchers.IO) {
                 runCatching { ch.send(ConnectMessage.Guest(config.url, config.username, config.password,
                     eu.bradshaw.seidr.ui.theme.portableTheme(graph.settings.theme.value, context), config.kidOf)) }.isSuccess
             }
-            if (!sent) { ch.close(); if (!quiet) connect.tell(connect.str(R.string.connect_lost_connection, peer.name)); return null }
+            if (!sent) { ch.close(); fail(connect.str(R.string.connect_lost_connection, peer.name)); return null }
         }
         val l = Link(peer, ch, socket)
         l.start()
         if (withTimeoutOrNull(FIRST_STATE_TIMEOUT_MS) { l.first.await() } == null) {
             l.close()
-            if (!quiet) connect.tell(connect.str(R.string.connect_no_answer, peer.name))
+            fail(connect.str(R.string.connect_no_answer, peer.name))
             return null
         }
         return l

@@ -3,6 +3,7 @@ package eu.bradshaw.seidr.connect
 import android.app.Application
 import eu.bradshaw.seidr.data.nameOrder
 import android.content.Context
+import android.net.InetAddresses
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import android.util.Log
@@ -321,15 +322,18 @@ class Connect(
         return null
     }
 
-    /** Moves playback to [peer], or back here when it's null (or this device). */
-    fun playOn(peer: Peer?) {
+    /**
+     * Moves playback to [peer], or back here when it's null (or this device).
+     * A failure goes to [onError] if it returns true (it showed it), else to a toast.
+     */
+    fun playOn(peer: Peer?, onError: ((String) -> Boolean)? = null) {
         main.launch {
             val s = session ?: run {
                 startService()
                 withTimeoutOrNull(5_000) { sessionUp.first { it } }
                 session
-            } ?: return@launch tell(str(R.string.connect_playback_not_ready))
-            s.playOn(peer?.takeIf { it.id != deviceId })
+            } ?: return@launch str(R.string.connect_playback_not_ready).let { if (onError?.invoke(it) != true) tell(it) }
+            s.playOn(peer?.takeIf { it.id != deviceId }, onError)
         }
     }
 
@@ -374,6 +378,7 @@ class Connect(
             setAttribute("n", name.trim().take(60))
             setAttribute("k", kind)
             if (key != null) setAttribute("a", ConnectKeys.tag(key)) else setAttribute("g", "1")
+            emulatorLanHost?.let { setAttribute("h", it) }
         }
         val listener = object : NsdManager.RegistrationListener {
             override fun onServiceRegistered(info: NsdServiceInfo) { Log.i(TAG, "advertised as ${info.serviceName} on $port") }
@@ -453,7 +458,8 @@ class Connect(
         fun attr(k: String) = attrs[k]?.decodeToString()
         val id = attr("id")
         val key = accountKey
-        val hosts = info.hostAddresses.sortedBy { if (it is Inet4Address) 0 else 1 }.mapNotNull { it.hostAddress?.substringBefore('%') }
+        val hosts = (listOfNotNull(attr("h")?.takeIf(InetAddresses::isNumericAddress)) +
+            info.hostAddresses.sortedBy { if (it is Inet4Address) 0 else 1 }.mapNotNull { it.hostAddress?.substringBefore('%') }).distinct()
         val isGuest = attr("g") == "1"
         if (id == null || id == deviceId || key == null || (!isGuest && attr("a") != ConnectKeys.tag(key)) || hosts.isEmpty() || info.port <= 0) {
             found.remove(name)
@@ -488,7 +494,26 @@ class Connect(
         private const val SIGN_IN_TIMEOUT_MS = (ASK_TIMEOUT_MS + 30_000).toInt()
         /** How long the code waits for someone to compare it. */
         internal const val CHECK_TIMEOUT_MS = 120_000L
+        /** Connect's port on an emulator, which the laptop forwards to (`android-emu`). */
+        const val EMULATOR_PORT = 47317
     }
+}
+
+/** Running on the Android emulator (its virtual board is "ranchu"). */
+val isEmulator: Boolean = android.os.Build.HARDWARE == "ranchu"
+
+/**
+ * For testing: an emulator sits behind the computer's NAT, so other devices
+ * can't reach the address it advertises. The emulator's launcher can forward
+ * [Connect.EMULATOR_PORT] from the computer and set `debug.emu.lan_host` to
+ * the computer's LAN address, which the advert then carries as `h`; discovery
+ * tries `h` first. Null on real devices, and on an emulator nothing forwards to.
+ */
+private val emulatorLanHost: String? by lazy {
+    if (!isEmulator) return@lazy null
+    runCatching {
+        Runtime.getRuntime().exec(arrayOf("getprop", "debug.emu.lan_host")).inputStream.bufferedReader().use { it.readText() }.trim()
+    }.getOrNull()?.takeIf { it.isNotEmpty() && InetAddresses.isNumericAddress(it) }
 }
 
 /**

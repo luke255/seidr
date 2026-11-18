@@ -127,6 +127,8 @@ before changing sync or playback.
   plays: moving playback releases the old one, and its other controllers get
   `Moved`. A dropped link retries, then falls back here, paused; `Ended`
   means don't retry. Picker: `ui/player/DevicesDialog`.
+  An emulator advertises the laptop's address as `h` (from `debug.emu.lan_host`)
+  and listens on `EMULATOR_PORT`, which the laptop forwards.
   - **Guests**: signed out, a device advertises `g=1`, and anyone signed in
     can play on it or sign it in (Settings → Sign in a device). The channel
     keys from ECDH against the host's long-term key (`Connect.identity`) with

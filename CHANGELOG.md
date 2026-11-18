@@ -10,6 +10,7 @@ them, not how.
 - Albums no longer have a heart of their own, and Home's Saved albums row is gone. To keep an album, download it or add it to a playlist; Loved songs are unchanged.
 - Swiping back from an album, the navigation bar's colours now follow the page as it slides away.
 - On the Fold's inner screen and other wide screens, swiping back from an album, artist or playlist now slides the page away with your finger.
+- If a device can't be reached when you pick it to play on, the device list now stays open and says why, so you can try again.
 - Swiping back from Search or Library to Home now slides the page away too, and so does going back from Log in.
 - On a device someone else is playing on, a back swipe pulls the queue down with your finger.
 

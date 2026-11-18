@@ -29,6 +29,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -64,9 +65,13 @@ fun DevicesDialog(onDismiss: () -> Unit) {
         lanMissing = !it
         if (it) { connect.stopDiscovery(); connect.onLanGranted() }
     }
-    // Close once a switch the user asked for is done (or failed).
-    var asked by remember { mutableStateOf(false) }
-    LaunchedEffect(asked, connecting) { if (asked && connecting == null) onDismiss() }
+    // Close once the device the user picked is the one playing. A failure stays
+    // open, with the reason on that device's row, so they can try again.
+    var asked by remember { mutableStateOf<String?>(null) }
+    var failed by remember { mutableStateOf<Pair<String, String>?>(null) }
+    LaunchedEffect(asked, active) { if (asked != null && active?.id == asked) onDismiss() }
+    var open by remember { mutableStateOf(true) }
+    DisposableEffect(Unit) { onDispose { open = false } }
 
     // The device being controlled stays listed even if its advert lapses.
     val others = devices + listOfNotNull(active).filter { a -> devices.none { it.id == a.id } }
@@ -81,11 +86,18 @@ fun DevicesDialog(onDismiss: () -> Unit) {
                     onDismiss()
                 }
                 others.forEach { d ->
-                    DeviceRow(kindIcon(d.kind), d.name, if (d.guest) stringResource(R.string.devices_not_signed_in) else null, selected = active?.id == d.id, busy = connecting == d.id) {
+                    val error = failed?.takeIf { it.first == d.id && connecting != d.id }?.second
+                    DeviceRow(kindIcon(d.kind), d.name, error ?: if (d.guest) stringResource(R.string.devices_not_signed_in) else null,
+                        selected = active?.id == d.id, busy = connecting == d.id, isError = error != null) {
                         if (connecting != null) return@DeviceRow
                         if (active?.id == d.id) { onDismiss(); return@DeviceRow }
-                        asked = true
-                        connect.playOn(d)
+                        asked = d.id
+                        failed = null
+                        connect.playOn(d) { message ->
+                            // Shown here while the dialog is up; a toast otherwise.
+                            if (open) { failed = d.id to message; asked = null }
+                            open
+                        }
                     }
                 }
                 Spacer(Modifier.padding(top = 12.dp))
@@ -106,7 +118,7 @@ fun DevicesDialog(onDismiss: () -> Unit) {
 }
 
 @Composable
-private fun DeviceRow(icon: ImageVector, name: String, label: String?, selected: Boolean, busy: Boolean, onClick: () -> Unit) {
+private fun DeviceRow(icon: ImageVector, name: String, label: String?, selected: Boolean, busy: Boolean, isError: Boolean = false, onClick: () -> Unit) {
     val tint = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
     Row(
         Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).clickable(onClick = onClick).padding(vertical = 10.dp, horizontal = 4.dp),
@@ -125,7 +137,12 @@ private fun DeviceRow(icon: ImageVector, name: String, label: String?, selected:
                 else -> label
             }
             if (sub != null) Text(sub, style = MaterialTheme.typography.bodySmall,
-                color = if (selected) tint else MaterialTheme.colorScheme.onSurfaceVariant)
+                color = when {
+                    busy -> MaterialTheme.colorScheme.onSurfaceVariant
+                    isError -> MaterialTheme.colorScheme.error
+                    selected -> tint
+                    else -> MaterialTheme.colorScheme.onSurfaceVariant
+                })
         }
     }
 }
