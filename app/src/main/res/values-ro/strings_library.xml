@@ -84,6 +84,13 @@
     <string name="playlist_copy_failed">Copia nu a putut fi salvată. Verifică-ți conexiunea și încearcă din nou.</string>
     <string name="playlist_done">Gata</string>
     <string name="playlist_reorder">Reordonează melodiile</string>
+    <string name="playlist_picture_change">Schimbă imaginea</string>
+    <string name="playlist_picture_remove">Elimină imaginea</string>
+    <string name="playlist_picture_changed">Imagine schimbată</string>
+    <string name="playlist_picture_removed">Imagine eliminată</string>
+    <string name="playlist_picture_fill">Umple</string>
+    <string name="playlist_picture_fit">Încadrează</string>
+    <string name="playlist_picture_unreadable">Imaginea nu a putut fi deschisă.</string>
     <string name="playlist_rename">Redenumește</string>
     <string name="playlist_delete">Șterge playlistul</string>
     <string name="playlist_remove_from_this">Elimină din acest playlist</string>

@@ -84,6 +84,13 @@
     <string name="playlist_copy_failed">Impossibile salvare una copia. Controlla la connessione e riprova.</string>
     <string name="playlist_done">Fine</string>
     <string name="playlist_reorder">Riordina i brani</string>
+    <string name="playlist_picture_change">Cambia immagine</string>
+    <string name="playlist_picture_remove">Rimuovi immagine</string>
+    <string name="playlist_picture_changed">Immagine cambiata</string>
+    <string name="playlist_picture_removed">Immagine rimossa</string>
+    <string name="playlist_picture_fill">Riempi</string>
+    <string name="playlist_picture_fit">Adatta</string>
+    <string name="playlist_picture_unreadable">Impossibile aprire l’immagine.</string>
     <string name="playlist_rename">Rinomina</string>
     <string name="playlist_delete">Elimina playlist</string>
     <string name="playlist_remove_from_this">Rimuovi da questa playlist</string>

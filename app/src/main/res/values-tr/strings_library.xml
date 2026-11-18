@@ -80,6 +80,13 @@
     <string name="playlist_copy_failed">Kopya kaydedilemedi. Bağlantını kontrol edip tekrar dene.</string>
     <string name="playlist_done">Bitti</string>
     <string name="playlist_reorder">Şarkıları yeniden sırala</string>
+    <string name="playlist_picture_change">Resmi değiştir</string>
+    <string name="playlist_picture_remove">Resmi kaldır</string>
+    <string name="playlist_picture_changed">Resim değiştirildi</string>
+    <string name="playlist_picture_removed">Resim kaldırıldı</string>
+    <string name="playlist_picture_fill">Doldur</string>
+    <string name="playlist_picture_fit">Sığdır</string>
+    <string name="playlist_picture_unreadable">Resim açılamadı.</string>
     <string name="playlist_rename">Yeniden adlandır</string>
     <string name="playlist_delete">Çalma listesini sil</string>
     <string name="playlist_remove_from_this">Bu çalma listesinden çıkar</string>

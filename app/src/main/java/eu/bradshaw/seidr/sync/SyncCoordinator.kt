@@ -37,6 +37,7 @@ class SyncCoordinator(
     private val context: Context,
     private val engine: SyncEngine,
     private val dao: OfflineDao,
+    private val companions: Companions,
     private val settings: Settings,
     private val scope: CoroutineScope,
     private val beforeSync: suspend () -> Unit,
@@ -62,7 +63,9 @@ class SyncCoordinator(
             val report = engine.sync(force)
             Log.i("Sync", "pass: ok=${report.ok.size} unchanged=${report.unchanged.size} failed=${report.failed} " +
                 "gone=${report.gone} queued=${report.queued} redl=${report.redownload} deleted=${report.deleted.size} deferred=${report.deferred}")
-            if (dao.pendingDownloads().isNotEmpty()) enqueueDownloads()
+            // The download run also catches up on downloads' covers and lyrics.
+            val reached = report.ok.isNotEmpty() || report.unchanged.isNotEmpty()
+            if (dao.pendingDownloads().isNotEmpty() || (reached && companions.missing())) enqueueDownloads()
             if (report.failed.isNotEmpty()) enqueueRetryOnReconnect()
             _status.value = SyncStatus(false, System.currentTimeMillis(), report)
             scope.launch { runCatching { afterSync() }.onFailure { Log.w("Sync", "after-sync failed: $it") } }

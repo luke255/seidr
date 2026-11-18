@@ -95,6 +95,13 @@
     <string name="playlist_copy_failed">Couldn\'t save a copy. Check your connection and try again.</string>
     <string name="playlist_done">Done</string>
     <string name="playlist_reorder">Reorder songs</string>
+    <string name="playlist_picture_change">Change picture</string>
+    <string name="playlist_picture_remove">Remove picture</string>
+    <string name="playlist_picture_changed">Picture changed</string>
+    <string name="playlist_picture_removed">Picture removed</string>
+    <string name="playlist_picture_fill">Fill</string>
+    <string name="playlist_picture_fit">Fit</string>
+    <string name="playlist_picture_unreadable">That picture couldn\'t be opened.</string>
     <string name="playlist_rename">Rename</string>
     <string name="playlist_delete">Delete playlist</string>
     <string name="playlist_remove_from_this">Remove from this playlist</string>

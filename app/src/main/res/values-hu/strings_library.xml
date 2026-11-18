@@ -80,6 +80,13 @@
     <string name="playlist_copy_failed">Nem sikerült menteni a másolatot. Ellenőrizd a kapcsolatot, és próbáld újra.</string>
     <string name="playlist_done">Kész</string>
     <string name="playlist_reorder">Dalok átrendezése</string>
+    <string name="playlist_picture_change">Kép módosítása</string>
+    <string name="playlist_picture_remove">Kép eltávolítása</string>
+    <string name="playlist_picture_changed">Kép módosítva</string>
+    <string name="playlist_picture_removed">Kép eltávolítva</string>
+    <string name="playlist_picture_fill">Kitöltés</string>
+    <string name="playlist_picture_fit">Igazítás</string>
+    <string name="playlist_picture_unreadable">A képet nem sikerült megnyitni.</string>
     <string name="playlist_rename">Átnevezés</string>
     <string name="playlist_delete">Lejátszási lista törlése</string>
     <string name="playlist_remove_from_this">Eltávolítás erről a lejátszási listáról</string>

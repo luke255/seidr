@@ -9,7 +9,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
 /** A playlist as seen in the cheap `getPlaylists` listing. */
-data class PlaylistInfo(val id: String, val name: String, val changed: String?, val songCount: Int)
+data class PlaylistInfo(val id: String, val name: String, val changed: String?, val songCount: Int, val coverArt: String? = null)
 
 /** A full playlist fetch: the track list plus the count the server claims it has. */
 data class PlaylistFetch(val tracks: List<ServerTrack>, val songCount: Int, val changed: String?, val name: String)
@@ -143,7 +143,12 @@ class SyncEngine(
             }
         } else emptyMap()
 
-        for (source in sources) {
+        for (stored in sources) {
+            // The playlist's picture, kept for offline (see Companions), follows the listing.
+            val listedCover = if (stored.type == SourceType.PLAYLIST) listing?.get(stored.serverId)?.coverArt else null
+            val source = if (listedCover != null && listedCover != stored.coverArt) {
+                stored.copy(coverArt = listedCover).also { store.updateSource(it) }
+            } else stored
             val outcome = try {
                 when (source.type) {
                     SourceType.PLAYLIST ->
@@ -213,7 +218,15 @@ class SyncEngine(
         }
         for (t in plan.redownload) files.delete(t.id, rowsById[t.id]?.path)
         val queueRows = (plan.queue + plan.redownload).map { it.toQueuedRow() }
-        if (queueRows.isNotEmpty()) store.upsertDownloads(queueRows)
+        // Kept files take the server's latest metadata, so their cover art follows
+        // the server's (Navidrome's cover ids change whenever the album does).
+        val requeued = queueRows.mapTo(HashSet()) { it.trackId }
+        val refreshed = rows.mapNotNull { row ->
+            val t = known[row.trackId]
+            if (t == null || row.state != DownloadState.DONE || row.trackId in requeued || row.trackId in plan.delete) null
+            else row.withMetadata(t).takeIf { it != row }
+        }
+        if (queueRows.isNotEmpty() || refreshed.isNotEmpty()) store.upsertDownloads(queueRows + refreshed)
         return SyncReport(
             queued = plan.queue.size,
             redownload = plan.redownload.size,
@@ -301,4 +314,9 @@ fun ServerTrack.toQueuedRow() = Download(
     trackId = id, state = DownloadState.QUEUED, size = size, suffix = suffix,
     title = title, artist = artist, album = album, albumId = albumId, artistId = artistId,
     coverArt = coverArt, duration = duration,
+)
+
+private fun Download.withMetadata(t: ServerTrack) = copy(
+    title = t.title, artist = t.artist, album = t.album, albumId = t.albumId,
+    artistId = t.artistId, coverArt = t.coverArt, duration = t.duration,
 )

@@ -13,6 +13,18 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.DragHandle
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.HideImage
+import androidx.compose.material.icons.filled.Image
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.aspectRatio
+import eu.bradshaw.seidr.ui.LocalIsTv
+import eu.bradshaw.seidr.ui.components.Cover
+import eu.bradshaw.seidr.ui.components.PickedPicture
+import eu.bradshaw.seidr.ui.components.PictureCropDialog
+import eu.bradshaw.seidr.ui.components.loadPicture
+import eu.bradshaw.seidr.ui.components.renderPicture
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.LibraryAdd
 import androidx.compose.material.icons.filled.Share
@@ -161,6 +173,44 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
     // The songs as the server has them (a kid's login sees fewer), for undoing a remove or delete.
     val serverSongs = { graph.library.playlistSongs.value[playlist.id] ?: songs.map { it.id } }
     val copyFailed = stringResource(R.string.playlist_copy_failed)
+    val pictureChanged = stringResource(R.string.playlist_picture_changed)
+    val pictureRemoved = stringResource(R.string.playlist_picture_removed)
+
+    // A picture of its own shows as it is; otherwise the classic mosaic of its albums.
+    val pictured by graph.playlistPictures.ids.collectAsStateWithLifecycle()
+    val picture = playlist.coverArt?.takeIf { playlist.id in pictured }
+    // Pictures are Navidrome's (0.61+), and need a photo picker (not on TV). The owner's
+    // call, smart playlists included: their songs are the rules', but the picture isn't.
+    val picturesOn by graph.playlistPictures.supported.collectAsStateWithLifecycle()
+    val canPicture = !graph.readOnly && mine && picturesOn && !LocalIsTv.current
+    suspend fun editPicture(applied: String, edit: suspend () -> Unit) {
+        try {
+            edit()
+            actions.toast(applied)
+        } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
+            actions.toast(graph.app.getString(R.string.common_edit_failed, e.message ?: e.javaClass.simpleName))
+        }
+        vm.load()
+    }
+    // Picked, then framed (PictureCropDialog), then uploaded.
+    var framing by remember { mutableStateOf<PickedPicture?>(null) }
+    val notPicture = stringResource(R.string.playlist_picture_unreadable)
+    val pickPicture = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        if (uri != null) actions.launch {
+            framing = runCatching { loadPicture(graph.app, uri) }.getOrElse { actions.toast(notPicture); null }
+        }
+    }
+    framing?.let { picked ->
+        PictureCropDialog(
+            picked,
+            onSave = { frame ->
+                framing = null
+                actions.launch { editPicture(pictureChanged) { graph.playlistPictures.set(playlist.id, renderPicture(picked, frame)) } }
+            },
+            onDismiss = { framing = null },
+        )
+    }
 
     val source = OfflineSource(
         SourceType.sourceId(SourceType.PLAYLIST, playlist.id), SourceType.PLAYLIST, playlist.id, playlist.name,
@@ -169,7 +219,10 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
 
     CollectionLayout(
         title = playlist.name,
-        art = { m -> Mosaic(songs.distinctBy { it.albumId }.mapNotNull { it.coverArt }, m, fallback = playlist.coverArt) },
+        art = { m ->
+            if (picture != null) Cover(picture, m.aspectRatio(1f), size = 600)
+            else Mosaic(songs.distinctBy { it.albumId }.mapNotNull { it.coverArt }, m, fallback = playlist.coverArt)
+        },
         subtitle = {
             HeaderFacts(
                 listOfNotNull(
@@ -224,6 +277,14 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                 DropdownMenuItem({ Text(stringResource(R.string.playlist_reorder)) }, leadingIcon = { Icon(Icons.Filled.DragHandle, null) },
                     // Reordering is of the playlist's own order, so the view goes back to it.
                     onClick = { close(); graph.settings.setPlaylistSort(playlist.id, TrackSort.CUSTOM); editing = true })
+            }
+            if (canPicture) {
+                DropdownMenuItem({ Text(stringResource(R.string.playlist_picture_change)) }, leadingIcon = { Icon(Icons.Filled.Image, null) },
+                    onClick = { close(); pickPicture.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) })
+                if (picture != null) {
+                    DropdownMenuItem({ Text(stringResource(R.string.playlist_picture_remove)) }, leadingIcon = { Icon(Icons.Filled.HideImage, null) },
+                        onClick = { close(); actions.launch { editPicture(pictureRemoved) { graph.playlistPictures.remove(playlist.id) } } })
+                }
             }
             if (canCopy) {
                 DropdownMenuItem({ Text(stringResource(R.string.playlist_save_copy)) }, leadingIcon = { Icon(Icons.Filled.LibraryAdd, null) },

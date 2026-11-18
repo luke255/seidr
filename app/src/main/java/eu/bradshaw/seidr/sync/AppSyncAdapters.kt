@@ -31,7 +31,7 @@ class SubsonicSyncServer(private val api: () -> SubsonicApi) : SyncServer {
 
     override suspend fun playlistListing(): List<PlaylistInfo> =
         api().getPlaylists().ok().playlists?.playlist.orEmpty()
-            .map { PlaylistInfo(it.id, it.name, it.changed, it.songCount) }
+            .map { PlaylistInfo(it.id, it.name, it.changed, it.songCount, it.coverArt) }
 
     override suspend fun playlist(id: String): PlaylistFetch = notFoundAsGone("playlist $id") {
         val p = api().getPlaylist(id).ok().playlist ?: throw SubsonicException(0, "no playlist in response")

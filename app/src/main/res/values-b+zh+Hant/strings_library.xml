@@ -76,6 +76,13 @@
     <string name="playlist_copy_failed">無法儲存副本。請檢查網路連線後再試一次。</string>
     <string name="playlist_done">完成</string>
     <string name="playlist_reorder">重新排序歌曲</string>
+    <string name="playlist_picture_change">更換圖片</string>
+    <string name="playlist_picture_remove">移除圖片</string>
+    <string name="playlist_picture_changed">圖片已更換</string>
+    <string name="playlist_picture_removed">圖片已移除</string>
+    <string name="playlist_picture_fill">填滿</string>
+    <string name="playlist_picture_fit">符合</string>
+    <string name="playlist_picture_unreadable">無法開啟該圖片。</string>
     <string name="playlist_rename">重新命名</string>
     <string name="playlist_delete">刪除播放清單</string>
     <string name="playlist_remove_from_this">從此播放清單移除</string>

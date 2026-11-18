@@ -76,6 +76,13 @@
     <string name="playlist_copy_failed">사본을 저장하지 못했어요. 연결을 확인하고 다시 시도하세요.</string>
     <string name="playlist_done">완료</string>
     <string name="playlist_reorder">곡 순서 변경</string>
+    <string name="playlist_picture_change">사진 변경</string>
+    <string name="playlist_picture_remove">사진 삭제</string>
+    <string name="playlist_picture_changed">사진을 변경했습니다</string>
+    <string name="playlist_picture_removed">사진을 삭제했습니다</string>
+    <string name="playlist_picture_fill">채우기</string>
+    <string name="playlist_picture_fit">맞추기</string>
+    <string name="playlist_picture_unreadable">사진을 열 수 없습니다.</string>
     <string name="playlist_rename">이름 변경</string>
     <string name="playlist_delete">플레이리스트 삭제</string>
     <string name="playlist_remove_from_this">이 플레이리스트에서 삭제</string>

@@ -76,6 +76,13 @@
     <string name="playlist_copy_failed">コピーを保存できませんでした。接続を確認して、もう一度お試しください。</string>
     <string name="playlist_done">完了</string>
     <string name="playlist_reorder">曲を並べ替え</string>
+    <string name="playlist_picture_change">画像を変更</string>
+    <string name="playlist_picture_remove">画像を削除</string>
+    <string name="playlist_picture_changed">画像を変更しました</string>
+    <string name="playlist_picture_removed">画像を削除しました</string>
+    <string name="playlist_picture_fill">全体に表示</string>
+    <string name="playlist_picture_fit">全体を収める</string>
+    <string name="playlist_picture_unreadable">画像を開けませんでした。</string>
     <string name="playlist_rename">名前を変更</string>
     <string name="playlist_delete">プレイリストを削除</string>
     <string name="playlist_remove_from_this">このプレイリストから削除</string>

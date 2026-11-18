@@ -163,7 +163,7 @@ class SeidrApp : Application(), SingletonImageLoader.Factory {
             .components {
                 add(Mapper<CoverArt, Any> { data, _ ->
                     // Prefer cover art saved alongside downloads, so offline mode has pictures.
-                    graph.files.coverFile(data.id).takeIf { it.isFile }
+                    graph.files.coverFor(data.id)
                         ?: graph.client.coverArtUrl(data.id, data.size)
                 })
                 add(Keyer<CoverArt> { data, _: Options -> "cover:${data.id}:${data.size}" })

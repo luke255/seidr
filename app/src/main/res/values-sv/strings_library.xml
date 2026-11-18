@@ -80,6 +80,13 @@
     <string name="playlist_copy_failed">Det gick inte att spara en kopia. Kontrollera anslutningen och försök igen.</string>
     <string name="playlist_done">Klar</string>
     <string name="playlist_reorder">Ändra låtordning</string>
+    <string name="playlist_picture_change">Byt bild</string>
+    <string name="playlist_picture_remove">Ta bort bild</string>
+    <string name="playlist_picture_changed">Bilden har bytts</string>
+    <string name="playlist_picture_removed">Bilden har tagits bort</string>
+    <string name="playlist_picture_fill">Fyll</string>
+    <string name="playlist_picture_fit">Anpassa</string>
+    <string name="playlist_picture_unreadable">Bilden kunde inte öppnas.</string>
     <string name="playlist_rename">Byt namn</string>
     <string name="playlist_delete">Radera spellista</string>
     <string name="playlist_remove_from_this">Ta bort från den här spellistan</string>

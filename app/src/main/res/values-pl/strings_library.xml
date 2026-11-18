@@ -88,6 +88,13 @@
     <string name="playlist_copy_failed">Nie udało się zapisać kopii. Sprawdź połączenie i spróbuj ponownie.</string>
     <string name="playlist_done">Gotowe</string>
     <string name="playlist_reorder">Zmień kolejność utworów</string>
+    <string name="playlist_picture_change">Zmień obraz</string>
+    <string name="playlist_picture_remove">Usuń obraz</string>
+    <string name="playlist_picture_changed">Obraz zmieniony</string>
+    <string name="playlist_picture_removed">Obraz usunięty</string>
+    <string name="playlist_picture_fill">Wypełnij</string>
+    <string name="playlist_picture_fit">Dopasuj</string>
+    <string name="playlist_picture_unreadable">Nie udało się otworzyć obrazu.</string>
     <string name="playlist_rename">Zmień nazwę</string>
     <string name="playlist_delete">Usuń playlistę</string>
     <string name="playlist_remove_from_this">Usuń z tej playlisty</string>

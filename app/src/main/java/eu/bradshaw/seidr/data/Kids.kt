@@ -40,7 +40,11 @@ class Kids(
     private val dir: File,
     private val scope: CoroutineScope,
     private val context: Context,
+    http: okhttp3.OkHttpClient,
 ) {
+    /** Navidrome's own API as the kid, for which playlists have pictures. */
+    private val native = NavidromeApi(http, loginNow)
+
     private class Loaded(val key: String, val rules: KidRules)
 
     @Volatile private var loaded: Loaded? = null
@@ -108,14 +112,26 @@ class Kids(
                 .map { async { fetch(it) } }.awaitAll()
             KidLists(approved, titles, art, versions.keys.toList(), versions)
         }
+        // Pictures are one small call, so they're checked every time. Only the grown-up's
+        // playlists and the kid's own count. Unreachable keeps what we had; a server without them has none.
+        val pictures = try {
+            val trusted = setOf(owner.trim().lowercase(), c.username.trim().lowercase())
+            native.playlistPictures().orEmpty().filterValues { it.trim().lowercase() in trusted }.keys.sorted()
+        } catch (e: NotNavidromeException) {
+            emptyList()
+        } catch (e: IOException) {
+            Log.w(TAG, "pictures: $e")
+            (saved ?: lists).pictures
+        }
+        val withPictures = if (pictures == lists.pictures) lists else lists.copy(pictures = pictures)
         // Signed out or in as someone else meanwhile: these lists aren't theirs.
         if (loginNow() != c) return null
-        if (lists !== saved) write(key, lists)
+        if (withPictures !== saved) write(key, withPictures)
         // Unchanged lists keep the rules already loaded, so nothing downstream redoes its filtering.
-        val rules = loaded?.takeIf { it.key == key && lists === saved }?.rules ?: KidRules(lists)
+        val rules = loaded?.takeIf { it.key == key && withPictures === saved }?.rules ?: KidRules(withPictures)
         loaded = Loaded(key, rules)
         _rules.value = rules
-        Log.i(TAG, "lists${if (lists === saved) " (unchanged)" else ""}: ${lists.approved.size} approved, ${lists.titles.size} titles, ${lists.art.size} art")
+        Log.i(TAG, "lists${if (withPictures === saved) " (unchanged)" else ""}: ${lists.approved.size} approved, ${lists.titles.size} titles, ${lists.art.size} art, ${pictures.size} pictures")
         rules
     }
 

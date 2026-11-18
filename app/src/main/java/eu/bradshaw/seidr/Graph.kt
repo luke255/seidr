@@ -73,6 +73,7 @@ class Graph(val app: Application) {
         dir = File(app.filesDir, "kids"),
         scope = scope,
         context = app,
+        http = baseHttp,
     )
 
     /** Settings → Reporting, which kids don't get. */
@@ -80,6 +81,10 @@ class Graph(val app: Application) {
         .stateIn(scope, kotlinx.coroutines.flow.SharingStarted.Eagerly, settings.badReports.value && settings.server.value?.isKid != true)
 
     val library = Library(client, badReportsOn, user, settings.othersPrivatePlaylists, kids, scope)
+    /** Navidrome's own API, for what Subsonic has no call for. The signed-in login only. */
+    val navidrome = eu.bradshaw.seidr.data.NavidromeApi(baseHttp) { settings.server.value }
+    /** Which playlists have a picture of their own, and changing it. */
+    val playlistPictures = eu.bradshaw.seidr.data.PlaylistPictures(app, navidrome, { settings.server.value }, library, kids, scope)
 
     /** While an admin browses as one of their kids (see `KidView`); null otherwise. */
     val kidView = kotlinx.coroutines.flow.MutableStateFlow<eu.bradshaw.seidr.data.KidView?>(null)
@@ -100,6 +105,8 @@ class Graph(val app: Application) {
     val history = eu.bradshaw.seidr.data.PlaylistHistory(db.history()).also { library.history = it }
     val files = MusicFiles(app)
     val downloads = DownloadIndex(db.offline(), scope)
+    /** Covers and lyrics beside the downloads, for offline. */
+    val companions = eu.bradshaw.seidr.sync.Companions(files, client, library, db.offline())
 
     val engine = SyncEngine(
         server = SubsonicSyncServer { client.strict },
@@ -182,7 +189,7 @@ class Graph(val app: Application) {
                 }
             }
         }
-        sync = SyncCoordinator(app, engine, db.offline(), settings, scope, beforeSync = {
+        sync = SyncCoordinator(app, engine, db.offline(), companions, settings, scope, beforeSync = {
             editor.replayPending()
             NowPlaying.flushScrobbles(this)
             lyricsOffsets.sync()

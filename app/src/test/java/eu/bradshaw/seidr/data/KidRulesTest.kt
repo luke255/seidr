@@ -119,5 +119,15 @@ class KidRulesTest {
         assertFalse("playlist art never", rules.coverAllowed("pl-pl-approved_0060"))
         assertFalse("unknown scheme fails closed", rules.coverAllowed("ok"))
         assertFalse("no lists yet", KidRules(KidLists()).coverAllowed("mf-ok"))
+        assertTrue("a disc's cover is its album's", rules.coverAllowed("dc-al-1:1"))
+        assertFalse(rules.coverAllowed("dc-al-2:1"))
+    }
+
+    @Test fun `a picture the grown-up chose shows, on their playlist only`() {
+        val pictured = KidRules(KidLists(approved = listOf(KidSong("ok", "al-1")), pictures = listOf("p")))
+        assertEquals("pl-p_0060", pictured.playlist(Playlist("p", "Car songs", coverArt = "pl-p_0060"))!!.coverArt)
+        assertNull(pictured.playlist(Playlist("q", "Mine", coverArt = "pl-q_0060"))!!.coverArt)
+        assertTrue(pictured.coverAllowed("pl-p_0060"))
+        assertFalse(pictured.coverAllowed("pl-q_0060"))
     }
 }

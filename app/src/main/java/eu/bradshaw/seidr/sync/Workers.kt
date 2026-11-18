@@ -105,7 +105,7 @@ class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWork
                     }
                 }
                 doneBytes += next.size.coerceAtLeast(0)
-                next.coverArt?.let { fetchCover(it) }
+                runCatching { g.companions.fillFor(next) }
             } catch (e: IOException) {
                 Log.w(TAG, "download ${next.trackId} failed: $e")
                 val noSpace = e.message?.contains("ENOSPC") == true || e.message?.contains("No space") == true
@@ -121,7 +121,11 @@ class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWork
         if (networkTrouble) {
             dao.retryFailed()
             Result.retry()
-        } else Result.success()
+        } else {
+            // Covers and lyrics for older downloads, or covers that changed on the server.
+            g.companions.fill()
+            Result.success()
+        }
     }
 
     private suspend fun discard(d: Download) {
@@ -193,20 +197,6 @@ class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWork
         val dest = g.files.trackFile(d.trackId, d.suffix)
         if (!part.renameTo(dest)) throw IOException("could not move ${part.name} into place")
         return dest
-    }
-
-    private fun fetchCover(coverId: String) {
-        val f = g.files.coverFile(coverId)
-        if (f.isFile) return
-        val url = g.client.coverArtUrl(coverId, 600) ?: return
-        runCatching {
-            g.client.mediaHttp.newCall(Request.Builder().url(url).build()).execute().use { resp ->
-                if (!resp.isSuccessful) return
-                val tmp = File(f.path + ".tmp")
-                tmp.outputStream().use { resp.body.byteStream().copyTo(it) }
-                tmp.renameTo(f)
-            }
-        }
     }
 
     companion object {

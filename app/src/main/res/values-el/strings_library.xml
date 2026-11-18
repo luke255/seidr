@@ -80,6 +80,13 @@
     <string name="playlist_copy_failed">Δεν ήταν δυνατή η αποθήκευση αντιγράφου. Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά.</string>
     <string name="playlist_done">Τέλος</string>
     <string name="playlist_reorder">Αλλαγή σειράς τραγουδιών</string>
+    <string name="playlist_picture_change">Αλλαγή εικόνας</string>
+    <string name="playlist_picture_remove">Αφαίρεση εικόνας</string>
+    <string name="playlist_picture_changed">Η εικόνα άλλαξε</string>
+    <string name="playlist_picture_removed">Η εικόνα αφαιρέθηκε</string>
+    <string name="playlist_picture_fill">Γέμισμα</string>
+    <string name="playlist_picture_fit">Προσαρμογή</string>
+    <string name="playlist_picture_unreadable">Δεν ήταν δυνατό το άνοιγμα της εικόνας.</string>
     <string name="playlist_rename">Μετονομασία</string>
     <string name="playlist_delete">Διαγραφή playlist</string>
     <string name="playlist_remove_from_this">Αφαίρεση από αυτή την playlist</string>

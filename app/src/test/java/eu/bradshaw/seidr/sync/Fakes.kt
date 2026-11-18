@@ -12,7 +12,7 @@ fun track(id: String, size: Long = 1000, suffix: String = "flac") = ServerTrack(
  * and can make it misbehave (offline, truncated responses, flaky not-found).
  */
 class FakeServer {
-    class Pl(var name: String, var tracks: MutableList<ServerTrack>, var changed: Int = 1)
+    class Pl(var name: String, var tracks: MutableList<ServerTrack>, var changed: Int = 1, var coverArt: String? = null)
 
     val playlists = linkedMapOf<String, Pl>()
     val albums = linkedMapOf<String, MutableList<ServerTrack>>()
@@ -56,7 +56,7 @@ class FakeServer {
         override suspend fun playlistListing(): List<PlaylistInfo> {
             net("listing")
             return playlists.filterKeys { it != hideFromListing }
-                .map { (id, p) -> PlaylistInfo(id, p.name, "v${p.changed}", p.tracks.size) }
+                .map { (id, p) -> PlaylistInfo(id, p.name, "v${p.changed}", p.tracks.size, p.coverArt) }
         }
 
         override suspend fun playlist(id: String): PlaylistFetch {

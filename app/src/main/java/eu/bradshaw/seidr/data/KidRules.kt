@@ -19,7 +19,8 @@ data class KidSong(val id: String, val albumId: String? = null, val artistIds: L
  * only if it's in Safe Titles or Safe Art, with just what that list allows;
  * a song on no list doesn't show at all. Albums and artists show while
  * they have a song that shows; artist pictures never do. Playlists show
- * with their songs filtered and no cover (a mosaic of any song in them).
+ * with their songs filtered and no cover (a mosaic of any song in them),
+ * unless the grown-up or the kid gave it a picture.
  * The three lists themselves are hidden from everyone (`Library`).
  */
 @Serializable
@@ -31,6 +32,8 @@ data class KidLists(
     val playlistIds: List<String> = emptyList(),
     /** Each of those playlists' `changed|songCount` when fetched: unchanged, they aren't fetched again. */
     val versions: Map<String, String> = emptyMap(),
+    /** Playlists with a picture of their own that the grown-up or the kid chose, so it shows. */
+    val pictures: List<String> = emptyList(),
 )
 
 class KidRules(val lists: KidLists) {
@@ -42,6 +45,7 @@ class KidRules(val lists: KidLists) {
     private val artists = all.flatMapTo(HashSet()) { it.artistIds }
     private val artAlbums = (lists.approved + lists.art).mapNotNullTo(HashSet()) { it.albumId }
     val playlistIds = lists.playlistIds.toSet()
+    private val pictures = lists.pictures.toSet()
 
     fun playable(id: String) = id in approved
     fun visible(id: String) = id in approved || id in titles || id in art
@@ -55,13 +59,16 @@ class KidRules(val lists: KidLists) {
     /**
      * Whether a cover id's art may be served (`CoverProvider`, which other apps
      * can ask). Navidrome names covers by what they belong to: `mf-<song>`,
-     * `al-<album>`; artist and playlist art never shows, and anything else fails closed.
+     * `al-<album>`, `dc-<album>:<disc>` (the album's), `pl-<playlist>`. Artist art
+     * never shows, playlist art only when the grown-up or the kid chose it, and
+     * anything else fails closed.
      */
     fun coverAllowed(coverId: String): Boolean {
-        val id = coverId.drop(3).substringBefore('_')
+        val id = coverId.drop(3).substringBefore('_').substringBefore(':')
         return when (coverId.take(3)) {
             "mf-" -> showArt(id)
-            "al-" -> albumArtShows(id)
+            "al-", "dc-" -> albumArtShows(id)
+            "pl-" -> id in pictures
             else -> false
         }
     }
@@ -94,10 +101,13 @@ class KidRules(val lists: KidLists) {
 
     fun artists(list: List<Artist>): List<Artist> = list.mapNotNull(::artist)
 
-    /** Filtered, without its cover; the three lists themselves never show. */
+    /**
+     * Filtered, and without its cover unless the grown-up or the kid gave it a
+     * picture (a mosaic could show any song's art); the three lists themselves never show.
+     */
     fun playlist(p: Playlist): Playlist? {
         if (isKidsList(p.name)) return null
-        return p.copy(coverArt = null, entry = songs(p.entry))
+        return p.copy(coverArt = p.coverArt.takeIf { p.id in pictures }, entry = songs(p.entry))
     }
 
     fun playlists(list: List<Playlist>): List<Playlist> = list.mapNotNull(::playlist)

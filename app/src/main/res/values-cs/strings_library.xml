@@ -88,6 +88,13 @@
     <string name="playlist_copy_failed">Kopii se nepodařilo uložit. Zkontrolujte připojení a zkuste to znovu.</string>
     <string name="playlist_done">Hotovo</string>
     <string name="playlist_reorder">Změnit pořadí skladeb</string>
+    <string name="playlist_picture_change">Změnit obrázek</string>
+    <string name="playlist_picture_remove">Odebrat obrázek</string>
+    <string name="playlist_picture_changed">Obrázek změněn</string>
+    <string name="playlist_picture_removed">Obrázek odebrán</string>
+    <string name="playlist_picture_fill">Vyplnit</string>
+    <string name="playlist_picture_fit">Přizpůsobit</string>
+    <string name="playlist_picture_unreadable">Obrázek se nepodařilo otevřít.</string>
     <string name="playlist_rename">Přejmenovat</string>
     <string name="playlist_delete">Smazat playlist</string>
     <string name="playlist_remove_from_this">Odebrat z tohoto playlistu</string>

@@ -131,6 +131,28 @@ class SyncEngineTest {
         assertEquals("opus", store.downloads.getValue("b").suffix)
     }
 
+    @Test fun `a kept file takes the server's new cover id without re-downloading`() = runTest {
+        fake.playlist("p", "a")
+        fake.edit("p") { this[0] = track("a").copy(coverArt = "al-x_1") }
+        enablePlaylist("p")
+        syncAndDownload()
+        fake.edit("p") { this[0] = track("a").copy(coverArt = "al-x_2") }
+        val r = engine.sync()
+        assertEquals(0, r.redownload)
+        assertEquals(DownloadState.DONE, store.downloads.getValue("a").state)
+        assertEquals("al-x_2", store.downloads.getValue("a").coverArt)
+    }
+
+    @Test fun `a downloaded playlist's picture follows the listing`() = runTest {
+        fake.playlist("p", "a")
+        enablePlaylist("p")
+        syncAndDownload()
+        fake.playlists.getValue("p").coverArt = "pl-p_2"
+        val r = engine.sync()
+        assertEquals(listOf("playlist:p"), r.unchanged)
+        assertEquals("pl-p_2", store.sources.getValue("playlist:p").coverArt)
+    }
+
     @Test fun `turning download off deletes files nothing else claims`() = runTest {
         fake.playlist("p", "a", "b")
         fake.playlist("q", "b")

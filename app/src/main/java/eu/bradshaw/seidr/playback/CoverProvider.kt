@@ -22,23 +22,23 @@ class CoverProvider : ContentProvider() {
     override fun onCreate() = true
 
     override fun openFile(uri: Uri, mode: String): ParcelFileDescriptor {
-        val id = uri.lastPathSegment?.takeIf { it.matches(Regex("[A-Za-z0-9_-]+")) } ?: throw FileNotFoundException()
+        val id = uri.lastPathSegment?.takeIf { it.matches(Regex("[A-Za-z0-9_:-]+")) } ?: throw FileNotFoundException()
         val ctx = context ?: throw FileNotFoundException()
         val graph = Graph.get(ctx)
         // Fails closed: a kid's login with no lists yet has empty rules.
         graph.kids.current?.let { if (!it.coverAllowed(id)) throw FileNotFoundException() }
-        val file = graph.files.coverFile(id).takeIf { it.isFile } ?: cached(ctx.cacheDir, graph, id)
+        val file = graph.files.coverFor(id) ?: cached(ctx.cacheDir, graph, id)
         return ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
     }
 
     private fun cached(cacheDir: File, graph: Graph, id: String): File {
         val dir = File(cacheDir, "auto-covers").apply { mkdirs() }
-        val f = File(dir, "$id.jpg")
+        val f = File(dir, "${id.replace(':', '_')}.jpg")
         if (f.isFile) return f
         val url = graph.client.coverArtUrl(id, 600) ?: throw FileNotFoundException()
         graph.baseHttp.newCall(Request.Builder().url(url).build()).execute().use { resp ->
             if (!resp.isSuccessful) throw FileNotFoundException()
-            val tmp = File(dir, "$id.tmp")
+            val tmp = File(dir, "${id.replace(':', '_')}.tmp")
             tmp.outputStream().use { resp.body.byteStream().copyTo(it) }
             tmp.renameTo(f)
         }

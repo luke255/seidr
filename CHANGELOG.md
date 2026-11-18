@@ -4,6 +4,12 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.6.14
+
+- Downloaded songs keep their album art and lyrics when your server is out of reach, including while it's updating or restarting. Albums and playlists you've downloaded from keep their pictures too. Lyrics for songs you've already downloaded are fetched in the background on your next sync.
+- Give a playlist a picture of its own: Change picture in the playlist's ⋮ menu (Navidrome 0.61 or later). Pinch and drag to frame it, or choose Fill or Fit; around a picture that doesn't fill the square, Seiðr adds a background in its colours. Kids see the pictures on their own playlists and their grown-up's.
+- Fixed missing cover art in Android Auto and on the lock screen for songs that use their album's art.
+
 ## 1.6.13
 
 - Seiðr is much smaller to download and update (about 14 MB, down from 49). The visualiser's presets now come straight from the projectM project's collection, once: by themselves on Wi-Fi, or when you first open the visualiser.

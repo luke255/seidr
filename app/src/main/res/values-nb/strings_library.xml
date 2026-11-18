@@ -80,6 +80,13 @@
     <string name="playlist_copy_failed">Kunne ikke lagre en kopi. Sjekk tilkoblingen og prøv igjen.</string>
     <string name="playlist_done">Ferdig</string>
     <string name="playlist_reorder">Endre rekkefølge</string>
+    <string name="playlist_picture_change">Bytt bilde</string>
+    <string name="playlist_picture_remove">Fjern bilde</string>
+    <string name="playlist_picture_changed">Bildet er byttet</string>
+    <string name="playlist_picture_removed">Bildet er fjernet</string>
+    <string name="playlist_picture_fill">Fyll</string>
+    <string name="playlist_picture_fit">Tilpass</string>
+    <string name="playlist_picture_unreadable">Bildet kunne ikke åpnes.</string>
     <string name="playlist_rename">Gi nytt navn</string>
     <string name="playlist_delete">Slett spilleliste</string>
     <string name="playlist_remove_from_this">Fjern fra denne spillelisten</string>

@@ -88,6 +88,13 @@
     <string name="playlist_copy_failed">Не удалось сохранить копию. Проверьте подключение и попробуйте ещё раз.</string>
     <string name="playlist_done">Готово</string>
     <string name="playlist_reorder">Изменить порядок треков</string>
+    <string name="playlist_picture_change">Сменить картинку</string>
+    <string name="playlist_picture_remove">Убрать картинку</string>
+    <string name="playlist_picture_changed">Картинка изменена</string>
+    <string name="playlist_picture_removed">Картинка убрана</string>
+    <string name="playlist_picture_fill">Заполнить</string>
+    <string name="playlist_picture_fit">Вписать</string>
+    <string name="playlist_picture_unreadable">Не удалось открыть картинку.</string>
     <string name="playlist_rename">Переименовать</string>
     <string name="playlist_delete">Удалить плейлист</string>
     <string name="playlist_remove_from_this">Убрать из этого плейлиста</string>

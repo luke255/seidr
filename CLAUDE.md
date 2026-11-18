@@ -46,6 +46,9 @@ before changing sync or playback.
     45 min, retry on reconnect, and the downloads queue.
   - `DownloadWorker` downloads with Range resume, pauses on low storage, and
     re-checks claims under `engine.lock` before committing a file.
+    `Companions` keeps each download's cover (`MusicFiles`, found across
+    Navidrome's changing cover ids by `stableCoverId`) and lyrics (as a
+    `ResponseStore` reply) for offline; the download run catches up on both.
   - `PlaylistEditor` handles all playlist writes. Pure helpers live in
     `EditResolver`.
 - **`playback/`**:
@@ -110,7 +113,9 @@ before changing sync or playback.
   kid is added; hidden from everyone's browsing); missing counts as empty,
   so it fails closed. LiveEvents edits to them trigger a sync, which
   refetches them. Approved plays; Safe Titles/Art show disabled
-  (`Song.locked`) with just that; anything else is hidden. `Library` filters
+  (`Song.locked`) with just that; anything else is hidden. Playlist art shows
+  only for chosen pictures on the grown-up's or the kid's own playlists
+  (`KidLists.pictures`). `Library` filters
   everything it returns; `PlaybackService` hides unapproved queue entries
   and its data source refuses them; `SyncEngine`'s `TrackGate` claims only
   approved tracks, from lists checked strictly that pass (the lists are
@@ -120,8 +125,12 @@ before changing sync or playback.
   own client, `Kids` and `Library`, which only browsing screens read
   (`Graph.browse`/`browseKids`/`browseLogin`; `readOnly` hides every edit).
   Sync, playback, scrobbles and Connect stay on the admin's login.
+- **`data/NavidromeApi`**: Navidrome's native `/api/…` (JWT from
+  `/auth/login`), for what Subsonic lacks; `PlaylistPictures` uses it for
+  playlist pictures (a playlist with one shows it, not the mosaic), framed
+  in `PictureCropDialog` (`PictureFrame` is the pure maths).
 - **`data/LiveEvents`**: while the app is on screen, listens to Navidrome's
-  native `/api/events` stream (JWT from `/auth/login`). Events only trigger
+  native `/api/events` stream (token from `NavidromeApi`). Events only trigger
   sync or screen reloads; on any failure it backs off and polling carries on.
 - **`connect/`**: Connect (LAN only). Each install advertises `_seidr._tcp`
   over mDNS. Signed in, it's tagged from `ConnectKeys.account` (username +

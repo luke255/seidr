@@ -80,6 +80,13 @@
     <string name="playlist_copy_failed">Kopie konnte nicht gespeichert werden. Prüfe deine Verbindung und versuche es erneut.</string>
     <string name="playlist_done">Fertig</string>
     <string name="playlist_reorder">Songs neu anordnen</string>
+    <string name="playlist_picture_change">Bild ändern</string>
+    <string name="playlist_picture_remove">Bild entfernen</string>
+    <string name="playlist_picture_changed">Bild geändert</string>
+    <string name="playlist_picture_removed">Bild entfernt</string>
+    <string name="playlist_picture_fill">Füllen</string>
+    <string name="playlist_picture_fit">Einpassen</string>
+    <string name="playlist_picture_unreadable">Das Bild konnte nicht geöffnet werden.</string>
     <string name="playlist_rename">Umbenennen</string>
     <string name="playlist_delete">Playlist löschen</string>
     <string name="playlist_remove_from_this">Aus dieser Playlist entfernen</string>

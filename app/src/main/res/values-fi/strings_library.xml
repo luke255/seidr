@@ -80,6 +80,13 @@
     <string name="playlist_copy_failed">Kopion tallentaminen epäonnistui. Tarkista yhteys ja yritä uudelleen.</string>
     <string name="playlist_done">Valmis</string>
     <string name="playlist_reorder">Järjestä kappaleet</string>
+    <string name="playlist_picture_change">Vaihda kuva</string>
+    <string name="playlist_picture_remove">Poista kuva</string>
+    <string name="playlist_picture_changed">Kuva vaihdettu</string>
+    <string name="playlist_picture_removed">Kuva poistettu</string>
+    <string name="playlist_picture_fill">Täytä</string>
+    <string name="playlist_picture_fit">Sovita</string>
+    <string name="playlist_picture_unreadable">Kuvaa ei voitu avata.</string>
     <string name="playlist_rename">Nimeä uudelleen</string>
     <string name="playlist_delete">Poista soittolista</string>
     <string name="playlist_remove_from_this">Poista tältä soittolistalta</string>

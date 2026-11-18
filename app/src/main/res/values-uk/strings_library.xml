@@ -88,6 +88,13 @@
     <string name="playlist_copy_failed">Не вдалося зберегти копію. Перевірте з’єднання та спробуйте ще раз.</string>
     <string name="playlist_done">Готово</string>
     <string name="playlist_reorder">Змінити порядок пісень</string>
+    <string name="playlist_picture_change">Змінити зображення</string>
+    <string name="playlist_picture_remove">Прибрати зображення</string>
+    <string name="playlist_picture_changed">Зображення змінено</string>
+    <string name="playlist_picture_removed">Зображення прибрано</string>
+    <string name="playlist_picture_fill">Заповнити</string>
+    <string name="playlist_picture_fit">Вписати</string>
+    <string name="playlist_picture_unreadable">Не вдалося відкрити зображення.</string>
     <string name="playlist_rename">Перейменувати</string>
     <string name="playlist_delete">Видалити плейлист</string>
     <string name="playlist_remove_from_this">Прибрати з цього плейлиста</string>

@@ -84,6 +84,13 @@
     <string name="playlist_copy_failed">No s\'ha pogut desar una còpia. Comprova la connexió i torna-ho a provar.</string>
     <string name="playlist_done">Fet</string>
     <string name="playlist_reorder">Reordena les cançons</string>
+    <string name="playlist_picture_change">Canvia la imatge</string>
+    <string name="playlist_picture_remove">Treu la imatge</string>
+    <string name="playlist_picture_changed">Imatge canviada</string>
+    <string name="playlist_picture_removed">Imatge treta</string>
+    <string name="playlist_picture_fill">Omple</string>
+    <string name="playlist_picture_fit">Ajusta</string>
+    <string name="playlist_picture_unreadable">No s’ha pogut obrir aquesta imatge.</string>
     <string name="playlist_rename">Canvia el nom</string>
     <string name="playlist_delete">Suprimeix la llista</string>
     <string name="playlist_remove_from_this">Treu d\'aquesta llista</string>

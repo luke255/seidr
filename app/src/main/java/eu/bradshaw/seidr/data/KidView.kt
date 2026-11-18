@@ -27,7 +27,7 @@ class KidView(val config: ServerConfig, graph: Graph) {
         ResponseStore(File(dir, "api")), graph.status)
 
     /** Kept between views (in the cache), so opening one again only checks the lists changed. */
-    val kids = Kids({ config }, emptyFlow(), { client.strict }, File(graph.app.cacheDir, "view-as-kids"), scope, graph.app)
+    val kids = Kids({ config }, emptyFlow(), { client.strict }, File(graph.app.cacheDir, "view-as-kids"), scope, graph.app, graph.baseHttp)
 
     val library = Library(
         client,

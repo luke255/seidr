@@ -80,6 +80,13 @@
     <string name="playlist_copy_failed">Kunne ikke gemme en kopi. Tjek din forbindelse, og prøv igen.</string>
     <string name="playlist_done">Færdig</string>
     <string name="playlist_reorder">Skift rækkefølge</string>
+    <string name="playlist_picture_change">Skift billede</string>
+    <string name="playlist_picture_remove">Fjern billede</string>
+    <string name="playlist_picture_changed">Billede skiftet</string>
+    <string name="playlist_picture_removed">Billede fjernet</string>
+    <string name="playlist_picture_fill">Udfyld</string>
+    <string name="playlist_picture_fit">Tilpas</string>
+    <string name="playlist_picture_unreadable">Billedet kunne ikke åbnes.</string>
     <string name="playlist_rename">Omdøb</string>
     <string name="playlist_delete">Slet playliste</string>
     <string name="playlist_remove_from_this">Fjern fra denne playliste</string>

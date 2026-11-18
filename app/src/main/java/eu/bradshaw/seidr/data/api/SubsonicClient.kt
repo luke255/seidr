@@ -47,14 +47,17 @@ class SubsonicClient(
         chain.proceed(req.newBuilder().url(url).build())
     }
 
-    // Tracks reachability from real traffic so offline mode reacts quickly.
+    // Tracks reachability from real traffic so offline mode reacts quickly. A proxy's
+    // 502-504 (the server restarting or updating behind it) counts as out of reach.
     private val statusInterceptor = Interceptor { chain ->
-        try {
-            chain.proceed(chain.request()).also { status.reportSuccess() }
+        val resp = try {
+            chain.proceed(chain.request())
         } catch (e: IOException) {
             if (e !is NotLoggedInException) status.reportFailure()
             throw e
         }
+        if (resp.code in UNAVAILABLE) status.reportFailure() else status.reportSuccess()
+        resp
     }
 
     private val fallbackInterceptor = Interceptor { chain ->
@@ -72,6 +75,7 @@ class SubsonicClient(
         if (!status.online.value) store.get(key)?.let { return@Interceptor cached(it) }
         try {
             val resp = chain.proceed(req)
+            if (resp.code in UNAVAILABLE) store.get(key)?.let { resp.close(); return@Interceptor cached(it) }
             if (!resp.isSuccessful) return@Interceptor resp
             val body = resp.body.string()
             if (body.contains("\"status\":\"ok\"")) runCatching { store.put(key, body) }
@@ -82,11 +86,16 @@ class SubsonicClient(
     }
 
     /** The last-seen response for a cacheable GET, without touching the network. */
-    fun cached(endpoint: String, vararg params: Pair<String, String>): Envelope? {
-        val key = endpoint + "?" + params.sortedWith(compareBy({ it.first }, { it.second }))
+    fun cached(endpoint: String, vararg params: Pair<String, String>): Envelope? =
+        store.get(storeKey(endpoint, *params))?.let { runCatching { json.decodeFromString<Envelope>(it) }.getOrNull() }
+
+    /** Whether there's a last-seen response for a cacheable GET (no reading or parsing). */
+    fun hasCached(endpoint: String, vararg params: Pair<String, String>): Boolean =
+        store.has(storeKey(endpoint, *params))
+
+    private fun storeKey(endpoint: String, vararg params: Pair<String, String>) =
+        endpoint + "?" + params.sortedWith(compareBy({ it.first }, { it.second }))
             .joinToString("&") { "${it.first}=${it.second}" }
-        return store.get(key)?.let { runCatching { json.decodeFromString<Envelope>(it) }.getOrNull() }
-    }
 
     /** Forgets last-seen responses (sign-out, or a different server). */
     fun clearCache() = store.clear()
@@ -199,6 +208,9 @@ class SubsonicClient(
     }
 
     companion object {
+        /** Gateway answers meaning the server behind them is down, not that the request failed. */
+        private val UNAVAILABLE = 502..504
+
         fun md5(s: String): String = MessageDigest.getInstance("MD5").digest(s.toByteArray())
             .joinToString("") { "%02x".format(it) }
     }

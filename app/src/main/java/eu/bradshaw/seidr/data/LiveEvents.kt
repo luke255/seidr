@@ -17,9 +17,7 @@ import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import java.util.concurrent.TimeUnit
 
@@ -34,7 +32,6 @@ import java.util.concurrent.TimeUnit
  */
 class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
     private var job: Job? = null
-    private var token: String? = null
     private val json = Json { ignoreUnknownKeys = true }
 
     // Keep-alives arrive every ~15 s, so a minute of silence means the stream is dead.
@@ -80,7 +77,7 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
     /** Sign-out: forget the session token too. */
     fun reset() {
         stop()
-        token = null
+        graph.navidrome.forget()
     }
 
     private suspend fun run() {
@@ -93,7 +90,7 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
             val result = runCatching { listen(server) }
             if (System.currentTimeMillis() - started > 60_000) backoff = 5_000L
             val e = result.exceptionOrNull()
-            if (e is NotNavidrome) { Log.i("Live", "no event stream on this server"); return }
+            if (e is NotNavidromeException) { Log.i("Live", "no event stream on this server"); return }
             if (e is kotlinx.coroutines.CancellationException) throw e
             Log.i("Live", "stream ended: ${e ?: "closed"}")
             delay(backoff)
@@ -102,7 +99,7 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
     }
 
     private suspend fun listen(server: ServerConfig) {
-        val tok = token ?: login(server).also { token = it }
+        val tok = graph.navidrome.token(server)
         val url = server.url.trimEnd('/') + "/api/events?jwt=$tok"
         val call = http.newCall(Request.Builder().url(url).header("Accept", "text/event-stream").build())
         val job = kotlin.coroutines.coroutineContext[Job]
@@ -110,8 +107,8 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
         try {
             runInterruptible {
                 call.execute().use { resp ->
-                    if (resp.code == 401) { token = null; throw IllegalStateException("token expired") }
-                    if (resp.code == 404) throw NotNavidrome()
+                    if (resp.code == 401) { graph.navidrome.forget(); throw IllegalStateException("token expired") }
+                    if (resp.code == 404) throw NotNavidromeException()
                     if (!resp.isSuccessful) throw IllegalStateException("HTTP ${resp.code}")
                     checkMissedScan()
                     read(resp)
@@ -212,20 +209,4 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
             graph.changed(Graph.Change.ANNOTATIONS)
         }
     }
-
-    private suspend fun login(server: ServerConfig): String = runInterruptible {
-        val body = """{"username":${json.encodeToString(server.username)},"password":${json.encodeToString(server.password)}}"""
-        val req = Request.Builder()
-            .url(server.url.trimEnd('/') + "/auth/login")
-            .post(body.toRequestBody("application/json".toMediaType()))
-            .build()
-        http.newCall(req).execute().use { resp ->
-            if (resp.code == 404) throw NotNavidrome()
-            if (!resp.isSuccessful) throw IllegalStateException("login HTTP ${resp.code}")
-            json.parseToJsonElement(resp.body.string()).jsonObject["token"]?.jsonPrimitive?.contentOrNull
-                ?: throw IllegalStateException("no token")
-        }
-    }
-
-    private class NotNavidrome : Exception()
 }

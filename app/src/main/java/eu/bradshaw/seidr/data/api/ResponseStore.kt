@@ -23,11 +23,14 @@ class ResponseStore(private val dir: File) {
     fun put(key: String, body: String) {
         val f = file(key)
         val tmp = File(dir, f.name + ".tmp")
-        tmp.writeText(body)
+        // Synced before the rename, or a crash or power cut can leave an empty file in its place.
+        java.io.FileOutputStream(tmp).use { it.write(body.toByteArray()); it.fd.sync() }
         tmp.renameTo(f)
     }
 
-    fun get(key: String): String? = file(key).takeIf { it.isFile }?.readText()
+    fun get(key: String): String? = file(key).takeIf { it.isFile }?.readText()?.takeIf { it.isNotEmpty() }
+
+    fun has(key: String): Boolean = file(key).let { it.isFile && it.length() > 0 }
 
     fun clear() { dir.listFiles()?.forEach { it.delete() } }
 
