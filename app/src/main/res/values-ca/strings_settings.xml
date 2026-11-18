@@ -152,5 +152,11 @@
     <string name="log_copied">Registre copiat</string>
     <string name="log_no_app">Cap aplicació d\'aquest dispositiu el pot compartir. Prova amb Copia.</string>
     <string name="log_subject">Registre de Seiðr</string>
+    <string name="settings_mobile_streaming">Reproducció en línia amb dades mòbils</string>
+    <string name="settings_mobile_original">Fitxers originals</string>
+    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
+    <string name="settings_mobile_explain">Les cançons que no has baixat es poden reproduir amb una taxa de bits més baixa amb dades mòbils, per gastar-ne menys. Les baixades i la reproducció per Wi-Fi sempre fan servir els fitxers originals.</string>
+    <string name="settings_mobile_unsupported">El teu servidor no pot convertir música per a la reproducció en línia (Navidrome necessita ffmpeg per fer-ho), així que Seiðr reprodueix els fitxers originals.</string>
+    <string name="settings_mobile_checking">S\'està comprovant si el teu servidor pot convertir música…</string>
 
 </resources>

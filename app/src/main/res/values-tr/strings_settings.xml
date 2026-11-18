@@ -152,5 +152,11 @@
     <string name="log_copied">Günlük kopyalandı</string>
     <string name="log_no_app">Bu cihazdaki hiçbir uygulama bunu paylaşamıyor. Bunun yerine Kopyala\'yı dene.</string>
     <string name="log_subject">Seiðr günlüğü</string>
+    <string name="settings_mobile_streaming">Mobil veride akış</string>
+    <string name="settings_mobile_original">Orijinal dosyalar</string>
+    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
+    <string name="settings_mobile_explain">İndirilmemiş şarkılar mobil veride daha düşük bit hızıyla akışla çalınabilir, böylece daha az veri harcanır. İndirilenler ve Wi-Fi üzerinden akış her zaman orijinal dosyalardır.</string>
+    <string name="settings_mobile_unsupported">Sunucun müziği akış için dönüştüremiyor (Navidrome\'un bunun için ffmpeg\'e ihtiyacı var), bu yüzden Seiðr orijinal dosyaları çalıyor.</string>
+    <string name="settings_mobile_checking">Sunucunun müziği dönüştürüp dönüştüremediği kontrol ediliyor…</string>
 
 </resources>

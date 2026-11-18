@@ -152,5 +152,11 @@
     <string name="log_copied">Loki kopioitu</string>
     <string name="log_no_app">Mikään tämän laitteen sovellus ei voi jakaa sitä. Kokeile Kopioi-painiketta.</string>
     <string name="log_subject">Seiðr-loki</string>
+    <string name="settings_mobile_streaming">Suoratoisto mobiilidatalla</string>
+    <string name="settings_mobile_original">Alkuperäiset tiedostot</string>
+    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
+    <string name="settings_mobile_explain">Lataamattomat kappaleet voidaan suoratoistaa mobiilidatalla pienemmällä bittinopeudella, jotta dataa kuluu vähemmän. Lataukset ja suoratoisto Wi-Fin kautta ovat aina alkuperäisiä tiedostoja.</string>
+    <string name="settings_mobile_unsupported">Palvelimesi ei pysty muuntamaan musiikkia suoratoistoa varten (Navidrome tarvitsee siihen ffmpegin), joten Seiðr suoratoistaa alkuperäiset tiedostot.</string>
+    <string name="settings_mobile_checking">Tarkistetaan, pystyykö palvelimesi muuntamaan musiikkia…</string>
 
 </resources>

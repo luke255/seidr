@@ -152,5 +152,11 @@
     <string name="log_copied">Skopiowano dziennik</string>
     <string name="log_no_app">Żadna aplikacja na tym urządzeniu nie może go udostępnić. Spróbuj Kopiuj.</string>
     <string name="log_subject">Dziennik Seiðr</string>
+    <string name="settings_mobile_streaming">Strumieniowanie przez dane komórkowe</string>
+    <string name="settings_mobile_original">Oryginalne pliki</string>
+    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
+    <string name="settings_mobile_explain">Utwory, których nie pobrano, mogą być odtwarzane przez dane komórkowe z niższą przepływnością, żeby zużywać ich mniej. Pobrane utwory i strumieniowanie przez Wi-Fi to zawsze oryginalne pliki.</string>
+    <string name="settings_mobile_unsupported">Twój serwer nie potrafi konwertować muzyki do strumieniowania (Navidrome potrzebuje do tego ffmpeg), więc Seiðr odtwarza oryginalne pliki.</string>
+    <string name="settings_mobile_checking">Sprawdzam, czy twój serwer potrafi konwertować muzykę…</string>
 
 </resources>

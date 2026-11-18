@@ -17,6 +17,10 @@ import retrofit2.http.Query
 interface SubsonicApi {
     @GET("ping.view") suspend fun ping(): Envelope
 
+    @GET("getOpenSubsonicExtensions.view") suspend fun getOpenSubsonicExtensions(): Envelope
+
+    @GET("getRandomSongs.view") suspend fun getRandomSongs(@Query("size") size: Int): Envelope
+
     @GET("getUser.view") suspend fun getUser(@Query("username") username: String): Envelope
 
     @GET("getPlaylists.view") suspend fun getPlaylists(): Envelope

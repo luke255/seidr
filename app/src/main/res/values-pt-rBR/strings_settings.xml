@@ -152,5 +152,11 @@
     <string name="log_copied">Registro copiado</string>
     <string name="log_no_app">Nenhum app neste dispositivo pode compartilhá-lo. Tente Copiar.</string>
     <string name="log_subject">Registro do Seiðr</string>
+    <string name="settings_mobile_streaming">Streaming nos dados móveis</string>
+    <string name="settings_mobile_original">Arquivos originais</string>
+    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
+    <string name="settings_mobile_explain">Músicas que não foram baixadas podem tocar com uma taxa de bits menor nos dados móveis, para gastar menos. Downloads e streaming no Wi-Fi sempre usam os arquivos originais.</string>
+    <string name="settings_mobile_unsupported">Seu servidor não consegue converter músicas para streaming (o Navidrome precisa do ffmpeg para isso), então o Seiðr toca os arquivos originais.</string>
+    <string name="settings_mobile_checking">Verificando se seu servidor consegue converter músicas…</string>
 
 </resources>

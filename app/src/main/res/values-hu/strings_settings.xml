@@ -152,5 +152,11 @@
     <string name="log_copied">Napló másolva</string>
     <string name="log_no_app">Ezen az eszközön egyetlen alkalmazás sem tudja megosztani. Próbáld a Másolást.</string>
     <string name="log_subject">Seiðr-napló</string>
+    <string name="settings_mobile_streaming">Streamelés mobiladaton</string>
+    <string name="settings_mobile_original">Eredeti fájlok</string>
+    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
+    <string name="settings_mobile_explain">A le nem töltött dalok mobiladaton kisebb bitrátával is streamelhetők, hogy kevesebb adatot fogyasszanak. A letöltések és a Wi-Fi-n át streamelt dalok mindig az eredeti fájlok.</string>
+    <string name="settings_mobile_unsupported">A szervered nem tud zenét átalakítani streameléshez (a Navidrome-nak ehhez ffmpeg kell), ezért a Seiðr az eredeti fájlokat streameli.</string>
+    <string name="settings_mobile_checking">Ellenőrzöm, hogy a szervered tud-e zenét átalakítani…</string>
 
 </resources>

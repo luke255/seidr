@@ -152,5 +152,11 @@
     <string name="log_copied">Το αρχείο καταγραφής αντιγράφηκε</string>
     <string name="log_no_app">Καμία εφαρμογή σε αυτή τη συσκευή δεν μπορεί να το κοινοποιήσει. Δοκίμασε την Αντιγραφή.</string>
     <string name="log_subject">Αρχείο καταγραφής Seiðr</string>
+    <string name="settings_mobile_streaming">Ροή με δεδομένα κινητής</string>
+    <string name="settings_mobile_original">Αρχικά αρχεία</string>
+    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
+    <string name="settings_mobile_explain">Τα τραγούδια που δεν έχεις κατεβάσει μπορούν να παίζουν με χαμηλότερο ρυθμό bit με δεδομένα κινητής, για να καταναλώνουν λιγότερα. Οι λήψεις και η ροή μέσω Wi-Fi είναι πάντα τα αρχικά αρχεία.</string>
+    <string name="settings_mobile_unsupported">Ο διακομιστής σου δεν μπορεί να μετατρέψει μουσική για ροή (το Navidrome χρειάζεται το ffmpeg γι\' αυτό), οπότε το Seiðr παίζει τα αρχικά αρχεία.</string>
+    <string name="settings_mobile_checking">Έλεγχος αν ο διακομιστής σου μπορεί να μετατρέψει μουσική…</string>
 
 </resources>

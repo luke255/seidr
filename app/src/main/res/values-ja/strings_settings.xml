@@ -152,5 +152,11 @@
     <string name="log_copied">ログをコピーしました</string>
     <string name="log_no_app">このデバイスには共有できるアプリがありません。代わりに「コピー」を使ってください。</string>
     <string name="log_subject">Seiðr のログ</string>
+    <string name="settings_mobile_streaming">モバイルデータでのストリーミング</string>
+    <string name="settings_mobile_original">元のファイル</string>
+    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
+    <string name="settings_mobile_explain">ダウンロードしていない曲は、モバイルデータ通信時に低いビットレートでストリーミングして通信量を抑えられます。ダウンロードと Wi-Fi でのストリーミングは常に元のファイルです。</string>
+    <string name="settings_mobile_unsupported">お使いのサーバーはストリーミング用に音楽を変換できません（Navidrome には ffmpeg が必要です）。そのため Seiðr は元のファイルをストリーミングします。</string>
+    <string name="settings_mobile_checking">サーバーが音楽を変換できるか確認しています…</string>
 
 </resources>

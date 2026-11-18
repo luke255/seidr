@@ -149,6 +149,37 @@ class SubsonicClient(
         endpointUrl("stream.view", it, null, "id" to id, "format" to "raw")
     }
 
+    /**
+     * A constant-bitrate MP3 at [kbps], from [offsetSec] on (OpenSubsonic
+     * `transcodeOffset`), with an estimated length so ExoPlayer can seek it by bytes.
+     */
+    fun transcodedUrl(id: String, kbps: Int, offsetSec: Long = 0): String? = server()?.let {
+        val params = mutableListOf("id" to id, "format" to "mp3", "maxBitRate" to kbps.toString(), "estimateContentLength" to "true")
+        if (offsetSec > 0) params += "timeOffset" to offsetSec.toString()
+        endpointUrl("stream.view", it, null, *params.toTypedArray())
+    }
+
+    /**
+     * Whether the server converts to MP3 (Navidrome needs ffmpeg for that) and
+     * can start a conversion part-way, which seeking needs. Null if it couldn't tell.
+     */
+    suspend fun canTranscode(): Boolean? = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+        runCatching {
+            if (strict.getOpenSubsonicExtensions().ok().openSubsonicExtensions.none { it.name == "transcodeOffset" }) return@runCatching false
+            val songs = strict.getRandomSongs(10).ok().randomSongs?.song.orEmpty()
+            // An MP3 might come back as it is; anything else proves a conversion.
+            val song = songs.firstOrNull { !it.suffix.equals("mp3", ignoreCase = true) } ?: songs.firstOrNull() ?: return@runCatching null
+            val url = transcodedUrl(song.id, 128) ?: return@runCatching null
+            mediaHttp.newCall(okhttp3.Request.Builder().url(url).build()).execute().use { r ->
+                if (!r.isSuccessful) return@use false
+                val head = ByteArray(3)
+                val n = r.body.byteStream().readNBytes(head, 0, 3)
+                n == 3 && (String(head, Charsets.ISO_8859_1) == "ID3" ||
+                    (head[0].toInt() and 0xFF == 0xFF && head[1].toInt() and 0xE0 == 0xE0))
+            }
+        }.getOrElse { if (it is kotlinx.coroutines.CancellationException) throw it; null }
+    }
+
     fun downloadUrl(id: String): String? = server()?.let {
         endpointUrl("download.view", it, null, "id" to id)
     }

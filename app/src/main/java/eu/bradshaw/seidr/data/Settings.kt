@@ -43,6 +43,10 @@ class Settings(context: Context) {
     /** Downloads only run on unmetered networks while this is set (the default). */
     val wifiOnly: StateFlow<Boolean> = _wifiOnly.asStateFlow()
 
+    private val _mobileKbps = MutableStateFlow(prefs.getInt("mobile_kbps", 0))
+    /** Streaming on metered networks: an MP3 bitrate, or 0 for the original file (the default). */
+    val mobileKbps: StateFlow<Int> = _mobileKbps.asStateFlow()
+
     private val _theme = MutableStateFlow(run {
         // Before themes were per login, one "theme" served everyone: it's the signed-in login's.
         prefs.getString("theme", null)?.let { old ->
@@ -171,6 +175,17 @@ class Settings(context: Context) {
         prefs.edit().putBoolean("wifi_only", value).apply()
         _wifiOnly.value = value
     }
+
+    fun setMobileKbps(kbps: Int) {
+        prefs.edit().putInt("mobile_kbps", kbps).apply()
+        _mobileKbps.value = kbps
+    }
+
+    /** Whether [url]'s server can convert for streaming (see `StreamQuality`); null if not known yet. */
+    fun transcodeSupport(url: String): Boolean? =
+        if (device.contains("transcode:$url")) device.getBoolean("transcode:$url", false) else null
+
+    fun setTranscodeSupport(url: String, ok: Boolean) { device.edit().putBoolean("transcode:$url", ok).apply() }
 
     fun setTheme(key: String) {
         val user = _server.value?.username ?: return

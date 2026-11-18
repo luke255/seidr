@@ -46,6 +46,8 @@ import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.NewReleases
 import androidx.compose.material.icons.outlined.SystemUpdate
+import androidx.compose.material.icons.outlined.SignalCellularAlt
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
@@ -138,6 +140,8 @@ fun SettingsScreen() {
                             else Chevron()
                         },
                     ) { requestBatteryExemption(context) }
+                    CardDivider()
+                    MobileStreamingItem()
                     CardDivider()
                     CardItem(Icons.Outlined.Download, stringResource(R.string.settings_downloads_storage), stringResource(R.string.settings_downloads_storage_hint),
                         trailing = { Chevron() }) { actions.open(Route.Downloads) }
@@ -306,6 +310,57 @@ private fun AccountCard(onSignOut: () -> Unit) {
             OutlinedButton(onClick = onSignOut) { Text(stringResource(R.string.settings_sign_out)) }
         }
     }
+}
+
+/** Streaming on mobile data: original files, or an MP3 bitrate (see `StreamQuality`). */
+@Composable
+private fun MobileStreamingItem() {
+    val graph = LocalActions.current.graph
+    val kbps by graph.settings.mobileKbps.collectAsStateWithLifecycle()
+    val supported by graph.streamQuality.supported.collectAsStateWithLifecycle()
+    var open by remember { mutableStateOf(false) }
+    val current = if (kbps == 0 || supported == false) stringResource(R.string.settings_mobile_original) else stringResource(R.string.settings_mobile_mp3, kbps)
+    CardItem(Icons.Outlined.SignalCellularAlt, stringResource(R.string.settings_mobile_streaming), current, trailing = { Chevron() }) {
+        open = true
+        graph.streamQuality.check()
+    }
+    if (!open) return
+    AlertDialog(
+        onDismissRequest = { open = false },
+        title = { Text(stringResource(R.string.settings_mobile_streaming)) },
+        text = {
+            Column {
+                Text(stringResource(R.string.settings_mobile_explain), style = MaterialTheme.typography.bodyMedium)
+                when (supported) {
+                    false -> Text(stringResource(R.string.settings_mobile_unsupported), style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(top = 8.dp))
+                    null -> Text(stringResource(R.string.settings_mobile_checking), style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 8.dp))
+                    true -> {}
+                }
+                Spacer(Modifier.height(8.dp))
+                for (choice in listOf(0, 320, 192, 128)) {
+                    val enabled = choice == 0 || supported == true
+                    val selected = choice == (if (supported == false) 0 else kbps)
+                    Row(
+                        Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
+                            .selectable(selected, enabled = enabled, role = Role.RadioButton) { graph.settings.setMobileKbps(choice); open = false }
+                            .padding(vertical = 10.dp, horizontal = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        RadioButton(selected, null, enabled = enabled)
+                        Spacer(Modifier.width(12.dp))
+                        Text(
+                            if (choice == 0) stringResource(R.string.settings_mobile_original) else stringResource(R.string.settings_mobile_mp3, choice),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = if (enabled) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
+                        )
+                    }
+                }
+            }
+        },
+        confirmButton = { TextButton(onClick = { open = false }) { Text(stringResource(R.string.common_close)) } },
+    )
 }
 
 @Composable

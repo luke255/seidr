@@ -152,5 +152,11 @@
     <string name="log_copied">Logboek gekopieerd</string>
     <string name="log_no_app">Geen app op dit apparaat kan het delen. Probeer Kopiëren.</string>
     <string name="log_subject">Seiðr-logboek</string>
+    <string name="settings_mobile_streaming">Streamen via mobiele data</string>
+    <string name="settings_mobile_original">Originele bestanden</string>
+    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
+    <string name="settings_mobile_explain">Nummers die niet gedownload zijn, kunnen via mobiele data met een lagere bitrate streamen, zodat je minder verbruikt. Downloads en streamen via wifi zijn altijd de originele bestanden.</string>
+    <string name="settings_mobile_unsupported">Je server kan geen muziek omzetten om te streamen (Navidrome heeft daar ffmpeg voor nodig), dus Seiðr streamt de originele bestanden.</string>
+    <string name="settings_mobile_checking">Controleren of je server muziek kan omzetten…</string>
 
 </resources>

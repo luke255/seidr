@@ -33,7 +33,8 @@ the *th* of "weather" in place of the *f*. ASCII spelling: Seidr.
   day never deletes anything.
 - **Original quality.** Downloads are your files as they are on the server,
   and anything you've downloaded plays from the phone, even when you're
-  online.
+  online. If you'd like, songs you haven't downloaded can stream at a lower
+  bitrate on mobile data.
 - **Edit playlists anywhere.** Create, rename, add, remove, reorder and
   delete. Changes made offline are saved and sent when you're back.
 - **Changes show up straight away**, even ones made on another device.

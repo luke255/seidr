@@ -152,5 +152,11 @@
     <string name="log_copied">Журнал скопійовано</string>
     <string name="log_no_app">Жоден застосунок на цьому пристрої не може ним поділитися. Спробуйте «Копіювати».</string>
     <string name="log_subject">Журнал Seiðr</string>
+    <string name="settings_mobile_streaming">Потокове відтворення через мобільну мережу</string>
+    <string name="settings_mobile_original">Оригінальні файли</string>
+    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
+    <string name="settings_mobile_explain">Не завантажені пісні можна відтворювати через мобільну мережу з нижчим бітрейтом, щоб витрачати менше трафіку. Завантаження й відтворення через Wi-Fi — завжди оригінальні файли.</string>
+    <string name="settings_mobile_unsupported">Ваш сервер не вміє конвертувати музику для потокового відтворення (Navidrome для цього потрібен ffmpeg), тому Seiðr відтворює оригінальні файли.</string>
+    <string name="settings_mobile_checking">Перевіряємо, чи може ваш сервер конвертувати музику…</string>
 
 </resources>

@@ -152,5 +152,11 @@
     <string name="log_copied">記錄已複製</string>
     <string name="log_no_app">此裝置上沒有可以分享它的應用程式。請改用「複製」。</string>
     <string name="log_subject">Seiðr 記錄</string>
+    <string name="settings_mobile_streaming">使用行動數據時的串流</string>
+    <string name="settings_mobile_original">原始檔案</string>
+    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
+    <string name="settings_mobile_explain">未下載的歌曲在使用行動數據時可以用較低的位元率串流，以節省用量。下載和透過 Wi-Fi 串流一律使用原始檔案。</string>
+    <string name="settings_mobile_unsupported">你的伺服器無法為串流轉換音樂（Navidrome 需要 ffmpeg 才能做到），所以 Seiðr 串流原始檔案。</string>
+    <string name="settings_mobile_checking">正在檢查你的伺服器能否轉換音樂…</string>
 
 </resources>

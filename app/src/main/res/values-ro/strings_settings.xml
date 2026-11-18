@@ -152,5 +152,11 @@
     <string name="log_copied">Jurnal copiat</string>
     <string name="log_no_app">Nicio aplicație de pe acest dispozitiv nu îl poate partaja. Încearcă Copiază.</string>
     <string name="log_subject">Jurnal Seiðr</string>
+    <string name="settings_mobile_streaming">Streaming pe date mobile</string>
+    <string name="settings_mobile_original">Fișierele originale</string>
+    <string name="settings_mobile_mp3">MP3, %1$d kbps</string>
+    <string name="settings_mobile_explain">Melodiile nedescărcate pot fi redate pe date mobile la o rată de biți mai mică, ca să consume mai puțin. Descărcările și streamingul pe Wi-Fi folosesc mereu fișierele originale.</string>
+    <string name="settings_mobile_unsupported">Serverul tău nu poate converti muzica pentru streaming (Navidrome are nevoie de ffmpeg pentru asta), așa că Seiðr redă fișierele originale.</string>
+    <string name="settings_mobile_checking">Se verifică dacă serverul tău poate converti muzica…</string>
 
 </resources>

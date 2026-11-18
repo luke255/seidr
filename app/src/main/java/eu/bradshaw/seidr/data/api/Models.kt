@@ -17,6 +17,8 @@ data class SubsonicResponse(
     val serverVersion: String? = null,
     val openSubsonic: Boolean = false,
     val error: ApiError? = null,
+    val openSubsonicExtensions: List<Extension> = emptyList(),
+    val randomSongs: SongList? = null,
     val playlists: PlaylistsWrapper? = null,
     val playlist: Playlist? = null,
     val albumList2: AlbumList? = null,
@@ -71,6 +73,8 @@ data class Song(
     val samplingRate: Int? = null,
     val bitDepth: Int? = null,
     val playCount: Long? = null,
+    /** OpenSubsonic: loudness, in dB; absent or empty when the file has no ReplayGain tags. */
+    val replayGain: ReplayGain? = null,
     /** Kid mode: shows, but isn't approved to play (see `KidRules`). Never from the server. */
     @kotlinx.serialization.Transient val locked: Boolean = false,
 ) {
@@ -149,6 +153,18 @@ data class SearchResult(
     val artist: List<Artist> = emptyList(),
     val album: List<Album> = emptyList(),
     val song: List<Song> = emptyList(),
+)
+
+@Serializable
+data class Extension(val name: String, val versions: List<Int> = emptyList())
+
+@Serializable
+data class ReplayGain(
+    val trackGain: Float? = null,
+    val albumGain: Float? = null,
+    val trackPeak: Float? = null,
+    val albumPeak: Float? = null,
+    val baseGain: Float? = null,
 )
 
 @Serializable

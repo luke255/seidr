@@ -23,6 +23,7 @@ import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.audio.AudioSink
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
+import androidx.media3.extractor.DefaultExtractorsFactory
 import androidx.media3.session.CommandButton
 import androidx.media3.session.LibraryResult
 import androidx.media3.session.MediaLibraryService
@@ -101,7 +102,16 @@ class PlaybackService : MediaLibraryService() {
             when (val s = KidGate.source(songId, kid, local, graph.status.online.value)) {
                 is KidGate.Source.Refused -> throw IOException(s.why)
                 is KidGate.Source.Local -> spec.withUri(Uri.fromFile(s.file))
-                KidGate.Source.Stream -> spec.withUri(Uri.parse(graph.client.streamUrl(songId) ?: throw IOException("Not logged in")))
+                KidGate.Source.Stream -> when (val kbps = graph.streamQuality.kbpsFor(songId)) {
+                    0 -> spec.withUri(Uri.parse(graph.client.streamUrl(songId) ?: throw IOException("Not logged in")))
+                    // A lower bitrate on mobile data (StreamQuality): constant-bitrate MP3, so a byte
+                    // position is a time. A seek asks the server to start converting from that
+                    // second; the bytes that come back carry on from where the extractor asked.
+                    else -> spec.buildUpon()
+                        .setUri(Uri.parse(graph.client.transcodedUrl(songId, kbps, spec.position * 8 / (kbps * 1000L)) ?: throw IOException("Not logged in")))
+                        .setPosition(0)
+                        .build()
+                }
             }
         }
 
@@ -113,7 +123,8 @@ class PlaybackService : MediaLibraryService() {
                 super.buildAudioSink(context, float, params)?.let(::TapSink)
         }
         player = ExoPlayer.Builder(this, renderers)
-            .setMediaSourceFactory(DefaultMediaSourceFactory(resolving))
+            // Constant-bitrate seeking: transcoded streams have no seek table, only a length.
+            .setMediaSourceFactory(DefaultMediaSourceFactory(resolving, DefaultExtractorsFactory().setConstantBitrateSeekingEnabled(true)))
             .setAudioAttributes(
                 AudioAttributes.Builder().setUsage(C.USAGE_MEDIA).setContentType(C.AUDIO_CONTENT_TYPE_MUSIC).build(),
                 /* handleAudioFocus = */ true,
@@ -255,7 +266,7 @@ class PlaybackService : MediaLibraryService() {
             playedMs = 0; scrobbled = false; startedAt = System.currentTimeMillis()
             if (songId != null) scope.launch(Dispatchers.IO) { NowPlaying.nowPlaying(graph, songId) }
             // A track removed from its offline playlist while playing can go now.
-            if (previous != null && previous != songId) graph.sync.sweep()
+            if (previous != null && previous != songId) { graph.sync.sweep(); graph.streamQuality.forget(previous) }
             updateLikeButton()
             saveQueue()
         }

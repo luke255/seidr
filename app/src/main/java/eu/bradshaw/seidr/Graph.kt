@@ -210,6 +210,7 @@ class Graph(val app: Application) {
 
     val player by lazy { PlayerConnection(app, this) }
     val sleep = eu.bradshaw.seidr.playback.SleepTimer()
+    val streamQuality by lazy { eu.bradshaw.seidr.playback.StreamQuality(app, settings, client, scope) }
 
     val live by lazy { LiveEvents(this, scope) }
 
