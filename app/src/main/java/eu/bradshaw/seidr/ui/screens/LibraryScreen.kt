@@ -239,6 +239,10 @@ fun LibraryScreen() {
     val withShared by graph.settings.libraryShared.collectAsStateWithLifecycle()
 
     val playlists by graph.browse.playlists.collectAsStateWithLifecycle()
+    // Shared swaps your playlists for other people's. With none to show, the pill hides,
+    // so a remembered "on" mustn't leave the list empty.
+    val anyOthers = playlists.orEmpty().any(graph.browse::isOthers)
+    val othersOnly = withShared && anyOthers
     val sources by graph.downloads.sources.collectAsStateWithLifecycle()
     val downloads by graph.downloads.all.collectAsStateWithLifecycle()
     val playlistSongs by graph.browse.playlistSongs.collectAsStateWithLifecycle()
@@ -281,7 +285,7 @@ fun LibraryScreen() {
         }
 
         // One row of chips: what to show, then (phones) only what's downloaded, then
-        // (playlists, if anyone else has some) other people's too.
+        // (playlists, if anyone else has some) other people's instead of yours.
         val pills = rememberScrollState()
         Row(
             Modifier.fillMaxWidth().fadeScrollEdges(pills).horizontalScroll(pills).padding(horizontal = 16.dp, vertical = 4.dp),
@@ -296,8 +300,8 @@ fun LibraryScreen() {
                         tint = if (downloadedOnly) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.primary)
                 })
             }
-            if (tab == LibTab.PLAYLISTS && playlists.orEmpty().any(graph.browse::isOthers)) {
-                FilterPill(stringResource(R.string.library_shared), withShared, { graph.settings.setLibraryShared(!withShared) }, icon = {
+            if (tab == LibTab.PLAYLISTS && anyOthers) {
+                FilterPill(stringResource(R.string.library_shared), othersOnly, { graph.settings.setLibraryShared(!withShared) }, icon = {
                     Icon(Icons.Filled.Group, null, Modifier.size(16.dp),
                         tint = if (withShared) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.primary)
                 })
@@ -327,9 +331,10 @@ fun LibraryScreen() {
                         else Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
                     } else {
                         val shown = list.filter {
-                            (withShared || !graph.browse.isOthers(it)) && (!downloadedOnly || it.id in offlinePlaylists) && matches(it.name)
+                            graph.browse.isOthers(it) == othersOnly && (!downloadedOnly || it.id in offlinePlaylists) && matches(it.name)
                         }
-                        val withLoved = (!downloadedOnly || lovedOffline) && matches(Loved.title)
+                        // Loved is yours, so it goes with your playlists.
+                        val withLoved = !othersOnly && (!downloadedOnly || lovedOffline) && matches(Loved.title)
                         // Loved (null) where the order places it, as on Home.
                         val sorted = playlistSort.sort(shown, lastPlayed, if (withLoved) LovedAt(lastPlayed[Loved.PLAYS_KEY], lastLoved) else null)
                         val items = sorted.map { p ->

@@ -91,7 +91,7 @@ class Settings(context: Context) {
     val libraryGrid: StateFlow<Boolean> = _libraryGrid.asStateFlow()
 
     private val _libraryShared = MutableStateFlow(prefs.getBoolean("library_shared", false))
-    /** Library's playlists include other people's (shared with everyone, or an admin's view of private ones). */
+    /** Library's playlists show other people's (shared with everyone, or an admin's view of private ones) instead of yours. */
     val libraryShared: StateFlow<Boolean> = _libraryShared.asStateFlow()
 
     private val _playlistSorts = MutableStateFlow(

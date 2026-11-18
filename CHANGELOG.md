@@ -10,6 +10,7 @@ them, not how.
 - Albums and playlists fade into their colours more gently.
 - The visualiser has a page showing the picture of the playlist you're playing, when it has one of its own. Swipe up from the track page to see it.
 - The filter rows in Library and Search fade at the edge when there are more filters to scroll to, so Shared playlists are easier to find.
+- In Library, Shared now shows only other people's playlists, and turning it off shows only yours.
 
 ## 1.7.0
 
