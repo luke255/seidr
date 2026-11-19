@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Добавляет пункт «Сообщить о проблеме» в меню ⋮ каждого трека</string>
     <string name="settings_report_info">Битый файл, неверная обложка или испорченный текст попадает в плейлист %1$s, %2$s или %3$s на сервере, чтобы тот, кто за ним следит, всё исправил. Треки из %1$s пропускаются, пока их не исправят.</string>
     <string name="settings_report_missing">Не найдено на сервере: %1$s.</string>
+    <string name="settings_hide_bad">Скрыть плейлисты жалоб</string>
+    <string name="settings_hide_lists_hint">Убирает %1$s, %2$s и %3$s из вашей медиатеки.</string>
 
     <string name="settings_about">О приложении</string>
     <string name="settings_auto_update">Проверять обновления автоматически</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">Удалить %1$s</string>
     <string name="kids_add">Добавить детский аккаунт</string>
     <string name="kids_how">Как устроены детские аккаунты</string>
+    <string name="kids_hide_lists">Скрыть детские плейлисты</string>
     <string name="kids_remove_title">Удалить %1$s?</string>
     <string name="kids_remove_message">Это устройство забудет данные для входа. Устройства, где уже выполнен вход как %1$s, останутся в аккаунте.</string>
     <string name="kids_remove">Удалить</string>

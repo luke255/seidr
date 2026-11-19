@@ -105,7 +105,8 @@ and "Rules that must hold" before changing sync or playback.
   when the login owns Bad: playlists): reports songs to the
   server's `Bad: Songs` / `Bad: Art` / `Bad: Lyrics` playlists (created if
   two strict fetches agree one is missing), for whoever looks after the
-  server to fix and remove. `Library.playlists` hides every "Bad:" playlist,
+  server to fix and remove. `Library.playlists` hides every "Bad:" and kids'
+  playlist (each switch, in Reporting and Kids, can show them; never to a kid),
   and other users' private ones (admins get them) unless Settings → Library
   asks (`allPlaylists` hides neither). `PlaybackService` hides `Bad: Songs` entries from the queue and
   puts them back in place when they leave that list (`HiddenQueue`, saved in

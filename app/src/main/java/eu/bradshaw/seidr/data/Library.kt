@@ -30,6 +30,9 @@ import retrofit2.HttpException
  */
 class Library(
     private val client: SubsonicClient,
+    /** Leave out the "Seidr: Kids …" playlists (Settings → Kids, on by default). */
+    private val hideKids: StateFlow<Boolean>,
+    /** Leave out the "Bad: " playlists (Settings → Reporting, on by default). */
     private val hideBad: StateFlow<Boolean>,
     /** The login in use (signed in, else the guest), lowercased. */
     private val user: StateFlow<String?>,
@@ -46,18 +49,19 @@ class Library(
     private val kid: KidRules? get() = kids.current
 
     private val _allPlaylists = MutableStateFlow<List<Playlist>?>(null)
-    /** Every playlist, including the "Bad: " ones that [playlists] hides. */
+    /** Every playlist, including the kids' and "Bad: " ones that [playlists] may hide. */
     val allPlaylists: StateFlow<List<Playlist>?> = _allPlaylists.asStateFlow()
 
     private val _playlists = MutableStateFlow<List<Playlist>?>(null)
     /**
-     * The playlists screens show: "Bad: " ones are left out while that
-     * integration is on, and other users' private ones (which admins get)
-     * unless Settings asks for them.
+     * The playlists screens show: the kids' and "Bad: " ones are left out
+     * unless Settings asks for them (each in its own section), and so are
+     * other users' private ones (which admins get).
      */
     val playlists: StateFlow<List<Playlist>?> = _playlists.asStateFlow()
 
     init {
+        scope.launch { hideKids.collect { publishPlaylists() } }
         scope.launch { hideBad.collect { publishPlaylists() } }
         scope.launch { kids.rules.collect { publishPlaylists() } }
         scope.launch { user.collect { publishPlaylists() } }
@@ -65,9 +69,9 @@ class Library(
     }
 
     private fun visible(list: List<Playlist>): List<Playlist> {
-        // The kids' lists are for whoever approves songs, not for browsing.
+        // The kids' and Bad: lists run kid mode and reporting; they're not for listening.
         val shown = list.filterNot {
-            KidRules.isKidsList(it.name) || (hideBad.value && BadReports.isBadPlaylist(it.name)) ||
+            (hideKids.value && KidRules.isKidsList(it.name)) || (hideBad.value && BadReports.isBadPlaylist(it.name)) ||
                 (!showOthersPrivate.value && isOthersPrivate(it))
         }
         return kid?.playlists(shown) ?: shown

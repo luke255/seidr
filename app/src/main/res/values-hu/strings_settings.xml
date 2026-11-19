@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Minden dal ⋮ menüjébe felveszi a Hiba jelentése pontot</string>
     <string name="settings_report_info">A hibás fájl, a rossz borító vagy a hibás dalszöveg a szerver %1$s, %2$s vagy %3$s lejátszási listájára kerül, hogy a szerver üzemeltetője kijavíthassa. A(z) %1$s listán lévő dalokat kihagyjuk, amíg ki nem javítják őket.</string>
     <string name="settings_report_missing">Nem található a szerveren: %1$s.</string>
+    <string name="settings_hide_bad">A hibajelentő lejátszási listák elrejtése</string>
+    <string name="settings_hide_lists_hint">Kívül tartja a(z) %1$s, %2$s és %3$s listát a könyvtáradból.</string>
 
     <string name="settings_about">Névjegy</string>
     <string name="settings_auto_update">Frissítések automatikus keresése</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">Eltávolítás: %1$s</string>
     <string name="kids_add">Gyerekfiók hozzáadása</string>
     <string name="kids_how">Hogyan működnek a gyerekfiókok</string>
+    <string name="kids_hide_lists">A gyerekek lejátszási listáinak elrejtése</string>
     <string name="kids_remove_title">Eltávolítod: %1$s?</string>
     <string name="kids_remove_message">Ez az eszköz elfelejti a bejelentkezési adatait. Azok az eszközök, amelyeken %1$s már be van jelentkezve, bejelentkezve maradnak.</string>
     <string name="kids_remove">Eltávolítás</string>

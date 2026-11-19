@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Lägger till Rapportera ett problem i varje låts ⋮-meny</string>
     <string name="settings_report_info">En trasig fil, fel omslag eller trasig låttext hamnar på serverns spellista %1$s, %2$s eller %3$s, så att den som sköter servern kan åtgärda det. Låtar i %1$s hoppas över tills de är åtgärdade.</string>
     <string name="settings_report_missing">Hittades inte på servern: %1$s.</string>
+    <string name="settings_hide_bad">Dölj rapportspellistorna</string>
+    <string name="settings_hide_lists_hint">Håller %1$s, %2$s och %3$s borta från ditt bibliotek.</string>
 
     <string name="settings_about">Om</string>
     <string name="settings_auto_update">Sök efter uppdateringar automatiskt</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">Ta bort %1$s</string>
     <string name="kids_add">Lägg till ett barnkonto</string>
     <string name="kids_how">Så fungerar barnkonton</string>
+    <string name="kids_hide_lists">Dölj barnens spellistor</string>
     <string name="kids_remove_title">Ta bort %1$s?</string>
     <string name="kids_remove_message">Den här enheten glömmer barnets inloggning. Enheter som redan är inloggade som %1$s förblir inloggade.</string>
     <string name="kids_remove">Ta bort</string>

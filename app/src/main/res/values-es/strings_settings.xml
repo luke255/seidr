@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Añade Informar de un problema al menú ⋮ de cada canción</string>
     <string name="settings_report_info">Un archivo dañado, una portada equivocada o una letra mal puesta van a la playlist %1$s, %2$s o %3$s del servidor, para que las arregle quien lo lleve. Las canciones de %1$s se saltan hasta que estén arregladas.</string>
     <string name="settings_report_missing">No están en el servidor: %1$s.</string>
+    <string name="settings_hide_bad">Ocultar las playlists de avisos</string>
+    <string name="settings_hide_lists_hint">Deja %1$s, %2$s y %3$s fuera de tu biblioteca.</string>
 
     <string name="settings_about">Acerca de</string>
     <string name="settings_auto_update">Buscar actualizaciones automáticamente</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">Quitar a %1$s</string>
     <string name="kids_add">Añadir una cuenta infantil</string>
     <string name="kids_how">Cómo funcionan las cuentas infantiles</string>
+    <string name="kids_hide_lists">Ocultar las playlists de niños</string>
     <string name="kids_remove_title">¿Quitar a %1$s?</string>
     <string name="kids_remove_message">Este dispositivo olvida sus datos de acceso. Los dispositivos que ya tienen la sesión de %1$s la mantienen.</string>
     <string name="kids_remove">Quitar</string>

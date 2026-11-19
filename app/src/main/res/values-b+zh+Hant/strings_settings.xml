@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">在每首歌曲的 ⋮ 選單中加入「回報問題」</string>
     <string name="settings_report_info">檔案損壞、封面錯誤或歌詞有問題的歌曲會加入伺服器上的 %1$s、%2$s 或 %3$s 播放清單，由伺服器的管理者修正。%1$s 中的歌曲在修正前會被略過。</string>
     <string name="settings_report_missing">伺服器上找不到：%1$s。</string>
+    <string name="settings_hide_bad">隱藏問題回報播放清單</string>
+    <string name="settings_hide_lists_hint">不在你的音樂庫中顯示 %1$s、%2$s 和 %3$s。</string>
 
     <string name="settings_about">關於</string>
     <string name="settings_auto_update">自動檢查更新</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">移除 %1$s</string>
     <string name="kids_add">新增兒童帳號</string>
     <string name="kids_how">兒童帳號如何運作</string>
+    <string name="kids_hide_lists">隱藏兒童播放清單</string>
     <string name="kids_remove_title">要移除 %1$s 嗎？</string>
     <string name="kids_remove_message">此裝置會忘記其登入資訊。已以 %1$s 的身分登入的裝置會保持登入。</string>
     <string name="kids_remove">移除</string>

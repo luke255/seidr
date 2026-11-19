@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Zet Probleem melden in het ⋮-menu van elk nummer</string>
     <string name="settings_report_info">Een kapot bestand, een verkeerde hoes of een foute songtekst komt op de playlist %1$s, %2$s of %3$s van de server, zodat wie de server beheert het kan oplossen. Nummers in %1$s worden overgeslagen tot ze in orde zijn.</string>
     <string name="settings_report_missing">Niet gevonden op de server: %1$s.</string>
+    <string name="settings_hide_bad">Meldingsplaylists verbergen</string>
+    <string name="settings_hide_lists_hint">Houdt %1$s, %2$s en %3$s buiten je bibliotheek.</string>
 
     <string name="settings_about">Over</string>
     <string name="settings_auto_update">Automatisch op updates controleren</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">%1$s verwijderen</string>
     <string name="kids_add">Kinderaccount toevoegen</string>
     <string name="kids_how">Zo werken kinderaccounts</string>
+    <string name="kids_hide_lists">Kinderplaylists verbergen</string>
     <string name="kids_remove_title">%1$s verwijderen?</string>
     <string name="kids_remove_message">Dit apparaat vergeet de inloggegevens. Apparaten die al als %1$s zijn aangemeld, blijven aangemeld.</string>
     <string name="kids_remove">Verwijderen</string>

@@ -31,6 +31,7 @@ class KidView(val config: ServerConfig, graph: Graph) {
 
     val library = Library(
         client,
+        hideKids = MutableStateFlow(true),
         hideBad = MutableStateFlow(true),
         user = MutableStateFlow(config.username.trim().lowercase()),
         showOthersPrivate = MutableStateFlow(false),

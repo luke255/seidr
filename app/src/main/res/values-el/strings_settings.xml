@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Προσθέτει την «Αναφορά προβλήματος» στο μενού ⋮ κάθε τραγουδιού</string>
     <string name="settings_report_info">Ένα χαλασμένο αρχείο, ένα λάθος εξώφυλλο ή προβληματικοί στίχοι μπαίνουν στην playlist %1$s, %2$s ή %3$s του διακομιστή, για να τα διορθώσει όποιος τον φροντίζει. Τα τραγούδια της %1$s παραλείπονται μέχρι να διορθωθούν.</string>
     <string name="settings_report_missing">Δεν βρέθηκαν στον διακομιστή: %1$s.</string>
+    <string name="settings_hide_bad">Απόκρυψη των playlist αναφορών</string>
+    <string name="settings_hide_lists_hint">Κρατά τις %1$s, %2$s και %3$s εκτός της βιβλιοθήκης σου.</string>
 
     <string name="settings_about">Σχετικά</string>
     <string name="settings_auto_update">Αυτόματος έλεγχος για ενημερώσεις</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">Αφαίρεση %1$s</string>
     <string name="kids_add">Προσθήκη παιδικού λογαριασμού</string>
     <string name="kids_how">Πώς λειτουργούν οι παιδικοί λογαριασμοί</string>
+    <string name="kids_hide_lists">Απόκρυψη των playlist των παιδιών</string>
     <string name="kids_remove_title">Αφαίρεση %1$s;</string>
     <string name="kids_remove_message">Αυτή η συσκευή ξεχνά τα στοιχεία σύνδεσης του παιδιού. Οι συσκευές που έχουν ήδη συνδεθεί ως %1$s παραμένουν συνδεδεμένες.</string>
     <string name="kids_remove">Αφαίρεση</string>

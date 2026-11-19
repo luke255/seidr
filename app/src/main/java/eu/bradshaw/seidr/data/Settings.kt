@@ -124,6 +124,14 @@ class Settings(context: Context) {
      */
     val othersPrivatePlaylists: StateFlow<Boolean> = _othersPrivatePlaylists.asStateFlow()
 
+    private val _hideKidsPlaylists = MutableStateFlow(prefs.getBoolean("hide_kids_playlists", true))
+    /** On by default: `Library` leaves out the three "Seidr: Kids …" playlists. A kid's login never sees them. */
+    val hideKidsPlaylists: StateFlow<Boolean> = _hideKidsPlaylists.asStateFlow()
+
+    private val _hideBadPlaylists = MutableStateFlow(prefs.getBoolean("hide_bad_playlists", true))
+    /** On by default: `Library` leaves out the "Bad: " playlists. A kid's login never sees them. */
+    val hideBadPlaylists: StateFlow<Boolean> = _hideBadPlaylists.asStateFlow()
+
     private val _kidLogins = MutableStateFlow(readKids())
     /** Kids' logins this (grown-up) device can sign other devices in as. */
     val kidLogins: StateFlow<List<KidLogin>> = _kidLogins.asStateFlow()
@@ -260,6 +268,16 @@ class Settings(context: Context) {
     fun setOthersPrivatePlaylists(value: Boolean) {
         prefs.edit().putBoolean("others_private_playlists", value).apply()
         _othersPrivatePlaylists.value = value
+    }
+
+    fun setHideKidsPlaylists(value: Boolean) {
+        prefs.edit().putBoolean("hide_kids_playlists", value).apply()
+        _hideKidsPlaylists.value = value
+    }
+
+    fun setHideBadPlaylists(value: Boolean) {
+        prefs.edit().putBoolean("hide_bad_playlists", value).apply()
+        _hideBadPlaylists.value = value
     }
 
     private fun readKids(): List<KidLogin> =

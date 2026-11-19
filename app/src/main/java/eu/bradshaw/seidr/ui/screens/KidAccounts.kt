@@ -19,6 +19,7 @@ import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.ChildCare
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Visibility
+import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilledTonalButton
@@ -55,6 +56,7 @@ import eu.bradshaw.seidr.data.KidRules
 import eu.bradshaw.seidr.data.ServerConfig
 import eu.bradshaw.seidr.ui.LocalActions
 import eu.bradshaw.seidr.ui.components.CardDivider
+import eu.bradshaw.seidr.ui.components.ToggleItem
 import eu.bradshaw.seidr.ui.components.CardGroup
 import eu.bradshaw.seidr.ui.components.CardItem
 import eu.bradshaw.seidr.ui.components.CardLabel
@@ -91,6 +93,16 @@ fun KidAccountsSection() {
         CardItem(Icons.Outlined.Add, stringResource(R.string.kids_add), null) { adding = true }
         CardDivider()
         CardItem(Icons.AutoMirrored.Outlined.HelpOutline, stringResource(R.string.kids_how), null) { help = true }
+        // Only once the server has them (or it's been switched off, so it can go back on).
+        val hideLists by graph.settings.hideKidsPlaylists.collectAsStateWithLifecycle()
+        val anyLists = graph.library.allPlaylists.collectAsStateWithLifecycle().value.orEmpty().any { KidRules.isKidsList(it.name) }
+        if (!hideLists || anyLists) {
+            CardDivider()
+            ToggleItem(Icons.Outlined.VisibilityOff, stringResource(R.string.kids_hide_lists),
+                stringResource(R.string.settings_hide_lists_hint, KidRules.APPROVED, KidRules.SAFE_TITLES, KidRules.SAFE_ART), hideLists) {
+                graph.settings.setHideKidsPlaylists(it)
+            }
+        }
     }
 
     if (help) KidsHelpDialog(admin, onDone = { help = false })

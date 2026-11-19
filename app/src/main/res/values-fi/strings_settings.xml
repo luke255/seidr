@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Lisää jokaisen kappaleen ⋮-valikkoon kohdan Ilmoita ongelmasta</string>
     <string name="settings_report_info">Viallinen tiedosto, väärä kansikuva tai virheelliset sanoitukset lisätään palvelimen soittolistalle %1$s, %2$s tai %3$s, jotta palvelimen ylläpitäjä voi korjata ne. Soittolistan %1$s kappaleet ohitetaan, kunnes ne on korjattu.</string>
     <string name="settings_report_missing">Palvelimelta ei löytynyt: %1$s.</string>
+    <string name="settings_hide_bad">Piilota ilmoitussoittolistat</string>
+    <string name="settings_hide_lists_hint">Pitää listat %1$s, %2$s ja %3$s poissa kirjastostasi.</string>
 
     <string name="settings_about">Tietoja</string>
     <string name="settings_auto_update">Tarkista päivitykset automaattisesti</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">Poista %1$s</string>
     <string name="kids_add">Lisää lapsen tili</string>
     <string name="kids_how">Näin lasten tilit toimivat</string>
+    <string name="kids_hide_lists">Piilota lasten soittolistat</string>
     <string name="kids_remove_title">Poistetaanko %1$s?</string>
     <string name="kids_remove_message">Tämä laite unohtaa lapsen kirjautumistiedot. Laitteet, joilla on jo kirjauduttu käyttäjänä %1$s, pysyvät kirjautuneina.</string>
     <string name="kids_remove">Poista</string>

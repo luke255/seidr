@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Legger til Rapporter et problem i ⋮-menyen for hver låt</string>
     <string name="settings_report_info">En dårlig fil, feil omslag eller ødelagt sangtekst havner på serverens spilleliste %1$s, %2$s eller %3$s, slik at den som drifter serveren, kan fikse det. Låter i %1$s hoppes over til de er fikset.</string>
     <string name="settings_report_missing">Ikke funnet på serveren: %1$s.</string>
+    <string name="settings_hide_bad">Skjul rapportspillelistene</string>
+    <string name="settings_hide_lists_hint">Holder %1$s, %2$s og %3$s utenfor biblioteket ditt.</string>
 
     <string name="settings_about">Om</string>
     <string name="settings_auto_update">Se etter oppdateringer automatisk</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">Fjern %1$s</string>
     <string name="kids_add">Legg til en barnekonto</string>
     <string name="kids_how">Slik fungerer barnekontoer</string>
+    <string name="kids_hide_lists">Skjul barnas spillelister</string>
     <string name="kids_remove_title">Fjerne %1$s?</string>
     <string name="kids_remove_message">Denne enheten glemmer barnets innlogging. Enheter som allerede er logget inn som %1$s, forblir innlogget.</string>
     <string name="kids_remove">Fjern</string>

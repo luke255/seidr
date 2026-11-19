@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Adaugă Semnalează o problemă în meniul ⋮ al fiecărei melodii</string>
     <string name="settings_report_info">Un fișier stricat, o copertă greșită sau versuri greșite ajung în playlistul %1$s, %2$s sau %3$s de pe server, ca să le repare cine se ocupă de el. Melodiile din %1$s sunt sărite până sunt reparate.</string>
     <string name="settings_report_missing">Negăsite pe server: %1$s.</string>
+    <string name="settings_hide_bad">Ascunde playlisturile de raportare</string>
+    <string name="settings_hide_lists_hint">Ține %1$s, %2$s și %3$s în afara bibliotecii tale.</string>
 
     <string name="settings_about">Despre</string>
     <string name="settings_auto_update">Caută actualizări automat</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">Elimină %1$s</string>
     <string name="kids_add">Adaugă un cont de copil</string>
     <string name="kids_how">Cum funcționează conturile de copil</string>
+    <string name="kids_hide_lists">Ascunde playlisturile copiilor</string>
     <string name="kids_remove_title">Elimini %1$s?</string>
     <string name="kids_remove_message">Acest dispozitiv îi uită datele de autentificare. Dispozitivele deja autentificate ca %1$s rămân autentificate.</string>
     <string name="kids_remove">Elimină</string>

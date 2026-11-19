@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Her şarkının ⋮ menüsüne Sorun bildir seçeneğini ekler</string>
     <string name="settings_report_info">Bozuk bir dosya, yanlış bir kapak veya hatalı sözler, sunucuyla ilgilenen kişi düzeltsin diye sunucudaki %1$s, %2$s veya %3$s çalma listesine eklenir. Şu listedeki şarkılar düzeltilene kadar atlanır: %1$s.</string>
     <string name="settings_report_missing">Sunucuda bulunamadı: %1$s.</string>
+    <string name="settings_hide_bad">Bildirim çalma listelerini gizle</string>
+    <string name="settings_hide_lists_hint">%1$s, %2$s ve %3$s listelerini kitaplığının dışında tutar.</string>
 
     <string name="settings_about">Hakkında</string>
     <string name="settings_auto_update">Güncellemeleri otomatik denetle</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">Kaldır: %1$s</string>
     <string name="kids_add">Çocuk hesabı ekle</string>
     <string name="kids_how">Çocuk hesapları nasıl çalışır</string>
+    <string name="kids_hide_lists">Çocuk çalma listelerini gizle</string>
     <string name="kids_remove_title">%1$s kaldırılsın mı?</string>
     <string name="kids_remove_message">Bu cihaz çocuğun giriş bilgilerini unutur. %1$s olarak oturum açılmış cihazlarda oturum açık kalır.</string>
     <string name="kids_remove">Kaldır</string>

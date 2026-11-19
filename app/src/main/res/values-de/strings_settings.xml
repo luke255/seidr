@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Fügt „Problem melden“ zum ⋮-Menü jedes Songs hinzu</string>
     <string name="settings_report_info">Eine kaputte Datei, ein falsches Cover oder fehlerhafter Songtext kommt auf die Server-Playlist %1$s, %2$s oder %3$s, damit es beheben kann, wer den Server betreibt. Songs in %1$s werden übersprungen, bis sie repariert sind.</string>
     <string name="settings_report_missing">Auf dem Server nicht gefunden: %1$s.</string>
+    <string name="settings_hide_bad">Meldungs-Playlists ausblenden</string>
+    <string name="settings_hide_lists_hint">Hält %1$s, %2$s und %3$s aus deiner Bibliothek heraus.</string>
 
     <string name="settings_about">Über</string>
     <string name="settings_auto_update">Automatisch nach Updates suchen</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">%1$s entfernen</string>
     <string name="kids_add">Kinderkonto hinzufügen</string>
     <string name="kids_how">So funktionieren Kinderkonten</string>
+    <string name="kids_hide_lists">Kinder-Playlists ausblenden</string>
     <string name="kids_remove_title">%1$s entfernen?</string>
     <string name="kids_remove_message">Dieses Gerät vergisst die Anmeldedaten. Geräte, die schon als %1$s angemeldet sind, bleiben angemeldet.</string>
     <string name="kids_remove">Entfernen</string>

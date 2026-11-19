@@ -4,6 +4,11 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.9.2
+
+- The Bad: playlists that problem reports go to are now hidden from your library even with reporting off. Settings → Reporting → Hide the report playlists brings them back.
+- The kids' playlists can be shown too: Settings → Kids → Hide the kids' playlists.
+
 ## 1.9.1
 
 - A song that's being downloaded again (after its tags changed on the server) keeps playing from the copy already on your phone until the new one arrives, instead of streaming.

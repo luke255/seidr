@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Додає пункт «Повідомити про проблему» до меню ⋮ кожної пісні</string>
     <string name="settings_report_info">Пошкоджений файл, хибна обкладинка чи зіпсований текст потрапляє до плейлиста %1$s, %2$s або %3$s на сервері, щоб той, хто ним опікується, усе виправив. Пісні з %1$s пропускаються, доки їх не виправлять.</string>
     <string name="settings_report_missing">Не знайдено на сервері: %1$s.</string>
+    <string name="settings_hide_bad">Сховати плейлисти скарг</string>
+    <string name="settings_hide_lists_hint">Не показує %1$s, %2$s і %3$s у вашій бібліотеці.</string>
 
     <string name="settings_about">Про застосунок</string>
     <string name="settings_auto_update">Перевіряти оновлення автоматично</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">Вилучити %1$s</string>
     <string name="kids_add">Додати дитячий обліковий запис</string>
     <string name="kids_how">Як працюють дитячі облікові записи</string>
+    <string name="kids_hide_lists">Сховати дитячі плейлисти</string>
     <string name="kids_remove_title">Вилучити %1$s?</string>
     <string name="kids_remove_message">Цей пристрій забуде дані для входу. Пристрої, де вже виконано вхід як %1$s, залишаться в обліковому записі.</string>
     <string name="kids_remove">Вилучити</string>

@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">各曲の ⋮ メニューに「問題を報告」を追加します</string>
     <string name="settings_report_info">ファイルの不具合、間違ったアートワーク、崩れた歌詞は、サーバーの%1$s、%2$s、%3$sのいずれかのプレイリストに追加され、サーバーの管理者が修正できるようになります。%1$sにある曲は、修正されるまでスキップされます。</string>
     <string name="settings_report_missing">サーバーに見つかりません：%1$s</string>
+    <string name="settings_hide_bad">報告用プレイリストを隠す</string>
+    <string name="settings_hide_lists_hint">%1$s、%2$s、%3$s をライブラリに表示しません。</string>
 
     <string name="settings_about">このアプリについて</string>
     <string name="settings_auto_update">アップデートを自動で確認</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">%1$sを削除</string>
     <string name="kids_add">子ども用アカウントを追加</string>
     <string name="kids_how">子ども用アカウントのしくみ</string>
+    <string name="kids_hide_lists">キッズ用プレイリストを隠す</string>
     <string name="kids_remove_title">%1$sを削除しますか？</string>
     <string name="kids_remove_message">このデバイスからログイン情報が消去されます。すでに%1$sとしてサインインしているデバイスは、サインインしたままです。</string>
     <string name="kids_remove">削除</string>

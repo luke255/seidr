@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Přidá „Nahlásit problém“ do nabídky ⋮ u každé skladby</string>
     <string name="settings_report_info">Vadný soubor, špatný obal nebo rozbitý text se na serveru zařadí do playlistu %1$s, %2$s nebo %3$s, aby to ten, kdo se o server stará, opravil. Skladby v %1$s se přeskakují, dokud nejsou opravené.</string>
     <string name="settings_report_missing">Na serveru chybí: %1$s.</string>
+    <string name="settings_hide_bad">Skrýt playlisty hlášení</string>
+    <string name="settings_hide_lists_hint">Drží %1$s, %2$s a %3$s mimo tvou knihovnu.</string>
 
     <string name="settings_about">O aplikaci</string>
     <string name="settings_auto_update">Automaticky kontrolovat aktualizace</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">Odebrat %1$s</string>
     <string name="kids_add">Přidat dětský účet</string>
     <string name="kids_how">Jak fungují dětské účty</string>
+    <string name="kids_hide_lists">Skrýt dětské playlisty</string>
     <string name="kids_remove_title">Odebrat %1$s?</string>
     <string name="kids_remove_message">Toto zařízení zapomene přihlašovací údaje dítěte. Zařízení, která už jsou přihlášená jako %1$s, zůstanou přihlášená.</string>
     <string name="kids_remove">Odebrat</string>

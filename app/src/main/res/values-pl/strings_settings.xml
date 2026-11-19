@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Dodaje „Zgłoś problem” do menu ⋮ każdego utworu</string>
     <string name="settings_report_info">Wadliwy plik, zła okładka lub błędny tekst trafia na serwerową playlistę %1$s, %2$s lub %3$s, żeby osoba opiekująca się serwerem mogła to naprawić. Utwory z %1$s są pomijane, dopóki nie zostaną naprawione.</string>
     <string name="settings_report_missing">Nie znaleziono na serwerze: %1$s.</string>
+    <string name="settings_hide_bad">Ukryj playlisty zgłoszeń</string>
+    <string name="settings_hide_lists_hint">Trzyma %1$s, %2$s i %3$s poza twoją biblioteką.</string>
 
     <string name="settings_about">O aplikacji</string>
     <string name="settings_auto_update">Automatycznie sprawdzaj aktualizacje</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">Usuń %1$s</string>
     <string name="kids_add">Dodaj konto dziecka</string>
     <string name="kids_how">Jak działają konta dzieci</string>
+    <string name="kids_hide_lists">Ukryj playlisty dzieci</string>
     <string name="kids_remove_title">Usunąć %1$s?</string>
     <string name="kids_remove_message">To urządzenie zapomni dane logowania dziecka. Urządzenia już zalogowane jako %1$s pozostaną zalogowane.</string>
     <string name="kids_remove">Usuń</string>

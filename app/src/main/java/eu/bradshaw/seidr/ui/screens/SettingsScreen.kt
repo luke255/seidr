@@ -38,6 +38,7 @@ import androidx.compose.material.icons.filled.Devices
 import androidx.compose.material.icons.outlined.BatteryChargingFull
 import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material.icons.outlined.RestoreFromTrash
 import androidx.compose.material.icons.outlined.Autorenew
 import androidx.compose.material.icons.outlined.BugReport
@@ -84,6 +85,7 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import eu.bradshaw.seidr.BuildConfig
 import eu.bradshaw.seidr.data.BadKind
+import eu.bradshaw.seidr.data.BadReports
 import eu.bradshaw.seidr.ui.LocalActions
 import eu.bradshaw.seidr.ui.LocalIsTv
 import eu.bradshaw.seidr.ui.Route
@@ -213,6 +215,15 @@ fun SettingsScreen() {
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(start = 56.dp, end = 16.dp, bottom = 14.dp),
                 )
+                // Only once the server has any (or it's been switched off, so it can go back on).
+                val hideBad by graph.settings.hideBadPlaylists.collectAsStateWithLifecycle()
+                if (!hideBad || allLoaded.orEmpty().any { BadReports.isBadPlaylist(it.name) }) {
+                    CardDivider()
+                    ToggleItem(Icons.Outlined.VisibilityOff, stringResource(R.string.settings_hide_bad),
+                        stringResource(R.string.settings_hide_lists_hint, BadKind.SONG.playlistName, BadKind.ART.playlistName, BadKind.LYRICS.playlistName), hideBad) {
+                        graph.settings.setHideBadPlaylists(it)
+                    }
+                }
             }
             }
 

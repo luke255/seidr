@@ -27,6 +27,9 @@
     <string name="settings_report_info">A bad file, wrong art or broken lyrics goes on the server\'s %1$s, %2$s or %3$s playlist for whoever runs it to fix. Songs in %1$s are skipped until they\'re fixed.</string>
     <!-- %1$s is a comma-separated list of exact playlist names (not translatable) -->
     <string name="settings_report_missing">Not found on the server: %1$s.</string>
+    <string name="settings_hide_bad">Hide the report playlists</string>
+    <!-- %1$s, %2$s, %3$s are the exact names of three server playlists (the kids' lists or the Bad: lists). Do not translate them. -->
+    <string name="settings_hide_lists_hint">Keeps %1$s, %2$s and %3$s out of your library.</string>
 
     <!-- Settings: About -->
     <string name="settings_about">About</string>
@@ -78,6 +81,7 @@
     <string name="kids_remove_description">Remove %1$s</string>
     <string name="kids_add">Add a kid\'s account</string>
     <string name="kids_how">How kids\' accounts work</string>
+    <string name="kids_hide_lists">Hide the kids\' playlists</string>
     <!-- %1$s is the kid\'s username -->
     <string name="kids_remove_title">Remove %1$s?</string>
     <!-- %1$s is the kid\'s username -->

@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Ajoute Signaler un problème au menu ⋮ de chaque titre</string>
     <string name="settings_report_info">Un fichier abîmé, une mauvaise pochette ou des paroles défectueuses vont dans la playlist %1$s, %2$s ou %3$s du serveur, pour que la personne qui s\'en occupe les corrige. Les titres de %1$s sont ignorés jusqu\'à leur correction.</string>
     <string name="settings_report_missing">Introuvable sur le serveur : %1$s.</string>
+    <string name="settings_hide_bad">Masquer les playlists de signalement</string>
+    <string name="settings_hide_lists_hint">Garde %1$s, %2$s et %3$s hors de votre bibliothèque.</string>
 
     <string name="settings_about">À propos</string>
     <string name="settings_auto_update">Rechercher les mises à jour automatiquement</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">Retirer %1$s</string>
     <string name="kids_add">Ajouter un compte enfant</string>
     <string name="kids_how">Comment fonctionnent les comptes enfant</string>
+    <string name="kids_hide_lists">Masquer les playlists enfants</string>
     <string name="kids_remove_title">Retirer %1$s ?</string>
     <string name="kids_remove_message">Cet appareil oublie ses identifiants. Les appareils déjà connectés en tant que %1$s le restent.</string>
     <string name="kids_remove">Retirer</string>

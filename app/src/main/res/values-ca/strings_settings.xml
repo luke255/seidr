@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">Afegeix Informa d\'un problema al menú ⋮ de cada cançó</string>
     <string name="settings_report_info">Un fitxer malmès, una portada equivocada o una lletra incorrecta van a la llista %1$s, %2$s o %3$s del servidor, perquè qui el gestiona ho arregli. Les cançons de %1$s se salten fins que s\'hagin arreglat.</string>
     <string name="settings_report_missing">No s\'han trobat al servidor: %1$s.</string>
+    <string name="settings_hide_bad">Amaga les playlists d\'avisos</string>
+    <string name="settings_hide_lists_hint">Deixa %1$s, %2$s i %3$s fora de la teva biblioteca.</string>
 
     <string name="settings_about">Quant a</string>
     <string name="settings_auto_update">Cerca actualitzacions automàticament</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">Treu %1$s</string>
     <string name="kids_add">Afegeix un compte infantil</string>
     <string name="kids_how">Com funcionen els comptes infantils</string>
+    <string name="kids_hide_lists">Amaga les playlists dels infants</string>
     <string name="kids_remove_title">Vols treure %1$s?</string>
     <string name="kids_remove_message">Aquest dispositiu n\'oblida les credencials. Els dispositius que ja tenen iniciada la sessió de %1$s la mantenen.</string>
     <string name="kids_remove">Treu</string>

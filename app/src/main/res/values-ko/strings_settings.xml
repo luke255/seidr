@@ -21,6 +21,8 @@
     <string name="settings_report_problems_hint">각 곡의 ⋮ 메뉴에 문제 신고를 추가해요</string>
     <string name="settings_report_info">파일 문제, 잘못된 앨범 아트, 깨진 가사는 서버의 %1$s, %2$s, %3$s 플레이리스트 중 하나에 추가되어 서버 관리자가 고칠 수 있어요. %1$s에 있는 곡은 고쳐질 때까지 건너뛰어요.</string>
     <string name="settings_report_missing">서버에 없음: %1$s.</string>
+    <string name="settings_hide_bad">신고용 플레이리스트 숨기기</string>
+    <string name="settings_hide_lists_hint">%1$s, %2$s, %3$s을(를) 보관함에 표시하지 않습니다.</string>
 
     <string name="settings_about">정보</string>
     <string name="settings_auto_update">자동으로 업데이트 확인</string>
@@ -57,6 +59,7 @@
     <string name="kids_remove_description">%1$s 삭제</string>
     <string name="kids_add">어린이 계정 추가</string>
     <string name="kids_how">어린이 계정 이용 방법</string>
+    <string name="kids_hide_lists">어린이용 플레이리스트 숨기기</string>
     <string name="kids_remove_title">%1$s 계정을 삭제할까요?</string>
     <string name="kids_remove_message">이 기기에서 로그인 정보가 지워져요. 이미 %1$s 계정으로 로그인된 기기는 로그인 상태로 유지돼요.</string>
     <string name="kids_remove">삭제</string>
