@@ -72,7 +72,9 @@ and "Rules that must hold" before changing sync or playback.
     on when the user says or `LoudnessCoverage` finds the library mostly
     tagged. Save mobile data (`StreamQuality`) resolves a stream to a
     constant-bitrate MP3 on metered networks; seeks re-request with
-    `timeOffset`, and a song keeps its format while it's current. A sleep
+    `timeOffset`, and a song keeps its format while it's current. A stream
+    still buffering after 10 s (`watchStall`) marks the server unreachable
+    and moves on to the next downloaded song. A sleep
     timer (`SleepTimer`) is carried out here too.
   - `PlayerConnection` is the UI-side `MediaController` and implements the
     queue model: `[history][current][user "Next in queue"][context]`.
@@ -311,6 +313,8 @@ and "Rules that must hold" before changing sync or playback.
   fetches. Never let the lenient client or `ResponseStore` feed sync.
 - Files are deleted only in `SyncEngine.filePass`, and only for tracks with
   zero claims that aren't currently playing (`NowPlaying.currentSongId`).
+  A re-download (size or suffix changed) keeps the old file, which plays
+  until `DownloadWorker` replaces it.
 - Subsonic has no reorder call. Reorder sends the whole list, and only when
   a fresh fetch equals what the user saw (`EditResolver.reorder`); otherwise
   it's a `Conflict`. Removes resolve the index by song id against a fresh

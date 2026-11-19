@@ -58,6 +58,7 @@ class MusicFiles(context: Context) : FileDeleter {
     }
 
     override fun delete(trackId: String, path: String?) {
+        android.util.Log.i("Downloads", "deleting $trackId")
         path?.let { File(it).delete() }
         partFile(trackId).delete()
         val prefix = safe(trackId) + "."

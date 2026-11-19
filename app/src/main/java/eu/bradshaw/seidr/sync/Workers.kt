@@ -94,10 +94,14 @@ class DownloadWorker(context: Context, params: WorkerParameters) : CoroutineWork
                 g.engine.lock.withLock {
                     val row = dao.download(next.trackId)
                     if (row == null || dao.claimCount(next.trackId) == 0) {
-                        // Un-claimed while downloading: don't keep it.
+                        // Un-claimed while downloading: don't keep it (nor the version it replaced).
                         file.delete()
+                        row?.path?.let { File(it).delete() }
                         dao.deleteDownload(next.trackId)
                     } else {
+                        // A re-download in another format leaves the old file behind; the same
+                        // name was replaced by the rename (a player reading it keeps the old one).
+                        row.path?.takeIf { it != file.absolutePath }?.let { File(it).delete() }
                         dao.upsertDownload(row.copy(
                             state = DownloadState.DONE, path = file.absolutePath,
                             bytesDone = file.length(), error = null, updatedAt = System.currentTimeMillis(),

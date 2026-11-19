@@ -125,10 +125,25 @@ class SyncEngineTest {
         }
         val r = engine.sync()
         assertEquals(2, r.redownload)
-        assertEquals(setOf("a", "b"), files.deleted.toSet())
+        // The old files stay, and keep playing, until the new ones replace them.
+        assertTrue(files.deleted.isEmpty())
+        assertEquals("/music/a.flac", store.downloads.getValue("a").path)
+        assertEquals("/music/b.flac", store.downloads.getValue("b").path)
         assertEquals(DownloadState.QUEUED, store.downloads.getValue("a").state)
         assertEquals(2000, store.downloads.getValue("a").size)
         assertEquals("opus", store.downloads.getValue("b").suffix)
+    }
+
+    @Test fun `a track dropped mid re-download loses its old file too`() = runTest {
+        fake.playlist("p", "a", "b")
+        enablePlaylist("p")
+        syncAndDownload()
+        fake.edit("p") { this[0] = track("a", size = 2000) }
+        engine.sync()
+        fake.edit("p") { removeAt(0) }
+        engine.sync()
+        assertEquals(listOf("a"), files.deleted)
+        assertFalse("a" in store.downloads)
     }
 
     @Test fun `a kept file takes the server's new cover id without re-downloading`() = runTest {

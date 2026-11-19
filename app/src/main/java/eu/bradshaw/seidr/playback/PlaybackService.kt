@@ -100,9 +100,12 @@ class PlaybackService : MediaLibraryService() {
             // A kid's rules, or clean mode's: either way only approved songs play.
             val kid = graph.kids.playing
             val local = if (kid?.playable(songId) == false) null else graph.downloads.localFile(songId)
-            when (val s = KidGate.source(songId, kid, local, graph.status.online.value)) {
-                is KidGate.Source.Refused -> throw IOException(s.why)
-                is KidGate.Source.Local -> spec.withUri(Uri.fromFile(s.file))
+            val source = KidGate.source(songId, kid, local, graph.status.online.value)
+            // One line per open, so a stall can be traced to how the song was reached.
+            Log.i("Playback", "open $songId at ${spec.position}: ${source.javaClass.simpleName}")
+            when (source) {
+                is KidGate.Source.Refused -> throw IOException(source.why)
+                is KidGate.Source.Local -> spec.withUri(Uri.fromFile(source.file))
                 KidGate.Source.Stream -> when (val kbps = graph.streamQuality.kbpsFor(songId)) {
                     0 -> spec.withUri(Uri.parse(graph.client.streamUrl(songId) ?: throw IOException("Not logged in")))
                     // A lower bitrate on mobile data (StreamQuality): constant-bitrate MP3, so a byte
@@ -318,7 +321,10 @@ class PlaybackService : MediaLibraryService() {
 
         override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
             if (reason == Player.PLAY_WHEN_READY_CHANGE_REASON_END_OF_MEDIA_ITEM) graph.sleep.done(SleepTimer.Mode.EndOfSong)
+            watchStall()
         }
+
+        override fun onPlaybackStateChanged(playbackState: Int) = watchStall()
 
         override fun onPlayerError(error: androidx.media3.common.PlaybackException) {
             Log.w("Playback", "error on ${player.currentMediaItem?.mediaId}: $error")
@@ -337,12 +343,39 @@ class PlaybackService : MediaLibraryService() {
         }
     }
 
+    private var stallJob: Job? = null
+
+    /**
+     * A stream that keeps buffering (a weak signal, or a server that answers
+     * slowly or not at all while the phone still has a network) would hold the
+     * music up for as long as bytes trickle in: no timeout fires. After
+     * [STALL_MS] the server counts as unreachable, so offline mode takes over
+     * (SeidrApp keeps probing and switches back) and playback moves on to the
+     * next downloaded song.
+     */
+    private fun watchStall() {
+        stallJob?.cancel()
+        if (player.playbackState != Player.STATE_BUFFERING || !player.playWhenReady) return
+        val key = player.currentMediaItem?.mediaId ?: return
+        stallJob = scope.launch {
+            delay(STALL_MS)
+            if (player.playbackState != Player.STATE_BUFFERING || !player.playWhenReady || player.currentMediaItem?.mediaId != key) return@launch
+            val songId = songIdOf(key)
+            // A downloaded song can't be waiting on the network; leave the server's status alone.
+            val local = graph.downloads.localFile(songId) != null
+            Log.w("Playback", "stalled ${STALL_MS / 1000}s on $songId (${if (local) "local" else "stream"}), moving on")
+            if (!local) graph.status.reportFailure()
+            val next = nextPlayableIndex(downloadedOnly = !local) ?: return@launch
+            player.seekTo(next, 0)
+        }
+    }
+
     /** The next item to try after an error. Offline, that's the next downloaded one. */
-    private fun nextPlayableIndex(): Int? {
+    private fun nextPlayableIndex(downloadedOnly: Boolean = !graph.status.online.value): Int? {
         val count = player.mediaItemCount
         if (count == 0) return null
         val wrap = player.repeatMode == Player.REPEAT_MODE_ALL
-        if (graph.status.online.value) {
+        if (!downloadedOnly) {
             return player.nextMediaItemIndex.takeIf { it != C.INDEX_UNSET }
         }
         val from = player.currentMediaItemIndex
@@ -594,6 +627,8 @@ class PlaybackService : MediaLibraryService() {
         /** Android Auto, and Android Automotive's media app. */
         private val CAR_PACKAGES = setOf("com.google.android.projection.gearhead", "com.android.car.media")
         private const val PRELOAD_NEXT_US = 10_000_000L
+        /** How long a stream may buffer before it counts as stalled ([watchStall]). */
+        private const val STALL_MS = 10_000L
         private const val MAX_HIDDEN = 1000
     }
 }

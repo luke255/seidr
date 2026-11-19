@@ -216,8 +216,11 @@ class SyncEngine(
             files.delete(id, rowsById[id]?.path)
             store.deleteDownload(id)
         }
-        for (t in plan.redownload) files.delete(t.id, rowsById[t.id]?.path)
-        val queueRows = (plan.queue + plan.redownload).map { it.toQueuedRow() }
+        // A re-download keeps the old file, which plays on until the new one
+        // replaces it (DownloadWorker): a re-tag mustn't leave a downloaded song
+        // streaming, or unplayable offline, until the next Wi-Fi.
+        val queueRows = plan.queue.map { it.toQueuedRow() } +
+            plan.redownload.map { it.toQueuedRow().copy(path = rowsById[it.id]?.path) }
         // Kept files take the server's latest metadata, so their cover art follows
         // the server's (Navidrome's cover ids change whenever the album does).
         val requeued = queueRows.mapTo(HashSet()) { it.trackId }

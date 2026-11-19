@@ -54,7 +54,7 @@ object DownloadState {
 data class Download(
     @PrimaryKey val trackId: String,
     val state: String,
-    /** Absolute path once complete. */
+    /** Absolute path once complete; while a re-download is under way, the previous version's. */
     val path: String? = null,
     /** Size and suffix the server reported when this download was queued. */
     val size: Long,

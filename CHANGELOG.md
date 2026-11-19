@@ -4,6 +4,11 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.9.1
+
+- A song that's being downloaded again (after its tags changed on the server) keeps playing from the copy already on your phone until the new one arrives, instead of streaming.
+- When a song that isn't downloaded can't get through on a weak connection, Seiðr gives it 10 seconds and then carries on with your next downloaded song, instead of waiting indefinitely.
+
 ## 1.9.0
 
 - Clean mode, for when there are passengers in the car: the shield in the queue (or in Android Auto) plays only the songs approved for your kids and skips the rest until you turn it off. While it's on, the queue and Now Playing say so.

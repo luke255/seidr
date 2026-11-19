@@ -23,8 +23,9 @@ class DownloadIndex(dao: OfflineDao, scope: CoroutineScope) {
     val all: StateFlow<Map<String, Download>> = dao.downloadsFlow()
         .map { rows -> rows.associateBy { it.trackId } }
         .onEach { m ->
-            doneFiles = m.values.filter { it.state == DownloadState.DONE && it.path != null }
-                .associate { it.trackId to File(it.path!!) }
+            // Any row with a path: a done one, or one being re-downloaded, whose
+            // previous version plays until the new one is in.
+            doneFiles = m.values.filter { it.path != null }.associate { it.trackId to File(it.path!!) }
         }
         .stateIn(scope, SharingStarted.Eagerly, emptyMap())
 
