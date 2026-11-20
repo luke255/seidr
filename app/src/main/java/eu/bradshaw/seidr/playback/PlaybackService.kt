@@ -478,11 +478,16 @@ class PlaybackService : MediaLibraryService() {
             .setSessionCommand(SessionCommand(CMD_LIKE, Bundle.EMPTY))
             .setSlots(CommandButton.SLOT_OVERFLOW)
             .build()
-        session.setMediaButtonPreferences(ImmutableList.of(button))
-        // The car also gets clean mode's switch, for when passengers get in.
-        val clean = cleanButton() ?: return
-        for (c in session.connectedControllers) if (isCar(c)) session.setMediaButtonPreferences(c, ImmutableList.of(button, clean))
+        // While a car is connected it also gets clean mode's switch, for when passengers get in.
+        // It has to go in the session-wide list: Android Auto reads the platform session's custom
+        // actions, and Media3 drops per-controller preferences for its (legacy) controllers.
+        // So the phone's notification shows the switch too while the car is connected.
+        val clean = if (cars.isEmpty()) null else cleanButton()
+        session.setMediaButtonPreferences(if (clean == null) ImmutableList.of(button) else ImmutableList.of(button, clean))
     }
+
+    /** Car controllers connected now (Android Auto, Automotive), kept from connect/disconnect callbacks. */
+    private val cars = mutableSetOf<MediaSession.ControllerInfo>()
 
     /** Clean mode's switch, shown as on or off; none for a kid's login (always approved-only). */
     private fun cleanButton(): CommandButton? {
@@ -540,7 +545,11 @@ class PlaybackService : MediaLibraryService() {
         }
 
         override fun onPostConnect(session: MediaSession, controller: MediaSession.ControllerInfo) {
-            if (isCar(controller)) updateLikeButton()
+            if (isCar(controller) && cars.add(controller)) updateLikeButton()
+        }
+
+        override fun onDisconnected(session: MediaSession, controller: MediaSession.ControllerInfo) {
+            if (cars.remove(controller)) updateLikeButton()
         }
 
         // --- Browsing (Android Auto) ---

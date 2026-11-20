@@ -7,6 +7,7 @@ them, not how.
 ## 1.9.3
 
 - New in Settings → Visualiser: Favour quality. When a preset is too much for your device, it drops to 30 fps first and keeps its full sharpness and detail, instead of the other way round. Off by default.
+- Clean mode's shield now really shows in Android Auto's player. While the car is connected it's on your phone's notification too.
 
 ## 1.9.2
 
