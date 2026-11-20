@@ -64,7 +64,7 @@ data class Peer(
     val name: String,
     val hosts: List<String>,
     val port: Int,
-    /** "phone", "tv", "headset", "speaker" or "group", for the icon. */
+    /** "phone", "tv", "headset", "speaker", "group" or "computer", for the icon; anything else shows as a phone. */
     val kind: String = KIND_PHONE,
     /** Signed out: anyone can play on it, or sign it in. */
     val guest: Boolean = false,
@@ -77,6 +77,7 @@ data class Peer(
         const val KIND_HEADSET = "headset"
         const val KIND_SPEAKER = "speaker"
         const val KIND_SPEAKER_GROUP = "group"
+        const val KIND_COMPUTER = "computer"
     }
 }
 
@@ -148,9 +149,12 @@ sealed interface RemoteOp {
 
 @Serializable
 sealed interface ConnectMessage {
-    /** [verify]: (controller → guest host) this host's key isn't pinned yet, so show the code. */
+    /**
+     * [verify]: (controller → guest host) this host's key isn't pinned yet, so show the code.
+     * Senders always state [version]; one that's missing came from a peer that never did ([UNSTATED_VERSION]).
+     */
     @Serializable @SerialName("hello")
-    data class Hello(val id: String, val name: String, val version: Int = PROTOCOL_VERSION, val verify: Boolean = false) : ConnectMessage
+    data class Hello(val id: String, val name: String, val version: Int = UNSTATED_VERSION, val verify: Boolean = false) : ConnectMessage
 
     /**
      * Controller → guest host: play here for this login. Kept in memory only; [theme] is the sender's colour.
@@ -203,6 +207,14 @@ sealed interface ConnectMessage {
 }
 
 const val PROTOCOL_VERSION = 4
+
+/**
+ * A hello without a version. Up to 1.9.3 the version was left out whenever it
+ * was the sender's own default, so it read as the reader's version and the
+ * checks below never failed. Read as the oldest that can still connect (2), so
+ * they fail safe: a kid's login isn't sent to a host that might not filter.
+ */
+const val UNSTATED_VERSION = 2
 
 /** The first version whose host asks before accepting a sign-in, so its controller waits longer. */
 const val SIGN_IN_PROMPT_VERSION = 4

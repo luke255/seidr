@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Computer
 import androidx.compose.material.icons.filled.Devices
 import androidx.compose.material.icons.filled.Smartphone
 import androidx.compose.material.icons.filled.Speaker
@@ -159,5 +160,6 @@ fun kindIcon(kind: String): ImageVector = when (kind) {
     Peer.KIND_HEADSET -> Icons.Filled.ViewInAr
     Peer.KIND_SPEAKER -> Icons.Filled.Speaker
     Peer.KIND_SPEAKER_GROUP -> Icons.Filled.SpeakerGroup
+    Peer.KIND_COMPUTER -> Icons.Filled.Computer
     else -> Icons.Filled.Smartphone
 }

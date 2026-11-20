@@ -279,7 +279,7 @@ class Connect(
                 // Signing in always shows the code: it leaves the password there for good.
                 val check = ch.guest?.let { signingIn || !isPinned(it.hostKey) } ?: false
                 if (check && !ask) throw IOException("not paired")
-                ch.send(ConnectMessage.Hello(deviceId, name, verify = check))
+                ch.send(ConnectMessage.Hello(deviceId, name, version = PROTOCOL_VERSION, verify = check))
                 val hello = ch.receive() as? ConnectMessage.Hello ?: throw IOException("Expected hello")
                 Triple(socket, ch, hello)
             } catch (e: IOException) {

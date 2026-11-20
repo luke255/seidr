@@ -4,6 +4,10 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.9.4
+
+- Fixed: a kid's login could be sent to a signed-out device running a Seiðr too old to keep to kids' rules. Now it asks for that device to be updated first. Until every device is updated, allowing a sign-in from an older phone gives you 20 seconds rather than 90.
+
 ## 1.9.3
 
 - New in Settings → Visualiser: Favour quality. When a preset is too much for your device, it drops to 30 fps first and keeps its full sharpness and detail, instead of the other way round. Off by default.

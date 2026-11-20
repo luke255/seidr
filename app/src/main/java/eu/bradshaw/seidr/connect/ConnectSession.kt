@@ -340,7 +340,7 @@ class ConnectSession(
             socket.tcpNoDelay = true
             val ch = ConnectChannel.accept(socket, connect.awaitAccountKey()) { connect.identity }
             val hello = ch.receive() as? ConnectMessage.Hello ?: throw IOException("Expected hello")
-            ch.send(ConnectMessage.Hello(connect.deviceId, connect.name))
+            ch.send(ConnectMessage.Hello(connect.deviceId, connect.name, version = PROTOCOL_VERSION))
             var guestKey: ByteArray? = null
             val handshake = ch.guest
             if (handshake != null) {

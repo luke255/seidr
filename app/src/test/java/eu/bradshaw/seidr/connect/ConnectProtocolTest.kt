@@ -75,6 +75,20 @@ class ConnectProtocolTest {
     }
 
     @Test
+    fun helloStatesItsVersion() {
+        val key = ConnectKeys.account("luke", "pw")
+        var got: ConnectMessage.Hello? = null
+        pair(key, key, host = { ch -> got = ch.receive() as ConnectMessage.Hello }, controller = { ch ->
+            ch.send(ConnectMessage.Hello("fold", "Fold", version = PROTOCOL_VERSION))
+        })
+        assertEquals(PROTOCOL_VERSION, got?.version)
+        // A peer up to 1.9.3 left it out: it must not pass for a current one.
+        val old = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
+            .decodeFromString(ConnectMessage.serializer(), """{"type":"hello","id":"tv","name":"TV"}""") as ConnectMessage.Hello
+        assertTrue(old.version < KIDS_VERSION)
+    }
+
+    @Test
     fun anotherAccountFailsOnTheFirstFrame() {
         var hostSaw: Throwable? = null
         pair(ConnectKeys.account("luke", "pw"), ConnectKeys.account("jake", "pw"), host = { ch ->
