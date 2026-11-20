@@ -131,6 +131,8 @@
     <string name="vissettings_title">Οπτικοποίηση</string>
     <string name="vissettings_track_info">Εμφάνιση πληροφοριών κομματιού</string>
     <string name="vissettings_track_info_hint">Εξώφυλλο, τίτλος και χρόνος σε μια γωνία. Όταν είναι ανενεργό, εμφανίζονται μόνο μαζί με τα χειριστήρια (παρατεταμένο πάτημα, ή πάνω/κάτω στο τηλεχειριστήριο).</string>
+    <string name="vissettings_quality_first">Προτίμηση ποιότητας</string>
+    <string name="vissettings_quality_first_hint">Μια προρύθμιση πολύ απαιτητική για αυτή τη συσκευή πέφτει στα 30 fps πριν χάσει ευκρίνεια ή λεπτομέρεια.</string>
     <string name="vissettings_performance">Εμφάνιση επιδόσεων</string>
     <string name="vissettings_performance_hint">Ρυθμός καρέ, μέγεθος απόδοσης και επίπεδο ποιότητας σε μια γωνία, καθώς η οπτικοποίηση προσαρμόζεται μόνη της.</string>
     <string name="vissettings_loved">Αγαπημένα preset</string>

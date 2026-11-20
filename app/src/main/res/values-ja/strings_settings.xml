@@ -131,6 +131,8 @@
     <string name="vissettings_title">ビジュアライザー</string>
     <string name="vissettings_track_info">曲情報を表示</string>
     <string name="vissettings_track_info_hint">アートワーク、曲名、時間を画面の隅に表示します。オフにすると、コントロールを出したときだけ表示されます（長押し、またはリモコンの上下）。</string>
+    <string name="vissettings_quality_first">画質を優先</string>
+    <string name="vissettings_quality_first_hint">この端末に重すぎるプリセットは、鮮明さや細かさを落とす前にまず 30 fps に下げます。</string>
     <string name="vissettings_performance">パフォーマンスを表示</string>
     <string name="vissettings_performance_hint">ビジュアライザーが自動で調整するフレームレート、描画サイズ、品質レベルを画面の隅に表示します。</string>
     <string name="vissettings_loved">お気に入りのプリセット</string>

@@ -131,6 +131,8 @@
     <string name="vissettings_title">Visualizer</string>
     <string name="vissettings_track_info">Nummerinfo tonen</string>
     <string name="vissettings_track_info_hint">Hoes, titel en tijd in een hoek. Uit: ze verschijnen alleen bij de bediening (ingedrukt houden, of omhoog/omlaag op een afstandsbediening).</string>
+    <string name="vissettings_quality_first">Kwaliteit voorop</string>
+    <string name="vissettings_quality_first_hint">Een preset die te zwaar is voor dit apparaat gaat eerst naar 30 fps, voordat er scherpte of detail verloren gaat.</string>
     <string name="vissettings_performance">Prestaties tonen</string>
     <string name="vissettings_performance_hint">Framesnelheid, rendergrootte en kwaliteitsniveau in een hoek, terwijl de visualizer zichzelf bijstelt.</string>
     <string name="vissettings_loved">Favoriete presets</string>

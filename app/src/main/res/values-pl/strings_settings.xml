@@ -131,6 +131,8 @@
     <string name="vissettings_title">Wizualizacja</string>
     <string name="vissettings_track_info">Pokazuj informacje o utworze</string>
     <string name="vissettings_track_info_hint">Okładka, tytuł i czas w rogu. Po wyłączeniu widać je tylko razem ze sterowaniem (przytrzymaj albo góra/dół na pilocie).</string>
+    <string name="vissettings_quality_first">Stawiaj na jakość</string>
+    <string name="vissettings_quality_first_hint">Preset zbyt wymagający dla tego urządzenia najpierw spada do 30 kl./s, zanim straci ostrość lub szczegóły.</string>
     <string name="vissettings_performance">Pokazuj wydajność</string>
     <string name="vissettings_performance_hint">Liczba klatek, rozmiar renderowania i poziom jakości w rogu, na bieżąco, gdy wizualizacja sama się dostraja.</string>
     <string name="vissettings_loved">Ulubione presety</string>

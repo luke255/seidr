@@ -7,8 +7,8 @@ import java.io.File
 
 /**
  * projectM and everything that decides what it shows: the shuffled run of
- * presets (loved ones about one time in ten), [Autotune]'s quality level,
- * presets too heavy for this device, and the 30 fps last resort. Shared by
+ * presets (loved ones about one time in ten), [Autotune]'s quality level
+ * and pace, presets too heavy for this device, and the 30 fps last resort. Shared by
  * [VisualiserActivity] (a GL surface on a screen) and
  * [eu.bradshaw.seidr.vis.xr.XrVisualiserActivity] (the headset); each
  * hands it a GL context and a [Host] for what only it can do.
@@ -32,6 +32,8 @@ class VisEngine(
         fun presetShown(path: String)
         /** This device settled for [fps] for good: pace to it from now on. On the GL thread. */
         fun retargeted(fps: Float)
+        /** Pace to [fps] for now ([Autotune.pace]: halved for a heavy preset when quality comes first). On the GL thread. */
+        fun pace(fps: Float)
     }
 
     private var handle = 0L
@@ -49,6 +51,7 @@ class VisEngine(
     private val verdicts = ArrayDeque<Boolean>() // recent presets: too heavy or not
     private var judged = false // the current preset already has a verdict (or failed to load)
     private val sprite = LogoSprite(context)
+    private var paced = tune.targetFps // what the host is pacing to
     /** The app's ð over the preset ([LogoSprite]), for the visualiser's logo page. Any thread. */
     @Volatile var logo = false
 
@@ -96,13 +99,18 @@ class VisEngine(
             }
             Autotune.Change.NONE -> {}
         }
+        if (tune.pace != paced) {
+            paced = tune.pace
+            Log.i(TAG, "pacing to $paced fps")
+            host.pace(paced)
+        }
     }
 
     /** The tuner's readout: frame rate, render size, mesh, transitions, level, audio lead. */
     fun stats(): String {
         val l = tune.current
-        return "%.0f fps · %d×%d · mesh %d×%d · blend %s · level %d · audio −%d ms".format(
-            tune.fps, width, height, l.meshX, l.meshY, if (l.transitions) "on" else "off", tune.level, VisAudio.aheadMs().coerceAtLeast(0), // -1: no audio yet
+        return "%.0f/%.0f fps · %d×%d · mesh %d×%d · blend %s · level %d · audio −%d ms".format(
+            tune.fps, tune.pace, width, height, l.meshX, l.meshY, if (l.transitions) "on" else "off", tune.level, VisAudio.aheadMs().coerceAtLeast(0), // -1: no audio yet
         )
     }
 
@@ -130,7 +138,8 @@ class VisEngine(
      * and judges presets afresh (see [VisPrefs.fallBackTo]).
      */
     private fun lastResort(now: Long): Boolean {
-        if (tune.targetFps <= LAST_RESORT_FPS || verdicts.size < VERDICTS || verdicts.count { it } < VERDICTS_HEAVY) return false
+        // Quality first judged them at half the rate already: dropping to it wouldn't save them.
+        if (tune.qualityFirst || tune.targetFps <= LAST_RESORT_FPS || verdicts.size < VERDICTS || verdicts.count { it } < VERDICTS_HEAVY) return false
         Log.i(TAG, "most presets are too heavy at ${tune.targetFps} fps: dropping to $LAST_RESORT_FPS for good")
         prefs.fallBackTo(LAST_RESORT_FPS)
         verdicts.clear()
@@ -186,7 +195,7 @@ class VisEngine(
         val start = SystemClock.elapsedRealtime()
         ProjectM.nativeLoadPreset(handle, data, tune.current.transitions && !hardCut)
         Log.i(TAG, "preset $path (load ${SystemClock.elapsedRealtime() - start} ms${if (hardCut) ", hard cut" else ""})")
-        if (tune.presetChanged(SystemClock.elapsedRealtimeNanos(), prefs.levelOf(path))) {
+        if (tune.presetChanged(SystemClock.elapsedRealtimeNanos(), prefs.levelOf(path, tune.qualityFirst))) {
             configure()
             host.applyScale(tune.current.scale)
         }
@@ -211,8 +220,8 @@ class VisEngine(
 
     /** Where the current preset settled, and (outside previews) where this device usually runs, for next time. */
     fun remember() {
-        current?.let { prefs.setLevelOf(it, tune.level) }
-        if (preview == null) prefs.typicalLevel = tune.typicalLevel()
+        current?.let { prefs.setLevelOf(it, tune.qualityFirst, tune.level) }
+        if (preview == null) prefs.setTypicalLevel(tune.qualityFirst, tune.typicalLevel())
     }
 
     fun release() {

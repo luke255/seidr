@@ -131,6 +131,8 @@
     <string name="vissettings_title">Vizualizace</string>
     <string name="vissettings_track_info">Zobrazovat informace o skladbě</string>
     <string name="vissettings_track_info_hint">Obal, název a čas v rohu. Když je to vypnuté, ukážou se jen s ovládáním (podržením, nebo nahoru/dolů na ovladači).</string>
+    <string name="vissettings_quality_first">Upřednostnit kvalitu</string>
+    <string name="vissettings_quality_first_hint">Předvolba, která je na toto zařízení příliš náročná, nejdřív klesne na 30 fps, než přijde o ostrost nebo detaily.</string>
     <string name="vissettings_performance">Zobrazovat výkon</string>
     <string name="vissettings_performance_hint">Snímková frekvence, velikost vykreslování a úroveň kvality v rohu, jak se vizualizace sama přizpůsobuje.</string>
     <string name="vissettings_loved">Oblíbené presety</string>

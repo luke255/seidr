@@ -131,6 +131,8 @@
     <string name="vissettings_title">Visualiseur</string>
     <string name="vissettings_track_info">Afficher les infos du titre</string>
     <string name="vissettings_track_info_hint">Pochette, nom et temps dans un coin. Désactivé, ils n\'apparaissent qu\'avec les commandes (appui long, ou haut/bas sur une télécommande).</string>
+    <string name="vissettings_quality_first">Privilégier la qualité</string>
+    <string name="vissettings_quality_first_hint">Un préréglage trop exigeant pour cet appareil passe à 30 i/s avant de perdre en netteté ou en détail.</string>
     <string name="vissettings_performance">Afficher les performances</string>
     <string name="vissettings_performance_hint">Images par seconde, taille de rendu et niveau de qualité dans un coin, à mesure que le visualiseur s\'ajuste.</string>
     <string name="vissettings_loved">Préréglages favoris</string>

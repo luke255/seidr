@@ -131,6 +131,8 @@
     <string name="vissettings_title">Visualitzador</string>
     <string name="vissettings_track_info">Mostra les dades de la cançó</string>
     <string name="vissettings_track_info_hint">Portada, títol i temps en un racó. Desactivat, només es mostren amb els controls (mantén premut, o amunt/avall en un comandament).</string>
+    <string name="vissettings_quality_first">Prioritza la qualitat</string>
+    <string name="vissettings_quality_first_hint">Si un preset és massa exigent per a aquest dispositiu, baixa a 30 fps abans de perdre nitidesa o detall.</string>
     <string name="vissettings_performance">Mostra el rendiment</string>
     <string name="vissettings_performance_hint">Fotogrames per segon, mida de renderització i nivell de qualitat en un racó, a mesura que el visualitzador s\'ajusta tot sol.</string>
     <string name="vissettings_loved">Presets preferits</string>

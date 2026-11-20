@@ -131,6 +131,8 @@
     <string name="vissettings_title">可视化效果</string>
     <string name="vissettings_track_info">显示曲目信息</string>
     <string name="vissettings_track_info_hint">在角落显示封面、标题和时间。关闭后，它们只随控件一起显示（长按，或按遥控器的上/下键）。</string>
+    <string name="vissettings_quality_first">优先保证画质</string>
+    <string name="vissettings_quality_first_hint">对本设备负担过重的预设会先降到 30 fps，再降低清晰度或细节。</string>
     <string name="vissettings_performance">显示性能信息</string>
     <string name="vissettings_performance_hint">在角落显示帧率、渲染尺寸和画质等级，它们会随可视化效果的自动调整而变化。</string>
     <string name="vissettings_loved">喜欢的预设</string>

@@ -73,14 +73,16 @@ class XrVisualiserActivity : ComponentActivity() {
         }
         val target = minOf(prefs.targetFps, 60f)
         var frameNs = (1e9 / target).toLong()
-        val tune = Autotune(prefs.typicalLevel, target)
+        val quality = prefs.qualityFirst.value
+        val tune = Autotune(prefs.typicalLevel(quality), target, quality)
         lateinit var engine: VisEngine
         engine = VisEngine(this, prefs, VisEngine.presets(this, prefs, null), null, tune, object : VisEngine.Host {
             override fun applyScale(scale: Float) = engine.resize((WIDTH * scale).toInt(), (HEIGHT * scale).toInt())
             override fun presetShown(path: String) {}
             override fun retargeted(fps: Float) { frameNs = (1e9 / fps).toLong() }
+            override fun pace(fps: Float) { frameNs = (1e9 / fps).toLong() }
         })
-        Log.i(TAG, "immersive: target $target fps, starting at level ${tune.level}")
+        Log.i(TAG, "immersive: target $target fps${if (quality) ", quality first" else ""}, starting at level ${tune.level}")
         engine.create(VisEngine.textureDir(this))
         engine.resize((WIDTH * tune.current.scale).toInt(), (HEIGHT * tune.current.scale).toInt())
         var nextFrameNs = 0L

@@ -131,6 +131,8 @@
     <string name="vissettings_title">Візуалізація</string>
     <string name="vissettings_track_info">Показувати відомості про пісню</string>
     <string name="vissettings_track_info_hint">Обкладинка, назва й час у кутку. Якщо вимкнено, їх видно лише разом із керуванням (утримуйте палець або натисніть вгору/вниз на пульті).</string>
+    <string name="vissettings_quality_first">Якість понад усе</string>
+    <string name="vissettings_quality_first_hint">Надто важкий для цього пристрою пресет спершу знижується до 30 кадрів/с і лише потім втрачає чіткість чи деталі.</string>
     <string name="vissettings_performance">Показувати продуктивність</string>
     <string name="vissettings_performance_hint">Частота кадрів, розмір рендера й рівень якості в кутку — видно, як візуалізація підлаштовується.</string>
     <string name="vissettings_loved">Вподобані пресети</string>

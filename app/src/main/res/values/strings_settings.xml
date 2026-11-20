@@ -196,6 +196,8 @@
     <string name="vissettings_title">Visualiser</string>
     <string name="vissettings_track_info">Show track info</string>
     <string name="vissettings_track_info_hint">Cover, title and time in a corner. Off, they show only with the controls (hold, or up/down on a remote).</string>
+    <string name="vissettings_quality_first">Favour quality</string>
+    <string name="vissettings_quality_first_hint">A preset too demanding for this device drops to 30 fps before losing any sharpness or detail.</string>
     <string name="vissettings_performance">Show performance</string>
     <string name="vissettings_performance_hint">Frame rate, render size and quality level in a corner, as the visualiser adjusts itself.</string>
     <string name="vissettings_loved">Loved presets</string>

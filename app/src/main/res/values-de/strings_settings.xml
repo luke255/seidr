@@ -131,6 +131,8 @@
     <string name="vissettings_title">Visualizer</string>
     <string name="vissettings_track_info">Songinfo anzeigen</string>
     <string name="vissettings_track_info_hint">Cover, Titel und Zeit in einer Ecke. Ausgeschaltet erscheinen sie nur mit den Bedienelementen (gedrückt halten oder hoch/runter auf der Fernbedienung).</string>
+    <string name="vissettings_quality_first">Qualität bevorzugen</string>
+    <string name="vissettings_quality_first_hint">Ist ein Preset zu anspruchsvoll für dieses Gerät, sinkt es zuerst auf 30 fps, bevor es an Schärfe oder Details verliert.</string>
     <string name="vissettings_performance">Leistung anzeigen</string>
     <string name="vissettings_performance_hint">Bildrate, Rendergröße und Qualitätsstufe in einer Ecke, während sich der Visualizer selbst anpasst.</string>
     <string name="vissettings_loved">Lieblings-Presets</string>

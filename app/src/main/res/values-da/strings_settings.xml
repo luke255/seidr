@@ -131,6 +131,8 @@
     <string name="vissettings_title">Visualisering</string>
     <string name="vissettings_track_info">Vis sanginfo</string>
     <string name="vissettings_track_info_hint">Cover, titel og tid i et hjørne. Slået fra vises de kun sammen med knapperne (hold nede, eller op/ned på en fjernbetjening).</string>
+    <string name="vissettings_quality_first">Prioritér kvalitet</string>
+    <string name="vissettings_quality_first_hint">En forudindstilling, der er for krævende for denne enhed, går ned til 30 fps, før den mister skarphed eller detaljer.</string>
     <string name="vissettings_performance">Vis ydeevne</string>
     <string name="vissettings_performance_hint">Billedfrekvens, renderingsstørrelse og kvalitetsniveau i et hjørne, mens visualiseringen tilpasser sig.</string>
     <string name="vissettings_loved">Favoritpresets</string>

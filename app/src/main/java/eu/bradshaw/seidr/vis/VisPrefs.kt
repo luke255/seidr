@@ -111,6 +111,7 @@ class VisPrefs(private val context: Context, user: StateFlow<String?>, scope: Co
     private fun unhideHeavy(path: String) = update {
         putStringSet(TOO_HEAVY, tooHeavy - path)
         remove(LEVEL_OF + path) // judge it afresh
+        remove(Q_LEVEL_OF + path)
     }
 
     // --- The flashing-lights warning (see VisWarning) ---------------------------
@@ -122,17 +123,41 @@ class VisPrefs(private val context: Context, user: StateFlow<String?>, scope: Co
 
     // --- The tuner's memory (see Autotune) -------------------------------------
 
+    private val _qualityFirst = MutableStateFlow(prefs.getBoolean(QUALITY_FIRST, false))
+    /**
+     * Favour quality: a preset that can't hold the frame rate halves it before
+     * losing any quality ([Autotune.qualityFirst]). This device's, as the
+     * trade depends on its GPU; read when the visualiser opens.
+     */
+    val qualityFirst: StateFlow<Boolean> = _qualityFirst.asStateFlow()
+
+    fun setQualityFirst(value: Boolean) {
+        prefs.edit { putBoolean(QUALITY_FIRST, value) }
+        _qualityFirst.value = value
+    }
+
     /** The frame rate to hold to: 60, or 30 once this device has fallen back. */
     val targetFps: Float get() = prefs.getFloat(TARGET, 60f)
 
+    // Levels are rungs on the tuner's ladder, which differs with qualityFirst, so each way keeps its own.
+
     /** Where this device usually runs. */
-    var typicalLevel: Int
-        get() = prefs.getInt(LEVEL, 0)
-        set(value) = prefs.edit { putInt(LEVEL, value) }
+    fun typicalLevel(qualityFirst: Boolean): Int = prefs.getInt(if (qualityFirst) Q_LEVEL else LEVEL, 0)
 
-    fun levelOf(path: String): Int? = prefs.getInt(LEVEL_OF + path, -1).takeIf { it >= 0 }
+    fun setTypicalLevel(qualityFirst: Boolean, level: Int) = prefs.edit { putInt(if (qualityFirst) Q_LEVEL else LEVEL, level) }
 
-    fun setLevelOf(path: String, level: Int) = prefs.edit { putInt(LEVEL_OF + path, level) }
+    fun levelOf(path: String, qualityFirst: Boolean): Int? =
+        prefs.getInt((if (qualityFirst) Q_LEVEL_OF else LEVEL_OF) + path, -1).takeIf { it >= 0 }
+
+    fun setLevelOf(path: String, qualityFirst: Boolean, level: Int) =
+        prefs.edit { putInt((if (qualityFirst) Q_LEVEL_OF else LEVEL_OF) + path, level) }
+
+    /** Forgets every level learned, both ways. */
+    private fun SharedPreferences.Editor.forgetLevels() {
+        remove(LEVEL)
+        remove(Q_LEVEL)
+        prefs.all.keys.filter { it.startsWith(LEVEL_OF) || it.startsWith(Q_LEVEL_OF) }.forEach { remove(it) }
+    }
 
     /**
      * Settles for [fps] for good. What the tuner learned at the old rate goes
@@ -141,8 +166,7 @@ class VisPrefs(private val context: Context, user: StateFlow<String?>, scope: Co
     fun fallBackTo(fps: Float) = update {
         putFloat(TARGET, fps)
         remove(TOO_HEAVY)
-        remove(LEVEL)
-        prefs.all.keys.filter { it.startsWith(LEVEL_OF) }.forEach { remove(it) }
+        forgetLevels()
     }
 
     /**
@@ -161,8 +185,7 @@ class VisPrefs(private val context: Context, user: StateFlow<String?>, scope: Co
             if (skewed) {
                 remove(TARGET)
                 remove(TOO_HEAVY)
-                remove(LEVEL)
-                prefs.all.keys.filter { it.startsWith(LEVEL_OF) }.forEach { remove(it) }
+                forgetLevels()
             }
         }
         return skewed
@@ -208,6 +231,9 @@ class VisPrefs(private val context: Context, user: StateFlow<String?>, scope: Co
         const val TARGET = "target_fps"
         const val LEVEL = "level"
         const val LEVEL_OF = "level:" // + preset path: where it settled last time
+        const val QUALITY_FIRST = "quality_first"
+        const val Q_LEVEL = "q_level" // the same two, on the quality-first ladder
+        const val Q_LEVEL_OF = "q_level:"
         const val PACING_FIXED = "pacing_fixed" // see forgetPacingBug
         const val MIGRATED = "per_user" // the user's settings have moved to their own file
         const val WARNED = "warned"

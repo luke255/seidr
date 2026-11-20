@@ -131,6 +131,8 @@
     <string name="vissettings_title">비주얼라이저</string>
     <string name="vissettings_track_info">곡 정보 표시</string>
     <string name="vissettings_track_info_hint">앨범 아트, 제목, 시간을 화면 구석에 표시해요. 끄면 컨트롤이 보일 때만 표시돼요(길게 누르기 또는 리모컨의 위/아래).</string>
+    <string name="vissettings_quality_first">화질 우선</string>
+    <string name="vissettings_quality_first_hint">이 기기에 너무 무거운 프리셋은 선명도나 디테일을 낮추기 전에 먼저 30fps로 내려갑니다.</string>
     <string name="vissettings_performance">성능 표시</string>
     <string name="vissettings_performance_hint">비주얼라이저가 스스로 조정하는 프레임 속도, 렌더링 크기, 품질 수준을 화면 구석에 표시해요.</string>
     <string name="vissettings_loved">좋아요 표시한 프리셋</string>

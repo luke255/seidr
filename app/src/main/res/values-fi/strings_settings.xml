@@ -131,6 +131,8 @@
     <string name="vissettings_title">Visualisointi</string>
     <string name="vissettings_track_info">Näytä kappaleen tiedot</string>
     <string name="vissettings_track_info_hint">Kansikuva, nimi ja aika näytön kulmassa. Kun tämä on pois päältä, ne näkyvät vain säätimien kanssa (paina pitkään tai käytä kaukosäätimen ylös- ja alas-painikkeita).</string>
+    <string name="vissettings_quality_first">Suosi laatua</string>
+    <string name="vissettings_quality_first_hint">Tälle laitteelle liian raskas esiasetus putoaa ensin 30 kuvaan sekunnissa ennen kuin se menettää terävyyttä tai yksityiskohtia.</string>
     <string name="vissettings_performance">Näytä suorituskyky</string>
     <string name="vissettings_performance_hint">Kuvataajuus, renderöintikoko ja laatutaso näytön kulmassa, kun visualisointi säätää itseään.</string>
     <string name="vissettings_loved">Tykätyt esiasetukset</string>

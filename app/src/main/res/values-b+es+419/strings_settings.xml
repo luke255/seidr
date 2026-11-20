@@ -131,6 +131,8 @@
     <string name="vissettings_title">Visualizador</string>
     <string name="vissettings_track_info">Mostrar datos de la canción</string>
     <string name="vissettings_track_info_hint">Portada, título y tiempo en una esquina. Desactivado, solo aparecen con los controles (mantén presionado, o arriba/abajo en un control remoto).</string>
+    <string name="vissettings_quality_first">Priorizar la calidad</string>
+    <string name="vissettings_quality_first_hint">Si un preset es demasiado exigente para este dispositivo, baja a 30 fps antes de perder nitidez o detalle.</string>
     <string name="vissettings_performance">Mostrar rendimiento</string>
     <string name="vissettings_performance_hint">Cuadros por segundo, tamaño de renderizado y nivel de calidad en una esquina, a medida que el visualizador se ajusta solo.</string>
     <string name="vissettings_loved">Presets favoritos</string>

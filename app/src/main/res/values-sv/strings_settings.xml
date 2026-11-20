@@ -131,6 +131,8 @@
     <string name="vissettings_title">Visualisering</string>
     <string name="vissettings_track_info">Visa låtinfo</string>
     <string name="vissettings_track_info_hint">Omslag, titel och tid i ett hörn. Av visas de bara tillsammans med kontrollerna (håll in, eller upp/ned på en fjärrkontroll).</string>
+    <string name="vissettings_quality_first">Prioritera kvalitet</string>
+    <string name="vissettings_quality_first_hint">En förinställning som är för krävande för den här enheten går ner till 30 fps innan den förlorar skärpa eller detaljer.</string>
     <string name="vissettings_performance">Visa prestanda</string>
     <string name="vissettings_performance_hint">Bildfrekvens, renderingsstorlek och kvalitetsnivå i ett hörn, medan visualiseringen anpassar sig.</string>
     <string name="vissettings_loved">Gillade förinställningar</string>

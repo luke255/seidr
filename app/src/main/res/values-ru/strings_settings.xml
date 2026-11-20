@@ -131,6 +131,8 @@
     <string name="vissettings_title">Визуализация</string>
     <string name="vissettings_track_info">Показывать сведения о треке</string>
     <string name="vissettings_track_info_hint">Обложка, название и время в углу. Если выключено, они видны только вместе с управлением (удерживайте палец или нажмите вверх/вниз на пульте).</string>
+    <string name="vissettings_quality_first">Качество важнее</string>
+    <string name="vissettings_quality_first_hint">Слишком тяжёлый для этого устройства пресет сначала снижается до 30 кадров/с и только потом теряет чёткость или детали.</string>
     <string name="vissettings_performance">Показывать производительность</string>
     <string name="vissettings_performance_hint">Частота кадров, размер рендера и уровень качества в углу — видно, как визуализация подстраивается.</string>
     <string name="vissettings_loved">Любимые пресеты</string>

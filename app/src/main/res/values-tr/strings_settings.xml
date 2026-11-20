@@ -131,6 +131,8 @@
     <string name="vissettings_title">Görselleştirici</string>
     <string name="vissettings_track_info">Parça bilgisini göster</string>
     <string name="vissettings_track_info_hint">Bir köşede kapak, başlık ve süre. Kapalıyken yalnızca kontrollerle birlikte görünürler (basılı tut ya da kumandada yukarı/aşağı).</string>
+    <string name="vissettings_quality_first">Kaliteyi öne al</string>
+    <string name="vissettings_quality_first_hint">Bu cihaz için fazla ağır olan bir ön ayar, netlik ya da ayrıntı kaybetmeden önce 30 fps\'ye düşer.</string>
     <string name="vissettings_performance">Performansı göster</string>
     <string name="vissettings_performance_hint">Görselleştirici kendini ayarlarken bir köşede kare hızı, işleme boyutu ve kalite düzeyi.</string>
     <string name="vissettings_loved">Beğenilen ön ayarlar</string>

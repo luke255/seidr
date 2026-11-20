@@ -4,6 +4,10 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.9.3
+
+- New in Settings → Visualiser: Favour quality. When a preset is too much for your device, it drops to 30 fps first and keeps its full sharpness and detail, instead of the other way round. Off by default.
+
 ## 1.9.2
 
 - The Bad: playlists that problem reports go to are now hidden from your library even with reporting off. Settings → Reporting → Hide the report playlists brings them back.

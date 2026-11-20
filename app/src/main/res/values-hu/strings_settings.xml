@@ -131,6 +131,8 @@
     <string name="vissettings_title">Vizualizáció</string>
     <string name="vissettings_track_info">Száminformációk megjelenítése</string>
     <string name="vissettings_track_info_hint">Borító, cím és idő az egyik sarokban. Kikapcsolva csak a vezérlőkkel együtt látszanak (nyomva tartással, vagy a távirányító fel/le gombjával).</string>
+    <string name="vissettings_quality_first">Minőség előnyben</string>
+    <string name="vissettings_quality_first_hint">Az eszköznek túl megterhelő beállítás előbb 30 fps-re vált, mielőtt élességet vagy részletet veszítene.</string>
     <string name="vissettings_performance">Teljesítmény megjelenítése</string>
     <string name="vissettings_performance_hint">Képkockasebesség, renderelési méret és minőségi szint az egyik sarokban, ahogy a vizualizáció beállítja magát.</string>
     <string name="vissettings_loved">Kedvelt presetek</string>

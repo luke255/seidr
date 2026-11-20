@@ -20,7 +20,7 @@ class AutotuneTest {
         val changes = mutableListOf<Pair<Long, Autotune.Change>>()
         while (now < seconds * 1e9) {
             val gpu = (costMs(tune.current) * 1e6).toLong()
-            now += maxOf(frame60, cpu, gpu)
+            now += maxOf((1e9 / tune.pace).toLong(), cpu, gpu) // paced, as the activity does
             val c = tune.onFrame(now)
             if (c != Autotune.Change.NONE) changes += now to c
         }
@@ -132,5 +132,45 @@ class AutotuneTest {
         val changes = run(tune, 10.0) { 40.0 }
         val heavy = changes.firstOrNull { it.second == Autotune.Change.TOO_HEAVY }
         assertTrue(heavy != null && heavy.first > 4_000_000_000L)
+    }
+
+    // --- Quality first --------------------------------------------------------
+
+    @Test fun `quality first stays at 60 when the device keeps up`() {
+        val tune = Autotune(0, 60f, qualityFirst = true)
+        val changes = run(tune, 30.0) { 6.0 }
+        assertEquals(0, tune.level)
+        assertEquals(60f, tune.pace)
+        assertTrue(changes.isEmpty())
+    }
+
+    @Test fun `quality first halves the frame rate before touching quality`() {
+        // 20 ms a frame at full quality: 50 fps, short of 60, easily 30.
+        val tune = Autotune(0, 60f, qualityFirst = true)
+        val changes = run(tune, 30.0) { l -> 20.0 * l.scale * l.scale }
+        assertEquals(30f, tune.pace)
+        assertEquals(Autotune.LEVELS.first(), tune.current)
+        assertEquals(3, changes.size) // down to 30; one probe back up to 60, which fails
+    }
+
+    @Test fun `quality first keeps more quality than holding 60 would`() {
+        val tune = Autotune(0, 60f, qualityFirst = true)
+        run(tune, 60.0, costMs = slowGpu)
+        // At 30, 0.72 costs ~34 ms (29 fps, close enough); 0.85 can't. Holding 60 settles at 0.42.
+        assertEquals(30f, tune.pace)
+        assertEquals(0.72f, tune.current.scale)
+    }
+
+    @Test fun `quality first leaves a CPU-bound preset its quality at 30`() {
+        val tune = Autotune(0, 60f, qualityFirst = true)
+        val changes = run(tune, 20.0, cpuMs = 20.0) { 4.0 }
+        assertEquals(30f, tune.pace)
+        assertEquals(Autotune.LEVELS.first(), tune.current)
+        assertTrue(changes.none { it.second == Autotune.Change.TOO_HEAVY })
+    }
+
+    @Test fun `quality first has nothing to halve at 30`() {
+        assertEquals(Autotune.LEVELS.map { Autotune.Rung(it, 30f) }, Autotune.ladderFor(30f, qualityFirst = true))
+        assertEquals(Autotune.LEVELS.size + 1, Autotune.ladderFor(60f, qualityFirst = true).size)
     }
 }

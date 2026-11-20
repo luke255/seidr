@@ -106,9 +106,10 @@ class VisualiserActivity : ComponentActivity() {
         // MilkDrop presets are tuned for ~60 fps; never aim past the panel either.
         val target = minOf(prefs.targetFps, display.refreshRate)
         frameNs = (1e9 / target).toLong()
-        val tune = Autotune(prefs.typicalLevel, target)
+        val quality = prefs.qualityFirst.value
+        val tune = Autotune(prefs.typicalLevel(quality), target, quality)
         renderer = Renderer(VisEngine(this, prefs, VisEngine.presets(this, prefs, preview), preview, tune, host))
-        Log.i(TAG, "target $target fps, starting at level ${tune.level}, ${prefs.hiddenPaths.size} presets hidden")
+        Log.i(TAG, "target $target fps${if (quality) ", quality first" else ""}, starting at level ${tune.level}, ${prefs.hiddenPaths.size} presets hidden")
 
         view = GLSurfaceView(this).apply {
             setEGLContextClientVersion(3)
@@ -324,6 +325,8 @@ class VisualiserActivity : ComponentActivity() {
             frameNs = (1e9 / fps).toLong()
             runOnUiThread { view.holder.surface.setFrameRate(fps, Surface.FRAME_RATE_COMPATIBILITY_DEFAULT) }
         }
+        // Just the pacing: the surface stays at the target, which a halved rate divides evenly.
+        override fun pace(fps: Float) { frameNs = (1e9 / fps).toLong() }
     }
 
     /** The GL surface's side of [VisEngine], plus the readout. Everything here runs on the GL thread. */

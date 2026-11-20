@@ -16,27 +16,41 @@ package eu.bradshaw.seidr.vis
  * each preset stutters at most once per level. A drop that buys next to no
  * frames means resolution isn't the cost (a preset's equations, on the CPU,
  * can be): the quality comes back and stays, at whatever rate that gives. A
- * new preset starts where recent ones settled ([typicalLevel]). (Timing frames with glFinish
+ * new preset starts where recent ones settled ([typicalLevel]).
+ *
+ * With [qualityFirst] (Settings → Visualiser → Favour quality), the first
+ * step down is to half the frame rate at full quality, and only then the
+ * ladder, at that rate (see [ladderFor]). (Timing frames with glFinish
  * was tried and misled it: that runs CPU and GPU back to back, which a real
  * frame doesn't.)
  *
  * Pure: the caller feeds it frame times and applies [level] when [onFrame]
  * says it changed. All calls on the GL thread.
  */
-class Autotune(private var start: Int, targetFps: Float) {
+class Autotune(private var start: Int, targetFps: Float, val qualityFirst: Boolean = false) {
     data class Level(val scale: Float, val meshX: Int, val transitions: Boolean) {
         val meshY get() = meshX * 3 / 4
     }
 
+    /** A step on the ladder: a quality [level] held at [fps]. */
+    data class Rung(val level: Level, val fps: Float)
+
     enum class Change { NONE, LEVEL, TOO_HEAVY }
 
-    var level = start.coerceIn(0, LEVELS.lastIndex)
-        private set
-
-    /** The frame rate it holds to: the display's, up to 60; 30 as a last resort ([retarget]). */
+    /** The frame rate it holds to at best: the display's, up to 60; 30 as a last resort ([retarget]). */
     var targetFps = targetFps
         private set
-    val current get() = LEVELS[level]
+
+    private var ladder = ladderFor(targetFps, qualityFirst)
+
+    /** The rung it's on: an index into [ladder] (the same as [LEVELS] unless [qualityFirst]). */
+    var level = start.coerceIn(0, ladder.lastIndex)
+        private set
+
+    val current get() = ladder[level].level
+
+    /** The frame rate to pace to now: [targetFps], or half of it on [qualityFirst]'s lower rungs. */
+    val pace get() = ladder[level].fps
 
     /** Frame rate, smoothed over about a quarter of a second, for display. */
     var fps = 0f
@@ -73,7 +87,7 @@ class Autotune(private var start: Int, targetFps: Float) {
             settled.addLast(it)
             while (settled.size > SETTLED) settled.removeFirst()
         }
-        val next = (known ?: typicalLevel()).coerceIn(0, LEVELS.lastIndex)
+        val next = (known ?: typicalLevel()).coerceIn(0, ladder.lastIndex)
         val changed = next != level
         level = next
         presetStart = now
@@ -90,6 +104,7 @@ class Autotune(private var start: Int, targetFps: Float) {
     /** A new frame rate to hold to (the 30 fps last resort): judge afresh from the top. */
     fun retarget(fps: Float, now: Long) {
         targetFps = fps
+        ladder = ladderFor(fps, qualityFirst)
         start = 0
         level = 0
         dropFrom = -1
@@ -119,7 +134,8 @@ class Autotune(private var start: Int, targetFps: Float) {
 
         val windowFps = (frames * 1e9 / elapsed).toFloat()
         windowStart = now; frames = 0
-        val short = windowFps < targetFps * 0.94f // ~56 of 60: a missed vsync now and then is fine
+        val target = pace
+        val short = windowFps < target * 0.94f // ~56 of 60: a missed vsync now and then is fine
 
         if (probingFrom >= 0) {
             if (short) {
@@ -137,17 +153,23 @@ class Autotune(private var start: Int, targetFps: Float) {
             goodSince = now
             // A preset load or a GC can cost one window a few frames: only act on a
             // mild shortfall that lasts. A big one is real, so act on it at once.
-            if (windowFps >= targetFps * 0.85f && ++mildlyShort < 2) return Change.NONE
+            if (windowFps >= target * 0.85f && ++mildlyShort < 2) return Change.NONE
             if (dropFrom >= 0 && windowFps < dropFps * 1.08f) {
                 // The last drop bought next to nothing: take the quality back and keep it.
                 level = dropFrom; dropFrom = -1; stuck = true
                 return changed(now, windowFps)
             }
-            if (stuck || level == LEVELS.lastIndex) {
+            if (stuck || level == ladder.lastIndex) {
                 // Nothing left to give. Give it a few seconds before calling the preset too heavy.
                 if (bottomSince == 0L) bottomSince = now
-                if (windowFps < targetFps * 0.75f && now - bottomSince >= HEAVY_NS) { heavy = true; return Change.TOO_HEAVY }
+                if (windowFps < target * 0.75f && now - bottomSince >= HEAVY_NS) { heavy = true; return Change.TOO_HEAVY }
                 return Change.NONE
+            }
+            if (ladder[level + 1].fps < target) {
+                // Quality first: halve the frame rate, quality untouched, before anything else.
+                // (Halving it always shows fewer frames, so it isn't judged like a drop in quality.)
+                level++; dropFrom = -1
+                return changed(now, windowFps)
             }
             dropFrom = level; dropFps = windowFps
             level = fit(windowFps).coerceAtLeast(level + 1)
@@ -163,17 +185,17 @@ class Autotune(private var start: Int, targetFps: Float) {
         return Change.NONE
     }
 
-    /** The best level predicted to hold the target, from [fps] at the current level, if cost follows pixel count. */
+    /** The best rung predicted to hold its frame rate, from [fps] on the current one, if cost follows pixel count. */
     private fun fit(fps: Float): Int {
-        val cost = 1.0 / fps // relative units: the budget is 1 / targetFps
+        val cost = 1.0 / fps // relative units: the budget is 1 / the rung's frame rate
         val s = current.scale.toDouble()
-        for (i in LEVELS.indices) {
-            val r = LEVELS[i].scale / s
+        for (i in ladder.indices) {
+            val r = ladder[i].level.scale / s
             // A transition renders two presets at once: only keep them with room for both.
-            val share = if (LEVELS[i].transitions) 0.5 else 1.0
-            if (cost * r * r <= share * 0.9 / targetFps) return i
+            val share = if (ladder[i].level.transitions) 0.5 else 1.0
+            if (cost * r * r <= share * 0.9 / ladder[i].fps) return i
         }
-        return LEVELS.lastIndex
+        return ladder.lastIndex
     }
 
     /**
@@ -231,5 +253,17 @@ class Autotune(private var start: Int, targetFps: Float) {
         private const val OUTCOME_NS = 10_000_000_000L // long enough to have found its level
         private const val SETTLED = 9
         private const val HEAVY_NS = 4_000_000_000L
+
+        /**
+         * The rungs, best first. Normally [LEVELS] at [target]. Quality first:
+         * the best level at [target], then every level at half of it (60 →
+         * 30 divides the panel's vsyncs evenly); with [target] already 30 or
+         * less, there's nothing to halve.
+         */
+        fun ladderFor(target: Float, qualityFirst: Boolean): List<Rung> =
+            if (!qualityFirst || target <= HALVES_FROM) LEVELS.map { Rung(it, target) }
+            else listOf(Rung(LEVELS.first(), target)) + LEVELS.map { Rung(it, target / 2) }
+
+        private const val HALVES_FROM = 31f
     }
 }

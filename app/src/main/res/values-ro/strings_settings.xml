@@ -131,6 +131,8 @@
     <string name="vissettings_title">Vizualizator</string>
     <string name="vissettings_track_info">Arată informațiile despre piesă</string>
     <string name="vissettings_track_info_hint">Coperta, titlul și timpul, într-un colț. Dezactivat, apar doar împreună cu comenzile (ține apăsat sau sus/jos pe telecomandă).</string>
+    <string name="vissettings_quality_first">Prioritate calității</string>
+    <string name="vissettings_quality_first_hint">O presetare prea solicitantă pentru acest dispozitiv coboară la 30 fps înainte să piardă claritate sau detalii.</string>
     <string name="vissettings_performance">Arată performanța</string>
     <string name="vissettings_performance_hint">Cadrele pe secundă, dimensiunea de randare și nivelul de calitate, într-un colț, pe măsură ce vizualizatorul se reglează singur.</string>
     <string name="vissettings_loved">Preseturi favorite</string>

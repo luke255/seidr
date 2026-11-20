@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.HighQuality
 import androidx.compose.material.icons.outlined.Speed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,7 +35,7 @@ import eu.bradshaw.seidr.vis.VisPrefs
 import eu.bradshaw.seidr.vis.VisualiserActivity
 
 /**
- * Settings → Visualiser: the track info toggle, and the loved and hidden
+ * Settings → Visualiser: the track info, quality and readout toggles, and the loved and hidden
  * presets (this device's), each previewed on tap and undone with its button.
  */
 @Composable
@@ -43,6 +44,7 @@ fun VisualiserSettingsScreen() {
     val context = LocalContext.current
     val showInfo by prefs.showInfo.collectAsStateWithLifecycle()
     val showStats by prefs.showStats.collectAsStateWithLifecycle()
+    val qualityFirst by prefs.qualityFirst.collectAsStateWithLifecycle()
     val loved by prefs.loved.collectAsStateWithLifecycle()
     val hidden by prefs.hidden.collectAsStateWithLifecycle()
     val preview = { p: VisPrefs.Preset -> VisualiserActivity.preview(context, p.path) }
@@ -54,6 +56,9 @@ fun VisualiserSettingsScreen() {
                 CardGroup {
                     ToggleItem(Icons.Outlined.Info, stringResource(R.string.vissettings_track_info), stringResource(R.string.vissettings_track_info_hint),
                         showInfo) { prefs.setShowInfo(it) }
+                    CardDivider()
+                    ToggleItem(Icons.Outlined.HighQuality, stringResource(R.string.vissettings_quality_first), stringResource(R.string.vissettings_quality_first_hint),
+                        qualityFirst) { prefs.setQualityFirst(it) }
                     CardDivider()
                     ToggleItem(Icons.Outlined.Speed, stringResource(R.string.vissettings_performance), stringResource(R.string.vissettings_performance_hint),
                         showStats) { prefs.setShowStats(it) }

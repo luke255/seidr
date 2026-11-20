@@ -131,6 +131,8 @@
     <string name="vissettings_title">Visualizzatore</string>
     <string name="vissettings_track_info">Mostra info sul brano</string>
     <string name="vissettings_track_info_hint">Copertina, titolo e tempo in un angolo. Se disattivi, compaiono solo con i controlli (tieni premuto, oppure su/giù sul telecomando).</string>
+    <string name="vissettings_quality_first">Privilegia la qualità</string>
+    <string name="vissettings_quality_first_hint">Un preset troppo pesante per questo dispositivo scende a 30 fps prima di perdere nitidezza o dettaglio.</string>
     <string name="vissettings_performance">Mostra prestazioni</string>
     <string name="vissettings_performance_hint">Fotogrammi al secondo, dimensione di rendering e livello di qualità in un angolo, mentre il visualizzatore si regola da solo.</string>
     <string name="vissettings_loved">Preset preferiti</string>
