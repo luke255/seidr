@@ -87,6 +87,21 @@ class PlaylistEditor(
             }
         }
 
+    /** Undo for [add]: the last copy of each of [songIds] comes off again. */
+    suspend fun undoAdd(playlistId: String, songIds: List<String>): EditResult = attempt(playlistId, null) {
+        val indexes = EditResolver.undoAdd(fresh(playlistId), songIds)
+        if (indexes.isNotEmpty()) api().updatePlaylist(playlistId, songIndexesToRemove = indexes).ok()
+    }
+
+    /** The playlist's songs as the server has them now, or null if it can't be asked. */
+    suspend fun songsOf(playlistId: String): List<String>? = try {
+        fresh(playlistId)
+    } catch (_: SubsonicException) {
+        null
+    } catch (_: IOException) {
+        null
+    }
+
     suspend fun remove(playlistId: String, songId: String, indexHint: Int?): EditResult =
         attempt(playlistId, PendingEdit(playlistId = playlistId, type = EditType.REMOVE, songId = songId, indexHint = indexHint)) {
             val index = EditResolver.removeIndex(fresh(playlistId), songId, indexHint)

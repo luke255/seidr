@@ -131,6 +131,10 @@
     <string name="menu_create_failed">Soittolistan luominen epäonnistui (vaatii yhteyden palvelimeen)</string>
     <string name="menu_created">”%1$s” luotu</string>
     <string name="menu_added_to">Lisätty soittolistalle %1$s</string>
+    <string name="menu_already_added">Jo lisätty</string>
+    <string name="menu_already_in">Tämä kappale on jo soittolistalla %1$s.</string>
+    <string name="menu_add_anyway">Lisää silti</string>
+    <string name="menu_dont_add">Älä lisää</string>
 
     <string name="menu_report_a_problem">Ilmoita ongelmasta</string>
     <string name="menu_report_no_playlist">Soittolistaa %1$s ei ole</string>

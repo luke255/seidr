@@ -131,6 +131,10 @@
     <string name="menu_create_failed">Nem sikerült létrehozni a lejátszási listát (ehhez kell a szerver)</string>
     <string name="menu_created">Létrehozva: „%1$s”</string>
     <string name="menu_added_to">Hozzáadva ide: %1$s</string>
+    <string name="menu_already_added">Már hozzáadva</string>
+    <string name="menu_already_in">Ez a dal már szerepel itt: %1$s.</string>
+    <string name="menu_add_anyway">Hozzáadás mégis</string>
+    <string name="menu_dont_add">Ne adja hozzá</string>
 
     <string name="menu_report_a_problem">Hiba jelentése</string>
     <string name="menu_report_no_playlist">Nincs %1$s lejátszási lista</string>

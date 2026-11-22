@@ -93,6 +93,7 @@ fun TrackMenu(song: Song, expanded: Boolean, onDismiss: () -> Unit, extra: List<
 @Composable
 fun AddToPlaylistDialog() {
     val actions = LocalActions.current
+    AlreadyAddedDialog()
     val songs = actions.addToPlaylist ?: return
     val graph = actions.graph
     val playlists by graph.browse.playlists.collectAsStateWithLifecycle()
@@ -138,14 +139,10 @@ fun AddToPlaylistDialog() {
                 }
                 val editable = playlists.orEmpty().filter { !it.readonly && (me == null || it.owner == null || it.owner == me) }
                 items(editable, key = { it.id }) { p ->
-                    val addedTo = stringResource(R.string.menu_added_to, p.name)
                     Row(
                         Modifier.fillMaxWidth().clickable {
                             dismiss()
-                            actions.launch {
-                                val r = graph.editor.add(p.id, songs.map { it.id })
-                                actions.report(r, addedTo)
-                            }
+                            actions.addTo(p.id, p.name, songs.map { it.id })
                         }.padding(vertical = 8.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
@@ -158,6 +155,26 @@ fun AddToPlaylistDialog() {
         },
         confirmButton = {},
         dismissButton = { TextButton(onClick = dismiss) { Text(stringResource(R.string.common_cancel)) } },
+    )
+}
+
+/** Asks before adding a song to a playlist that already has it. */
+@Composable
+private fun AlreadyAddedDialog() {
+    val actions = LocalActions.current
+    val add = actions.alreadyAdded ?: return
+    val dismiss = { actions.alreadyAdded = null }
+    AlertDialog(
+        onDismissRequest = dismiss,
+        title = { Text(stringResource(R.string.menu_already_added)) },
+        text = { Text(stringResource(R.string.menu_already_in, add.name)) },
+        confirmButton = {
+            TextButton(onClick = {
+                dismiss()
+                actions.addTo(add.playlistId, add.name, add.songIds, anyway = true)
+            }) { Text(stringResource(R.string.menu_add_anyway)) }
+        },
+        dismissButton = { TextButton(onClick = dismiss) { Text(stringResource(R.string.menu_dont_add)) } },
     )
 }
 

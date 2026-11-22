@@ -169,6 +169,10 @@
     <string name="menu_created">Created \"%1$s\"</string>
     <!-- Toast after adding. %1$s = playlist name. -->
     <string name="menu_added_to">Added to %1$s</string>
+    <string name="menu_already_added">Already added</string>
+    <string name="menu_already_in">This song is already in %1$s.</string>
+    <string name="menu_add_anyway">Add anyway</string>
+    <string name="menu_dont_add">Don\'t add</string>
 
     <!-- Report a problem (Bad: playlists). -->
     <string name="menu_report_a_problem">Report a problem</string>

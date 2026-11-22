@@ -131,6 +131,10 @@
     <string name="menu_create_failed">Playlist konnte nicht erstellt werden (Server nötig)</string>
     <string name="menu_created">„%1$s“ erstellt</string>
     <string name="menu_added_to">Zu %1$s hinzugefügt</string>
+    <string name="menu_already_added">Schon hinzugefügt</string>
+    <string name="menu_already_in">Dieser Song ist schon in %1$s.</string>
+    <string name="menu_add_anyway">Trotzdem hinzufügen</string>
+    <string name="menu_dont_add">Nicht hinzufügen</string>
 
     <string name="menu_report_a_problem">Problem melden</string>
     <string name="menu_report_no_playlist">Keine Playlist %1$s</string>

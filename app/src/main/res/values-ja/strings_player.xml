@@ -127,6 +127,10 @@
     <string name="menu_create_failed">プレイリストを作成できませんでした（サーバーへの接続が必要です）</string>
     <string name="menu_created">「%1$s」を作成しました</string>
     <string name="menu_added_to">%1$sに追加しました</string>
+    <string name="menu_already_added">追加済みです</string>
+    <string name="menu_already_in">この曲はすでに%1$sにあります。</string>
+    <string name="menu_add_anyway">追加する</string>
+    <string name="menu_dont_add">追加しない</string>
 
     <string name="menu_report_a_problem">問題を報告</string>
     <string name="menu_report_no_playlist">%1$sプレイリストがありません</string>

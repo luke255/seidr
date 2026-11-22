@@ -131,6 +131,10 @@
     <string name="menu_create_failed">Kunne ikke opprette spillelisten (krever serveren)</string>
     <string name="menu_created">Opprettet «%1$s»</string>
     <string name="menu_added_to">Lagt til i %1$s</string>
+    <string name="menu_already_added">Allerede lagt til</string>
+    <string name="menu_already_in">Denne sangen er allerede i %1$s.</string>
+    <string name="menu_add_anyway">Legg til likevel</string>
+    <string name="menu_dont_add">Ikke legg til</string>
 
     <string name="menu_report_a_problem">Rapporter et problem</string>
     <string name="menu_report_no_playlist">Spillelisten %1$s mangler</string>

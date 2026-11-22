@@ -139,6 +139,10 @@
     <string name="menu_create_failed">Не вдалося створити плейлист (потрібен сервер)</string>
     <string name="menu_created">Плейлист «%1$s» створено</string>
     <string name="menu_added_to">Додано до плейлиста %1$s</string>
+    <string name="menu_already_added">Уже додано</string>
+    <string name="menu_already_in">Цей трек уже є в плейлисті %1$s.</string>
+    <string name="menu_add_anyway">Усе одно додати</string>
+    <string name="menu_dont_add">Не додавати</string>
 
     <string name="menu_report_a_problem">Повідомити про проблему</string>
     <string name="menu_report_no_playlist">Немає плейлиста %1$s</string>

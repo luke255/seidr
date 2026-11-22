@@ -135,6 +135,10 @@
     <string name="menu_create_failed">No s\'ha pogut crear la llista (cal el servidor)</string>
     <string name="menu_created">S\'ha creat «%1$s»</string>
     <string name="menu_added_to">S\'ha afegit a %1$s</string>
+    <string name="menu_already_added">Ja hi és</string>
+    <string name="menu_already_in">Aquesta cançó ja és a %1$s.</string>
+    <string name="menu_add_anyway">Afegeix-la igualment</string>
+    <string name="menu_dont_add">No l\'afegeixis</string>
 
     <string name="menu_report_a_problem">Informa d\'un problema</string>
     <string name="menu_report_no_playlist">No hi ha cap llista %1$s</string>

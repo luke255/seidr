@@ -42,4 +42,14 @@ class EditResolverTest {
         assertEquals(null, EditResolver.undoRemove(listOf("a", "c", "d", "b"), listOf("a", "b", "c")))
         assertEquals(null, EditResolver.undoRemove(listOf("a", "b", "c"), listOf("a", "b", "c")))
     }
+
+    @Test fun undoAddTakesTheLastCopyOff() {
+        assertEquals(listOf(3), EditResolver.undoAdd(listOf("a", "b", "c", "a"), listOf("a")))
+        assertEquals(listOf(2, 3), EditResolver.undoAdd(listOf("a", "b", "a", "a"), listOf("a", "a")))
+        assertEquals(listOf(1, 2), EditResolver.undoAdd(listOf("x", "b", "c"), listOf("b", "c")))
+    }
+
+    @Test fun undoAddOfASongNoLongerThereRemovesNothing() {
+        assertEquals(emptyList<Int>(), EditResolver.undoAdd(listOf("a", "b"), listOf("c")))
+    }
 }

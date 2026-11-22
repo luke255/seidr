@@ -15,6 +15,7 @@ import eu.bradshaw.seidr.sync.EditResult
 import eu.bradshaw.seidr.ui.screens.LibTab
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * Things any screen can ask for: navigation, playback, snackbars and the
@@ -30,8 +31,12 @@ class AppActions(
 
     /** Songs waiting for the "Add to playlist" picker, or null when it's closed. */
     var addToPlaylist by mutableStateOf<List<Song>?>(null)
+    /** An add waiting on "Already added": the song is in that playlist already. */
+    var alreadyAdded by mutableStateOf<PendingAdd?>(null)
     var nowPlayingOpen by mutableStateOf(false)
     var queueOpen by mutableStateOf(false)
+    /** Now Playing or the queue is over the screens. */
+    val sheetOpen get() = nowPlayingOpen || queueOpen
     /** An album's or playlist's art, full screen over everything; null when it's closed. */
     var fullArt by mutableStateOf<eu.bradshaw.seidr.ui.components.FullArt?>(null)
 
@@ -102,7 +107,32 @@ class AppActions(
         }
     }
 
+    /**
+     * Adds [songIds] to the playlist, with Undo. A single song that's already in it
+     * asks first ([alreadyAdded]) unless [anyway]. The check asks the server, briefly,
+     * else goes by the display cache; no answer at all just adds.
+     */
+    fun addTo(playlistId: String, name: String, songIds: List<String>, anyway: Boolean = false) {
+        scope.launch {
+            if (!anyway && songIds.size == 1) {
+                val now = withTimeoutOrNull(3_000) { graph.editor.songsOf(playlistId) }
+                    ?: graph.library.playlistSongs.value[playlistId]
+                if (now != null && songIds[0] in now) {
+                    alreadyAdded = PendingAdd(playlistId, name, songIds)
+                    return@launch
+                }
+            }
+            val r = graph.editor.add(playlistId, songIds)
+            report(r, graph.app.getString(R.string.menu_added_to, name)) {
+                report(graph.editor.undoAdd(playlistId, songIds), graph.app.getString(R.string.playlist_removed_from, name))
+            }
+        }
+    }
+
     fun launch(block: suspend CoroutineScope.() -> Unit) = scope.launch(block = block)
 }
+
+/** An add to a playlist, held while "Already added" asks. */
+data class PendingAdd(val playlistId: String, val name: String, val songIds: List<String>)
 
 val LocalActions = compositionLocalOf<AppActions> { error("AppActions not provided") }

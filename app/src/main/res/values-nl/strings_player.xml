@@ -131,6 +131,10 @@
     <string name="menu_create_failed">Kan de playlist niet maken (server nodig)</string>
     <string name="menu_created">‘%1$s’ gemaakt</string>
     <string name="menu_added_to">Toegevoegd aan %1$s</string>
+    <string name="menu_already_added">Al toegevoegd</string>
+    <string name="menu_already_in">Dit nummer staat al in %1$s.</string>
+    <string name="menu_add_anyway">Toch toevoegen</string>
+    <string name="menu_dont_add">Niet toevoegen</string>
 
     <string name="menu_report_a_problem">Probleem melden</string>
     <string name="menu_report_no_playlist">Geen playlist %1$s</string>

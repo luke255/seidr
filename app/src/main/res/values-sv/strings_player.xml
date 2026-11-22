@@ -131,6 +131,10 @@
     <string name="menu_create_failed">Kunde inte skapa spellistan (kräver servern)</string>
     <string name="menu_created">”%1$s” har skapats</string>
     <string name="menu_added_to">Tillagd i %1$s</string>
+    <string name="menu_already_added">Redan tillagd</string>
+    <string name="menu_already_in">Den här låten finns redan i %1$s.</string>
+    <string name="menu_add_anyway">Lägg till ändå</string>
+    <string name="menu_dont_add">Lägg inte till</string>
 
     <string name="menu_report_a_problem">Rapportera ett problem</string>
     <string name="menu_report_no_playlist">Spellistan %1$s saknas</string>

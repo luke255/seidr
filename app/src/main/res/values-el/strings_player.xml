@@ -131,6 +131,10 @@
     <string name="menu_create_failed">Η playlist δεν δημιουργήθηκε (χρειάζεται ο διακομιστής)</string>
     <string name="menu_created">Δημιουργήθηκε: «%1$s»</string>
     <string name="menu_added_to">Προστέθηκε σε: %1$s</string>
+    <string name="menu_already_added">Υπάρχει ήδη</string>
+    <string name="menu_already_in">Αυτό το τραγούδι υπάρχει ήδη σε: %1$s.</string>
+    <string name="menu_add_anyway">Προσθήκη ούτως ή άλλως</string>
+    <string name="menu_dont_add">Χωρίς προσθήκη</string>
 
     <string name="menu_report_a_problem">Αναφορά προβλήματος</string>
     <string name="menu_report_no_playlist">Δεν υπάρχει playlist %1$s</string>

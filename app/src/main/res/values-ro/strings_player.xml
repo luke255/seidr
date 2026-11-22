@@ -135,6 +135,10 @@
     <string name="menu_create_failed">Playlistul nu a putut fi creat (e nevoie de server)</string>
     <string name="menu_created">S-a creat „%1$s”</string>
     <string name="menu_added_to">Adăugat la %1$s</string>
+    <string name="menu_already_added">Deja adăugat</string>
+    <string name="menu_already_in">Melodia este deja în %1$s.</string>
+    <string name="menu_add_anyway">Adaugă oricum</string>
+    <string name="menu_dont_add">Nu adăuga</string>
 
     <string name="menu_report_a_problem">Semnalează o problemă</string>
     <string name="menu_report_no_playlist">Nu există playlistul %1$s</string>

@@ -131,6 +131,10 @@
     <string name="menu_create_failed">Kunne ikke oprette playlisten (kræver serveren)</string>
     <string name="menu_created">»%1$s« er oprettet</string>
     <string name="menu_added_to">Føjet til %1$s</string>
+    <string name="menu_already_added">Allerede tilføjet</string>
+    <string name="menu_already_in">Denne sang er allerede i %1$s.</string>
+    <string name="menu_add_anyway">Tilføj alligevel</string>
+    <string name="menu_dont_add">Tilføj ikke</string>
 
     <string name="menu_report_a_problem">Rapportér et problem</string>
     <string name="menu_report_no_playlist">Playlisten %1$s mangler</string>

@@ -324,6 +324,10 @@ fun MainScreen(graph: Graph, nav: Navigator) {
                 QueueScreen(onClose = { actions.queueOpen = false }, modifier = Modifier.overlayFocus(actions.queueOpen, queuePrimary))
             }
         }
+        // Over Now Playing and the queue too: the screens' own one isn't drawn under them.
+        if (actions.sheetOpen) Box(Modifier.fillMaxSize().navigationBarsPadding().padding(bottom = 16.dp), contentAlignment = Alignment.BottomCenter) {
+            SnackbarHost(snackbar)
+        }
         AddToPlaylistDialog()
         eu.bradshaw.seidr.ui.screens.CheckCode(graph.connect, graph.settings.server.collectAsStateWithLifecycle().value?.username)
     }
@@ -519,7 +523,7 @@ private fun NarrowLayout(
                 }
             }
         }
-        SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).padding(bottom = chrome))
+        if (!actions.sheetOpen) SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).padding(bottom = chrome))
     }
 }
 
@@ -577,7 +581,7 @@ private fun WideLayout(
                 }
             }
         }
-        SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).padding(bottom = 16.dp))
+        if (!actions.sheetOpen) SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).padding(bottom = 16.dp))
     }
 }
 

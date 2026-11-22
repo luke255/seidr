@@ -20,6 +20,18 @@ object EditResolver {
     }
 
     /**
+     * Undo for an add: the indexes to remove, the last copy of each added song
+     * (an add appends), so a song that was already there keeps its first place.
+     */
+    fun undoAdd(fresh: List<String>, added: List<String>): List<Int> {
+        val left = added.groupingBy { it }.eachCount().toMutableMap()
+        return fresh.indices.reversed().filter { i ->
+            val n = left[fresh[i]] ?: 0
+            (n > 0).also { if (it) left[fresh[i]] = n - 1 }
+        }.sorted()
+    }
+
+    /**
      * Reorder. Subsonic has no move call, so the only way is to send the whole
      * new order — which would silently undo any change made elsewhere since the
      * user loaded the list. So the move is applied only if the fresh list is

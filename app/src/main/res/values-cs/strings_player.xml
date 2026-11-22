@@ -139,6 +139,10 @@
     <string name="menu_create_failed">Playlist se nepodařilo vytvořit (je potřeba server)</string>
     <string name="menu_created">Playlist „%1$s“ vytvořen</string>
     <string name="menu_added_to">Přidáno do playlistu %1$s</string>
+    <string name="menu_already_added">Už tam je</string>
+    <string name="menu_already_in">Tato skladba už je v playlistu %1$s.</string>
+    <string name="menu_add_anyway">Přesto přidat</string>
+    <string name="menu_dont_add">Nepřidávat</string>
 
     <string name="menu_report_a_problem">Nahlásit problém</string>
     <string name="menu_report_no_playlist">Chybí playlist %1$s</string>

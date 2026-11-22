@@ -139,6 +139,10 @@
     <string name="menu_create_failed">Nie udało się utworzyć playlisty (potrzebny jest serwer)</string>
     <string name="menu_created">Utworzono „%1$s”</string>
     <string name="menu_added_to">Dodano do playlisty %1$s</string>
+    <string name="menu_already_added">Już dodano</string>
+    <string name="menu_already_in">Ten utwór jest już na playliście %1$s.</string>
+    <string name="menu_add_anyway">Dodaj mimo to</string>
+    <string name="menu_dont_add">Nie dodawaj</string>
 
     <string name="menu_report_a_problem">Zgłoś problem</string>
     <string name="menu_report_no_playlist">Brak playlisty %1$s</string>

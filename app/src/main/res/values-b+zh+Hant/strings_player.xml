@@ -127,6 +127,10 @@
     <string name="menu_create_failed">無法建立播放清單（需要連線到伺服器）</string>
     <string name="menu_created">已建立「%1$s」</string>
     <string name="menu_added_to">已加入 %1$s</string>
+    <string name="menu_already_added">已經加入過了</string>
+    <string name="menu_already_in">這首歌已在 %1$s 中。</string>
+    <string name="menu_add_anyway">仍要加入</string>
+    <string name="menu_dont_add">不加入</string>
 
     <string name="menu_report_a_problem">回報問題</string>
     <string name="menu_report_no_playlist">沒有 %1$s 播放清單</string>

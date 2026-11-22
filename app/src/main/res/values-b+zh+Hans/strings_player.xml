@@ -127,6 +127,10 @@
     <string name="menu_create_failed">无法创建歌单（需要连接服务器）</string>
     <string name="menu_created">已创建“%1$s”</string>
     <string name="menu_added_to">已添加到 %1$s</string>
+    <string name="menu_already_added">已经添加过了</string>
+    <string name="menu_already_in">这首歌已在 %1$s 中。</string>
+    <string name="menu_add_anyway">仍然添加</string>
+    <string name="menu_dont_add">不添加</string>
 
     <string name="menu_report_a_problem">报告问题</string>
     <string name="menu_report_no_playlist">没有 %1$s 歌单</string>

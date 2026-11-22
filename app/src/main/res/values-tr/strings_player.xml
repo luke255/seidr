@@ -131,6 +131,10 @@
     <string name="menu_create_failed">Çalma listesi oluşturulamadı (sunucu gerekiyor)</string>
     <string name="menu_created">“%1$s” oluşturuldu</string>
     <string name="menu_added_to">Şuraya eklendi: %1$s</string>
+    <string name="menu_already_added">Zaten eklendi</string>
+    <string name="menu_already_in">Bu şarkı zaten şurada: %1$s.</string>
+    <string name="menu_add_anyway">Yine de ekle</string>
+    <string name="menu_dont_add">Ekleme</string>
 
     <string name="menu_report_a_problem">Sorun bildir</string>
     <string name="menu_report_no_playlist">%1$s çalma listesi yok</string>
