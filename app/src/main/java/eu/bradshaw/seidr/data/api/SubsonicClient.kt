@@ -49,11 +49,13 @@ class SubsonicClient(
 
     // Tracks reachability from real traffic so offline mode reacts quickly. A proxy's
     // 502-504 (the server restarting or updating behind it) counts as out of reach.
+    // A cancelled call (a screen reloading over itself) throws too, but says nothing
+    // about the server: counting it flashed offline mode on every burst of changes.
     private val statusInterceptor = Interceptor { chain ->
         val resp = try {
             chain.proceed(chain.request())
         } catch (e: IOException) {
-            if (e !is NotLoggedInException) status.reportFailure()
+            if (e !is NotLoggedInException && !chain.call().isCanceled()) status.reportFailure()
             throw e
         }
         if (resp.code in UNAVAILABLE) status.reportFailure() else status.reportSuccess()

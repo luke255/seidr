@@ -4,6 +4,10 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.9.7
+
+- Home no longer jumps or flickers while songs are being added to a playlist.
+
 ## 1.9.6
 
 - Song lists and the queue show each song's length, after the artist.
