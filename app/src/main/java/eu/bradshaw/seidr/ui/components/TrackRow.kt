@@ -41,6 +41,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import eu.bradshaw.seidr.ui.rememberedFocus
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -84,7 +86,7 @@ fun OfflineIndicator(state: TrackOffline) {
 }
 
 /**
- * A song row: title, artist line + offline indicator, overflow menu. Swipe
+ * A song row: title, "artist · length · album" + offline indicator, overflow menu. Swipe
  * right to add it to the queue. Greyed out (but still visible) when offline
  * and not downloaded. A kid's unapproved song ([Song.locked]) is greyed out
  * with a lock, and can't be played, queued or opened.
@@ -95,7 +97,8 @@ fun TrackRow(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     leading: (@Composable () -> Unit)? = { Cover(song.coverArt, Modifier.size(48.dp), size = 120) },
-    subtitle: String = listOfNotNull(song.artistLine.takeIf { it.isNotBlank() }, song.album).joinToString(" · "),
+    subtitle: String = song.artistLine,
+    subtitleTail: String? = song.album,
     playing: Boolean = false,
     extraMenu: List<MenuAction> = emptyList(),
     trailing: (@Composable () -> Unit)? = null,
@@ -136,11 +139,9 @@ fun TrackRow(
                     color = if (playing) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
                 )
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        subtitle, maxLines = 1, overflow = TextOverflow.Ellipsis,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.weight(1f, fill = false),
+                    MetaLine(
+                        subtitle, song.duration.takeIf { it > 0 }?.let(::formatDuration), subtitleTail,
+                        MaterialTheme.typography.bodyMedium, Modifier.weight(1f, fill = false),
                     )
                     if (offline != TrackOffline.NONE) {
                         Spacer(Modifier.width(4.dp))
@@ -181,6 +182,34 @@ fun TrackRow(
             }
         },
     ) { row() }
+}
+
+/**
+ * "lead · time · tail" on one line. The time is never cut: it's measured
+ * first, then the lead and tail share what's left, each with an ellipsis.
+ */
+@Composable
+fun MetaLine(lead: String, time: String?, tail: String?, style: TextStyle, modifier: Modifier = Modifier) {
+    val color = MaterialTheme.colorScheme.onSurfaceVariant
+    val hasLead = lead.isNotBlank()
+    val timeText = time?.let { if (hasLead) " · $it" else it }.orEmpty()
+    val tailText = tail?.takeIf { it.isNotBlank() }?.let { if (hasLead || time != null) " · $it" else it }.orEmpty()
+    Layout(
+        content = {
+            Text(lead, maxLines = 1, overflow = TextOverflow.Ellipsis, style = style, color = color)
+            Text(timeText, maxLines = 1, style = style, color = color)
+            Text(tailText, maxLines = 1, overflow = TextOverflow.Ellipsis, style = style, color = color)
+        },
+        modifier = modifier,
+    ) { (l, t, a), c ->
+        val loose = c.copy(minWidth = 0)
+        val tp = t.measure(loose)
+        val lp = l.measure(loose.copy(maxWidth = (c.maxWidth - tp.width).coerceAtLeast(0)))
+        val ap = a.measure(loose.copy(maxWidth = (c.maxWidth - tp.width - lp.width).coerceAtLeast(0)))
+        layout(lp.width + tp.width + ap.width, maxOf(lp.height, tp.height, ap.height)) {
+            lp.place(0, 0); tp.place(lp.width, 0); ap.place(lp.width + tp.width, 0)
+        }
+    }
 }
 
 @Composable

@@ -114,7 +114,7 @@ fun AlbumScreen(id: String) {
                         song,
                         onClick = { graph.albumPlays.record(album); actions.player.playContext(songs, i, album.name) },
                         leading = { TrackNumber(song.track, ui.current?.songId == song.id) },
-                        subtitle = song.artistLine,
+                        subtitleTail = null,
                         playing = ui.current?.songId == song.id,
                     )
                 }

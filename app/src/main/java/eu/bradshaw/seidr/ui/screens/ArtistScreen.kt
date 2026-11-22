@@ -187,7 +187,7 @@ fun ArtistScreen(id: String) {
                                     Cover(song.coverArt, Modifier.size(48.dp).clip(RowArtShape), size = 120)
                                 }
                             },
-                            subtitle = song.album.orEmpty(), playing = playing)
+                            subtitle = "", playing = playing)
                     }
                     if (page.top.size > 5) item {
                         TextButton(onClick = { showAllTop = !showAllTop }, modifier = Modifier.padding(horizontal = 8.dp)) {

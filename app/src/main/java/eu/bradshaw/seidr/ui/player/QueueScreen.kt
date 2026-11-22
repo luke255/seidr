@@ -53,6 +53,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import eu.bradshaw.seidr.playback.QueueEntry
 import eu.bradshaw.seidr.ui.LocalActions
+import eu.bradshaw.seidr.ui.components.MetaLine
+import eu.bradshaw.seidr.ui.components.formatDuration
 import eu.bradshaw.seidr.ui.components.Cover
 import eu.bradshaw.seidr.ui.components.LiftHandle
 import eu.bradshaw.seidr.ui.components.MenuAction
@@ -253,8 +255,7 @@ private fun QueueRow(
         Column(Modifier.weight(1f)) {
             Text(e.title, maxLines = 1, overflow = TextOverflow.Ellipsis,
                 color = if (playing) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
-            Text(e.artist, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            MetaLine(e.artist, e.duration.takeIf { it > 0 }?.let(::formatDuration), null, MaterialTheme.typography.bodySmall)
         }
       }
         if (handle != null) LiftHandle(lifted, handle)
