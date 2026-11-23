@@ -176,4 +176,15 @@
     <string name="deleted_playlists_none">最近削除されたプレイリストはありません。このデバイスが確認したことのあるプレイリストは、削除後90日間ここに表示されます（どのアプリで削除されたものでも）。</string>
     <string name="deleted_playlists_on">%1$sに削除</string>
     <string name="collection_show_art">アートを全画面で表示</string>
+    <string name="home_listening">再生中のユーザー</string>
+    <string name="listening_two">%1$sと%2$s</string>
+    <string name="listening_paused_who">%1$s · 一時停止中</string>
+    <string name="listening_playing">再生中</string>
+    <string name="listening_playing_at">再生中 · %1$s / %2$s</string>
+    <string name="listening_paused">一時停止中</string>
+    <string name="listening_from">%1$sから</string>
+    <string name="listening_output_headphones">ヘッドホン</string>
+    <string name="listening_output_bluetooth">Bluetooth</string>
+    <string name="listening_output_car">車</string>
+    <string name="listening_through">%1$s、%2$sで再生</string>
 </resources>

@@ -243,6 +243,9 @@ class Graph(val app: Application) {
 
     val live by lazy { LiveEvents(this, scope) }
 
+    /** Listening now: what others play, and telling them what this device plays. */
+    val listening by lazy { eu.bradshaw.seidr.data.Listening(this) }
+
     /** Seiðr Connect: other devices on this account, and which one is playing. */
     val connect by lazy { eu.bradshaw.seidr.connect.Connect(app, settings) { player.connect() } }
 

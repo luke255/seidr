@@ -177,7 +177,11 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
             scope.launch { runCatching { graph.library.refreshPlaylists() } }
             return
         }
-        val playlists = ids("playlist")
+        // Status lists change with every song a device plays (Listening now): they only
+        // mean fetching who's listening again, not reloading screens or syncing.
+        val (status, playlists) = ids("playlist").partition(graph.listening::isStatusList)
+        if (status.isNotEmpty()) graph.listening.refreshSoon()
+        if (status.isNotEmpty() && playlists.isEmpty() && listOf("song", "album", "artist").all { ids(it).isEmpty() }) return
         // A kid's lists changed: a sync pass fetches them again (and downloads to match).
         val kid = graph.kids.current
         if (kid != null && playlists.any { it in kid.playlistIds }) {
@@ -195,7 +199,7 @@ class LiveEvents(private val graph: Graph, private val scope: CoroutineScope) {
             scope.launch { runCatching { graph.library.refreshPlaylists() } }
         }
         // Song, album, artist and playlist events cover loves and stars made elsewhere (and play counts, ratings).
-        if (listOf("song", "album", "artist", "playlist").any { ids(it).isNotEmpty() }) refreshStarredSoon()
+        if (playlists.isNotEmpty() || listOf("song", "album", "artist").any { ids(it).isNotEmpty() }) refreshStarredSoon()
     }
 
     private var starredJob: Job? = null

@@ -176,4 +176,15 @@
     <string name="deleted_playlists_none">最近没有删除歌单。此设备见过的歌单被删除后（无论来自哪个应用），会在这里显示 90 天。</string>
     <string name="deleted_playlists_on">删除于 %1$s</string>
     <string name="collection_show_art">全屏查看封面</string>
+    <string name="home_listening">正在收听</string>
+    <string name="listening_two">%1$s 和 %2$s</string>
+    <string name="listening_paused_who">%1$s · 已暂停</string>
+    <string name="listening_playing">正在播放</string>
+    <string name="listening_playing_at">正在播放 · %1$s / %2$s</string>
+    <string name="listening_paused">已暂停</string>
+    <string name="listening_from">来自 %1$s</string>
+    <string name="listening_output_headphones">耳机</string>
+    <string name="listening_output_bluetooth">蓝牙</string>
+    <string name="listening_output_car">汽车</string>
+    <string name="listening_through">%1$s，通过 %2$s 播放</string>
 </resources>

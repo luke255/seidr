@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">Kolejność playlist</string>
     <string name="settings_playlist_order_hint">Jak playlista układa utwory, dopóki nie wybierzesz dla niej kolejności. Własna kolejność zachowuje kolejność playlisty.</string>
+    <string name="settings_share_listening">Udostępniaj, czego słucham</string>
+    <string name="settings_share_listening_hint">Inni na tym serwerze widzą, czego słuchasz, na jakim urządzeniu i z jakiej playlisty. Po wyłączeniu serwer też nie dowiaduje się, co teraz gra.</string>
 </resources>

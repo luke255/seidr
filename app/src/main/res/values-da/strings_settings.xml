@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">Rækkefølge i playlister</string>
     <string name="settings_playlist_order_hint">Sådan viser en playliste sine sange, indtil du vælger en rækkefølge for den. Egen rækkefølge beholder playlistens egen.</string>
+    <string name="settings_share_listening">Del, hvad jeg lytter til</string>
+    <string name="settings_share_listening_hint">Andre på denne server kan se, hvad du afspiller, på hvilken enhed og fra hvilken playliste. Slået fra får serveren heller ikke at vide, hvad der spiller nu.</string>
 </resources>

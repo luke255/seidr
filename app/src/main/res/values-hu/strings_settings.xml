@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">Lejátszási listák sorrendje</string>
     <string name="settings_playlist_order_hint">Így rendezi a dalait egy lejátszási lista, amíg nem választasz neki sorrendet. Az egyéni sorrend a lista saját sorrendje.</string>
+    <string name="settings_share_listening">Mutassa, mit hallgatok</string>
+    <string name="settings_share_listening_hint">A szerver többi felhasználója látja, mit hallgatsz, melyik eszközön és melyik listáról. Kikapcsolva a szerver sem tudja meg, mi szól éppen.</string>
 </resources>

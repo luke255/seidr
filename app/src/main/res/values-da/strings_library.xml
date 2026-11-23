@@ -187,4 +187,15 @@
     <string name="deleted_playlists_none">Ingen playlister er slettet for nylig. Dem, denne enhed havde set, vises her i 90 dage efter, de er slettet, fra en hvilken som helst app.</string>
     <string name="deleted_playlists_on">Slettet %1$s</string>
     <string name="collection_show_art">Vis coveret i fuld skærm</string>
+    <string name="home_listening">Lytter nu</string>
+    <string name="listening_two">%1$s og %2$s</string>
+    <string name="listening_paused_who">%1$s · på pause</string>
+    <string name="listening_playing">Afspiller</string>
+    <string name="listening_playing_at">Afspiller · %1$s af %2$s</string>
+    <string name="listening_paused">På pause</string>
+    <string name="listening_from">Fra %1$s</string>
+    <string name="listening_output_headphones">Hovedtelefoner</string>
+    <string name="listening_output_bluetooth">Bluetooth</string>
+    <string name="listening_output_car">Bil</string>
+    <string name="listening_through">%1$s, via %2$s</string>
 </resources>

@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">플레이리스트 정렬</string>
     <string name="settings_playlist_order_hint">순서를 고르기 전까지 플레이리스트의 곡은 이 순서로 표시됩니다. 사용자 지정 순서는 플레이리스트 본래의 순서입니다.</string>
+    <string name="settings_share_listening">듣고 있는 음악 공유</string>
+    <string name="settings_share_listening_hint">이 서버의 다른 사람들이 내가 듣는 곡, 기기, 플레이리스트를 볼 수 있어요. 끄면 지금 재생 중인 곡을 서버에도 알리지 않아요.</string>
 </resources>

@@ -112,6 +112,7 @@ object Account {
         graph.live.reset()
         graph.library.clear()
         graph.bad.clear()
+        graph.listening.clear()
         graph.lyricsOffsets.clear()
         graph.kids.cleanOff()
         graph.client.clearCache()

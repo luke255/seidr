@@ -35,6 +35,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.GraphicEq
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Devices
+import androidx.compose.material.icons.outlined.Groups
 import androidx.compose.material.icons.outlined.BatteryChargingFull
 import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Lock
@@ -182,6 +183,12 @@ fun SettingsScreen() {
                 CardItem(Icons.AutoMirrored.Outlined.Sort, stringResource(R.string.settings_playlist_order), stringResource(R.string.settings_playlist_order_hint),
                     trailing = { SortButton(TrackSort.entries, sortDefault, TrackSort::label, graph.settings::setPlaylistSortDefault) })
                 if (!kid) {
+                    CardDivider()
+                    val share by graph.settings.shareListening.collectAsStateWithLifecycle()
+                    ToggleItem(Icons.Outlined.Groups, stringResource(R.string.settings_share_listening),
+                        stringResource(R.string.settings_share_listening_hint), share) {
+                        graph.settings.setShareListening(it)
+                    }
                     CardDivider()
                     CardItem(Icons.Outlined.RestoreFromTrash, stringResource(R.string.deleted_playlists), stringResource(R.string.deleted_playlists_summary),
                         trailing = { Chevron() }) { actions.open(Route.DeletedPlaylists) }

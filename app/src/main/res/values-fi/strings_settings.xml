@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">Soittolistojen järjestys</string>
     <string name="settings_playlist_order_hint">Näin soittolista järjestää kappaleensa, kunnes valitset sille järjestyksen. Oma järjestys pitää soittolistan oman.</string>
+    <string name="settings_share_listening">Jaa, mitä kuuntelen</string>
+    <string name="settings_share_listening_hint">Muut tällä palvelimella näkevät, mitä kuuntelet, millä laitteella ja miltä soittolistalta. Kun tämä on pois päältä, palvelinkaan ei saa tietää, mitä nyt soi.</string>
 </resources>

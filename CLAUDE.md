@@ -137,6 +137,18 @@ and "Rules that must hold" before changing sync or playback.
   (`Kids.playing`: data source and `HiddenQueue`), never to browsing, sync or
   remote devices. It fetches the lists before switching on: with none,
   everything would be hidden at once.
+- **`data/Listening`** (Listening now; rules in `ListeningRules`, pure,
+  tested): Home's row of what others play, and a strip plus song-row badges
+  on a playlist or album someone's playing. Navidrome's `getNowPlaying` has
+  no device, playlist or pause, so each sharing user keeps a public playlist
+  `Seidr: Listening` whose comment holds each device's `DeviceStatus` (song,
+  playlist id only, state, output, `until`); everyone's comes in with the
+  listing. `playback/ListeningReporter` writes it from the session's player
+  (own or Cast; while controlling another device, that one reports).
+  Status lists are hidden everywhere, kept out of history, and their live
+  events don't reload screens. Opt-out (Settings → Library) also stops the
+  now-playing scrobble. A kid's login always shares (no switch); a guest's
+  never does. Kids see only listeners on songs they're approved for.
 - **`data/NavidromeApi`**: Navidrome's native `/api/…` (JWT from
   `/auth/login`), for what Subsonic lacks: starred playlists (Subsonic takes
   the star but never shows it; `Library.stars` is Home's Starred row of

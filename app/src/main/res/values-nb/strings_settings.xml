@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">Rekkefølge i spillelister</string>
     <string name="settings_playlist_order_hint">Slik viser en spilleliste sangene sine til du velger en rekkefølge for den. Egen rekkefølge beholder spillelistens egen.</string>
+    <string name="settings_share_listening">Del hva jeg hører på</string>
+    <string name="settings_share_listening_hint">Andre på denne serveren ser hva du spiller, på hvilken enhet og fra hvilken spilleliste. Av får heller ikke serveren vite hva som spilles nå.</string>
 </resources>

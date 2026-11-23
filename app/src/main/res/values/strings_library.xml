@@ -229,4 +229,16 @@
     <string name="deleted_playlists_none">No playlists deleted lately. Ones this device had seen show here for 90 days after they\'re deleted, from any app.</string>
     <string name="deleted_playlists_on">Deleted %1$s</string>
     <string name="collection_show_art">Show the art full screen</string>
+    <string name="home_listening">Listening now</string>
+    <string name="listening_two">%1$s and %2$s</string>
+    <string name="listening_paused_who">%1$s · paused</string>
+    <string name="listening_playing">Playing</string>
+    <string name="listening_playing_at">Playing · %1$s of %2$s</string>
+    <string name="listening_paused">Paused</string>
+    <string name="listening_from">From %1$s</string>
+    <string name="listening_output_headphones">Headphones</string>
+    <string name="listening_output_bluetooth">Bluetooth</string>
+    <string name="listening_output_car">Car</string>
+    <string name="listening_through">%1$s, playing through %2$s</string>
+    <string name="listening_more" translatable="false">%1$s +%2$d</string>
 </resources>

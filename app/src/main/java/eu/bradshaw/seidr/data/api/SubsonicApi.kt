@@ -40,6 +40,7 @@ interface SubsonicApi {
         @Field("songIdToAdd") songIdsToAdd: List<String> = emptyList(),
         @Field("songIndexToRemove") songIndexesToRemove: List<Int> = emptyList(),
         @Field("public") public: Boolean? = null,
+        @Field("comment") comment: String? = null,
     ): Envelope
 
     @FormUrlEncoded @POST("deletePlaylist.view")
@@ -57,6 +58,9 @@ interface SubsonicApi {
     @GET("getStarred2.view") suspend fun getStarred2(): Envelope
 
     @GET("getScanStatus.view") suspend fun getScanStatus(): Envelope
+
+    /** What everyone on the server is playing (each user's latest now-playing report). */
+    @GET("getNowPlaying.view") suspend fun getNowPlaying(): Envelope
 
     @GET("search3.view")
     suspend fun search3(

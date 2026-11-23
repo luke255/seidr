@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">Çalma listesi sırası</string>
     <string name="settings_playlist_order_hint">Siz bir sıra seçene kadar çalma listesi şarkılarını böyle gösterir. Özel sıra, listenin kendi sırasını korur.</string>
+    <string name="settings_share_listening">Ne dinlediğimi paylaş</string>
+    <string name="settings_share_listening_hint">Bu sunucudakiler ne dinlediğini, hangi cihazda ve hangi listeden çaldığını görür. Kapalıyken sunucuya da şu an ne çaldığı bildirilmez.</string>
 </resources>

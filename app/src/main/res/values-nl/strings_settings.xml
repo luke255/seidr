@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">Volgorde van playlists</string>
     <string name="settings_playlist_order_hint">Zo toont een playlist zijn nummers tot je er een volgorde voor kiest. Eigen volgorde houdt die van de playlist zelf.</string>
+    <string name="settings_share_listening">Delen waar ik naar luister</string>
+    <string name="settings_share_listening_hint">Anderen op deze server zien wat je afspeelt, op welk apparaat en uit welke playlist. Uit krijgt ook de server niet te horen wat er nu speelt.</string>
 </resources>

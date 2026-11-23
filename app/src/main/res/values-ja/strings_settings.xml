@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">プレイリストの並び順</string>
     <string name="settings_playlist_order_hint">並び順を選ぶまで、プレイリストの曲はこの順で並びます。「カスタム順」はプレイリスト本来の順です。</string>
+    <string name="settings_share_listening">聴いている曲を共有</string>
+    <string name="settings_share_listening_hint">このサーバーの他のユーザーに、再生中の曲、デバイス、プレイリストが表示されます。オフにすると、再生中の曲はサーバーにも通知されません。</string>
 </resources>

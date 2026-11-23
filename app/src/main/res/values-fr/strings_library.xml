@@ -198,4 +198,15 @@
     <string name="deleted_playlists_none">Aucune playlist supprimée récemment. Celles que cet appareil avait vues restent ici pendant 90 jours après leur suppression, depuis n\'importe quelle app.</string>
     <string name="deleted_playlists_on">Supprimée le %1$s</string>
     <string name="collection_show_art">Afficher la pochette en plein écran</string>
+    <string name="home_listening">En écoute</string>
+    <string name="listening_two">%1$s et %2$s</string>
+    <string name="listening_paused_who">%1$s · en pause</string>
+    <string name="listening_playing">Lecture</string>
+    <string name="listening_playing_at">Lecture · %1$s sur %2$s</string>
+    <string name="listening_paused">En pause</string>
+    <string name="listening_from">Depuis %1$s</string>
+    <string name="listening_output_headphones">Casque</string>
+    <string name="listening_output_bluetooth">Bluetooth</string>
+    <string name="listening_output_car">Voiture</string>
+    <string name="listening_through">%1$s, via %2$s</string>
 </resources>

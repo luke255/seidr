@@ -198,4 +198,15 @@
     <string name="deleted_playlists_none">No se ha eliminado ninguna playlist últimamente. Las que este dispositivo había visto aparecen aquí durante 90 días tras eliminarse, desde cualquier app.</string>
     <string name="deleted_playlists_on">Eliminada el %1$s</string>
     <string name="collection_show_art">Ver la portada a pantalla completa</string>
+    <string name="home_listening">Escuchando ahora</string>
+    <string name="listening_two">%1$s y %2$s</string>
+    <string name="listening_paused_who">%1$s · en pausa</string>
+    <string name="listening_playing">Reproduciendo</string>
+    <string name="listening_playing_at">Reproduciendo · %1$s de %2$s</string>
+    <string name="listening_paused">En pausa</string>
+    <string name="listening_from">Desde %1$s</string>
+    <string name="listening_output_headphones">Auriculares</string>
+    <string name="listening_output_bluetooth">Bluetooth</string>
+    <string name="listening_output_car">Coche</string>
+    <string name="listening_through">%1$s, a través de %2$s</string>
 </resources>

@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">Ordem das playlists</string>
     <string name="settings_playlist_order_hint">Como uma playlist mostra as músicas até você escolher uma ordem para ela. Ordem personalizada mantém a da playlist.</string>
+    <string name="settings_share_listening">Compartilhar o que estou ouvindo</string>
+    <string name="settings_share_listening_hint">As pessoas deste servidor veem o que você está ouvindo, em qual aparelho e de qual playlist. Desativado, o servidor também não fica sabendo o que está tocando agora.</string>
 </resources>

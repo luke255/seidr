@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">Ordre de les llistes</string>
     <string name="settings_playlist_order_hint">Com mostra les cançons una llista fins que en triïs un ordre. Ordre personalitzat manté el de la llista.</string>
+    <string name="settings_share_listening">Compartir el que escolto</string>
+    <string name="settings_share_listening_hint">La gent d\'aquest servidor veu què escoltes, en quin dispositiu i des de quina llista. Desactivat, tampoc no es diu al servidor què sona ara.</string>
 </resources>

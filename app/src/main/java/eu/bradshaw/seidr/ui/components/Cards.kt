@@ -36,6 +36,8 @@ fun CoverCard(
     modifier: Modifier = Modifier,
     round: Boolean = false,
     art: (@Composable (Modifier) -> Unit)? = null,
+    /** Before the subtitle, on its line (Listening now's bars). */
+    subtitleLead: (@Composable () -> Unit)? = null,
 ) {
     Column(modifier.width(140.dp).rememberedFocus().highlightClickable(onClick = onClick).padding(eu.bradshaw.seidr.ui.CardPadding)) {
         val m = Modifier.fillMaxWidth().aspectRatio(1f).clip(if (round) CircleShape else eu.bradshaw.seidr.ui.CardArtShape)
@@ -57,9 +59,12 @@ fun CoverCard(
             Column(Modifier.fillMaxWidth()) {
                 Text(title, maxLines = 2, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodyMedium,
                     textAlign = align, modifier = Modifier.fillMaxWidth())
-                if (!subtitle.isNullOrEmpty()) Text(subtitle, maxLines = 1, overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = align, modifier = Modifier.fillMaxWidth())
+                if (!subtitle.isNullOrEmpty()) androidx.compose.foundation.layout.Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                    if (subtitleLead != null) { subtitleLead(); androidx.compose.foundation.layout.Spacer(Modifier.width(6.dp)) }
+                    Text(subtitle, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = align, modifier = Modifier.fillMaxWidth())
+                }
             }
         }
     }

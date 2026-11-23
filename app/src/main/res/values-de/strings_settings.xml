@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">Playlist-Reihenfolge</string>
     <string name="settings_playlist_order_hint">So zeigt eine Playlist ihre Songs, bis du eine Reihenfolge für sie wählst. Eigene Reihenfolge behält die der Playlist.</string>
+    <string name="settings_share_listening">Teilen, was ich höre</string>
+    <string name="settings_share_listening_hint">Andere auf diesem Server sehen, was du hörst, auf welchem Gerät und aus welcher Playlist. Ist das aus, erfährt auch der Server nicht, was gerade läuft.</string>
 </resources>

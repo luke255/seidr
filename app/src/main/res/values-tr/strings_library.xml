@@ -187,4 +187,15 @@
     <string name="deleted_playlists_none">Son zamanlarda silinen çalma listesi yok. Bu cihazın gördüğü listeler, silindikten sonra (hangi uygulamadan olursa olsun) 90 gün burada görünür.</string>
     <string name="deleted_playlists_on">Silinme: %1$s</string>
     <string name="collection_show_art">Kapağı tam ekran göster</string>
+    <string name="home_listening">Şu an dinleniyor</string>
+    <string name="listening_two">%1$s ve %2$s</string>
+    <string name="listening_paused_who">%1$s · duraklatıldı</string>
+    <string name="listening_playing">Çalıyor</string>
+    <string name="listening_playing_at">Çalıyor · %1$s / %2$s</string>
+    <string name="listening_paused">Duraklatıldı</string>
+    <string name="listening_from">%1$s listesinden</string>
+    <string name="listening_output_headphones">Kulaklık</string>
+    <string name="listening_output_bluetooth">Bluetooth</string>
+    <string name="listening_output_car">Araba</string>
+    <string name="listening_through">%1$s, %2$s üzerinden</string>
 </resources>

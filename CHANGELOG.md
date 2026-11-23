@@ -4,6 +4,13 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.10.0
+
+- Listening now: Home shows what everyone else on your server is playing, as a row of the playlists and albums they're playing from.
+- A playlist or album that someone's playing shows who, at the top. Tap it to see the song, their device, and the speaker or headphones it's playing through.
+- Kids' accounts always share, so you can see what they're playing.
+- To keep what you play to yourself, switch off Settings → Library → Share what I'm listening to.
+
 ## 1.9.7
 
 - Home no longer jumps or flickers while songs are being added to a playlist.

@@ -233,4 +233,6 @@
 
     <string name="settings_playlist_order">Playlist order</string>
     <string name="settings_playlist_order_hint">How a playlist lists its songs until you pick an order for it. Custom order keeps the playlist\'s own.</string>
+    <string name="settings_share_listening">Share what I\'m listening to</string>
+    <string name="settings_share_listening_hint">People on this server can see what you\'re playing, on which device and from which playlist. When this is off, the server isn\'t told what\'s playing now, either.</string>
 </resources>

@@ -69,9 +69,9 @@ class Library(
     }
 
     private fun visible(list: List<Playlist>): List<Playlist> {
-        // The kids' and Bad: lists run kid mode and reporting; they're not for listening.
+        // The kids' and Bad: lists run kid mode and reporting, and status lists carry Listening now; they're not for listening.
         val shown = list.filterNot {
-            (hideKids.value && KidRules.isKidsList(it.name)) || (hideBad.value && BadReports.isBadPlaylist(it.name)) ||
+            ListeningRules.isStatusList(it.name) || (hideKids.value && KidRules.isKidsList(it.name)) || (hideBad.value && BadReports.isBadPlaylist(it.name)) ||
                 (!showOthersPrivate.value && isOthersPrivate(it))
         }
         return kid?.playlists(shown) ?: shown
@@ -406,6 +406,8 @@ internal fun changedPlaylists(before: List<Playlist>, after: List<Playlist>): Li
     val old = before.associateBy { it.id }
     val now = after.associateBy { it.id }
     return (old.keys + now.keys).filter { id ->
+        // A status list changes with every song someone plays (Listening now), which is nothing to reload for.
+        if ((now[id] ?: old[id])?.name?.let(ListeningRules::isStatusList) == true) return@filter false
         val a = old[id]
         val b = now[id]
         when {

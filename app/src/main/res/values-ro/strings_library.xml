@@ -198,4 +198,15 @@
     <string name="deleted_playlists_none">Niciun playlist șters în ultima vreme. Cele pe care acest dispozitiv le văzuse apar aici 90 de zile după ștergere, din orice aplicație.</string>
     <string name="deleted_playlists_on">Șters pe %1$s</string>
     <string name="collection_show_art">Arată coperta pe tot ecranul</string>
+    <string name="home_listening">Ascultă acum</string>
+    <string name="listening_two">%1$s și %2$s</string>
+    <string name="listening_paused_who">%1$s · în pauză</string>
+    <string name="listening_playing">Se redă</string>
+    <string name="listening_playing_at">Se redă · %1$s din %2$s</string>
+    <string name="listening_paused">În pauză</string>
+    <string name="listening_from">Din %1$s</string>
+    <string name="listening_output_headphones">Căști</string>
+    <string name="listening_output_bluetooth">Bluetooth</string>
+    <string name="listening_output_car">Mașină</string>
+    <string name="listening_through">%1$s, prin %2$s</string>
 </resources>

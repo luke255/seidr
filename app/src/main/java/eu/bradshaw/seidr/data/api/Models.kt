@@ -35,7 +35,30 @@ data class SubsonicResponse(
     val albumInfo: AlbumInfo? = null,
     val user: User? = null,
     val scanStatus: ScanStatus? = null,
+    val nowPlaying: NowPlayingList? = null,
 )
+
+@Serializable
+data class NowPlayingList(val entry: List<NowPlayingEntry> = emptyList())
+
+/** A song someone is playing ([minutesAgo] since their app reported it), on the player named [playerName]. */
+@Serializable
+data class NowPlayingEntry(
+    val id: String,
+    val title: String = "",
+    val album: String? = null,
+    val artist: String? = null,
+    val displayArtist: String? = null,
+    val albumId: String? = null,
+    val artistId: String? = null,
+    val coverArt: String? = null,
+    val duration: Int = 0,
+    val username: String = "",
+    val minutesAgo: Int = 0,
+    val playerName: String? = null,
+) {
+    fun song() = Song(id, title, album, artist, displayArtist, albumId, artistId, coverArt = coverArt, duration = duration)
+}
 
 /** [lastScan] (Navidrome) and [count] move when a scan changes the library. */
 @Serializable

@@ -209,4 +209,15 @@
     <string name="deleted_playlists_none">Недавно удалённых плейлистов нет. Плейлисты, которые видело это устройство, показываются здесь 90 дней после удаления (в любом приложении).</string>
     <string name="deleted_playlists_on">Удалён %1$s</string>
     <string name="collection_show_art">Показать обложку на весь экран</string>
+    <string name="home_listening">Сейчас слушают</string>
+    <string name="listening_two">%1$s и %2$s</string>
+    <string name="listening_paused_who">%1$s · пауза</string>
+    <string name="listening_playing">Играет</string>
+    <string name="listening_playing_at">Играет · %1$s из %2$s</string>
+    <string name="listening_paused">Пауза</string>
+    <string name="listening_from">Из «%1$s»</string>
+    <string name="listening_output_headphones">Наушники</string>
+    <string name="listening_output_bluetooth">Bluetooth</string>
+    <string name="listening_output_car">Автомобиль</string>
+    <string name="listening_through">%1$s, через %2$s</string>
 </resources>

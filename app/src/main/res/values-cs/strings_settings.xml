@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">Řazení playlistů</string>
     <string name="settings_playlist_order_hint">Jak playlist řadí skladby, dokud mu nevyberete vlastní řazení. Vlastní pořadí zachová pořadí playlistu.</string>
+    <string name="settings_share_listening">Sdílet, co poslouchám</string>
+    <string name="settings_share_listening_hint">Ostatní na tomto serveru uvidí, co posloucháš, na jakém zařízení a z jakého playlistu. Když to vypneš, ani server se nedozví, co právě hraje.</string>
 </resources>

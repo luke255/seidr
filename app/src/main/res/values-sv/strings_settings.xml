@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">Ordning i spellistor</string>
     <string name="settings_playlist_order_hint">Så visar en spellista sina låtar tills du väljer en ordning för den. Egen ordning behåller spellistans egen.</string>
+    <string name="settings_share_listening">Dela vad jag lyssnar på</string>
+    <string name="settings_share_listening_hint">Andra på den här servern ser vad du spelar, på vilken enhet och från vilken spellista. Av får inte heller servern veta vad som spelas nu.</string>
 </resources>

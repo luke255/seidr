@@ -117,6 +117,10 @@ class Settings(context: Context) {
     /** Opt-in: use the server's "Bad: " playlists (see `BadReports`). */
     val badReports: StateFlow<Boolean> = _badReports.asStateFlow()
 
+    private val _shareListening = MutableStateFlow(prefs.getBoolean("share_listening", true))
+    /** On unless opted out: others on the server see what this login plays (see `Listening`). */
+    val shareListening: StateFlow<Boolean> = _shareListening.asStateFlow()
+
     private val _othersPrivatePlaylists = MutableStateFlow(prefs.getBoolean("others_private_playlists", false))
     /**
      * Opt-in: list other users' private playlists. The server gives them to
@@ -263,6 +267,11 @@ class Settings(context: Context) {
     fun setBadReports(value: Boolean) {
         prefs.edit().putBoolean("bad_reports", value).apply()
         _badReports.value = value
+    }
+
+    fun setShareListening(value: Boolean) {
+        prefs.edit().putBoolean("share_listening", value).apply()
+        _shareListening.value = value
     }
 
     fun setOthersPrivatePlaylists(value: Boolean) {

@@ -187,4 +187,15 @@
     <string name="deleted_playlists_none">In letzter Zeit wurden keine Playlists gelöscht. Playlists, die dieses Gerät kannte, erscheinen hier noch 90 Tage nach dem Löschen, egal in welcher App.</string>
     <string name="deleted_playlists_on">Gelöscht am %1$s</string>
     <string name="collection_show_art">Cover im Vollbild zeigen</string>
+    <string name="home_listening">Hört gerade</string>
+    <string name="listening_two">%1$s und %2$s</string>
+    <string name="listening_paused_who">%1$s · pausiert</string>
+    <string name="listening_playing">Läuft</string>
+    <string name="listening_playing_at">Läuft · %1$s von %2$s</string>
+    <string name="listening_paused">Pausiert</string>
+    <string name="listening_from">Aus %1$s</string>
+    <string name="listening_output_headphones">Kopfhörer</string>
+    <string name="listening_output_bluetooth">Bluetooth</string>
+    <string name="listening_output_car">Auto</string>
+    <string name="listening_through">%1$s, über %2$s</string>
 </resources>

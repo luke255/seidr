@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">Σειρά playlist</string>
     <string name="settings_playlist_order_hint">Πώς δείχνει τα τραγούδια της μια playlist μέχρι να διαλέξεις σειρά γι\' αυτήν. Η προσαρμοσμένη σειρά κρατά τη δική της.</string>
+    <string name="settings_share_listening">Κοινοποίηση του τι ακούω</string>
+    <string name="settings_share_listening_hint">Οι άλλοι σε αυτόν τον διακομιστή βλέπουν τι ακούς, σε ποια συσκευή και από ποια playlist. Όταν είναι ανενεργό, ούτε ο διακομιστής μαθαίνει τι παίζει τώρα.</string>
 </resources>

@@ -176,4 +176,15 @@
     <string name="deleted_playlists_none">最近沒有刪除播放清單。這部裝置看過的播放清單被刪除後（不論來自哪個應用程式），會在這裡顯示 90 天。</string>
     <string name="deleted_playlists_on">刪除於 %1$s</string>
     <string name="collection_show_art">全螢幕檢視封面</string>
+    <string name="home_listening">正在收聽</string>
+    <string name="listening_two">%1$s 和 %2$s</string>
+    <string name="listening_paused_who">%1$s · 已暫停</string>
+    <string name="listening_playing">正在播放</string>
+    <string name="listening_playing_at">正在播放 · %1$s / %2$s</string>
+    <string name="listening_paused">已暫停</string>
+    <string name="listening_from">來自 %1$s</string>
+    <string name="listening_output_headphones">耳機</string>
+    <string name="listening_output_bluetooth">藍牙</string>
+    <string name="listening_output_car">汽車</string>
+    <string name="listening_through">%1$s，透過 %2$s 播放</string>
 </resources>

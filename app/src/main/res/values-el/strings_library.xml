@@ -187,4 +187,15 @@
     <string name="deleted_playlists_none">Δεν διαγράφηκαν playlist πρόσφατα. Όσες είχε δει αυτή η συσκευή εμφανίζονται εδώ για 90 ημέρες μετά τη διαγραφή τους, από οποιαδήποτε εφαρμογή.</string>
     <string name="deleted_playlists_on">Διαγράφηκε: %1$s</string>
     <string name="collection_show_art">Εμφάνιση εξωφύλλου σε πλήρη οθόνη</string>
+    <string name="home_listening">Ακούνε τώρα</string>
+    <string name="listening_two">%1$s και %2$s</string>
+    <string name="listening_paused_who">%1$s · σε παύση</string>
+    <string name="listening_playing">Αναπαραγωγή</string>
+    <string name="listening_playing_at">Αναπαραγωγή · %1$s από %2$s</string>
+    <string name="listening_paused">Σε παύση</string>
+    <string name="listening_from">Από %1$s</string>
+    <string name="listening_output_headphones">Ακουστικά</string>
+    <string name="listening_output_bluetooth">Bluetooth</string>
+    <string name="listening_output_car">Αυτοκίνητο</string>
+    <string name="listening_through">%1$s, μέσω %2$s</string>
 </resources>

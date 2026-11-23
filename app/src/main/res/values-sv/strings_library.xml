@@ -187,4 +187,15 @@
     <string name="deleted_playlists_none">Inga spellistor har raderats nyligen. De som den här enheten hade sett visas här i 90 dagar efter att de raderats, i vilken app som helst.</string>
     <string name="deleted_playlists_on">Raderad %1$s</string>
     <string name="collection_show_art">Visa omslaget i helskärm</string>
+    <string name="home_listening">Lyssnar nu</string>
+    <string name="listening_two">%1$s och %2$s</string>
+    <string name="listening_paused_who">%1$s · pausad</string>
+    <string name="listening_playing">Spelar</string>
+    <string name="listening_playing_at">Spelar · %1$s av %2$s</string>
+    <string name="listening_paused">Pausad</string>
+    <string name="listening_from">Från %1$s</string>
+    <string name="listening_output_headphones">Hörlurar</string>
+    <string name="listening_output_bluetooth">Bluetooth</string>
+    <string name="listening_output_car">Bil</string>
+    <string name="listening_through">%1$s, via %2$s</string>
 </resources>

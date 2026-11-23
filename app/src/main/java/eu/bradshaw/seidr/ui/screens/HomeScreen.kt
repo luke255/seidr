@@ -5,6 +5,12 @@ import eu.bradshaw.seidr.data.ArtistSort
 import eu.bradshaw.seidr.data.LovedAt
 import eu.bradshaw.seidr.data.PlaylistSort
 import eu.bradshaw.seidr.data.Star
+import eu.bradshaw.seidr.data.Listener
+import eu.bradshaw.seidr.data.ListeningRules
+import eu.bradshaw.seidr.ui.components.ListeningBars
+import eu.bradshaw.seidr.ui.components.ListeningDialog
+import eu.bradshaw.seidr.ui.components.listeningLine
+import eu.bradshaw.seidr.ui.components.rememberListeners
 import eu.bradshaw.seidr.data.api.Artist
 import eu.bradshaw.seidr.ui.CardPadding
 import eu.bradshaw.seidr.ui.highlightClickable
@@ -138,6 +144,10 @@ fun HomeScreen() {
     val mostPlayed = stringResource(R.string.library_tab_albums)
     val mostPlayedArtists = stringResource(R.string.library_tab_artists)
     val settings = graph.settings
+    val listeners = rememberListeners()
+    // A song that's neither from a playlist nor an album opens its details.
+    var details by remember { mutableStateOf<List<Listener>?>(null) }
+    details?.let { ListeningDialog(it) { details = null } }
     Column(Modifier.fillMaxSize()) {
         RefreshBox(vm.refreshing && vm.data != null, onRefresh = vm::load, modifier = Modifier.weight(1f)) {
             LazyColumn(Modifier.fillMaxSize(), contentPadding = bottomContentPadding()) {
@@ -183,8 +193,31 @@ fun HomeScreen() {
                         }
                     }
                 }
-                // Starred albums, artists and playlists together, newest first. Every one: it has no See all.
+                // What everyone else is playing, one card per playlist or album, with who's on it.
                 val byId = playlists.orEmpty().associateBy { it.id }
+                val listening = ListeningRules.contexts(listeners, byId.keys)
+                if (listening.isNotEmpty()) {
+                    item(key = "h:listening") { SectionHeader(stringResource(R.string.home_listening)) }
+                    item(key = "s:listening") {
+                        LazyRow(state = shelfState(listening.first().first.toString()), contentPadding = PaddingValues(horizontal = 10.dp)) {
+                            items(listening, key = { it.first.toString() }) { (context, who) ->
+                                val line = listeningLine(who)
+                                val bars: @Composable () -> Unit = { ListeningBars(who.any { !it.paused }) }
+                                val song = who.first().song
+                                when (context) {
+                                    is ListeningRules.Context.OfPlaylist -> byId[context.id]?.let { p ->
+                                        CoverCard(p.name, line, p.coverArt, onClick = { actions.open(Route.Playlist(p.id)) }, subtitleLead = bars)
+                                    }
+                                    is ListeningRules.Context.OfAlbum ->
+                                        CoverCard(song?.album.orEmpty(), line, song?.coverArt, onClick = { actions.open(Route.Album(context.id)) }, subtitleLead = bars)
+                                    is ListeningRules.Context.OfSong ->
+                                        CoverCard(song?.title.orEmpty(), line, song?.coverArt, onClick = { details = who }, subtitleLead = bars)
+                                }
+                            }
+                        }
+                    }
+                }
+                // Starred albums, artists and playlists together, newest first. Every one: it has no See all.
                 val starredShelf = stars.filter { it !is Star.OfPlaylist || it.id in byId }
                 if (starredShelf.isNotEmpty()) {
                     item(key = "h:starred") { SectionHeader(stringResource(R.string.home_starred)) }

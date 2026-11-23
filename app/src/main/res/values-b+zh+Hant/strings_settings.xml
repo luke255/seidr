@@ -168,4 +168,6 @@
 
     <string name="settings_playlist_order">播放清單排序</string>
     <string name="settings_playlist_order_hint">在你為播放清單選擇排序之前，播放清單依此方式排列歌曲。「自訂順序」保留播放清單自己的順序。</string>
+    <string name="settings_share_listening">分享我在聽的內容</string>
+    <string name="settings_share_listening_hint">此伺服器上的其他人可以看到你在聽什麼、用哪台裝置、來自哪個播放清單。關閉後，伺服器也不會知道目前正在播放什麼。</string>
 </resources>

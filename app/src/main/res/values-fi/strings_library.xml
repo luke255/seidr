@@ -187,4 +187,15 @@
     <string name="deleted_playlists_none">Soittolistoja ei ole poistettu viime aikoina. Tämän laitteen näkemät soittolistat näkyvät täällä 90 päivää poistamisen jälkeen, missä tahansa sovelluksessa.</string>
     <string name="deleted_playlists_on">Poistettu %1$s</string>
     <string name="collection_show_art">Näytä kansikuva koko näytöllä</string>
+    <string name="home_listening">Kuuntelee nyt</string>
+    <string name="listening_two">%1$s ja %2$s</string>
+    <string name="listening_paused_who">%1$s · tauolla</string>
+    <string name="listening_playing">Toistetaan</string>
+    <string name="listening_playing_at">Toistetaan · %1$s / %2$s</string>
+    <string name="listening_paused">Tauolla</string>
+    <string name="listening_from">Listalta %1$s</string>
+    <string name="listening_output_headphones">Kuulokkeet</string>
+    <string name="listening_output_bluetooth">Bluetooth</string>
+    <string name="listening_output_car">Auto</string>
+    <string name="listening_through">%1$s, kautta: %2$s</string>
 </resources>

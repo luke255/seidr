@@ -85,7 +85,8 @@ class PlaylistHistory(private val dao: HistoryDao, private val now: () -> Long =
         /** A version's rules, or null if it has none (or they no longer read). */
         fun parseRules(s: String): JsonObject? = runCatching { Json.parseToJsonElement(s) as? JsonObject }.getOrNull()
 
-        fun keeps(p: Playlist) = !p.readonly && !BadReports.isBadPlaylist(p.name) && !KidRules.isKidsList(p.name)
+        fun keeps(p: Playlist) = !p.readonly && !BadReports.isBadPlaylist(p.name) && !KidRules.isKidsList(p.name) &&
+            !ListeningRules.isStatusList(p.name)
 
         /** How [version] differs from [now]: songs it has that [now] lacks, and songs [now] has that it lacks. */
         fun diff(version: List<String>, now: List<String>): Pair<Int, Int> {

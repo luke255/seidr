@@ -198,4 +198,15 @@
     <string name="deleted_playlists_none">No s\'ha suprimit cap llista últimament. Les que aquest dispositiu havia vist surten aquí durant 90 dies després de suprimir-se, des de qualsevol app.</string>
     <string name="deleted_playlists_on">Suprimida el %1$s</string>
     <string name="collection_show_art">Mostra la portada a pantalla completa</string>
+    <string name="home_listening">Escoltant ara</string>
+    <string name="listening_two">%1$s i %2$s</string>
+    <string name="listening_paused_who">%1$s · en pausa</string>
+    <string name="listening_playing">S\'està reproduint</string>
+    <string name="listening_playing_at">S\'està reproduint · %1$s de %2$s</string>
+    <string name="listening_paused">En pausa</string>
+    <string name="listening_from">Des de %1$s</string>
+    <string name="listening_output_headphones">Auriculars</string>
+    <string name="listening_output_bluetooth">Bluetooth</string>
+    <string name="listening_output_car">Cotxe</string>
+    <string name="listening_through">%1$s, a través de %2$s</string>
 </resources>

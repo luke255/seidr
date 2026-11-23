@@ -2,6 +2,9 @@ package eu.bradshaw.seidr.ui.screens
 
 import eu.bradshaw.seidr.data.Star
 import eu.bradshaw.seidr.ui.components.StarButton
+import eu.bradshaw.seidr.ui.components.ListenerBadges
+import eu.bradshaw.seidr.ui.components.ListeningStrip
+import eu.bradshaw.seidr.ui.components.rememberListeners
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.aspectRatio
@@ -75,10 +78,13 @@ fun AlbumScreen(id: String) {
     val graph = actions.graph
     val vm = viewModel(key = "album:$id") { AlbumVm(graph, id) }
     val ui by graph.player.ui.collectAsStateWithLifecycle()
+    val everyone = rememberListeners()
 
     LoadContent(vm.state, vm::load) { album ->
         val songs = album.song
         val discs = songs.mapNotNull { it.discNumber }.distinct().size > 1
+        // Anyone else playing a song from this album now, from wherever (Listening now).
+        val listening = remember(everyone, album.id) { everyone.filter { it.song?.albumId == album.id } }
         // Albums take Now Playing's colours from the cover (as do playlists with a picture); artists keep the theme.
         ArtPage(album.coverArt) { CollectionLayout(
             title = album.name,
@@ -102,6 +108,7 @@ fun AlbumScreen(id: String) {
             offline = OfflineSource(SourceType.sourceId(SourceType.ALBUM, album.id), SourceType.ALBUM, album.id, album.name, coverArt = album.coverArt),
             trackCount = songs.size,
             topActions = { StarButton(Star.OfAlbum(album, null)) },
+            headerExtra = { ListeningStrip(listening) },
         ) {
             var lastDisc: Int? = null
             songs.forEachIndexed { i, song ->
@@ -116,6 +123,7 @@ fun AlbumScreen(id: String) {
                         leading = { TrackNumber(song.track, ui.current?.songId == song.id) },
                         subtitleTail = null,
                         playing = ui.current?.songId == song.id,
+                        trailing = if (listening.any { it.songId == song.id }) { { ListenerBadges(listening.filter { it.songId == song.id }) } } else null,
                     )
                 }
             }

@@ -187,4 +187,15 @@
     <string name="deleted_playlists_none">Onlangs geen playlists verwijderd. Playlists die dit apparaat had gezien, staan hier tot 90 dagen nadat ze zijn verwijderd, vanuit welke app ook.</string>
     <string name="deleted_playlists_on">Verwijderd op %1$s</string>
     <string name="collection_show_art">Hoes schermvullend tonen</string>
+    <string name="home_listening">Luistert nu</string>
+    <string name="listening_two">%1$s en %2$s</string>
+    <string name="listening_paused_who">%1$s · gepauzeerd</string>
+    <string name="listening_playing">Speelt af</string>
+    <string name="listening_playing_at">Speelt af · %1$s van %2$s</string>
+    <string name="listening_paused">Gepauzeerd</string>
+    <string name="listening_from">Uit %1$s</string>
+    <string name="listening_output_headphones">Koptelefoon</string>
+    <string name="listening_output_bluetooth">Bluetooth</string>
+    <string name="listening_output_car">Auto</string>
+    <string name="listening_through">%1$s, via %2$s</string>
 </resources>

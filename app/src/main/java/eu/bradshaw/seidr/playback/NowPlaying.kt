@@ -22,7 +22,9 @@ object NowPlaying {
         }
     }
 
+    /** Tells the server what's playing now, unless the user has opted out of sharing it (`Listening`). */
     suspend fun nowPlaying(graph: Graph, songId: String) {
+        if (!graph.listening.reportsNowPlaying()) return
         runCatching { graph.client.strict.scrobble(songId, System.currentTimeMillis(), false).ok() }
     }
 

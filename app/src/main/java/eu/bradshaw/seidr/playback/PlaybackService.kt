@@ -71,6 +71,8 @@ class PlaybackService : MediaLibraryService() {
     private lateinit var connect: eu.bradshaw.seidr.connect.ConnectSession
     private lateinit var tree: LibraryTree
     private lateinit var queueStore: QueueStore
+    /** Listening now: tells others what plays here. */
+    private lateinit var listening: ListeningReporter
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private var tickJob: Job? = null
     /** Non-null on Android TV, where Cast (and Home Assistant) need http artwork. */
@@ -156,6 +158,9 @@ class PlaybackService : MediaLibraryService() {
                 }
             }
         }
+        listening = ListeningReporter(this, graph, scope) { cars.isNotEmpty() }
+        listening.start()
+        listening.follow(fading)
         connect = eu.bradshaw.seidr.connect.ConnectSession(this, graph, fading, ::setSessionPlayer)
         connect.start()
 
@@ -266,6 +271,7 @@ class PlaybackService : MediaLibraryService() {
 
     override fun onDestroy() {
         saveQueue(now = true)
+        listening.stop()
         connect.close()
         scope.cancel()
         session.release()
@@ -455,6 +461,9 @@ class PlaybackService : MediaLibraryService() {
         session.player = p
         if (old !== fading) old.release()
         updateLikeButton()
+        // Controlling another Seiðr device, that one tells others; through a Cast device, this one does.
+        val cast = p as? eu.bradshaw.seidr.cast.CastPlayer
+        listening.follow(if (p === fading || cast != null) p else null, cast?.peer)
     }
 
     private val remoteListener = object : Player.Listener {
@@ -545,11 +554,11 @@ class PlaybackService : MediaLibraryService() {
         }
 
         override fun onPostConnect(session: MediaSession, controller: MediaSession.ControllerInfo) {
-            if (isCar(controller) && cars.add(controller)) updateLikeButton()
+            if (isCar(controller) && cars.add(controller)) { updateLikeButton(); listening.changed() }
         }
 
         override fun onDisconnected(session: MediaSession, controller: MediaSession.ControllerInfo) {
-            if (cars.remove(controller)) updateLikeButton()
+            if (cars.remove(controller)) { updateLikeButton(); listening.changed() }
         }
 
         // --- Browsing (Android Auto) ---

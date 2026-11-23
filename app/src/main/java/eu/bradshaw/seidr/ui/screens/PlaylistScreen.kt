@@ -2,6 +2,9 @@ package eu.bradshaw.seidr.ui.screens
 
 import eu.bradshaw.seidr.data.Star
 import eu.bradshaw.seidr.ui.components.StarButton
+import eu.bradshaw.seidr.ui.components.ListenerBadges
+import eu.bradshaw.seidr.ui.components.ListeningStrip
+import eu.bradshaw.seidr.ui.components.rememberListeners
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -153,6 +156,9 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
     val sort = graph.settings.playlistSort(playlist.id, sorts, sortDefault)
     val shown = remember(songs, sort) { sort.sort(songs) }
     val shownSongs = remember(shown) { shown.map { it.value } }
+    // Anyone else playing from this playlist now (Listening now).
+    val everyone = rememberListeners()
+    val listening = remember(everyone, playlist.id) { everyone.filter { it.playlistId == playlist.id } }
 
     var editing by remember { mutableStateOf(false) }
     var renaming by remember { mutableStateOf(false) }
@@ -257,6 +263,7 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
         shufflePrimary = true,
         offline = source,
         trackCount = songs.size,
+        headerExtra = { ListeningStrip(listening) },
         listState = listState,
         topActions = {
             if (!editing && canStarPlaylists) StarButton(Star.OfPlaylist(playlist.id, null))
@@ -354,6 +361,7 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
                     song,
                     onClick = { graph.playlistPlays.record(playlist.id); actions.player.playContext(shownSongs, i, playlist.name, playlistId = playlist.id, playlistArt = picture) },
                     playing = ui.current?.songId == song.id,
+                    trailing = if (listening.any { it.songId == song.id }) { { ListenerBadges(listening.filter { it.songId == song.id }) } } else null,
                     extraMenu = if (editable) listOf(MenuAction(removeLabel, Icons.Filled.RemoveCircleOutline) {
                         actions.launch {
                             val before = serverSongs()

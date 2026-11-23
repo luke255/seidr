@@ -187,4 +187,15 @@
     <string name="deleted_playlists_none">Mostanában nem töröltek lejátszási listát. Az eszköz által ismert listák a törlésük után 90 napig itt láthatók, bármelyik alkalmazásban törölték őket.</string>
     <string name="deleted_playlists_on">Törölve: %1$s</string>
     <string name="collection_show_art">Borító teljes képernyőn</string>
+    <string name="home_listening">Most hallgatják</string>
+    <string name="listening_two">%1$s és %2$s</string>
+    <string name="listening_paused_who">%1$s · szünetel</string>
+    <string name="listening_playing">Lejátszás</string>
+    <string name="listening_playing_at">Lejátszás · %1$s / %2$s</string>
+    <string name="listening_paused">Szünetel</string>
+    <string name="listening_from">Innen: %1$s</string>
+    <string name="listening_output_headphones">Fejhallgató</string>
+    <string name="listening_output_bluetooth">Bluetooth</string>
+    <string name="listening_output_car">Autó</string>
+    <string name="listening_through">%1$s, ezen keresztül: %2$s</string>
 </resources>
