@@ -31,6 +31,9 @@
     <string name="library_sort_most_played">Mest spelade</string>
     <string name="playlist_sort_title">Titel</string>
     <string name="playlist_sort_album">Album</string>
+    <string name="playlist_sort_plays">Antal spelningar</string>
+    <string name="sort_ascending">Stigande</string>
+    <string name="sort_descending">Fallande</string>
     <string name="library_show_list">Visa som lista</string>
     <string name="library_show_grid">Visa som rutnät</string>
     <string name="library_by_owner">av %1$s</string>

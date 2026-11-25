@@ -34,6 +34,9 @@
     <string name="library_sort_most_played">Most played</string>
     <string name="playlist_sort_title">Title</string>
     <string name="playlist_sort_album">Album</string>
+    <string name="playlist_sort_plays">Play count</string>
+    <string name="sort_ascending">Ascending</string>
+    <string name="sort_descending">Descending</string>
     <string name="library_show_list">Show as list</string>
     <string name="library_show_grid">Show as grid</string>
     <!-- Playlist owner shown in a subtitle. %1$s is the owner\'s username. -->

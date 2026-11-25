@@ -31,6 +31,9 @@
     <string name="library_sort_most_played">Meest afgespeeld</string>
     <string name="playlist_sort_title">Titel</string>
     <string name="playlist_sort_album">Album</string>
+    <string name="playlist_sort_plays">Aantal keer afgespeeld</string>
+    <string name="sort_ascending">Oplopend</string>
+    <string name="sort_descending">Aflopend</string>
     <string name="library_show_list">Als lijst tonen</string>
     <string name="library_show_grid">Als raster tonen</string>
     <string name="library_by_owner">van %1$s</string>

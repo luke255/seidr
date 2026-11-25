@@ -31,6 +31,9 @@
     <string name="library_sort_most_played">Πιο ακουσμένα</string>
     <string name="playlist_sort_title">Τίτλος</string>
     <string name="playlist_sort_album">Άλμπουμ</string>
+    <string name="playlist_sort_plays">Αναπαραγωγές</string>
+    <string name="sort_ascending">Αύξουσα</string>
+    <string name="sort_descending">Φθίνουσα</string>
     <string name="library_show_list">Προβολή ως λίστα</string>
     <string name="library_show_grid">Προβολή ως πλέγμα</string>
     <string name="library_by_owner">από %1$s</string>

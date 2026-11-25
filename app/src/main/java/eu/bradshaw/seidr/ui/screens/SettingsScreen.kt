@@ -102,9 +102,7 @@ import eu.bradshaw.seidr.ui.focusRing
 import eu.bradshaw.seidr.ui.theme.ThemeChoice
 import eu.bradshaw.seidr.ui.theme.colorSchemeFor
 import eu.bradshaw.seidr.update.Updater
-import eu.bradshaw.seidr.data.TrackSort
-import eu.bradshaw.seidr.ui.components.SortButton
-import eu.bradshaw.seidr.ui.components.label
+import eu.bradshaw.seidr.ui.components.TrackSortButton
 import androidx.compose.material.icons.automirrored.outlined.Sort
 import kotlin.math.roundToInt
 
@@ -181,7 +179,7 @@ fun SettingsScreen() {
             CardGroup {
                 val sortDefault by graph.settings.playlistSortDefault.collectAsStateWithLifecycle()
                 CardItem(Icons.AutoMirrored.Outlined.Sort, stringResource(R.string.settings_playlist_order), stringResource(R.string.settings_playlist_order_hint),
-                    trailing = { SortButton(TrackSort.entries, sortDefault, TrackSort::label, graph.settings::setPlaylistSortDefault) })
+                    trailing = { TrackSortButton(sortDefault, graph.settings::setPlaylistSortDefault) })
                 if (!kid) {
                     CardDivider()
                     val share by graph.settings.shareListening.collectAsStateWithLifecycle()

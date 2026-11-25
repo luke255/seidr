@@ -70,9 +70,9 @@ import eu.bradshaw.seidr.data.db.OfflineSource
 import eu.bradshaw.seidr.data.db.SourceType
 import eu.bradshaw.seidr.ui.LocalActions
 import eu.bradshaw.seidr.ui.components.CollectionLayout
-import eu.bradshaw.seidr.ui.components.SortButton
+import eu.bradshaw.seidr.ui.components.TrackSortButton
+import eu.bradshaw.seidr.data.TrackOrder
 import eu.bradshaw.seidr.data.TrackSort
-import eu.bradshaw.seidr.ui.components.label
 import eu.bradshaw.seidr.ui.components.HeaderFacts
 import eu.bradshaw.seidr.ui.components.approvedCount
 import eu.bradshaw.seidr.ui.components.rememberAllDownloaded
@@ -306,7 +306,7 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
             if (editable) {
                 DropdownMenuItem({ Text(stringResource(R.string.playlist_reorder)) }, leadingIcon = { Icon(Icons.Filled.DragHandle, null) },
                     // Reordering is of the playlist's own order, so the view goes back to it.
-                    onClick = { close(); graph.settings.setPlaylistSort(playlist.id, TrackSort.CUSTOM); editing = true })
+                    onClick = { close(); graph.settings.setPlaylistSort(playlist.id, TrackOrder(TrackSort.CUSTOM)); editing = true })
             }
             if (canPicture) {
                 DropdownMenuItem({ Text(stringResource(R.string.playlist_picture_change)) }, leadingIcon = { Icon(Icons.Filled.Image, null) },
@@ -352,7 +352,7 @@ private fun PlaylistContent(playlist: Playlist, vm: PlaylistVm) {
             }
         } else {
             if (songs.size > 1) item(key = "sort") {
-                SortButton(TrackSort.entries, sort, TrackSort::label, { graph.settings.setPlaylistSort(playlist.id, it) },
+                TrackSortButton(sort, { graph.settings.setPlaylistSort(playlist.id, it) },
                     Modifier.padding(horizontal = 4.dp))
             }
             // Keyed by the playlist position, which a remove goes by too (whatever the view's order).

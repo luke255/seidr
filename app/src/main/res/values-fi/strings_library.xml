@@ -31,6 +31,9 @@
     <string name="library_sort_most_played">Eniten soitetut</string>
     <string name="playlist_sort_title">Nimi</string>
     <string name="playlist_sort_album">Albumi</string>
+    <string name="playlist_sort_plays">Toistokerrat</string>
+    <string name="sort_ascending">Nouseva</string>
+    <string name="sort_descending">Laskeva</string>
     <string name="library_show_list">Näytä luettelona</string>
     <string name="library_show_grid">Näytä ruudukkona</string>
     <string name="library_by_owner">käyttäjältä %1$s</string>

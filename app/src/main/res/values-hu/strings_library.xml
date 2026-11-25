@@ -31,6 +31,9 @@
     <string name="library_sort_most_played">Legtöbbet játszott</string>
     <string name="playlist_sort_title">Cím</string>
     <string name="playlist_sort_album">Album</string>
+    <string name="playlist_sort_plays">Lejátszások száma</string>
+    <string name="sort_ascending">Növekvő</string>
+    <string name="sort_descending">Csökkenő</string>
     <string name="library_show_list">Megjelenítés listaként</string>
     <string name="library_show_grid">Megjelenítés rácsként</string>
     <string name="library_by_owner">készítette: %1$s</string>

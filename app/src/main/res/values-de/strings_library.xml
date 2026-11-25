@@ -31,6 +31,9 @@
     <string name="library_sort_most_played">Meistgespielt</string>
     <string name="playlist_sort_title">Titel</string>
     <string name="playlist_sort_album">Album</string>
+    <string name="playlist_sort_plays">Wiedergaben</string>
+    <string name="sort_ascending">Aufsteigend</string>
+    <string name="sort_descending">Absteigend</string>
     <string name="library_show_list">Als Liste anzeigen</string>
     <string name="library_show_grid">Als Raster anzeigen</string>
     <string name="library_by_owner">von %1$s</string>

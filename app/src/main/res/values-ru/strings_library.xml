@@ -35,6 +35,9 @@
     <string name="library_sort_most_played">Часто слушаемые</string>
     <string name="playlist_sort_title">Название</string>
     <string name="playlist_sort_album">Альбом</string>
+    <string name="playlist_sort_plays">Число прослушиваний</string>
+    <string name="sort_ascending">По возрастанию</string>
+    <string name="sort_descending">По убыванию</string>
     <string name="library_show_list">Показать списком</string>
     <string name="library_show_grid">Показать сеткой</string>
     <string name="library_by_owner">автор: %1$s</string>

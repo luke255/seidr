@@ -33,6 +33,9 @@
     <string name="library_sort_most_played">Més escoltats</string>
     <string name="playlist_sort_title">Títol</string>
     <string name="playlist_sort_album">Àlbum</string>
+    <string name="playlist_sort_plays">Reproduccions</string>
+    <string name="sort_ascending">Ascendent</string>
+    <string name="sort_descending">Descendent</string>
     <string name="library_show_list">Mostra com a llista</string>
     <string name="library_show_grid">Mostra com a quadrícula</string>
     <string name="library_by_owner">de %1$s</string>

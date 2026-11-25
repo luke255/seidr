@@ -4,6 +4,10 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.10.1
+
+- A playlist's sort now goes either way: tap the order you're on to turn it round. Most played is now Play count, and starts with the most played; the others start from the top (A–Z, oldest first).
+
 ## 1.10.0
 
 - Listening now: Home shows what everyone else on your server is playing, as a row of the playlists and albums they're playing from.

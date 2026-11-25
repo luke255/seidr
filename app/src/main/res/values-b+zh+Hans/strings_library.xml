@@ -29,6 +29,9 @@
     <string name="library_sort_most_played">最常播放</string>
     <string name="playlist_sort_title">标题</string>
     <string name="playlist_sort_album">专辑</string>
+    <string name="playlist_sort_plays">播放次数</string>
+    <string name="sort_ascending">升序</string>
+    <string name="sort_descending">降序</string>
     <string name="library_show_list">显示为列表</string>
     <string name="library_show_grid">显示为网格</string>
     <string name="library_by_owner">创建者：%1$s</string>

@@ -98,16 +98,16 @@ class Settings(context: Context) {
         prefs.getString("playlist_sorts", null)
             ?.let { runCatching { Json.decodeFromString<Map<String, String>>(it) }.getOrNull() }.orEmpty()
     )
-    /** Each playlist's chosen track order (id → [TrackSort.key]); a playlist missing here shows [playlistSortDefault]. */
+    /** Each playlist's chosen track order (id → [TrackOrder.key]); a playlist missing here shows [playlistSortDefault]. */
     val playlistSorts: StateFlow<Map<String, String>> = _playlistSorts.asStateFlow()
 
-    private val _playlistSortDefault = MutableStateFlow(TrackSort.of(prefs.getString("playlist_sort_default", null), TrackSort.ARTIST))
+    private val _playlistSortDefault = MutableStateFlow(TrackOrder.of(prefs.getString("playlist_sort_default", null), TrackOrder(TrackSort.ARTIST)))
     /** How a playlist lists its songs until one is chosen for it (Settings → Library). */
-    val playlistSortDefault: StateFlow<TrackSort> = _playlistSortDefault.asStateFlow()
+    val playlistSortDefault: StateFlow<TrackOrder> = _playlistSortDefault.asStateFlow()
 
     /** [playlistId]'s order: its own choice, else the default. */
-    fun playlistSort(playlistId: String, sorts: Map<String, String> = _playlistSorts.value, default: TrackSort = _playlistSortDefault.value): TrackSort =
-        sorts[playlistId]?.let { TrackSort.of(it, default) } ?: default
+    fun playlistSort(playlistId: String, sorts: Map<String, String> = _playlistSorts.value, default: TrackOrder = _playlistSortDefault.value): TrackOrder =
+        TrackOrder.of(sorts[playlistId], default)
 
     private val _autoUpdate = MutableStateFlow(prefs.getBoolean("auto_update", true))
     /** Check GitHub for a newer release when the app comes to the front (`Updater`). */
@@ -248,13 +248,13 @@ class Settings(context: Context) {
     }
 
     /** A choice equal to the default isn't kept, so the playlist follows the default if that changes. */
-    fun setPlaylistSort(id: String, sort: TrackSort) {
+    fun setPlaylistSort(id: String, sort: TrackOrder) {
         val next = if (sort == _playlistSortDefault.value) _playlistSorts.value - id else _playlistSorts.value + (id to sort.key)
         prefs.edit().putString("playlist_sorts", Json.encodeToString(next)).apply()
         _playlistSorts.value = next
     }
 
-    fun setPlaylistSortDefault(sort: TrackSort) {
+    fun setPlaylistSortDefault(sort: TrackOrder) {
         prefs.edit().putString("playlist_sort_default", sort.key).apply()
         _playlistSortDefault.value = sort
     }

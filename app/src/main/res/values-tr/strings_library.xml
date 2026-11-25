@@ -31,6 +31,9 @@
     <string name="library_sort_most_played">En çok dinlenen</string>
     <string name="playlist_sort_title">Başlık</string>
     <string name="playlist_sort_album">Albüm</string>
+    <string name="playlist_sort_plays">Dinlenme sayısı</string>
+    <string name="sort_ascending">Artan</string>
+    <string name="sort_descending">Azalan</string>
     <string name="library_show_list">Liste olarak göster</string>
     <string name="library_show_grid">Izgara olarak göster</string>
     <string name="library_by_owner">sahibi: %1$s</string>

@@ -29,6 +29,9 @@
     <string name="library_sort_most_played">많이 재생한 순</string>
     <string name="playlist_sort_title">제목</string>
     <string name="playlist_sort_album">앨범</string>
+    <string name="playlist_sort_plays">재생 횟수</string>
+    <string name="sort_ascending">오름차순</string>
+    <string name="sort_descending">내림차순</string>
     <string name="library_show_list">목록으로 보기</string>
     <string name="library_show_grid">격자로 보기</string>
     <string name="library_by_owner">만든 사람: %1$s</string>

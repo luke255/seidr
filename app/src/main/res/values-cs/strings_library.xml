@@ -35,6 +35,9 @@
     <string name="library_sort_most_played">Nejpřehrávanější</string>
     <string name="playlist_sort_title">Název</string>
     <string name="playlist_sort_album">Album</string>
+    <string name="playlist_sort_plays">Počet přehrání</string>
+    <string name="sort_ascending">Vzestupně</string>
+    <string name="sort_descending">Sestupně</string>
     <string name="library_show_list">Zobrazit jako seznam</string>
     <string name="library_show_grid">Zobrazit jako mřížku</string>
     <string name="library_by_owner">autor: %1$s</string>
