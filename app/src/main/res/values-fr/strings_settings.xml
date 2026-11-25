@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Afficher les performances</string>
     <string name="vissettings_performance_hint">Images par seconde, taille de rendu et niveau de qualité dans un coin, à mesure que le visualiseur s\'ajuste.</string>
     <string name="vissettings_loved">Préréglages favoris</string>
-    <string name="vissettings_loved_hint">Le cœur dans les commandes du visualiseur. Les préréglages favoris reviennent environ une fois sur dix.</string>
+    <string name="vissettings_loved_hint">Le cœur dans les commandes du visualiseur. Les préréglages favoris reviennent 25 fois plus souvent que les autres.</string>
     <string name="vissettings_unlove">Je n\'aime plus</string>
     <string name="vissettings_hidden">Préréglages masqués</string>
     <string name="vissettings_hidden_hint">Le drapeau dans les commandes du visualiseur masque un préréglage. Ceux qui sont trop lourds pour s\'afficher de façon fluide sur cet appareil sont masqués pour vous. Touchez-en un pour en voir un aperçu.</string>

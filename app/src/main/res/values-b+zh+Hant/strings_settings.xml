@@ -136,7 +136,7 @@
     <string name="vissettings_performance">顯示效能資訊</string>
     <string name="vissettings_performance_hint">在角落顯示影格率、算繪尺寸和畫質等級，它們會隨視覺化效果的自動調整而變化。</string>
     <string name="vissettings_loved">最愛的預設集</string>
-    <string name="vissettings_loved_hint">輕觸視覺化效果控制項中的愛心即可加入。最愛的預設集大約每十次出現一次。</string>
+    <string name="vissettings_loved_hint">輕觸視覺化效果控制項中的愛心即可加入。最愛的預設集出現的頻率是其他預設集的 25 倍。</string>
     <string name="vissettings_unlove">移出最愛</string>
     <string name="vissettings_hidden">已隱藏的預設集</string>
     <string name="vissettings_hidden_hint">輕觸視覺化效果控制項中的旗標可隱藏預設集。此裝置無法流暢顯示的預設集會自動隱藏。輕觸預設集即可預覽。</string>

@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Mostrar rendimiento</string>
     <string name="vissettings_performance_hint">Cuadros por segundo, tamaño de renderizado y nivel de calidad en una esquina, a medida que el visualizador se ajusta solo.</string>
     <string name="vissettings_loved">Presets favoritos</string>
-    <string name="vissettings_loved_hint">El corazón de los controles del visualizador. Los presets favoritos salen más o menos una de cada diez veces.</string>
+    <string name="vissettings_loved_hint">El corazón de los controles del visualizador. Los presets favoritos salen 25 veces más que el resto.</string>
     <string name="vissettings_unlove">Ya no me gusta</string>
     <string name="vissettings_hidden">Presets ocultos</string>
     <string name="vissettings_hidden_hint">La bandera de los controles del visualizador oculta un preset. Los que son demasiado pesados para verse con fluidez en este dispositivo se ocultan solos. Toca uno para ver una vista previa.</string>

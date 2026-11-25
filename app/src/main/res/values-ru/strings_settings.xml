@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Показывать производительность</string>
     <string name="vissettings_performance_hint">Частота кадров, размер рендера и уровень качества в углу — видно, как визуализация подстраивается.</string>
     <string name="vissettings_loved">Любимые пресеты</string>
-    <string name="vissettings_loved_hint">Сердце в управлении визуализацией. Любимые пресеты выпадают примерно один раз из десяти.</string>
+    <string name="vissettings_loved_hint">Сердце в управлении визуализацией. Любимые пресеты выпадают в 25 раз чаще остальных.</string>
     <string name="vissettings_unlove">Убрать из любимого</string>
     <string name="vissettings_hidden">Скрытые пресеты</string>
     <string name="vissettings_hidden_hint">Флажок в управлении визуализацией скрывает пресет. Пресеты, слишком тяжёлые для плавного показа на этом устройстве, скрываются сами. Нажмите на пресет, чтобы посмотреть его.</string>

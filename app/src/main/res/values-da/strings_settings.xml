@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Vis ydeevne</string>
     <string name="vissettings_performance_hint">Billedfrekvens, renderingsstørrelse og kvalitetsniveau i et hjørne, mens visualiseringen tilpasser sig.</string>
     <string name="vissettings_loved">Favoritpresets</string>
-    <string name="vissettings_loved_hint">Hjertet blandt visualiseringens knapper. Favoritpresets dukker op cirka hver tiende gang.</string>
+    <string name="vissettings_loved_hint">Hjertet blandt visualiseringens knapper. Favoritpresets dukker op 25 gange så ofte som resten.</string>
     <string name="vissettings_unlove">Fjern favorit</string>
     <string name="vissettings_hidden">Skjulte presets</string>
     <string name="vissettings_hidden_hint">Flaget blandt visualiseringens knapper skjuler et preset. Presets, der er for tunge til, at denne enhed kan vise dem flydende, bliver skjult for dig. Tryk på et for at se det.</string>

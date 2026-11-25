@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Pokazuj wydajność</string>
     <string name="vissettings_performance_hint">Liczba klatek, rozmiar renderowania i poziom jakości w rogu, na bieżąco, gdy wizualizacja sama się dostraja.</string>
     <string name="vissettings_loved">Ulubione presety</string>
-    <string name="vissettings_loved_hint">Serce w sterowaniu wizualizacji. Ulubione presety pojawiają się mniej więcej raz na dziesięć.</string>
+    <string name="vissettings_loved_hint">Serce w sterowaniu wizualizacji. Ulubione presety pojawiają się 25 razy częściej niż pozostałe.</string>
     <string name="vissettings_unlove">Usuń z ulubionych</string>
     <string name="vissettings_hidden">Ukryte presety</string>
     <string name="vissettings_hidden_hint">Flaga w sterowaniu wizualizacji ukrywa preset. Presety zbyt ciężkie, by to urządzenie pokazywało je płynnie, ukrywają się same. Dotknij presetu, aby zobaczyć podgląd.</string>

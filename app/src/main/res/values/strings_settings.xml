@@ -201,7 +201,7 @@
     <string name="vissettings_performance">Show performance</string>
     <string name="vissettings_performance_hint">Frame rate, render size and quality level in a corner, as the visualiser adjusts itself.</string>
     <string name="vissettings_loved">Loved presets</string>
-    <string name="vissettings_loved_hint">The heart in the visualiser\'s controls. Loved presets come up about one time in ten.</string>
+    <string name="vissettings_loved_hint">The heart in the visualiser\'s controls. Loved presets come up 25 times as often as the rest.</string>
     <string name="vissettings_unlove">Unlove</string>
     <string name="vissettings_hidden">Hidden presets</string>
     <string name="vissettings_hidden_hint">The flag in the visualiser\'s controls hides a preset. Presets too heavy for this device to show smoothly are hidden for you. Tap one to preview it.</string>

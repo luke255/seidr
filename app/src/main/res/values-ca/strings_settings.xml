@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Mostra el rendiment</string>
     <string name="vissettings_performance_hint">Fotogrames per segon, mida de renderització i nivell de qualitat en un racó, a mesura que el visualitzador s\'ajusta tot sol.</string>
     <string name="vissettings_loved">Presets preferits</string>
-    <string name="vissettings_loved_hint">El cor dels controls del visualitzador. Els presets preferits surten més o menys una vegada de cada deu.</string>
+    <string name="vissettings_loved_hint">El cor dels controls del visualitzador. Els presets preferits surten 25 vegades més que la resta.</string>
     <string name="vissettings_unlove">Ja no m\'agrada</string>
     <string name="vissettings_hidden">Presets amagats</string>
     <string name="vissettings_hidden_hint">La bandera dels controls del visualitzador amaga un preset. Els que pesen massa perquè aquest dispositiu els mostri amb fluïdesa s\'amaguen sols. Toca\'n un per previsualitzar-lo.</string>

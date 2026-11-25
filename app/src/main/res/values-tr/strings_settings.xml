@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Performansı göster</string>
     <string name="vissettings_performance_hint">Görselleştirici kendini ayarlarken bir köşede kare hızı, işleme boyutu ve kalite düzeyi.</string>
     <string name="vissettings_loved">Beğenilen ön ayarlar</string>
-    <string name="vissettings_loved_hint">Görselleştiricinin kontrollerindeki kalp. Beğenilen ön ayarlar aşağı yukarı on seferde bir çıkar.</string>
+    <string name="vissettings_loved_hint">Görselleştiricinin kontrollerindeki kalp. Beğenilen ön ayarlar diğerlerinden 25 kat daha sık çıkar.</string>
     <string name="vissettings_unlove">Beğenmekten vazgeç</string>
     <string name="vissettings_hidden">Gizlenen ön ayarlar</string>
     <string name="vissettings_hidden_hint">Görselleştiricinin kontrollerindeki bayrak bir ön ayarı gizler. Bu cihazın akıcı gösteremeyeceği kadar ağır ön ayarlar senin yerine gizlenir. Önizlemek için birine dokun.</string>

@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Vis ytelse</string>
     <string name="vissettings_performance_hint">Bildefrekvens, gjengivelsesstørrelse og kvalitetsnivå i et hjørne, mens visualiseringen justerer seg selv.</string>
     <string name="vissettings_loved">Favorittpreset</string>
-    <string name="vissettings_loved_hint">Hjertet blant visualiseringens kontroller. Favorittpreset dukker opp omtrent én av ti ganger.</string>
+    <string name="vissettings_loved_hint">Hjertet blant visualiseringens kontroller. Favorittpreset dukker opp 25 ganger så ofte som resten.</string>
     <string name="vissettings_unlove">Fjern favoritt</string>
     <string name="vissettings_hidden">Skjulte preset</string>
     <string name="vissettings_hidden_hint">Flagget blant visualiseringens kontroller skjuler et preset. Preset som er for tunge til at denne enheten kan vise dem jevnt, skjules for deg. Trykk på et for å forhåndsvise det.</string>

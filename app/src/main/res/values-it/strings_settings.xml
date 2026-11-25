@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Mostra prestazioni</string>
     <string name="vissettings_performance_hint">Fotogrammi al secondo, dimensione di rendering e livello di qualità in un angolo, mentre il visualizzatore si regola da solo.</string>
     <string name="vissettings_loved">Preset preferiti</string>
-    <string name="vissettings_loved_hint">Il cuore nei controlli del visualizzatore. I preset preferiti compaiono circa una volta su dieci.</string>
+    <string name="vissettings_loved_hint">Il cuore nei controlli del visualizzatore. I preset preferiti compaiono 25 volte più spesso degli altri.</string>
     <string name="vissettings_unlove">Non mi piace più</string>
     <string name="vissettings_hidden">Preset nascosti</string>
     <string name="vissettings_hidden_hint">La bandierina nei controlli del visualizzatore nasconde un preset. Quelli troppo pesanti per girare in modo fluido su questo dispositivo vengono nascosti in automatico. Toccane uno per vederne l\'anteprima.</string>

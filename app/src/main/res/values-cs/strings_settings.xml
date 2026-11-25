@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Zobrazovat výkon</string>
     <string name="vissettings_performance_hint">Snímková frekvence, velikost vykreslování a úroveň kvality v rohu, jak se vizualizace sama přizpůsobuje.</string>
     <string name="vissettings_loved">Oblíbené presety</string>
-    <string name="vissettings_loved_hint">Srdce v ovládání vizualizace. Oblíbené presety přijdou na řadu zhruba jednou z deseti.</string>
+    <string name="vissettings_loved_hint">Srdce v ovládání vizualizace. Oblíbené presety přijdou na řadu 25krát častěji než ostatní.</string>
     <string name="vissettings_unlove">Odebrat z oblíbených</string>
     <string name="vissettings_hidden">Skryté presety</string>
     <string name="vissettings_hidden_hint">Vlajka v ovládání vizualizace preset skryje. Presety, které jsou pro tohle zařízení na plynulé zobrazení moc náročné, se skryjí samy. Klepnutím na preset zobrazíš náhled.</string>

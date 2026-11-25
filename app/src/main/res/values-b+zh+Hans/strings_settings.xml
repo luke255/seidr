@@ -136,7 +136,7 @@
     <string name="vissettings_performance">显示性能信息</string>
     <string name="vissettings_performance_hint">在角落显示帧率、渲染尺寸和画质等级，它们会随可视化效果的自动调整而变化。</string>
     <string name="vissettings_loved">喜欢的预设</string>
-    <string name="vissettings_loved_hint">点按可视化效果控件中的爱心即可添加。喜欢的预设大约每十次出现一次。</string>
+    <string name="vissettings_loved_hint">点按可视化效果控件中的爱心即可添加。喜欢的预设出现的频率是其他预设的 25 倍。</string>
     <string name="vissettings_unlove">取消喜欢</string>
     <string name="vissettings_hidden">隐藏的预设</string>
     <string name="vissettings_hidden_hint">点按可视化效果控件中的旗标可隐藏预设。此设备无法流畅显示的预设会自动隐藏。点按预设可预览。</string>

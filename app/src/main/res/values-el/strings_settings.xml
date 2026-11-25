@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Εμφάνιση επιδόσεων</string>
     <string name="vissettings_performance_hint">Ρυθμός καρέ, μέγεθος απόδοσης και επίπεδο ποιότητας σε μια γωνία, καθώς η οπτικοποίηση προσαρμόζεται μόνη της.</string>
     <string name="vissettings_loved">Αγαπημένα preset</string>
-    <string name="vissettings_loved_hint">Η καρδιά στα χειριστήρια της οπτικοποίησης. Τα αγαπημένα preset εμφανίζονται περίπου μία φορά στις δέκα.</string>
+    <string name="vissettings_loved_hint">Η καρδιά στα χειριστήρια της οπτικοποίησης. Τα αγαπημένα preset εμφανίζονται 25 φορές συχνότερα από τα υπόλοιπα.</string>
     <string name="vissettings_unlove">Δεν μου αρέσει πια</string>
     <string name="vissettings_hidden">Κρυμμένα preset</string>
     <string name="vissettings_hidden_hint">Η σημαία στα χειριστήρια της οπτικοποίησης κρύβει ένα preset. Όσα preset είναι πολύ βαριά για να προβάλλονται ομαλά σε αυτή τη συσκευή κρύβονται αυτόματα. Πάτησε ένα για προεπισκόπηση.</string>

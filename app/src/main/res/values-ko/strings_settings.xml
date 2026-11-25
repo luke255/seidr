@@ -136,7 +136,7 @@
     <string name="vissettings_performance">성능 표시</string>
     <string name="vissettings_performance_hint">비주얼라이저가 스스로 조정하는 프레임 속도, 렌더링 크기, 품질 수준을 화면 구석에 표시해요.</string>
     <string name="vissettings_loved">좋아요 표시한 프리셋</string>
-    <string name="vissettings_loved_hint">비주얼라이저 컨트롤의 하트로 추가해요. 좋아요 표시한 프리셋은 열 번에 한 번꼴로 나와요.</string>
+    <string name="vissettings_loved_hint">비주얼라이저 컨트롤의 하트로 추가해요. 좋아요 표시한 프리셋은 다른 프리셋보다 25배 자주 나와요.</string>
     <string name="vissettings_unlove">좋아요 취소</string>
     <string name="vissettings_hidden">숨긴 프리셋</string>
     <string name="vissettings_hidden_hint">비주얼라이저 컨트롤의 깃발로 프리셋을 숨길 수 있어요. 이 기기에서 부드럽게 표시하기에 너무 무거운 프리셋은 자동으로 숨겨져요. 탭하면 미리 볼 수 있어요.</string>

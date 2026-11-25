@@ -7,7 +7,7 @@ import java.io.File
 
 /**
  * projectM and everything that decides what it shows: the shuffled run of
- * presets (loved ones about one time in ten), [Autotune]'s quality level
+ * presets (loved ones [LOVED_WEIGHT] times as likely), [Autotune]'s quality level
  * and pace, presets too heavy for this device, and the 30 fps last resort. Shared by
  * [VisualiserActivity] (a GL surface on a screen) and
  * [eu.bradshaw.seidr.vis.xr.XrVisualiserActivity] (the headset); each
@@ -203,13 +203,18 @@ class VisEngine(
 
     /**
      * The next in the shuffled run, skipping any hidden since it was
-     * shuffled. About one time in ten, a loved preset instead (not the
-     * one just shown), so favourites come round often.
+     * shuffled. Sometimes a loved preset instead (not the one just shown),
+     * weighted so each comes up [LOVED_WEIGHT] times as often as the rest.
      */
     private fun pick(): String? {
         if (preview != null) return presets.first()
         val loved = (prefs.lovedPaths - setOfNotNull(current)).toList()
-        if (loved.isNotEmpty() && Math.random() < LOVED_SHARE) return loved.random()
+        if (loved.isNotEmpty()) {
+            // Loved presets are already in the shuffled run once; this adds
+            // the other LOVED_WEIGHT - 1 shares.
+            val extra = (LOVED_WEIGHT - 1) * loved.size
+            if (Math.random() * (extra + presets.size) < extra) return loved.random()
+        }
         val hidden = prefs.hiddenPaths
         repeat(presets.size) {
             index = (index + 1) % presets.size
@@ -240,7 +245,8 @@ class VisEngine(
         private const val HISTORY = 50
         // MilkDrop weighted its random pick by star rating (5 stars ≈ 1.7× a 3),
         // which across ~9,800 presets would all but never bring a favourite back.
-        private const val LOVED_SHARE = 0.1
+        // A fixed share instead came round too often with only a few loved.
+        private const val LOVED_WEIGHT = 25.0
 
         /** [preview] alone, or the pack (less what's hidden) shuffled. */
         fun presets(context: Context, prefs: VisPrefs, preview: String?): List<String> {

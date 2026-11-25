@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Näytä suorituskyky</string>
     <string name="vissettings_performance_hint">Kuvataajuus, renderöintikoko ja laatutaso näytön kulmassa, kun visualisointi säätää itseään.</string>
     <string name="vissettings_loved">Tykätyt esiasetukset</string>
-    <string name="vissettings_loved_hint">Sydän visualisoinnin säätimissä. Tykätyt esiasetukset tulevat vuoroon noin joka kymmenennellä kerralla.</string>
+    <string name="vissettings_loved_hint">Sydän visualisoinnin säätimissä. Tykätyt esiasetukset tulevat vuoroon 25 kertaa useammin kuin muut.</string>
     <string name="vissettings_unlove">Poista tykkäys</string>
     <string name="vissettings_hidden">Piilotetut esiasetukset</string>
     <string name="vissettings_hidden_hint">Visualisoinnin säätimissä oleva lippu piilottaa esiasetuksen. Esiasetukset, jotka ovat liian raskaita näkyäkseen sulavasti tällä laitteella, piilotetaan puolestasi. Esikatsele napauttamalla.</string>

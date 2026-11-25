@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Leistung anzeigen</string>
     <string name="vissettings_performance_hint">Bildrate, Rendergröße und Qualitätsstufe in einer Ecke, während sich der Visualizer selbst anpasst.</string>
     <string name="vissettings_loved">Lieblings-Presets</string>
-    <string name="vissettings_loved_hint">Das Herz in den Bedienelementen des Visualizers. Lieblings-Presets kommen etwa jedes zehnte Mal.</string>
+    <string name="vissettings_loved_hint">Das Herz in den Bedienelementen des Visualizers. Lieblings-Presets kommen 25-mal so oft wie die anderen.</string>
     <string name="vissettings_unlove">Gefällt mir nicht mehr</string>
     <string name="vissettings_hidden">Ausgeblendete Presets</string>
     <string name="vissettings_hidden_hint">Die Flagge in den Bedienelementen des Visualizers blendet ein Preset aus. Presets, die für dieses Gerät zu aufwendig sind, um flüssig zu laufen, werden automatisch ausgeblendet. Tippe auf eines, um es in der Vorschau zu sehen.</string>

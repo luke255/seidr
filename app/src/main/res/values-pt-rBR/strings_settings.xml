@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Mostrar desempenho</string>
     <string name="vissettings_performance_hint">Taxa de quadros, tamanho de renderização e nível de qualidade em um canto, conforme o visualizador se ajusta.</string>
     <string name="vissettings_loved">Presets curtidos</string>
-    <string name="vissettings_loved_hint">O coração nos controles do visualizador. Presets curtidos aparecem mais ou menos uma vez em cada dez.</string>
+    <string name="vissettings_loved_hint">O coração nos controles do visualizador. Presets curtidos aparecem 25 vezes mais que os outros.</string>
     <string name="vissettings_unlove">Descurtir</string>
     <string name="vissettings_hidden">Presets ocultos</string>
     <string name="vissettings_hidden_hint">A bandeira nos controles do visualizador oculta um preset. Os que são pesados demais para rodar bem neste dispositivo são ocultados para você. Toque em um para ver uma prévia.</string>

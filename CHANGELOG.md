@@ -7,6 +7,7 @@ them, not how.
 ## 1.10.1
 
 - A playlist's sort now goes either way: tap the order you're on to turn it round. Most played is now Play count, and starts with the most played; the others start from the top (A–Z, oldest first).
+- Loved visualiser presets come up less often when you've loved only a few: each is now 25 times as likely as any other, rather than taking one change in ten between them.
 
 ## 1.10.0
 

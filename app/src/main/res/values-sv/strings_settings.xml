@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Visa prestanda</string>
     <string name="vissettings_performance_hint">Bildfrekvens, renderingsstorlek och kvalitetsnivå i ett hörn, medan visualiseringen anpassar sig.</string>
     <string name="vissettings_loved">Gillade förinställningar</string>
-    <string name="vissettings_loved_hint">Hjärtat bland visualiseringens kontroller. Gillade förinställningar dyker upp ungefär en gång av tio.</string>
+    <string name="vissettings_loved_hint">Hjärtat bland visualiseringens kontroller. Gillade förinställningar dyker upp 25 gånger så ofta som resten.</string>
     <string name="vissettings_unlove">Sluta gilla</string>
     <string name="vissettings_hidden">Dolda förinställningar</string>
     <string name="vissettings_hidden_hint">Flaggan bland visualiseringens kontroller döljer en förinställning. Förinställningar som är för tunga för att visas mjukt på den här enheten döljs åt dig. Tryck på en för att förhandsvisa den.</string>

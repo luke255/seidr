@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Arată performanța</string>
     <string name="vissettings_performance_hint">Cadrele pe secundă, dimensiunea de randare și nivelul de calitate, într-un colț, pe măsură ce vizualizatorul se reglează singur.</string>
     <string name="vissettings_loved">Preseturi favorite</string>
-    <string name="vissettings_loved_hint">Inima din comenzile vizualizatorului. Preseturile favorite apar cam o dată din zece.</string>
+    <string name="vissettings_loved_hint">Inima din comenzile vizualizatorului. Preseturile favorite apar de 25 de ori mai des decât restul.</string>
     <string name="vissettings_unlove">Nu-mi mai place</string>
     <string name="vissettings_hidden">Preseturi ascunse</string>
     <string name="vissettings_hidden_hint">Steagul din comenzile vizualizatorului ascunde un preset. Preseturile prea grele ca acest dispozitiv să le afișeze fluid sunt ascunse automat. Atinge unul ca să-l previzualizezi.</string>

@@ -136,7 +136,7 @@
     <string name="vissettings_performance">パフォーマンスを表示</string>
     <string name="vissettings_performance_hint">ビジュアライザーが自動で調整するフレームレート、描画サイズ、品質レベルを画面の隅に表示します。</string>
     <string name="vissettings_loved">お気に入りのプリセット</string>
-    <string name="vissettings_loved_hint">ビジュアライザーのコントロールにあるハートで追加します。お気に入りのプリセットは、10回に1回ほどの割合で登場します。</string>
+    <string name="vissettings_loved_hint">ビジュアライザーのコントロールにあるハートで追加します。お気に入りのプリセットは、ほかのプリセットの25倍の頻度で登場します。</string>
     <string name="vissettings_unlove">お気に入りから削除</string>
     <string name="vissettings_hidden">非表示のプリセット</string>
     <string name="vissettings_hidden_hint">ビジュアライザーのコントロールにある旗で、プリセットを非表示にできます。このデバイスではなめらかに表示できない重いプリセットは、自動的に非表示になります。タップするとプレビューできます。</string>

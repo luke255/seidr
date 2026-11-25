@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Prestaties tonen</string>
     <string name="vissettings_performance_hint">Framesnelheid, rendergrootte en kwaliteitsniveau in een hoek, terwijl de visualizer zichzelf bijstelt.</string>
     <string name="vissettings_loved">Favoriete presets</string>
-    <string name="vissettings_loved_hint">Het hartje in de bediening van de visualizer. Favoriete presets komen ongeveer één op de tien keer langs.</string>
+    <string name="vissettings_loved_hint">Het hartje in de bediening van de visualizer. Favoriete presets komen 25 keer zo vaak langs als de rest.</string>
     <string name="vissettings_unlove">Niet meer leuk</string>
     <string name="vissettings_hidden">Verborgen presets</string>
     <string name="vissettings_hidden_hint">De vlag in de bediening van de visualizer verbergt een preset. Presets die te zwaar zijn om op dit apparaat soepel te draaien, worden voor je verborgen. Tik op een preset voor een voorbeeld.</string>

@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Teljesítmény megjelenítése</string>
     <string name="vissettings_performance_hint">Képkockasebesség, renderelési méret és minőségi szint az egyik sarokban, ahogy a vizualizáció beállítja magát.</string>
     <string name="vissettings_loved">Kedvelt presetek</string>
-    <string name="vissettings_loved_hint">A szív a vizualizáció vezérlői között. A kedvelt presetek nagyjából tízből egyszer kerülnek sorra.</string>
+    <string name="vissettings_loved_hint">A szív a vizualizáció vezérlői között. A kedvelt presetek 25-ször olyan gyakran kerülnek sorra, mint a többi.</string>
     <string name="vissettings_unlove">Kedvelés visszavonása</string>
     <string name="vissettings_hidden">Elrejtett presetek</string>
     <string name="vissettings_hidden_hint">A vizualizáció vezérlői között lévő zászló elrejti a presetet. Azokat a preseteket, amelyek túl nehezek ahhoz, hogy ez az eszköz simán megjelenítse őket, magunktól elrejtjük. Koppints egyre az előnézethez.</string>

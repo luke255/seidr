@@ -136,7 +136,7 @@
     <string name="vissettings_performance">Показувати продуктивність</string>
     <string name="vissettings_performance_hint">Частота кадрів, розмір рендера й рівень якості в кутку — видно, як візуалізація підлаштовується.</string>
     <string name="vissettings_loved">Вподобані пресети</string>
-    <string name="vissettings_loved_hint">Серце в керуванні візуалізацією. Вподобані пресети трапляються приблизно раз на десять.</string>
+    <string name="vissettings_loved_hint">Серце в керуванні візуалізацією. Вподобані пресети трапляються у 25 разів частіше за інші.</string>
     <string name="vissettings_unlove">Прибрати з вподобаних</string>
     <string name="vissettings_hidden">Сховані пресети</string>
     <string name="vissettings_hidden_hint">Прапорець у керуванні візуалізацією ховає пресет. Пресети, надто важкі для плавного показу на цьому пристрої, ховаються самі. Торкніться пресета, щоб переглянути його.</string>
