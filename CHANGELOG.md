@@ -6,6 +6,9 @@ them, not how.
 
 ## 1.10.1
 
+- Clean mode now works while you control another Seiðr device, like your TV: the shield in the queue switches it on that device, with that device's playback following your Kids Approved list.
+- Clean mode now covers Cast speakers too: while you cast, songs that aren't approved are kept out of the queue, and the speaker can't fetch them. Songs in Bad: Songs are kept out of a Cast queue as well.
+- When a Cast speaker can't play several songs in a row, Seiðr now stops trying until you press play or pick something, instead of retrying the same song over and over.
 - A playlist's sort now goes either way: tap the order you're on to turn it round. Most played is now Play count, and starts with the most played; the others start from the top (A–Z, oldest first).
 - Loved visualiser presets come up less often when you've loved only a few: each is now 25 times as likely as any other, rather than taking one change in ten between them.
 

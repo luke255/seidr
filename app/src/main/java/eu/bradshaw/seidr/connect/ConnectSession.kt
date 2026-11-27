@@ -98,6 +98,10 @@ class ConnectSession(
                 }
             }
         }
+        // Controllers show this device's clean mode (and its Approved count).
+        scope.launch {
+            kotlinx.coroutines.flow.combine(graph.kids.clean, graph.kids.cleanRules) { _, _ -> }.drop(1).collect { scheduleBroadcast() }
+        }
         // Controllers extrapolate the position; this keeps them honest, and catches volume changes.
         scope.launch {
             var lastVolume = -1
@@ -120,6 +124,7 @@ class ConnectSession(
         if (graph.settings.server.value == null) graph.guest.value = null
         if (connect.session === this) connect.session = null
         connect._active.value = null
+        connect._remoteClean.value = null
         local.removeListener(hostListener)
         link?.close()
         link = null
@@ -224,6 +229,7 @@ class ConnectSession(
                 val final = l.request(RemoteOp.Release(null)) ?: l.player.state
                 val queue = l.player.queue
                 link = null
+                publishClean()
                 l.close()
                 if (final != null && queue.isNotEmpty()) final.toSetQueue(queue).copy(play = wasPlaying) else null
             }
@@ -280,6 +286,7 @@ class ConnectSession(
         if (local.playWhenReady) local.pause()
         setSessionPlayer(next.player)
         connect._active.value = next.peer
+        publishClean()
         old?.takeIf { it !== next }?.close()
         // Anyone controlling this device follows the music.
         clients.forEach { it.post(ConnectMessage.Moved(next.peer)) }
@@ -291,6 +298,7 @@ class ConnectSession(
             link = null
             setSessionPlayer(local)
             connect._active.value = null
+            publishClean()
         }
         l.close()
     }
@@ -307,6 +315,20 @@ class ConnectSession(
         if (PlayerPrefs.shuffle(context) == on) return
         PlayerPrefs.setShuffle(context, on)
         graph.player.syncShuffle(on)
+    }
+
+    /** Tells the UI the controlled device's clean mode (null while there's none to switch). */
+    private fun publishClean() {
+        val s = link?.player?.state
+        connect._remoteClean.value = s?.clean?.let { Connect.RemoteClean(it, s.cleanApproved) }
+    }
+
+    /** Switches the controlled device's clean mode; an error for the user, or null. */
+    suspend fun setRemoteClean(on: Boolean): String? {
+        val l = link ?: return connect.str(R.string.connect_playback_not_ready)
+        // The host may fetch the lists first, as Kids.setClean does here.
+        val s = l.request(RemoteOp.Clean(on), CLEAN_TIMEOUT_MS) ?: return connect.str(R.string.connect_no_answer, l.peer.name)
+        return if (s.clean == on || !on) null else connect.str(R.string.clean_lists_failed)
     }
 
     /** PlayerConnection toggled shuffle; a remote device needs the flag too. */
@@ -447,6 +469,8 @@ class ConnectSession(
             RemoteOp.Stop -> local.stop()
             is RemoteOp.Repeat -> local.repeatMode = op.mode
             is RemoteOp.Shuffle -> setShuffleFlag(op.on)
+            // Applied before the ack, so the state that acks it says whether it took.
+            is RemoteOp.Clean -> if (cleanHere()) { if (op.on) graph.kids.setClean(true) else graph.kids.cleanOff() }
             is RemoteOp.Volume -> audio.setStreamVolume(
                 AudioManager.STREAM_MUSIC, op.volume.coerceIn(0, audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC)), 0,
             )
@@ -551,9 +575,18 @@ class ConnectSession(
             volume = audio.getStreamVolume(AudioManager.STREAM_MUSIC),
             maxVolume = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
             remoteOf = link?.peer?.id,
+            clean = if (cleanHere()) graph.kids.clean.value else null,
+            cleanApproved = if (cleanHere() && graph.kids.clean.value) graph.kids.cleanRules.value?.lists?.approved?.size else null,
         ))
         c.sentVersion = version
     }
+
+    /**
+     * Whether controllers may switch this device's clean mode: it's playing (not
+     * a remote itself) under its own grown-up login. Connect only links devices
+     * of the same account, so its Approved list is the controller's too.
+     */
+    private fun cleanHere() = link == null && cast == null && graph.settings.server.value?.isKid == false
 
     /** A controller connected to this device. */
     private inner class Client(val ch: ConnectChannel, val hello: ConnectMessage.Hello, val guestKey: ByteArray? = null) {
@@ -649,11 +682,11 @@ class ConnectSession(
         }
 
         /** Sends [op] and waits for the state that acks it. */
-        suspend fun request(op: RemoteOp): ConnectMessage.State? {
+        suspend fun request(op: RemoteOp, timeoutMs: Long = REQUEST_TIMEOUT_MS): ConnectMessage.State? {
             val s = send(op) ?: return null
             val d = CompletableDeferred<ConnectMessage.State>()
             acks += s to d
-            return withTimeoutOrNull(REQUEST_TIMEOUT_MS) { d.await() }
+            return withTimeoutOrNull(timeoutMs) { d.await() }
         }
 
         private fun onMessage(msg: ConnectMessage) {
@@ -662,6 +695,7 @@ class ConnectSession(
                     player.update(msg)
                     first.complete(msg)
                     if (link === this && msg.ack >= shuffleSeq) setShuffleFlag(msg.shuffle)
+                    if (link === this) publishClean()
                     val done = acks.filter { it.first <= msg.ack }
                     acks.removeAll(done)
                     done.forEach { it.second.complete(msg) }
@@ -738,5 +772,7 @@ class ConnectSession(
         const val HANDSHAKE_TIMEOUT_MS = 5_000
         const val FIRST_STATE_TIMEOUT_MS = 5_000L
         const val REQUEST_TIMEOUT_MS = 3_000L
+        /** A host that's never seen its lists fetches them first (megabytes, on a slow TV). */
+        const val CLEAN_TIMEOUT_MS = 30_000L
     }
 }

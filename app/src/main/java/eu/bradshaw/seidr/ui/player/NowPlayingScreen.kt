@@ -224,7 +224,8 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
     val signedIn by actions.graph.settings.server.collectAsStateWithLifecycle()
     val guest by actions.graph.guest.collectAsStateWithLifecycle()
     val asGuest = signedIn == null
-    val clean by actions.graph.kids.clean.collectAsStateWithLifecycle()
+    val cleanHere by actions.graph.kids.clean.collectAsStateWithLifecycle()
+    val remoteClean by actions.graph.connect.remoteClean.collectAsStateWithLifecycle()
     var devicesOpen by remember { mutableStateOf(false) }
     if (devicesOpen) DevicesDialog(onDismiss = { devicesOpen = false })
     val devicesButton: @Composable () -> Unit = {
@@ -256,7 +257,7 @@ private fun NowPlayingContent(onClose: (() -> Unit)?, onQueue: () -> Unit, modif
                 Text(stringResource(R.string.player_playing_from), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Text(ui.contextName ?: stringResource(R.string.player_queue), style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold,
                     maxLines = 1, overflow = TextOverflow.Ellipsis)
-                if (clean && remote == null && signedIn?.isKid == false) CleanPill(onClick = onQueue)
+                if (signedIn?.isKid == false && (if (remote == null || remote?.cast == true) cleanHere else remoteClean?.on == true)) CleanPill(onClick = onQueue)
             }
             var menu by remember { mutableStateOf(false) }
             if (asGuest) Spacer(Modifier.size(48.dp))

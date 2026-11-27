@@ -134,9 +134,11 @@ and "Rules that must hold" before changing sync or playback.
   Sync, playback, scrobbles and Connect stay on the admin's login.
   Clean mode (`Kids.clean`, per device; queue shield, car button) is a
   grown-up's own Approved list applied to this device's playback only
-  (`Kids.playing`: data source and `HiddenQueue`), never to browsing, sync or
-  remote devices. It fetches the lists before switching on: with none,
-  everything would be hidden at once.
+  (`Kids.playing`: data source and `HiddenQueue`), never to browsing or sync.
+  A Connect controller switches the playing device's own (`RemoteOp.Clean`;
+  only when its `State.clean` isn't null); a Cast queue is this device's, so
+  it's hidden here too and `CastRelay` refuses what's blocked. It fetches the
+  lists before switching on: with none, everything would be hidden at once.
 - **`data/Listening`** (Listening now; rules in `ListeningRules`, pure,
   tested): Home's row of what others play, and a strip plus song-row badges
   on a playlist or album someone's playing. Navidrome's `getNowPlaying` has
@@ -213,7 +215,7 @@ and "Rules that must hold" before changing sync or playback.
   the receiver holds a window (`CastQueue`, pure), each item's `contentId`
   is its queue key, and repeat-all and scrobbles are ours. Speakers never get
   server links: they fetch from `CastRelay`, a small HTTP server on this
-  device (random per-session path, queue songs only, kid rules, local files
+  device (random per-session path, queue songs only, kid and clean rules, local files
   first, else proxied with Range). Google speakers ignore local DNS, and the
   relay keeps the login here. `CastLiveTest` runs against a real device only
   when `SEIDR_TEST_CAST` names one.

@@ -102,11 +102,21 @@ class ConnectProtocolTest {
     @Test
     fun opsSurviveTheTrip() {
         val key = ConnectKeys.account("luke", "pw")
-        val ops = listOf(RemoteOp.Seek(2, 0, 9), RemoteOp.Release(Peer("a", "A", listOf("10.0.0.2"), 4000)), RemoteOp.TakeOver, RemoteOp.Volume(5))
+        val ops = listOf(RemoteOp.Seek(2, 0, 9), RemoteOp.Release(Peer("a", "A", listOf("10.0.0.2"), 4000)), RemoteOp.TakeOver, RemoteOp.Volume(5), RemoteOp.Clean(true))
         val got = mutableListOf<RemoteOp>()
         pair(key, key, host = { ch -> repeat(ops.size) { got += (ch.receive() as ConnectMessage.Op).op } },
             controller = { ch -> ops.forEachIndexed { i, op -> ch.send(ConnectMessage.Op(i + 1L, op)) } })
         assertEquals(ops, got)
+    }
+
+    @Test
+    fun anOlderHostsStateOffersNoCleanSwitch() {
+        // Up to 1.10.1 the state had no clean mode: the controller must not show a switch.
+        val old = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }.decodeFromString(
+            ConnectMessage.serializer(),
+            """{"type":"state","ack":0,"version":1,"index":0,"positionMs":0,"playWhenReady":false,"playbackState":1,"repeat":0,"shuffle":false}""",
+        ) as ConnectMessage.State
+        assertEquals(null, old.clean)
     }
 
     // --- Guests (signed-out hosts) ---------------------------------------------------

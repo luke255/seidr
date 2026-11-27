@@ -33,7 +33,8 @@ import java.security.SecureRandom
  *   has (Tailscale, a name only local DNS knows, https), and passes on.
  *   Range requests go through, so the speaker can seek.
  * - The server login never leaves the phone.
- * - Kid mode holds: a kid's login serves only approved songs and allowed art.
+ * - Kid mode holds: a kid's login serves only approved songs and allowed art,
+ *   and clean mode only approved songs.
  *
  * Each request gets its own connection (`Connection: close`).
  */
@@ -97,7 +98,8 @@ class CastRelay(private val graph: Graph) {
     }
 
     private fun song(out: OutputStream, id: String, range: String?, head: Boolean) {
-        val kid = graph.kids.current
+        // A kid's rules, or clean mode's (this device's, as the queue is).
+        val kid = graph.kids.playing
         if (id !in songs || kid?.playable(id) == false) return status(out, 404, "Not Found")
         graph.downloads.localFile(id)?.let { return file(out, it, audioType(it.extension), range, head) }
         val url = graph.client.streamUrl(id) ?: return status(out, 503, "Service Unavailable")

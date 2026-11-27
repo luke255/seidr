@@ -133,6 +133,13 @@ sealed interface RemoteOp {
     data class Volume(val volume: Int) : RemoteOp
 
     /**
+     * The host's own clean mode (see `Kids.clean`), with its own login's lists.
+     * Sent only to a host whose state has [ConnectMessage.State.clean].
+     */
+    @Serializable @SerialName("clean")
+    data class Clean(val on: Boolean) : RemoteOp
+
+    /**
      * Become the playing device, keeping your own state. Sent to a device that
      * is itself controlling another: it takes that device's playback over.
      */
@@ -200,6 +207,13 @@ sealed interface ConnectMessage {
         val maxVolume: Int = 0,
         /** Set when the host is itself only a remote for another device (by id). */
         val remoteOf: String? = null,
+        /**
+         * The host's clean mode; null when it can't take [RemoteOp.Clean] (older,
+         * a kid's or a guest's login, or not the one playing).
+         */
+        val clean: Boolean? = null,
+        /** While [clean]: how many songs its Approved list has (null: not known yet). */
+        val cleanApproved: Int? = null,
     ) : ConnectMessage
 
     @Serializable @SerialName("moved")

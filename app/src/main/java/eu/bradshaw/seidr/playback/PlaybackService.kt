@@ -216,7 +216,13 @@ class PlaybackService : MediaLibraryService() {
     /** Queue entries whose song is blocked, out of the player until it isn't. */
     private var hidden: List<HiddenEntry> = emptyList()
 
-    private fun timelineKeys() = (0 until player.mediaItemCount).map { player.getMediaItemAt(it).mediaId }
+    /**
+     * The queue that plays here: this device's own, or a Cast device's (its queue
+     * stays here). Never a Connect remote's: that device hides its own.
+     */
+    private fun queuePlayer(): Player = session.player as? eu.bradshaw.seidr.cast.CastPlayer ?: player
+
+    private fun timelineKeys(q: Player = queuePlayer()) = (0 until q.mediaItemCount).map { q.getMediaItemAt(it).mediaId }
 
     /**
      * Takes songs in Bad: Songs out of the queue, wherever they came from (the
@@ -225,14 +231,15 @@ class PlaybackService : MediaLibraryService() {
      */
     private fun hideBadSongs() {
         if (!anyBlocked()) return
-        val plan = HiddenQueue.hide(timelineKeys(), ::blocked)
+        val q = queuePlayer()
+        val plan = HiddenQueue.hide(timelineKeys(q), ::blocked)
         if (plan.isEmpty()) return
-        hidden = (hidden + plan.map { (i, prev, next) -> HiddenEntry(player.getMediaItemAt(i).toEntry(), prev, next) })
+        hidden = (hidden + plan.map { (i, prev, next) -> HiddenEntry(q.getMediaItemAt(i).toEntry(), prev, next) })
             .takeLast(MAX_HIDDEN)
-        val current = player.currentMediaItemIndex
+        val current = q.currentMediaItemIndex
         // From the end, so earlier indexes stay put; the current item goes last.
-        for ((i, _, _) in plan.asReversed()) if (i != current) player.removeMediaItem(i)
-        if (plan.any { it.first == current }) player.removeMediaItem(player.currentMediaItemIndex)
+        for ((i, _, _) in plan.asReversed()) if (i != current) q.removeMediaItem(i)
+        if (plan.any { it.first == current }) q.removeMediaItem(q.currentMediaItemIndex)
         saveQueue()
     }
 
@@ -245,10 +252,11 @@ class PlaybackService : MediaLibraryService() {
      */
     private fun restoreFixedSongs() {
         if (hidden.isEmpty()) return
-        val r = HiddenQueue.restore(timelineKeys(), hidden, ::blocked)
+        val q = queuePlayer()
+        val r = HiddenQueue.restore(timelineKeys(q), hidden, ::blocked)
         hidden = r.hidden
         // Ascending, so each insert lands at its final index.
-        r.keys.forEachIndexed { i, key -> r.restored[key]?.let { player.addMediaItem(i, it.toMediaItem(graph)) } }
+        r.keys.forEachIndexed { i, key -> r.restored[key]?.let { q.addMediaItem(i, it.toMediaItem(graph)) } }
         saveQueue()
     }
 
@@ -464,9 +472,18 @@ class PlaybackService : MediaLibraryService() {
         // Controlling another Seiðr device, that one tells others; through a Cast device, this one does.
         val cast = p as? eu.bradshaw.seidr.cast.CastPlayer
         listening.follow(if (p === fading || cast != null) p else null, cast?.peer)
+        // A Cast queue is this device's to keep clean (it may have come from another device).
+        if (cast != null && anyBlocked()) scope.launch { hideBadSongs() }
     }
 
     private val remoteListener = object : Player.Listener {
+        override fun onTimelineChanged(timeline: androidx.media3.common.Timeline, reason: Int) {
+            // As for this device's own queue (see [listener]); a Connect remote hides its own.
+            if (reason == Player.TIMELINE_CHANGE_REASON_PLAYLIST_CHANGED && session.player is eu.bradshaw.seidr.cast.CastPlayer && anyBlocked()) {
+                scope.launch { hideBadSongs() }
+            }
+        }
+
         override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
             updateLikeButton()
             // The other device can't pause at the end of a song for us: pause as the next begins.

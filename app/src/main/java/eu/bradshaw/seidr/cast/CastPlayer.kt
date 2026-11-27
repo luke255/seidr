@@ -226,6 +226,12 @@ class CastPlayer(
         scope.cancel()
     }
 
+    /** Too many songs in a row wouldn't play: nothing more is tried until the user plays, skips or picks. */
+    private fun gaveUp() = errors >= MAX_ERRORS
+
+    /** The user asked for something: worth trying again. */
+    private fun retry() { errors = 0 }
+
     /** A recent command from here outranks the receiver's report for a moment. */
     private fun settled() = SystemClock.elapsedRealtime() - wantSetAt > SETTLE_MS
 
@@ -285,6 +291,8 @@ class CastPlayer(
     }
 
     private suspend fun reconcile() {
+        // Given up after failures: reloading would only fail again, over and over, until the user acts.
+        if (gaveUp()) return
         val session = link.mediaSessionId ?: return
         val cur = queue.getOrNull(index) ?: return
         if (loadingKey != null) return
@@ -433,6 +441,7 @@ class CastPlayer(
 
     override fun handleSetPlayWhenReady(playWhenReady: Boolean): ListenableFuture<*> {
         want(playWhenReady)
+        if (playWhenReady && gaveUp()) { retry(); scope.launch { load() }; return done() }
         when {
             playWhenReady && (ended || status == null) -> {
                 if (ended) startMs = 0
@@ -475,6 +484,7 @@ class CastPlayer(
     }
 
     override fun handleSetMediaItems(mediaItems: List<MediaItem>, startIndex: Int, startPositionMs: Long): ListenableFuture<*> {
+        retry()
         setQueue(
             mediaItems.map { it.toEntry() },
             if (startIndex == C.INDEX_UNSET) 0 else startIndex,
@@ -529,6 +539,14 @@ class CastPlayer(
     override fun handleSeek(mediaItemIndex: Int, positionMs: Long, seekCommand: Int): ListenableFuture<*> {
         val pos = if (positionMs == C.TIME_UNSET) 0 else positionMs.coerceAtLeast(0)
         if (mediaItemIndex == C.INDEX_UNSET || queue.isEmpty()) return done()
+        if (gaveUp()) {
+            // The receiver's queue is in an error state: start afresh where asked.
+            retry()
+            index = mediaItemIndex.coerceIn(0, queue.size - 1)
+            startMs = pos
+            scope.launch { load() }
+            return done()
+        }
         val session = link.mediaSessionId
         val target = queue.getOrNull(mediaItemIndex)?.key
         val held = itemKeys.entries.firstOrNull { it.value == target }?.key

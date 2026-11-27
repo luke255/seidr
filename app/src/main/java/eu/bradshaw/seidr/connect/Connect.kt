@@ -166,6 +166,18 @@ class Connect(
     /** The device this one is controlling; null while playback is here. */
     val active: StateFlow<Peer?> = _active.asStateFlow()
 
+    /** Clean mode on the device this one controls, when that one can be switched. */
+    data class RemoteClean(val on: Boolean, val approved: Int?)
+
+    internal val _remoteClean = MutableStateFlow<RemoteClean?>(null)
+    /** The controlled device's clean mode; null while playback is here, or it can't be switched from here. */
+    val remoteClean: StateFlow<RemoteClean?> = _remoteClean.asStateFlow()
+
+    /** Switches clean mode on the device this one controls. Returns an error for the user, or null. */
+    suspend fun setRemoteClean(on: Boolean): String? = withContext(Dispatchers.Main) {
+        session?.setRemoteClean(on) ?: str(R.string.connect_playback_not_ready)
+    }
+
     internal val _connecting = MutableStateFlow<String?>(null)
     /** Id of a device being switched to. */
     val connecting: StateFlow<String?> = _connecting.asStateFlow()
