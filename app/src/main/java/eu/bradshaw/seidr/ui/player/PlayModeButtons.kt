@@ -384,11 +384,15 @@ private class AboveAnchor(private val gap: Int) : PopupPositionProvider {
     }
 }
 
-/** Clean mode's switch (see `Kids.clean`): a shield, ticked and coloured while it's on. */
+/**
+ * Clean mode's switch (see `Kids.clean`): a shield, ticked and coloured while it's on.
+ * [busy]: a switch is under way (the first one fetches the lists, which a TV takes a while over).
+ */
 @Composable
-internal fun CleanButton(on: Boolean, onClick: () -> Unit) {
-    IconButton(onClick = onClick) {
-        Icon(
+internal fun CleanButton(on: Boolean, busy: Boolean, onClick: () -> Unit) {
+    IconButton(onClick = onClick, enabled = !busy) {
+        if (busy) androidx.compose.material3.CircularProgressIndicator(Modifier.size(22.dp), strokeWidth = 2.dp)
+        else Icon(
             if (on) Icons.Filled.GppGood else Icons.Outlined.Shield,
             stringResource(if (on) R.string.clean_turn_off else R.string.clean_turn_on),
             tint = if (on) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurfaceVariant,

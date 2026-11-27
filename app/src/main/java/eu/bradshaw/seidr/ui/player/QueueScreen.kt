@@ -88,11 +88,19 @@ fun QueueScreen(onClose: () -> Unit, modifier: Modifier = Modifier, readOnly: Bo
     val clean = if (here) cleanHere else remoteClean?.on == true
     val cleanApproved = if (here) cleanRules?.lists?.approved?.size else remoteClean?.approved
     val cleanFailed = stringResource(R.string.clean_lists_failed)
+    var cleanBusy by remember { mutableStateOf(false) }
     val setClean: (Boolean) -> Unit = { on ->
         when {
-            !here -> actions.launch { connect.setRemoteClean(on)?.let(actions::toast) }
+            cleanBusy -> {}
+            !here -> actions.launch {
+                cleanBusy = true
+                try { connect.setRemoteClean(on)?.let(actions::toast) } finally { cleanBusy = false }
+            }
             !on -> kids.cleanOff()
-            else -> actions.launch { if (!kids.setClean(true)) actions.toast(cleanFailed) }
+            else -> actions.launch {
+                cleanBusy = true
+                try { if (!kids.setClean(true)) actions.toast(cleanFailed) } finally { cleanBusy = false }
+            }
         }
     }
     // Items before "Now playing" are the "Earlier" header and one row per earlier
@@ -143,7 +151,7 @@ fun QueueScreen(onClose: () -> Unit, modifier: Modifier = Modifier, readOnly: Bo
             IconButton(onClick = onClose) { Icon(Icons.Filled.KeyboardArrowDown, stringResource(R.string.common_close)) }
             Text(stringResource(R.string.queue_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
             if (!readOnly) {
-                if (cleanAvailable) CleanButton(clean) { setClean(!clean) }
+                if (cleanAvailable) CleanButton(clean, cleanBusy) { setClean(!clean) }
                 ShuffleButton(ui.shuffle, onToggle = player::toggleShuffle, onReshuffle = player::reshuffle)
                 RepeatButton(ui.repeat, onClick = player::cycleRepeat)
             }

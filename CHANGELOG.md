@@ -4,6 +4,11 @@ Newest first. Each version's list is what the app shows under What's new and
 what its GitHub release says. Write for people using the app: what changed for
 them, not how.
 
+## 1.10.2
+
+- The clean mode shield now shows for a signed-out device you play on, like a TV that isn't signed in, using your Kids Approved list.
+- Switching clean mode on another device no longer shows "Playback isn't ready yet" when it worked, and the shield shows it's busy while the first switch fetches the approved songs.
+
 ## 1.10.1
 
 - Clean mode now works while you control another Seiðr device, like your TV: the shield in the queue switches it on that device, with that device's playback following your Kids Approved list.

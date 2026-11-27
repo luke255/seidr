@@ -175,7 +175,9 @@ class Connect(
 
     /** Switches clean mode on the device this one controls. Returns an error for the user, or null. */
     suspend fun setRemoteClean(on: Boolean): String? = withContext(Dispatchers.Main) {
-        session?.setRemoteClean(on) ?: str(R.string.connect_playback_not_ready)
+        // Not `?:`: the session's null means it worked.
+        val s = session ?: return@withContext str(R.string.connect_playback_not_ready)
+        s.setRemoteClean(on)
     }
 
     internal val _connecting = MutableStateFlow<String?>(null)

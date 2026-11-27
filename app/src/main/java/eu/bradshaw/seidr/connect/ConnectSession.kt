@@ -583,10 +583,12 @@ class ConnectSession(
 
     /**
      * Whether controllers may switch this device's clean mode: it's playing (not
-     * a remote itself) under its own grown-up login. Connect only links devices
-     * of the same account, so its Approved list is the controller's too.
+     * a remote itself) under a grown-up's login, its own or a guest's. Either way
+     * that's the controller's account, so its Approved list is the controller's
+     * too. Like any device's, the flag outlasts a guest: the next one finds it on.
      */
-    private fun cleanHere() = link == null && cast == null && graph.settings.server.value?.isKid == false
+    private fun cleanHere() = link == null && cast == null &&
+        (graph.settings.server.value ?: graph.guest.value?.config)?.isKid == false
 
     /** A controller connected to this device. */
     private inner class Client(val ch: ConnectChannel, val hello: ConnectMessage.Hello, val guestKey: ByteArray? = null) {
@@ -772,7 +774,7 @@ class ConnectSession(
         const val HANDSHAKE_TIMEOUT_MS = 5_000
         const val FIRST_STATE_TIMEOUT_MS = 5_000L
         const val REQUEST_TIMEOUT_MS = 3_000L
-        /** A host that's never seen its lists fetches them first (megabytes, on a slow TV). */
-        const val CLEAN_TIMEOUT_MS = 30_000L
+        /** A host that's never seen its lists fetches them first: megabytes, ~25 s on a slow TV. */
+        const val CLEAN_TIMEOUT_MS = 90_000L
     }
 }

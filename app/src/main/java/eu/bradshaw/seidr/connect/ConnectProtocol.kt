@@ -209,7 +209,7 @@ sealed interface ConnectMessage {
         val remoteOf: String? = null,
         /**
          * The host's clean mode; null when it can't take [RemoteOp.Clean] (older,
-         * a kid's or a guest's login, or not the one playing).
+         * playing with a kid's login or none, or not the one playing).
          */
         val clean: Boolean? = null,
         /** While [clean]: how many songs its Approved list has (null: not known yet). */
